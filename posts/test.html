@@ -1,0 +1,129 @@
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block page-columns">
+    <!-- title -->
+    <div class="quarto-title-banner page-columns page-full">
+        <div class="quarto-title column-body">
+            <h1 class="title" id="title">Delta-Design-Game</h1>
+            <div>
+                <div class="description" id="description">
+                    Characterizing individual design strategies using an interactive, digital version of the Delta Design Game
+                </div>
+            </div>
+            <div class="quarto-categories" id="skills">
+                <div class="quarto-category">Object Oriented Programming</div>
+                <div class="quarto-category">Matlab</div>
+                <div class="quarto-category">UI/UX development</div>
+                <div class="quarto-category">Sequential Learning</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    <!-- sidebar -->
+    <!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+            <ul>
+                <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#intro">Abstract</a></li>
+                <li><a href="#getting-started" id="toc-getting-started" class="nav-link"
+                       data-scroll-target="#getting-started">Getting Started</a>
+                    <ul class="collapse">
+                        <li><a href="#requirements" id="toc-requirements" class="nav-link"
+                               data-scroll-target="#requirements">Requirements</a></li>
+                        <li><a href="#installation" id="toc-installation" class="nav-link"
+                               data-scroll-target="#installation">Installation</a></li>
+                    </ul>
+                </li>
+                <li><a href="#setting-up-remote-container-for-a-project"
+                       id="toc-setting-up-remote-container-for-a-project" class="nav-link"
+                       data-scroll-target="#setting-up-remote-container-for-a-project">Setting up remote container for a
+                    project</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- main -->
+    <main class="content" id="quarto-document-content">
+        <section id="abstract" class="level1">
+            <h2>Abstract</h2>
+            <p>This paper presents design findings from a study employing a digital version of the Delta Design Game
+                tool, originally developed by Bucciarelli in 1991. In this work, we present a digital interface in which
+                users play the Delta Design game online while the interface collects data on the behavior of the
+                designer. Using our tool, players can compose, revise and verify the designs on a digital platform,
+                while the digital tool captures every action taken in the interface. For this research, we studied N=15
+                engineering graduate students to compare design behaviors in groups of high-performing and
+                low-performing designers. We used Hidden Markov Modeling techniques to discern patterns of behaviors
+                between high-performing designers and low-performing designers. Our findings from the Hidden Markov
+                Models show that designers proceed through four procedural latent states for the design challenge.
+                High-performing designers typically achieve optimal performance by dividing the complex novel problems
+                into sub-problems and defining an analogy with familiar tasks. Both efficient and inefficient designers
+                are able to achieve high-performing scores but show different cognitive processes. Interpreted through
+                Schraagen’s theory of design cognition, the high performing designers in general showed progressive
+                deepening strategies, progressing systematically through subtasks, starting with structural aspects of
+                the challenge before the parametric optimization. </p>
+        </section>
+        <section id="getting-started" class="level1">
+            <h1>Getting Started</h1>
+            <p>Let’s install the extension and look at an example of how to use this feature.</p>
+            <section id="requirements" class="level2">
+                <p>You can use Docker with the Dev Containers extension in a few ways, including:</p>
+                <ul>
+                    <li>Docker installed locally</li>
+                    <li>Docker installed on a remote environment</li>
+                    <li>Other Docker compliant CLIs, installed locally or remotely
+                        <ul>
+                            <li>While other CLIs may work, they are not officially supported. Note that attaching to a
+                                Kubernetes cluster only requires a properly configured kubectl CLI
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Visit <a
+                        href="https://code.visualstudio.com/docs/devcontainers/containers#_system-requirements">here</a>
+                    to know more about system requirements.</p>
+            </section>
+            <section id="installation" class="level2">
+                <h2 class="anchored" data-anchor-id="installation">Installation</h2>
+                <p>To get started, follow this official step by step tutorial <a
+                        href="https://code.visualstudio.com/docs/devcontainers/tutorial">here</a>.</p>
+            </section>
+        </section>
+        <section id="setting-up-remote-container-for-a-project" class="level1">
+            <h1>Setting up remote container for a project</h1>
+            <p>To use this feature we would need following files and folder :</p>
+            <ol type="1">
+                <li><code class="inline">.devcontainer/devcontainer.json</code> : <strong>Required</strong> file that is basically a
+                    config file that determines how your dev container gets built and started.
+                </li>
+                <li><code class="inline">.devcontainer/Dockerfile</code> : If we need a custom image as environment.</li>
+                <li><code class="inline">app/</code> : The code of the application (can vary based on your project).</li>
+            </ol>
+            <section id="devcontainerdevcontainer.json" class="level2">
+                <p>Within the <code class="inline">.devcontainer</code> folder the <code class="inline">devcontainer.json</code> config file helps the
+                    extension to determine the name of the container, which image to use, extensions to install, port to
+                    expose and other configurations. Few examples,</p>
+                <section id="shiny-application" class="level3">
+                    <h3 class="anchored" data-anchor-id="shiny-application">1. Shiny Application</h3>
+                    <p>Consider there are multiple projects that you are working on, and each of them require different
+                        R versions and packages. You can set the value of the <code class="inline">image</code> key from below to any
+                        version of choice for R.</p>
+                    <pre class="sourceCode json code-with-copy">
+                        <code class="sourceCode"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"
+                                                                            tabindex="-1"></a><span
+                                class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"name"</span> <span
+        class="fu">:</span> <span class="st">"Project 1"</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"image"</span><span
+        class="fu">:</span> <span class="st">"r-base:4.1"</span> <span class="er">//Any</span> <span
+        class="er">version</span> <span class="er">as</span> <span class="er">per</span> <span
+        class="er">requirement</span> <span class="er">from</span> <span class="er">dockerhub</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button
+                            title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+                </pre>
+
+                </section>
+            </section>
+        </section>
+    </main> <!-- /main -->
+</div> <!-- /content -->
