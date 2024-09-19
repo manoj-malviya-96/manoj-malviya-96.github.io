@@ -1,6 +1,6 @@
 <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg ps-0">
+        <div class="container-fluid px-0">
             <!-- Toggler for mobile view -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -11,15 +11,31 @@
             <!-- Header-bar -->
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Navbar links (left-aligned) -->
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto align-items-center"> <!-- Added align-items-center for vertical centering -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0)" onClick="loadMainContent('./home.html', event)">
-                            <span class="menu-text">Home</span>
+                        <a class="nav-link active" href="javascript:void(0)" onClick="loadHomePage(event)">
+                            <i class="bi bi-house-door icon-large" role="img"> </i>
+                            <span class="nav-label">Home</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onClick="loadMainContent('./projects.html', event)">
-                            <span class="menu-text">Projects</span>
+                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Linkedin')">
+                            <i class="bi bi-linkedin icon-large" role="img"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('GitHub')">
+                            <i class="bi bi-github icon-large" role="img"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Instagram')">
+                            <i class="bi bi-instagram icon-large" role="img"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Resume')">
+                            <i class="bi bi-file-earmark-person-fill icon-large"></i>
                         </a>
                     </li>
                 </ul>
@@ -30,35 +46,13 @@
                         <span class="navbar-title ms-2">Manoj Malviya</span>
                     </div>
                 </div>
-
                 <!-- Social media links (right-aligned) -->
-                <ul class="navbar-nav ms-auto justify-content-end social-icons">
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Linkedin')">
-                            <i class="bi bi-linkedin" role="img"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('GitHub')">
-                            <i class="bi bi-github" role="img"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Instagram')">
-                            <i class="bi bi-instagram" role="img"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Resume')">
-                            <i class="bi bi-file-earmark-person-fill"></i>
-                            <span class="about-link-text">Resume</span>
-                        </a>
-                    </li>
+                <ul class="navbar-nav ms-auto justify-content-end align-items-center"> <!-- Added align-items-center -->
                     <!-- Dark Mode Toggle -->
                     <li class="nav-item">
                         <div class="form-check form-switch mt-1">
-                            <label for="theme-switch"></label>
                             <input class="form-check-input custom-switch" type="checkbox" id="theme-switch"/>
+                            <label for="theme-switch" id="theme-switch-label"> Dark-Mode </label>
                         </div>
                     </li>
                 </ul>
