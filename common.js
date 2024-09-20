@@ -3,27 +3,75 @@
 // Store all unique categories here
 let timeOut_ms = 690;
 
-function createProjectCard(filePath, imagePath, title, description, categories) {
+function fromTxtMonth(month) {
+    switch (month) {
+        case 'Jan':
+            return 1;
+        case 'Feb':
+            return 2;
+        case 'Mar':
+            return 3;
+        case 'Apr':
+            return 4;
+        case 'May':
+            return 5;
+        case 'Jun':
+            return 6;
+        case 'Jul':
+            return 7;
+        case 'Aug':
+            return 8;
+        case 'Sep':
+            return 9;
+        case 'Oct':
+            return 10;
+        case 'Nov':
+            return 11;
+        case 'Dec':
+            return 12;
+    }
+}
+
+function parseDate(dateString) {
+    // date = "Sep 1, 2021"
+    const day = parseInt(dateString.split(' ')[1].replace(',', ''));
+    const month = fromTxtMonth(dateString.split(' ')[0]);
+    const year = parseInt(dateString.split(' ')[2]);
+    return year * 10000 + month * 100 + day; // Format: YYYYMMDD
+}
+
+function createProjectCard(filePath, imagePath, title,
+                           description, categories,
+                           type = "", date = "") {
     return `
-        <div class="g-col-1 project-card" data-categories="${categories.join(',')}" 
-             data-title="${title.toLowerCase()}" data-description="${description.toLowerCase()}">
+        <div class="g-col-1 project-card" 
+            data-categories="${categories.join(',')}" 
+             data-title="${title.toLowerCase()}" 
+             data-description="${description.toLowerCase()}"
+             data-date=${parseDate(date)}">
             <a href="javascript:void(0)" class="quarto-grid-link"
                onclick="emitLoadPageEvent('${filePath}', event, true)">
-                <div class="quarto-grid-item card h-100 card-left">
-                    <div class="card-img-top">
-                        <img src="${imagePath}" class="thumbnail-image card-img" alt="">
+                <div class="quarto-grid-item card">
+                    <div class="column-image">
+                        <img src="${imagePath}" class="card-img" alt="">
                     </div>
                     <div class="card-body post-contents">
+                        <div class="project-type">${type}</div>
                         <h3 class="no-anchor card-title listing-title">${title}</h3>
                         <div class="card-text listing-description">${description}</div>
                         <div class="listing-categories">
                             ${categories.map(cat => `<div class="listing-category">${cat}</div>`).join('')}
                         </div>
+                        <div class="project-date">${date} </div>
                     </div>
                 </div>
             </a>
         </div>
     `;
+}
+
+function getId(doc, id, defaultValue = '') {
+    return doc.querySelector(id) ? doc.querySelector(id).textContent : defaultValue;
 }
 
 function loadProject(filePath, containerId) {
@@ -33,16 +81,18 @@ function loadProject(filePath, containerId) {
             let parser = new DOMParser();
             let doc = parser.parseFromString(html, 'text/html');
 
-            const title = doc.querySelector('#title') ?
-                doc.querySelector('#title').textContent : 'Untitled';
-            const description = doc.querySelector('#description') ?
-                doc.querySelector('#description').textContent : 'No description';
+            const title = getId(doc, '#title', 'No title');
+            const description = getId(doc, '#description', 'No description');
+            const date = getId(doc, '#date', 'No date');
+            const type = getId(doc, '#project-type', 'No type');
+
             const imagePath = doc.querySelector('#cover') ?
                 doc.querySelector('#cover').getAttribute('src') : 'default-image.jpg';
 
+
             const categories = Array.from(doc.querySelectorAll('.quarto-category')).map(el => el.textContent);
 
-            const cardHTML = createProjectCard(filePath, imagePath, title, description, categories);
+            const cardHTML = createProjectCard(filePath, imagePath, title, description, categories, type, date);
 
             let container = document.getElementById(containerId);
             if (!container) {
@@ -62,11 +112,11 @@ function loadProject(filePath, containerId) {
 function loadProjects() {
     const containerId = 'project-list';
     const projects = [
-        './posts/delta-design.html',
-        './posts/rapid-topt.html',
-        './posts/cub-companion.html',
-        './posts/3dp-design.html',
-        './posts/template.html',
+        './research/delta-design.html',
+        './research/rapid-topt.html',
+        './research/cub-companion.html',
+        './research/3dp-design.html',
+        './research/embed-am.html',
     ];
     let allCategories = new Set();
     const promises = projects.map(filePath => loadProject(filePath, containerId));
@@ -78,6 +128,7 @@ function loadProjects() {
             // Update the Set with each project's categories
         });
         generateDropdownFilters(allCategories);
+        sortProjects('desc-date'); // Sort projects by title in ascending order
     }).catch(err => {
         console.error('Error loading all projects:', err);
     });
@@ -132,6 +183,52 @@ function filterProjectsBySearchAndCategory(searchInput = null, category = null) 
             card.style.display = 'none';  // Hide the card
         }
     });
+}
+
+
+function sortProjects(sortBy) {
+    let container = document.getElementById('project-list');
+    let cards = Array.from(container.children);
+    cards.sort((a, b) => {
+        // Sort by title in ascending or descending order
+        if (sortBy === 'asc-title' || sortBy === 'desc-title') {
+            let titleA = a.getAttribute('data-title');
+            let titleB = b.getAttribute('data-title');
+            return sortBy === 'asc-title' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+        }
+
+        if (sortBy === 'asc-date' || sortBy === 'desc-date') {
+            let dateA = a.getAttribute('data-date');
+            let dateB = b.getAttribute('data-date');
+            return sortBy === 'asc-date' ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+        }
+
+        return 0;
+    });
+    cards.forEach(card => container.appendChild(card));
+}
+
+function changeSortIcon(value) {
+    let icon = document.getElementById('sort-icon').querySelector("i");
+    if (!icon){
+        console.error('Sort icon not found');
+        return;
+    }
+
+    switch (value) {
+        case 'asc-date':
+            icon.className = 'bi bi-sort-numeric-down'; // Icon for 1-9
+            break;
+        case 'desc-date':
+            icon.className = 'bi bi-sort-numeric-down-alt'; // Icon for 9-1
+            break;
+        case 'asc-title':
+            icon.className = 'bi bi-sort-alpha-down'; // Icon for A-Z
+            break;
+        case 'desc-title':
+            icon.className = 'bi bi-sort-alpha-down-alt'; // Icon for Z-A
+            break;
+    }
 }
 
 
@@ -202,7 +299,7 @@ function loadSocialMediaLink(identifier) {
         Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
         GitHub: "https://github.com/manoj-malviya-96",
         Instagram: "https://www.instagram.com/manoj_malviya_/",
-        Resume: "https://cvws.icloud-content.com/B/AVdOlXdVRdgBlHTMQiAjcPj-jqqKAVFANNkDP8kh3t5UyDujg9KKX3Ya/CV_2024.pdf?o=AtxEfDzSELYx_1ad1KhPTTSvoxjbaKmSfg2ZbpeNaDbF&v=1&x=3&a=CAog1LZttG_DQ2QtZKl1rjlXIxZcWfX9Rvms2i7F79HiD_oSbxDNlY-HnzIYzfLqiJ8yIgEAUgT-jqqKWgSKX3YaaieqxGhMZymYTeB2HmClbdb3xpmncWsamHIcyDeGdXCsuvrWK4lfsEpyJzerxpnesNS7VjXlJf54AaFJTUWibKvtZWUlj-UKPLu2pcToQWuMsw&e=1726326946&fl=&r=6caa9169-f608-414d-934c-e32c29b7392b-1&k=XsbaEFrzXmiYN8qXXAZ4kg&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=138&s=UH_OWxfs9VMP4M2wiMKw_MDeNCY&cd=i"
+        Resume: "https://cvws.icloud-content.com/B/AZVr5aNt0EIq126VWazH9VSagW8wAR-7iN6Kpy4ay9LWMrZH__eUCrep/CV_2024.pdf?o=At--sekC2lhZ1aggH3t3zJnDqUoAZjSZIrRVNuS58fTa&v=1&x=3&a=CAogvhDM2lsOV2xkYoHk2YwLUnPHSzeJPzqZKG-6LcN_B68SbxDymOikoTIY8vXDpqEyIgEAUgSagW8wWgSUCrepaieq3z-R7OGiDXM-Cg9Cg1hrNMdgKQjpSxA6lpxOFvcqUUBfcrVPYwpyJ1_yMpsUA1yWT6mYtj-atAHgIdr7Tj2XHZVkcfdc3G8bHrZfbCrJgA&e=1726926093&fl=&r=74ca7087-0048-43e3-8418-e9fb8d2bc12c-1&k=XZ6ccwfTmF1UgIx9brekmQ&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=138&s=MnNIirEZTpjkg0RoJyWc3e_evMk&cd=i"
     };
 
     if (links[identifier]) {
@@ -221,12 +318,17 @@ function generateTOC() {
         const sectionTitle = section.querySelector('h2')?.textContent || section.id;
         tocList.innerHTML += `
             <li>
-                <a href="#${section.id}" class="nav-link" data-scroll-target="#${section.id}">
+                 <a href="#${section.id}" class="nav-link " data-scroll-target="#${section.id}">
                     ${sectionTitle}
                 </a>
             </li>
         `;
     });
+    // Set the first TOC item as active
+    const firstLink = tocList.querySelector('a');
+    if (firstLink) {
+        firstLink.classList.add('active');
+    }
 }
 
 function initializeProjectFooter() {
@@ -317,22 +419,18 @@ function initializeScrollTracking() {
     });
 }
 
+
 // Function to initialize theme toggle after loading header
-function initializeThemeToggle() {
-    const themeSwitch = document.getElementById('theme-switch');
-    if (themeSwitch) {
-        let themeSwitchLabel = document.getElementById("theme-switch-label");
-        themeSwitch.addEventListener('change', function () {
-            if (themeSwitch.checked) {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                themeSwitchLabel.innerHTML = "Light-Mode"
-            } else {
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                themeSwitchLabel.innerHTML = "Dark-Mode";
-            }
-        });
+function toggleTheme() {
+    const icon = document.getElementById('theme-icon');
+    const toDarkMode = document.body.classList.contains('light-mode');
+
+    if (toDarkMode) {
+        document.body.classList.replace('light-mode', 'dark-mode');
+        icon.className = 'bi bi-moon-stars-fill';
+    } else {
+        document.body.classList.replace('dark-mode', 'light-mode');
+        icon.className = 'bi bi-sunrise-fill';
     }
 }
 

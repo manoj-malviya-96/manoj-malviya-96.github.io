@@ -3,32 +3,36 @@
 </footer>
 <!-- Dont change this-->
 
+
 <!-- header -->
 <header id="title-block-header" class="quarto-title-block page-columns">
     <div class="quarto-title-banner page-columns page-full">
         <!-- cover-->
         <div class="quarto-title-banner-image column-image">
-            <img src="./posts/cub-companion/app-ui.png" id="cover" alt="Cub Companion" class="img-cover">
+            <img src="./research/dfam/cover.jpeg" id="cover" alt="Design for AM" class="img-cover">
         </div>
         <!-- title-->
         <div class="quarto-title column-body">
-            <h1 class="title" id="title">Cub-Companion</h1>
+            <!-- type-->
+            <div class="project-type" id="project-type">Research</div>
+            <!-- title-->
+            <h1 class="title" id="title">Design for AM</h1>
             <!-- description-->
             <div class="description" id="description">
-                <p>The study focuses on developing a virtual bear companion app that helps reduce stress in
-                    pediatric cancer patients by providing distraction and fostering trust with medical staff.</p>
+                Characterizing individual design strategies using an interactive, digital version of the Delta
+                Design Game
             </div>
             <!-- categories -->
             <div class="quarto-categories" id="skills">
-                <div class="quarto-category">Adobe Xd</div>
-                <div class="quarto-category">UI/UX Design</div>
-                <div class="quarto-category">Figma</div>
-                <div class="quarto-category">User-Centric Approach</div>
+                <div class="quarto-category">Matlab</div>
+                <div class="quarto-category">UI/UX development</div>
+                <div class="quarto-category">Machine Learning</div>
             </div>
+            <!-- date -->
+            <div class="project-date" id="date">Feb 14 2020</div>
         </div>
     </div>
 </header>
-
 
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
@@ -36,87 +40,46 @@
     <main>
         <div class="block">
             <!-- abstract -->
-            <p>Each year, more than 40k children undergo cancer treatments ﻿("Childhood Cancer Statistics | research,”
-                2019). These treatments and the associated “new normal” cause stress for the patients. The effect of
-                this stress can cause negative long- and short-term physical and psychological consequences, such as
-                longer hospital stays and refusal to seek medical treatment. To prevent these consequences, it is vital
-                to ease as much stress as possible during pediatric cancer treatments. Preliminary research has
-                suggested that education, distraction techniques, and breathing exercises may be beneficial to children
-                during these procedures.To test the best method for easing stress and anxiety during cancer treatments,
-                the Cub Companion team interviewed two pediatric nurses and six parents of children with childhood
-                cancer diagnoses. Using the information gathered, we conducted a qualitative content analysis using
-                pre-coded themes to determine prevalent ideas throughout the interviews. Themes emerged of trust with
-                parents and medical staff, comfort in a new environment, and distraction during invasive procedures.
-                These results aided the team in creating an updated Cub Companion concept. They may scan a customizable
-                physical bear into a virtual world in a mobile application. In this virtual world, the child’s bear may
-                interact with representations of their real-life nurses and play games to build trust and provide a
-                distraction. We tested this concept with a low-fidelity paper prototype, and with feedback, a
-                medium-fidelity Adobe XD prototype was created. After preliminary user testing, the virtual world shows
-                promise for being capable of providing distraction and helping the child build trust with medical
-                personnel.
+            <p> In this research, we collected eye-tracking data from nine engineering graduate students as they
+                redesigned a traditionally manufactured part for Additive Manufacturing. Final artifacts were assessed
+                for manufacturability and quality of final design, and design behaviors were captured via the
+                eye-tracking data. Statistical analysis of design behavior duration shows that participants with more
+                than three years of industry experience spend significantly less time removing material and revising
+                than those with less experience. Hidden Markov Modeling (HMM) analysis of the design behaviors gives
+                insight to the transitions between behaviors through which designers proceed. Findings show that high
+                performing designers proceeded through four behavioral states, smoothly transitioning between states. In
+                contrast, low-performing designers roughly transitioned between states, with moderate transition
+                probabilities back and forth between multiple states.​
             </p>
+            <a href="https://github.com/mmalviyar/Delta-Design-Tool"><i class="bi bi-github"></i></a>
+            <a href="">Download the full paper here</a>
         </div>
+        <!-- more -->
         <div class="content" id="quarto-document-content">
-            <!-- getting-started -->
+            <!-- intro-->
             <section id="introduction" class="level1">
-                <h2>Introduction</h2>
+                <h2>Results</h2>
 
-                <p>Because engineering design requires significant  iterative  cognitive activities and the synthesis of
-                    domain-specific knowledge, researchers are often interested in the transfer of strategies for
-                    domain-specific knowledge. There are three classifications of strategies that are typically studied:
-                    Control strategies, Heuristic strategies, and Learning strategies. Control strategies determine
-                    which
-                    tasks should be carried out, heuristic strategies determine how a task should be carried out, and
-                    learning strategies are the ways that designers learn to carry out tasks. These transfer learning
-                    attributes vary between expert designers and novices and therefore affects the solution quality of
-                    novel
-                    problems.</p>
-                <p>Researchers have explored the behaviors of experts and novices while solving novel problems. Results
-                    of
-                    these studies suggests that the experts use general control and heuristic strategies that they
-                    learned
-                    previously while working in a specific domain. Besides using task-specific strategies, experts also
-                    implement their abstract and organized domain knowledge. Schraagen showed that experts tend to solve
-                    novel problems by dividing subproblems in a specific order and then applying abstract knowledge
-                    structures and heuristic strategies to compensate for their lack of domain knowledge. Schraagen
-                    presented two global characteristic strategies for the way experts tackling novel problems: The
-                    first is
-                    called progressive deepening and the second is called mental simulation. **Progressive deepening**
-                    is a
-                    control strategy, where the designer proceeds through the same sub-problem repeatedly, with each
-                    pass
-                    gaining new information, and establishing automaticity in their design responses. **Mental
-                    simulation**,
-                    on the other hand, is a heuristic strategy where design experts mentally establish the outcome of a
-                    design action before taking action. We build on the previous work and explore the novel problem
-                    solving
-                    process of graduate students for a potential impact on design education research and computational
-                    design, where these learned strategies can benefit engineering graduate students and the development
-                    of
-                    generative artificial intelligence. </p>
-                <img src="./posts/delta-design/background.png" alt="Research Background"
-                     class="img-fluid">
-                <p> In this work, we present a digital interface of the Delta Design Game to facilitate our
-                    investigation of
-                    novel design problems. Participants play the Delta Design game interactively, while the interface
-                    collects all moves representing design decisions throughout the duration of the game. Players can
-                    compose, revise, and analyze their design using this tool on an online platform while our interface
-                    capture every state of design and thus, providing a rich source to analyze the enacted design
-                    behaviors.
-                    We employ this design platform to compare the design behaviors between high-performing and
-                    low-performing designers in a novel problem design context. We also compared the design behaviors
-                    between efficient and inefficient designers, to study the effect of automaticity. To this end, the
-                    overarching question this research seeks to answer is as follows:</p>
-
+                <p> Results show that high-performing designers spend much more time in indirect design activities, such
+                    as stress analysis, than the low-performing designers, who tend to focus on removing material. The
+                    design behavior heuristics were characterized from aggregated and disaggregated HMMs. Although the
+                    transmission patterns differ between the aggregate and performance-disaggregated models, each model
+                    does typically suggest that two states deal with direct design tasks such as sketching, editing, or
+                    removing material, and two that pertain to indirect design tasks such as project scoping. The
+                    transmission matrices show that designers proceed through an iterative design process, aligning with
+                    most previous design literature. However, the calculated transition probabilities show that
+                    low-performing designers have more and higher transition probabilities than high-performing
+                    designers, indicating a more rapid transition between activities. This finding indicates that
+                    perhaps high-performing designers may be better at self-regulation during the design process,
+                    staying focused on a given task, whereas low-performing designers tend not to focus on the same
+                    behaviors within the hidden states as well as the high-performing designers.. </p>
+                <img src="./research/dfam/eye-tracking.png" alt="Eye Tracking" class="img-fluid">
                 <blockquote>What design strategies do intermediate-level designers employ when challenged with a novel
                     complex problem?
                 </blockquote>
             </section>
-
-
             <section id="main-content" class="level2">
                 <h2>Details</h2>
-
                 <p>Delta-Design is a fictional design game developed by Bucciarelli, to teach students the social
                     designing skills such as communications, trade-offs, and team-dynamics. This game consists of a
                     well-defined configuration design problem, but on a skewed physics system. Due to this anomaly
@@ -125,7 +88,7 @@
                     heuristics. However, the objectives in the design problem are identical to typical configuration
                     design problems, therefore, making it a research tool suitable for studying designing for
                     structurally similar novel problem.</p>
-                <img src="./posts/delta-design/game-ui.png" alt="Delta Design Game"
+                <img src="./research/delta-design/game-ui.png" alt="Delta Design Game"
                      class="img-fluid">
                 <p>To facilitate design and data collection, we developed a graphical user interface (GUI) using
                     MATLAB’s App designer. Besides facilitating the virtual design, we also focused on providing a
@@ -159,7 +122,7 @@
                     investigate high- and low-performing designers (as classified using their design performance),
                     and
                     efficient- and inefficient designers (as classified using number of actions they took).</p>
-                <img src="./posts/delta-design/analysis.png" alt="Hidden Markov Model"
+                <img src="./research/delta-design/analysis.png" alt="Hidden Markov Model"
                      class="img-fluid">
                 <p> HMM captured variances and similarities in the patterns of behaviors and the way that different
                     groups of designers proceeded through latent states. This data were analyzed statistically in

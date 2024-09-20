@@ -103,16 +103,15 @@
 <script>
 
     let headerPlaceholder = document.getElementById('header-placeholder');
-    loadContent("./header.html", headerPlaceholder, initializeThemeToggle);
+    loadContent("./header.html", headerPlaceholder);
 
-    function loadMainContent(page, event, callback = null) {
+    function loadMainContent(page, event, callback = null, updateHistory = true) {
         const contentPlaceholder = document.getElementById('content-placeholder');
         const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
 
         // Load content and pass the footer initialization as a callback
         loadContentWithDelay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
             if (callback){
-                console.log("Callback called - ", callback);
                 callback();
             }
             // Re-initialize scroll tracking after content is loaded
@@ -122,6 +121,16 @@
         if (!!event && !!event.currentTarget) {
             event.preventDefault(); // Prevent default link behavior
             setActiveLink(event.currentTarget);
+        }
+
+        const callbackKey = callback ? Object.keys(availableCallbacks).find(key => availableCallbacks[key] === callback) : null;
+        const stateObject = { page: page, callback: callbackKey }; // Include callback in state
+        if (updateHistory){
+            // Update history state
+            console.log("Pushing state: ", page);
+            window.history.pushState(stateObject, '', null);
+        } else {
+            window.history.replaceState(stateObject, '', null);
         }
 
         // Use MutationObserver to detect content change in contentPlaceholder
@@ -141,8 +150,13 @@
         observer.observe(contentPlaceholder, {childList: true});
     }
 
+    const availableCallbacks = {
+        "loadProjects" : loadProjects,
+        "loadFooter" : loadFooter
+    };
+
     function loadHomePage(event=null) {
-        loadMainContent('./home.html', event, loadProjects);
+        loadMainContent('./home.html', event, loadProjects, false);
     }
     // Add Event Listener for Loading tree-pages.
     document.addEventListener(pageEventHandlerName, function (event) {
@@ -150,8 +164,22 @@
         if (event.detail.isProject) {
             callback = loadFooter;
         }
-        loadMainContent(event.detail.page, null, callback);
+        loadMainContent(event.detail.page, event, callback);
     });
+
+    // Handle back/forward navigation with popstate event
+    window.addEventListener('popstate', function (event) {
+        if (event.state && event.state.page) {
+            const callback = availableCallbacks[event.state.callback];
+            // Load content based on the state object stored in history
+            loadMainContent(event.state.page, event, callback, false); // Don't update history again
+        } else {
+            // Default action if no state is detected
+            loadHomePage();
+        }
+    });
+
+
     // Load the home page by default
     loadHomePage();
 </script>

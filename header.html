@@ -1,11 +1,11 @@
 <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg ps-0">
+    <nav class="navbar fixed-top navbar-expand-lg ps-0">
         <div class="container-fluid px-0">
             <!-- Toggler for mobile view -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
                     onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-                <span class="navbar-toggler-icon"></span>
+                <span style="padding: var(--spacing-small)"><i class="bi bi-arrow-down-circle"></i></span>
             </button>
 
             <!-- Header-bar -->
@@ -14,8 +14,7 @@
                 <ul class="navbar-nav me-auto align-items-center"> <!-- Added align-items-center for vertical centering -->
                     <li class="nav-item">
                         <a class="nav-link active" href="javascript:void(0)" onClick="loadHomePage(event)">
-                            <i class="bi bi-house-door icon-large" role="img"> </i>
-                            <span class="nav-label">Home</span>
+                            <i class="bi bi-house-door-fill icon-large" role="img"> </i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -50,10 +49,9 @@
                 <ul class="navbar-nav ms-auto justify-content-end align-items-center"> <!-- Added align-items-center -->
                     <!-- Dark Mode Toggle -->
                     <li class="nav-item">
-                        <div class="form-check form-switch mt-1">
-                            <input class="form-check-input custom-switch" type="checkbox" id="theme-switch"/>
-                            <label for="theme-switch" id="theme-switch-label"> Dark-Mode </label>
-                        </div>
+                        <button id="theme-switch-btn" class="btn btn-icon" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+                            <i id="theme-icon" class="bi bi-moon-stars-fill"></i> <!-- Initial icon, set to moon for dark mode -->
+                        </button>
                     </li>
                 </ul>
             </div> <!-- /navbar-collapse -->

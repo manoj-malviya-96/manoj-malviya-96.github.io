@@ -1,7 +1,7 @@
 <!-- Main container for project cards -->
 <script src="./common.js"></script>
 <!-- About Section -->
-<div class="about-entity">
+<div class="about-entity" style="margin-top: var(--spacing-large)">
     <div class="profile-image">
         <img src="images/profile.jpg" alt="Profile Picture">
     </div>
@@ -40,22 +40,43 @@
     </div>
 </div>
 
-
-<!-- Filter and Search Bar Container -->
-<div id="controls-container">
-    <div id="filter-container" class="filter-container">
-        <select id="category-filter" onchange="filterProjects(this.value)">
-            <option value="all">All Categories</option>
-            <!-- Dynamic categories will be added here -->
-        </select>
+<div class="content" style="margin-top: var(--spacing-huge)">
+    <!-- Project Section -->
+    <div id="controls-container">
+        <!-- Filter Container -->
+        <div id="filter-container" class="control-selector-container">
+            <label for="category-filter" class="control-selector-icon">
+                <i class="bi bi-filter"></i>
+            </label>
+            <select id="category-filter" class="control-selector" onchange="filterProjects(this.value)">
+                <option value="all">All Categories</option>
+                <!-- Dynamic categories will be added here -->
+            </select>
+        </div>
+        <!-- Sort Container -->
+        <div id="sort-container" class="control-selector-container">
+            <label for="sort-filter" id="sort-icon" class="control-selector-icon">
+                <i class="bi bi-sort-alpha-down"></i>
+            </label>
+            <select id="sort-filter" class="control-selector" onchange="sortProjects(this.value);
+                                                                    changeSortIcon(this.value)">
+                <option value="desc-date">Newest</option>
+                <option value="asc-date">Oldest</option>
+                <option value="asc-title">A-Z</option>
+                <option value="desc-title">Z-A</option>
+            </select>
+        </div>
+        <!-- Search Container -->
+        <div id="search-container">
+            <div class="search-icon">
+                <i class="bi bi-search"></i></div>
+            <input type="text" id="search-input" placeholder=" Search..." oninput="searchProjects()">
+        </div>
     </div>
-    <div id="search-container">
-        <input type="text" id="search-input" placeholder="Search projects..." oninput="searchProjects()">
-    </div>
-</div>
 
-<div class="quarto-listing quarto-listing-container-grid">
-    <div id="project-list" class="list grid quarto-listing-cols-3">
-        <!-- The project cards will be dynamically inserted here -->
+    <div class="quarto-listing quarto-listing-container-default">
+        <div id="project-list" class="list grid quarto-listing-cols-2">
+            <!-- The project cards will be dynamically inserted here -->
+        </div>
     </div>
 </div>
