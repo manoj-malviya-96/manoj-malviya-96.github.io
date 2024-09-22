@@ -2,6 +2,18 @@
 
 // Store all unique categories here
 let timeOut_ms = 690;
+const availableCallbacks = {
+    "loadProjects" : loadProjects,
+    "loadFooter" : loadProjectFooter,
+};
+
+// Function to update or add the 'pageName' parameter in the URL
+function updateURLParameter(pageName) {
+    const url = new URL(window.location);
+    url.searchParams.set('pageName', pageName); // Set the pageName parameter
+    console.log('Updated URL:', url.href, pageName);
+    window.history.pushState({}, '', url); // Update the URL without reloading the page
+}
 
 function fromTxtMonth(month) {
     switch (month) {
@@ -112,11 +124,11 @@ function loadProject(filePath, containerId) {
 function loadProjects() {
     const containerId = 'project-list';
     const projects = [
-        './research/delta-design.html',
-        './research/rapid-topt.html',
-        './research/cub-companion.html',
-        './research/3dp-design.html',
-        './research/embed-am.html',
+        './research/delta-design/delta-design.html',
+        './research/topt/rapid-topt.html',
+        './research/cub-companion/cub-companion.html',
+        './research/dfam/dfam.html',
+        './research/embed-am/embed-am.html',
     ];
     let allCategories = new Set();
     const promises = projects.map(filePath => loadProject(filePath, containerId));
@@ -276,19 +288,22 @@ function loadContentWithDelay(page, placeholder, overlay, callback = null) {
         });
 }
 
-function nameOfTheAuthor() {
-    return "Manoj Malviya";
-}
 
 const pageEventHandlerName = "loadPageOnMain";
-
-
 function emitLoadPageEvent(page, event, isProject = false) {
+    console.log('Emitting loadPage event:', page);
     event.preventDefault();
+
+    let appInitCallBackKey = null;
+    if (page.startsWith("./apps")){
+        appInitCallBackKey = "loadSumApp";
+    }
+
     const loadPageEvent = new CustomEvent(pageEventHandlerName, {
         detail: {
             page: page,
-            isProject: isProject
+            isProject: isProject,
+            appInitCallBackKey: appInitCallBackKey
         }
     });
     window.document.dispatchEvent(loadPageEvent);
@@ -318,7 +333,7 @@ function generateTOC() {
         const sectionTitle = section.querySelector('h2')?.textContent || section.id;
         tocList.innerHTML += `
             <li>
-                 <a href="#${section.id}" class="nav-link " data-scroll-target="#${section.id}">
+                 <a href="#${section.id}" class="nav-link ">
                     ${sectionTitle}
                 </a>
             </li>
@@ -331,7 +346,7 @@ function generateTOC() {
     }
 }
 
-function initializeProjectFooter() {
+function initProjectFooterToggle() {
     // Function to initialize the theme toggle after loading the content
     document.getElementById('footer-toggle').addEventListener('click', function () {
         let footer = document.getElementById('quarto-footer');
@@ -351,7 +366,7 @@ function initializeProjectFooter() {
     });
 }
 
-function loadFooter() {
+function loadProjectFooter() {
     let footer = document.getElementById('quarto-footer');
 
     // Check if the footer element exists, if not, dynamically create it
@@ -375,11 +390,11 @@ function loadFooter() {
         `;
     // Call the function to dynamically generate the TOC
     generateTOC();
-    initializeProjectFooter();
+    initProjectFooterToggle();
 }
 
 // Function to initialize the scroll tracking
-function initializeScrollTracking() {
+function initScrollTracking() {
     const sections = document.querySelectorAll('main section'); // Select all sections within the dynamically loaded content
     const navLinks = document.querySelectorAll('#TOC .nav-link'); // Sidebar links
 
@@ -434,13 +449,48 @@ function toggleTheme() {
     }
 }
 
-// Set the active link based on the current page URL
-function setActiveLink(element) {
-    // Remove active class from all nav links
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-        link.classList.remove('active');
-    });
+function loadPDF(url, contentPlaceholder, contentPlaceholderOverlay) {
+    // Show the loading spinner
+    contentPlaceholderOverlay.style.display = 'block';
+    contentPlaceholder.style.display = 'none';
 
-    // Add active class to the clicked nav link
-    element.classList.add('active');
+    // Create a container div to center the iframe
+    const iframeContainer = document.createElement('div');
+    iframeContainer.style.display = 'flex';
+    iframeContainer.style.justifyContent = 'center'; // Center horizontally
+    iframeContainer.style.paddingTop = '0px'; // Add top padding
+    iframeContainer.style.width = '100%'; // Ensure the container takes the full width
+
+    // Create the iframe element
+    const iframe = document.createElement('iframe');
+    iframe.src = url; // Set the source to the PDF URL
+    iframe.style.width = '69%';
+    iframe.style.height = '100vh'; // Adjust the height as needed
+    iframe.style.border = 'none';
+
+    // Append the iframe to the container
+    iframeContainer.appendChild(iframe);
+
+    // Remove any previous content and add the container with the iframe
+    contentPlaceholder.innerHTML = '';
+    contentPlaceholder.appendChild(iframeContainer);
+
+    // Show the content and hide the spinner once the iframe is loaded
+    iframe.onload = () => {
+        contentPlaceholderOverlay.style.display = 'none';
+        contentPlaceholder.style.display = 'block';
+    };
+
+    // Handle iframe loading errors (optional)
+    iframe.onerror = () => {
+        contentPlaceholderOverlay.style.display = 'none';
+        alert('Failed to load the PDF. Please try again.');
+    };
+}
+
+// Example usage of loadPDF function
+function loadPDFContent(pdfUrl) {
+    const contentPlaceholder = document.getElementById('content-placeholder');
+    const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
+    loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
 }
