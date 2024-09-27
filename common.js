@@ -3,8 +3,8 @@
 // Store all unique categories here
 let timeOut_ms = 690;
 const availableCallbacks = {
-    "loadProjects" : loadProjects,
-    "loadFooter" : loadProjectFooter,
+    "loadProjects": loadProjects,
+    "loadFooter": loadProjectFooter,
 };
 
 // Function to update or add the 'pageName' parameter in the URL
@@ -15,53 +15,17 @@ function updateURLParameter(pageName) {
     window.history.pushState({}, '', url); // Update the URL without reloading the page
 }
 
-function fromTxtMonth(month) {
-    switch (month) {
-        case 'Jan':
-            return 1;
-        case 'Feb':
-            return 2;
-        case 'Mar':
-            return 3;
-        case 'Apr':
-            return 4;
-        case 'May':
-            return 5;
-        case 'Jun':
-            return 6;
-        case 'Jul':
-            return 7;
-        case 'Aug':
-            return 8;
-        case 'Sep':
-            return 9;
-        case 'Oct':
-            return 10;
-        case 'Nov':
-            return 11;
-        case 'Dec':
-            return 12;
-    }
-}
-
-function parseDate(dateString) {
-    // date = "Sep 1, 2021"
-    const day = parseInt(dateString.split(' ')[1].replace(',', ''));
-    const month = fromTxtMonth(dateString.split(' ')[0]);
-    const year = parseInt(dateString.split(' ')[2]);
-    return year * 10000 + month * 100 + day; // Format: YYYYMMDD
-}
-
 function createProjectCard(filePath, imagePath, title,
                            description, categories,
                            type = "", date = "") {
+    categories = categories.sort((a, b) => a.localeCompare(b));
     return `
         <div class="g-col-1 project-card" 
             data-categories="${categories.join(',')}" 
              data-title="${title.toLowerCase()}" 
              data-description="${description.toLowerCase()}"
              data-date=${parseDate(date)}">
-            <a href="javascript:void(0)" class="quarto-grid-link"
+            <a href="${title}" class="quarto-grid-link"
                onclick="emitLoadPageEvent('${filePath}', event, true)">
                 <div class="quarto-grid-item card">
                     <div class="column-image">
@@ -129,6 +93,8 @@ function loadProjects() {
         './research/cub-companion/cub-companion.html',
         './research/dfam/dfam.html',
         './research/embed-am/embed-am.html',
+        './research/build-orient/build-orient.html',
+        './job/ui-lead/ui-lead.html',
     ];
     let allCategories = new Set();
     const promises = projects.map(filePath => loadProject(filePath, containerId));
@@ -222,7 +188,7 @@ function sortProjects(sortBy) {
 
 function changeSortIcon(value) {
     let icon = document.getElementById('sort-icon').querySelector("i");
-    if (!icon){
+    if (!icon) {
         console.error('Sort icon not found');
         return;
     }
@@ -290,12 +256,13 @@ function loadContentWithDelay(page, placeholder, overlay, callback = null) {
 
 
 const pageEventHandlerName = "loadPageOnMain";
+
 function emitLoadPageEvent(page, event, isProject = false) {
     console.log('Emitting loadPage event:', page);
     event.preventDefault();
 
     let appInitCallBackKey = null;
-    if (page.startsWith("./apps")){
+    if (page.startsWith("./apps")) {
         appInitCallBackKey = "loadSumApp";
     }
 
@@ -307,6 +274,11 @@ function emitLoadPageEvent(page, event, isProject = false) {
         }
     });
     window.document.dispatchEvent(loadPageEvent);
+}
+
+function getURLParameter(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
 }
 
 function loadSocialMediaLink(identifier) {
@@ -391,6 +363,24 @@ function loadProjectFooter() {
     // Call the function to dynamically generate the TOC
     generateTOC();
     initProjectFooterToggle();
+}
+
+function initContentObserver(contentPlaceholder) {
+    // Use MutationObserver to detect content change in contentPlaceholder
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Re-initialize scroll and active link logic
+                initScrollTracking();
+
+                // Disconnect observer after the content has loaded
+                observer.disconnect();
+            }
+        });
+    });
+
+    // Start observing the contentPlaceholder for changes
+    observer.observe(contentPlaceholder, {childList: true});
 }
 
 // Function to initialize the scroll tracking
@@ -494,3 +484,142 @@ function loadPDFContent(pdfUrl) {
     const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
     loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
 }
+
+
+function fromTxtMonth(month) {
+    switch (month) {
+        case 'Jan':
+            return 1;
+        case 'Feb':
+            return 2;
+        case 'Mar':
+            return 3;
+        case 'Apr':
+            return 4;
+        case 'May':
+            return 5;
+        case 'Jun':
+            return 6;
+        case 'Jul':
+            return 7;
+        case 'Aug':
+            return 8;
+        case 'Sep':
+            return 9;
+        case 'Oct':
+            return 10;
+        case 'Nov':
+            return 11;
+        case 'Dec':
+            return 12;
+    }
+}
+
+function parseDate(dateString) {
+    // date = "Sep 1, 2021"
+    const day = parseInt(dateString.split(' ')[1].replace(',', ''));
+    const month = fromTxtMonth(dateString.split(' ')[0]);
+    const year = parseInt(dateString.split(' ')[2]);
+    return year * 10000 + month * 100 + day; // Format: YYYYMMDD
+}
+
+function createLayout(title, xTitle, yTitle) {
+    return {
+        title: title,
+        xaxis: {
+            title: xTitle,
+            automargin: true,
+            showgrid: false
+        },
+        yaxis: {
+            title: yTitle,
+            automargin: true,
+            showgrid: false
+        },
+        width: 500,
+        height: 400,
+        autosize: false,
+        paper_bgcolor: 'rgba(0,0,0,0)', // Makes the overall plot background transparent
+        plot_bgcolor: 'rgba(0,0,0,0)'   // Makes the area where data is plotted transparent
+    };
+}
+
+function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "") {
+    const data = {
+        z: z,
+        x: x,
+        y: y,
+        type: 'heatmap',
+        colorscale: 'Jet',
+        colorbar: {
+            ticks: 'outside',
+            title: 'Probability'
+        }
+    };
+    Plotly.newPlot(containerId, [data], createLayout(title, xTitle, yTitle));
+}
+
+
+function initToggleForAbout() {
+    const button = window.document.querySelector('.about-expand-button');
+    if (!button) {
+        return;
+    }
+    button.addEventListener('click', function () {
+        const content = window.document.querySelector('.collapsible-content');
+        content.classList.toggle('expanded');
+
+        const profileImage = window.document.querySelector('.profile-image img');
+        profileImage.classList.toggle('expanded');
+
+        // Get the icon element inside the button
+        const icon = this.querySelector('i');
+
+        // Toggle icon class and button text based on the state
+        if (content.classList.contains('expanded')) {
+            icon.className = 'bi bi-arrow-up-circle'; // Change to up arrow icon
+            this.innerHTML = '<i class="bi bi-arrow-up"></i> Show Less';
+        } else {
+            icon.className = 'bi bi-arrow-down-circle'; // Change back to down arrow icon
+            this.innerHTML = '<i class="bi bi-arrow-down"></i> Show More';
+        }
+    });
+}
+
+
+function initImageFluidHandler() {
+    // Select the first image with the class 'hover-image'
+    const images = window.document.querySelectorAll('.img-fluid');
+
+    if (images.length === 0) {
+        console.log('Image container not found');
+        return;
+    }
+
+    const modal = window.document.createElement('div');
+    modal.id = 'fullScreenModal';
+    const modalImg = window.document.createElement('img');
+    modal.appendChild(modalImg);
+    window.document.body.appendChild(modal);
+
+    // Add click event listener to each image
+    images.forEach((img) => {
+        img.addEventListener('click', () => {
+            modalImg.src = img.src;
+            modal.style.display = 'flex';
+        });
+    });
+
+    modal.addEventListener('click', () => {
+        modal.style.display = 'none'; // Hide modal on click
+    });
+
+    // Hide the modal when the Esc key is pressed
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            modal.style.display = 'none'; // Hide modal on Esc key press
+        }
+    });
+
+}
+

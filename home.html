@@ -1,52 +1,50 @@
-<!-- Main container for project cards -->
-<script src="./common.js"></script>
 <!-- About Section -->
-<div class="about-entity" style="margin-top: var(--spacing-large)">
-    <div class="profile-image">
-        <img src="images/profile.jpeg" alt="Profile Picture">
+<div class="about-container" style="margin-top: var(--spacing-large); padding: 20px;">
+    <!-- Add padding to the container -->
+    <div class="about-entity">
+        <div class="profile-image">
+            <img src="images/profile.jpeg" alt="Profile Picture">
+        </div>
+        <div class="about-text">
+            <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex ideas
+                into tangible results using advanced computational tools and methodologies. </p>
+            <p> Presently I work at Formlabs as <strong> Software Engineer </strong>, solving problems related to CAD features and 3D Printing. </p>
+            <div class="collapsible-content">
+                <!-- Collapsible content starts here -->
+                <p style="margin-top: var(--spacing-large);"><i class="bi bi-building"></i><strong> Work
+                    Experience:</strong></p>
+                <ul>
+                    <li><strong>Software Engineer at Formlabs Kft.</strong> Leading UI framework development and
+                        optimizing 3D printing workflows
+                    </li>
+                    <li><strong>R&D Engineer at Formlabs Inc.</strong> Developed additive manufacturing algorithms
+                        to
+                        boost efficiency.
+                    </li>
+                    <li><strong>Research Assistant at Pennsylvania State University:</strong> Conducted research in
+                        computational design and additive manufacturing.
+                    </li>
+                </ul>
+
+                <p style="margin-top: var(--spacing-large);"><i
+                        class="bi bi-book-half"></i><strong> Education:</strong>
+                </p>
+                <ul>
+                    <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
+                    <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
+                </ul>
+
+                <p style="margin-top: var(--spacing-large);"><i class="bi bi-palette"></i><strong> Outside
+                    Interests:</strong></p>
+                <p>Traveler, photographer, and electronic music composer with a passion for blending digital
+                    soundscapes
+                    with piano influences. Inspired by diverse cultures and landscapes.</p>
+                <!-- Collapsible content ends here -->
+            </div>
+        </div>
     </div>
-    <div class="about-text">
-        <p>Hello! I’m Manoj Malviya, a Computational Design Engineer passionate about transforming complex ideas into
-            tangible results using advanced computational tools and methodologies.</p>
-
-        <!-- Add space -->
-        <p style="margin-top: var(--spacing-large);"><i class="bi bi-building"></i><strong> Work Experience:</strong></p>
-        <ul>
-
-            <li>
-                <strong> Software Engineer at Formlabs
-                    Inc. </strong>
-                Leading UI framework development and optimizing 3D printing workflows
-            </li>
-
-            <li>
-                <strong> R&D Engineer at Formlabs
-                    Inc.</strong> Developed additive manufacturing algorithms to boost
-                efficiency.
-            </li>
-
-            <li>
-                <strong>Research Assistant at Pennsylvania State University:</strong> Conducted research in
-                computational design and additive manufacturing.
-            </li>
-        </ul>
-
-        <!-- Add space -->
-        <p style="margin-top: var(--spacing-large);">
-            <i class="bi bi-book-half"></i>
-            <strong>Education:</strong>
-        </p>
-        <ul>
-            <li> M.S. in Mechanical Engineering from Pennsylvania State University</li>
-            <li> B.Tech in Mechanical Engineering from
-                Indian Institute of Technology
-            </li>
-        </ul>
-
-        <!-- Add space -->
-        <p style="margin-top: var(--spacing-large);"><i class="bi bi-palette"></i><strong> Outside Interests:</strong></p>
-        <p>Traveler, photographer, and electronic music composer with a passion for blending digital soundscapes with
-            piano influences. Inspired by diverse cultures and landscapes.</p>
+    <div class="about-button-container" style="margin-top: calc(-1* var(--border-width))">
+        <button class="about-expand-button"><i class="bi bi-arrow-down"></i> Show More</button>
     </div>
 </div>
 
@@ -68,8 +66,8 @@
             <label for="sort-filter" id="sort-icon" class="control-selector-icon">
                 <i class="bi bi-sort-alpha-down"></i>
             </label>
-            <select id="sort-filter" class="control-selector" onchange="sortProjects(this.value);
-                                                                    changeSortIcon(this.value)">
+            <select id="sort-filter" class="control-selector"
+                    onchange="sortProjects(this.value); changeSortIcon(this.value)">
                 <option value="desc-date">Newest</option>
                 <option value="asc-date">Oldest</option>
                 <option value="asc-title">A-Z</option>
@@ -78,8 +76,7 @@
         </div>
         <!-- Search Container -->
         <div id="search-container">
-            <div class="search-icon">
-                <i class="bi bi-search"></i></div>
+            <div class="search-icon"><i class="bi bi-search"></i></div>
             <input type="text" id="search-input" placeholder=" Search..." oninput="searchProjects()">
         </div>
     </div>

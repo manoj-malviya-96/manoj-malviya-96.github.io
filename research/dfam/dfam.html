@@ -58,102 +58,119 @@
         <div class="content" id="quarto-document-content">
             <!-- intro-->
             <section id="introduction" class="level1">
-                <h2>Results</h2>
+                <h2>Data Collection</h2>
 
-                <p> Results show that high-performing designers spend much more time in indirect design activities, such
-                    as stress analysis, than the low-performing designers, who tend to focus on removing material. The
-                    design behavior heuristics were characterized from aggregated and disaggregated HMMs. Although the
-                    transmission patterns differ between the aggregate and performance-disaggregated models, each model
-                    does typically suggest that two states deal with direct design tasks such as sketching, editing, or
-                    removing material, and two that pertain to indirect design tasks such as project scoping. The
-                    transmission matrices show that designers proceed through an iterative design process, aligning with
-                    most previous design literature. However, the calculated transition probabilities show that
-                    low-performing designers have more and higher transition probabilities than high-performing
-                    designers, indicating a more rapid transition between activities. This finding indicates that
-                    perhaps high-performing designers may be better at self-regulation during the design process,
-                    staying focused on a given task, whereas low-performing designers tend not to focus on the same
-                    behaviors within the hidden states as well as the high-performing designers.. </p>
+                <p> ​We recruited participants with a design for additive manufacturing background. The challenge given
+                    to the participants was to re-design an airplane bearing bracket from ALCOA Corporation for AM,
+                    based on the prompt developed as part of an open crowdsource competition by GrabCAD. The design
+                    prompt asked participants to minimize mass and optimize for weight and strength while satisfying
+                    loading constraints and metal L-PBF manufacturing considerations.. Data collection was conducted in
+                    person on the research team’s data computers equipped with SolidWorks, Autodesk Fusion 360, and
+                    eye-tracking data collection capabilities. </p>
                 <img src="./research/dfam/eye-tracking.png" alt="Eye Tracking" class="img-fluid">
                 <blockquote>What design strategies do intermediate-level designers employ when challenged with a novel
                     complex problem?
                 </blockquote>
             </section>
             <section id="main-content" class="level2">
-                <h2>Details</h2>
-                <p>Delta-Design is a fictional design game developed by Bucciarelli, to teach students the social
-                    designing skills such as communications, trade-offs, and team-dynamics. This game consists of a
-                    well-defined configuration design problem, but on a skewed physics system. Due to this anomaly
-                    in
-                    world, this makes it challenging for designers to apply existing domain knowledge and design
-                    heuristics. However, the objectives in the design problem are identical to typical configuration
-                    design problems, therefore, making it a research tool suitable for studying designing for
-                    structurally similar novel problem.</p>
-                <img src="./research/delta-design/game-ui.png" alt="Delta Design Game"
-                     class="img-fluid">
-                <p>To facilitate design and data collection, we developed a graphical user interface (GUI) using
-                    MATLAB’s App designer. Besides facilitating the virtual design, we also focused on providing a
-                    more
-                    authentic design environment by embedding client feedback as a feature in the tool. The back end
-                    of
-                    the GUI tests the design score and satisfaction of constraints in real-time. The GUI also does
-                    not
-                    allow for impossible design features (for example, overlapping delta triangles). There are nine
-                    design actions that can be performed to complete the challenge. We place these actions on three
-                    different panels based on their roles. There are three message boxes in GUI: Delta World Status,
-                    Design Feedback, and Participant Information. The “Delta Status” message box displays the
-                    success or
-                    an error message corresponding to a designer’s actions. The “Participant Information” box
-                    displays
-                    the participant number, time left for the study and number of deltas. The “Design Score” message
-                    box
-                    is an essential feature for making this GUI a real-life experience, providing real-time insight
-                    as
-                    to the constraints when designs do not meet requirements. We also designed a control panel to
-                    provide a way to mitigate accidental mistakes. For example, if a designer accidentally deletes a
-                    triangle, they can use the UNDO function to return to the previous state. We added a panel at
-                    bottom
-                    for an overview of design constraints and objective function details. More information about the
-                    software can be found here.</p>
+                <h2>Methods</h2>
+                <p>​Video activities including of eye-tracking data for all participants were analyzed using the
+                    constant comparative method to develop a codebook for observational analysis using a combination of
+                    a priori and emergent coding methods. We describe “direct” design behaviors as those that directly
+                    affect the design (e.g., sketching or editing the artifact) and “indirect” design behaviors as those
+                    that represent the environment of the designer (e.g., conducting stress analysis). The design
+                    efficacy of each artifact was evaluated based on the final CAD files to quantify design quality
+                    based on the primary criteria of weight, build time estimate, support volume, total volume, and
+                    strength indicated with factor of safety. Then the participants were categorized into low-performing
+                    and high-performing designers, based on design efficacy score. Last, to understand the dynamics of
+                    designers’ behaviors, we employed Hidden Markov Modeling (HMM), a machine learning approach that
+                    elicits underlying relationships between patterns of occurrences that are not easily observable. HMM
+                    can be used to describe stochastic processes, in which a system transitions states that cannot be
+                    directly observed.</p>
+                <!-- table -->
+                <table border="1">
+                    <tr>
+                        <th>Theme</th>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                    </tr>
+                    <tr>
+                        <td>Verification</td>
+                        <td>Stress Analysis</td>
+                        <td>Observing FEA results and performing stress analysis on created component</td>
+                        <td>Indirect</td>
+                    </tr>
+                    <tr>
+                        <td>Verification</td>
+                        <td>Requirement/Design prompt</td>
+                        <td>Focusing on problem and objectives</td>
+                        <td>Indirect</td>
+                    </tr>
+                    <tr>
+                        <td>Verification</td>
+                        <td>Inspection</td>
+                        <td>Inspecting dimensions and considering AM restrictions</td>
+                        <td>Indirect</td>
+                    </tr>
+                    <tr>
+                        <td>Composition</td>
+                        <td>Add material</td>
+                        <td>Adding new features</td>
+                        <td>Direct</td>
+                    </tr>
+                    <tr>
+                        <td>Composition</td>
+                        <td>Sketching</td>
+                        <td>Sketching</td>
+                        <td>Direct</td>
+                    </tr>
+                    <tr>
+                        <td>Modification</td>
+                        <td>Revising</td>
+                        <td>Smoothing existing features and using Fillet function</td>
+                        <td>Direct</td>
+                    </tr>
+                    <tr>
+                        <td>Modification</td>
+                        <td>Editing</td>
+                        <td>Editing sketch, changing dimensions</td>
+                        <td>Direct</td>
+                    </tr>
+                    <tr>
+                        <td>Modification</td>
+                        <td>Remove material</td>
+                        <td>Removing existing features</td>
+                        <td>Direct</td>
+                    </tr>
+                </table>
+                <!-- end table -->
             </section>
             <section id="output" class="level2">
-                <h2>Conclusion</h2>
-
-                <p>We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
-                    investigate high- and low-performing designers (as classified using their design performance),
-                    and
-                    efficient- and inefficient designers (as classified using number of actions they took).</p>
-                <img src="./research/delta-design/analysis.png" alt="Hidden Markov Model"
-                     class="img-fluid">
-                <p> HMM captured variances and similarities in the patterns of behaviors and the way that different
-                    groups of designers proceeded through latent states. This data were analyzed statistically in
-                    aggregate and then by training four Hidden Markov Models to depict the underlying latent
-                    “states” of
-                    behaviors in which the designers engaged. The participants for this study were
-                    intermediate-level
-                    designers currently enrolled in graduate engineering programs. Our findings indicated that both
-                    efficient and inefficient designers could achieve high-performing client scores, but the
-                    underlying
-                    patterns of behaviors between the groups were dissimilar. Interpreted through Schraagen’s design
-                    theory, we observed:</p>
-                <ol type="1">
-                    <li>The high-performing and efficient designers indicated more methodical Progressive Deepening
-                        strategies as they systematically divided the task into small subtasks, approaching the
-                        structural components first and then optimizing the parametric components of the design
-                        later..
+                <h2>Research Findings</h2>
+                <ul>
+                    <li>High-performing designers spend more time on indirect design activities like stress analysis,
+                        while low-performing designers focus more on removing material.
                     </li>
-                    <li>The inefficient designers took a more trial-and-error approach throughout the process,
-                        resulting
-                        in rougher state transitions via the HMM.
+                    <li>Design behavior was analyzed using aggregated and disaggregated Hidden Markov Models (HMMs).
                     </li>
-                    <li>Results from this study show how intermediate level designers may still be developing
-                        learning
-                        strategies to apply which solving a novel design problem and illuminate how design theory
-                        manifests in a population group that is neither novice nor expert.
+                    <li>Both models suggest two states for direct tasks (e.g., sketching, editing) and two for indirect
+                        tasks (e.g., project scoping).
                     </li>
-                </ol>
-                <p>Further, this study is the first to demonstrate a digital version of the classic Delta Design
-                    challenge for an individual, which we posit can be used to continue to investigate the
-                    problem-solving strategies inherent in engineering design thinking.</p>
+                </ul>
+                <div id="heatmap1" class="plot"></div>
+                <ul>
+                    <li>Transmission matrices indicate designers follow an iterative design process, aligning with
+                        previous literature.
+                    </li>
+                    <li>Low-performing designers have higher and more frequent transition probabilities, showing rapid
+                        shifts between activities.
+                    </li>
+                    <li>High-performing designers exhibit better self-regulation, maintaining focus on tasks, unlike
+                        low-performing designers.
+                    </li>
+                </ul>
+                <div id="heatmap2" class="plot"></div>
             </section>
         </div>
     </main> <!-- /main -->

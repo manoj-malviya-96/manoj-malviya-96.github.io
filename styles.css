@@ -8,7 +8,7 @@
     --color-dark-contrast: rgba(47, 47, 47, 0.47);
     --color-dark-imp: #ababab;
 
-    --color-brand-primary: #2449a5;
+    --color-brand-primary: #233b76;
 
     /* Spacing */
     --spacing-small: 5px;
@@ -24,8 +24,8 @@
     --max-body-width: 1200px;
     --max-content-width: 800px;
     --max-image-width: 750px; /* Smaller than content width */
-    --default-radius: 8px;
-    --small-radius: 4px;
+    --default-radius: 12px;
+    --small-radius: 6px;
 
     /* Font */
     --regular-weight: 420;
@@ -53,8 +53,8 @@
     --body-top-padding: 67px; /* navbar height + spacing-large */
 
     /* Project specific */
-    --project-card-height: 250px; /* Width of the project card should be less than content width /4  */
-    --project-cover-height: 248px; /* height - 2 * border-width */
+    --project-card-height: 232px; /* Width of the project card should be less than content width /4  */
+    --project-card-height-collapse: calc(0.47*var(--project-card-height));
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
     --project-control-bar-height: 40px;
@@ -217,11 +217,17 @@ p {
     transition: color var(--transition-short);
 }
 
-/** about me page */
+ /** ------------------------  About me ------------------------ */
+.about-container {
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
 .about-entity {
     display: flex;
     width: var(--max-body-width);
-    height: var(--about-entity-height);
+    height: auto;
     margin: 0 auto;
     border-radius: var(--default-radius);
     border-style: solid;
@@ -230,16 +236,20 @@ p {
     color var(--transition-default);
 }
 
-
 .profile-image img {
     padding: 0;
     margin: 0 auto;
     width: var(--about-entity-height);
-    height: var(--about-entity-height);
+    height: 200px;
     border-bottom-left-radius: var(--default-radius);
     border-top-left-radius: var(--default-radius);
     object-fit: cover; /* Ensure image covers the container */
     display: block; /* Remove extra space below the image */
+    transition: height var(--transition-default);
+}
+
+.profile-image img.expanded {
+    height: var(--about-entity-height);
 }
 
 .about-text {
@@ -248,7 +258,37 @@ p {
     flex-grow: 1; /* Allow text to fill remaining space */
 }
 
-/* Listing Page for projects */
+.about-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.about-expand-button {
+    margin: 0 auto;
+    background-color: var(--color-brand-primary);
+    color: var(--color-light-primary);
+    border: none;
+    cursor: pointer;
+    border-radius: 0 0 var(--default-radius) var(--default-radius);
+    padding : var(--spacing-small);
+}
+
+
+.collapsible-content {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all var(--transition-default);
+}
+
+.collapsible-content.expanded {
+    height: auto;
+    opacity: 1;
+}
+
+/* ----------------------- Project Cards --------------------------- */
 .quarto-listing {
     width: var(--max-body-width);
     justify-content: center;
@@ -262,7 +302,8 @@ p {
 }
 
 .card {
-    height: var(--project-card-height);
+    width: auto;
+    height: var(--project-card-height-collapse);
     background-color: var(--color-light-contrast);
     border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
@@ -277,10 +318,6 @@ p {
     justify-content: center;
 }
 
-.card:hover {
-    transform: scale(var(--transform-scale));
-}
-
 .card-title {
     font-size: var(--title-font-size);
     line-height: var(--line-height);
@@ -292,21 +329,27 @@ p {
     font-size: var(--small-text-size);
     line-height: var(--line-height);
     margin: var(--spacing-small) 0 var(--spacing-medium) 0;
+    opacity: 0;
+    height: 0;
+    transition: height var(--transition-default), opacity var(--transition-default);
 }
 
 .card-img {
     margin: 0 auto;
-    width: var(--project-card-height);
-    height: var(--project-cover-height);
+    width: var(--project-card-height-collapse);
+    height: 100%;
     object-fit: cover;
     display: flex;
     align-content: flex-end;
-    border-top-left-radius: var(--default-radius);
+    border-top-left-radius:  var(--default-radius);
     border-bottom-left-radius: var(--default-radius);
+    transition: height var(--transition-default);
 }
 
 .listing-categories {
-    max-width: 70%;
+    max-width: 90%;
+    opacity: 0;
+    height: 0 ;
 }
 
 
@@ -316,12 +359,28 @@ p {
     border: var(--border-width) solid var(--color-brand-primary) !important;
     margin: var(--spacing-small) !important;
     padding: var(--spacing-small) !important;
-    opacity: 0.69;
     width: fit-content;
-    border-radius: var(--small-radius);
-!important;
+    border-radius: var(--small-radius); !important;
+    transition: height var(--transition-default), opacity var(--transition-default);
 }
 
+.card:hover {
+    height: var(--project-card-height);
+}
+
+.card:hover .card-text {
+    height: auto;
+    opacity: 1;
+}
+
+.card:hover .listing-categories {
+    height: auto;
+    opacity: 0.69;
+}
+
+.card:hover .card-img {
+    width: var(--project-card-height);
+}
 
 /* Control bar styling */
 #controls-container {
@@ -462,7 +521,7 @@ p {
     position: absolute;
     right: var(--spacing-small);
     top: var(--spacing-small);
-    border-radius: var(--default-radius);
+    border-radius: var(--small-radius);
     padding: var(--spacing-small);
     background-color: var(--color-brand-primary);
     color: var(--color-light-primary);
@@ -493,7 +552,7 @@ p {
     padding: var(--spacing-small);
     margin: 0 auto;
     height: auto;
-    width: 230px;
+    width: 369px;
     border-radius: var(--default-radius);
     font-size: var(--normal-text-size);
     backdrop-filter: blur(var(--blur-radius));
@@ -544,13 +603,12 @@ p {
 .footer-toc .nav-link {
     text-decoration: none;
     border: none;
-    transition: color var(--transition-default) ease;
+    transition: all var(--transition-default) ease;
 }
 
 .footer-toc .nav-link.active {
-    font-weight: var(--bold-weight);
-    transform: scale(var(--transform-scale));
     color: var(--color-brand-primary);
+    text-decoration: underline;
 }
 
 /* Project content */
@@ -626,9 +684,55 @@ img.img-fluid {
     border-radius: var(--default-radius);
     padding: var(--spacing-large);
 }
+/* Full-screen overlay styling */
+#fullScreenModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: var(--z-index-overlay);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.47); /* Black with transparency */
+    backdrop-filter: blur(var(--blur-radius));
+    justify-content: center;
+    align-items: center;
+}
 
+#fullScreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+}
 
-/* Light Mode */
+/* Table styling */
+table {
+    width: 100%;
+    border : none;
+    border-radius: var(--default-radius);
+    margin: var(--spacing-large) 0;
+    font-size: var(--normal-text-size);
+}
+
+th, td {
+    padding: var(--spacing-medium) var(--spacing-medium);
+    text-align: left;
+}
+
+th {
+    background-color: var(--color-brand-primary);
+    color: white;
+}
+
+.plot {
+    border-radius: var(--default-radius);
+    margin: var(--spacing-large) auto;
+    width: 500px; !important; /* Confirm with layout of plot */
+    height: 400px; !important; /* Confirm with layout of plot */
+    transition: all var(--transition-default);
+}
+
+/* -------------------------- Light Mode -------------------------- */
+
 body.light-mode {
     background-color: var(--color-light-primary);
     color: var(--color-light-imp);
@@ -742,9 +846,21 @@ body.light-mode {
     border-color: var(--color-light-imp) !important;
     color: var(--color-light-imp) !important;
 }
+.light-mode tr:hover {
+    background-color: var(--color-light-contrast);
+}
+
+.light-mode .plot:hover {
+    box-shadow: var(--shadows-light);
+}
+
+.light-mode .plot {
+    background-color: var(--color-light-contrast); !important;
+}
 
 
-/* Dark Mode */
+
+/* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
     background-color: var(--color-dark-primary);
     color: var(--color-dark-imp);
@@ -865,3 +981,14 @@ body.dark-mode {
     color: var(--color-dark-imp) !important;
 }
 
+.dark-mode tr:hover {
+    background-color: var(--color-dark-contrast);
+}
+
+.dark-mode .plot:hover {
+    box-shadow: var(--shadows-dark);
+}
+
+.dark-mode .plot {
+    background-color: var(--color-dark-contrast); !important;
+}
