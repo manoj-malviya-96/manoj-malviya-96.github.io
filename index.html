@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.3/full/pyodide.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
 <script src="./common.js"></script>
+
 <head>
     <meta charset="utf-8">
     <meta name="generator" content="quarto-1.4.545">
@@ -12,7 +18,6 @@
     <script src="site_libs/quarto-search/fuse.min.js"></script>
     <script src="site_libs/quarto-search/quarto-search.js"></script>
     <meta name="quarto:offset" content="./">
-    <link href="./images/logo.png" rel="icon" type="image/png">
     <script src="site_libs/quarto-listing/list.min.js"></script>
     <script src="site_libs/quarto-listing/quarto-listing.js"></script>
     <script src="site_libs/quarto-html/quarto.js"></script>
@@ -53,9 +58,6 @@
         }
     }</script>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         const typesetMath = (el) => {
             if (window.MathJax) {
@@ -63,10 +65,10 @@
                 window.MathJax.typeset([el]);
             } else if (window.katex) {
                 // KaTeX Render
-                var mathElements = el.getElementsByClassName("math");
-                var macros = [];
-                for (var i = 0; i < mathElements.length; i++) {
-                    var texText = mathElements[i].firstChild;
+                let mathElements = el.getElementsByClassName("math");
+                let macros = [];
+                for (let i = 0; i < mathElements.length; i++) {
+                    const texText = mathElements[i].firstChild;
                     if (mathElements[i].tagName === "SPAN") {
                         window.katex.render(texText.data, mathElements[i], {
                             displayMode: mathElements[i].classList.contains('display'),
@@ -92,6 +94,7 @@
 <!-- header -->
 <div id="header-placeholder" style="display: none;"></div>
 
+
 <!-- Overlay with Three Dot Loading Spinner -->
 <div id="content-placeholder-overlay" style="display: none;">
     <div class="spinner-border" role="status"></div>
@@ -101,11 +104,12 @@
 <div id="content-placeholder" style="display: none;"></div>
 
 <script>
-
     let headerPlaceholder = document.getElementById('header-placeholder');
     loadContent("./header.html", headerPlaceholder);
 
-    function loadMainContent(page, event, callback = null, updateHistory = true) {
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    function loadMainContent(page, event, callback = null) {
         const contentPlaceholder = document.getElementById('content-placeholder');
         const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
 
@@ -115,30 +119,17 @@
                 callback();
             }
             // Re-initialize scroll tracking after content is loaded
-            initializeScrollTracking();
+            initScrollTracking();
         });
-        // Set the active link on click
-        if (!!event && !!event.currentTarget) {
-            event.preventDefault(); // Prevent default link behavior
-            setActiveLink(event.currentTarget);
-        }
 
-        const callbackKey = callback ? Object.keys(availableCallbacks).find(key => availableCallbacks[key] === callback) : null;
-        const stateObject = { page: page, callback: callbackKey }; // Include callback in state
-        if (updateHistory){
-            // Update history state
-            console.log("Pushing state: ", page);
-            window.history.pushState(stateObject, '', null);
-        } else {
-            window.history.replaceState(stateObject, '', null);
-        }
+        updateURLParameter(page);
 
         // Use MutationObserver to detect content change in contentPlaceholder
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                     // Re-initialize scroll and active link logic
-                    initializeScrollTracking();
+                    initScrollTracking();
 
                     // Disconnect observer after the content has loaded
                     observer.disconnect();
@@ -149,20 +140,17 @@
         // Start observing the contentPlaceholder for changes
         observer.observe(contentPlaceholder, {childList: true});
     }
-
-    const availableCallbacks = {
-        "loadProjects" : loadProjects,
-        "loadFooter" : loadFooter
-    };
-
     function loadHomePage(event=null) {
-        loadMainContent('./home.html', event, loadProjects, false);
+        loadMainContent('./home.html', event, loadProjects);
     }
     // Add Event Listener for Loading tree-pages.
     document.addEventListener(pageEventHandlerName, function (event) {
         let callback = null;
-        if (event.detail.isProject) {
-            callback = loadFooter;
+
+        if (event.detail.appInitCallBackKey) {
+            callback = availableCallbacks[event.detail.appInitCallBackKey];
+        } else if (event.detail.isProject) {
+            callback = loadProjectFooter;
         }
         loadMainContent(event.detail.page, event, callback);
     });
@@ -170,18 +158,40 @@
     // Handle back/forward navigation with popstate event
     window.addEventListener('popstate', function (event) {
         if (event.state && event.state.page) {
+            console.log('Popstate event detected:', event.state.page);
             const callback = availableCallbacks[event.state.callback];
             // Load content based on the state object stored in history
-            loadMainContent(event.state.page, event, callback, false); // Don't update history again
+            loadMainContent(event.state.page, event, callback); // Don't update history again
         } else {
             // Default action if no state is detected
             loadHomePage();
         }
     });
 
+    function getURLParameter(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+    }
 
-    // Load the home page by default
-    loadHomePage();
+    function loadPageFromParameter() {
+        // Get the 'pageName' parameter from the URL
+        const pageName = getURLParameter('pageName');
+        const defaultPage = './home.html';
+
+        const loadHomePage = !!pageName || pageName !== defaultPage;
+        const pageToLoad = loadHomePage ? defaultPage : pageName;
+        const callback = loadHomePage? loadProjects : loadProjectFooter;
+
+        // Check if the 'pageToLoad' is a valid file type (e.g., .html)
+        if (!pageToLoad.endsWith('.html')) {
+            console.error('Invalid page type specified. Only .html files are allowed.');
+            return;
+        }
+        loadMainContent(pageToLoad, event, callback);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPageFromParameter);
+
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">

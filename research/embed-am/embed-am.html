@@ -1,0 +1,164 @@
+<!-- Dont change this-->
+<footer id="quarto-footer" class="footer">
+</footer>
+<!-- Dont change this-->
+
+
+<!-- header -->
+<header id="title-block-header" class="quarto-title-block page-columns">
+    <div class="quarto-title-banner page-columns page-full">
+        <!-- cover-->
+        <div class="quarto-title-banner-image column-image">
+            <img src="./research/embed-am/cover.png" id="cover" class="img-cover">
+        </div>
+        <!-- title-->
+        <div class="quarto-title column-body">
+            <!-- type-->
+            <div class="project-type" id="project-type">Research</div>
+            <!-- title-->
+            <h1 class="title" id="title">Embedding in AM</h1>
+            <!-- description-->
+            <div class="description" id="description">
+                Characterizing automated design strategies for in-situ embedding in additive manufacturing through
+                interactive digital simulations.
+            </div>
+            <!-- categories -->
+            <div class="quarto-categories" id="skills">
+                <div class="quarto-category">Matlab</div>
+                <div class="quarto-category">Computational Graphics</div>
+                <div class="quarto-category">Optimization</div>
+            </div>
+            <!-- date -->
+            <div class="project-date" id="date">Dec 24 2019</div>
+        </div>
+    </div>
+</header>
+
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    <!-- main -->
+    <main>
+        <div class="block">
+            <!-- abstract -->
+            <p>Additive manufacturing (AM) offers designers access to the entire volume of an artifact during its build
+                operation, including the embedding of foreign objects, like sensors, motors, and actuators, into the
+                artifact to produce multifunctional products from the build tray. However, the application of embedding
+                requires extensive designer expertise in AM. This research aims to develop a tool to automate design
+                decisions for in-situ embedding, eliminating the need for ad-hoc design decisions made by experts. Two
+                unique approaches are proposed in this work: Shadow Projection and Voxel Simulation. Both of these
+                approaches follow a three-stage methodology to achieve design automation by 1) identifying the optimum
+                orientation for the object, 2) designing cavity, and finally 3) designing the shape converter for a
+                flush surface at the paused layer. The two approaches differ in stages 2 and 3. Where the shadow
+                projection approach employs a series of point cloud manipulation to geometry of the embedded object, the
+                Voxel simulation approach simulates the process of insertion of the embedding geometry into the part
+                voxel by voxel. While both proposed approaches are successful in automating design for embedding complex
+                geometries, they result in tradeoffs between final designs and the time for computation. Computational
+                experiment with six test cases show that designers must strategically choose from one of the approaches
+                to efficiently automate the digital design for embedding.
+            </p>
+            <a href="https://github.com/mmalviyar/Delta-Design-Tool"><i class="bi bi-github"></i></a>
+            <a href="https://github.com/mmalviyar/Delta-Design-Tool">Code</a>
+        </div>
+        <div class="content" id="quarto-document-content">
+
+            <!-- getting-started -->
+            <section id="introduction" class="level1">
+                <h2>Introduction</h2>
+
+                <p>Additive Manufacturing’s (AM) ability to build products with both extensive geometric and material
+                    complexity, is having a significant impact on the fields of design and manufacturing. User-defined
+                    control of material deposition affords unique design opportunities, including in-situ embedding of
+                    functional objects to create consolidated multifunctional parts. The ability to interrupt the
+                    manufacturing process to embed a foreign object into a part allows designers to integrate reliable
+                    functional objects within printed structures. This enables the creation of “smart parts” with
+                    integrated circuits and sensors directly from the build tray. However, it is not as straight forward
+                    as it looks. For instance, a spherical object can be imbedded in to cube with a circular cavity. We
+                    require a proper cavity and a flush surface for resuming layered printing and protect the embedding
+                    object as shown in figure. In this work, we design an additional part called shape convertor to
+                    provide flush surface. Concluding, automating the design process requires the production of the
+                    cavity, shape convertor, and the orientation of embedding object.</p>
+                <img src="./research/embed-am/embed.png" class="img-fluid" alt="">
+            </section>
+
+
+            <section id="main-content" class="level2">
+                <h2>Methodology</h2>
+
+                <p>The objective of this research is to automate design for embedding with AM for any arbitrary object
+                    geometry through a computational tool. To identify the framework for this tool, the design process
+                    was broken into three stages: 1) embedding orientation selection, 2) automation of cavity design,
+                    and 3) automation of shape converter design. Two approaches are presented for stage 2 and 3: Shadow
+                    Projection and the Voxel Simulation ​.</p>
+                <img src="./research/embed-am/algo.png" alt="" class="img-fluid">
+                <h3>Stage 1: Orientation Optimization</h3>
+                <p> With the understanding of material strength and orientation generated from previous research, an
+                    embedded component should ideally be oriented so that cross-sectional area of the cavity is
+                    minimized at the embedding plane. Through this consideration, the tensile strength of the part is
+                    maximized if loaded perpendicular to the embedding plane. As such, the first stage of the proposed
+                    process focuses on obtaining this ideal orientation for any arbitrary component geometry. To
+                    calculate the area, we developed a computational method called shadow projection.
+                    A shadow projection technique is used to ensure that the cavity is large enough to completely insert
+                    the part in a selected orientation. The shadow projection method can be visualized as a shadow on a
+                    flat surface by the geometry when parallel light rays are vertically cast over it (see figure
+                    below). Here, the X-Y coordinates of the vertices on the planes perpendicular to the object’s
+                    orientation vector are projected on to the X-Y plane at the top-most plane of that orientation,
+                    resulting in a point cloud on the X-Y plane. A 2-dimensional shape that bounds the resulting point
+                    cloud is obtained as the cross-section of the cavity at the paused layer using 2D quick-hull
+                    algorithm, for this orientation. The shadow curve obtained contains all the projected points to
+                    paused layer and thus, this cross section will allow the object would successfully be inserted.</p>
+                <img src="./research/embed-am/cavity_geom.png" alt="" class="img-fluid">
+                <p> To obtain an ideal orientation, optimization is performed for the cavity for minimizing cross
+                    section area at paused layer over design variable orientation , which is determined by obtaining the
+                    area of the closed shadow curve obtained and is denoted as As. However, for any geometry, at least
+                    two flipped orientations will have the same shadow curve (see above figure), such that there will be
+                    multiple orientations with minimum . While these two flipped orientations need the same
+                    cross-section area of the cavity for successful insertion, the cavity volume may differ. To address
+                    the problem of multiple viable solutions, another objective function is introduced to minimize the
+                    cavity volume. Cavity design is obtained by taking a convex hull of the shadow curve and the
+                    object-hull of the geometry at the candidate orientation. The shadow curve is fixed as the top
+                    surface of the geometry, perpendicular to the candidate orientation, producing the overall cavity
+                    design for given orientation of the embedded geometry. The volume of the cavity design, Vc is
+                    evaluated by applying the divergence theorem on cavity mesh.</p>
+                <h3>Stage 2: Cavity Design Automation </h3>
+                <p> While shadow projection rapidly generated cavity, it also forms additional gaps between cavity and
+                    embedded object. These gaps may result in an unstable assembly by allowing free movement of the
+                    embedded object that could cause print failure, or damage through friction within the cavity. An
+                    ideal embedding approach must be able to account for the volumetric gaps. This led to investigate a
+                    new methodology for cavity and shape convertor called voxel simulation.</p>
+                <img src="./research/embed-am/shadow-project.png" alt="" class="img-fluid">
+                <img src="./research/embed-am/voxel-bool.png" alt="" class="img-fluid">
+                <p>This approach comprises two steps: defining both the part and the object spaces and then performing
+                    the Voxel Boolean simulation. The first step is to generate the two different virtual spaces: the
+                    object space and the part space. In the current implementation, the object space is a cuboidal voxel
+                    volume of twice the height of the embedded object in its optimum orientation. The voxelized object
+                    is then placed in the top half of the object space, while the bottom half is left with no material
+                    (Step 1). Conversely, the same resolution as the object space is used for the part space, but the
+                    bottom half is filled with material. Once both spaces have been generated, the second step is to
+                    simulate the embedding process. For embedding, the object in the object space is moved downward one
+                    voxel step at a time: a Boolean operation between object space and part space is carried out for
+                    each voxel step (Step 2). The resulting part space is simultaneously updated. This process is
+                    repeated until the object reaches the bottom of the object space. To identify the final embedding
+                    cavity, the material in the part space is inverted and saved as a separate STL file. This cavity is
+                    then used in a Boolean operation with the original AM part.</p>
+                <img src="./research/embed-am/voxel-sim.png" alt="" class="img-fluid">
+                <h3>Stage 3: Shape Convertor Automation </h3>
+                <p>To automate the shape convertor design, a scenario of moving the embedding object into the cavity
+                    geometry from bottom to top in a straight line is simulated. Like the previous part space, a cavity
+                    space is created with double the height of the cavity geometry, with its top half filled with the
+                    identified cavity geometry from Stage 2 and the bottom half is filled with no material. In contrast
+                    to the previous approach, the object space is created with the embedded object in the bottom half of
+                    the space, with no material in the top half. To simulate the creation of the shape converter, the
+                    embedded object moves upward in the space by one voxel at a time. Like the previously shown
+                    simulation, a Boolean subtractive operation is carried out where the object space is removed from
+                    the cavity space until the object reaches the top of the object space, resulting in the final shape
+                    converter design.</p>
+                <img src="./research/embed-am/shape-conv.png" alt="" class="img-fluid">
+            </section>
+            <section id="output" class="level2">
+                <h2>Conclusion</h2>
+                <img src="./research/embed-am/result-1.png" alt=""  class="img-fluid">
+                <img src="./research/embed-am/result-2.png" alt=""  class="img-fluid">
+            </section>
+        </div>
+    </main> <!-- /main -->
+</div> <!-- /content -->
