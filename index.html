@@ -167,9 +167,10 @@
     function loadPageFromParameter() {
         // Get the 'pageName' parameter from the URL
         const pageName = getURLParameter('pageName');
-        const defaultPage = './home.html';
+        console.log('Page name from URL:', pageName);
 
-        const loadHomePage = !!pageName || pageName !== defaultPage;
+        const defaultPage = './home.html';
+        const loadHomePage = !pageName || pageName === defaultPage;
         const pageToLoad = loadHomePage ? defaultPage : pageName;
         const callback = loadHomePage? loadProjects : loadProjectFooter;
 
