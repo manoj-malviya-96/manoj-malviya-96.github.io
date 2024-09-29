@@ -73,6 +73,9 @@
     --color-calendar-graph-day-L2-bg: #487cfd;
     --color-calendar-graph-day-L3-bg: #3d65c4;
     --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
+
+    /* About me */
+    --about-expand-button-height: 27px;
 }
 
 /* General styling for navbar items */
@@ -269,13 +272,20 @@ p {
 }
 
 .about-expand-button {
-    margin: 0 auto;
+    height: var(--about-expand-button-height);
+    margin-top: calc(-1* var(--border-width)); /* to adjust for border */
     background-color: var(--color-brand-primary);
     color: var(--color-light-primary);
     border: none;
     cursor: pointer;
     border-radius: 0 0 var(--default-radius) var(--default-radius);
     padding: var(--spacing-small);
+
+}
+
+.about-expand-button.expanded {
+    transform: translateY(calc(-1*var(--about-expand-button-height)));
+    border-radius: var(--default-radius) var(--default-radius) 0 0 ;
 }
 
 

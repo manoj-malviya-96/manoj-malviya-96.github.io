@@ -565,6 +565,8 @@ function initToggleForAbout() {
         return;
     }
     button.addEventListener('click', function () {
+        this.classList.toggle('expanded');
+
         const content = window.document.querySelector('.collapsible-content');
         content.classList.toggle('expanded');
 
