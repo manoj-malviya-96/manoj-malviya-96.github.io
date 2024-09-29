@@ -1,11 +1,11 @@
 /** Common utility functions for Quarto themes */
 
-// Global variables
+// Global variables - Accessible across all scripts
 const contentPlaceholder = window.document.getElementById('content-placeholder');
 const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
 const homePage = './home.html';
-// Sort options for projects
-function loadContentInMainWindow(page, event, callback = null) {
+// Load Content with Overlay, used to show a loading spinner while content is being fetched
+function loadContentInMainWindow(page, event, callback = null, doPushToHistory = true) {
     if (!contentPlaceholder || !contentPlaceholderOverlay) {
         console.error('Content placeholders not found');
         return;
@@ -29,7 +29,7 @@ function loadContentInMainWindow(page, event, callback = null) {
         initImageFluidHandler();
     });
 
-    pushURLToHistory(addParamsToURL({'pageName': page}));
+    handleURLinHistory(addParamsToURL({'pageName': page}), doPushToHistory);
     initContentObserver(contentPlaceholder);
 }
 // Load the homepage content -> About me and project cards.
@@ -55,17 +55,22 @@ function loadPageFromTypedURL(event) {
         console.error('Invalid page type specified. Only .html files are allowed.');
         return;
     }
-    loadContentInMainWindow(pageToLoad, event, callback);
+    loadContentInMainWindow(pageToLoad, event, callback,  false);
 }
 
-function pushURLToHistory(url) {
+function handleURLinHistory(url, doPushToHistory) {
     if (!url){
         console.error('URL is empty');
         return;
     }
-    window.history.pushState({ pageURL: url.toString() }, '', url);
-}
+    const state = { pageURL: url.toString() };
+    if (doPushToHistory){
+        window.history.pushState(state, '', url);
+    } else {
+        window.history.replaceState(state, '', url);
+    }
 
+}
 
 function setupPopStateHandler() {
     window.addEventListener('popstate', function (event) {
