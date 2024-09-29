@@ -1,5 +1,10 @@
 /* Collection of functions to initialize the website */
 
+function initHeader() {
+    let headerPlaceholder = document.getElementById('header-placeholder');
+    loadContent("./header.html", headerPlaceholder);
+}
+
 function initGithub() {
     console.log('Init Github');
     GitHubCalendar(".calendar", "manoj-malviya-96", {

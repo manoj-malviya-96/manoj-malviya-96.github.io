@@ -1,24 +1,9 @@
 // common.js
 // Store all unique categories here
-let timeOut_ms = 690;
 const availableCallbacks = {
     "loadProjects": loadProjects,
     "loadFooter": loadProjectFooter,
 };
-
-// Function to update or add the 'pageName' parameter in the URL
-function updateURLParameter(pageName) {
-    const url = new URL(window.location);
-    url.searchParams.set('pageName', pageName); // Set the pageName parameter
-    console.log('Updated URL:', url.href, pageName);
-    window.history.pushState({}, '', url); // Update the URL without reloading the page
-}
-
-function getURLParameter(name) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(name);
-}
-
 
 function getCardHTML(filePath, imagePath, title,
                      description, categories,
@@ -206,50 +191,6 @@ function updateSortingIcon(value) {
 
 /* ------ End of sorting projects ------ */
 
-
-function loadContent(page, placeholder, callback = null) {
-    // Show the overlay before loading content
-    placeholder.style.display = 'none';
-    fetch(page)
-        .then(response => response.text())
-        .then(data => {
-            placeholder.innerHTML = data;
-            placeholder.style.display = 'block'; // Show the content
-            if (callback) callback(); // Call callback after loading content
-        })
-        .catch(error => {
-            console.error('Error loading content:', error);
-            placeholder.innerHTML = '<p>Error loading content. Please try again later.</p>';
-            placeholder.style.display = 'block';
-        });
-}
-
-
-function loadContentWithDelay(page, placeholder, overlay, callback = null) {
-    // Show the overlay before loading content
-    overlay.style.display = 'flex';
-    placeholder.style.display = 'none';
-
-    fetch(page)
-        .then(response => response.text())
-        .then(data => {
-            placeholder.innerHTML = data;
-            setTimeout(() => {
-                overlay.style.display = 'none'; // Hide the overlay
-                placeholder.style.display = 'block'; // Show the content
-                // Call the callback AFTER the content is injected
-                if (callback) {
-                    callback();
-                }
-            }, timeOut_ms); // 500 milliseconds delay, adjust as needed
-        })
-        .catch(error => {
-            console.error('Error loading content:', error);
-            overlay.style.display = 'none';
-            placeholder.innerHTML = '<p>Error loading content. Please try again later.</p>';
-            placeholder.style.display = 'block';
-        });
-}
 
 
 const pageEventHandlerName = "loadPageOnMain";

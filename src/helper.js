@@ -1,4 +1,58 @@
 /* ------ Helper functions ------ */
+const timeOut_ms = 690; // Global Timeout
+
+function loadContentWithOverlay(page, placeholder, overlay = null, callback = null, delay_ms = timeOut_ms) {
+    const toggleDisplay = (element, displayStyle) => {
+        if (element) element.style.display = displayStyle;
+    };
+
+    toggleDisplay(overlay, 'flex');
+    toggleDisplay(placeholder, 'none');
+
+    fetch(page)
+        .then(response => response.ok ? response.text() : Promise.reject('Failed to load'))
+        .then(data => {
+            placeholder.innerHTML = data;
+            setTimeout(() => {
+                toggleDisplay(overlay, 'none');
+                toggleDisplay(placeholder, 'block');
+                callback?.(); // Call the callback if provided
+            }, delay_ms);
+        })
+        .catch(error => {
+            console.error('Error loading content:', error);
+            toggleDisplay(overlay, 'none');
+            placeholder.innerHTML = '<p>Error loading content. Please try again later.</p>';
+            toggleDisplay(placeholder, 'block');
+        });
+}
+// Overloaded function with no overlay and no delay
+function loadContent(page, placeholder, callback = null) {
+    loadContentWithOverlay(page, placeholder, null, callback, 0);
+}
+
+// Function to update the URL with a new pageName parameter
+function addParamsToURL(params) {
+    const url = new URL(window.location);
+    for (const key in params) {
+        url.searchParams.set(key, params[key]);
+    }
+    console.log('Updated URL:', url.href, params);
+    return url;
+}
+
+function getURLParams(key) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(key);
+}
+
+function pushURLToHistory(url) {
+    if (!url){
+        console.error('URL is empty');
+        return;
+    }
+    window.history.pushState({}, '', url); // Update the URL without reloading the page
+}
 
 function storeValueInStorage(key, value) {
     localStorage.setItem(key, value);
@@ -8,12 +62,12 @@ function getValueFromStorage(key, defaultValue) {
     return localStorage.getItem(key) || defaultValue;
 }
 
+const months = {
+    'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5,
+    'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10,
+    'Nov': 11, 'Dec': 12
+};
 function fromTxtMonth(month) {
-    const months = {
-        'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5,
-        'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10,
-        'Nov': 11, 'Dec': 12
-    };
     return months[month] || 0;
 }
 
@@ -29,6 +83,7 @@ function getElementAttribute(doc, selector, attr = 'textContent', defaultValue =
     return element ? (attr === 'textContent' ? element.textContent : element.getAttribute(attr)) : defaultValue;
 }
 
+// Utility to create layout for Plotly plots
 function createLayout(title, xTitle, yTitle) {
     return {
         title: title,
@@ -50,6 +105,7 @@ function createLayout(title, xTitle, yTitle) {
     };
 }
 
+// Utility function to create a heatmap plot using Plotly
 function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "") {
     const data = {
         z: z,

@@ -112,8 +112,8 @@
 <div id="content-placeholder" style="display: none;"></div>
 
 <script>
-    let headerPlaceholder = document.getElementById('header-placeholder');
-    loadContent("./header.html", headerPlaceholder);
+    // Initialize the Header
+    initHeader();
 
     // Initialize the scroll behavior
     initScrollBehavior();
@@ -123,7 +123,7 @@
         const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
 
         // Load content and pass the footer initialization as a callback
-        loadContentWithDelay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
+        loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
             if (callback){
                 callback();
             }
@@ -133,6 +133,7 @@
             if (page === './research/delta-design/delta-design.html') {
                 createPlotsForDeltaDesign();
             }
+            // Inits
             initTheme();
             initGithub();
             initSortOptions();
@@ -141,14 +142,14 @@
             initImageFluidHandler();
         });
 
-        updateURLParameter(page);
+        pushURLToHistory(addParamsToURL({'pageName': page}));
         initContentObserver(contentPlaceholder);
     }
     function loadHomePage(event=null) {
         loadMainContent('./home.html', event, loadProjects);
     }
 
-    // Add Event Listener for Loading tree-pages.
+    //-- This can be loadProjectPage Functions.
     document.addEventListener(pageEventHandlerName, function (event) {
         let callback = null;
 
@@ -160,7 +161,7 @@
         loadMainContent(event.detail.page, event, callback);
     });
 
-    // Handle back/forward navigation with popstate event
+    // Init History Event Listener
     window.addEventListener('popstate', function (event) {
         if (event.state && event.state.page) {
             console.log('Popstate event detected:', event.state.page);
@@ -172,9 +173,11 @@
             loadHomePage();
         }
     });
+
+    // Load the page from the URL parameter
     function loadPageFromParameter() {
         // Get the 'pageName' parameter from the URL
-        const pageName = getURLParameter('pageName');
+        const pageName = getURLParams('pageName');
         console.log('Page name from URL:', pageName);
 
         const defaultPage = './home.html';
@@ -189,6 +192,7 @@
         }
         loadMainContent(pageToLoad, event, callback);
     }
+    //! Even listener to load the page from the URL parameter
     document.addEventListener('DOMContentLoaded', loadPageFromParameter);
 </script>
 
