@@ -190,3 +190,32 @@ function initSortOptions() {
         select.appendChild(opt);
     });
 }
+
+
+// Initialize the Math rendering library
+function initMathJax(){
+    const typesetMath = (el) => {
+        if (window.MathJax) {
+            // MathJax Typeset
+            window.MathJax.typeset([el]);
+        } else if (window.katex) {
+            // KaTeX Render
+            let mathElements = el.getElementsByClassName("math");
+            let macros = [];
+            for (let i = 0; i < mathElements.length; i++) {
+                const texText = mathElements[i].firstChild;
+                if (mathElements[i].tagName === "SPAN") {
+                    window.katex.render(texText.data, mathElements[i], {
+                        displayMode: mathElements[i].classList.contains('display'),
+                        throwOnError: false,
+                        macros: macros,
+                        fleqn: false
+                    });
+                }
+            }
+        }
+    }
+    window.Quarto = {
+        typesetMath
+    };
+}
