@@ -429,6 +429,11 @@ function toggleTheme() {
     const icon = document.getElementById('theme-icon');
     const toDarkMode = document.body.classList.contains('light-mode');
 
+    if (!icon){
+        console.error("No button");
+        return ;
+    }
+
     if (toDarkMode) {
         document.body.classList.replace('light-mode', 'dark-mode');
         icon.className = 'bi bi-moon-stars-fill';

@@ -131,6 +131,7 @@
             if (page === './research/delta-design/delta-design.html') {
                 createPlotsForDeltaDesign();
             }
+            initTheme();
             initGithub();
             initScrollTracking();
             initToggleForAbout();
@@ -186,7 +187,6 @@
         loadMainContent(pageToLoad, event, callback);
     }
     document.addEventListener('DOMContentLoaded', loadPageFromParameter);
-    initTheme();
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">
