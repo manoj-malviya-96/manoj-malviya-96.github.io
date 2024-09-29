@@ -32,9 +32,11 @@
     --regular-weight: 420;
     --bold-weight: 690;
     --line-height: 1.25;
+
     --small-text-size: 10px;
     --normal-text-size: 15px;
-    --title-font-size: 21px;
+    --title-font-size: 27px;
+    --super-title-font-size: 41px;
 
     --icon-big-size: 18px;
 
@@ -213,12 +215,23 @@ body {
     transition: all var(--transition-default);
 }
 
-h1, h2 {
+h1 {
+    font-size: var(--super-title-font-size);
+    line-height: var(--line-height);
+    font-weight: var(--bold-weight);
+    text-align: left;
+    border: none;
+    transition: all var(--transition-short);
+}
+
+h2 {
+    font-size: var(--title-font-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
     text-align: left;
     transition: all var(--transition-short);
 }
+
 
 p {
     line-height: var(--line-height);
@@ -362,7 +375,7 @@ p {
 }
 
 .card-title {
-    font-size: var(--title-font-size);
+    font-size: 21px; /* Card title font size */
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
 }
