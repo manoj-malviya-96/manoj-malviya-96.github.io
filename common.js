@@ -110,7 +110,7 @@ function loadProjects() {
             categories.forEach(category => allCategories.add(category));
             // Update the Set with each project's categories
         });
-        generateDropdownFilters(allCategories);
+        makeCategoryDropdownFilters(allCategories);
         sortProjects('desc-date'); // Sort projects by title in ascending order
     }).catch(err => {
         console.error('Error loading all projects:', err);
@@ -118,7 +118,7 @@ function loadProjects() {
 }
 
 // Function to dynamically generate the dropdown options based on unique categories
-function generateDropdownFilters(allCategories) {
+function makeCategoryDropdownFilters(allCategories) {
     const filterDropdown = document.getElementById('category-filter');
 
     // Create option elements for each category dynamically
@@ -130,16 +130,6 @@ function generateDropdownFilters(allCategories) {
     });
 }
 
-// Filter projects based on the selected category in the dropdown
-function filterProjects(category) {
-    filterProjectsBySearchAndCategory(null, category); // Apply the search filter as well
-}
-
-function searchProjects() {
-    let input = document.getElementById('search-input').value.toLowerCase();
-    filterProjectsBySearchAndCategory(input, null);
-}
-
 // Search projects based on title or description
 function filterProjectsBySearchAndCategory(searchInput = null, category = null) {
     let cards = document.querySelectorAll('.project-card');
@@ -149,18 +139,28 @@ function filterProjectsBySearchAndCategory(searchInput = null, category = null) 
         let isInCategory = true;
         // Check if the card matches the search input and category
         if (category !== null) {
-            let cardCategories = card.getAttribute('data-categories').split(',');
+            const cardCategories = card.getAttribute('data-categories').split(',');
             isInCategory = category === 'all' || cardCategories.includes(category);
         }
         // Check if the card matches the search input
         if (searchInput !== null && searchInput !== "") {
-            let title = card.getAttribute('data-title');
-            let description = card.getAttribute('data-description');
+            const title = card.getAttribute('data-title');
+            const description = card.getAttribute('data-description');
             isSearchMatch = title.includes(searchInput) || description.includes(searchInput);
         }
         card.style.display = isInCategory && isSearchMatch ? 'block' : 'none';
     });
 }
+// Filter projects based on the selected category in the dropdown
+function filterProjects(category) {
+    filterProjectsBySearchAndCategory(null, category); // Apply the search filter as well
+}
+// Search projects based on the input value (not case-sensitive)
+function searchProjects() {
+    let input = document.getElementById('search-input').value.toLowerCase();
+    filterProjectsBySearchAndCategory(input, null);
+}
+
 
 
 function sortProjects(sortBy) {
