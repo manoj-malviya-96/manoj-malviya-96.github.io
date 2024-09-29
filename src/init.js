@@ -162,3 +162,29 @@ function initScrollTracking() {
         }
     });
 }
+
+
+// Function to initialize Sort Filter
+const sortOptions = [
+    {value: 'date-desc', label: 'Latest', icon: 'bi-sort-down-alt'},
+    {value: 'date-asc', label: 'When I was a kid', icon: 'bi-sort-up'},
+    {value: 'title-asc', label: 'A-Z', icon: 'bi-sort-alpha-down'},
+    {value: 'title-desc', label: 'Z-A', icon: 'bi-sort-alpha-down-alt'}
+];
+const defaultSortOption = 'date-desc';
+
+function initSortOptions() {
+    const select = document.getElementById('sort-filter');
+
+    if (!select) {
+        console.log('Sort filter not found');
+        return;
+    }
+
+    sortOptions.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.value;
+        opt.textContent = option.label;
+        select.appendChild(opt);
+    });
+}

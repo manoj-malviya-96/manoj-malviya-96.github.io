@@ -110,7 +110,7 @@ function loadProjects() {
             // Update the Set with each project's categories
         });
         makeCategoryDropdownFilters(allCategories);
-        sortProjects(defaultSortBy);
+        sortProjects(defaultSortOption);
     }).catch(err => {
         console.error('Error loading all projects:', err);
     });
@@ -163,16 +163,16 @@ function searchProjects() {
 }
 
 /* ------ Sorting projects ------ */
-const sortOptions = ['date-asc', 'date-desc', 'title-asc', 'title-desc'];
-const defaultSortBy = 'date-desc';
 function sortProjects(sortBy) {
-    if (!sortOptions.includes(sortBy)) {
+    if (!sortOptions.some(option => option.value === sortBy)) {
         console.error('Invalid sorting option:', sortBy);
         return;
     }
+
     const sortKey = sortBy.split('-')[0]; // Get the key to sort by (date or title)
     const sortOrder = sortBy.split('-')[1]; // Get the order (asc or desc)
 
+    // Get all project cards
     const container = document.getElementById('project-list');
     const cards = Array.from(container.children);
 
@@ -187,7 +187,7 @@ function sortProjects(sortBy) {
         if (sortKey === 'date') {
             const dateA = a.getAttribute('data-date');
             const dateB = b.getAttribute('data-date');
-            return sortBy === 'asc' ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+            return sortOrder === 'asc' ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
         }
         return 0;
     });
@@ -201,22 +201,9 @@ function updateSortingIcon(value) {
         console.error('Sort icon not found');
         return;
     }
-
-    switch (value) {
-        case 'asc-date':
-            icon.className = 'bi bi-sort-numeric-down'; // Icon for 1-9
-            break;
-        case 'desc-date':
-            icon.className = 'bi bi-sort-numeric-down-alt'; // Icon for 9-1
-            break;
-        case 'asc-title':
-            icon.className = 'bi bi-sort-alpha-down'; // Icon for A-Z
-            break;
-        case 'desc-title':
-            icon.className = 'bi bi-sort-alpha-down-alt'; // Icon for Z-A
-            break;
-    }
+    icon.className = sortOptions.find(option => option.value === value).icon;
 }
+
 /* ------ End of sorting projects ------ */
 
 
