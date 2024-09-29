@@ -22,8 +22,8 @@
 
     /* Size */
     --max-body-width: 1200px;
-    --max-content-width: 800px;
-    --max-image-width: 750px; /* Smaller than content width */
+    --max-content-width: 690px;
+    --max-image-width: 650px; /* Smaller than content width */
     --default-radius: 12px;
     --small-radius: 6px;
 
@@ -512,7 +512,6 @@ p {
 #title-block-header .quarto-title-banner {
     width: var(--max-content-width);
     height: var(--project-banner-height);
-    margin: 0 auto 0 auto;
     border-radius: var(--default-radius);
     display: flex;
     justify-content: center;
@@ -572,7 +571,7 @@ p {
     color: var(--color-brand-primary);
     position: absolute;
     right: var(--spacing-medium);
-    bottom: var(--spacing-medium);
+    bottom: var(--spacing-large);
 }
 
 .description {
