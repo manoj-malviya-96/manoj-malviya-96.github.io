@@ -114,8 +114,7 @@
     loadContent("./header.html", headerPlaceholder);
 
     // Initialize the scroll behavior
-    window.document.documentElement.style.scrollBehavior = 'smooth';
-
+    initScrollBehavior();
 
     function loadMainContent(page, event, callback = null) {
         const contentPlaceholder = document.getElementById('content-placeholder');
@@ -187,6 +186,7 @@
         loadMainContent(pageToLoad, event, callback);
     }
     document.addEventListener('DOMContentLoaded', loadPageFromParameter);
+    initTheme();
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">

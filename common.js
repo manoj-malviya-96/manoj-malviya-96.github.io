@@ -436,6 +436,8 @@ function toggleTheme() {
         document.body.classList.replace('dark-mode', 'light-mode');
         icon.className = 'bi bi-sunrise-fill';
     }
+
+    storeValueInStorage('theme', toDarkMode ? 'dark-mode' : 'light-mode');
 }
 
 function loadPDF(url, contentPlaceholder, contentPlaceholderOverlay) {
@@ -621,10 +623,31 @@ function initImageFluidHandler() {
 
 }
 
-function initGithub(){
+function initGithub() {
     console.log('Init Github');
     GitHubCalendar(".calendar", "manoj-malviya-96", {
         responsive: true
     });
 }
 
+
+function storeValueInStorage(key, value) {
+    localStorage.setItem(key, value);
+}
+
+function getValueFromStorage(key, defaultValue) {
+    return localStorage.getItem(key) || defaultValue;
+}
+
+
+function initScrollBehavior() {
+    window.document.documentElement.style.scrollBehavior = 'smooth';
+}
+
+function initTheme() {
+    const userTheme = getValueFromStorage('theme', 'dark-mode');
+    const isThemeSameAsStorage = window.document.body.classList.contains(userTheme);
+    if (!isThemeSameAsStorage) {
+        toggleTheme();
+    }
+}
