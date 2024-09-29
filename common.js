@@ -1,5 +1,4 @@
 // common.js
-
 // Store all unique categories here
 let timeOut_ms = 690;
 const availableCallbacks = {
@@ -566,11 +565,10 @@ function initToggleForAbout() {
         return;
     }
     button.addEventListener('click', function () {
+        this.classList.toggle('expanded');
+
         const content = window.document.querySelector('.collapsible-content');
         content.classList.toggle('expanded');
-
-        const profileImage = window.document.querySelector('.profile-image img');
-        profileImage.classList.toggle('expanded');
 
         // Get the icon element inside the button
         const icon = this.querySelector('i');
@@ -621,5 +619,12 @@ function initImageFluidHandler() {
         }
     });
 
+}
+
+function initGithub(){
+    console.log('Init Github');
+    GitHubCalendar(".calendar", "manoj-malviya-96", {
+        responsive: true
+    });
 }
 
