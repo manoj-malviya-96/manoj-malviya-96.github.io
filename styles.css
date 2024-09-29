@@ -24,8 +24,8 @@
     --max-body-width: 1200px;
     --max-content-width: 690px;
     --max-image-width: 650px; /* Smaller than content width */
-    --default-radius: 12px;
-    --small-radius: 6px;
+    --default-radius: 6px;
+    --small-radius: 3px;
 
     /* Font */
     --font-family: 'Helvetica';
@@ -757,6 +757,7 @@ img.img-fluid {
     backdrop-filter: blur(var(--blur-radius));
     justify-content: center;
     align-items: center;
+    border-radius: var(--default-radius);
 }
 
 #fullScreenModal img {
