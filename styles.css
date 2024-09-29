@@ -194,7 +194,7 @@ body {
 .quarto-about-jolla,
 .content {
     margin: 0 auto;
-    text-align: justify;
+    text-align: left;
     width: var(--max-body-width);
     line-height: var(--line-height);
     border-style: solid;
@@ -204,7 +204,7 @@ body {
 }
 
 .block {
-    text-align: justify;
+    text-align: left;
     max-width: var(--max-content-width);
     padding: var(--spacing-large);
     line-height: var(--line-height);
