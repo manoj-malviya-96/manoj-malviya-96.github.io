@@ -3,43 +3,52 @@
 // Global variables - Accessible across all scripts
 const contentPlaceholder = window.document.getElementById('content-placeholder');
 const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
+
 const homePage = './home.html';
+const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, initSortOptions, loadProjects];
+
+const defaultProjectCallbacks = [initTheme, loadProjectFooter, initImageFluidHandler, initScrollTracking];
+// Order matters- loadProjectFooter should be called before initScrollTracking
+const projectHTMLToCallBackMap = {
+    './research/delta-design/delta-design.html': [createPlotsForDeltaDesign],
+    './research/topt/rapid-topt.html': [],
+    './research/cub-companion/cub-companion.html': [],
+    './research/dfam/dfam.html': [createPlotsForDfam],
+    './research/embed-am/embed-am.html': [],
+    './research/build-orient/build-orient.html': [],
+    './job/ui-lead/ui-lead.html': [],
+}
+
+
 // Load Content with Overlay, used to show a loading spinner while content is being fetched
-function loadContentInMainWindow(page, event, callback = null, doPushToHistory = true) {
+function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = true) {
     if (!contentPlaceholder || !contentPlaceholderOverlay) {
         console.error('Content placeholders not found');
         return;
     }
     loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
-        if (callback){
-            callback();
+        if (callbacks.length > 0) {
+            for (const callback of callbacks) {
+                setTimeout(callback, 5); // Add a delay to ensure the content is loaded before calling the callback
+            }
         }
-        if (page === './research/dfam/dfam.html') {
-            createPlotsForDfam();
-        }
-        if (page === './research/delta-design/delta-design.html') {
-            createPlotsForDeltaDesign();
-        }
-        // Inits
-        initTheme();
-        initGithub();
-        initSortOptions();
         initScrollTracking();
-        initToggleForAbout();
-        initImageFluidHandler();
     });
-
     handleURLinHistory(addParamsToURL({'pageName': page}), doPushToHistory);
     initContentObserver(contentPlaceholder);
 }
-// Load the homepage content -> About me and project cards.
-function loadHomePage(event=null) {
-    loadContentInMainWindow(homePage, event, loadProjects);
+
+/** We only have two types of pages: home and project pages. */
+
+// 1. Load the homepage content -> About me and project cards.
+function loadHomePage(event = null, doPushToHistory = true) {
+    loadContentInMainWindow(homePage, event, homePageCallbacks, doPushToHistory);
 }
 
-// Load Project Page, with special handling for the footer. Todo- add the loadProjectFooter to the callback-list
-function loadProjectPage(page, event) {
-    loadContentInMainWindow(page, event, loadProjectFooter);
+// 2. Load Project Page with the specified callbacks
+function loadProjectPage(page, event, doPushToHistory = true) {
+    const callbacks = defaultProjectCallbacks.concat(projectHTMLToCallBackMap[page]);
+    loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
 
 // Load the page from the URL with the 'pageName' parameter
@@ -47,29 +56,31 @@ function loadPageFromTypedURL(event) {
     // Get the 'pageName' parameter from the URL
     const pageName = getURLParams('pageName');
     const doLoadHomePage = !pageName || pageName === homePage;
-    const pageToLoad = doLoadHomePage ? homePage : pageName;
-    const callback = doLoadHomePage? loadProjects : loadProjectFooter;
+
+    if (doLoadHomePage) {
+        loadHomePage(event, false);
+        return;
+    }
 
     // Check if the 'pageToLoad' is a valid file type (e.g., .html)
-    if (!pageToLoad.endsWith('.html')) {
+    if (!pageName.endsWith('.html')) {
         console.error('Invalid page type specified. Only .html files are allowed.');
         return;
     }
-    loadContentInMainWindow(pageToLoad, event, callback,  false);
+    loadProjectPage(pageName, event, false);
 }
 
 function handleURLinHistory(url, doPushToHistory) {
-    if (!url){
+    if (!url) {
         console.error('URL is empty');
         return;
     }
-    const state = { pageURL: url.toString() };
-    if (doPushToHistory){
+    const state = {pageURL: url.toString()};
+    if (doPushToHistory) {
         window.history.pushState(state, '', url);
     } else {
         window.history.replaceState(state, '', url);
     }
-
 }
 
 function setupPopStateHandler() {
@@ -82,7 +93,7 @@ function setupPopStateHandler() {
     });
 }
 
-function setupLoadPageUrlHandler(){
+function setupLoadPageUrlHandler() {
     window.document.addEventListener('DOMContentLoaded', loadPageFromTypedURL);
 }
 
@@ -158,17 +169,10 @@ function makeProjectCard(filePath, containerId) {
 
 function loadProjects() {
     const containerId = 'project-list';
-    const projects = [
-        './research/delta-design/delta-design.html',
-        './research/topt/rapid-topt.html',
-        './research/cub-companion/cub-companion.html',
-        './research/dfam/dfam.html',
-        './research/embed-am/embed-am.html',
-        './research/build-orient/build-orient.html',
-        './job/ui-lead/ui-lead.html',
-    ];
     let allCategories = new Set();
-    const promises = projects.map(filePath => makeProjectCard(filePath, containerId));
+    const promises = Object.entries(projectHTMLToCallBackMap).map(([projectKey,]) =>
+        makeProjectCard(projectKey, containerId)
+    );
 
     // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
     Promise.all(promises).then(results => {
