@@ -20,9 +20,9 @@ function getURLParameter(name) {
 }
 
 
-function createProjectCard(filePath, imagePath, title,
-                           description, categories,
-                           type = "", date = "") {
+function getCardHTML(filePath, imagePath, title,
+                     description, categories,
+                     type = "", date = "") {
     categories = categories.sort((a, b) => a.localeCompare(b));
     return `
         <div class="g-col-1 project-card" 
@@ -72,7 +72,7 @@ function makeProjectCard(filePath, containerId) {
 
             const categories = Array.from(doc.querySelectorAll('.quarto-category')).map(el => el.textContent);
 
-            const cardHTML = createProjectCard(filePath, imagePath, title, description, categories, type, date);
+            const cardHTML = getCardHTML(filePath, imagePath, title, description, categories, type, date);
 
             const container = document.getElementById(containerId);
             if (!container) {
@@ -110,7 +110,7 @@ function loadProjects() {
             // Update the Set with each project's categories
         });
         makeCategoryDropdownFilters(allCategories);
-        sortProjects('desc-date'); // Sort projects by title in ascending order
+        sortProjects(defaultSortBy);
     }).catch(err => {
         console.error('Error loading all projects:', err);
     });
@@ -162,30 +162,40 @@ function searchProjects() {
     filterProjectsBySearchAndCategory(input, null);
 }
 
-
+/* ------ Sorting projects ------ */
+const sortOptions = ['date-asc', 'date-desc', 'title-asc', 'title-desc'];
+const defaultSortBy = 'date-desc';
 function sortProjects(sortBy) {
-    let container = document.getElementById('project-list');
-    let cards = Array.from(container.children);
+    if (!sortOptions.includes(sortBy)) {
+        console.error('Invalid sorting option:', sortBy);
+        return;
+    }
+    const sortKey = sortBy.split('-')[0]; // Get the key to sort by (date or title)
+    const sortOrder = sortBy.split('-')[1]; // Get the order (asc or desc)
+
+    const container = document.getElementById('project-list');
+    const cards = Array.from(container.children);
+
     cards.sort((a, b) => {
         // Sort by title in ascending or descending order
-        if (sortBy === 'asc-title' || sortBy === 'desc-title') {
-            let titleA = a.getAttribute('data-title');
-            let titleB = b.getAttribute('data-title');
-            return sortBy === 'asc-title' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+        if (sortKey === 'title') {
+            const titleA = a.getAttribute('data-title');
+            const titleB = b.getAttribute('data-title');
+            return sortOrder === 'asc' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
         }
 
-        if (sortBy === 'asc-date' || sortBy === 'desc-date') {
-            let dateA = a.getAttribute('data-date');
-            let dateB = b.getAttribute('data-date');
-            return sortBy === 'asc-date' ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+        if (sortKey === 'date') {
+            const dateA = a.getAttribute('data-date');
+            const dateB = b.getAttribute('data-date');
+            return sortBy === 'asc' ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
         }
-
         return 0;
     });
     cards.forEach(card => container.appendChild(card));
+    updateSortingIcon(sortBy);
 }
 
-function changeSortIcon(value) {
+function updateSortingIcon(value) {
     let icon = document.getElementById('sort-icon').querySelector("i");
     if (!icon) {
         console.error('Sort icon not found');
@@ -207,6 +217,7 @@ function changeSortIcon(value) {
             break;
     }
 }
+/* ------ End of sorting projects ------ */
 
 
 function loadContent(page, placeholder, callback = null) {
