@@ -51,37 +51,36 @@ function createProjectCard(filePath, imagePath, title,
     `;
 }
 
-function getId(doc, id, defaultValue = '') {
-    return doc.querySelector(id) ? doc.querySelector(id).textContent : defaultValue;
-}
-
-function loadProject(filePath, containerId) {
+function makeProjectCard(filePath, containerId) {
     return fetch(filePath)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load project: ${response.statusText}`);
+            }
+            return response.text();
+        })
         .then(html => {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(html, 'text/html');
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
 
-            const title = getId(doc, '#title', 'No title');
-            const description = getId(doc, '#description', 'No description');
-            const date = getId(doc, '#date', 'No date');
-            const type = getId(doc, '#project-type', 'No type');
-
-            const imagePath = doc.querySelector('#cover') ?
-                doc.querySelector('#cover').getAttribute('src') : 'default-image.jpg';
-
+            // Use the utility function to reduce redundancy
+            const title = getElementAttribute(doc, '#title', 'textContent', 'No title');
+            const description = getElementAttribute(doc, '#description', 'textContent', 'No description');
+            const date = getElementAttribute(doc, '#date', 'textContent', 'No date');
+            const type = getElementAttribute(doc, '#project-type', 'textContent', 'No type');
+            const imagePath = getElementAttribute(doc, '#cover', 'src', 'default-image.jpg');
 
             const categories = Array.from(doc.querySelectorAll('.quarto-category')).map(el => el.textContent);
 
             const cardHTML = createProjectCard(filePath, imagePath, title, description, categories, type, date);
 
-            let container = document.getElementById(containerId);
+            const container = document.getElementById(containerId);
             if (!container) {
-                console.error(`Element with ID '${containerId}' not found.`);
-                return;
+                throw new Error(`Element with ID '${containerId}' not found.`);
             }
             container.insertAdjacentHTML('beforeend', cardHTML);
-            // Return the categories for this project
+
+            // Return categories for this project
             return categories;
         })
         .catch(err => {
@@ -102,7 +101,7 @@ function loadProjects() {
         './job/ui-lead/ui-lead.html',
     ];
     let allCategories = new Set();
-    const promises = projects.map(filePath => loadProject(filePath, containerId));
+    const promises = projects.map(filePath => makeProjectCard(filePath, containerId));
 
     // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
     Promise.all(promises).then(results => {
@@ -151,16 +150,17 @@ function filterProjectsBySearchAndCategory(searchInput = null, category = null) 
         card.style.display = isInCategory && isSearchMatch ? 'block' : 'none';
     });
 }
+
 // Filter projects based on the selected category in the dropdown
 function filterProjects(category) {
     filterProjectsBySearchAndCategory(null, category); // Apply the search filter as well
 }
+
 // Search projects based on the input value (not case-sensitive)
 function searchProjects() {
     let input = document.getElementById('search-input').value.toLowerCase();
     filterProjectsBySearchAndCategory(input, null);
 }
-
 
 
 function sortProjects(sortBy) {

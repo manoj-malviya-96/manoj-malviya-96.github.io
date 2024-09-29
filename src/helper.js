@@ -23,10 +23,11 @@ function parseDate(dateString) {
 }
 
 
-function getIdTextContent(doc, id, defaultValue = '') {
-    return doc.querySelector(id) ? doc.querySelector(id).textContent : defaultValue;
+// Utility function to query a selector and get its attribute or text content
+function getElementAttribute(doc, selector, attr = 'textContent', defaultValue = '') {
+    const element = doc.querySelector(selector);
+    return element ? (attr === 'textContent' ? element.textContent : element.getAttribute(attr)) : defaultValue;
 }
-
 
 function createLayout(title, xTitle, yTitle) {
     return {
