@@ -26,6 +26,7 @@ function loadContentWithOverlay(page, placeholder, overlay = null, callback = nu
             toggleDisplay(placeholder, 'block');
         });
 }
+
 // Overloaded function with no overlay and no delay
 function loadContent(page, placeholder, callback = null) {
     loadContentWithOverlay(page, placeholder, null, callback, 0);
@@ -37,7 +38,6 @@ function addParamsToURL(params) {
     for (const key in params) {
         url.searchParams.set(key, params[key]);
     }
-    console.log('Updated URL:', url.href, params);
     return url;
 }
 
@@ -45,15 +45,6 @@ function getURLParams(key) {
     const params = new URLSearchParams(window.location.search);
     return params.get(key);
 }
-
-function pushURLToHistory(url) {
-    if (!url){
-        console.error('URL is empty');
-        return;
-    }
-    window.history.pushState({}, '', url); // Update the URL without reloading the page
-}
-
 function storeValueInStorage(key, value) {
     localStorage.setItem(key, value);
 }

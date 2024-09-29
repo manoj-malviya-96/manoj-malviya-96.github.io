@@ -1,9 +1,86 @@
-// common.js
-// Store all unique categories here
-const availableCallbacks = {
-    "loadProjects": loadProjects,
-    "loadFooter": loadProjectFooter,
-};
+/** Common utility functions for Quarto themes */
+
+// Global variables
+const contentPlaceholder = window.document.getElementById('content-placeholder');
+const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
+const homePage = './home.html';
+// Sort options for projects
+function loadContentInMainWindow(page, event, callback = null) {
+    if (!contentPlaceholder || !contentPlaceholderOverlay) {
+        console.error('Content placeholders not found');
+        return;
+    }
+    loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
+        if (callback){
+            callback();
+        }
+        if (page === './research/dfam/dfam.html') {
+            createPlotsForDfam();
+        }
+        if (page === './research/delta-design/delta-design.html') {
+            createPlotsForDeltaDesign();
+        }
+        // Inits
+        initTheme();
+        initGithub();
+        initSortOptions();
+        initScrollTracking();
+        initToggleForAbout();
+        initImageFluidHandler();
+    });
+
+    pushURLToHistory(addParamsToURL({'pageName': page}));
+    initContentObserver(contentPlaceholder);
+}
+// Load the homepage content -> About me and project cards.
+function loadHomePage(event=null) {
+    loadContentInMainWindow(homePage, event, loadProjects);
+}
+
+// Load Project Page, with special handling for the footer. Todo- add the loadProjectFooter to the callback-list
+function loadProjectPage(page, event) {
+    loadContentInMainWindow(page, event, loadProjectFooter);
+}
+
+// Load the page from the URL with the 'pageName' parameter
+function loadPageFromTypedURL(event) {
+    // Get the 'pageName' parameter from the URL
+    const pageName = getURLParams('pageName');
+    const doLoadHomePage = !pageName || pageName === homePage;
+    const pageToLoad = doLoadHomePage ? homePage : pageName;
+    const callback = doLoadHomePage? loadProjects : loadProjectFooter;
+
+    // Check if the 'pageToLoad' is a valid file type (e.g., .html)
+    if (!pageToLoad.endsWith('.html')) {
+        console.error('Invalid page type specified. Only .html files are allowed.');
+        return;
+    }
+    loadContentInMainWindow(pageToLoad, event, callback);
+}
+
+function pushURLToHistory(url) {
+    if (!url){
+        console.error('URL is empty');
+        return;
+    }
+    window.history.pushState({ pageURL: url.toString() }, '', url);
+}
+
+
+function setupPopStateHandler() {
+    window.addEventListener('popstate', function (event) {
+        if (event.state && event.state.pageURL) {
+            loadPageFromTypedURL(event.state.pageURL)
+        } else { // Fall back to the default action
+            loadHomePage();
+        }
+    });
+}
+
+function setupLoadPageUrlHandler(){
+    window.document.addEventListener('DOMContentLoaded', loadPageFromTypedURL);
+}
+
 
 function getCardHTML(filePath, imagePath, title,
                      description, categories,
@@ -15,8 +92,8 @@ function getCardHTML(filePath, imagePath, title,
              data-title="${title.toLowerCase()}" 
              data-description="${description.toLowerCase()}"
              data-date=${parseDate(date)}">
-            <a href="${title}" class="quarto-grid-link"
-               onclick="emitLoadPageEvent('${filePath}', event, true)">
+            <a href="javascript:void(0)" class="quarto-grid-link"
+               onclick="loadProjectPage('${filePath}', event)">
                 <div class="quarto-grid-item card">
                     <div class="column-image">
                         <img src="${imagePath}" class="card-img" alt="">
@@ -190,29 +267,6 @@ function updateSortingIcon(value) {
 }
 
 /* ------ End of sorting projects ------ */
-
-
-
-const pageEventHandlerName = "loadPageOnMain";
-
-function emitLoadPageEvent(page, event, isProject = false) {
-    console.log('Emitting loadPage event:', page);
-    event.preventDefault();
-
-    let appInitCallBackKey = null;
-    if (page.startsWith("./apps")) {
-        appInitCallBackKey = "loadSumApp";
-    }
-
-    const loadPageEvent = new CustomEvent(pageEventHandlerName, {
-        detail: {
-            page: page,
-            isProject: isProject,
-            appInitCallBackKey: appInitCallBackKey
-        }
-    });
-    window.document.dispatchEvent(loadPageEvent);
-}
 
 function loadSocialMediaLink(identifier) {
     const links = {

@@ -6,7 +6,6 @@ function initHeader() {
 }
 
 function initGithub() {
-    console.log('Init Github');
     GitHubCalendar(".calendar", "manoj-malviya-96", {
         responsive: true
     });
@@ -30,8 +29,7 @@ function initImageFluidHandler() {
     const images = window.document.querySelectorAll('.img-fluid');
 
     if (images.length === 0) {
-        console.log('Image container not found');
-        return;
+        return; // No images found
     }
 
     const modal = window.document.createElement('div');
@@ -65,7 +63,7 @@ function initImageFluidHandler() {
 function initToggleForAbout() {
     const button = window.document.querySelector('.about-expand-button');
     if (!button) {
-        return;
+        return; // Button not found
     }
     button.addEventListener('click', function () {
         this.classList.toggle('expanded');
@@ -90,11 +88,11 @@ function initToggleForAbout() {
 
 function initProjectFooterToggle() {
     // Function to initialize the theme toggle after loading the content
-    document.getElementById('footer-toggle').addEventListener('click', function () {
-        let footer = document.getElementById('quarto-footer');
+    window.document.getElementById('footer-toggle').addEventListener('click', function () {
+        const footer = document.getElementById('quarto-footer');
 
         // change the icon based on the footer visibility
-        let icon = this.querySelector("i");
+        const icon = this.querySelector("i");
         const iconUp = "bi-chevron-up";
         const iconDown = "bi-chevron-down";
         if (icon.classList.contains(iconDown)) {
@@ -182,8 +180,7 @@ function initSortOptions() {
     const select = document.getElementById('sort-filter');
 
     if (!select) {
-        console.log('Sort filter not found');
-        return;
+        return; // Select element not found
     }
 
     sortOptions.forEach(option => {

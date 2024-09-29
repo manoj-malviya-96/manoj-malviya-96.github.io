@@ -93,14 +93,6 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
 <script src="https://unpkg.com/github-calendar/dist/github-calendar.min.js"></script>
 
-
-<!-- Load custom scripts -->
-<script src="./src/helper.js"></script>
-<script src="./src/init.js"></script>
-<script src="./src/common.js"></script>
-<script src="./src/projects.js"></script>
-
-
 <!-- header -->
 <div id="header-placeholder" style="display: none;"></div>
 <!-- Overlay with Three Dot Loading Spinner -->
@@ -111,89 +103,18 @@
 <!-- main content -->
 <div id="content-placeholder" style="display: none;"></div>
 
+
+<!-- Load custom scripts: Note: LOAD IT AFTER PLACEHOLDER CONSTRUCTION TO ENSURE WE CAN USE IN COMMON -->
+<script src="./src/helper.js"></script>
+<script src="./src/init.js"></script>
+<script src="./src/main.js"></script>
+<script src="./src/projects.js"></script>
+
 <script>
-    // Initialize the Header
     initHeader();
-
-    // Initialize the scroll behavior
     initScrollBehavior();
-
-    function loadMainContent(page, event, callback = null) {
-        const contentPlaceholder = document.getElementById('content-placeholder');
-        const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
-
-        // Load content and pass the footer initialization as a callback
-        loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
-            if (callback){
-                callback();
-            }
-            if (page === './research/dfam/dfam.html') {
-                createPlotsForDfam();
-            }
-            if (page === './research/delta-design/delta-design.html') {
-                createPlotsForDeltaDesign();
-            }
-            // Inits
-            initTheme();
-            initGithub();
-            initSortOptions();
-            initScrollTracking();
-            initToggleForAbout();
-            initImageFluidHandler();
-        });
-
-        pushURLToHistory(addParamsToURL({'pageName': page}));
-        initContentObserver(contentPlaceholder);
-    }
-    function loadHomePage(event=null) {
-        loadMainContent('./home.html', event, loadProjects);
-    }
-
-    //-- This can be loadProjectPage Functions.
-    document.addEventListener(pageEventHandlerName, function (event) {
-        let callback = null;
-
-        if (event.detail.appInitCallBackKey) {
-            callback = availableCallbacks[event.detail.appInitCallBackKey];
-        } else if (event.detail.isProject) {
-            callback = loadProjectFooter;
-        }
-        loadMainContent(event.detail.page, event, callback);
-    });
-
-    // Init History Event Listener
-    window.addEventListener('popstate', function (event) {
-        if (event.state && event.state.page) {
-            console.log('Popstate event detected:', event.state.page);
-            const callback = availableCallbacks[event.state.callback];
-            // Load content based on the state object stored in history
-            loadMainContent(event.state.page, event, callback); // Don't update history again
-        } else {
-            // Default action if no state is detected
-            loadHomePage();
-        }
-    });
-
-    // Load the page from the URL parameter
-    function loadPageFromParameter() {
-        // Get the 'pageName' parameter from the URL
-        const pageName = getURLParams('pageName');
-        console.log('Page name from URL:', pageName);
-
-        const defaultPage = './home.html';
-        const loadHomePage = !pageName || pageName === defaultPage;
-        const pageToLoad = loadHomePage ? defaultPage : pageName;
-        const callback = loadHomePage? loadProjects : loadProjectFooter;
-
-        // Check if the 'pageToLoad' is a valid file type (e.g., .html)
-        if (!pageToLoad.endsWith('.html')) {
-            console.error('Invalid page type specified. Only .html files are allowed.');
-            return;
-        }
-        loadMainContent(pageToLoad, event, callback);
-    }
-    //! Even listener to load the page from the URL parameter
-    document.addEventListener('DOMContentLoaded', loadPageFromParameter);
+    setupPopStateHandler();
+    setupLoadPageUrlHandler();
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">
