@@ -39,7 +39,7 @@
     --title-font-size: 27px;
     --super-title-font-size: 41px;
 
-    --icon-big-size: 18px;
+    --icon-size: 21px;
 
     --border-width: 1px;
     --z-index-overlay: 1000;
@@ -68,7 +68,7 @@
 
     /* Custom */
     --about-entity-height: 320px;
-    --transform-scale: 1.05;
+    --transform-scale: 1.069;
     --blur-radius: 20px;
 
     /* Github contributions */
@@ -80,6 +80,11 @@
 
     /* About me */
     --about-expand-button-height: 30px;
+
+    /* App Button */
+    --app-button-size: 69px;
+    --app-window-width: 1200px;
+    --app-window-height: 850px;
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -157,7 +162,7 @@ p {
 }
 
 .icon-large {
-    font-size: var(--icon-big-size);
+    font-size: var(--icon-size);
 }
 
 .nav-label {
@@ -485,7 +490,7 @@ p {
 }
 
 .control-selector-icon i {
-    font-size: var(--icon-big-size);
+    font-size: var(--icon-size);
 }
 
 .control-selector {
@@ -525,7 +530,7 @@ p {
 }
 
 .search-icon i {
-    font-size: var(--icon-big-size);
+    font-size: var(--icon-size);
 }
 
 #search-input {
@@ -813,6 +818,166 @@ th {
     transition: all var(--transition-default);
 }
 
+/* -------------------------- App Styling -------------------------- */
+
+.app-drawer {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: var(--spacing-large);
+    height: calc(var(--app-button-size) + 2 * var(--spacing-large));
+    margin: 0 auto;
+    width: var(--max-body-width);
+    border-style: solid;
+    background-color: transparent;
+    border-width: var(--border-width);
+}
+
+.app-button {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    height: var(--app-button-size);
+    width: var(--app-button-size);
+    font-size: var(--normal-text-size);
+    padding: var(--spacing-medium);
+    border-radius: var(--default-radius);
+    border: none;
+    transition: all var(--transition-default);
+    box-shadow: none;
+}
+
+.app-button:hover {
+    transform: scale(var(--transform-scale));
+}
+
+.app-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin: 0 auto;
+    width: var(--app-window-width);
+    height: var(--app-window-height);
+    background-color: transparent;
+    border-radius: var(--default-radius);
+    border-width: var(--border-width);
+    border-style: solid;
+}
+
+.light-mode .app-window {
+    border-color : var(--color-light-contrast);
+}
+
+.dark-mode .app-window {
+    border-color : var(--color-dark-contrast);
+}
+
+
+/* --------------------  App Controls  Styling ------------------- */
+.primary-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: var(--icon-size);
+    transition: all var(--transition-default);
+    height: 100%;
+    width: 100%;
+}
+
+.light-mode .primary-button {
+    color: var(--color-light-imp);
+}
+
+.dark-mode .primary-button {
+    color: var(--color-dark-imp);
+}
+
+.primary-button:hover {
+    color: var(--color-brand-primary);
+}
+
+.primary-button:active {
+    transform: scale(calc(1 / var(--transform-scale)));
+}
+
+.progress-area {
+    width: 100%;
+    display: block;
+    background-color: transparent;
+    border-radius: var(--default-radius);
+    padding-left: var(--spacing-large);
+    padding-right: var(--spacing-large);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: var(--spacing-medium);
+    border-radius: var(--default-radius);
+    outline: none;
+    cursor: pointer;
+}
+
+.light-mode input[type="range"] {
+    background: var(--color-light-contrast);
+}
+
+.dark-mode input[type="range"] {
+    background: var(--color-dark-contrast);
+}
+
+/* -------------------------- Music App Styling -------------------------- */
+canvas {
+    position: absolute;
+    width: var(--app-window-width);
+    height: var(--app-window-height);
+    z-index: 1;
+    border-radius: var(--default-radius);
+    background-color: transparent;
+    justify-items: center;
+    align-items: center;
+    padding: var(--spacing-medium);
+}
+
+#songTitle {
+    font-size: var(--normal-text-size);
+    padding: var(--spacing-small);
+}
+
+.music-hud {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 47%;
+    height: auto;
+    padding: var(--spacing-large);
+    border-radius: var(--default-radius);
+    backdrop-filter: blur(var(--blur-radius));
+    z-index: var(--z-index-overlay);
+}
+
+.music-controls {
+    display: flex;
+    width: 69%;
+    justify-content: space-evenly;
+    height: auto;
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-small);
+    border-radius: var(--default-radius);
+}
+
+#timeInfo {
+    font-size: var(--normal-text-size);
+    line-height: var(--line-height);
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
 /* -------------------------- Light Mode -------------------------- */
 
 body.light-mode {
@@ -952,6 +1117,23 @@ body.light-mode {
 .light-mode .about-expand-button.expanded {
     color: white;
     background-color: var(--color-brand-primary);
+}
+
+
+.light-mode .app-drawer {
+    border-color: var(--color-light-contrast);
+}
+
+.light-mode .app-button {
+    color: var(--color-light-imp);
+    background-color: var(--color-light-contrast);
+    box-shadow: var(--shadows-light);
+}
+
+
+.light-mode .music-hud {
+    background-color: var(--color-light-contrast);
+    color: var(--color-light-imp);
 }
 
 
@@ -1098,4 +1280,20 @@ body.dark-mode {
     color: white;
     background-color: var(--color-brand-primary);
 }
+
+.dark-mode .app-drawer {
+    border-color: var(--color-dark-contrast);
+}
+
+.dark-mode .app-button {
+    color: var(--color-dark-imp);
+    background-color: var(--color-dark-contrast);
+    box-shadow: var(--shadows-dark);
+}
+
+.dark-mode .music-hud {
+    background-color: var(--color-dark-contrast);
+    color: var(--color-dark-imp);
+}
+
 

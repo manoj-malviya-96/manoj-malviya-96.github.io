@@ -18,6 +18,12 @@ const projectHTMLToCallBackMap = {
     './research/build-orient/build-orient.html': [],
     './job/formlabs-ui/ui-lead.html': [],
     './job/formlabs-supports/supports.html': [],
+
+}
+// App-specific callbacks
+const defaultAppCallbacks = [initTheme];
+const appHTMLToCallBackMap = {
+    './apps/music-viz/music-viz.html': [initMusicApp]
 }
 
 
@@ -39,7 +45,7 @@ function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = 
     initContentObserver(contentPlaceholder);
 }
 
-/** We only have two types of pages: home and project pages. */
+/** We have three types of pages: home and project pages. */
 
 // 1. Load the homepage content -> About me and project cards.
 function loadHomePage(event = null, doPushToHistory = true) {
@@ -52,6 +58,13 @@ function loadProjectPage(page, event, doPushToHistory = true) {
     loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
 
+// 3. Load App Window with the specified callbacks
+function loadApp(page, event, doPushToHistory = true) {
+    const callbacks = defaultAppCallbacks.concat(appHTMLToCallBackMap[page]);
+    loadContentInMainWindow(page, event, callbacks, doPushToHistory);
+}
+
+
 // Load the page from the URL with the 'pageName' parameter
 function loadPageFromTypedURL(event) {
     // Get the 'pageName' parameter from the URL
@@ -63,11 +76,18 @@ function loadPageFromTypedURL(event) {
         return;
     }
 
-    // Check if the 'pageToLoad' is a valid file type (e.g., .html)
+    // Check if the 'pageName' is a valid file type (e.g., .html)
     if (!pageName.endsWith('.html')) {
         console.error('Invalid page type specified. Only .html files are allowed.');
         return;
     }
+
+    // Check if the 'pageName' is an app or a project page
+    if (pageName.includes('apps')) {
+        loadApp(pageName, event, false);
+        return;
+    }
+
     loadProjectPage(pageName, event, false);
 }
 
@@ -98,6 +118,9 @@ function setupLoadPageUrlHandler() {
     window.document.addEventListener('DOMContentLoaded', loadPageFromTypedURL);
 }
 
+function loadMusicApp(){
+    loadApp('./apps/music-viz/music-viz.html', null, true);
+}
 
 function getCardHTML(filePath, imagePath, title,
                      description, categories,

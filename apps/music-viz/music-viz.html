@@ -1,0 +1,33 @@
+<div class="app-window">
+    <div class="music-hud">
+        <div id="songTitle">
+            <span> Music Visualizer </span>
+        </div>
+        <div class="progress-area">
+            <!-- Slider for progress -->
+            <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+        </div>
+        <!-- Controls section -->
+        <div class="music-controls">
+            <!-- Upload Button with Bootstrap icon -->
+            <div id="uploadButton">
+                <label for="fileUpload" class="primary-button">
+                    <i class="bi bi-upload"></i> </label>
+                <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+            </div>
+
+            <!-- Play/Pause Button with Bootstrap icon -->
+            <button id="playPauseBtn" class="primary-button">
+                <i class="bi bi-play-fill"></i>
+            </button>
+
+            <div id="timeInfo">0:00/0:00</div>
+        </div>
+
+
+    </div>
+
+    <!-- Visualizer section -->
+    <canvas id="visualizer" width="1200" height=900"></canvas>
+    <!-- WARNING: SYNC the width and height with app window dimensions in style.css -->
+</div>
