@@ -1,5 +1,5 @@
 /* ------ Helper functions ------ */
-const timeOut_ms = 690; // Global Timeout
+const timeOut_ms = 269; // Global Timeout
 
 function loadContentWithOverlay(page, placeholder, overlay = null, callback = null, delay_ms = timeOut_ms) {
     const toggleDisplay = (element, displayStyle) => {
