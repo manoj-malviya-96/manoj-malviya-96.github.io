@@ -1,12 +1,10 @@
-
 function initMusicApp() {
     const fileUpload = document.getElementById('fileUpload');
     const canvas = document.getElementById('visualizer');
     const canvasCtx = canvas.getContext('2d');
     const progressBar = document.getElementById('progressBar');
     const songTitle = document.getElementById('songTitle');
-    const timeCurrent = document.getElementById('timeCurrent');
-    const timeEnd = document.getElementById('timeEnd');
+    const timeInfo = document.getElementById('timeInfo');
     const playPauseBtn = document.getElementById('playPauseBtn');
 
     let audioContext;
@@ -21,6 +19,7 @@ function initMusicApp() {
     fileUpload.addEventListener('change', handleFileUpload);
     progressBar.addEventListener('input', updateProgress);
     playPauseBtn.addEventListener('click', togglePlayPause);
+
 
     function handleFileUpload(event) {
         const file = event.target.files[0];
@@ -90,8 +89,7 @@ function initMusicApp() {
         const totalMinutes = Math.floor(audio.duration / 60);
         const totalSeconds = Math.floor(audio.duration % 60).toString().padStart(2, '0');
 
-        timeCurrent.textContent = `${currentMinutes}:${currentSeconds}`;
-        timeEnd.textContent = `${!isNaN(totalMinutes) ? totalMinutes : 0}:${!isNaN(totalSeconds) ? totalSeconds : .00}`;
+        timeInfo.textContent = `${currentMinutes}:${currentSeconds}/${!isNaN(totalMinutes) ? totalMinutes : 0}:${!isNaN(totalSeconds) ? totalSeconds : .00}`;
         progressBar.value = (currentTime / audio.duration) * 100;
     }
 
@@ -100,9 +98,9 @@ function initMusicApp() {
     }
 
     function drawGridVisualizer() {
-        const numRings = 10;  // Number of concentric rings
-        const pointsPerRing = 20;  // Points per ring (can be dynamic based on radius)
-        const maxRadius = canvas.width / 2.5;  // Maximum distance from the center
+        const numRings = 5;  // Number of concentric rings
+        const pointsPerRing = 9;  // Points per ring (can be dynamic based on radius)
+        const maxRadius = canvas.width / 2;  // Maximum distance from the center
         const pointPadding = 10;  // Padding between points
 
         function draw() {
@@ -113,6 +111,9 @@ function initMusicApp() {
 
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
+
+            // Frequency range for bass
+            const lowBassIndexMax = Math.floor((600 / analyser.context.sampleRate) * bufferLength);
 
             // Loop through each concentric ring
             for (let ring = 1; ring <= numRings; ring++) {
@@ -132,19 +133,29 @@ function initMusicApp() {
                     const x = centerX + Math.cos(angle) * ringRadius;
                     const y = centerY + Math.sin(angle) * ringRadius;
 
+                    const bassBoost = index <= lowBassIndexMax ? 10 : 1;
+
                     // Set point size and brightness
-                    const pointSize = intensity * 6 + pointPadding;  // Adjust size with padding
-                    const brightness = 1 - (ringRadius / maxRadius);
-                    const opacity = intensity * brightness;
+                    let pointSize = (intensity * 4 + pointPadding);  // Boost size for bass
+                    pointSize = bassBoost > 1 ? pointSize * (0.5*Math.random() + 0.5) : pointSize;
+
+
+                    const brightness = 1 - 0.9*(ringRadius / maxRadius);
+                    const opacity = 0.5 + 0.5*intensity * brightness * bassBoost;  // Boost opacity for bass
 
                     // Draw circular point
                     canvasCtx.beginPath();
                     canvasCtx.arc(x, y, pointSize, 0, Math.PI * 2);
-                    canvasCtx.fillStyle = `rgba(${255 * intensity}, ${100 * brightness}, ${255 * brightness}, ${opacity})`;
+                    if (bassBoost > 1) {
+                        canvasCtx.fillStyle = `rgba(100, 107, 110, ${opacity})`;
+                    } else {
+                        canvasCtx.fillStyle = `rgba(${255 * brightness}, ${255 * brightness}, ${255 * brightness}, ${opacity})`;
+                    }
                     canvasCtx.fill();
                 }
             }
         }
+
 
         draw();
     }
