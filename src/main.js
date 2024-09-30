@@ -364,48 +364,8 @@ function toggleTheme() {
     storeValueInStorage('theme', toDarkMode ? 'dark-mode' : 'light-mode');
 }
 
-function loadPDF(url, contentPlaceholder, contentPlaceholderOverlay) {
-    // Show the loading spinner
-    contentPlaceholderOverlay.style.display = 'block';
-    contentPlaceholder.style.display = 'none';
-
-    // Create a container div to center the iframe
-    const iframeContainer = document.createElement('div');
-    iframeContainer.style.display = 'flex';
-    iframeContainer.style.justifyContent = 'center'; // Center horizontally
-    iframeContainer.style.paddingTop = '0px'; // Add top padding
-    iframeContainer.style.width = '100%'; // Ensure the container takes the full width
-
-    // Create the iframe element
-    const iframe = document.createElement('iframe');
-    iframe.src = url; // Set the source to the PDF URL
-    iframe.style.width = '69%';
-    iframe.style.height = '100vh'; // Adjust the height as needed
-    iframe.style.border = 'none';
-
-    // Append the iframe to the container
-    iframeContainer.appendChild(iframe);
-
-    // Remove any previous content and add the container with the iframe
-    contentPlaceholder.innerHTML = '';
-    contentPlaceholder.appendChild(iframeContainer);
-
-    // Show the content and hide the spinner once the iframe is loaded
-    iframe.onload = () => {
-        contentPlaceholderOverlay.style.display = 'none';
-        contentPlaceholder.style.display = 'block';
-    };
-
-    // Handle iframe loading errors (optional)
-    iframe.onerror = () => {
-        contentPlaceholderOverlay.style.display = 'none';
-        alert('Failed to load the PDF. Please try again.');
-    };
-}
 
 // Example usage of loadPDF function
 function loadPDFContent(pdfUrl) {
-    const contentPlaceholder = document.getElementById('content-placeholder');
-    const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
     loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
 }

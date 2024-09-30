@@ -111,3 +111,43 @@ function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "
     };
     Plotly.newPlot(containerId, [data], createLayout(title, xTitle, yTitle));
 }
+
+// Loading a PDF file in an iframe
+function loadPDF(url, placeholder, overlay) {
+    // Show the loading spinner
+    overlay.style.display = 'block';
+    placeholder.style.display = 'none';
+
+    // Create a container div to center the iframe
+    const iframeContainer = document.createElement('div');
+    iframeContainer.style.display = 'flex';
+    iframeContainer.style.justifyContent = 'center'; // Center horizontally
+    iframeContainer.style.paddingTop = '0px'; // Add top padding
+    iframeContainer.style.width = '100%'; // Ensure the container takes the full width
+
+    // Create the iframe element
+    const iframe = document.createElement('iframe');
+    iframe.src = url; // Set the source to the PDF URL
+    iframe.style.width = '69%';
+    iframe.style.height = '100vh'; // Adjust the height as needed
+    iframe.style.border = 'none';
+
+    // Append the iframe to the container
+    iframeContainer.appendChild(iframe);
+
+    // Remove any previous content and add the container with the iframe
+    placeholder.innerHTML = '';
+    placeholder.appendChild(iframeContainer);
+
+    // Show the content and hide the spinner once the iframe is loaded
+    iframe.onload = () => {
+        overlay.style.display = 'none';
+        placeholder.style.display = 'block';
+    };
+
+    // Handle iframe loading errors (optional)
+    iframe.onerror = () => {
+        overlay.style.display = 'none';
+        alert('Failed to load the PDF. Please try again.');
+    };
+}
