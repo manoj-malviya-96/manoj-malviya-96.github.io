@@ -398,7 +398,7 @@ p {
     margin: var(--spacing-small) 0 var(--spacing-medium) 0;
     opacity: 0;
     height: 0;
-    transition: all var(--transition-default)
+    transition: all var(--transition-short) ease-in-out;
 }
 
 .card-img {
@@ -406,6 +406,7 @@ p {
     width: var(--project-card-height-collapse);
     height: 100%;
     object-fit: cover;
+    overflow: clip;
     display: flex;
     align-content: flex-end;
     border-top-left-radius: var(--default-radius);
@@ -429,7 +430,7 @@ p {
     width: fit-content;
     border-radius: var(--small-radius);
 !important;
-    transition: all var(--transition-default)
+    transition: all var(--transition-short) ease-in-out;
 }
 
 .card:hover {
@@ -446,8 +447,9 @@ p {
     opacity: 0.69;
 }
 
+
 .card:hover .card-img {
-    width: var(--project-card-height);
+    width: 0;
 }
 
 /* Control bar styling */
