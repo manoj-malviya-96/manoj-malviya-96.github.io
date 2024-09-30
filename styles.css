@@ -35,7 +35,7 @@
     --line-height: 1.25;
 
     --small-text-size: 10px;
-    --normal-text-size: 15px;
+    --normal-text-size: 16px;
     --title-font-size: 27px;
     --super-title-font-size: 41px;
 
@@ -384,7 +384,7 @@ p {
 }
 
 .card-title {
-    font-size: 21px; /* Card title font size */
+    font-size: var(--normal-text-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
 }
@@ -446,12 +446,15 @@ p {
     opacity: 0.69;
 }
 
-
 .card:hover .card-img {
     width: 0;
 }
 
-/* Control bar styling */
+.card:hover .card-title {
+    font-size: 21px; /* Card title font size */
+}
+
+/* --------------- Control Bar Styling --------------- */
 #controls-container {
     display: flex;
     margin: 0 auto;
@@ -542,7 +545,7 @@ p {
     background-color: var(--color-brand-primary);
 }
 
-/* Project / Apps*/
+/* ----------------------------- Project Page Styling ----------------------------- */
 
 #title-block-header .quarto-title-banner {
     width: var(--max-content-width);
