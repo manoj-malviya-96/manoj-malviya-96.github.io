@@ -9,6 +9,7 @@
     --color-dark-imp: #ababab;
 
     --color-brand-primary: #0a396f;
+    --color-passive-element: #706f6f;
 
     /* Spacing */
     --spacing-small: 5px;
@@ -294,8 +295,6 @@ p {
 .about-expand-button {
     height: var(--about-expand-button-height);
     margin-top: calc(-1 * var(--border-width)); /* to adjust for border */
-    background-color: var(--color-brand-primary);
-    color: var(--color-light-primary);
     border: none;
     cursor: pointer;
     border-radius: 0 0 var(--default-radius) var(--default-radius);
@@ -307,7 +306,6 @@ p {
     transform: translateY(calc(-1 * var(--about-expand-button-height)));
     border-radius: var(--default-radius) var(--default-radius) 0 0;
 }
-
 
 .collapsible-content {
     height: 0;
@@ -554,6 +552,7 @@ p {
     justify-content: center;
     align-items: center;
     padding: 0;
+!important;
     box-sizing: border-box;
 }
 
@@ -563,6 +562,8 @@ p {
     margin: 0 auto;
 !important;
     padding: 0;
+!important;
+    height: var(--project-banner-height);
 !important;
 }
 
@@ -605,10 +606,10 @@ p {
     font-size: var(--small-text-size);
     line-height: var(--line-height);
     text-transform: uppercase;
-    color: var(--color-brand-primary);
+    color: var(--color-passive-element);
     position: absolute;
-    right: var(--spacing-medium);
-    bottom: var(--spacing-large);
+    right: var(--spacing-small);
+    bottom: var(--spacing-small);
 }
 
 .description {
@@ -939,6 +940,18 @@ body.light-mode {
 }
 
 
+.light-mode .about-expand-button {
+    color: var(--color-light-imp);
+    background-color: var(--color-light-contrast);
+}
+
+
+.light-mode .about-expand-button.expanded {
+    color: white;
+    background-color: var(--color-brand-primary);
+}
+
+
 /* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
     background-color: var(--color-dark-primary);
@@ -1072,3 +1085,14 @@ body.dark-mode {
     background-color: var(--color-dark-contrast);
 !important;
 }
+
+.dark-mode .about-expand-button {
+    color: var(--color-dark-imp);
+    background-color: var(--color-dark-contrast);
+}
+
+.dark-mode .about-expand-button.expanded {
+    color: white;
+    background-color: var(--color-brand-primary);
+}
+
