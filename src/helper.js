@@ -122,14 +122,14 @@ function loadPDF(url, placeholder, overlay) {
     const iframeContainer = document.createElement('div');
     iframeContainer.style.display = 'flex';
     iframeContainer.style.justifyContent = 'center'; // Center horizontally
-    iframeContainer.style.paddingTop = '0px'; // Add top padding
     iframeContainer.style.width = '100%'; // Ensure the container takes the full width
 
     // Create the iframe element
     const iframe = document.createElement('iframe');
     iframe.src = url; // Set the source to the PDF URL
     iframe.style.width = '69%';
-    iframe.style.height = '100vh'; // Adjust the height as needed
+    iframe.style.height = '100vh';
+    iframe.style.borderRadius = '6px'; // Check Style.css for sync
     iframe.style.border = 'none';
 
     // Append the iframe to the container

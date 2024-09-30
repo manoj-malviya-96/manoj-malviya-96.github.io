@@ -366,6 +366,6 @@ function toggleTheme() {
 
 
 // Example usage of loadPDF function
-function loadPDFContent(pdfUrl) {
+function loadPDFInMainWindow(pdfUrl) {
     loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
 }
