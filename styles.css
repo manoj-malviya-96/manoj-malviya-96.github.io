@@ -18,7 +18,7 @@
 
     /* Transition */
     --transition-default: 0.4s;
-    --transition-short: 0.1s;
+    --transition-short: 0.05s;
 
     /* Size */
     --max-body-width: 1200px;
@@ -63,6 +63,7 @@
     --project-control-bar-height: 40px;
     --project-searchbar-width: 250px;
     --project-dropdown-width: 180px;
+    --project-footer-width: 250px;
 
     /* Custom */
     --about-entity-height: 320px;
@@ -621,7 +622,7 @@ p {
     padding: var(--spacing-small);
     margin: 0 auto;
     height: auto;
-    width: 369px;
+    width: var(--project-footer-width);
     border-radius: var(--default-radius);
     font-size: var(--normal-text-size);
     backdrop-filter: blur(var(--blur-radius));
@@ -638,7 +639,6 @@ p {
     background-color: transparent;
 }
 
-/* Horizontally stack the list items */
 .footer-toc {
     padding: var(--spacing-small);
     text-align: left;
@@ -647,7 +647,7 @@ p {
 }
 
 .footer-toc li {
-    padding-left: 50px;
+    padding-left: var(--spacing-huge);
     text-align: left;
     border: none;
     margin: 0 auto;
@@ -663,16 +663,18 @@ p {
 .footer-toc li p, .footer-toc li a {
     font-size: var(--normal-text-size);
     text-decoration: none;
+    transition: all var(--transition-short);
+    opacity: 1;
 }
 
 .footer-hidden li p, .footer-hidden li a {
-    font-size: 0; /* Hide the list-text */
+    opacity: 0;
 }
 
 .footer-toc .nav-link {
     text-decoration: none;
     border: none;
-    transition: all var(--transition-default) ease;
+    transition: all var(--transition-default);
 }
 
 .footer-toc .nav-link.active {
