@@ -16,7 +16,8 @@ const projectHTMLToCallBackMap = {
     './research/dfam/dfam.html': [createPlotsForDfam],
     './research/embed-am/embed-am.html': [],
     './research/build-orient/build-orient.html': [],
-    './job/ui-lead/ui-lead.html': [],
+    './job/formlabs-ui/ui-lead.html': [],
+    './job/formlabs-supports/supports.html': [],
 }
 
 
