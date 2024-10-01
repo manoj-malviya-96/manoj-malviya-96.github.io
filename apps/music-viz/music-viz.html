@@ -1,30 +1,32 @@
 <div class="app-window">
-    <div class="music-hud">
-        <div id="songTitle">
-            <span> Music Visualizer </span>
+    <div class="app-header">
+        <!-- Icon and App Name in vertical layout -->
+        <div class="icon-text-container">
+            <i class="bi bi-soundwave" id="appIcon"></i>
+            <span id="appName">Oscillate</span>
         </div>
-        <div class="progress-area">
-            <!-- Slider for progress -->
-            <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
-        </div>
-        <!-- Controls section -->
-        <div class="music-controls">
-            <!-- Upload Button with Bootstrap icon -->
-            <div id="uploadButton">
-                <label for="fileUpload" class="primary-button">
-                    <i class="bi bi-upload"></i> </label>
-                <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+
+        <!-- HUD for music controls and display -->
+        <div class="music-hud">
+            <div id="songTitle">
+                <span>Currently Playing</span>
             </div>
-
-            <!-- Play/Pause Button with Bootstrap icon -->
-            <button id="playPauseBtn" class="primary-button">
-                <i class="bi bi-play-fill"></i>
-            </button>
-
-            <div id="timeInfo">0:00/0:00</div>
+            <div class="progress-area">
+                <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+            </div>
+            <div class="music-controls">
+                <div id="uploadButton">
+                    <label for="fileUpload" class="primary-button">
+                        <i class="bi bi-upload"></i>
+                    </label>
+                    <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+                </div>
+                <button id="playPauseBtn" class="primary-button">
+                    <i class="bi bi-play-fill"></i>
+                </button>
+                <div id="timeInfo">0:00/0:00</div>
+            </div>
         </div>
-
-
     </div>
 
     <!-- Visualizer section -->

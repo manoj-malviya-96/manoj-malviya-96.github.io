@@ -71,16 +71,11 @@ function initToggleForAbout() {
         const content = window.document.querySelector('.collapsible-content');
         content.classList.toggle('expanded');
 
-        // Get the icon element inside the button
-        const icon = this.querySelector('i');
-
         // Toggle icon class and button text based on the state
         if (content.classList.contains('expanded')) {
-            icon.className = 'bi bi-arrow-up-circle'; // Change to up arrow icon
-            this.innerHTML = '<i class="bi bi-arrow-up"></i> Show Less';
+            this.innerHTML = '<i class="bi bi-chevron-up"></i> Show Less';
         } else {
-            icon.className = 'bi bi-arrow-down-circle'; // Change back to down arrow icon
-            this.innerHTML = '<i class="bi bi-arrow-down"></i> Show More';
+            this.innerHTML = '<i class="bi bi-chevron-down"></i> Show More';
         }
     });
 }

@@ -82,9 +82,10 @@
     --about-expand-button-height: 30px;
 
     /* App Button */
-    --app-button-size: 69px;
+    --app-button-size: 80px;
     --app-window-width: 1200px;
     --app-window-height: 850px;
+    --app-title-width-perc: 18%;
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -843,6 +844,8 @@ th {
     width: var(--app-button-size);
     font-size: var(--normal-text-size);
     padding: var(--spacing-medium);
+    color: white;
+    background-color: var(--color-brand-primary);
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
@@ -851,6 +854,10 @@ th {
 
 .app-button:hover {
     transform: scale(var(--transform-scale));
+}
+
+.app-button .bi {
+    font-size: var(--title-font-size);
 }
 
 .app-window {
@@ -867,6 +874,41 @@ th {
     border-style: solid;
 }
 
+.app-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    background-color: transparent;
+    border-radius: var(--default-radius);
+    border-width: var(--border-width);
+    border-style: solid;
+    width: var(--max-content-width);
+    z-index: var(--z-index-overlay);
+    padding: var(--spacing-large);
+    backdrop-filter: blur(var(--blur-radius));
+}
+
+.icon-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--app-title-width-perc);
+    height: 100%;
+}
+
+#appIcon {
+    font-size: var(--super-title-font-size);
+    color: var(--color-brand-primary);
+}
+
+#appName {
+    font-size: var(--title-font-size);
+    font-weight: var(--bold-weight);
+    color: var(--color-brand-primary);
+}
+
 .light-mode .app-window {
     border-color : var(--color-light-contrast);
 }
@@ -874,7 +916,6 @@ th {
 .dark-mode .app-window {
     border-color : var(--color-dark-contrast);
 }
-
 
 /* --------------------  App Controls  Styling ------------------- */
 .primary-button {
@@ -952,12 +993,8 @@ canvas {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 47%;
+    width: calc(100% - var(--app-title-width-perc));
     height: auto;
-    padding: var(--spacing-large);
-    border-radius: var(--default-radius);
-    backdrop-filter: blur(var(--blur-radius));
-    z-index: var(--z-index-overlay);
 }
 
 .music-controls {
@@ -1124,14 +1161,10 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
-.light-mode .app-button {
-    color: var(--color-light-imp);
-    background-color: var(--color-light-contrast);
-    box-shadow: var(--shadows-light);
-}
 
 
-.light-mode .music-hud {
+.light-mode .app-header {
+    border-color: var(--color-light-contrast);
     background-color: var(--color-light-contrast);
     color: var(--color-light-imp);
 }
@@ -1285,13 +1318,9 @@ body.dark-mode {
     border-color: var(--color-dark-contrast);
 }
 
-.dark-mode .app-button {
-    color: var(--color-dark-imp);
-    background-color: var(--color-dark-contrast);
-    box-shadow: var(--shadows-dark);
-}
 
-.dark-mode .music-hud {
+.dark-mode .app-header {
+    border-color: var(--color-dark-contrast);
     background-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
 }
