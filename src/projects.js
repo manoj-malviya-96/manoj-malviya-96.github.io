@@ -98,10 +98,10 @@ function initMusicApp() {
     }
 
     function drawGridVisualizer() {
-        const numRings = 5;  // Number of concentric rings
-        const pointsPerRing = 9;  // Points per ring (can be dynamic based on radius)
+        const numRings = 6;  // Number of concentric rings
+        const pointsPerRing = 11;  // Points per ring (can be dynamic based on radius)
         const maxRadius = canvas.width / 2;  // Maximum distance from the center
-        const pointPadding = 10;  // Padding between points
+        const pointPadding = 7;  // Padding between points
 
         function draw() {
             requestAnimationFrame(draw);
@@ -112,19 +112,46 @@ function initMusicApp() {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
 
-            // Frequency range for bass
-            const lowBassIndexMax = Math.floor((600 / analyser.context.sampleRate) * bufferLength);
+            // Define frequency ranges for each group of rings
+            const midFreqRange = { min: Math.floor((300 / analyser.context.sampleRate) * bufferLength), max: Math.floor((4000 / analyser.context.sampleRate) * bufferLength) };
+            const bassFreqRange = { min: Math.floor((0 / analyser.context.sampleRate) * bufferLength), max: Math.floor((300 / analyser.context.sampleRate) * bufferLength) };
+            const highFreqRange = { min: Math.floor((4000 / analyser.context.sampleRate) * bufferLength), max: bufferLength };
+
+            const calcMean = (freqRange) => {
+                let sum = 0, count = 0;
+                for (let i = freqRange.min; i <= freqRange.max; i++) {
+                    sum += dataArray[i];
+                    count++;
+                }
+                return sum / count;
+            }
+
 
             // Loop through each concentric ring
             for (let ring = 1; ring <= numRings; ring++) {
                 const ringRadius = (ring / numRings) * maxRadius;
                 const numPointsInRing = Math.floor(pointsPerRing * ring);  // Increase points in outer rings
 
+                // Determine frequency range for this ring
+                let freqRange;
+                if (ring === 1) {
+                    // Center ring: Mid frequencies
+                    freqRange = bassFreqRange;
+                } else if (ring === 2 || ring === 3) {
+                    // Second and third rings: Bass frequencies
+                    freqRange = midFreqRange;
+                } else {
+                    // Fourth and fifth rings: High frequencies
+                    freqRange = highFreqRange;
+                }
+                const mean = calcMean(freqRange);
+                if (isNaN(mean) || mean === 0) continue;
+
                 // Loop through each point in the ring
                 for (let i = 0; i < numPointsInRing; i++) {
-                    const index = Math.floor((i + ring) % bufferLength);
-                    const frequency = dataArray[index];
-                    const intensity = frequency / 255;
+                    // Calculate the intensity based on the normal distribution
+                    const randomIntensity = Math.random();  // Generates a value between 0 and 1
+                    const intensity = 0.8*mean/255 + 0.2*randomIntensity;  // Apply mean and std deviation
 
                     // Calculate the angle for this point
                     const angle = (i / numPointsInRing) * Math.PI * 2;
@@ -133,28 +160,19 @@ function initMusicApp() {
                     const x = centerX + Math.cos(angle) * ringRadius;
                     const y = centerY + Math.sin(angle) * ringRadius;
 
-                    const bassBoost = index <= lowBassIndexMax ? 10 : 1;
-
                     // Set point size and brightness
-                    let pointSize = (intensity * 4 + pointPadding);  // Boost size for bass
-                    pointSize = bassBoost > 1 ? pointSize * (0.5*Math.random() + 0.5) : pointSize;
-
-
-                    const brightness = 1 - 0.9*(ringRadius / maxRadius);
-                    const opacity = 0.5 + 0.5*intensity * brightness * bassBoost;  // Boost opacity for bass
+                    const pointSize = intensity * 8 + pointPadding;  // Adjust size with padding
 
                     // Draw circular point
                     canvasCtx.beginPath();
                     canvasCtx.arc(x, y, pointSize, 0, Math.PI * 2);
-                    if (bassBoost > 1) {
-                        canvasCtx.fillStyle = `rgba(100, 107, 110, ${opacity})`;
-                    } else {
-                        canvasCtx.fillStyle = `rgba(${255 * brightness}, ${255 * brightness}, ${255 * brightness}, ${opacity})`;
-                    }
-                    canvasCtx.fill();
+                    canvasCtx.fillStyle = `rgba(255, 255, 255, ${intensity})`;
+                    canvasCtx.fill()
                 }
             }
         }
+
+
 
 
         draw();
