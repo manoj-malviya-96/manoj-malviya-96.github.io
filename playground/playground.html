@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <title>Music Visualizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #fileUpload {
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #progressBar {
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+            background-color: #555;
+        }
+
+        canvas {
+            display: block;
+            margin: 10px auto;
+            background-color: black;
+            border-radius: 10px;
+        }
+
+        #songInfo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #songTitle {
+            font-size: 1.0rem;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        #songMeta {
+            font-size: 1rem;
+            color: #999;
+        }
+
+        #metadata {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #9e9e9e;
+        }
+
+        .hud {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 69%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .primary-button:hover {
+            background-color: #45a049;
+        }
+
+        #progressBar {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="hud">
+    <!-- Controls section -->
+    <div class="controls">
+        <!-- Upload Button with Bootstrap icon -->
+        <div id="uploadButton">
+            <label for="fileUpload" class="primary-button">
+                <i class="bi bi-upload"></i> </label>
+            <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+        </div>
+
+        <!-- Play/Pause Button with Bootstrap icon -->
+        <button id="playPauseBtn" class="primary-button">
+            <i class="bi bi-play-fill"></i> </button>
+
+        <!-- Song Info -->
+        <div id="songInfo">
+            <div id="songTitle">No song playing</div>
+            <div id="songMeta">--:--</div>
+        </div>
+    </div>
+
+    <!-- Slider for progress -->
+    <input type="range" id="progressBar" min="0" max="100" value="0">
+</div>
+
+<div id="metadata"></div>
+<canvas id="visualizer" width="800" height="800"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+<script>
+    const fileUpload = document.getElementById('fileUpload');
+    const canvas = document.getElementById('visualizer');
+    const canvasCtx = canvas.getContext('2d');
+    const progressBar = document.getElementById('progressBar');
+    const songTitle = document.getElementById('songTitle');
+    const songMeta = document.getElementById('songMeta');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const metadataDiv = document.getElementById('metadata');
+
+    let audioContext;
+    let analyser;
+    let source;
+    let bufferLength;
+    let dataArray;
+    let audio;
+    let duration;
+    let isPlaying = false;
+
+    fileUpload.addEventListener('change', handleFileUpload);
+    progressBar.addEventListener('input', updateProgress);
+    playPauseBtn.addEventListener('click', togglePlayPause);
+
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (audio) {
+            audio.pause();
+            audioContext.close();
+        }
+
+        audio = new Audio();
+        audio.src = URL.createObjectURL(file);
+        audio.load();
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+
+        source = audioContext.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        analyser.fftSize = 256;
+        bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+
+        // Show song file name
+        songTitle.textContent = file.name;
+
+        // Extract song metadata using jsmediatags
+        jsmediatags.read(file, {
+            onSuccess: function(tag) {
+                const { title, artist, album } = tag.tags;
+                metadataDiv.innerHTML = `
+                        <p><strong>Artist:</strong> ${artist || 'Unknown'}</p>
+                        <p><strong>Album:</strong> ${album || 'Unknown'}</p>
+                        <p><strong>Title:</strong> ${title || file.name}</p>
+                    `;
+            },
+            onError: function(error) {
+                console.log('Error reading metadata:', error);
+            }
+        });
+
+        audio.addEventListener('timeupdate', updateSlider);
+        audio.addEventListener('ended', () => {
+            playPauseBtn.textContent = 'Play';
+            progressBar.value = 0;
+            isPlaying = false;
+        });
+
+        drawGridVisualizer();
+    }
+
+    function togglePlayPause() {
+        if (!audio) return;
+
+        if (isPlaying) {
+            audio.pause();
+            playPauseBtn.textContent = 'Play';
+        } else {
+            audio.play();
+            playPauseBtn.textContent = 'Pause';
+        }
+        if (isPlaying) {
+            this.innerHTML = '<i class="bi bi-play-fill"></i>';
+        } else {
+            this.innerHTML = '<i class="bi bi-pause-fill"></i>';
+        }
+        isPlaying = !isPlaying;
+
+    }
+
+    function updateSlider() {
+        const currentTime = audio.currentTime;
+        const currentMinutes = Math.floor(currentTime / 60);
+        const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
+        songMeta.textContent = `${currentMinutes}:${currentSeconds} / ${Math.floor(audio.duration / 60)}:${Math.floor(audio.duration % 60).toString().padStart(2, '0')}`;
+        progressBar.value = (currentTime / audio.duration) * 100;
+    }
+
+    function updateProgress() {
+        const seekTime = (progressBar.value / 100) * audio.duration;
+        audio.currentTime = seekTime;
+    }
+
+    function drawGridVisualizer() {
+        const numRings = 10;  // Number of concentric rings
+        const pointsPerRing = 20;  // Points per ring (can be dynamic based on radius)
+        const maxRadius = canvas.width / 2.5;  // Maximum distance from the center
+        const pointPadding = 10;  // Padding between points
+
+        function draw() {
+            requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Loop through each concentric ring
+            for (let ring = 1; ring <= numRings; ring++) {
+                const ringRadius = (ring / numRings) * maxRadius;
+                const numPointsInRing = Math.floor(pointsPerRing * ring);  // Increase points in outer rings
+
+                // Loop through each point in the ring
+                for (let i = 0; i < numPointsInRing; i++) {
+                    const index = Math.floor((i + ring) % bufferLength);
+                    const frequency = dataArray[index];
+                    const intensity = frequency / 255;
+
+                    // Calculate the angle for this point
+                    const angle = (i / numPointsInRing) * Math.PI * 2;
+
+                    // Calculate the position of the point on the ring
+                    const x = centerX + Math.cos(angle) * ringRadius;
+                    const y = centerY + Math.sin(angle) * ringRadius;
+
+                    // Set point size and brightness
+                    const pointSize = intensity * 6 + pointPadding;  // Adjust size with padding
+                    const brightness = 1 - (ringRadius / maxRadius);
+                    const opacity = intensity * brightness;
+
+                    // Draw circular point
+                    canvasCtx.beginPath();
+                    canvasCtx.arc(x, y, pointSize, 0, Math.PI * 2);
+                    canvasCtx.fillStyle = `rgba(${255 * intensity}, ${100 * brightness}, ${255 * brightness}, ${opacity})`;
+                    canvasCtx.fill();
+                }
+            }
+        }
+
+        draw();
+    }
+
+
+</script>
+</body>
+</html>

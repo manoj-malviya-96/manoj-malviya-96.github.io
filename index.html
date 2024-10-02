@@ -53,33 +53,6 @@
             "search-label": "Search"
         }
     }</script>
-
-    <script type="text/javascript">
-        const typesetMath = (el) => {
-            if (window.MathJax) {
-                // MathJax Typeset
-                window.MathJax.typeset([el]);
-            } else if (window.katex) {
-                // KaTeX Render
-                let mathElements = el.getElementsByClassName("math");
-                let macros = [];
-                for (let i = 0; i < mathElements.length; i++) {
-                    const texText = mathElements[i].firstChild;
-                    if (mathElements[i].tagName === "SPAN") {
-                        window.katex.render(texText.data, mathElements[i], {
-                            displayMode: mathElements[i].classList.contains('display'),
-                            throwOnError: false,
-                            macros: macros,
-                            fleqn: false
-                        });
-                    }
-                }
-            }
-        }
-        window.Quarto = {
-            typesetMath
-        };
-    </script>
     <link rel="stylesheet" href="styles.css">
     <title>Manoj Malviya</title>
 </head>
@@ -92,12 +65,7 @@
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
 <script src="https://unpkg.com/github-calendar/dist/github-calendar.min.js"></script>
-
-
-<!-- Load custom scripts -->
-<script src="./common.js"></script>
-<script src="./projects.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 
 <!-- header -->
 <div id="header-placeholder" style="display: none;"></div>
@@ -109,84 +77,19 @@
 <!-- main content -->
 <div id="content-placeholder" style="display: none;"></div>
 
+
+<!-- Load custom scripts: Note: LOAD IT AFTER PLACEHOLDER CONSTRUCTION TO ENSURE WE CAN USE IN COMMON -->
+<script src="./src/helper.js"></script>
+<script src="./src/init.js"></script>
+<script src="./src/projects.js"></script>
+<script src="./src/main.js"></script>
+
 <script>
-    let headerPlaceholder = document.getElementById('header-placeholder');
-    loadContent("./header.html", headerPlaceholder);
-
-    // Initialize the scroll behavior
-    window.document.documentElement.style.scrollBehavior = 'smooth';
-
-
-    function loadMainContent(page, event, callback = null) {
-        const contentPlaceholder = document.getElementById('content-placeholder');
-        const contentPlaceholderOverlay = document.getElementById('content-placeholder-overlay');
-
-        // Load content and pass the footer initialization as a callback
-        loadContentWithDelay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
-            if (callback){
-                callback();
-            }
-            if (page === './research/dfam/dfam.html') {
-                createPlotsForDfam();
-            }
-            if (page === './research/delta-design/delta-design.html') {
-                createPlotsForDeltaDesign();
-            }
-            initGithub();
-            initScrollTracking();
-            initToggleForAbout();
-            initImageFluidHandler();
-        });
-
-        updateURLParameter(page);
-        initContentObserver(contentPlaceholder);
-    }
-    function loadHomePage(event=null) {
-        loadMainContent('./home.html', event, loadProjects);
-    }
-
-    // Add Event Listener for Loading tree-pages.
-    document.addEventListener(pageEventHandlerName, function (event) {
-        let callback = null;
-
-        if (event.detail.appInitCallBackKey) {
-            callback = availableCallbacks[event.detail.appInitCallBackKey];
-        } else if (event.detail.isProject) {
-            callback = loadProjectFooter;
-        }
-        loadMainContent(event.detail.page, event, callback);
-    });
-
-    // Handle back/forward navigation with popstate event
-    window.addEventListener('popstate', function (event) {
-        if (event.state && event.state.page) {
-            console.log('Popstate event detected:', event.state.page);
-            const callback = availableCallbacks[event.state.callback];
-            // Load content based on the state object stored in history
-            loadMainContent(event.state.page, event, callback); // Don't update history again
-        } else {
-            // Default action if no state is detected
-            loadHomePage();
-        }
-    });
-    function loadPageFromParameter() {
-        // Get the 'pageName' parameter from the URL
-        const pageName = getURLParameter('pageName');
-        console.log('Page name from URL:', pageName);
-
-        const defaultPage = './home.html';
-        const loadHomePage = !pageName || pageName === defaultPage;
-        const pageToLoad = loadHomePage ? defaultPage : pageName;
-        const callback = loadHomePage? loadProjects : loadProjectFooter;
-
-        // Check if the 'pageToLoad' is a valid file type (e.g., .html)
-        if (!pageToLoad.endsWith('.html')) {
-            console.error('Invalid page type specified. Only .html files are allowed.');
-            return;
-        }
-        loadMainContent(pageToLoad, event, callback);
-    }
-    document.addEventListener('DOMContentLoaded', loadPageFromParameter);
+    initHeader();
+    initScrollBehavior();
+    initMathJax();
+    setupPopStateHandler();
+    setupLoadPageUrlHandler();
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">
