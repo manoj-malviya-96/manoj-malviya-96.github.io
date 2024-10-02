@@ -36,7 +36,7 @@
 
     --small-text-size: 10px;
     --normal-text-size: 16px;
-    --title-font-size: 27px;
+    --title-font-size: 25px;
     --super-title-font-size: 41px;
 
     --icon-size: 18px;
@@ -81,7 +81,7 @@
     /* App Button */
     --app-button-size: 80px;
     --app-window-width: 1200px;
-    --app-window-height: 850px;
+    --app-window-height: 750px;
     --app-title-width-perc: 12%;
 }
 
@@ -932,56 +932,6 @@ th {
 }
 
 
-/* -------------------------- Music App Styling -------------------------- */
-canvas {
-    position: absolute;
-    width: var(--app-window-width);
-    height: var(--app-window-height);
-    z-index: 1;
-    border-radius: var(--default-radius);
-    background-color: transparent;
-    justify-items: center;
-    align-items: center;
-    padding: var(--spacing-medium);
-}
-
-.music-hud {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: calc(100% - var(--app-title-width-perc));
-    height: auto;
-    padding: 0;
-    margin-left: var(--spacing-huge);
-}
-
-#titleRow {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    height: auto;
-    width: 100%;
-}
-
-#songTitle {
-    font-size: var(--normal-text-size);
-    line-height: var(--line-height);
-}
-
-#timeInfo {
-    font-size: var(--normal-text-size);
-    line-height: var(--line-height);
-}
-
-.music-controls {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-}
-
 /* --------------------  App Controls  Styling ------------------- */
 .primary-button {
     background-color: transparent;
@@ -991,15 +941,15 @@ canvas {
     height: 100%;
 }
 
-.primary-button i {
+.primary-button .bi {
     font-size: var(--title-font-size);
 }
 
-.primary-button:hover {
-    color: var(--color-brand-primary);
+.primary-button:hover .bi {
+    color: var(--color-brand-primary); !important;
 }
 
-.primary-button:active {
+.primary-button:active .bi {
     transform: scale(calc(1 / var(--transform-scale)));
 }
 
@@ -1017,6 +967,45 @@ input[type="range"] {
     border-radius: var(--default-radius);
     outline: none;
     cursor: pointer;
+}
+
+
+/* -------------------------- Music App Styling -------------------------- */
+canvas {
+    position: absolute;
+    width: var(--app-window-width);
+    height: var(--app-window-height);
+    z-index: 1;
+    border-radius: var(--default-radius);
+    background-color: transparent;
+    justify-items: center;
+    align-items: center;
+    padding: var(--spacing-medium);
+}
+
+.music-hud {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - var(--app-title-width-perc));
+    height: auto;
+    padding-left: var(--spacing-huge);
+    padding-right: var(--spacing-medium);
+}
+
+#titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--normal-text-size);
+    line-height: var(--line-height);
+}
+
+.music-controls {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
 }
 
 /* -------------------------- Light Mode -------------------------- */

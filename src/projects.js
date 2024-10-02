@@ -111,7 +111,7 @@ function initMusicApp() {
     }
 
     function drawDoubleSidedBarVisualizer() {
-        const numBars = 69;  // Number of bars in the visualizer
+        const numBars = 128;  // Number of bars in the visualizer
         const barWidth = canvas.width / numBars;  // Width of each bar
         const maxBarHeight = canvas.height / 4;  // Maximum height for each bar
 
