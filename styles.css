@@ -1,15 +1,15 @@
 :root {
     /* Color Palette */
-    --color-light-primary: #ffffff;
+    --color-light-primary: rgb(255, 255, 255);
     --color-light-contrast: rgba(193, 193, 193, 0.47);
-    --color-light-imp: #373737;
+    --color-light-imp: rgb(47, 47, 47);
 
-    --color-dark-primary: #000000;
+    --color-dark-primary: rgb(0, 0, 0);
     --color-dark-contrast: rgba(47, 47, 47, 0.47);
-    --color-dark-imp: #ababab;
+    --color-dark-imp: rgb(193, 193, 193);
 
-    --color-brand-primary: #0a396f;
-    --color-passive-element: #706f6f;
+    --color-brand-primary: rgb(22, 64, 120);
+    --color-passive-element: rgba(128, 128, 128, 0.69);
 
     /* Spacing */
     --spacing-small: 5px;
@@ -39,7 +39,7 @@
     --title-font-size: 27px;
     --super-title-font-size: 41px;
 
-    --icon-size: 21px;
+    --icon-size: 18px;
 
     --border-width: 1px;
     --z-index-overlay: 1000;
@@ -85,7 +85,7 @@
     --app-button-size: 80px;
     --app-window-width: 1200px;
     --app-window-height: 850px;
-    --app-title-width-perc: 18%;
+    --app-title-width-perc: 12%;
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -145,7 +145,6 @@ p {
     transition: all var(--transition-short);
 }
 
-
 /* ----------------------------- Navbar Styling ----------------------------- */
 .navbar-title,
 .navbar-nav .nav-link,
@@ -157,9 +156,15 @@ p {
     cursor: pointer;
 }
 
+.navbar-nav .nav-link.hover {
+    color: var(--color-brand-primary);
+!important;
+}
+
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-item.active {
-    color: var(--color-brand-primary) !important;
+    color: var(--color-brand-primary);
+!important;
 }
 
 .icon-large {
@@ -860,6 +865,11 @@ th {
     font-size: var(--title-font-size);
 }
 
+
+.app-button .bi:active {
+    transform: scale(1/var(--transform-scale));
+}
+
 .app-window {
     display: flex;
     flex-direction: column;
@@ -883,9 +893,11 @@ th {
     border-radius: var(--default-radius);
     border-width: var(--border-width);
     border-style: solid;
+    height: auto;
     width: var(--max-content-width);
     z-index: var(--z-index-overlay);
-    padding: var(--spacing-large);
+    padding: var(--spacing-small);
+    margin: 0 auto;
     backdrop-filter: blur(var(--blur-radius));
 }
 
@@ -894,27 +906,80 @@ th {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: var(--spacing-small);
     width: var(--app-title-width-perc);
-    height: 100%;
 }
 
-#appIcon {
+.icon-text-container .bi {
     font-size: var(--super-title-font-size);
     color: var(--color-brand-primary);
+    padding: 0;
+    margin: 0;
 }
 
 #appName {
-    font-size: var(--title-font-size);
+    font-size: var(--normal-text-size);
     font-weight: var(--bold-weight);
     color: var(--color-brand-primary);
 }
 
 .light-mode .app-window {
-    border-color : var(--color-light-contrast);
+    border-color: var(--color-light-contrast);
 }
 
 .dark-mode .app-window {
-    border-color : var(--color-dark-contrast);
+    border-color: var(--color-dark-contrast);
+}
+
+
+/* -------------------------- Music App Styling -------------------------- */
+canvas {
+    position: absolute;
+    width: var(--app-window-width);
+    height: var(--app-window-height);
+    z-index: 1;
+    border-radius: var(--default-radius);
+    background-color: transparent;
+    justify-items: center;
+    align-items: center;
+    padding: var(--spacing-medium);
+}
+
+.music-hud {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: calc(100% - var(--app-title-width-perc));
+    height: auto;
+    padding: 0;
+    margin-left: var(--spacing-huge);
+}
+
+#titleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+}
+
+#songTitle {
+    font-size: var(--normal-text-size);
+    line-height: var(--line-height);
+}
+
+#timeInfo {
+    font-size: var(--normal-text-size);
+    line-height: var(--line-height);
+}
+
+.music-controls {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
 }
 
 /* --------------------  App Controls  Styling ------------------- */
@@ -922,18 +987,12 @@ th {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-size: var(--icon-size);
     transition: all var(--transition-default);
     height: 100%;
-    width: 100%;
 }
 
-.light-mode .primary-button {
-    color: var(--color-light-imp);
-}
-
-.dark-mode .primary-button {
-    color: var(--color-dark-imp);
+.primary-button i {
+    font-size: var(--title-font-size);
 }
 
 .primary-button:hover {
@@ -949,8 +1008,6 @@ th {
     display: block;
     background-color: transparent;
     border-radius: var(--default-radius);
-    padding-left: var(--spacing-large);
-    padding-right: var(--spacing-large);
 }
 
 input[type="range"] {
@@ -960,59 +1017,6 @@ input[type="range"] {
     border-radius: var(--default-radius);
     outline: none;
     cursor: pointer;
-}
-
-.light-mode input[type="range"] {
-    background: var(--color-light-contrast);
-}
-
-.dark-mode input[type="range"] {
-    background: var(--color-dark-contrast);
-}
-
-/* -------------------------- Music App Styling -------------------------- */
-canvas {
-    position: absolute;
-    width: var(--app-window-width);
-    height: var(--app-window-height);
-    z-index: 1;
-    border-radius: var(--default-radius);
-    background-color: transparent;
-    justify-items: center;
-    align-items: center;
-    padding: var(--spacing-medium);
-}
-
-#songTitle {
-    font-size: var(--normal-text-size);
-    padding: var(--spacing-small);
-}
-
-.music-hud {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: calc(100% - var(--app-title-width-perc));
-    height: auto;
-}
-
-.music-controls {
-    display: flex;
-    width: 69%;
-    justify-content: space-evenly;
-    height: auto;
-    padding-top: var(--spacing-large);
-    padding-bottom: var(--spacing-small);
-    border-radius: var(--default-radius);
-}
-
-#timeInfo {
-    font-size: var(--normal-text-size);
-    line-height: var(--line-height);
-    display: flex;
-    align-items: center;
-    justify-items: center;
 }
 
 /* -------------------------- Light Mode -------------------------- */
@@ -1161,12 +1165,18 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
-
-
 .light-mode .app-header {
     border-color: var(--color-light-contrast);
     background-color: var(--color-light-contrast);
     color: var(--color-light-imp);
+}
+
+.light-mode .primary-button {
+    color: var(--color-light-imp);
+}
+
+.light-mode input[type="range"] {
+    background: var(--color-light-contrast);
 }
 
 
@@ -1318,7 +1328,6 @@ body.dark-mode {
     border-color: var(--color-dark-contrast);
 }
 
-
 .dark-mode .app-header {
     border-color: var(--color-dark-contrast);
     background-color: var(--color-dark-contrast);
@@ -1326,3 +1335,11 @@ body.dark-mode {
 }
 
 
+.dark-mode .primary-button {
+    color: var(--color-dark-imp);
+}
+
+
+.dark-mode input[type="range"] {
+    background: var(--color-dark-contrast);
+}

@@ -8,23 +8,25 @@
 
         <!-- HUD for music controls and display -->
         <div class="music-hud">
-            <div id="songTitle">
-                <span>Currently Playing</span>
+            <div id="titleRow" style="display: flex; justify-content: space-evenly">
+                <span id="songTitle">Currently Playing</span>
+                <div id="timeInfo">0:00/0:00</div>
             </div>
             <div class="progress-area">
                 <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
             </div>
             <div class="music-controls">
+                <!-- Upload button -->
                 <div id="uploadButton">
                     <label for="fileUpload" class="primary-button">
                         <i class="bi bi-upload"></i>
                     </label>
                     <input type="file" id="fileUpload" accept="audio/*" style="display: none">
                 </div>
+                <!-- Play button -->
                 <button id="playPauseBtn" class="primary-button">
-                    <i class="bi bi-play-fill"></i>
+                    <i class="bi bi-play"></i>
                 </button>
-                <div id="timeInfo">0:00/0:00</div>
             </div>
         </div>
     </div>

@@ -7,6 +7,9 @@ function initMusicApp() {
     const timeInfo = document.getElementById('timeInfo');
     const playPauseBtn = document.getElementById('playPauseBtn');
 
+    const brandColor = window.getComputedStyle(document.documentElement).getPropertyValue('--primary-brand-color');
+
+
     let audioContext;
     let analyser;
     let source;
@@ -62,7 +65,7 @@ function initMusicApp() {
             isPlaying = false;
         });
 
-        drawGridVisualizer();
+        drawDoubleSidedBarVisualizer();
     }
 
     function togglePlayPause() {
@@ -74,9 +77,9 @@ function initMusicApp() {
             audio.play();
         }
         if (isPlaying) {
-            this.innerHTML = '<i class="bi bi-play-fill"></i>';
+            this.innerHTML = '<i class="bi bi-play"></i>';
         } else {
-            this.innerHTML = '<i class="bi bi-pause-fill"></i>';
+            this.innerHTML = '<i class="bi bi-pause"></i>';
         }
         isPlaying = !isPlaying;
 
@@ -97,11 +100,10 @@ function initMusicApp() {
         audio.currentTime = (progressBar.value / 100) * audio.duration;
     }
 
-    function drawGridVisualizer() {
-        const numRings = 6;  // Number of concentric rings
-        const pointsPerRing = 11;  // Points per ring (can be dynamic based on radius)
-        const maxRadius = canvas.width / 2;  // Maximum distance from the center
-        const pointPadding = 7;  // Padding between points
+    function drawDoubleSidedBarVisualizer() {
+        const numBars = 69;  // Number of bars in the visualizer
+        const barWidth = canvas.width / numBars;  // Width of each bar
+        const maxBarHeight = canvas.height / 4;  // Maximum height for each bar
 
         function draw() {
             requestAnimationFrame(draw);
@@ -109,71 +111,26 @@ function initMusicApp() {
 
             canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
+            const centerY = canvas.height / 2;  // Center line for the bars
 
-            // Define frequency ranges for each group of rings
-            const midFreqRange = { min: Math.floor((300 / analyser.context.sampleRate) * bufferLength), max: Math.floor((4000 / analyser.context.sampleRate) * bufferLength) };
-            const bassFreqRange = { min: Math.floor((0 / analyser.context.sampleRate) * bufferLength), max: Math.floor((300 / analyser.context.sampleRate) * bufferLength) };
-            const highFreqRange = { min: Math.floor((4000 / analyser.context.sampleRate) * bufferLength), max: bufferLength };
+            // Loop through each bar
+            for (let i = 0; i < numBars; i++) {
+                // Calculate the frequency index to pull data from
+                const freqIndex = Math.floor(i * (bufferLength / numBars));
 
-            const calcMean = (freqRange) => {
-                let sum = 0, count = 0;
-                for (let i = freqRange.min; i <= freqRange.max; i++) {
-                    sum += dataArray[i];
-                    count++;
-                }
-                return sum / count;
-            }
+                // Get the frequency data for this bar
+                const barHeight = (dataArray[freqIndex] / 255) * maxBarHeight;
 
+                const x = i * barWidth;  // Calculate x position for the bar
 
-            // Loop through each concentric ring
-            for (let ring = 1; ring <= numRings; ring++) {
-                const ringRadius = (ring / numRings) * maxRadius;
-                const numPointsInRing = Math.floor(pointsPerRing * ring);  // Increase points in outer rings
+                // Draw upper bar (above the center line)
+                canvasCtx.fillStyle = `rgba(22, 64, 120, 0.8)`; // Check the color
+                canvasCtx.fillRect(x, centerY - barHeight, barWidth - 2, barHeight);  // Upper bar
 
-                // Determine frequency range for this ring
-                let freqRange;
-                if (ring === 1) {
-                    // Center ring: Mid frequencies
-                    freqRange = bassFreqRange;
-                } else if (ring === 2 || ring === 3) {
-                    // Second and third rings: Bass frequencies
-                    freqRange = midFreqRange;
-                } else {
-                    // Fourth and fifth rings: High frequencies
-                    freqRange = highFreqRange;
-                }
-                const mean = calcMean(freqRange);
-                if (isNaN(mean) || mean === 0) continue;
-
-                // Loop through each point in the ring
-                for (let i = 0; i < numPointsInRing; i++) {
-                    // Calculate the intensity based on the normal distribution
-                    const randomIntensity = Math.random();  // Generates a value between 0 and 1
-                    const intensity = 0.8*mean/255 + 0.2*randomIntensity;  // Apply mean and std deviation
-
-                    // Calculate the angle for this point
-                    const angle = (i / numPointsInRing) * Math.PI * 2;
-
-                    // Calculate the position of the point on the ring
-                    const x = centerX + Math.cos(angle) * ringRadius;
-                    const y = centerY + Math.sin(angle) * ringRadius;
-
-                    // Set point size and brightness
-                    const pointSize = intensity * 8 + pointPadding;  // Adjust size with padding
-
-                    // Draw circular point
-                    canvasCtx.beginPath();
-                    canvasCtx.arc(x, y, pointSize, 0, Math.PI * 2);
-                    canvasCtx.fillStyle = `rgba(255, 255, 255, ${intensity})`;
-                    canvasCtx.fill()
-                }
+                // Draw lower bar (below the center line)
+                canvasCtx.fillRect(x, centerY, barWidth - 2, barHeight);  // Lower bar
             }
         }
-
-
-
 
         draw();
     }
