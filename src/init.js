@@ -61,7 +61,7 @@ function initImageFluidHandler() {
 
 
 function initToggleForAbout() {
-    const button = window.document.querySelector('.about-expand-button');
+    const button = window.document.querySelector('.toggle-expand-button');
     if (!button) {
         return; // Button not found
     }
@@ -73,9 +73,9 @@ function initToggleForAbout() {
 
         // Toggle icon class and button text based on the state
         if (content.classList.contains('expanded')) {
-            this.innerHTML = '<i class="bi bi-chevron-up"></i> Show Less';
+            this.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
         } else {
-            this.innerHTML = '<i class="bi bi-chevron-down"></i> Show More';
+            this.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
         }
     });
 }

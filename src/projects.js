@@ -6,8 +6,8 @@ function initMusicApp() {
     const songTitle = document.getElementById('songTitle');
     const timeInfo = document.getElementById('timeInfo');
     const playPauseBtn = document.getElementById('playPauseBtn');
-
-    const brandColor = window.getComputedStyle(document.documentElement).getPropertyValue('--primary-brand-color');
+    const toggleBtn = document.getElementById('toggle-music-hud');
+    console.log("Music app initialized", toggleBtn);
 
 
     let audioContext;
@@ -23,6 +23,16 @@ function initMusicApp() {
     progressBar.addEventListener('input', updateProgress);
     playPauseBtn.addEventListener('click', togglePlayPause);
 
+    toggleBtn.addEventListener('click', function () {
+        const hud = window.document.querySelector('.app-header');
+        hud.classList.toggle('hidden');
+
+        if (hud.classList.contains('hidden')) {
+            this.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
+        } else {
+            this.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
+        }
+    });
 
     function handleFileUpload(event) {
         const file = event.target.files[0];

@@ -78,9 +78,6 @@
     --color-calendar-graph-day-L3-bg: #3d65c4;
     --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
 
-    /* About me */
-    --about-expand-button-height: 30px;
-
     /* App Button */
     --app-button-size: 80px;
     --app-window-width: 1200px;
@@ -143,6 +140,26 @@ p {
     font-weight: var(--regular-weight);
     margin-bottom: var(--spacing-small);
     transition: all var(--transition-short);
+}
+
+.toggle-expand-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.toggle-expand-button {
+    font-size: var(--title-font-size);
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-small);
+    margin: 0;
+    background-color: transparent;
+    transition: all var(--transition-default);
+}
+
+.toggle-expand-button:hover .bi {
+    color: var(--color-brand-primary);
 }
 
 /* ----------------------------- Navbar Styling ----------------------------- */
@@ -291,31 +308,10 @@ p {
 
 
 .about-text {
+    max-height: var(--about-entity-height);
     padding: var(--spacing-medium);
     margin-left: var(--spacing-large);
     flex-grow: 1; /* Allow text to fill remaining space */
-}
-
-.about-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.about-expand-button {
-    height: var(--about-expand-button-height);
-    margin-top: calc(-1 * var(--border-width)); /* to adjust for border */
-    border: none;
-    cursor: pointer;
-    border-radius: 0 0 var(--default-radius) var(--default-radius);
-    padding: var(--spacing-small);
-
-}
-
-.about-expand-button.expanded {
-    transform: translateY(calc(-1 * var(--about-expand-button-height)));
-    border-radius: var(--default-radius) var(--default-radius) 0 0;
 }
 
 .collapsible-content {
@@ -324,7 +320,6 @@ p {
     opacity: 0;
     overflow: hidden;
     margin: 0 auto;
-    border-bottom: var(--border-width) solid var(--color-brand-primary);
     transition: all var(--transition-default);
 }
 
@@ -899,6 +894,7 @@ th {
     padding: var(--spacing-small);
     margin: 0 auto;
     backdrop-filter: blur(var(--blur-radius));
+    transition: all var(--transition-default);
 }
 
 .icon-text-container {
@@ -929,6 +925,10 @@ th {
 
 .dark-mode .app-window {
     border-color: var(--color-dark-contrast);
+}
+
+.app-header.hidden {
+    height: 0;  /* Collapsed state */
 }
 
 
@@ -1149,17 +1149,9 @@ body.light-mode {
 }
 
 
-.light-mode .about-expand-button {
+.light-mode .toggle-expand-button {
     color: var(--color-light-imp);
-    background-color: var(--color-light-contrast);
 }
-
-
-.light-mode .about-expand-button.expanded {
-    color: white;
-    background-color: var(--color-brand-primary);
-}
-
 
 .light-mode .app-drawer {
     border-color: var(--color-light-contrast);
@@ -1314,15 +1306,10 @@ body.dark-mode {
 !important;
 }
 
-.dark-mode .about-expand-button {
+.dark-mode .toggle-expand-button {
     color: var(--color-dark-imp);
-    background-color: var(--color-dark-contrast);
 }
 
-.dark-mode .about-expand-button.expanded {
-    color: white;
-    background-color: var(--color-brand-primary);
-}
 
 .dark-mode .app-drawer {
     border-color: var(--color-dark-contrast);
