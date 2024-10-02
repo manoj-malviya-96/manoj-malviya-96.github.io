@@ -365,6 +365,19 @@ function loadProjectFooter() {
     initProjectFooterToggle();
 }
 
+function toggleSidebar() {
+    const sidebar = document.getElementById("sideBar");
+    const icon = document.getElementById('sidebar-toggle-icon');
+
+    sidebar.classList.toggle("collapsed");
+
+    if (sidebar.classList.contains("collapsed")) {
+        icon.className = 'bi bi-chevron-right';
+    } else {
+        icon.className = 'bi bi-chevron-left';
+    }
+}
+
 
 // Function to initialize theme toggle after loading header
 function toggleTheme() {
