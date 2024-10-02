@@ -8,7 +8,7 @@
     --color-dark-contrast: rgba(47, 47, 47, 0.47);
     --color-dark-imp: rgb(193, 193, 193);
 
-    --color-brand-primary: rgb(22, 64, 120);
+    --color-brand-primary: rgb(80, 111, 151); /*164078FF*/
     --color-passive-element: rgba(128, 128, 128, 0.69);
 
     /* Spacing */
@@ -173,15 +173,16 @@ p {
     border: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: left;
+    align-content: flex-start;
     padding: var(--spacing-medium);
 }
 
 .navbar-nav {
     display: flex;
     flex-direction: column;
-    justify-items: left;
-    align-items: center;
+    justify-content: left;
+    text-align: left;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -193,8 +194,11 @@ p {
 }
 
 .navbar-nav .nav-item {
+    text-align: left;
     margin: 0 auto !important;
     cursor: pointer;
+    justify-content: left;
+    align-content: flex-start;
     color: var(--color-dark-imp);
     transition: all var(--transition-default);
     height: 100%;
@@ -204,7 +208,7 @@ p {
 .navbar-nav .nav-link {
     display: flex;
     justify-content: left;
-    align-content: center;
+    align-content: flex-start;
     height: 100%;
     padding: 0;
     margin: 0 auto; !important;
@@ -223,6 +227,8 @@ p {
 }
 
 .navbar-nav .nav-link .nav-text {
+    justify-content: center;
+    align-content: center;
     font-size: var(--normal-text-size);
     line-height: var(--line-height);
     margin-left: var(--spacing-small);
@@ -835,12 +841,19 @@ th {
     width: var(--app-button-size);
     font-size: var(--normal-text-size);
     padding: var(--spacing-medium);
-    color: white;
-    background-color: var(--color-brand-primary);
+    color: var(--color-brand-primary);
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
     box-shadow: none;
+}
+
+.light-mode .app-button {
+    background-color: var(--color-light-contrast);
+}
+
+.dark-mode .app-button {
+    background-color: var(--color-dark-contrast);
 }
 
 .app-button:hover {
