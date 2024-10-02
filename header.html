@@ -1,60 +1,61 @@
-<header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar fixed-top navbar-expand-lg ps-0">
-        <div class="container-fluid px-0">
-            <!-- Toggler for mobile view -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
-                    onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-                <span style="padding: var(--spacing-small)"><i class="bi bi-arrow-down-circle"></i></span>
+<!-- Sidebar -->
+<div id="sideBar" class="navbar collapsed"> <!-- Add collapsed class for default collapsed view -->
+    <!-- Navigation Links Grouped (Icons Only) -->
+    <!-- Home Group -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" onClick="loadHomePage(event)">
+                <i class="bi bi-house-door-fill"></i> <!-- Home icon -->
+                <span class="nav-text">Home</span> <!-- Hidden text -->
+            </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <!-- Social Media Group -->
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Linkedin')">
+                <i class="bi bi-linkedin"></i>
+                <span class="nav-text">LinkedIn</span> <!-- Hidden text -->
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('GitHub')">
+                <i class="bi bi-github"></i>
+                <span class="nav-text">GitHub</span> <!-- Hidden text -->
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Instagram')">
+                <i class="bi bi-instagram"></i>
+                <span class="nav-text">Instagram</span> <!-- Hidden text -->
+            </a>
+        </li>
+
+        <!-- Settings Group -->
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" onclick="loadPDFInMainWindow('./assets/resume.pdf')">
+                <i class="bi bi-file-earmark-person-fill"></i>
+                <span class="nav-text">Resume</span> <!-- Hidden text -->
+            </a>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav">
+        <!-- Dark Mode Toggle -->
+        <li class="nav-item">
+            <button id="theme-switch-btn" class="nav-link" onclick="toggleTheme()">
+                <i id="theme-icon" class="bi bi-moon-stars-fill"></i>
+                <span class="nav-text">Theme</span> <!-- Hidden text -->
             </button>
+        </li>
 
-            <!-- Header-bar -->
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <!-- Navbar links (left-aligned) -->
-                <ul class="navbar-nav me-auto align-items-center"> <!-- Added align-items-center for vertical centering -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onClick="loadHomePage(event)">
-                            <i class="bi bi-house-door-fill icon-large" role="img"> </i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadPDFInMainWindow('./assets/resume.pdf')">
-                            <i class="bi bi-file-earmark-person-fill icon-large"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Linkedin')">
-                            <i class="bi bi-linkedin icon-large" role="img"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('GitHub')">
-                            <i class="bi bi-github icon-large" role="img"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Instagram')">
-                            <i class="bi bi-instagram icon-large" role="img"></i>
-                        </a>
-                    </li>
-                </ul>
 
-                <!-- Title Brand -->
-                <div class="navbar-brand-container mx-auto">
-                    <div class="navbar-brand">
-                        <span class="navbar-title ms-2">Manoj Malviya</span>
-                    </div>
-                </div>
-                <!-- Social media links (right-aligned) -->
-                <ul class="navbar-nav ms-auto justify-content-end align-items-center"> <!-- Added align-items-center -->
-                    <!-- Dark Mode Toggle -->
-                    <li class="nav-item">
-                        <button id="theme-switch-btn" class="nav-link btn btn-icon" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
-                            <i id="theme-icon" class="bi bi-moon-stars-fill"></i> <!-- Initial icon, set to moon for dark mode -->
-                        </button>
-                    </li>
-                </ul>
-            </div> <!-- /navbar-collapse -->
-        </div> <!-- /container-fluid -->
-    </nav>
-</header>
+        <!-- Sidebar Toggle Button -->
+        <li class="nav-item">
+            <button id="sidebar-toggle-btn" class="nav-link" onclick="toggleSidebar()">
+                <i class="bi bi-chevron-right" id="sidebar-toggle-icon"></i> <!-- Toggle icon -->
+                <span class="nav-text">Collapse</span> <!-- Hidden text -->
+            </button>
+        </li>
+    </ul>
+</div>
