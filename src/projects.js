@@ -23,6 +23,7 @@ class MusicApp {
         this.elements.progressBar.addEventListener('input', this.updateProgress.bind(this));
         this.elements.playPauseBtn.addEventListener('click', this.togglePlayPause.bind(this));
         this.elements.toggleBtn.addEventListener('click', this.toggleMusicHud.bind(this));
+        this.elements.vizDropdown.addEventListener('change', this.drawVisualizer.bind(this))
         this.elements.progressBar.style.background = `${this.backgroundColor}`;
     }
 
@@ -35,7 +36,8 @@ class MusicApp {
             songTitle: window.document.getElementById('songTitle'),
             timeInfo: window.document.getElementById('timeInfo'),
             playPauseBtn: window.document.getElementById('playPauseBtn'),
-            toggleBtn: window.document.getElementById('toggle-music-hud')
+            toggleBtn: window.document.getElementById('toggle-music-hud'),
+            vizDropdown: window.document.getElementById('viz-dropdown'),
         };
     }
 
@@ -136,7 +138,16 @@ class MusicApp {
     }
 
     drawVisualizer() {
-        this.drawBarChartVisualizer()
+        const vis = this.elements.vizDropdown.value;
+        switch (vis){
+            case 'manoj':
+                this.drawBarChartVisualizer();
+                break;
+            case 'default':
+            default:
+                this.drawBarChartVisualizer();
+                break;
+        }
     }
 
     // Draw the visualizer on the canvas
@@ -180,6 +191,7 @@ class MusicApp {
         this.elements.playPauseBtn.innerHTML = this.isPlaying ?
                                                 '<i class="bi bi-pause"></i>' : '<i class="bi bi-play"></i>';
     }
+
 
     // Extract metadata from the uploaded file
     extractMetadata(file) {
