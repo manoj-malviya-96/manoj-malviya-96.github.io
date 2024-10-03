@@ -79,7 +79,7 @@
 
     /* App Button */
     --app-button-size: 80px;
-    --app-window-width: 1200px;
+    --app-window-width: var(--max-body-width);
     --app-window-height: 750px;
     --app-title-width-perc: 12%;
 }

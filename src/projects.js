@@ -128,7 +128,7 @@ class MusicApp {
         this.bufferLength = this.analyser.frequencyBinCount;
         this.dataArray = new Uint8Array(this.bufferLength);
 
-        this.extractMetadata(file);
+        // this.extractMetadata(file);
         this.audio.addEventListener('timeupdate', this.updateSlider.bind(this));
         this.audio.addEventListener('ended', this.resetAudio.bind(this));
 
@@ -183,6 +183,10 @@ class MusicApp {
 
     // Extract metadata from the uploaded file
     extractMetadata(file) {
+        if (!jsmediatags){
+            console.error("jsmediatags lib not loaded")
+            return ;
+        }
         jsmediatags.read(file, {
             onSuccess: (tag) => {
                 const {title, artist, album} = tag.tags;
