@@ -1,3 +1,4 @@
+// Todo move this music-app api
 class MusicApp {
     constructor() {
         this.elements = this.getDomElements();
@@ -138,10 +139,14 @@ class MusicApp {
     }
 
     drawVisualizer() {
+        if (!this.audio){
+            console.error("No audio context");
+            return ;
+        }
         const vis = this.elements.vizDropdown.value;
         switch (vis){
-            case 'manoj':
-                this.drawBarChartVisualizer();
+            case 'jay':
+                this.drawCircleGridVisualizer();
                 break;
             case 'default':
             default:
@@ -152,26 +157,98 @@ class MusicApp {
 
     // Draw the visualizer on the canvas
     drawBarChartVisualizer() {
-        const numBars = this.bufferLength;
+        const numBars = this.bufferLength / 2;
         const barWidth = this.elements.canvas.width / numBars;
-        const maxBarHeight = this.elements.canvas.height / 3;
-        const fftSize = this.analyser.fftSize;
+        const maxBarHeight = this.elements.canvas.height / 4;
+        const fftSize = this.analyser.fftSize; // Maximum intensity
+
+        const centerX =  this.elements.canvas.width / 2;
+        const centerY = this.elements.canvas.height / 2;
 
         const draw = () => {
             requestAnimationFrame(draw);
             this.analyser.getByteFrequencyData(this.dataArray);
 
             this.canvasCtx.clearRect(0, 0, this.elements.canvas.width, this.elements.canvas.height);
-            const centerY = this.elements.canvas.height / 2;
+
 
             for (let i = 0; i < numBars; i++) {
                 const freqIndex = Math.floor(i * (this.bufferLength / numBars));
-                const barHeight = (this.dataArray[freqIndex] / fftSize) * maxBarHeight;
-                const x = i * barWidth;
+                const randomFactor = Math.random();
+                const intensity=  0.9*(this.dataArray[freqIndex] / fftSize)**2 + 0.1*randomFactor;
 
-                this.canvasCtx.fillStyle = `${this.primaryColor}`;
-                this.canvasCtx.fillRect(x, centerY - barHeight, barWidth - 2, barHeight);  // Upper bar
-                this.canvasCtx.fillRect(x, centerY, barWidth - 2, barHeight);  // Lower bar
+                const barHeight =  intensity * maxBarHeight;
+                const px = centerX + i * barWidth;
+                const nx = centerX - i * barWidth;
+
+                // this.canvasCtx.fillStyle = `${this.primaryColor}`;
+                this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 1)
+
+                this.canvasCtx.fillRect(px, centerY - barHeight, barWidth - 2, barHeight);  // Positive Upper bar
+                this.canvasCtx.fillRect(px, centerY, barWidth - 2, barHeight);  // Positive Lower bar
+                this.canvasCtx.fillRect(nx, centerY - barHeight, barWidth - 2, barHeight);  // Negative Upper Bar
+                this.canvasCtx.fillRect(nx, centerY, barWidth - 2, barHeight);  // Negative Lower Bar
+            }
+        };
+
+        draw();
+    }
+
+    drawCircleGridVisualizer() {
+        const numRows = 10; // Define the number of rows in the grid
+        const numCols = 10; // Define the number of columns in the grid
+        const circleRadius = 3; // Default radius for circles
+        const fftSize = this.analyser.fftSize;
+
+        const canvasWidth = this.elements.canvas.width;
+        const canvasHeight = this.elements.canvas.height;
+
+        const centerX =  canvasWidth / 2;
+        const centerY = canvasHeight / 2;
+
+        const colSpacing = canvasWidth / (2 * numCols);
+        const rowSpacing = canvasHeight / (2 * numRows);
+
+        const draw = () => {
+            requestAnimationFrame(draw);
+            this.analyser.getByteFrequencyData(this.dataArray);
+
+            this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+            for (let row = 0; row < numRows; row++) {
+                for (let col = 0; col < numCols; col++) {
+
+                    const index = Math.floor((row * numCols + col) * (this.bufferLength / (numRows * numCols)));
+                    const randomFactor = Math.random();
+                    const intensity = 0.83 * (this.dataArray[index] / fftSize) + 0.17 * randomFactor;
+
+                    const glow = intensity * 47; // Change this factor to adjust glow size
+                    const size = intensity * circleRadius * 5; // Circle size based on intensity
+
+                    const px = centerX + col * colSpacing + colSpacing / 2;
+                    const nx = centerX - col * colSpacing + colSpacing / 2;
+
+                    const py = centerY + row * rowSpacing + rowSpacing / 2;
+                    const ny = centerY - row * rowSpacing + rowSpacing / 2;
+
+                    const pts = [[px, py], [nx, ny]];
+
+                    this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 1);
+
+                    // Draw the circle with shadow for glow effect
+                    for (let j = 0; j < pts.length; j++){
+                        const x = pts[j][0];
+                        const y = pts[j][1];
+
+                        this.canvasCtx.beginPath();
+                        this.canvasCtx.arc(x, y, size, 0, Math.PI * 2, false);
+                        // Set glow effect
+                        this.canvasCtx.shadowBlur = glow;
+                        this.canvasCtx.shadowColor = adjustColor(this.primaryColor, intensity, 1);
+                        this.canvasCtx.fill();
+                        this.canvasCtx.closePath();
+                    }
+                }
             }
         };
 

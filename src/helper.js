@@ -151,3 +151,16 @@ function loadPDF(url, placeholder, overlay) {
         alert('Failed to load the PDF. Please try again.');
     };
 }
+
+function adjustColor(color, opacity = 1, brightness = 1) {
+    // Extract RGB values from the input color string (assumes 'rgb(r, g, b)' format)
+    let [r, g, b] = color.match(/\d+/g).map(Number);
+
+    // Adjust brightness by multiplying each RGB component
+    r = Math.min(255, r * brightness);
+    g = Math.min(255, g * brightness);
+    b = Math.min(255, b * brightness);
+
+    // Return the modified color as 'rgba(r, g, b, opacity)'
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}

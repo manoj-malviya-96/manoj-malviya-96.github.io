@@ -18,7 +18,7 @@
     --spacing-huge: 40px;
 
     /* Transition */
-    --transition-default: 0.4s;
+    --transition-default: 0.69s;
     --transition-short: 0.05s;
 
     /* Size */
@@ -179,6 +179,7 @@ p {
     align-content: flex-start;
 !important;
     padding: var(--spacing-medium);
+    backdrop-filter: blur(var(--blur-radius));
 }
 
 .navbar-nav {
