@@ -49,8 +49,8 @@
     --spinner-border-width: 5px;
 
     /* Shadow */
-    --shadows-light: 0 1px 3px rgba(0, 0, 0, 0.18);
-    --shadows-dark: 0 1px 3px rgba(255, 255, 255, 0.18);
+    --shadows-light: 0 1px 5px rgba(0, 0, 0, 0.18);
+    --shadows-dark: 0 1px 5px rgba(255, 255, 255, 0.18);
 
     /* specific sizes */
     --navbar-height: 47px;
@@ -60,9 +60,8 @@
     --project-card-height-collapse: calc(0.47 * var(--project-card-height));
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
-    --project-control-bar-height: 40px;
+    --control-bar-height: 40px;
     --project-searchbar-width: 250px;
-    --project-dropdown-width: 180px;
     --project-footer-width: 250px;
 
     /* Custom */
@@ -147,6 +146,7 @@ p {
     align-items: center;
     margin: 0 auto;
 }
+
 .toggle-expand-button {
     font-size: var(--title-font-size);
     border: none;
@@ -168,24 +168,30 @@ p {
     left: var(--spacing-large);
     height: auto;
     width: auto;
-    background-color: var(--color-dark-contrast); !important;
+    background-color: var(--color-dark-contrast);
+!important;
     border-radius: var(--default-radius);
     border: none;
     display: flex;
     flex-direction: column;
-    justify-content: left; !important;
-    align-content: flex-start; !important;
+    justify-content: left;
+!important;
+    align-content: flex-start;
+!important;
     padding: var(--spacing-medium);
 }
 
 .navbar-nav {
     display: flex;
     flex-direction: column;
-    justify-content: left; !important;
-    text-align: left; !important;
+    justify-content: left;
+!important;
+    text-align: left;
+!important;
     width: 100%;
     padding: 0;
-    margin: 0 auto; !important;
+    margin: 0 auto;
+!important;
     border-bottom: var(--color-dark-contrast) solid var(--border-width);
 }
 
@@ -197,8 +203,10 @@ p {
     text-align: left;
     margin: 0 !important;
     cursor: pointer;
-    justify-content: left; !important;
-    align-content: flex-start; !important;
+    justify-content: left;
+!important;
+    align-content: flex-start;
+!important;
     transition: all var(--transition-default);
     height: 100%;
     padding: var(--spacing-small) !important;
@@ -207,8 +215,10 @@ p {
 
 .navbar-nav .nav-link {
     display: flex;
-    justify-items: center; !important;
-    align-items: center; !important;
+    justify-items: center;
+!important;
+    align-items: center;
+!important;
     height: 100%;
     padding: 0;
     margin: 0 !important;
@@ -243,7 +253,6 @@ p {
 }
 
 
-
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
 .about-links,
 #content-placeholder-overlay,
@@ -270,6 +279,76 @@ p {
     width: var(--spinner-size);
     height: var(--spinner-size);
     border-width: var(--spinner-border-width);
+}
+
+
+/* --------------- Control Bar Styling --------------- */
+.control-selector-container {
+    display: flex;
+    margin-right: var(--spacing-large);
+    width: auto;
+    height: var(--control-bar-height);
+    border: none;
+    border-radius: var(--default-radius);
+}
+
+.control-selector-icon {
+    padding: 0;
+    margin: 0 auto;
+    width: var(--control-bar-height);
+    height: var(--control-bar-height);
+    align-items: center;
+    justify-content: center;
+    border: none;
+    display: flex;
+    background-color: transparent;
+}
+
+.control-selector-icon i {
+    font-size: var(--icon-size);
+}
+
+.control-selector {
+    width: 100%;
+    padding-left: var(--spacing-small);
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Remove gradient */
+    text-align: center;
+    border: none !important;
+    background-color: transparent;
+!important;
+    border-radius: 0 var(--default-radius) var(--default-radius) 0;
+}
+
+.search-container {
+    display: flex;
+    border-radius: var(--default-radius);
+}
+
+.search-icon {
+    padding: 0;
+    margin: 0 auto;
+    width: var(--control-bar-height);
+    height: var(--control-bar-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+}
+
+.search-icon i {
+    font-size: var(--icon-size);
+}
+
+.search-input {
+    padding: var(--spacing-small);
+    height: var(--control-bar-height);
+    border: none;
+    width: var(--project-searchbar-width);
+    outline: none;
+    background-color: transparent;
 }
 
 
@@ -457,8 +536,7 @@ p {
     font-size: 21px; /* Card title font size */
 }
 
-/* --------------- Control Bar Styling --------------- */
-#controls-container {
+#cards-controls-container {
     display: flex;
     margin: 0 auto;
     justify-content: center;
@@ -466,86 +544,7 @@ p {
     padding: var(--spacing-large);
     max-width: var(--max-body-width);
     border: none;
-}
-
-.control-selector-container {
-    display: flex;
-    padding-right: var(--spacing-large);
-    width: var(--project-dropdown-width);
-    height: var(--project-control-bar-height);
-}
-
-.control-selector-icon {
-    padding: 0;
-    margin: 0 auto;
-    width: var(--project-control-bar-height);
-    height: var(--project-control-bar-height);
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-    align-items: center;
-    justify-content: center;
-    border: none;
-    display: flex;
-}
-
-.control-selector-icon i {
-    font-size: var(--icon-size);
-}
-
-.control-selector {
-    width: 100%;
-    padding-left: var(--spacing-small);
-    cursor: pointer;
-    outline: none;
-    appearance: none; /* Remove gradient */
-    text-align: center;
-    border: none !important;
-    border-radius: 0 var(--default-radius) var(--default-radius) 0;
-}
-
-.control-selector:focus,
-.control-selector:active,
-.control-selector:hover {
-    border-color: var(--color-brand-primary);
-    background-color: var(--color-brand-primary);
-}
-
-#search-container {
-    display: flex;
-}
-
-.search-icon {
-    padding: 0;
-    margin: 0 auto;
-    width: var(--project-control-bar-height);
-    height: var(--project-control-bar-height);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: transparent;
-    border-style: solid;
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-    border-width: var(--border-width) 0 var(--border-width) var(--border-width);
-}
-
-.search-icon i {
-    font-size: var(--icon-size);
-}
-
-#search-input {
-    padding: var(--spacing-small);
-    height: var(--project-control-bar-height);
-    border-style: solid;
-    border-width: var(--border-width) var(--border-width) var(--border-width) 0;
-    border-radius: 0 var(--default-radius) var(--default-radius) 0;
-    width: var(--project-searchbar-width);
-    outline: none;
-}
-
-#search-input:focus,
-#search-input:active,
-#search-input:hover {
-    border-color: var(--color-brand-primary);
-    background-color: var(--color-brand-primary);
 }
 
 /* ----------------------------- Project Page Styling ----------------------------- */
@@ -845,7 +844,6 @@ th {
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
-    box-shadow: none;
 }
 
 
@@ -917,7 +915,7 @@ th {
 }
 
 .app-header.hidden {
-    height: 0;  /* Collapsed state */
+    height: 0; /* Collapsed state */
 }
 
 
@@ -935,7 +933,8 @@ th {
 }
 
 .primary-button:hover .bi {
-    color: var(--color-brand-primary); !important;
+    color: var(--color-brand-primary);
+!important;
 }
 
 .primary-button:active .bi {
@@ -1082,28 +1081,34 @@ body.light-mode {
 !important;
 }
 
-.light-mode .control-selector-icon {
+.light-mode .control-selector-container {
     border-color: var(--color-light-contrast);
     color: var(--color-light-imp);
     background-color: var(--color-light-contrast);
 }
 
-.light-mode .search-icon {
-    border-color: var(--color-light-contrast);
+.light-mode .control-selector-container .control-selector {
     color: var(--color-light-imp);
 }
 
-.light-mode .control-selector {
-    border-color: var(--color-light-contrast);
-    color: var(--color-light-imp);
-    background-color: var(--color-light-contrast);
+.light-mode .control-selector-container .control-selector:hover {
+    background-color: var(--color-light-contrast); !important;
 }
 
-.light-mode #search-input {
+.light-mode .search-container {
     border-color: var(--color-light-contrast);
     color: var(--color-light-imp);
     background-color: var(--color-light-primary);
 }
+
+.light-mode .search-input:focus,
+.light-mode .search-input:active,
+.light-mode .search-input:hover {
+    color: var(--color-light-imp);
+    background-color: var(--color-light-contrast);
+}
+
+
 
 .light-mode .listing-category,
 .light-mode .quarto-category {
@@ -1150,6 +1155,7 @@ body.light-mode {
 
 .light-mode .app-button {
     background-color: var(--color-light-contrast);
+    box-shadow: var(--shadows-light);
 }
 
 
@@ -1166,8 +1172,6 @@ body.light-mode {
 .light-mode .navbar-nav .nav-item {
     color: var(--color-light-imp);
 }
-
-
 
 
 
@@ -1259,29 +1263,33 @@ body.dark-mode {
 !important;
 }
 
-.dark-mode .control-selector-icon {
+.dark-mode .control-selector-container {
     border-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
 }
 
-.dark-mode .search-icon {
-    border-color: var(--color-dark-contrast);
+.dark-mode .control-selector-container .control-selector {
     color: var(--color-dark-imp);
 }
 
-.dark-mode .control-selector {
+.dark-mode .control-selector-container .control-selector:hover {
+    background-color: var(--color-dark-contrast); !important;
+}
+
+.dark-mode .search-container {
     border-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
 }
 
-.dark-mode #search-input {
-    border-color: var(--color-dark-contrast);
-    color: var(--color-dark-imp);
-    background-color: var(--color-dark-primary);
-}
 
+.dark-mode .search-input:focus,
+.dark-mode .search-input:active,
+.dark-mode .search-input:hover {
+    color: var(--color-dark-imp);
+    background-color: var(--color-dark-contrast);
+}
 
 .dark-mode .listing-category,
 .dark-mode .quarto-category {
@@ -1329,6 +1337,7 @@ body.dark-mode {
 
 .dark-mode .app-button {
     background-color: var(--color-dark-contrast);
+    box-shadow: var(--shadows-dark);
 }
 
 
