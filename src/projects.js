@@ -152,7 +152,9 @@ class MusicApp {
             case 'circles':
                 this.drawCircleGridVisualizer();
                 break;
-            case 'default':
+            case 'bars':
+                this.drawBarChartVisualizer();
+                break;
             default:
                 this.drawBarChartVisualizer();
                 break;
