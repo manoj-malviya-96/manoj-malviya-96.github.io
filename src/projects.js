@@ -16,6 +16,10 @@ class MusicApp {
 
         this.primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-brand-primary');
         this.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-passive-element');
+
+        document.querySelector('.control-selector-icon').addEventListener('click', () => {
+            document.querySelector('#viz-dropdown').focus();
+        });
     }
 
     // Initialize the app
@@ -127,14 +131,18 @@ class MusicApp {
         source.connect(this.analyser);
         this.analyser.connect(this.audioContext.destination);
 
-        this.analyser.fftSize = 256;
+        this.analyser.fftSize = 256; // Number of bins for frequency analysis
         this.bufferLength = this.analyser.frequencyBinCount;
         this.dataArray = new Uint8Array(this.bufferLength);
 
-        // this.extractMetadata(file);
+        try {
+            this.extractMetadata(file);
+        }
+        catch (error) {
+            console.error("Error extracting metadata", error);
+        }
         this.audio.addEventListener('timeupdate', this.updateSlider.bind(this));
         this.audio.addEventListener('ended', this.resetAudio.bind(this));
-
         this.drawVisualizer();
     }
 
@@ -145,7 +153,7 @@ class MusicApp {
         }
         const vis = this.elements.vizDropdown.value;
         switch (vis){
-            case 'jay':
+            case 'circles':
                 this.drawCircleGridVisualizer();
                 break;
             case 'default':
@@ -219,11 +227,10 @@ class MusicApp {
                 for (let col = 0; col < numCols; col++) {
 
                     const index = Math.floor((row * numCols + col) * (this.bufferLength / (numRows * numCols)));
-                    const randomFactor = Math.random();
-                    const intensity = 0.83 * (this.dataArray[index] / fftSize) + 0.17 * randomFactor;
+                    const intensity = this.dataArray[index] / fftSize;
 
-                    const glow = intensity * 47; // Change this factor to adjust glow size
-                    const size = intensity * circleRadius * 5; // Circle size based on intensity
+                    const glow = (0.8*intensity + 0.2*Math.random()) * 47; // Change this factor to adjust glow size
+                    const size = intensity * circleRadius * 3; // Circle size based on intensity
 
                     const px = centerX + col * colSpacing + colSpacing / 2;
                     const nx = centerX - col * colSpacing + colSpacing / 2;
@@ -231,7 +238,7 @@ class MusicApp {
                     const py = centerY + row * rowSpacing + rowSpacing / 2;
                     const ny = centerY - row * rowSpacing + rowSpacing / 2;
 
-                    const pts = [[px, py], [nx, ny]];
+                    const pts = [[px, py], [nx, ny], [nx, py], [px, ny]];
 
                     this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 1);
 
@@ -310,4 +317,32 @@ function createPlotsForDeltaDesign() {
         [0.04, 0.01, 0.84, 0.02],  // S3 -> S1, S2, S3, S4
         [0.01, 0.00, 0.01, 0.89]   // S4 -> S1, S2, S3, S4
     ], "Transition Probabilities in Delta Design", "From State", "To State",)
+}
+
+function generateSpiralOrder(numRows, numCols) {
+    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]; // right, down, left, up
+    let dir = 0; // initial direction: right
+    const visited = Array.from({ length: numRows }, () => Array(numCols).fill(false));
+    let spiralOrder = [];
+
+    let row = Math.floor(numRows / 2);
+    let col = Math.floor(numCols / 2);
+    let steps = 1;
+
+    while (spiralOrder.length < numRows * numCols) {
+        for (let i = 0; i < 2; i++) { // Change direction after 2 turns
+            for (let j = 0; j < steps; j++) {
+                if (row >= 0 && row < numRows && col >= 0 && col < numCols && !visited[row][col]) {
+                    spiralOrder.push([row, col]);
+                    visited[row][col] = true;
+                }
+                row += directions[dir][0];
+                col += directions[dir][1];
+            }
+            dir = (dir + 1) % 4; // change direction (right -> down -> left -> up)
+        }
+        steps++;
+    }
+
+    return spiralOrder;
 }

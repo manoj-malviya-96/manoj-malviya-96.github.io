@@ -21,23 +21,23 @@
                 <button id="playPauseBtn" class="primary-button">
                     <i class="bi bi-play"></i>
                 </button>
-                <!-- Upload button -->
-                <div id="uploadButton">
-                    <label for="fileUpload" class="primary-button">
-                        <i class="bi bi-cloud-arrow-up"></i>
-                    </label>
-                    <input type="file" id="fileUpload" accept="audio/*" style="display: none">
-                </div>
-                <!-- visualizer dropdown-->
-                <div id="viz-dropdown-container" class="control-selector-container">
-                    <label for="viz-dropdown" class="control-selector-icon">
-                        <i class="bi bi-stack-overflow"></i>
-                    </label>
-                    <select id="viz-dropdown" class="control-selector">
-                        <option value="default">Default</option>
-                        <option value="jay">Jay</option>
-                    </select>
-                </div>
+
+                <div id="vizSettings" style="display: flex; justify-content: center">
+                    <!-- Upload button -->
+                    <div id="uploadButton" style="margin-right: var(--spacing-large)">
+                        <label for="fileUpload" class="primary-button">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                        </label>
+                        <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+                    </div>
+                    <!-- visualizer dropdown-->
+                    <div id="viz-dropdown-container" class="control-selector-container">
+                        <select id="viz-dropdown" class="control-selector">
+                            <option value="default">Default</option>
+                            <option value="circles">Circles</option>
+                        </select>
+                    </div>
+                </div> <!-- settings -->
 
             </div>
         </div>
