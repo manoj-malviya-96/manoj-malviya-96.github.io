@@ -1,51 +1,54 @@
 <div class="app-window">
-    <!-- App Header -->
-    <div class="app-header">
-        <!-- Icon and App Name in vertical layout -->
-        <div class="icon-text-container">
-            <i class="bi bi-soundwave" id="appIcon"></i>
-            <span id="appName">Oscillate</span>
-        </div>
-
-        <!-- HUD for music controls and display -->
-        <div class="music-hud">
-            <div id="titleRow" style="display: flex; justify-content: space-evenly">
-                <span id="songTitle">Currently Playing</span>
-                <div id="timeInfo">0:00/0:00</div>
-            </div>
-            <div class="progress-area">
-                <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
-            </div>
-            <div class="music-controls">
-                <!-- Play button -->
-                <button id="playPauseBtn" class="primary-button">
-                    <i class="bi bi-play"></i>
-                </button>
-
-                <div id="vizSettings" style="display: flex; justify-content: center">
-                    <!-- Upload button -->
-                    <div id="uploadButton" style="margin-right: var(--spacing-large)">
-                        <label for="fileUpload" class="primary-button">
-                            <i class="bi bi-cloud-arrow-up"></i>
-                        </label>
-                        <input type="file" id="fileUpload" accept="audio/*" style="display: none">
-                    </div>
-                    <!-- visualizer dropdown-->
-                    <div id="viz-dropdown-container" class="control-selector-container">
-                        <select id="viz-dropdown" class="control-selector">
-                            <option value="default">Default</option>
-                            <option value="circles">Circles</option>
-                        </select>
-                    </div>
-                </div> <!-- settings -->
-
-            </div>
-        </div>
-    </div>
-    <div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
-        <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-up"></i></button>
-    </div>
-
     <!-- Visualizer section -->
-    <canvas id="visualizer" width="1000" height="750"></canvas>
+    <canvas id="visualizer" width="1200" height="690"></canvas>
+</div>
+<!-- Button to toggle app-header -->
+<div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
+    <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i></button>
+</div>
+<!-- App Header -->
+<div class="app-controller">
+    <!-- Icon and App Name in vertical layout -->
+    <div class="icon-text-container">
+        <i class="bi bi-soundwave" id="appIcon"></i>
+        <span id="appName">Oscillate</span>
+    </div>
+
+    <!-- HUD for music controls and display -->
+    <div class="music-hud">
+        <div id="titleRow" style="display: flex; justify-content: space-evenly">
+            <span id="songTitle">Currently Playing</span>
+            <div id="timeInfo">0:00/0:00</div>
+        </div>
+        <div class="progress-area">
+            <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+        </div>
+        <div class="music-controls">
+            <!-- Play button -->
+            <button id="playPauseBtn" class="primary-button">
+                <i class="bi bi-play"></i>
+            </button>
+
+            <div id="vizSettings" style="display: flex; justify-content: center">
+                <!-- Upload button -->
+                <div id="uploadButton" style="margin-right: var(--spacing-large)">
+                    <label for="fileUpload" class="primary-button">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                    </label>
+                    <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+                </div>
+                <!-- visualizer dropdown-->
+                <div id="viz-dropdown-container" class="control-selector-container">
+                    <label for="viz-dropdown" class="control-selector-icon">
+                        <i class="bi bi-gear-fill"></i>
+                    </label>
+                    <select id="viz-dropdown" class="control-selector">
+                        <option value="default">Default</option>
+                        <option value="circles">Circles</option>
+                    </select>
+                </div>
+            </div> <!-- settings -->
+
+        </div>
+    </div>
 </div>

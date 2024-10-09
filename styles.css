@@ -5,10 +5,10 @@
     --color-light-imp: rgb(47, 47, 47);
 
     --color-dark-primary: rgb(0, 0, 0);
-    --color-dark-contrast: rgba(47, 47, 47, 0.47);
-    --color-dark-imp: rgb(193, 193, 193);
+    --color-dark-contrast: rgba(69, 69, 69, 0.47);
+    --color-dark-imp: rgb(208, 208, 208);
 
-    --color-brand-primary: rgb(80, 111, 151); /*164078FF*/
+    --color-brand-primary: rgb(140, 114, 173); /*164078FF*/
     --color-passive-element: rgba(128, 128, 128, 0.69);
 
 
@@ -80,7 +80,7 @@
     /* App Button */
     --app-button-size: 80px;
     --app-window-width: var(--max-body-width);
-    --app-window-height: 750px;
+    --app-window-height: 690px;
     --app-title-width-perc: 7%;
 }
 
@@ -146,14 +146,15 @@ p {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    padding: 0;
 }
 
 .toggle-expand-button {
     font-size: var(--title-font-size);
     border: none;
     cursor: pointer;
-    padding: var(--spacing-small);
-    margin: 0;
+    margin: 0 auto;
+    padding: 0;
     background-color: transparent;
     transition: all var(--transition-default);
 }
@@ -291,8 +292,7 @@ p {
     margin-right: var(--spacing-large);
     width: auto;
     height: var(--control-bar-height);
-    border-style: solid;
-    border-width: var(--border-width);
+    border: none;
     border-radius: var(--default-radius);
 }
 
@@ -309,12 +309,12 @@ p {
 }
 
 .control-selector-icon i {
-    font-size: var(--icon-size);
+    font-size: var(--normal-text-size);
 }
 
 .control-selector {
     width: 100%;
-    padding: var(--spacing-medium);
+    padding: var(--spacing-small);
     cursor: pointer;
     outline: none;
     appearance: none; /* Remove gradient */
@@ -844,7 +844,6 @@ th {
     width: var(--app-button-size);
     font-size: var(--normal-text-size);
     padding: var(--spacing-medium);
-    color: var(--color-brand-primary);
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
@@ -878,20 +877,18 @@ th {
     border-style: solid;
 }
 
-.app-header {
+.app-controller {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
-    background-color: transparent;
     border-radius: var(--default-radius);
     border-width: var(--border-width);
     border-style: solid;
     height: auto;
-    width: 100%;
-    z-index: var(--z-index-overlay);
+    max-width: var(--app-window-width);
     padding: var(--spacing-small);
-    margin: 0 auto;
+    margin: var(--spacing-large) auto;
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
 }
@@ -918,7 +915,7 @@ th {
     color: var(--color-brand-primary);
 }
 
-.app-header.hidden {
+.app-controller.hidden {
     height: 0; /* Collapsed state */
 }
 
@@ -959,6 +956,17 @@ input[type="range"] {
     border-radius: var(--default-radius);
     outline: none;
     cursor: pointer;
+    color: var(--color-brand-primary);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--color-brand-primary);
+    border-radius: var(--default-radius);
+    cursor: pointer;
 }
 
 
@@ -982,6 +990,7 @@ canvas {
     height: auto;
     padding-left: var(--spacing-huge);
     padding-right: var(--spacing-medium);
+    background-color: transparent;
 }
 
 #titleRow {
@@ -1004,6 +1013,10 @@ canvas {
 
 body.light-mode {
     background-color: var(--color-light-primary);
+    color: var(--color-light-imp);
+}
+
+.light-mode .navbar-nav .nav-link {
     color: var(--color-light-imp);
 }
 
@@ -1086,16 +1099,12 @@ body.light-mode {
 }
 
 .light-mode .control-selector-container {
-    border-color: var(--color-light-contrast);
+    background-color: var(--color-light-contrast);
     color: var(--color-light-imp);
 }
 
 .light-mode .control-selector-container .control-selector {
     color: var(--color-light-imp);
-}
-
-.light-mode .control-selector-container .control-selector:hover {
-    background-color: var(--color-light-contrast); !important;
 }
 
 .light-mode .search-container {
@@ -1141,7 +1150,7 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
-.light-mode .app-header {
+.light-mode .app-controller {
     border-color: var(--color-light-contrast);
     background-color: var(--color-light-contrast);
     color: var(--color-light-imp);
@@ -1157,6 +1166,7 @@ body.light-mode {
 
 
 .light-mode .app-button {
+    color: var(--color-light-imp);
     background-color: var(--color-light-contrast);
     box-shadow: var(--shadows-light);
 }
@@ -1181,6 +1191,10 @@ body.light-mode {
 /* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
     background-color: var(--color-dark-primary);
+    color: var(--color-dark-imp);
+}
+
+.dark-mode .navbar-nav .nav-link  {
     color: var(--color-dark-imp);
 }
 
@@ -1267,16 +1281,12 @@ body.dark-mode {
 }
 
 .dark-mode .control-selector-container {
-    border-color: var(--color-dark-contrast);
+    background-color: var(--color-dark-contrast); !important;
     color: var(--color-dark-imp);
 }
 
 .dark-mode .control-selector-container .control-selector {
     color: var(--color-dark-imp);
-}
-
-.dark-mode .control-selector-container .control-selector:hover {
-    background-color: var(--color-dark-contrast); !important;
 }
 
 .dark-mode .search-container {
@@ -1321,7 +1331,7 @@ body.dark-mode {
     border-color: var(--color-dark-contrast);
 }
 
-.dark-mode .app-header {
+.dark-mode .app-controller {
     border-color: var(--color-dark-contrast);
     background-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
@@ -1338,6 +1348,7 @@ body.dark-mode {
 }
 
 .dark-mode .app-button {
+    color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
     box-shadow: var(--shadows-dark);
 }

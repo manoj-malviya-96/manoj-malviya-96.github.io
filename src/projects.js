@@ -16,10 +16,6 @@ class MusicApp {
 
         this.primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-brand-primary');
         this.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-passive-element');
-
-        document.querySelector('.control-selector-icon').addEventListener('click', () => {
-            document.querySelector('#viz-dropdown').focus();
-        });
     }
 
     // Initialize the app
@@ -183,7 +179,7 @@ class MusicApp {
             for (let i = 0; i < numBars; i++) {
                 const freqIndex = Math.floor(i * (this.bufferLength / numBars));
                 const randomFactor = Math.random();
-                const intensity=  0.9*(this.dataArray[freqIndex] / fftSize)**2 + 0.1*randomFactor;
+                const intensity=  0.921*(this.dataArray[freqIndex] / fftSize)**2 + 0.069*randomFactor;
 
                 const barHeight =  intensity * maxBarHeight;
                 const px = centerX + i * barWidth;
@@ -203,19 +199,19 @@ class MusicApp {
     }
 
     drawCircleGridVisualizer() {
-        const numRows = 10; // Define the number of rows in the grid
-        const numCols = 10; // Define the number of columns in the grid
-        const circleRadius = 3; // Default radius for circles
-        const fftSize = this.analyser.fftSize;
+        const circleRadius = 4; // Radius of the circles
+        const spacingFactor = 10; // Factor to add spacing between circles
+
+        // Calculate spacings based on hexagon geometry with additional spacing
+        const xSpacing = circleRadius * 1.5 * spacingFactor;
+        const ySpacing = circleRadius * Math.sqrt(3) * spacingFactor / 2;
+        const maxRange = 20; // Adjust as needed for coverage
 
         const canvasWidth = this.elements.canvas.width;
         const canvasHeight = this.elements.canvas.height;
 
-        const centerX =  canvasWidth / 2;
+        const centerX = canvasWidth / 2;
         const centerY = canvasHeight / 2;
-
-        const colSpacing = canvasWidth / (2 * numCols);
-        const rowSpacing = canvasHeight / (2 * numRows);
 
         const draw = () => {
             requestAnimationFrame(draw);
@@ -223,38 +219,43 @@ class MusicApp {
 
             this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-            for (let row = 0; row < numRows; row++) {
-                for (let col = 0; col < numCols; col++) {
+            for (let n = 0; n <= maxRange; n++) {
+                for (let i = 0; i <= n; i++) {
+                    // Iterate in a circular fashion by finding all points on the "ring" of distance n
+                    const directions = [
+                        [i, n - i], [-i, n - i], [i, -(n - i)], [-i, -(n - i)],
+                        [n - i, i], [-(n - i), i], [n - i, -i], [-(n - i), -i]
+                    ];
 
-                    const index = Math.floor((row * numCols + col) * (this.bufferLength / (numRows * numCols)));
-                    const intensity = this.dataArray[index] / fftSize;
+                    directions.forEach(([row, col]) => {
+                        // Calculate the position relative to center
+                        const distanceFromCenter = Math.abs(row) + Math.abs(col);
 
-                    const glow = (0.8*intensity + 0.2*Math.random()) * 47; // Change this factor to adjust glow size
-                    const size = intensity * circleRadius * 3; // Circle size based on intensity
+                        // Map frequency data so that bass is closer to center
+                        const maxDistance = (maxRange * 2 + 1); // Max distance for mapping
+                        const dataIndex = Math.floor((distanceFromCenter / maxDistance) * this.bufferLength);
+                        const intensity = this.dataArray[dataIndex % this.bufferLength] / 255; // Normalize intensity
+                        const factor = intensity ** 3;
 
-                    const px = centerX + col * colSpacing + colSpacing / 2;
-                    const nx = centerX - col * colSpacing + colSpacing / 2;
+                        const glow = factor * 21;
+                        const size = 2 * circleRadius * factor;
 
-                    const py = centerY + row * rowSpacing + rowSpacing / 2;
-                    const ny = centerY - row * rowSpacing + rowSpacing / 2;
+                        // Adjust x position for offset in odd rows
+                        const offsetX = (row % 2) * (xSpacing / 2);
 
-                    const pts = [[px, py], [nx, ny], [nx, py], [px, ny]];
+                        const x = centerX + col * xSpacing + offsetX;
+                        const y = centerY + row * ySpacing;
 
-                    this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 1);
+                        this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 0.75* (1 + intensity));
 
-                    // Draw the circle with shadow for glow effect
-                    for (let j = 0; j < pts.length; j++){
-                        const x = pts[j][0];
-                        const y = pts[j][1];
-
+                        // Draw the circle with shadow for glow effect
                         this.canvasCtx.beginPath();
                         this.canvasCtx.arc(x, y, size, 0, Math.PI * 2, false);
-                        // Set glow effect
                         this.canvasCtx.shadowBlur = glow;
-                        this.canvasCtx.shadowColor = adjustColor(this.primaryColor, intensity, 1);
+                        this.canvasCtx.shadowColor = adjustColor(this.primaryColor, intensity, 0.5 * (1 + intensity));
                         this.canvasCtx.fill();
                         this.canvasCtx.closePath();
-                    }
+                    });
                 }
             }
         };
@@ -262,13 +263,17 @@ class MusicApp {
         draw();
     }
 
+
+
+
+
     // Toggle music HUD visibility
     toggleMusicHud() {
-        const hud = window.document.querySelector('.app-header');
+        const hud = window.document.querySelector('.app-controller');
         hud.classList.toggle('hidden');
         this.elements.toggleBtn.innerHTML = hud.classList.contains('hidden') ?
-                                            '<i class="bi bi-chevron-compact-down"></i>' :
-                                            '<i class="bi bi-chevron-compact-up"></i>';
+                                            '<i class="bi bi-chevron-compact-up"></i>' :
+                                            '<i class="bi bi-chevron-compact-down"></i>';
     }
     // Update the play/pause button based on the current state
     updatePlayButton() {
