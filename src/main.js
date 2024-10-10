@@ -29,10 +29,12 @@ const appHTMLToCallBackMap = {
 
 // Load Content with Overlay, used to show a loading spinner while content is being fetched
 function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = true) {
+
     if (!contentPlaceholder || !contentPlaceholderOverlay) {
         console.error('Content placeholders not found');
         return;
     }
+
     loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
         if (callbacks.length > 0) {
             for (const callback of callbacks) {
@@ -40,6 +42,7 @@ function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = 
             }
         }
         initScrollTracking();
+        handleRunningApps();
     });
     handleURLinHistory(addParamsToURL({'pageName': page}), doPushToHistory);
     initContentObserver(contentPlaceholder);
@@ -63,7 +66,6 @@ function loadApp(page, event, doPushToHistory = true) {
     const callbacks = defaultAppCallbacks.concat(appHTMLToCallBackMap[page]);
     loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
-
 
 // Load the page from the URL with the 'pageName' parameter
 function loadPageFromTypedURL(event) {
