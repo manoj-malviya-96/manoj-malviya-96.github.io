@@ -206,7 +206,8 @@ class MusicApp {
         // Calculate spacings based on hexagon geometry with additional spacing
         const xSpacing = circleRadius * 1.5 * spacingFactor;
         const ySpacing = circleRadius * Math.sqrt(3) * spacingFactor / 2;
-        const maxRange = 20; // Adjust as needed for coverage
+        const maxRange = 21; // Adjust as needed for coverage
+        const maxDistance = (maxRange * 3 + 1); // Max distance for mapping
 
         const canvasWidth = this.elements.canvas.width;
         const canvasHeight = this.elements.canvas.height;
@@ -233,7 +234,6 @@ class MusicApp {
                         const distanceFromCenter = Math.abs(row) + Math.abs(col);
 
                         // Map frequency data so that bass is closer to center
-                        const maxDistance = (maxRange * 2 + 1); // Max distance for mapping
                         const dataIndex = Math.floor((distanceFromCenter / maxDistance) * this.bufferLength);
                         const intensity = this.dataArray[dataIndex % this.bufferLength] / 255; // Normalize intensity
                         const factor = intensity ** 3;
