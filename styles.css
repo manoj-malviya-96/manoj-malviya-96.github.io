@@ -58,7 +58,7 @@
     --navbar-height: 47px;
 
     /* Project specific */
-    --project-card-height: 230px; /* Width of the project card should be less than content width /4  */
+    --project-card-height: 169px; /* Width of the project card should be less than content width /4  */
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
     --control-bar-height: 40px;
@@ -66,7 +66,7 @@
     --project-footer-width: 250px;
 
     /* Custom */
-    --about-entity-height: 450px;
+    --about-entity-height: 250px;
     --transform-scale: 1.069;
     --blur-radius: 20px;
 
@@ -78,7 +78,7 @@
     --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
 
     /* App Button */
-    --app-button-size: 80px;
+    --app-button-size: 100px;
     --app-window-width: var(--max-body-width);
     --app-window-height: 690px;
 }
@@ -378,7 +378,7 @@ p {
 .profile-image img {
     padding: 0;
     margin: 0 auto;
-    width: var(--about-entity-height);
+    width: calc(1.2 * var(--about-entity-height));
     height: var(--about-entity-height);
     border-bottom-left-radius: var(--default-radius);
     border-top-left-radius: var(--default-radius);
@@ -389,10 +389,12 @@ p {
 
 
 .about-text {
+    display: flex;
+    align-items: center;
     max-height: var(--about-entity-height);
     padding: var(--spacing-medium);
+    font-size: 100px;
     margin-left: var(--spacing-large);
-    flex-grow: 1; /* Allow text to fill remaining space */
 }
 
 .collapsible-content {
@@ -408,6 +410,9 @@ p {
     height: auto;
     opacity: 1;
     padding: var(--spacing-large);
+    border: solid var(--border-width);
+    border-bottom-left-radius: var(--default-radius);
+    border-bottom-right-radius: var(--default-radius);
 }
 
 .calendar {
@@ -452,8 +457,9 @@ p {
     flex-direction: column;
 
 }
+
 /* Default: 3 columns */
-#project-list{
+#project-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
@@ -461,6 +467,7 @@ p {
 .card {
     width: auto;
     height: var(--project-card-height);
+    max-height: var(--project-card-height);
     background-color: var(--color-light-contrast);
     border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
@@ -476,7 +483,7 @@ p {
 
 .card-title {
     padding: 0;
-    font-size: var(--normal-text-size);
+    font-size: var(--title-font-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
 }
@@ -1123,7 +1130,6 @@ body.light-mode {
 }
 
 
-
 .light-mode .listing-category,
 .light-mode .quarto-category {
     border-color: var(--color-light-imp) !important;
@@ -1188,6 +1194,9 @@ body.light-mode {
     color: var(--color-light-imp);
 }
 
+.light-mode .collapsible-content.expanded {
+    border-color: var(--color-light-contrast);
+}
 
 
 /* -------------------------- Dark Mode -------------------------- */
@@ -1196,7 +1205,7 @@ body.dark-mode {
     color: var(--color-dark-imp);
 }
 
-.dark-mode .navbar-nav .nav-link  {
+.dark-mode .navbar-nav .nav-link {
     color: var(--color-dark-imp);
 }
 
@@ -1283,7 +1292,8 @@ body.dark-mode {
 }
 
 .dark-mode .control-selector-container {
-    background-color: var(--color-dark-contrast); !important;
+    background-color: var(--color-dark-contrast);
+!important;
     color: var(--color-dark-imp);
 }
 
@@ -1367,6 +1377,11 @@ body.dark-mode {
 
 .dark-mode .navbar-nav .nav-item {
     color: var(--color-dark-imp);
+}
+
+
+.dark-mode .collapsible-content.expanded {
+    border-color: var(--color-dark-contrast);
 }
 
 
