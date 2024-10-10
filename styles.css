@@ -19,7 +19,7 @@
     --spacing-huge: 40px;
 
     /* Transition */
-    --transition-default: 0.3s;
+    --transition-default: 0.47s;
     --transition-short: 0.05s;
 
     /* Size */
@@ -81,7 +81,6 @@
     --app-button-size: 80px;
     --app-window-width: var(--max-body-width);
     --app-window-height: 690px;
-    --app-title-width-perc: 7%;
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -145,6 +144,8 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: var(--icon-size);
+    height: var(--icon-size);
     margin: 0 auto;
     padding: 0;
 }
@@ -887,7 +888,6 @@ th {
     border-style: solid;
     height: auto;
     max-width: var(--app-window-width);
-    padding: var(--spacing-small);
     margin: var(--spacing-large) auto;
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
@@ -895,24 +895,28 @@ th {
 
 .icon-text-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: var(--spacing-large);
-    margin-left: var(--spacing-large);
-    width: var(--app-title-width-perc);
+    justify-content: left;
+    border-radius: var(--default-radius);
+    margin-right: var(--spacing-large);
+    margin-left: var(--spacing-medium);
+    width: auto;
 }
 
 .icon-text-container .bi {
     font-size: var(--super-title-font-size);
     color: var(--color-brand-primary);
     padding: 0;
+    margin: 0 auto;
 }
 
 #appName {
     font-size: var(--normal-text-size);
     font-weight: var(--bold-weight);
     color: var(--color-brand-primary);
+    padding: 0;
+    margin: 0;
 }
 
 .app-controller.hidden {
@@ -927,6 +931,7 @@ th {
     cursor: pointer;
     transition: all var(--transition-default);
     height: 100%;
+    padding: 0;
 }
 
 .primary-button .bi {
@@ -947,6 +952,8 @@ th {
     display: block;
     background-color: transparent;
     border-radius: var(--default-radius);
+    padding: 0;
+    margin: 0 auto;
 }
 
 input[type="range"] {
@@ -962,11 +969,15 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: var(--spacing-medium);
+    height: var(--spacing-medium);
     background: var(--color-brand-primary);
     border-radius: var(--default-radius);
     cursor: pointer;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.5);
 }
 
 
@@ -975,7 +986,6 @@ canvas {
     position: absolute;
     width: var(--app-window-width);
     height: var(--app-window-height);
-    z-index: 1;
     border-radius: var(--default-radius);
     background-color: transparent;
     justify-items: center;
@@ -986,19 +996,11 @@ canvas {
 .music-hud {
     display: flex;
     flex-direction: column;
-    width: calc(100% - var(--app-title-width-perc));
-    height: auto;
-    padding-left: var(--spacing-huge);
-    padding-right: var(--spacing-medium);
+    width: 80%;
+    height: 100%;
+    padding: 0;
+    margin-right: var(--spacing-large);
     background-color: transparent;
-}
-
-#titleRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: var(--normal-text-size);
-    line-height: var(--line-height);
 }
 
 .music-controls {

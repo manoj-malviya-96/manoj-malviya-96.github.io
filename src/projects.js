@@ -274,8 +274,8 @@ class MusicApp {
         const hud = window.document.querySelector('.app-controller');
         hud.classList.toggle('hidden');
         this.elements.toggleBtn.innerHTML = hud.classList.contains('hidden') ?
-                                            '<i class="bi bi-chevron-compact-up"></i>' :
-                                            '<i class="bi bi-chevron-compact-down"></i>';
+                                            '<i class="bi bi-chevron-compact-down"></i>' :
+                                            '<i class="bi bi-chevron-compact-up"></i>';
     }
     // Update the play/pause button based on the current state
     updatePlayButton() {
