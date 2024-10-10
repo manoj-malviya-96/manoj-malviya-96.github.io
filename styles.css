@@ -5,11 +5,12 @@
     --color-light-imp: rgb(47, 47, 47);
 
     --color-dark-primary: rgb(0, 0, 0);
-    --color-dark-contrast: rgba(47, 47, 47, 0.47);
-    --color-dark-imp: rgb(193, 193, 193);
+    --color-dark-contrast: rgba(69, 69, 69, 0.47);
+    --color-dark-imp: rgb(208, 208, 208);
 
-    --color-brand-primary: rgb(80, 111, 151); /*164078FF*/
+    --color-brand-primary: rgb(140, 114, 173); /*164078FF*/
     --color-passive-element: rgba(128, 128, 128, 0.69);
+
 
     /* Spacing */
     --spacing-small: 5px;
@@ -18,11 +19,11 @@
     --spacing-huge: 40px;
 
     /* Transition */
-    --transition-default: 0.4s;
+    --transition-default: 0.3s;
     --transition-short: 0.05s;
 
     /* Size */
-    --max-body-width: 1000px;
+    --max-body-width: 1200px;
     --max-content-width: 690px;
     --max-image-width: 650px; /* Smaller than content width */
     --default-radius: 6px;
@@ -43,26 +44,25 @@
 
     --border-width: 1px;
     --z-index-overlay: 1000;
+    --z-index-max: 2000;
 
     /* Spinner */
     --spinner-size: 69px;
     --spinner-border-width: 5px;
 
     /* Shadow */
-    --shadows-light: 0 1px 3px rgba(0, 0, 0, 0.18);
-    --shadows-dark: 0 1px 3px rgba(255, 255, 255, 0.18);
+    --shadows-light: 0 1px 5px rgba(0, 0, 0, 0.18);
+    --shadows-dark: 0 1px 5px rgba(255, 255, 255, 0.18);
 
     /* specific sizes */
     --navbar-height: 47px;
 
     /* Project specific */
-    --project-card-height: 232px; /* Width of the project card should be less than content width /4  */
-    --project-card-height-collapse: calc(0.47 * var(--project-card-height));
+    --project-card-height: 230px; /* Width of the project card should be less than content width /4  */
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
-    --project-control-bar-height: 40px;
+    --control-bar-height: 40px;
     --project-searchbar-width: 250px;
-    --project-dropdown-width: 180px;
     --project-footer-width: 250px;
 
     /* Custom */
@@ -79,9 +79,9 @@
 
     /* App Button */
     --app-button-size: 80px;
-    --app-window-width: 1200px;
-    --app-window-height: 750px;
-    --app-title-width-perc: 12%;
+    --app-window-width: var(--max-body-width);
+    --app-window-height: 690px;
+    --app-title-width-perc: 7%;
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -146,13 +146,15 @@ p {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    padding: 0;
 }
+
 .toggle-expand-button {
     font-size: var(--title-font-size);
     border: none;
     cursor: pointer;
-    padding: var(--spacing-small);
-    margin: 0;
+    margin: 0 auto;
+    padding: 0;
     background-color: transparent;
     transition: all var(--transition-default);
 }
@@ -168,24 +170,32 @@ p {
     left: var(--spacing-large);
     height: auto;
     width: auto;
-    background-color: var(--color-dark-contrast); !important;
+    background-color: var(--color-dark-contrast);
+!important;
     border-radius: var(--default-radius);
     border: none;
     display: flex;
     flex-direction: column;
-    justify-content: left; !important;
-    align-content: flex-start; !important;
+    justify-content: left;
+!important;
+    align-content: flex-start;
+!important;
     padding: var(--spacing-medium);
+    z-index: var(--z-index-max);
+    backdrop-filter: blur(var(--blur-radius));
 }
 
 .navbar-nav {
     display: flex;
     flex-direction: column;
-    justify-content: left; !important;
-    text-align: left; !important;
+    justify-content: left;
+!important;
+    text-align: left;
+!important;
     width: 100%;
     padding: 0;
-    margin: 0 auto; !important;
+    margin: 0 auto;
+!important;
     border-bottom: var(--color-dark-contrast) solid var(--border-width);
 }
 
@@ -197,8 +207,10 @@ p {
     text-align: left;
     margin: 0 !important;
     cursor: pointer;
-    justify-content: left; !important;
-    align-content: flex-start; !important;
+    justify-content: left;
+!important;
+    align-content: flex-start;
+!important;
     transition: all var(--transition-default);
     height: 100%;
     padding: var(--spacing-small) !important;
@@ -207,8 +219,10 @@ p {
 
 .navbar-nav .nav-link {
     display: flex;
-    justify-items: center; !important;
-    align-items: center; !important;
+    justify-items: center;
+!important;
+    align-items: center;
+!important;
     height: 100%;
     padding: 0;
     margin: 0 !important;
@@ -243,7 +257,6 @@ p {
 }
 
 
-
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
 .about-links,
 #content-placeholder-overlay,
@@ -270,6 +283,76 @@ p {
     width: var(--spinner-size);
     height: var(--spinner-size);
     border-width: var(--spinner-border-width);
+}
+
+
+/* --------------- Control Bar Styling --------------- */
+.control-selector-container {
+    display: flex;
+    margin-right: var(--spacing-large);
+    width: auto;
+    height: var(--control-bar-height);
+    border: none;
+    border-radius: var(--default-radius);
+}
+
+.control-selector-icon {
+    padding: 0;
+    margin: 0 auto;
+    width: var(--control-bar-height);
+    height: var(--control-bar-height);
+    align-items: center;
+    justify-content: center;
+    border: none;
+    display: flex;
+    background-color: transparent;
+}
+
+.control-selector-icon i {
+    font-size: var(--normal-text-size);
+}
+
+.control-selector {
+    width: 100%;
+    padding: var(--spacing-small);
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Remove gradient */
+    text-align: center;
+    border: none !important;
+    background-color: transparent;
+!important;
+    border-radius: 0 var(--default-radius) var(--default-radius) 0;
+}
+
+.search-container {
+    display: flex;
+    border-radius: var(--default-radius);
+}
+
+.search-icon {
+    padding: 0;
+    margin: 0 auto;
+    width: var(--control-bar-height);
+    height: var(--control-bar-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+}
+
+.search-icon i {
+    font-size: var(--icon-size);
+}
+
+.search-input {
+    padding: var(--spacing-small);
+    height: var(--control-bar-height);
+    border: none;
+    width: var(--project-searchbar-width);
+    outline: none;
+    background-color: transparent;
 }
 
 
@@ -368,15 +451,19 @@ p {
     flex-direction: column;
 
 }
+/* Default: 3 columns */
+#project-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
 
 .card {
     width: auto;
-    height: var(--project-card-height-collapse);
+    height: var(--project-card-height);
     background-color: var(--color-light-contrast);
     border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
     flex-direction: row;
-    transition: all var(--transition-default) ease;
 }
 
 .card-body {
@@ -387,6 +474,7 @@ p {
 }
 
 .card-title {
+    padding: 0;
     font-size: var(--normal-text-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
@@ -399,12 +487,12 @@ p {
     margin: var(--spacing-small) 0 var(--spacing-medium) 0;
     opacity: 0;
     height: 0;
-    transition: all var(--transition-short) ease-in-out;
+    transition: all var(--transition-short);
 }
 
 .card-img {
     margin: 0 auto;
-    width: var(--project-card-height-collapse);
+    width: calc(var(--project-card-height) * 0.75);
     height: 100%;
     object-fit: cover;
     overflow: clip;
@@ -432,11 +520,6 @@ p {
     width: fit-content;
     border-radius: var(--small-radius);
 !important;
-    transition: all var(--transition-short) ease-in-out;
-}
-
-.card:hover {
-    height: var(--project-card-height);
 }
 
 .card:hover .card-text {
@@ -457,8 +540,7 @@ p {
     font-size: 21px; /* Card title font size */
 }
 
-/* --------------- Control Bar Styling --------------- */
-#controls-container {
+#cards-controls-container {
     display: flex;
     margin: 0 auto;
     justify-content: center;
@@ -466,86 +548,7 @@ p {
     padding: var(--spacing-large);
     max-width: var(--max-body-width);
     border: none;
-}
-
-.control-selector-container {
-    display: flex;
-    padding-right: var(--spacing-large);
-    width: var(--project-dropdown-width);
-    height: var(--project-control-bar-height);
-}
-
-.control-selector-icon {
-    padding: 0;
-    margin: 0 auto;
-    width: var(--project-control-bar-height);
-    height: var(--project-control-bar-height);
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-    align-items: center;
-    justify-content: center;
-    border: none;
-    display: flex;
-}
-
-.control-selector-icon i {
-    font-size: var(--icon-size);
-}
-
-.control-selector {
-    width: 100%;
-    padding-left: var(--spacing-small);
-    cursor: pointer;
-    outline: none;
-    appearance: none; /* Remove gradient */
-    text-align: center;
-    border: none !important;
-    border-radius: 0 var(--default-radius) var(--default-radius) 0;
-}
-
-.control-selector:focus,
-.control-selector:active,
-.control-selector:hover {
-    border-color: var(--color-brand-primary);
-    background-color: var(--color-brand-primary);
-}
-
-#search-container {
-    display: flex;
-}
-
-.search-icon {
-    padding: 0;
-    margin: 0 auto;
-    width: var(--project-control-bar-height);
-    height: var(--project-control-bar-height);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: transparent;
-    border-style: solid;
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-    border-width: var(--border-width) 0 var(--border-width) var(--border-width);
-}
-
-.search-icon i {
-    font-size: var(--icon-size);
-}
-
-#search-input {
-    padding: var(--spacing-small);
-    height: var(--project-control-bar-height);
-    border-style: solid;
-    border-width: var(--border-width) var(--border-width) var(--border-width) 0;
-    border-radius: 0 var(--default-radius) var(--default-radius) 0;
-    width: var(--project-searchbar-width);
-    outline: none;
-}
-
-#search-input:focus,
-#search-input:active,
-#search-input:hover {
-    border-color: var(--color-brand-primary);
-    background-color: var(--color-brand-primary);
 }
 
 /* ----------------------------- Project Page Styling ----------------------------- */
@@ -841,11 +844,9 @@ th {
     width: var(--app-button-size);
     font-size: var(--normal-text-size);
     padding: var(--spacing-medium);
-    color: var(--color-brand-primary);
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
-    box-shadow: none;
 }
 
 
@@ -876,20 +877,18 @@ th {
     border-style: solid;
 }
 
-.app-header {
+.app-controller {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
-    background-color: transparent;
     border-radius: var(--default-radius);
     border-width: var(--border-width);
     border-style: solid;
     height: auto;
-    width: var(--max-content-width);
-    z-index: var(--z-index-overlay);
+    max-width: var(--app-window-width);
     padding: var(--spacing-small);
-    margin: 0 auto;
+    margin: var(--spacing-large) auto;
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
 }
@@ -899,7 +898,8 @@ th {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-small);
+    padding: var(--spacing-large);
+    margin-left: var(--spacing-large);
     width: var(--app-title-width-perc);
 }
 
@@ -907,7 +907,6 @@ th {
     font-size: var(--super-title-font-size);
     color: var(--color-brand-primary);
     padding: 0;
-    margin: 0;
 }
 
 #appName {
@@ -916,8 +915,8 @@ th {
     color: var(--color-brand-primary);
 }
 
-.app-header.hidden {
-    height: 0;  /* Collapsed state */
+.app-controller.hidden {
+    height: 0; /* Collapsed state */
 }
 
 
@@ -935,7 +934,8 @@ th {
 }
 
 .primary-button:hover .bi {
-    color: var(--color-brand-primary); !important;
+    color: var(--color-brand-primary);
+!important;
 }
 
 .primary-button:active .bi {
@@ -955,6 +955,17 @@ input[type="range"] {
     height: var(--spacing-medium);
     border-radius: var(--default-radius);
     outline: none;
+    cursor: pointer;
+    color: var(--color-brand-primary);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--color-brand-primary);
+    border-radius: var(--default-radius);
     cursor: pointer;
 }
 
@@ -979,6 +990,7 @@ canvas {
     height: auto;
     padding-left: var(--spacing-huge);
     padding-right: var(--spacing-medium);
+    background-color: transparent;
 }
 
 #titleRow {
@@ -1001,6 +1013,10 @@ canvas {
 
 body.light-mode {
     background-color: var(--color-light-primary);
+    color: var(--color-light-imp);
+}
+
+.light-mode .navbar-nav .nav-link {
     color: var(--color-light-imp);
 }
 
@@ -1082,28 +1098,29 @@ body.light-mode {
 !important;
 }
 
-.light-mode .control-selector-icon {
-    border-color: var(--color-light-contrast);
-    color: var(--color-light-imp);
+.light-mode .control-selector-container {
     background-color: var(--color-light-contrast);
-}
-
-.light-mode .search-icon {
-    border-color: var(--color-light-contrast);
     color: var(--color-light-imp);
 }
 
-.light-mode .control-selector {
-    border-color: var(--color-light-contrast);
+.light-mode .control-selector-container .control-selector {
     color: var(--color-light-imp);
-    background-color: var(--color-light-contrast);
 }
 
-.light-mode #search-input {
+.light-mode .search-container {
     border-color: var(--color-light-contrast);
     color: var(--color-light-imp);
     background-color: var(--color-light-primary);
 }
+
+.light-mode .search-input:focus,
+.light-mode .search-input:active,
+.light-mode .search-input:hover {
+    color: var(--color-light-imp);
+    background-color: var(--color-light-contrast);
+}
+
+
 
 .light-mode .listing-category,
 .light-mode .quarto-category {
@@ -1133,7 +1150,7 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
-.light-mode .app-header {
+.light-mode .app-controller {
     border-color: var(--color-light-contrast);
     background-color: var(--color-light-contrast);
     color: var(--color-light-imp);
@@ -1149,7 +1166,9 @@ body.light-mode {
 
 
 .light-mode .app-button {
+    color: var(--color-light-imp);
     background-color: var(--color-light-contrast);
+    box-shadow: var(--shadows-light);
 }
 
 
@@ -1169,11 +1188,13 @@ body.light-mode {
 
 
 
-
-
 /* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
     background-color: var(--color-dark-primary);
+    color: var(--color-dark-imp);
+}
+
+.dark-mode .navbar-nav .nav-link  {
     color: var(--color-dark-imp);
 }
 
@@ -1259,29 +1280,28 @@ body.dark-mode {
 !important;
 }
 
-.dark-mode .control-selector-icon {
+.dark-mode .control-selector-container {
+    background-color: var(--color-dark-contrast); !important;
+    color: var(--color-dark-imp);
+}
+
+.dark-mode .control-selector-container .control-selector {
+    color: var(--color-dark-imp);
+}
+
+.dark-mode .search-container {
     border-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
 }
 
-.dark-mode .search-icon {
-    border-color: var(--color-dark-contrast);
-    color: var(--color-dark-imp);
-}
 
-.dark-mode .control-selector {
-    border-color: var(--color-dark-contrast);
+.dark-mode .search-input:focus,
+.dark-mode .search-input:active,
+.dark-mode .search-input:hover {
     color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
 }
-
-.dark-mode #search-input {
-    border-color: var(--color-dark-contrast);
-    color: var(--color-dark-imp);
-    background-color: var(--color-dark-primary);
-}
-
 
 .dark-mode .listing-category,
 .dark-mode .quarto-category {
@@ -1311,7 +1331,7 @@ body.dark-mode {
     border-color: var(--color-dark-contrast);
 }
 
-.dark-mode .app-header {
+.dark-mode .app-controller {
     border-color: var(--color-dark-contrast);
     background-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
@@ -1328,7 +1348,9 @@ body.dark-mode {
 }
 
 .dark-mode .app-button {
+    color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
+    box-shadow: var(--shadows-dark);
 }
 
 
@@ -1343,4 +1365,21 @@ body.dark-mode {
 
 .dark-mode .navbar-nav .nav-item {
     color: var(--color-dark-imp);
+}
+
+
+/* -------------------------- Screen Size Styling -------------------------- */
+
+/* Medium screens: 2 columns */
+@media (max-width: 1024px) {
+    #project-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Small screens: 1 column */
+@media (max-width: 600px) {
+    #project-list {
+        grid-template-columns: 1fr;
+    }
 }
