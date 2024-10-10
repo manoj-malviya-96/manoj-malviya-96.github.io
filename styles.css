@@ -58,7 +58,7 @@
     --navbar-height: 47px;
 
     /* Project specific */
-    --project-card-height: 230px; /* Width of the project card should be less than content width /4  */
+    --project-card-height: 180px; /* Width of the project card should be less than content width /4  */
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
     --control-bar-height: 40px;
@@ -78,7 +78,7 @@
     --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
 
     /* App Button */
-    --app-button-size: 80px;
+    --app-button-size: 100px;
     --app-window-width: var(--max-body-width);
     --app-window-height: 690px;
 }
@@ -467,6 +467,7 @@ p {
 .card {
     width: auto;
     height: var(--project-card-height);
+    max-height: var(--project-card-height);
     background-color: var(--color-light-contrast);
     border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
