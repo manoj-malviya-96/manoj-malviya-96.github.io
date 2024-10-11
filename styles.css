@@ -863,30 +863,6 @@ th {
     border-width: var(--border-width);
 }
 
-.app-button {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    height: var(--app-button-height);
-    width: auto;
-    font-size: var(--regular-text-size);
-    padding: var(--spacing-medium);
-    border-radius: var(--default-radius);
-    border: none;
-    transition: all var(--transition-default);
-}
-
-
-.app-button:hover {
-    transform: scale(var(--transform-scale));
-}
-
-.app-button .bi:active {
-    transform: scale(1/var(--transform-scale));
-}
-
 .app-window {
     display: flex;
     flex-direction: column;
@@ -913,6 +889,11 @@ th {
     padding: var(--spacing-medium);
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
+}
+
+
+.app-controller.hidden {
+    height: 0; /* Collapsed state */
 }
 
 .app-controller-item {
@@ -952,8 +933,28 @@ th {
     text-transform: uppercase;
 }
 
-.app-controller.hidden {
-    height: 0; /* Collapsed state */
+.app-button {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    height: var(--app-button-height);
+    width: auto;
+    font-size: var(--regular-text-size);
+    padding: var(--spacing-medium);
+    border-radius: var(--default-radius);
+    border: none;
+    transition: all var(--transition-default);
+}
+
+
+.app-button:hover {
+    transform: scale(var(--transform-scale));
+}
+
+.app-button .bi:active {
+    transform: scale(1/var(--transform-scale));
 }
 
 
