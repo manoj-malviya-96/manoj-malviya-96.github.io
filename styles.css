@@ -8,7 +8,7 @@
     --color-dark-contrast: rgba(69, 69, 69, 0.47);
     --color-dark-imp: rgb(208, 208, 208);
 
-    --color-brand-primary: rgb(241, 116, 78); /*164078FF*/
+    --color-brand-primary: rgb(191, 88, 73); /*164078FF*/
     --color-passive-element: rgba(128, 128, 128, 0.47);
 
 
@@ -484,7 +484,6 @@ p {
     display: flex;
     margin: 0 auto;
     flex-direction: column;
-
 }
 
 /* Default: 3 columns */
@@ -563,7 +562,7 @@ p {
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-    border: var(--border-width) solid;
+    border: var(--border-width) solid; !important;
     margin-right: var(--spacing-small) !important;
     margin-top: var(--spacing-small) !important;
     padding: var(--spacing-small) !important;
@@ -571,6 +570,7 @@ p {
     border-radius: var(--small-radius);
 !important;
     font-size: var(--subtitle-text-size); !important;
+    text-transform: uppercase; !important;
 }
 
 .card:hover .card-text {
