@@ -49,6 +49,17 @@ class MusicApp {
             event.preventDefault(); // Prevent default behavior of Enter
             this.toggleFullScreen();
         }
+
+        // Handle arrow keys for skipping
+        if (event.code === 'ArrowRight') {
+            event.preventDefault(); // Prevent horizontal scrolling
+            this.skipForward(); // Call the skip forward method
+        }
+
+        if (event.code === 'ArrowLeft') {
+            event.preventDefault(); // Prevent horizontal scrolling
+            this.skipBackward(); // Call the skip backward method
+        }
     }
 
     // Get all the required DOM elements
