@@ -58,7 +58,7 @@
     --navbar-height: 47px;
 
     /* Project specific */
-    --project-card-height: 269px; /* Width of the project card should be less than content width /4  */
+    --project-card-height: 300px; /* Width of the project card should be less than content width /4  */
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
     --control-bar-height: 40px;
@@ -494,12 +494,12 @@ p {
 }
 
 .card {
-    width: auto;
     background-color: var(--color-light-contrast);
     border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
     flex-direction: row;
     height: var(--project-card-height);
+    width: var(--project-card-height);
     overflow: clip;
 }
 
@@ -539,9 +539,9 @@ p {
     transition: all var(--transition-short);
 }
 
-.card .card-img {
+.card-img {
     margin: 0 auto;
-    width: 100%;
+    width: var(--project-card-height);
     height: var(--project-card-height);
     object-fit: cover;
     overflow: clip;
