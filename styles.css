@@ -13,10 +13,10 @@
 
 
     /* Spacing */
-    --spacing-small: 5px;
-    --spacing-medium: 10px;
-    --spacing-large: 20px;
-    --spacing-huge: 40px;
+    --spacing-small: 6px;
+    --spacing-medium: 12px;
+    --spacing-large: 24px;
+    --spacing-huge: 48px;
 
     /* Transition */
     --transition-default: 0.47s;
@@ -35,8 +35,8 @@
     --bold-weight: 690;
     --line-height: 1.25;
 
-    --small-text-size: 10px;
-    --normal-text-size: 16px;
+    --subtitle-text-size: 12px;
+    --regular-text-size: 16px;
     --title-font-size: 25px;
     --super-title-font-size: 41px;
 
@@ -58,7 +58,7 @@
     --navbar-height: 47px;
 
     /* Project specific */
-    --project-card-height: 169px; /* Width of the project card should be less than content width /4  */
+    --project-card-height: 269px; /* Width of the project card should be less than content width /4  */
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
     --control-bar-height: 40px;
@@ -90,7 +90,7 @@ body {
     padding: var(--spacing-large) !important;
     letter-spacing: var(--border-width);
     transition: all var(--transition-default);
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
 }
 
 .quarto-about-jolla,
@@ -238,13 +238,13 @@ p {
 }
 
 .navbar-nav .nav-link .bi {
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
 }
 
 .navbar-nav .nav-link .nav-text {
     justify-content: center;
     align-content: center;
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     line-height: var(--line-height);
     margin-left: var(--spacing-small);
 }
@@ -310,7 +310,7 @@ p {
 }
 
 .control-selector-icon i {
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
 }
 
 .control-selector {
@@ -416,7 +416,7 @@ p {
 }
 
 .calendar {
-    font-size: var(--small-text-size);
+    font-size: var(--subtitle-text-size);
     font-family: var(--font-family), serif;
     justify-content: center;
     align-items: center;
@@ -445,7 +445,32 @@ p {
     display: none;
 }
 
+/* ----------------------- Project Common Comp --------------------------- */
+.project-type {
+    font-size: 10px !important;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: var(--small-radius);
+    padding: var(--spacing-small);
+    background-color: var(--color-brand-primary);
+    color: var(--color-light-primary);
+}
+
+
+.project-date {
+    font-size: var(--subtitle-text-size); !important;
+    line-height: var(--line-height);
+    text-transform: uppercase;
+    color: var(--color-passive-element);
+    position: absolute;
+    right: var(--spacing-small);
+    bottom: var(--spacing-small);
+}
+
 /* ----------------------- Project Cards --------------------------- */
+
 .quarto-listing {
     width: var(--max-body-width);
     justify-content: center;
@@ -461,17 +486,16 @@ p {
 /* Default: 3 columns */
 #project-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .card {
     width: auto;
-    height: var(--project-card-height);
-    max-height: var(--project-card-height);
     background-color: var(--color-light-contrast);
     border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
     flex-direction: row;
+    height: var(--project-card-height);
 }
 
 .card-body {
@@ -481,71 +505,94 @@ p {
     justify-content: center;
 }
 
+.card-title-default {
+    position: absolute;
+    text-transform: uppercase;
+    left: var(--spacing-small);
+    bottom: var(--spacing-small);
+    font-size: var(--subtitle-text-size);
+    color: var(--color-passive-element);
+}
+
 .card-title {
     padding: 0;
+    opacity: 0;
     font-size: var(--title-font-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
+    transition: all var(--transition-short);
 }
 
 .card-text {
     font-weight: var(--regular-weight);
-    font-size: var(--small-text-size);
+    font-size: var(--subtitle-text-size);
     line-height: var(--line-height);
     margin: var(--spacing-small) 0 var(--spacing-medium) 0;
     opacity: 0;
-    height: 0;
     transition: all var(--transition-short);
 }
 
 .card-img {
     margin: 0 auto;
-    width: calc(var(--project-card-height) * 0.75);
-    height: 100%;
+    width: 100%;
+    height: var(--project-card-height);
     object-fit: cover;
     overflow: clip;
     display: flex;
     align-content: flex-end;
-    border-top-left-radius: var(--default-radius);
-    border-bottom-left-radius: var(--default-radius);
+    border-radius: var(--default-radius);
     transition: all var(--transition-default);
 }
 
 .listing-categories {
-    max-width: 90%;
     opacity: 0;
-    height: 0;
+    transition: all var(--transition-default);
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
 
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-    border: var(--border-width) solid var(--color-brand-primary) !important;
+    border: var(--border-width) solid;
     margin-right: var(--spacing-small) !important;
     margin-top: var(--spacing-small) !important;
     padding: var(--spacing-small) !important;
     width: fit-content;
     border-radius: var(--small-radius);
 !important;
+    font-size: var(--subtitle-text-size); !important;
 }
 
+.card .project-date {
+    opacity: 0;
+}
+
+
 .card:hover .card-text {
-    height: auto;
     opacity: 1;
 }
 
 .card:hover .listing-categories {
-    height: auto;
     opacity: 0.69;
 }
 
 .card:hover .card-img {
-    width: 0;
+    height: 0;
 }
 
 .card:hover .card-title {
-    font-size: 21px; /* Card title font size */
+    opacity: 1;
+}
+
+.card:hover .card-title-default {
+    opacity: 0;
+}
+
+.card:hover .project-date {
+    opacity: 1;
 }
 
 #cards-controls-container {
@@ -605,32 +652,8 @@ p {
     flex-grow: 1; /* Make sure text takes up available space */
 }
 
-.project-type {
-    font-size: var(--small-text-size);
-    line-height: var(--line-height);
-    text-transform: uppercase;
-    position: absolute;
-    right: var(--spacing-small);
-    top: var(--spacing-small);
-    border-radius: var(--small-radius);
-    padding: var(--spacing-small);
-    background-color: var(--color-brand-primary);
-    color: var(--color-light-primary);
-}
-
-
-.project-date {
-    font-size: var(--small-text-size);
-    line-height: var(--line-height);
-    text-transform: uppercase;
-    color: var(--color-passive-element);
-    position: absolute;
-    right: var(--spacing-small);
-    bottom: var(--spacing-small);
-}
-
 .description {
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     line-height: var(--line-height);
     margin: 0 auto;
 }
@@ -645,7 +668,7 @@ p {
     height: auto;
     width: var(--project-footer-width);
     border-radius: var(--default-radius);
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     backdrop-filter: blur(var(--blur-radius));
 }
 
@@ -682,7 +705,7 @@ p {
 }
 
 .footer-toc li p, .footer-toc li a {
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     text-decoration: none;
     transition: all var(--transition-short);
     opacity: 1;
@@ -711,7 +734,7 @@ p {
     margin: 0 auto;
     padding-left: 20px; /* Adjust the padding as needed */
     padding-right: 20px; /* Adjust the padding as needed */
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     line-height: var(--line-height);
 }
 
@@ -722,7 +745,7 @@ code {
     border: none;
     border-radius: var(--default-radius);
     font-family: 'Courier New', Courier, monospace;
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
 }
 
 .sourceCode .pre {
@@ -804,7 +827,7 @@ table {
     border: none;
     border-radius: var(--default-radius);
     margin: var(--spacing-large) 0;
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
 }
 
 th, td {
@@ -850,7 +873,7 @@ th {
     align-items: center;
     height: var(--app-button-size);
     width: var(--app-button-size);
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     padding: var(--spacing-medium);
     border-radius: var(--default-radius);
     border: none;
@@ -919,7 +942,7 @@ th {
 }
 
 #appName {
-    font-size: var(--normal-text-size);
+    font-size: var(--regular-text-size);
     font-weight: var(--bold-weight);
     color: var(--color-brand-primary);
     padding: 0;

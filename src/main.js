@@ -124,34 +124,35 @@ function loadMusicApp(){
     loadApp('./apps/music-viz/music-viz.html', null, true);
 }
 
-function getCardHTML(filePath, imagePath, title,
-                     description, categories,
-                     type = "", date = "") {
+function getCardHTML(filePath, imagePath, title, description, categories, type = "", date = "") {
     categories = categories.sort((a, b) => a.localeCompare(b));
+
+    // Limit description to 140 characters
+    const shortDescription = description.length > 140 ? description.substring(0, 140) + '...' : description;
+
     return `
-        <div class="g-col-1 project-card" 
-            data-categories="${categories.join(',')}" 
-             data-title="${title.toLowerCase()}" 
-             data-description="${description.toLowerCase()}"
-             data-date=${parseDate(date)}">
-            <a href="javascript:void(0)" class="quarto-grid-link"
-               onclick="loadProjectPage('${filePath}', event)">
-                <div class="quarto-grid-item card">
-                    <div class="column-image">
-                        <img src="${imagePath}" class="card-img" alt="">
+      <div class="g-col-1 card" 
+          data-categories="${categories.join(',')}" 
+          data-title="${title.toLowerCase()}" 
+          data-description="${shortDescription.toLowerCase()}"
+          data-date=${parseDate(date)}>
+          <a href="javascript:void(0)" class="quarto-grid-link" 
+             onclick="loadProjectPage('${filePath}', event)">
+              <div class="column-image">
+                <img src="${imagePath}" class="card-img" alt="">
+                <div class="card-body post-contents">
+                    <div class="project-type">${type}</div>
+                    <h3 class="card-title">${title}</h3>
+                    <span class="card-title-default">${title}</span>
+                    <div class="card-text listing-description">${description}</div>
+                    <div class="listing-categories">
+                        ${categories.map(cat => `<div class="listing-category">${cat}</div>`).join('')}
                     </div>
-                    <div class="card-body post-contents">
-                        <div class="project-type">${type}</div>
-                        <h3 class="no-anchor card-title listing-title">${title}</h3>
-                        <div class="card-text listing-description">${description}</div>
-                        <div class="listing-categories">
-                            ${categories.map(cat => `<div class="listing-category">${cat}</div>`).join('')}
-                        </div>
-                        <div class="project-date">${date} </div>
-                    </div>
+                    <div class="project-date">${date} </div>
                 </div>
-            </a>
-        </div>
+              </div>
+          </a>
+      </div>
     `;
 }
 
