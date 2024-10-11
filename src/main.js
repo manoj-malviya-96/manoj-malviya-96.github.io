@@ -142,13 +142,15 @@ function getCardHTML(filePath, imagePath, title, description, categories, type =
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-body post-contents">
                     <div class="project-type">${type}</div>
-                    <h3 class="card-title">${title}</h3>
                     <span class="card-title-default">${title}</span>
-                    <div class="card-text listing-description">${description}</div>
-                    <div class="listing-categories">
-                        ${categories.map(cat => `<div class="listing-category">${cat}</div>`).join('')}
+                    <div class="card-details">
+                        <h3 class="card-title">${title}</h3>
+                        <div class="card-text listing-description">${description}</div>
+                        <div class="listing-categories">
+                            ${categories.map(cat => `<div class="listing-category">${cat}</div>`).join('')}
+                        </div>
+                        <div class="project-date">${date} </div>
                     </div>
-                    <div class="project-date">${date} </div>
                 </div>
               </div>
           </a>
