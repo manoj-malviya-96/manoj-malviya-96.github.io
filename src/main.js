@@ -5,7 +5,7 @@ const contentPlaceholder = window.document.getElementById('content-placeholder')
 const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
 
 const homePage = './home.html';
-const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, initSortOptions, loadProjects];
+const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, initSortOptions, loadApps, loadProjects];
 
 const defaultProjectCallbacks = [initTheme, loadProjectFooter, initImageFluidHandler, initScrollTracking];
 // Order matters- loadProjectFooter should be called before initScrollTracking
@@ -23,8 +23,9 @@ const projectHTMLToCallBackMap = {
 // App-specific callbacks
 const defaultAppCallbacks = [initTheme];
 const appHTMLToCallBackMap = {
-    './apps/music-viz/music-viz.html': [initMusicApp]
+    './apps/music-viz/music-viz.html': [initMusicApp],
 }
+
 
 
 // Load Content with Overlay, used to show a loading spinner while content is being fetched
@@ -120,8 +121,49 @@ function setupLoadPageUrlHandler() {
     window.document.addEventListener('DOMContentLoaded', loadPageFromTypedURL);
 }
 
-function loadMusicApp() {
-    loadApp('./apps/music-viz/music-viz.html', null, true);
+// Function to load the app.html and copy the app-brand-container
+function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
+    return fetch(appHtmlPath)
+        .then(response => response.text())  // Load the HTML as text
+        .then(html => {
+            // Create a temporary DOM element to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // Find the app-brand-container in the loaded HTML
+            const appBrandContainer = tempDiv.querySelector('.app-brand-container');
+
+            if (appBrandContainer) {
+                // Create a new button element
+                const appButton = document.createElement('button');
+                appButton.className = 'app-button';
+
+                // Set the provided onClickFunction dynamically
+                appButton.onclick = onClickFunction;
+
+                // Clone the app-brand-container and append it to the button
+                const clonedAppBrand = appBrandContainer.cloneNode(true);
+                appButton.appendChild(clonedAppBrand);
+
+                return appButton; // Return the created button
+            } else {
+                throw new Error('app-brand-container not found in the app.html file.');
+            }
+        })
+        .catch(error => console.error('Error loading app.html:', error));
+}
+
+
+function makeAppButton(container, appHTMLPath) {
+    console.log(appHTMLPath);
+    const appLoaderFunction = ()=> {
+        loadApp(appHTMLPath, null, true);
+    }
+    createAppButtonFromHTML(appHTMLPath, appLoaderFunction)
+        .then(button => {
+            container.appendChild(button);  // Directly append the button element
+        })
+        .catch(error => console.error('Error creating and adding app button:', error));
 }
 
 function getCardHTML(filePath, imagePath, title, description, categories, type = "", date = "") {
@@ -156,7 +198,7 @@ function getCardHTML(filePath, imagePath, title, description, categories, type =
     `;
 }
 
-function makeProjectCard(filePath, containerId) {
+function makeProjectCard(filePath, container) {
     return fetch(filePath)
         .then(response => {
             if (!response.ok) {
@@ -178,11 +220,6 @@ function makeProjectCard(filePath, containerId) {
             const categories = Array.from(doc.querySelectorAll('.quarto-category')).map(el => el.textContent);
 
             const cardHTML = getCardHTML(filePath, imagePath, title, description, categories, type, date);
-
-            const container = document.getElementById(containerId);
-            if (!container) {
-                throw new Error(`Element with ID '${containerId}' not found.`);
-            }
             container.insertAdjacentHTML('beforeend', cardHTML);
 
             // Return categories for this project
@@ -195,10 +232,14 @@ function makeProjectCard(filePath, containerId) {
 }
 
 function loadProjects() {
-    const containerId = 'project-list';
+    const container = window.document.getElementById('project-list');
+    if (!container) {
+        throw new Error(`Element with ID '${container}' not found.`);
+    }
+
     let allCategories = new Set();
     const promises = Object.entries(projectHTMLToCallBackMap).map(([projectKey,]) =>
-        makeProjectCard(projectKey, containerId)
+        makeProjectCard(projectKey, container)
     );
 
     // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
@@ -211,6 +252,18 @@ function loadProjects() {
         sortProjects(defaultSortOption);
     }).catch(err => {
         console.error('Error loading all projects:', err);
+    });
+}
+
+function loadApps() {
+    const container = window.document.getElementById("app-list");
+    if (!container) {
+        throw new Error(`Element with ID- app-list not found.`);
+    }
+    const promises = Object.entries(appHTMLToCallBackMap).map(([appHTML, ]) =>
+        makeAppButton(container, appHTML));
+    Promise.all(promises).catch(err => {
+        console.error('Error loading all apps:', err);
     });
 }
 
