@@ -23,13 +23,36 @@ class MusicApp {
         this.elements.progressBar.addEventListener('input', this.updateProgress.bind(this));
         this.elements.playPauseBtn.addEventListener('click', this.togglePlayPause.bind(this));
         this.elements.toggleBtn.addEventListener('click', this.toggleMusicHud.bind(this));
-        this.elements.vizDropdown.addEventListener('change', this.drawVisualizer.bind(this))
+        this.elements.vizDropdown.addEventListener('change', this.drawVisualizer.bind(this));
+        this.elements.toggleFullScreen.addEventListener('click', this.toggleFullScreen.bind(this));
         this.elements.progressBar.style.background = `${this.backgroundColor}`;
+
+        this.setupResizing();
+        this.setupKeyboardShortcuts();
+    }
+
+    setupKeyboardShortcuts(){
+        window.document.addEventListener('keydown', this.handleKeydown.bind(this));
+    }
+
+    handleKeydown(event) {
+        // Check if the space key is pressed (keyCode 32 or ' ')
+        if (event.code === 'Space') {
+            event.preventDefault(); // Prevent default behavior of space (e.g., scrolling)
+            this.togglePlayPause();
+        }
+
+        // Check if the Enter key is pressed (keyCode 13 or 'Enter')
+        if (event.code === 'Enter') {
+            event.preventDefault(); // Prevent default behavior of Enter
+            this.toggleFullScreen();
+        }
     }
 
     // Get all the required DOM elements
     getDomElements() {
         return {
+            appWindow: window.document.querySelector('.app-window'),
             appController: window.document.querySelector('.app-controller'),
             fileUpload: window.document.getElementById('fileUpload'),
             canvas: window.document.getElementById('visualizer'),
@@ -39,7 +62,29 @@ class MusicApp {
             playPauseBtn: window.document.getElementById('playPauseBtn'),
             toggleBtn: window.document.getElementById('toggle-music-hud'),
             vizDropdown: window.document.getElementById('viz-dropdown'),
+            toggleFullScreen: window.document.getElementById('toggleFullScreen'),
         };
+    }
+
+    toggleFullScreen() {
+        if (!this.elements.appWindow.classList.contains('full-screen-modal') && !document.fullscreenElement) {
+            this.elements.canvas.requestFullscreen();
+        } else if (window.document.exitFullscreen) {
+            window.document.exitFullscreen();
+        }
+    }
+
+    setupResizing(){
+        window.document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement === this.elements.canvas) {
+                this.elements.appWindow.classList.add('full-screen-modal');
+                this.elements.toggleFullScreen.innerHTML = '<i class="bi bi-fullscreen-exit"></i>'; // Change icon when in full-screen
+            } else {
+                // Revert to original size when exiting full-screen
+                this.elements.appWindow.classList.remove('full-screen-modal');
+                this.elements.toggleFullScreen.innerHTML = '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
+            }
+        });
     }
 
 
@@ -276,7 +321,7 @@ class MusicApp {
     // Update the play/pause button based on the current state
     updatePlayButton() {
         this.elements.playPauseBtn.innerHTML = this.isPlaying ?
-            '<i class="bi bi-pause"></i>' : '<i class="bi bi-play"></i>';
+            '<i class="bi bi-pause-fill"></i>' : '<i class="bi bi-play-fill"></i>';
     }
 
 

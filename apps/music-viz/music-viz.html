@@ -23,7 +23,7 @@
             <div class="music-controls">
                 <!-- Play button -->
                 <button id="playPauseBtn" class="primary-button">
-                    <i class="bi bi-play"></i>
+                    <i class="bi bi-play-fill"></i>
                 </button>
                 <!-- Song Title -->
                 <span id="songTitle">Currently Playing</span>
@@ -36,7 +36,7 @@
             <!-- Upload button -->
             <div id="uploadButton" style="margin-right: var(--spacing-large)">
                 <label for="fileUpload" class="primary-button">
-                    <i class="bi bi-cloud-arrow-up"></i>
+                    <i class="bi bi-upload"></i>
                 </label>
                 <input type="file" id="fileUpload" accept="audio/*" style="display: none">
             </div>
@@ -50,6 +50,14 @@
                     <option value="bars">Bars</option>
                 </select>
             </div>
+
+            <div id="fullscreenButton" class="app-controller-item">
+                <button id="toggleFullScreen" class="primary-button">
+                    <i class="bi bi-arrows-fullscreen"></i>
+                </button>
+            </div>
+
+
         </div> <!-- settings -->
     </div>
 
