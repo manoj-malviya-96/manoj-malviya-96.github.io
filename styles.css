@@ -8,7 +8,7 @@
     --color-dark-contrast: rgba(69, 69, 69, 0.47);
     --color-dark-imp: rgb(208, 208, 208);
 
-    --color-brand-primary: rgb(82, 101, 166); /*164078FF*/
+    --color-brand-primary: rgb(205, 39, 39); /*164078FF*/
     --color-passive-element: rgba(128, 128, 128, 0.47);
 
 
@@ -23,7 +23,7 @@
     --transition-short: 0.05s;
 
     /* Size */
-    --max-body-width: 1269px;
+    --max-body-width: 1200px;
     --max-content-width: 690px;
     --max-image-width: 650px; /* Smaller than content width */
     --default-radius: 6px;
@@ -68,7 +68,7 @@
     /* Custom */
     --about-entity-height: 250px;
     --transform-scale: 1.169;
-    --blur-radius: 13px;
+    --blur-radius: 9px;
 
     /* Github contributions */
     --color-calendar-graph-day-bg: #3d3d3d;
@@ -80,7 +80,7 @@
     /* App */
     --app-button-height: 69px;
     --app-window-width: var(--max-body-width);
-    --app-window-height: 900px;
+    --app-window-height: calc(3*var(--app-window-width)/4);
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -882,19 +882,29 @@ th {
     height: 100%;
 }
 
+.app-controller-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content:  flex-end;
+    height: auto;
+    width: calc(0.96*var(--app-window-width));
+    margin: auto auto var(--spacing-huge);
+    z-index: var(--z-index-max);
+    background-color: transparent;
+}
+
 .app-controller {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content:  flex-end;
-    border-radius: var(--default-radius);
     height: auto;
-    width: calc(0.96*var(--app-window-width));
-    margin: auto auto var(--spacing-huge);
+    width: 100%;
+    border-radius: var(--default-radius);
     padding: var(--spacing-medium);
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
-    z-index: var(--z-index-max);
 }
 
 
@@ -1029,7 +1039,9 @@ canvas {
     width: var(--app-window-width);
     height: var(--app-window-height);
     border-radius: var(--default-radius);
-    background-color: transparent;
+    padding: var(--spacing-small);
+    overflow: clip;
+    background-color: black;
     justify-items: center;
     align-items: center;
 }
@@ -1246,8 +1258,12 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
+.light-mode .app-window {
+    box-shadow: var(--shadows-light);
+}
 
-/* -------------------------- Dark Mode -------------------------- */
+
+    /* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
     background-color: var(--color-dark-primary);
     color: var(--color-dark-imp);
@@ -1433,6 +1449,10 @@ body.dark-mode {
 
 .dark-mode .app-controller-item {
     border-color: var(--color-dark-contrast);
+}
+
+.dark-mode .app-window {
+    box-shadow: var(--shadows-dark);
 }
 
 

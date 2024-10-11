@@ -314,8 +314,8 @@ class MusicApp {
     toggleMusicHud() {
         this.elements.appController.classList.toggle('hidden');
         this.elements.toggleBtn.innerHTML = this.elements.appController.classList.contains('hidden') ?
-            '<i class="bi bi-chevron-compact-down"></i>' :
-            '<i class="bi bi-chevron-compact-up"></i>';
+            '<i class="bi bi-chevron-compact-up"></i>' :
+            '<i class="bi bi-chevron-compact-down"></i>';
     }
 
     // Update the play/pause button based on the current state

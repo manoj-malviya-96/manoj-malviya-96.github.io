@@ -1,64 +1,68 @@
 <div class="app-window">
     <!-- Visualizer section -->
-    <canvas id="visualizer" width="1200" height="690"></canvas>
+    <canvas id="visualizer" width="1200" height="900"></canvas> <!-- 4:3 ratio -->
 
-    <!-- Button to toggle app-header -->
-    <div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
-        <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-up"></i></button>
-    </div>
-
-    <!-- App Header -->
-    <div class="app-controller">
-        <!-- Icon and App Name in  layout -->
-        <div class="app-brand-container app-controller-item">
-            <i class="bi bi-soundwave" id="appIcon"></i>
-            <span class="app-name">Oscillate</span>
+    <div class="app-controller-container">
+        <!-- Button to toggle app-header -->
+        <div class="toggle-expand-button-container"
+             style="justify-content: center">
+            <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i></button>
         </div>
 
-        <!-- HUD for music controls and display -->
-        <div class="music-hud app-controller-item">
-            <div class="progress-area">
-                <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+        <!-- App Header -->
+        <div class="app-controller">
+            <!-- Icon and App Name in  layout -->
+            <div class="app-brand-container app-controller-item">
+                <i class="bi bi-soundwave" id="appIcon"></i>
+                <span class="app-name">ShadowPulse</span>
             </div>
-            <div class="music-controls">
-                <!-- Play button -->
-                <button id="playPauseBtn" class="primary-button">
-                    <i class="bi bi-play-fill"></i>
-                </button>
-                <!-- Song Title -->
-                <span id="songTitle">Currently Playing</span>
-                <!-- Time Info -->
-                <div id="timeInfo" style="margin-left: var(--spacing-medium);">0:00/0:00</div>
+
+            <!-- HUD for music controls and display -->
+            <div class="music-hud app-controller-item">
+                <div class="progress-area">
+                    <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+                </div>
+                <div class="music-controls">
+                    <!-- Play button -->
+                    <button id="playPauseBtn" class="primary-button">
+                        <i class="bi bi-play-fill"></i>
+                    </button>
+                    <!-- Song Title -->
+                    <span id="songTitle">Currently Playing</span>
+                    <!-- Time Info -->
+                    <div id="timeInfo" style="margin-left: var(--spacing-medium);">0:00/0:00</div>
+                </div>
             </div>
+
+            <div id="vizSettings" class="app-controller-item">
+                <!-- Upload button -->
+                <div id="uploadButton" style="margin-right: var(--spacing-large)">
+                    <label for="fileUpload" class="primary-button">
+                        <i class="bi bi-upload"></i>
+                    </label>
+                    <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+                </div>
+                <!-- visualizer dropdown-->
+                <div id="viz-dropdown-container" class="control-selector-container"
+                     style="margin-right: var(--spacing-large)">
+                    <label for="viz-dropdown" class="control-selector-icon">
+                        <i class="bi bi-gear-fill"></i>
+                    </label>
+                    <select id="viz-dropdown" class="control-selector">
+                        <option value="circles">Default</option>
+                        <option value="bars">Bars</option>
+                    </select>
+                </div>
+
+                <div id="fullscreenButton" class="app-controller-item">
+                    <button id="toggleFullScreen" class="primary-button">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                </div>
+
+
+            </div> <!-- settings -->
         </div>
-
-        <div id="vizSettings" class="app-controller-item">
-            <!-- Upload button -->
-            <div id="uploadButton" style="margin-right: var(--spacing-large)">
-                <label for="fileUpload" class="primary-button">
-                    <i class="bi bi-upload"></i>
-                </label>
-                <input type="file" id="fileUpload" accept="audio/*" style="display: none">
-            </div>
-            <!-- visualizer dropdown-->
-            <div id="viz-dropdown-container" class="control-selector-container" style="margin-right: var(--spacing-large)">
-                <label for="viz-dropdown" class="control-selector-icon">
-                    <i class="bi bi-gear-fill"></i>
-                </label>
-                <select id="viz-dropdown" class="control-selector">
-                    <option value="circles">Default</option>
-                    <option value="bars">Bars</option>
-                </select>
-            </div>
-
-            <div id="fullscreenButton" class="app-controller-item">
-                <button id="toggleFullScreen" class="primary-button">
-                    <i class="bi bi-arrows-fullscreen"></i>
-                </button>
-            </div>
-
-
-        </div> <!-- settings -->
     </div>
 
 </div>
