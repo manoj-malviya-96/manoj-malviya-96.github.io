@@ -49,6 +49,7 @@ class MusicApp {
 
         this.resetAudio();
         this.setupNewAudio(file);
+        this.togglePlayPause();
     }
 
     // Toggle play/pause for the audio

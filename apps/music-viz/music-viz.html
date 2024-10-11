@@ -12,6 +12,9 @@
 
         <!-- HUD for music controls and display -->
         <div class="music-hud">
+            <div class="progress-area">
+                <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+            </div>
             <div class="music-controls">
                 <!-- Play button -->
                 <button id="playPauseBtn" class="primary-button">
@@ -21,9 +24,6 @@
                 <span id="songTitle">Currently Playing</span>
                 <!-- Time Info -->
                 <div id="timeInfo" style="margin-left: var(--spacing-medium);">0:00/0:00</div>
-            </div>
-            <div class="progress-area">
-                <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
             </div>
         </div>
 
