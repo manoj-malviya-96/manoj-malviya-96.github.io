@@ -23,7 +23,7 @@
     --transition-short: 0.05s;
 
     /* Size */
-    --max-body-width: 1400px;
+    --max-body-width: 1269px;
     --max-content-width: 690px;
     --max-image-width: 650px; /* Smaller than content width */
     --default-radius: 6px;
