@@ -23,7 +23,7 @@
     --transition-short: 0.05s;
 
     /* Size */
-    --max-body-width: 1200px;
+    --max-body-width: 1400px;
     --max-content-width: 690px;
     --max-image-width: 650px; /* Smaller than content width */
     --default-radius: 6px;
@@ -851,7 +851,7 @@ th {
 
 .app-drawer {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     padding-left: var(--spacing-large);
     height: calc(var(--app-button-height) + 2 * var(--spacing-large));
