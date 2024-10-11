@@ -71,6 +71,10 @@ function initToggleForAbout() {
         const content = window.document.querySelector('.collapsible-content');
         content.classList.toggle('expanded');
 
+        const aboutEntity = window.document.querySelector('.about-entity');
+        aboutEntity.classList.toggle('collapsed');
+
+
         // Toggle icon class and button text based on the state
         if (content.classList.contains('expanded')) {
             this.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';

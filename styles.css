@@ -375,6 +375,12 @@ p {
     transition: all var(--transition-default);
 }
 
+.about-entity.collapsed {
+    display: none;
+    opacity: 0;
+}
+
+
 .profile-image img {
     padding: 0;
     margin: 0 auto;
@@ -388,8 +394,9 @@ p {
 }
 
 
-.about-text {
+.about-title {
     display: flex;
+    justify-content: center;
     align-items: center;
     max-height: var(--about-entity-height);
     padding: var(--spacing-medium);
@@ -410,9 +417,6 @@ p {
     height: auto;
     opacity: 1;
     padding: var(--spacing-large);
-    border: solid var(--border-width);
-    border-bottom-left-radius: var(--default-radius);
-    border-bottom-right-radius: var(--default-radius);
 }
 
 .calendar {
