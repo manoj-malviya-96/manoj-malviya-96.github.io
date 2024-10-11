@@ -30,6 +30,7 @@ class MusicApp {
     // Get all the required DOM elements
     getDomElements() {
         return {
+            appController: window.document.querySelector('.app-controller'),
             fileUpload: window.document.getElementById('fileUpload'),
             canvas: window.document.getElementById('visualizer'),
             progressBar: window.document.getElementById('progressBar'),
@@ -266,9 +267,8 @@ class MusicApp {
 
     // Toggle music HUD visibility
     toggleMusicHud() {
-        const hud = window.document.querySelector('.app-controller');
-        hud.classList.toggle('hidden');
-        this.elements.toggleBtn.innerHTML = hud.classList.contains('hidden') ?
+        this.elements.appController.classList.toggle('hidden');
+        this.elements.toggleBtn.innerHTML = this.elements.appController.classList.contains('hidden') ?
             '<i class="bi bi-chevron-compact-down"></i>' :
             '<i class="bi bi-chevron-compact-up"></i>';
     }
