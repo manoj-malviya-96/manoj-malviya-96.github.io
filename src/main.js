@@ -357,9 +357,9 @@ function loadProjectFooter() {
             <button class="footer-icon" id="footer-toggle">
                 <i class="bi bi-chevron-down"></i>
             </button>
-            <label for="footer-toggle">Table of contents</label>
+            <label for="footer-toggle">On this Page </label>
         </div>
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc"> 
             <ul class="footer-toc" id="dynamic-toc"></ul>
         </nav>
         `;
