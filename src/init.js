@@ -33,7 +33,7 @@ function initImageFluidHandler() {
     }
 
     const modal = window.document.createElement('div');
-    modal.id = 'fullScreenModal';
+    modal.className = 'full-screen-modal';
     const modalImg = window.document.createElement('img');
     modal.appendChild(modalImg);
     window.document.body.appendChild(modal);
