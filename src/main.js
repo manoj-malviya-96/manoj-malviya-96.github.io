@@ -421,41 +421,6 @@ function loadProjectFooter() {
     initProjectFooterToggle();
 }
 
-function toggleSidebar() {
-    const sidebar = document.getElementById("sideBar");
-    const icon = document.getElementById('sidebar-toggle-icon');
-
-    sidebar.classList.toggle("collapsed");
-
-    if (sidebar.classList.contains("collapsed")) {
-        icon.className = 'bi bi-chevron-right';
-    } else {
-        icon.className = 'bi bi-chevron-left';
-    }
-}
-
-
-// Function to initialize theme toggle after loading header
-function toggleTheme() {
-    const icon = document.getElementById('theme-icon');
-    const toDarkMode = document.body.classList.contains('light-mode');
-
-    if (!icon) {
-        console.error("No button");
-        return;
-    }
-
-    if (toDarkMode) {
-        document.body.classList.replace('light-mode', 'dark-mode');
-        icon.className = 'bi bi-moon-stars-fill';
-    } else {
-        document.body.classList.replace('dark-mode', 'light-mode');
-        icon.className = 'bi bi-sunrise-fill';
-    }
-
-    storeValueInStorage('theme', toDarkMode ? 'dark-mode' : 'light-mode');
-}
-
 
 // Example usage of loadPDF function
 function loadPDFInMainWindow(pdfUrl) {
