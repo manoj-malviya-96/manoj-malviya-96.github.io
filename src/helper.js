@@ -178,3 +178,47 @@ function getPrimaryColor(){
 function getPassiveColor(){
     return getStyleValue('--color-passive-element');
 }
+
+
+function setupDropdown(button, dropdown, callback = null, selected_value = null) {
+    if (!dropdown || !button) {
+        console.error('Dropdown elements not found');
+        return;
+    }
+
+    // Function to toggle the dropdown visibility
+    const toggleDropdown = () => {
+        dropdown.classList.toggle('hidden');
+    }
+
+    // Add event listeners to the button
+    button.addEventListener('click', toggleDropdown);
+
+    const handleDropdownSelect = (event) => {
+        const selectedValue = event.target.getAttribute('data-value');
+
+        // Select the clicked item and deselect others
+        dropdownItems.forEach(item => item.classList.remove('selected'));
+        event.target.classList.add('selected');
+
+        // Run the callback function if provided
+        if (callback) {
+            callback(selectedValue);
+        }
+
+        // Update the selected value in the button
+        if (selected_value) {
+            selected_value.textContent = selectedValue;
+        }
+
+        // Close the dropdown after selecting a category
+        toggleDropdown();
+    }
+
+    // Setting up the dropdown items
+    const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', (event) => handleDropdownSelect(event));
+    });
+}
+

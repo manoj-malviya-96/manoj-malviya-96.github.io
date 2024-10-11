@@ -248,7 +248,7 @@ function loadProjects() {
             categories.forEach(category => allCategories.add(category));
             // Update the Set with each project's categories
         });
-        makeCategoryDropdownFilters(allCategories);
+        setupCategoryDropDown(allCategories);
         sortProjects(defaultSortOption);
     }).catch(err => {
         console.error('Error loading all projects:', err);
@@ -268,16 +268,26 @@ function loadApps() {
 }
 
 // Function to dynamically generate the dropdown options based on unique categories
-function makeCategoryDropdownFilters(allCategories) {
-    const filterDropdown = document.getElementById('category-filter');
+function setupCategoryDropDown(allCategories) {
+    const filterDropdown = document.getElementById('categoryFilter');
+    const filterSelectedValue = document.getElementById('selectedCategoryValue');
+    const button = document.getElementById('categoryFilterBtn');
 
-    // Create option elements for each category dynamically
+    if (!filterDropdown || !filterSelectedValue || !button) {
+        console.error('Dropdown elements not found');
+        return;
+    }
+
+    // Creating dropdown items for each category
     allCategories.forEach(category => {
-        let option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        filterDropdown.appendChild(option);
+        let item = document.createElement('li');
+        item.setAttribute('data-value', category);
+        item.textContent = category;
+        item.className = 'dropdown-item';
+        filterDropdown.appendChild(item);
     });
+
+    setupDropdown(button, filterDropdown, filterProjects, filterSelectedValue);
 }
 
 // Search projects based on title or description
@@ -290,7 +300,7 @@ function filterProjectsBySearchAndCategory(searchInput = null, category = null) 
         // Check if the card matches the search input and category
         if (category !== null) {
             const cardCategories = card.getAttribute('data-categories').split(',');
-            isInCategory = (category === 'all' || cardCategories.includes(category));
+            isInCategory = (category === 'All Categories' || cardCategories.includes(category));
         }
         // Check if the card matches the search input
         if (searchInput !== null && searchInput !== "") {
@@ -347,7 +357,7 @@ function sortProjects(sortBy) {
 }
 
 function updateSortingIcon(value) {
-    let icon = document.getElementById('sort-icon').querySelector("i");
+    const icon = document.getElementById('sortIcon');
     if (!icon) {
         console.error('Sort icon not found');
         return;

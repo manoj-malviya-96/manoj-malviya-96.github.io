@@ -287,47 +287,137 @@ p {
     border-width: var(--spinner-border-width);
 }
 
-
-/* --------------- Control Bar Styling --------------- */
-.control-selector-container {
+/* --------------- Layout Styling --------------- */
+.row-layout {
     display: flex;
-    margin-right: var(--spacing-large);
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.column-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: auto;
-    height: var(--large-icon-size);
-    border: none;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* --------------------------- PRIMARY BUTTON ------------------------------ */
+
+.primary-button {
+    background-color: transparent;
+    cursor: pointer;
+    transition: all var(--transition-default);
+    height: 100%;
+    padding: 0 var(--spacing-medium);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--default-radius);
+    border-style: solid;
+    border-width: 0;
+    margin-right: var(--spacing-medium);
+}
+
+.primary-button .bi {
+    font-size: var(--large-icon-size);
+}
+
+.primary-button .button-label {
+    font-size: var(--regular-text-size);
+    line-height: var(--line-height);
+    margin-left: var(--spacing-small);
+}
+
+
+.primary-button:active {
+    transform: scale(calc(1 / var(--transform-scale)));
+}
+
+.primary-button:hover .bi,
+.primary-button:hover .button-label {
+    color: var(--color-brand-primary);
+!important;
+}
+
+/* --------------------  Dropdown  Styling ------------------- */
+.custom-dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    border-radius: var(--default-radius);
+    width: auto;
+    backdrop-filter: blur(var(--more-blur-radius));
+    z-index: var(--z-index-overlay);
+    font-size: var(--subtitle-text-size);
+    line-height: var(--line-height);
+    transition: all var(--transition-default);
+}
+
+.custom-dropdown.hidden {
+    display: none;
+}
+
+.dropdown-item {
+    padding: var(--spacing-medium);
+    cursor: pointer;
+    transition: all var(--transition-default);
     border-radius: var(--default-radius);
 }
 
-.control-selector-icon {
+.dropdown-item.selected {
+    background-color: var(--color-brand-primary); /* Use your primary color here */
+    color: white;
+}
+
+/* --------------------  Progress Area  Styling ------------------- */
+.progress-area {
+    width: 100%;
+    display: block;
+    background-color: transparent;
+    border-radius: var(--default-radius);
     padding: 0;
-    margin: 0 auto;
-    width: var(--large-icon-size);
-    height: var(--large-icon-size);
-    align-items: center;
-    justify-content: center;
-    border: none;
-    display: flex;
-    background-color: transparent;
+    margin: 0;
 }
 
-.control-selector-icon i {
-    font-size: var(--regular-icon-size);
-}
-
-.control-selector {
-    width: auto;
-    padding: var(--spacing-small);
-    cursor: pointer;
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: var(--spacing-medium);
     outline: none;
-    appearance: none; /* Remove gradient */
-    text-align: center;
-    border: none !important;
-    background-color: transparent;
-!important;
-    font-size: var(--regular-text-size);
-    border-radius: 0 var(--default-radius) var(--default-radius) 0;
+    cursor: pointer;
+    color: var(--color-brand-primary);
+    border-radius: var(--default-radius);
+    padding: 0;
 }
 
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--spacing-medium);
+    height: var(--spacing-medium);
+    transform: scale(1.3);
+    background: var(--color-brand-primary);
+    border-radius: var(--default-radius);
+    cursor: pointer;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.8);
+}
+
+
+/* --------------------  Searchbar  Styling ------------------- */
 .search-container {
     display: flex;
     border-radius: var(--default-radius);
@@ -482,11 +572,8 @@ p {
     width: var(--max-body-width);
     justify-content: center;
     align-self: center;
-    text-align: left;
-    padding: var(--spacing-large);
-    display: flex;
     margin: 0 auto;
-    flex-direction: column;
+    display: grid;
 }
 
 /* Default: 3 columns */
@@ -523,6 +610,7 @@ p {
 
 .card-details {
     height: 0;
+    display: none;
     transition: all var(--transition-default) ease-in-out;
 }
 
@@ -593,6 +681,7 @@ p {
 
 .card:hover .card-details {
     height: auto;
+    display: block;
 }
 
 .card:hover .card-title-default {
@@ -983,65 +1072,6 @@ th {
 }
 
 
-/* --------------------  App Controls  Styling ------------------- */
-.primary-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-default);
-    height: 100%;
-    padding: 0;
-}
-
-.primary-button .bi {
-    font-size: var(--large-icon-size);
-}
-
-.primary-button:hover .bi {
-    color: var(--color-brand-primary);
-!important;
-}
-
-.primary-button:active .bi {
-    transform: scale(calc(1 / var(--transform-scale)));
-}
-
-.progress-area {
-    width: 100%;
-    display: block;
-    background-color: transparent;
-    border-radius: var(--default-radius);
-    padding: 0;
-    margin: 0;
-}
-
-input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: var(--spacing-medium);
-    outline: none;
-    cursor: pointer;
-    color: var(--color-brand-primary);
-    border-radius: var(--default-radius);
-    padding: 0;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: var(--spacing-medium);
-    height: var(--spacing-medium);
-    transform: scale(1.3);
-    background: var(--color-brand-primary);
-    border-radius: var(--default-radius);
-    cursor: pointer;
-}
-
-input[type="range"]:hover::-webkit-slider-thumb {
-    transform: scale(1.8);
-}
-
-
 /* -------------------------- Music App Styling -------------------------- */
 canvas {
     position: absolute;
@@ -1079,35 +1109,6 @@ canvas {
     height: 100%;
     background-color: transparent;
 }
-
-/* -------------------------- Custom Dropdown -------------------------- */
-.custom-dropdown {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    border-radius: var(--default-radius);
-    width: auto;
-    backdrop-filter: blur(var(--more-blur-radius));
-    z-index: var(--z-index-overlay);
-}
-
-.custom-dropdown.hidden {
-    display: none;
-}
-
-.dropdown-item {
-    padding: var(--spacing-medium);
-    cursor: pointer;
-    transition: all var(--transition-default);
-    border-radius: var(--default-radius);
-}
-
-.dropdown-item.selected {
-    background-color: var(--color-brand-primary); /* Use your primary color here */
-    color: white;
-}
-
 
 /* -------------------------- Light Mode -------------------------- */
 
@@ -1198,14 +1199,6 @@ body.light-mode {
 !important;
 }
 
-.light-mode .control-selector-container {
-    background-color: var(--color-light-contrast);
-    color: var(--color-light-imp);
-}
-
-.light-mode .control-selector-container .control-selector {
-    color: var(--color-light-imp);
-}
 
 .light-mode .search-container {
     border-color: var(--color-light-contrast);
@@ -1257,6 +1250,7 @@ body.light-mode {
 
 .light-mode .primary-button {
     color: var(--color-light-imp);
+    border-color : var(--color-light-contrast);
 }
 
 .light-mode input[type="range"] {
@@ -1394,16 +1388,6 @@ body.dark-mode {
 !important;
 }
 
-.dark-mode .control-selector-container {
-    background-color: var(--color-dark-contrast);
-!important;
-    color: var(--color-dark-imp);
-}
-
-.dark-mode .control-selector-container .control-selector {
-    color: var(--color-dark-imp);
-}
-
 .dark-mode .search-container {
     border-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
@@ -1455,6 +1439,7 @@ body.dark-mode {
 
 .dark-mode .primary-button {
     color: var(--color-dark-imp);
+    border-color : var(--color-dark-contrast);
 }
 
 

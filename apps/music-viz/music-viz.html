@@ -6,7 +6,7 @@
         <!-- Button to toggle app-header -->
         <div class="toggle-expand-button-container"
              style="justify-content: center">
-            <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i>
+            <button id="toggleMusicHud" class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i>
             </button>
         </div>
 
@@ -24,7 +24,7 @@
                     <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
                 </div>
                 <div class="music-controls">
-                    <div id="control-buttons">
+                    <div id="control-buttons" style="display: flex">
                         <!--Skip backward button -->
                         <button id="skipBackwardBtn" class="primary-button" style="scale: 0.9">
                             <i class="bi bi-arrow-counterclockwise"></i>
@@ -53,17 +53,17 @@
                     </label>
                     <input type="file" id="fileUpload" accept="audio/*" style="display: none">
                 </div>
-                <!-- visualizer dropdown-->
-                <div id="viz-dropdown-container" class="control-selector-container"
-                     style="margin-right: var(--spacing-large)">
-                    <label for="viz-dropdown" class="control-selector-icon">
+
+                <div id="viz-dropdown-container" class="" style="margin-right: var(--spacing-large)">
+                    <button class="primary-button" id="dropDownBtn">
                         <i class="bi bi-gear-fill"></i>
-                    </label>
-                    <select id="viz-dropdown" class="control-selector">
-                        <option value="circles">Default</option>
-                        <option value="bars">Bars</option>
-                    </select>
+                    </button>
+                    <ul id="vizDropdown" class="custom-dropdown hidden">
+                        <li data-value="circles" class="dropdown-item selected">Default</li>
+                        <li data-value="bars" class="dropdown-item">Bars</li>
+                    </ul>
                 </div>
+
 
                 <div id="fullscreenButton" class="app-controller-item">
                     <button id="toggleFullScreen" class="primary-button">

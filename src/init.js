@@ -177,18 +177,22 @@ const sortOptions = [
 const defaultSortOption = 'date-desc';
 
 function initSortOptions() {
-    const select = document.getElementById('sort-filter');
+    const dropdown = document.getElementById('categoryFilter');
+    const selectedValue = document.getElementById('selectedCategoryValue');
+    const button = document.getElementById('categoryFilterBtn');
 
-    if (!select) {
-        return; // Select element not found
+    if (!dropdown || !selectedValue || !button) {
+        console.error('Dropdown elements not found');
+        return;
     }
-
     sortOptions.forEach(option => {
-        const opt = document.createElement('option');
-        opt.value = option.value;
-        opt.textContent = option.label;
-        select.appendChild(opt);
+        let item = document.createElement('li');
+        item.setAttribute('data-value', option.value);
+        item.textContent = option.label;
+        item.className = 'dropdown-item';
+        dropdown.appendChild(item);
     });
+    setupDropdown(button, dropdown, sortProjects , selectedValue);
 }
 
 

@@ -1,3 +1,5 @@
+const skipTime_s = 10 // Skip time in seconds
+
 class MusicApp {
     constructor() {
         this.elements = this.getDomElements();
@@ -10,11 +12,32 @@ class MusicApp {
         this.dataArray = null;
         this.audio = null;
         this.isPlaying = false;
-
-        this.init();
+        this.selectedVisualizer = 'circles';
 
         this.primaryColor = getPrimaryColor();
         this.backgroundColor = getPassiveColor();
+
+        this.init();
+    }
+
+    // Get all the required DOM elements
+    getDomElements() {
+        return {
+            appWindow: window.document.querySelector('.app-window'),
+            appController: window.document.querySelector('.app-controller'),
+            fileUpload: window.document.getElementById('fileUpload'),
+            canvas: window.document.getElementById('visualizer'),
+            progressBar: window.document.getElementById('progressBar'),
+            songTitle: window.document.getElementById('songTitle'),
+            timeInfo: window.document.getElementById('timeInfo'),
+            playPauseBtn: window.document.getElementById('playPauseBtn'),
+            skipForwardBtn: window.document.getElementById('skipForwardBtn'),
+            skipBackwardBtn: window.document.getElementById('skipBackwardBtn'),
+            toggleBtn: window.document.getElementById('toggleMusicHud'),
+            toggleFullScreen: window.document.getElementById('toggleFullScreen'),
+            dropDownBtn : window.document.getElementById('dropDownBtn'),
+            vizDropdown: window.document.getElementById('vizDropdown'),
+        };
     }
 
     // Initialize the app
@@ -23,12 +46,14 @@ class MusicApp {
         this.elements.progressBar.addEventListener('input', this.updateProgress.bind(this));
         this.elements.playPauseBtn.addEventListener('click', this.togglePlayPause.bind(this));
         this.elements.toggleBtn.addEventListener('click', this.toggleMusicHud.bind(this));
-        this.elements.vizDropdown.addEventListener('change', this.drawVisualizer.bind(this));
         this.elements.toggleFullScreen.addEventListener('click', this.toggleFullScreen.bind(this));
         this.elements.skipForwardBtn.addEventListener('click', this.skipForward.bind(this));
         this.elements.skipBackwardBtn.addEventListener('click', this.skipBackward.bind(this));
+        this.elements.dropDownBtn.addEventListener('click', this.toggleDropdown.bind(this));
+
         this.elements.progressBar.style.background = `${this.backgroundColor}`;
 
+        this.setupDropdown();
         this.setupResizing();
         this.setupKeyboardShortcuts();
     }
@@ -60,25 +85,45 @@ class MusicApp {
             event.preventDefault(); // Prevent horizontal scrolling
             this.skipBackward(); // Call the skip backward method
         }
+
+        // Handle arrow keys for skipping
+        if (event.code === 'ArrowDown') {
+            event.preventDefault(); // Prevent horizontal scrolling
+            this.hideMusicHud();
+        }
+
+        if (event.code === 'ArrowUp') {
+            event.preventDefault(); // Prevent horizontal scrolling
+            this.showMusicHud();
+        }
     }
 
-    // Get all the required DOM elements
-    getDomElements() {
-        return {
-            appWindow: window.document.querySelector('.app-window'),
-            appController: window.document.querySelector('.app-controller'),
-            fileUpload: window.document.getElementById('fileUpload'),
-            canvas: window.document.getElementById('visualizer'),
-            progressBar: window.document.getElementById('progressBar'),
-            songTitle: window.document.getElementById('songTitle'),
-            timeInfo: window.document.getElementById('timeInfo'),
-            playPauseBtn: window.document.getElementById('playPauseBtn'),
-            skipForwardBtn: window.document.getElementById('skipForwardBtn'),
-            skipBackwardBtn: window.document.getElementById('skipBackwardBtn'),
-            toggleBtn: window.document.getElementById('toggle-music-hud'),
-            vizDropdown: window.document.getElementById('viz-dropdown'),
-            toggleFullScreen: window.document.getElementById('toggleFullScreen'),
-        };
+
+    setupDropdown() {
+        // Handle selecting an item
+        const dropdownItems = this.elements.vizDropdown.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', (event) => this.handleDropdownSelect(event));
+        });
+    }
+
+    toggleDropdown() {
+        this.elements.vizDropdown.classList.toggle('hidden');
+    }
+
+    handleDropdownSelect(event) {
+        this.selectedVisualizer = event.target.getAttribute('data-value');
+        const dropdownItems = this.elements.vizDropdown.querySelectorAll('.dropdown-item');
+
+        // Highlight the selected item with the primary color
+        dropdownItems.forEach(item => item.classList.remove('selected'));
+        event.target.classList.add('selected');
+
+        // Close the dropdown
+        this.toggleDropdown();
+
+        // Trigger the visualizer change based on selection
+        this.drawVisualizer();
     }
 
     toggleFullScreen() {
@@ -88,6 +133,7 @@ class MusicApp {
             window.document.exitFullscreen();
         }
     }
+
 
     setupResizing() {
         window.document.addEventListener('fullscreenchange', () => {
@@ -126,13 +172,13 @@ class MusicApp {
     // Skip forward 30 seconds
     skipForward() {
         if (!this.audio) return;
-        this.audio.currentTime = Math.min(this.audio.duration, this.audio.currentTime + 30);
+        this.audio.currentTime = Math.min(this.audio.duration, this.audio.currentTime + skipTime_s);
     }
 
     // Skip backward 30 seconds
     skipBackward() {
         if (!this.audio) return;
-        this.audio.currentTime = Math.max(0, this.audio.currentTime - 30);
+        this.audio.currentTime = Math.max(0, this.audio.currentTime - skipTime_s);
     }
 
     // Update progress bar and time info
@@ -218,8 +264,7 @@ class MusicApp {
             console.error("No audio context");
             return;
         }
-        const vis = this.elements.vizDropdown.value;
-        switch (vis) {
+        switch (this.selectedVisualizer) {
             case 'circles':
                 this.drawCircleGridVisualizer();
                 break;
@@ -342,6 +387,18 @@ class MusicApp {
         this.elements.toggleBtn.innerHTML = this.elements.appController.classList.contains('hidden') ?
             '<i class="bi bi-chevron-compact-up"></i>' :
             '<i class="bi bi-chevron-compact-down"></i>';
+    }
+
+    showMusicHud() {
+        if (this.elements.appController.classList.contains('hidden')) {
+            this.toggleMusicHud();
+        }
+    }
+
+    hideMusicHud() {
+        if (!this.elements.appController.classList.contains('hidden')) {
+            this.toggleMusicHud();
+        }
     }
 
     // Update the play/pause button based on the current state
