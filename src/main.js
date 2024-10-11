@@ -120,7 +120,7 @@ function setupLoadPageUrlHandler() {
     window.document.addEventListener('DOMContentLoaded', loadPageFromTypedURL);
 }
 
-function loadMusicApp(){
+function loadMusicApp() {
     loadApp('./apps/music-viz/music-viz.html', null, true);
 }
 
@@ -138,7 +138,6 @@ function getCardHTML(filePath, imagePath, title, description, categories, type =
           data-date=${parseDate(date)}>
           <a href="javascript:void(0)" class="quarto-grid-link" 
              onclick="loadProjectPage('${filePath}', event)">
-              <div class="column-image">
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-body post-contents">
                     <div class="project-type">${type}</div>
@@ -152,7 +151,6 @@ function getCardHTML(filePath, imagePath, title, description, categories, type =
                         <div class="project-date">${date} </div>
                     </div>
                 </div>
-              </div>
           </a>
       </div>
     `;

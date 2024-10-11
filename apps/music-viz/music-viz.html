@@ -1,57 +1,56 @@
 <div class="app-window">
     <!-- Visualizer section -->
     <canvas id="visualizer" width="1200" height="690"></canvas>
-</div>
-<!-- App Header -->
-<div class="app-controller">
 
+    <!-- App Header -->
+    <div class="app-controller">
+        <!-- Icon and App Name in  layout -->
+        <div class="app-brand-container">
+            <i class="bi bi-soundwave" id="appIcon"></i>
+            <span class="app-name">Oscillate</span>
+        </div>
 
-    <!-- Icon and App Name in  layout -->
-    <div class="app-brand-container">
-        <i class="bi bi-soundwave" id="appIcon"></i>
-        <span class="app-name">Oscillate</span>
+        <!-- HUD for music controls and display -->
+        <div class="music-hud">
+            <div class="music-controls">
+                <!-- Play button -->
+                <button id="playPauseBtn" class="primary-button">
+                    <i class="bi bi-play"></i>
+                </button>
+                <!-- Song Title -->
+                <span id="songTitle">Currently Playing</span>
+                <!-- Time Info -->
+                <div id="timeInfo" style="margin-left: var(--spacing-medium);">0:00/0:00</div>
+            </div>
+            <div class="progress-area">
+                <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
+            </div>
+        </div>
+
+        <div id="vizSettings" style="display: flex; justify-content: center; margin-left: var(--spacing-medium);">
+            <!-- Upload button -->
+            <div id="uploadButton" style="margin-right: var(--spacing-large)">
+                <label for="fileUpload" class="primary-button">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                </label>
+                <input type="file" id="fileUpload" accept="audio/*" style="display: none">
+            </div>
+            <!-- visualizer dropdown-->
+            <div id="viz-dropdown-container" class="control-selector-container" style="margin-right: var(--spacing-large)">
+                <label for="viz-dropdown" class="control-selector-icon">
+                    <i class="bi bi-gear-fill"></i>
+                </label>
+                <select id="viz-dropdown" class="control-selector">
+                    <option value="circles">Default</option>
+                    <option value="bars">Bars</option>
+                </select>
+            </div>
+        </div> <!-- settings -->
     </div>
 
-    <!-- HUD for music controls and display -->
-    <div class="music-hud">
-        <div class="progress-area">
-            <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
-        </div>
-        <div class="music-controls">
-            <!-- Play button -->
-            <button id="playPauseBtn" class="primary-button">
-                <i class="bi bi-play"></i>
-            </button>
-            <!-- Song Title -->
-            <span id="songTitle">Currently Playing</span>
-            <!-- Time Info -->
-            <div id="timeInfo" style="margin-left: var(--spacing-medium);">0:00/0:00</div>
-        </div>
+    <!-- Button to toggle app-header -->
+    <div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
+        <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-up"></i></button>
     </div>
 
-    <div id="vizSettings" style="display: flex; justify-content: center; margin-left: var(--spacing-medium);">
-        <!-- Upload button -->
-        <div id="uploadButton" style="margin-right: var(--spacing-large)">
-            <label for="fileUpload" class="primary-button">
-                <i class="bi bi-cloud-arrow-up"></i>
-            </label>
-            <input type="file" id="fileUpload" accept="audio/*" style="display: none">
-        </div>
-        <!-- visualizer dropdown-->
-        <div id="viz-dropdown-container" class="control-selector-container" style="margin-right: var(--spacing-large)">
-            <label for="viz-dropdown" class="control-selector-icon">
-                <i class="bi bi-gear-fill"></i>
-            </label>
-            <select id="viz-dropdown" class="control-selector">
-                <option value="circles">Default</option>
-                <option value="bars">Bars</option>
-            </select>
-        </div>
-    </div> <!-- settings -->
-
-</div>
-
-<!-- Button to toggle app-header -->
-<div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
-    <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-up"></i></button>
 </div>

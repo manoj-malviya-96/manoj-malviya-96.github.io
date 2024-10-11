@@ -8,8 +8,8 @@
     --color-dark-contrast: rgba(69, 69, 69, 0.47);
     --color-dark-imp: rgb(208, 208, 208);
 
-    --color-brand-primary: rgb(40, 98, 239); /*164078FF*/
-    --color-passive-element: rgba(128, 128, 128, 0.69);
+    --color-brand-primary: rgb(241, 116, 78); /*164078FF*/
+    --color-passive-element: rgba(128, 128, 128, 0.47);
 
 
     /* Spacing */
@@ -72,15 +72,15 @@
 
     /* Github contributions */
     --color-calendar-graph-day-bg: #3d3d3d;
-    --color-calendar-graph-day-L1-bg: #618bf3;
-    --color-calendar-graph-day-L2-bg: #487cfd;
-    --color-calendar-graph-day-L3-bg: #3d65c4;
+    --color-calendar-graph-day-L1-bg: #8992a8;
+    --color-calendar-graph-day-L2-bg: #67d827;
+    --color-calendar-graph-day-L3-bg: #8da0cb;
     --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
 
     /* App */
     --app-button-height: 69px;
     --app-window-width: var(--max-body-width);
-    --app-window-height: 690px;
+    --app-window-height: 900px;
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -539,14 +539,14 @@ p {
     transition: all var(--transition-short);
 }
 
-.card-img {
+.card .card-img {
     margin: 0 auto;
-    width: auto;
+    width: 100%;
     height: var(--project-card-height);
     object-fit: cover;
     overflow: clip;
     display: flex;
-    align-content: flex-end;
+    align-content: center;
     border-radius: var(--default-radius);
     transition: all var(--transition-default) ease-out;
 }
@@ -904,13 +904,14 @@ th {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
     border-radius: var(--default-radius);
     border-width: var(--border-width);
     border-style: solid;
     height: auto;
-    max-width: var(--app-window-width);
-    margin: var(--spacing-large) auto;
+    width: var(--app-window-width);
+    margin: 0 auto;
+    padding: 0;
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
 }
@@ -977,17 +978,18 @@ th {
     background-color: transparent;
     border-radius: var(--default-radius);
     padding: 0;
-    margin: 0 auto;
+    margin: 0;
 }
 
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
     height: var(--spacing-medium);
-    border-radius: var(--default-radius);
     outline: none;
     cursor: pointer;
     color: var(--color-brand-primary);
+    border-radius: var(--default-radius);
+    padding: 0;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -996,12 +998,14 @@ input[type="range"]::-webkit-slider-thumb {
     width: var(--spacing-medium);
     height: var(--spacing-medium);
     background: var(--color-brand-primary);
-    border-radius: var(--default-radius);
+    border-top-right-radius: var(--default-radius);
+    border-bottom-right-radius: var(--default-radius);
     cursor: pointer;
 }
 
 input[type="range"]:hover::-webkit-slider-thumb {
     transform: scale(1.5);
+    border-radius: var(--default-radius);
 }
 
 
@@ -1014,7 +1018,11 @@ canvas {
     background-color: transparent;
     justify-items: center;
     align-items: center;
-    padding: var(--spacing-medium);
+}
+
+#visualizer {
+    width: var(--app-window-width);
+    height: var(--app-window-height);
 }
 
 .music-hud {
@@ -1033,6 +1041,7 @@ canvas {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    background-color: transparent;
 }
 
 /* -------------------------- Light Mode -------------------------- */
