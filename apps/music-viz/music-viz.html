@@ -2,16 +2,21 @@
     <!-- Visualizer section -->
     <canvas id="visualizer" width="1200" height="690"></canvas>
 
+    <!-- Button to toggle app-header -->
+    <div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
+        <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-up"></i></button>
+    </div>
+
     <!-- App Header -->
     <div class="app-controller">
         <!-- Icon and App Name in  layout -->
-        <div class="app-brand-container">
+        <div class="app-brand-container app-controller-item">
             <i class="bi bi-soundwave" id="appIcon"></i>
             <span class="app-name">Oscillate</span>
         </div>
 
         <!-- HUD for music controls and display -->
-        <div class="music-hud">
+        <div class="music-hud app-controller-item">
             <div class="progress-area">
                 <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
             </div>
@@ -27,7 +32,7 @@
             </div>
         </div>
 
-        <div id="vizSettings" style="display: flex; justify-content: center; margin-left: var(--spacing-medium);">
+        <div id="vizSettings" class="app-controller-item">
             <!-- Upload button -->
             <div id="uploadButton" style="margin-right: var(--spacing-large)">
                 <label for="fileUpload" class="primary-button">
@@ -46,11 +51,6 @@
                 </select>
             </div>
         </div> <!-- settings -->
-    </div>
-
-    <!-- Button to toggle app-header -->
-    <div class="toggle-expand-button-container" style="z-index: var(--z-index-overlay)">
-        <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-up"></i></button>
     </div>
 
 </div>

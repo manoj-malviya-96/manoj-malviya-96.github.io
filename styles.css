@@ -42,7 +42,7 @@
 
     --icon-size: 19px;
 
-    --border-width: 1px;
+    --border-width: 2px;
     --z-index-overlay: 1000;
     --z-index-max: 2000;
 
@@ -67,8 +67,8 @@
 
     /* Custom */
     --about-entity-height: 250px;
-    --transform-scale: 1.069;
-    --blur-radius: 20px;
+    --transform-scale: 1.169;
+    --blur-radius: 13px;
 
     /* Github contributions */
     --color-calendar-graph-day-bg: #3d3d3d;
@@ -521,6 +521,7 @@ p {
 
 .card-details {
     display: none;
+    transition: all var(--transition-default);
 }
 
 .card-title {
@@ -854,7 +855,7 @@ th {
     justify-content: center;
     align-items: center;
     padding-left: var(--spacing-large);
-    height: calc(var(--app-button-height) + 2 * var(--spacing-large));
+    height: 100%;
     margin: 0 auto;
     width: var(--max-body-width);
     background-color: transparent;
@@ -870,7 +871,7 @@ th {
     height: var(--app-button-height);
     width: auto;
     font-size: var(--regular-text-size);
-    padding: 0;
+    padding: var(--spacing-medium);
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
@@ -900,21 +901,29 @@ th {
 }
 
 .app-controller {
-    position: absolute;
-    bottom: 0;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
+    justify-content:  flex-end;
     border-radius: var(--default-radius);
-    border-width: var(--border-width);
-    border-style: solid;
     height: auto;
-    width: var(--app-window-width);
-    margin: 0 auto;
-    padding: 0;
+    width: calc(0.69*var(--app-window-width));
+    margin: auto auto var(--spacing-huge);
+    padding: var(--spacing-medium);
     backdrop-filter: blur(var(--blur-radius));
     transition: all var(--transition-default);
+}
+
+.app-controller-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-medium);
+    border-right: solid var(--border-width) var(--color-dark-contrast);
+}
+
+.app-controller-item:last-child {
+    border-right: none;
 }
 
 .app-brand-container {
@@ -922,9 +931,6 @@ th {
     flex-direction: row;
     align-items: center;
     justify-content: left;
-    border-radius: var(--default-radius);
-    margin-right: var(--spacing-large);
-    margin-left: var(--spacing-medium);
     width: auto;
 }
 
@@ -1030,8 +1036,6 @@ canvas {
     flex-direction: column;
     width: 80%;
     height: 100%;
-    padding: 0;
-    margin-right: var(--spacing-large);
     background-color: transparent;
 }
 
@@ -1223,6 +1227,10 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
+.light-mode .app-controller-item {
+    border-color: var(--color-light-contrast);
+}
+
 
 /* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
@@ -1405,6 +1413,10 @@ body.dark-mode {
 
 
 .dark-mode .collapsible-content.expanded {
+    border-color: var(--color-dark-contrast);
+}
+
+.dark-mode .app-controller-item {
     border-color: var(--color-dark-contrast);
 }
 
