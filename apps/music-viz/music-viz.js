@@ -83,19 +83,18 @@ class MusicApp {
 
     toggleFullScreen() {
         if (!this.elements.appWindow.classList.contains('full-screen-modal') && !document.fullscreenElement) {
-            this.elements.canvas.requestFullscreen();
+            this.elements.appWindow.requestFullscreen();
         } else if (window.document.exitFullscreen) {
             window.document.exitFullscreen();
         }
     }
 
-    setupResizing(){
+    setupResizing() {
         window.document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement === this.elements.canvas) {
+            if (document.fullscreenElement === this.elements.appWindow) {
                 this.elements.appWindow.classList.add('full-screen-modal');
-                this.elements.toggleFullScreen.innerHTML = '<i class="bi bi-fullscreen-exit"></i>'; // Change icon when in full-screen
+                this.elements.toggleFullScreen.innerHTML = '<i class="bi bi-fullscreen-exit"></i>'; // Change icon for full-screen
             } else {
-                // Revert to original size when exiting full-screen
                 this.elements.appWindow.classList.remove('full-screen-modal');
                 this.elements.toggleFullScreen.innerHTML = '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
             }
