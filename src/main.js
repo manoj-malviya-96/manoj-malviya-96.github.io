@@ -229,7 +229,7 @@ function makeCategoryDropdownFilters(allCategories) {
 
 // Search projects based on title or description
 function filterProjectsBySearchAndCategory(searchInput = null, category = null) {
-    let cards = document.querySelectorAll('.project-card');
+    const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
         let isSearchMatch = true;
@@ -237,7 +237,7 @@ function filterProjectsBySearchAndCategory(searchInput = null, category = null) 
         // Check if the card matches the search input and category
         if (category !== null) {
             const cardCategories = card.getAttribute('data-categories').split(',');
-            isInCategory = category === 'all' || cardCategories.includes(category);
+            isInCategory = (category === 'all' || cardCategories.includes(category));
         }
         // Check if the card matches the search input
         if (searchInput !== null && searchInput !== "") {
