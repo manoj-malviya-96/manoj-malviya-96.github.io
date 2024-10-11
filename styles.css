@@ -94,10 +94,10 @@ body {
 }
 
 .quarto-about-jolla,
-.content {
+.reading-content {
     margin: 0 auto;
     text-align: left;
-    width: var(--max-body-width);
+    width: var(--max-content-width);
     line-height: var(--line-height);
     border-style: solid;
     border-width: var(--border-width);
@@ -857,7 +857,6 @@ th {
     height: calc(var(--app-button-height) + 2 * var(--spacing-large));
     margin: 0 auto;
     width: var(--max-body-width);
-    border-style: solid;
     background-color: transparent;
     border-width: var(--border-width);
 }
@@ -1061,7 +1060,7 @@ body.light-mode {
     color: var(--color-light-imp);
 }
 
-.light-mode .content {
+.light-mode .reading-content {
     background-color: var(--color-light-primary);
     border-color: var(--color-light-contrast);
     box-shadow: var(--shadows-light);
@@ -1240,7 +1239,7 @@ body.dark-mode {
 !important;
 }
 
-.dark-mode .content {
+.dark-mode .reading-content {
     background-color: var(--color-dark-primary);
     border-color: var(--color-dark-contrast);
     box-shadow: var(--shadows-dark)

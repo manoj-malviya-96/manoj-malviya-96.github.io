@@ -11,7 +11,7 @@
         </div>
     </div>
     <!-- Collapsible content starts here -->
-    <div class="collapsible-content content">
+    <div class="collapsible-content reading-content">
         <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex
             ideas
             into tangible results using advanced computational tools and methodologies. </p>
@@ -61,17 +61,25 @@
 </div>
 
 <!-- Apps Section -->
-<div class="app-drawer content" style="margin-top: var(--spacing-huge)">
+<div class="app-drawer list grid" style="margin-top: var(--spacing-huge)">
+
     <button id="music-app" class="app-button" onclick='loadMusicApp()'>
         <div class="app-brand-container">
-            <i class="bi bi-soundwave" id="appIcon"></i>
+            <i class="bi bi-soundwave"></i>
             <span class="app-name">Oscillate</span>
+        </div>
+    </button>
+
+    <button id="game-app" class="app-button" onclick=''>
+        <div class="app-brand-container">
+            <i class="bi bi-triangle"></i>
+            <span class="app-name">Game</span>
         </div>
     </button>
 
 </div>
 
-<div class="content" style="margin-top: var(--spacing-huge)">
+<div class="quarto-listing quarto-listing-container-default" style="margin-top: var(--spacing-huge)">
     <!-- Project Section -->
     <div id="cards-controls-container">
         <!-- Filter Container -->
@@ -100,9 +108,7 @@
         </div>
     </div>
 
-    <div class="quarto-listing quarto-listing-container-default">
-        <div id="project-list" class="list grid quarto-listing-cols-3">
-            <!-- The project cards will be dynamically inserted here -->
-        </div>
+    <div id="project-list" class="list grid quarto-listing-cols-3">
+        <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>
