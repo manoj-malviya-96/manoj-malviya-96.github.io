@@ -40,7 +40,8 @@
     --title-font-size: 25px;
     --super-title-font-size: 41px;
 
-    --icon-size: 19px;
+    --regular-icon-size: 21px;
+    --large-icon-size: 47px;
 
     --border-width: 2px;
     --z-index-overlay: 1000;
@@ -61,7 +62,6 @@
     --project-card-height: 300px; /* Width of the project card should be less than content width /4  */
     --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
-    --control-bar-height: 40px;
     --project-searchbar-width: 250px;
     --project-footer-width: 250px;
 
@@ -144,8 +144,8 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--icon-size);
-    height: var(--icon-size);
+    width: var(--regular-icon-size);
+    height: var(--regular-icon-size);
     margin: 0 auto;
     padding: 0;
 }
@@ -254,7 +254,7 @@ p {
 }
 
 .navbar.collapsed .navbar-nav .bi {
-    font-size: var(--icon-size);
+    font-size: var(--regular-icon-size);
 }
 
 
@@ -292,7 +292,7 @@ p {
     display: flex;
     margin-right: var(--spacing-large);
     width: auto;
-    height: var(--control-bar-height);
+    height: var(--large-icon-size);
     border: none;
     border-radius: var(--default-radius);
 }
@@ -300,8 +300,8 @@ p {
 .control-selector-icon {
     padding: 0;
     margin: 0 auto;
-    width: var(--control-bar-height);
-    height: var(--control-bar-height);
+    width: var(--large-icon-size);
+    height: var(--large-icon-size);
     align-items: center;
     justify-content: center;
     border: none;
@@ -334,8 +334,8 @@ p {
 .search-icon {
     padding: 0;
     margin: 0 auto;
-    width: var(--control-bar-height);
-    height: var(--control-bar-height);
+    width: var(--large-icon-size);
+    height: var(--large-icon-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,12 +344,12 @@ p {
 }
 
 .search-icon i {
-    font-size: var(--icon-size);
+    font-size: var(--regular-icon-size);
 }
 
 .search-input {
     padding: var(--spacing-small);
-    height: var(--control-bar-height);
+    height: var(--large-icon-size);
     border: none;
     width: var(--project-searchbar-width);
     outline: none;
@@ -935,7 +935,7 @@ th {
 }
 
 .app-brand-container .bi {
-    font-size: var(--super-title-font-size);
+    font-size: var(--large-icon-size);
     color: var(--color-brand-primary);
     padding: 0;
     margin: 0 auto;
@@ -967,7 +967,7 @@ th {
 }
 
 .primary-button .bi {
-    font-size: var(--title-font-size);
+    font-size: var(--large-icon-size);
 }
 
 .primary-button:hover .bi {
