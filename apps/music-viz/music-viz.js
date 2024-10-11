@@ -133,8 +133,7 @@ class MusicApp {
 
         try {
             this.extractMetadata(file);
-        }
-        catch (error) {
+        } catch (error) {
             console.error("Error extracting metadata", error);
         }
         this.audio.addEventListener('timeupdate', this.updateSlider.bind(this));
@@ -143,12 +142,12 @@ class MusicApp {
     }
 
     drawVisualizer() {
-        if (!this.audio){
+        if (!this.audio) {
             console.error("No audio context");
-            return ;
+            return;
         }
         const vis = this.elements.vizDropdown.value;
-        switch (vis){
+        switch (vis) {
             case 'circles':
                 this.drawCircleGridVisualizer();
                 break;
@@ -168,7 +167,7 @@ class MusicApp {
         const maxBarHeight = this.elements.canvas.height / 4;
         const fftSize = this.analyser.fftSize; // Maximum intensity
 
-        const centerX =  this.elements.canvas.width / 2;
+        const centerX = this.elements.canvas.width / 2;
         const centerY = this.elements.canvas.height / 2;
 
         const draw = () => {
@@ -181,9 +180,9 @@ class MusicApp {
             for (let i = 0; i < numBars; i++) {
                 const freqIndex = Math.floor(i * (this.bufferLength / numBars));
                 const randomFactor = Math.random();
-                const intensity=  0.921*(this.dataArray[freqIndex] / fftSize)**2 + 0.069*randomFactor;
+                const intensity = 0.921 * (this.dataArray[freqIndex] / fftSize) ** 2 + 0.069 * randomFactor;
 
-                const barHeight =  intensity * maxBarHeight;
+                const barHeight = intensity * maxBarHeight;
                 const px = centerX + i * barWidth;
                 const nx = centerX - i * barWidth;
 
@@ -248,7 +247,7 @@ class MusicApp {
                         const x = centerX + col * xSpacing + offsetX;
                         const y = centerY + row * ySpacing;
 
-                        this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 0.75* (1 + intensity));
+                        this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 0.75 * (1 + intensity));
 
                         // Draw the circle with shadow for glow effect
                         this.canvasCtx.beginPath();
@@ -265,35 +264,40 @@ class MusicApp {
         draw();
     }
 
-
-
-
-
     // Toggle music HUD visibility
     toggleMusicHud() {
         const hud = window.document.querySelector('.app-controller');
         hud.classList.toggle('hidden');
         this.elements.toggleBtn.innerHTML = hud.classList.contains('hidden') ?
-                                            '<i class="bi bi-chevron-compact-down"></i>' :
-                                            '<i class="bi bi-chevron-compact-up"></i>';
+            '<i class="bi bi-chevron-compact-down"></i>' :
+            '<i class="bi bi-chevron-compact-up"></i>';
     }
+
     // Update the play/pause button based on the current state
     updatePlayButton() {
         this.elements.playPauseBtn.innerHTML = this.isPlaying ?
-                                                '<i class="bi bi-pause"></i>' : '<i class="bi bi-play"></i>';
+            '<i class="bi bi-pause"></i>' : '<i class="bi bi-play"></i>';
     }
 
 
     // Extract metadata from the uploaded file
     extractMetadata(file) {
-        if (!jsmediatags){
+        if (!jsmediatags) {
             console.error("jsmediatags lib not loaded")
-            return ;
+            return;
         }
         jsmediatags.read(file, {
             onSuccess: (tag) => {
+                let metadataString;
                 const {title, artist, album} = tag.tags;
-                this.elements.songTitle.textContent = title + ' | ' + artist + ' | ' + album;
+
+                if (!title) {
+                    metadataString = file.name.split('.')[0];
+                } else {
+                    metadataString = title + (artist ? ` |  ${artist}` : '') + (album ? `| (${album})` : '');
+                }
+
+                this.elements.songTitle.textContent = metadataString;
             }, onError: (error) => {
                 console.log('Error reading metadata:', error);
             }
