@@ -6,7 +6,8 @@
         <!-- Button to toggle app-header -->
         <div class="toggle-expand-button-container"
              style="justify-content: center">
-            <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i></button>
+            <button id="toggle-music-hud" class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i>
+            </button>
         </div>
 
         <!-- App Header -->
@@ -23,10 +24,20 @@
                     <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
                 </div>
                 <div class="music-controls">
-                    <!-- Play button -->
-                    <button id="playPauseBtn" class="primary-button">
-                        <i class="bi bi-play-fill"></i>
-                    </button>
+                    <div id="control-buttons">
+                        <!--Skip backward button -->
+                        <button id="skipBackwardBtn" class="primary-button" style="scale: 0.9">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </button>
+                        <!-- Play button -->
+                        <button id="playPauseBtn" class="primary-button">
+                            <i class="bi bi-play-fill"></i>
+                        </button>
+                        <!-- Skip forward button -->
+                        <button id="skipForwardBtn" class="primary-button" style="scale: 0.9">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
                     <!-- Song Title -->
                     <span id="songTitle">Currently Playing</span>
                     <!-- Time Info -->

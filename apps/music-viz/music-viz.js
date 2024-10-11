@@ -25,6 +25,8 @@ class MusicApp {
         this.elements.toggleBtn.addEventListener('click', this.toggleMusicHud.bind(this));
         this.elements.vizDropdown.addEventListener('change', this.drawVisualizer.bind(this));
         this.elements.toggleFullScreen.addEventListener('click', this.toggleFullScreen.bind(this));
+        this.elements.skipForwardBtn.addEventListener('click', this.skipForward.bind(this));
+        this.elements.skipBackwardBtn.addEventListener('click', this.skipBackward.bind(this));
         this.elements.progressBar.style.background = `${this.backgroundColor}`;
 
         this.setupResizing();
@@ -60,6 +62,8 @@ class MusicApp {
             songTitle: window.document.getElementById('songTitle'),
             timeInfo: window.document.getElementById('timeInfo'),
             playPauseBtn: window.document.getElementById('playPauseBtn'),
+            skipForwardBtn: window.document.getElementById('skipForwardBtn'),
+            skipBackwardBtn: window.document.getElementById('skipBackwardBtn'),
             toggleBtn: window.document.getElementById('toggle-music-hud'),
             vizDropdown: window.document.getElementById('viz-dropdown'),
             toggleFullScreen: window.document.getElementById('toggleFullScreen'),
@@ -107,6 +111,18 @@ class MusicApp {
         } else {
             this.playAudio();
         }
+    }
+
+    // Skip forward 30 seconds
+    skipForward() {
+        if (!this.audio) return;
+        this.audio.currentTime = Math.min(this.audio.duration, this.audio.currentTime + 30);
+    }
+
+    // Skip backward 30 seconds
+    skipBackward() {
+        if (!this.audio) return;
+        this.audio.currentTime = Math.max(0, this.audio.currentTime - 30);
     }
 
     // Update progress bar and time info
