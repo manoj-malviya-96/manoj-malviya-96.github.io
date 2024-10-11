@@ -1,14 +1,14 @@
 :root {
     /* Color Palette */
     --color-light-primary: rgb(255, 255, 255);
-    --color-light-contrast: rgba(193, 193, 193, 0.47);
+    --color-light-contrast: rgba(193, 193, 193, 0.69);
     --color-light-imp: rgb(47, 47, 47);
 
     --color-dark-primary: rgb(0, 0, 0);
-    --color-dark-contrast: rgba(69, 69, 69, 0.47);
+    --color-dark-contrast: rgba(69, 69, 69, 0.69);
     --color-dark-imp: rgb(208, 208, 208);
 
-    --color-brand-primary: rgb(220, 20, 60, 0.69); /*#DC143C - Crimson, my boos fav*/
+    --color-brand-primary: rgb(220, 20, 60, 0.73); /*#DC143C - Crimson, my boos fav*/
     --color-passive-element: rgba(128, 128, 128, 0.47);
 
 
@@ -69,6 +69,7 @@
     --about-entity-height: 250px;
     --transform-scale: 1.169;
     --blur-radius: 9px;
+    --more-blur-radius: 21px;
 
     /* Github contributions */
     --color-calendar-graph-day-bg: #3d3d3d;
@@ -80,7 +81,7 @@
     /* App */
     --app-button-height: 69px;
     --app-window-width: var(--max-body-width);
-    --app-window-height: calc(3*var(--app-window-width)/4);
+    --app-window-height: calc(3 * var(--app-window-width) / 4);
 }
 
 /* ----------------------------- General Styling ----------------------------- */
@@ -465,7 +466,8 @@ p {
 
 
 .project-date {
-    font-size: var(--subtitle-text-size); !important;
+    font-size: var(--subtitle-text-size);
+!important;
     line-height: var(--line-height);
     text-transform: uppercase;
     color: var(--color-passive-element);
@@ -563,15 +565,18 @@ p {
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-    border: var(--border-width) solid; !important;
+    border: var(--border-width) solid;
+!important;
     margin-right: var(--spacing-small) !important;
     margin-top: var(--spacing-small) !important;
     padding: var(--spacing-small) !important;
     width: fit-content;
     border-radius: var(--small-radius);
 !important;
-    font-size: var(--subtitle-text-size); !important;
-    text-transform: uppercase; !important;
+    font-size: var(--subtitle-text-size);
+!important;
+    text-transform: uppercase;
+!important;
 }
 
 .card:hover .card-text {
@@ -890,9 +895,9 @@ th {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content:  flex-end;
+    justify-content: flex-end;
     height: auto;
-    width: calc(0.96*var(--app-window-width));
+    width: calc(0.96 * var(--app-window-width));
     margin: auto auto var(--spacing-huge);
     z-index: var(--z-index-max);
     background-color: transparent;
@@ -902,7 +907,7 @@ th {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    justify-content:  flex-end;
+    justify-content: flex-end;
     height: auto;
     width: 100%;
     border-radius: var(--default-radius);
@@ -1051,7 +1056,7 @@ canvas {
 }
 
 
-.full-screen-modal canvas{
+.full-screen-modal canvas {
     width: 100vw;
     height: 100vh;
     display: block;
@@ -1074,6 +1079,35 @@ canvas {
     height: 100%;
     background-color: transparent;
 }
+
+/* -------------------------- Custom Dropdown -------------------------- */
+.custom-dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    border-radius: var(--default-radius);
+    width: auto;
+    backdrop-filter: blur(var(--more-blur-radius));
+    z-index: var(--z-index-overlay);
+}
+
+.custom-dropdown.hidden {
+    display: none;
+}
+
+.dropdown-item {
+    padding: var(--spacing-medium);
+    cursor: pointer;
+    transition: all var(--transition-default);
+    border-radius: var(--default-radius);
+}
+
+.dropdown-item.selected {
+    background-color: var(--color-brand-primary); /* Use your primary color here */
+    color: white;
+}
+
 
 /* -------------------------- Light Mode -------------------------- */
 
@@ -1262,8 +1296,13 @@ body.light-mode {
     box-shadow: var(--shadows-light);
 }
 
+.light-mode .custom-dropdown {
+    background-color: var(--color-light-contrast);
+    color: var(--color-light-imp);
+}
 
-    /* -------------------------- Dark Mode -------------------------- */
+
+/* -------------------------- Dark Mode -------------------------- */
 body.dark-mode {
     background-color: var(--color-dark-primary);
     color: var(--color-dark-imp);
@@ -1453,6 +1492,11 @@ body.dark-mode {
 
 .dark-mode .app-window {
     box-shadow: var(--shadows-dark);
+}
+
+.dark-mode .custom-dropdown {
+    background-color: var(--color-dark-contrast);
+    color: var(--color-dark-imp);
 }
 
 
