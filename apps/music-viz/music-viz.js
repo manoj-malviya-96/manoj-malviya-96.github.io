@@ -13,8 +13,8 @@ class MusicApp {
 
         this.init();
 
-        this.primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-brand-primary');
-        this.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-passive-element');
+        this.primaryColor = getPrimaryColor();
+        this.backgroundColor = getPassiveColor();
     }
 
     // Initialize the app

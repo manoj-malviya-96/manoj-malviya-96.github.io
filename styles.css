@@ -77,8 +77,8 @@
     --color-calendar-graph-day-L3-bg: #3d65c4;
     --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
 
-    /* App Button */
-    --app-button-size: 100px;
+    /* App */
+    --app-button-height: 69px;
     --app-window-width: var(--max-body-width);
     --app-window-height: 690px;
 }
@@ -314,7 +314,7 @@ p {
 }
 
 .control-selector {
-    width: 100%;
+    width: auto;
     padding: var(--spacing-small);
     cursor: pointer;
     outline: none;
@@ -500,6 +500,7 @@ p {
     border-radius: var(--default-radius);
     flex-direction: row;
     height: var(--project-card-height);
+    overflow: clip;
 }
 
 .card-body {
@@ -540,14 +541,14 @@ p {
 
 .card-img {
     margin: 0 auto;
-    width: 100%;
+    width: auto;
     height: var(--project-card-height);
     object-fit: cover;
     overflow: clip;
     display: flex;
     align-content: flex-end;
     border-radius: var(--default-radius);
-    transition: all var(--transition-default);
+    transition: all var(--transition-default) ease-out;
 }
 
 .listing-categories {
@@ -853,7 +854,7 @@ th {
     justify-content: left;
     align-items: center;
     padding-left: var(--spacing-large);
-    height: calc(var(--app-button-size) + 2 * var(--spacing-large));
+    height: calc(var(--app-button-height) + 2 * var(--spacing-large));
     margin: 0 auto;
     width: var(--max-body-width);
     border-style: solid;
@@ -867,10 +868,10 @@ th {
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    height: var(--app-button-size);
-    width: var(--app-button-size);
+    height: var(--app-button-height);
+    width: auto;
     font-size: var(--regular-text-size);
-    padding: var(--spacing-medium);
+    padding: 0;
     border-radius: var(--default-radius);
     border: none;
     transition: all var(--transition-default);
@@ -880,11 +881,6 @@ th {
 .app-button:hover {
     transform: scale(var(--transform-scale));
 }
-
-.app-button .bi {
-    font-size: var(--title-font-size);
-}
-
 
 .app-button .bi:active {
     transform: scale(1/var(--transform-scale));
@@ -919,7 +915,7 @@ th {
     transition: all var(--transition-default);
 }
 
-.icon-text-container {
+.app-brand-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -930,19 +926,21 @@ th {
     width: auto;
 }
 
-.icon-text-container .bi {
+.app-brand-container .bi {
     font-size: var(--super-title-font-size);
     color: var(--color-brand-primary);
     padding: 0;
     margin: 0 auto;
 }
 
-#appName {
+.app-name {
     font-size: var(--regular-text-size);
     font-weight: var(--bold-weight);
+    margin-left: var(--spacing-small);
+    margin-right: var(--spacing-small);
     color: var(--color-brand-primary);
     padding: 0;
-    margin: 0;
+    text-transform: uppercase;
 }
 
 .app-controller.hidden {
@@ -1193,7 +1191,6 @@ body.light-mode {
 
 
 .light-mode .app-button {
-    color: var(--color-light-imp);
     background-color: var(--color-light-contrast);
     box-shadow: var(--shadows-light);
 }
@@ -1379,7 +1376,6 @@ body.dark-mode {
 }
 
 .dark-mode .app-button {
-    color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
     box-shadow: var(--shadows-dark);
 }

@@ -164,3 +164,17 @@ function adjustColor(color, opacity = 1, brightness = 1) {
     // Return the modified color as 'rgba(r, g, b, opacity)'
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
+
+
+function getStyleValue(property){
+    return getComputedStyle(window.document.documentElement).getPropertyValue(property);
+}
+
+
+function getPrimaryColor(){
+    return getStyleValue('--color-brand-primary');
+}
+
+function getPassiveColor(){
+    return getStyleValue('--color-passive-element');
+}
