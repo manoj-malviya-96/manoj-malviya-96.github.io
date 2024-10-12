@@ -209,6 +209,14 @@ p {
     color: var(--color-brand-primary);
 }
 
+.light-mode .toggle-expand-button {
+    color: var(--color-light-imp);
+}
+
+.dark-mode .toggle-expand-button {
+    color: var(--color-dark-imp);
+}
+
 
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
 .about-links,
@@ -1146,11 +1154,6 @@ canvas {
 !important;
 }
 
-
-.light-mode .toggle-expand-button {
-    color: var(--color-light-imp);
-}
-
 .light-mode .app-drawer {
     border-color: var(--color-light-contrast);
 }
@@ -1288,11 +1291,6 @@ canvas {
     background-color: var(--color-dark-contrast);
 !important;
 }
-
-.dark-mode .toggle-expand-button {
-    color: var(--color-dark-imp);
-}
-
 
 .dark-mode .app-drawer {
     border-color: var(--color-dark-contrast);
