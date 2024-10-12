@@ -1,4 +1,71 @@
-<!-- About Section -->
+<style>
+	.about-container {
+		margin: 0 auto;
+		width: var(--max-body-width);
+		justify-content: center;
+		align-items: center;
+	}
+
+	.about-entity {
+		display: flex;
+		width: 100%;
+		height: auto;
+		margin: 0 auto;
+		border-radius: var(--default-radius);
+		border-style: solid;
+		border-width: var(--border-width);
+		transition: all var(--transition-default);
+	}
+
+	.about-entity.collapsed {
+		display: none;
+		opacity: 0;
+	}
+
+	.profile-image img {
+		padding: 0;
+		margin: 0 auto;
+		width: calc(1.2 * var(--about-entity-height));
+		height: var(--about-entity-height);
+		border-bottom-left-radius: var(--default-radius);
+		border-top-left-radius: var(--default-radius);
+		object-fit: cover;
+		display: block;
+		transition: all var(--transition-default);
+	}
+	.about-title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-height: var(--about-entity-height);
+		padding: var(--spacing-medium);
+		font-size: 100px;
+		margin-left: var(--spacing-large);
+	}
+	.calendar {
+		font-size: var(--subtitle-text-size);
+		font-family: var(--font-family), serif;
+		justify-content: center;
+		align-items: center;
+		width: var(--max-image-width);
+		height: auto;
+		background-color: transparent; !important;
+		color: var(--color-dark-imp);
+		border-radius: var(--default-radius); !important;
+		border: none; !important;
+		transition: all var(--transition-default);
+	}
+	.calendar .table-column {
+		border: none;
+	!important;
+	}
+	.calendar .contrib-column {
+		border: none;
+	}
+</style>
+
+<!-------------------------- About Section -------------------------->
+
 <div class="about-container">
     <!-- Add padding to the container -->
     <div class="about-entity">
@@ -57,15 +124,18 @@
     <button id="toggleAboutBtn" class="primary-button"><i class="bi bi-chevron-compact-down"></i></button>
 </div>
 
-<!-- Apps Section -->
+
+<!-------------------------- Apps Section -------------------------->
 <div id="app-list" class="app-drawer list grid" style="margin-top: var(--spacing-huge)">
     <!-- Will be dynamically added here -->
 </div>
 
 <div class="horizontal-separator"></div>
 
+
+<!-------------------------- Project Section -------------------------->
+
 <div class="quarto-listing">
-    <!-- Project Section -->
     <div id="cards-controls-container" class="row-layout"
          style=" margin-bottom: var(--spacing-huge);">
 
