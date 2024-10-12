@@ -1,15 +1,19 @@
 :root {
+	/* Black and White */
+	--color-white: rgb(221, 221, 221);
+	--color-black: rgb(7, 7, 7);
+
 	/* Color Palette */
-	--color-light-primary: rgb(221, 221, 221);
+	--color-light-primary: var(--color-white);
 	--color-light-contrast: rgba(169, 169, 169, 0.69);
 	--color-light-imp: rgb(47, 47, 47);
 
-	--color-dark-primary: rgb(7, 7, 7);
+	--color-dark-primary: var(--color-black);
 	--color-dark-contrast: rgba(47, 47, 47, 0.69);
 	--color-dark-imp: rgb(169, 169, 169);
 
 	--color-brand-primary: rgb(220, 20, 60, 0.73); /*#DC143C - Crimson, my boos fav*/
-    /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
+	/* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
 
 	--color-passive-element: rgba(128, 128, 128, 0.47);
 
@@ -68,8 +72,8 @@
 
 	/* Custom */
 	--about-entity-height: 250px;
-	--transform-scale: 1.169;
-	--active-scale: calc(1/var(--transform-scale));
+	--transform-scale: 1.069;
+	--active-scale: 0.869;
 
 	--blur-radius: 9px;
 	--more-blur-radius: 21px;
@@ -126,6 +130,7 @@ body.dark-mode {
 	border-color: var(--color-light-contrast);
 	box-shadow: var(--shadows-light);
 }
+
 .dark-mode .content {
 	background-color: var(--color-dark-primary);
 	border-color: var(--color-dark-contrast);
@@ -136,6 +141,10 @@ body.dark-mode {
 	font-size: var(--regular-text-size);
 	width: var(--max-content-width);
 	line-height: var(--line-height);
+}
+
+.content.with-padding {
+	padding: var(--spacing-huge);
 }
 
 .block {
@@ -166,6 +175,7 @@ body.dark-mode {
 	margin: 0 auto;
 	transition: all var(--transition-default);
 }
+
 .content.collapsible.expanded {
 	height: auto;
 	opacity: 1;
@@ -211,20 +221,6 @@ p {
 .bi {
 	font-size: var(--regular-icon-size);
 }
-
-/*.light-mode .bi {*/
-/*	color: var(--color-light-imp);*/
-/*}*/
-
-/*.dark-mode .bi {*/
-/*	color: var(--color-dark-imp);*/
-/*}*/
-
-/*!*.bi.active, .bi.hover {*!*/
-/*!*	color: var(--color-brand-primary);*!*/
-/*!*}*!*/
-
-
 
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
 #content-placeholder-overlay,
@@ -321,7 +317,8 @@ p {
 .primary-button:hover .bi,
 .primary-button:hover .button-label {
 	cursor: pointer;
-	color: var(--color-brand-primary); !important;
+	color: var(--color-brand-primary);
+!important;
 }
 
 .primary-button.with-border {
@@ -399,7 +396,7 @@ p {
 
 .dropdown-item.selected {
 	background-color: var(--color-brand-primary); /* Use your primary color here */
-	color: var(--color-dark-imp);
+	color: var(--color-white);
 }
 
 /* --------------------  Progress Area  Styling ------------------- */
@@ -448,7 +445,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	border-radius: var(--small-radius);
 	padding: var(--spacing-small);
 	background-color: var(--color-brand-primary);
-	color: var(--color-light-primary);
+	color: var(--color-white);
 }
 
 
@@ -584,6 +581,11 @@ input[type="range"]:hover::-webkit-slider-thumb {
 .card:hover .card-title-default {
 	opacity: 0;
 }
+
+.card:active {
+	transform: scale(var(--active-scale));
+}
+
 
 /* ----------------------------- Project Page Styling ----------------------------- */
 
@@ -726,7 +728,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 
-
 /* -------------------------------- Project content --------------------------------  */
 #quarto-document-content {
 	max-width: var(--max-content-width);
@@ -781,7 +782,7 @@ code {
 
 .code-copy-button {
 	background-color: transparent;
-	color: var(--color-dark-imp);;
+	color: var(--color-white);;
 	border: none;
 	padding: 12px 0;
 	cursor: pointer;
@@ -838,7 +839,7 @@ th, td {
 
 th {
 	background-color: var(--color-brand-primary);
-	color: var(--color-dark-imp);;
+	color: var(--color-white);;
 }
 
 .plot {
@@ -970,14 +971,35 @@ th {
 	transition: all var(--transition-default);
 }
 
+.light-mode .app-button {
+	background-color: var(--color-light-contrast);
+}
+
+.light-mode .app-button:hover {
+	box-shadow: var(--shadows-light);
+}
+
+.dark-mode .app-button {
+	background-color: var(--color-dark-contrast);
+}
+
+.dark-mode .app-button:hover {
+	box-shadow: var(--shadows-dark);
+}
 
 .app-button:hover {
-	transform: scale(var(--transform-scale));
+	background-color: var(--color-brand-primary);;
+}
+
+.app-button:hover .bi,
+.app-button:hover .app-name {
+	color: var(--color-white)
 }
 
 .app-button .bi:active {
 	transform: scale(var(--active-scale));
 }
+
 
 
 /* -------------------------- Music App Styling -------------------------- */
@@ -1112,12 +1134,6 @@ canvas {
 }
 
 
-.light-mode .app-button {
-	background-color: var(--color-light-contrast);
-	box-shadow: var(--shadows-light);
-}
-
-
 .light-mode .app-window {
 	border-color: var(--color-light-contrast);
 }
@@ -1226,12 +1242,6 @@ canvas {
 .dark-mode input[type="range"] {
 	background: var(--color-dark-contrast);
 }
-
-.dark-mode .app-button {
-	background-color: var(--color-dark-contrast);
-	box-shadow: var(--shadows-dark);
-}
-
 
 .dark-mode .app-window {
 	border-color: var(--color-dark-contrast);
