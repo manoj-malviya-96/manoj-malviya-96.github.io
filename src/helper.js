@@ -180,7 +180,23 @@ function getPassiveColor(){
 }
 
 
-function setupDropdown(button, dropdown, callback = null, selected_value = null) {
+function createDropdownItem(dataValue, dataLabel, dataIcon){
+
+    let item = document.createElement('li');
+
+    item.setAttribute('data-value', dataValue);
+
+    if (dataIcon) {
+        item.setAttribute('data-icon', dataIcon);
+    }
+
+    item.textContent = dataLabel;
+    item.className = 'dropdown-item';
+    return item;
+}
+
+function setupDropdown(button, dropdown, callback = null, selected_value = null, icon = null) {
+
     if (!dropdown || !button) {
         console.error('Dropdown elements not found');
         return;
@@ -206,9 +222,16 @@ function setupDropdown(button, dropdown, callback = null, selected_value = null)
             callback(selectedValue);
         }
 
+        if (icon){
+            const newIcon = event.target.getAttribute('data-icon');
+            if (newIcon) {
+                icon.className = newIcon;
+            }
+        }
+
         // Update the selected value in the button
         if (selected_value) {
-            selected_value.textContent = selectedValue;
+            selected_value.textContent = event.target.textContent;
         }
 
         // Close the dropdown after selecting a category
@@ -219,6 +242,13 @@ function setupDropdown(button, dropdown, callback = null, selected_value = null)
     const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
     dropdownItems.forEach(item => {
         item.addEventListener('click', (event) => handleDropdownSelect(event));
+    });
+
+    // Close the dropdown when clicking outside
+    window.addEventListener('click', (event) => {
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
     });
 }
 

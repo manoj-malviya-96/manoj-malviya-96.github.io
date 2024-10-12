@@ -5,7 +5,7 @@ const contentPlaceholder = window.document.getElementById('content-placeholder')
 const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
 
 const homePage = './home.html';
-const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, initSortOptions, loadApps, loadProjects];
+const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, setupSortOptions, loadApps, loadProjects];
 
 const defaultProjectCallbacks = [initTheme, loadProjectFooter, initImageFluidHandler, initScrollTracking];
 // Order matters- loadProjectFooter should be called before initScrollTracking
@@ -280,15 +280,39 @@ function setupCategoryDropDown(allCategories) {
 
     // Creating dropdown items for each category
     allCategories.forEach(category => {
-        let item = document.createElement('li');
-        item.setAttribute('data-value', category);
-        item.textContent = category;
-        item.className = 'dropdown-item';
-        filterDropdown.appendChild(item);
+        filterDropdown.appendChild(createDropdownItem(category, category));
     });
 
     setupDropdown(button, filterDropdown, filterProjects, filterSelectedValue);
 }
+
+
+
+// Function to initialize Sort Filter
+const sortOptions = [
+    {value: 'date-desc', label: 'Latest', icon: 'bi bi-sort-down-alt'},
+    {value: 'date-asc', label: 'Oldest', icon: 'bi bi-sort-up'},
+    {value: 'title-asc', label: 'A-Z', icon: 'bi bi-sort-alpha-down'},
+    {value: 'title-desc', label: 'Z-A', icon: 'bi bi-sort-alpha-down-alt'}
+];
+const defaultSortOption = 'date-desc';
+
+function setupSortOptions() {
+    const dropdown = document.getElementById('sortFilter');
+    const selectedValue = document.getElementById('selectedSortValue');
+    const icon = document.getElementById('sortIcon');
+    const button = document.getElementById('sortFilterBtn');
+
+    if (!dropdown || !selectedValue || !button) {
+        console.error('Dropdown elements not found');
+        return;
+    }
+    sortOptions.forEach(option => {
+        dropdown.appendChild(createDropdownItem(option.value, option.label, option.icon));
+    });
+    setupDropdown(button, dropdown, sortProjects , selectedValue, icon);
+}
+
 
 // Search projects based on title or description
 function filterProjectsBySearchAndCategory(searchInput = null, category = null) {
@@ -353,13 +377,13 @@ function sortProjects(sortBy) {
         return 0;
     });
     cards.forEach(card => container.appendChild(card));
-    updateSortingIcon(sortBy);
+    // updateSortingIcon(sortBy);
 }
 
 function updateSortingIcon(value) {
-    const icon = document.getElementById('sortIcon');
+    const icon = window.document.getElementById('sortFilterIcn');
     if (!icon) {
-        console.error('Sort icon not found');
+        console.error('sortFilterIcn not found');
         return;
     }
     icon.className = sortOptions.find(option => option.value === value).icon;

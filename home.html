@@ -64,14 +64,16 @@
     <!-- Will be dynamically added here -->
 </div>
 
+<div class="horizontal-separator"></div>
 
-<div class="quarto-listing" style="margin-top: var(--spacing-huge)">
+<div class="quarto-listing">
     <!-- Project Section -->
-    <div id="cards-controls-container" class="row-layout" style="border: 2px solid red">
+    <div id="cards-controls-container" class="row-layout"
+         style=" margin-bottom: var(--spacing-huge);">
 
         <!-- Filter Container -->
-        <div id="filter-container" class="">
-            <button class="primary-button" id="categoryFilterBtn" style="display: flex; border-width: var(--border-width)">
+        <div id="filter-container" style="width: 200px; margin-right: var(--spacing-huge)">
+            <button class="primary-button with-border" id="categoryFilterBtn">
                 <i class="bi bi-filter"></i>
                 <span id="selectedCategoryValue" class="button-label">Select Category...</span>
             </button>
@@ -81,35 +83,24 @@
         </div>
 
         <!-- Sort Container -->
-        <div id="sort-container" class="">
-            <button class="primary-button" id="sortFilterBtn" style="display: flex; border-width: var(--border-width)">
-                <i class="bi bi-sort-alpha-down" id="sortIcon"></i>
-                <span id="selectedValue" class="button-label">Sort by...</span>
+        <div id="sort-container" style="width: 150px; margin-right: var(--spacing-huge)">
+            <button class="primary-button with-border" id="sortFilterBtn">
+                <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
+                <span id="selectedSortValue" class="button-label">Sort by...</span>
             </button>
             <ul id="sortFilter" class="custom-dropdown hidden">
             </ul>
         </div>
 
-
-        <!-- Sort Container -->
-<!--        <div id="sort-container" class="control-selector-container">-->
-<!--            <label for="sort-filter" id="sort-icon" class="control-selector-icon">-->
-<!--                <i class="bi bi-sort-alpha-down"></i>-->
-<!--            </label>-->
-<!--            <select id="sort-filter" class="control-selector"-->
-<!--                    onchange="sortProjects(this.value);">-->
-<!--            </select>-->
-<!--        </div>-->
-
         <!-- Search Container -->
-        <div class="primary-button">
-            <div class="search-icon"><i class="bi bi-search"></i></div>
-            <input type="text" id="search-input" class="search-input" placeholder=" Search..." oninput="searchProjects()">
+        <div class="search-container" style="width: 250px">
+            <i class="bi bi-search"></i>
+            <input type="text" id="search-input" class="search-input" placeholder="Search..."
+                   oninput="searchProjects()">
         </div>
-
     </div>
 
-    <div id="project-list" class="list grid">
+    <div id="project-list" class="grid-container">
         <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>

@@ -52,15 +52,14 @@
     --spinner-border-width: 5px;
 
     /* Shadow */
-    --shadows-light: 0 1px 5px rgba(0, 0, 0, 0.18);
-    --shadows-dark: 0 1px 5px rgba(255, 255, 255, 0.18);
+    --shadows-light: 0 2px 7px rgba(0, 0, 0, 0.18);
+    --shadows-dark: 0 2px 7px rgba(255, 255, 255, 0.18);
 
     /* specific sizes */
     --navbar-height: 47px;
 
     /* Project specific */
     --project-card-height: 300px; /* Width of the project card should be less than content width /4  */
-    --project-banner-height: 250px;
     --project-side-bar-top: 57px; /* navbar height + spacing-medium */
     --project-searchbar-width: 250px;
     --project-footer-width: 250px;
@@ -92,6 +91,8 @@ body {
     letter-spacing: var(--border-width);
     transition: all var(--transition-default);
     font-size: var(--regular-text-size);
+    justify-content: center;
+    align-content: center;
 }
 
 .quarto-about-jolla,
@@ -291,7 +292,7 @@ p {
 .row-layout {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: auto;
@@ -310,15 +311,33 @@ p {
     margin: 0;
 }
 
+.horizontal-separator {
+    border: 1px solid;
+    align-content: center;
+    justify-content: center;
+    width: 17%;
+    margin: var(--spacing-huge) auto;
+    display: block;
+}
 
-/* --------------------------- PRIMARY BUTTON ------------------------------ */
+.light-mode .horizontal-separator {
+    border-color: var(--color-light-contrast);
+}
+
+.dark-mode .horizontal-separator {
+    border-color: var(--color-dark-contrast);
+}
+
+
+/* --------------------------- Primary Button ------------------------------ */
 
 .primary-button {
     background-color: transparent;
     cursor: pointer;
     transition: all var(--transition-default);
     height: 100%;
-    padding: 0 var(--spacing-medium);
+    width: 100%;
+    padding: 0 var(--spacing-small);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -349,12 +368,41 @@ p {
 !important;
 }
 
+.primary-button.with-border {
+    border-width: var(--border-width);
+}
+
+
+/* --------------------  Searchbar  Styling ------------------- */
+.search-container {
+    display: flex;
+    border-radius: var(--default-radius);
+    height: auto;
+    font-size: var(--regular-text-size);
+    align-content: center;
+    justify-content: center;
+}
+
+.search-container i {
+    padding: 0 var(--spacing-medium);
+    font-size: var(--large-icon-size);
+}
+
+.search-input {
+    padding: var(--spacing-small);
+    border: none;
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+}
+
+
 /* --------------------  Dropdown  Styling ------------------- */
 .custom-dropdown {
     list-style: none;
-    padding: 0;
-    margin: 0;
     position: absolute;
+    padding: 0;
+    margin: var(--spacing-small) 0;
     border-radius: var(--default-radius);
     width: auto;
     backdrop-filter: blur(var(--more-blur-radius));
@@ -417,38 +465,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 
-/* --------------------  Searchbar  Styling ------------------- */
-.search-container {
-    display: flex;
-    border-radius: var(--default-radius);
-}
-
-.search-icon {
-    padding: 0;
-    margin: 0 auto;
-    width: var(--large-icon-size);
-    height: var(--large-icon-size);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: none;
-}
-
-.search-icon i {
-    font-size: var(--regular-icon-size);
-}
-
-.search-input {
-    padding: var(--spacing-small);
-    height: var(--large-icon-size);
-    border: none;
-    width: var(--project-searchbar-width);
-    outline: none;
-    background-color: transparent;
-}
-
-
 /** ------------------------  About me ------------------------ */
 .about-container {
     margin: 0 auto;
@@ -480,8 +496,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
     height: var(--about-entity-height);
     border-bottom-left-radius: var(--default-radius);
     border-top-left-radius: var(--default-radius);
-    object-fit: cover; /* Ensure image covers the container */
-    display: block; /* Remove extra space below the image */
+    object-fit: cover;
+    display: block;
     transition: all var(--transition-default);
 }
 
@@ -537,11 +553,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
     border: none;
 }
 
-.day-tooltip {
-    display: none;
-}
-
-/* ----------------------- Project Common Comp --------------------------- */
+/* ----------------------- Project Components --------------------------- */
 .project-type {
     font-size: 10px !important;
     text-transform: uppercase;
@@ -556,8 +568,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 
 .project-date {
-    font-size: var(--subtitle-text-size);
-!important;
+    font-size: var(--subtitle-text-size); !important;
     line-height: var(--line-height);
     text-transform: uppercase;
     color: var(--color-passive-element);
@@ -566,20 +577,20 @@ input[type="range"]:hover::-webkit-slider-thumb {
     bottom: var(--spacing-small);
 }
 
-/* ----------------------- Project Cards --------------------------- */
+/* ----------------------- Grid Layout--------------------------- */
 
 .quarto-listing {
     width: var(--max-body-width);
     justify-content: center;
-    align-self: center;
+    align-content: center;
     margin: 0 auto;
-    display: grid;
 }
 
-/* Default: 3 columns */
-#project-list {
+.grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(var(--project-card-height), 1fr));
+    grid-gap: var(--spacing-huge);
+    padding-left: var(--spacing-huge);
 }
 
 .card {
@@ -653,18 +664,14 @@ input[type="range"]:hover::-webkit-slider-thumb {
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-    border: var(--border-width) solid;
-!important;
+    border: 1px solid; !important;
     margin-right: var(--spacing-small) !important;
     margin-top: var(--spacing-small) !important;
     padding: var(--spacing-small) !important;
     width: fit-content;
-    border-radius: var(--small-radius);
-!important;
-    font-size: var(--subtitle-text-size);
-!important;
-    text-transform: uppercase;
-!important;
+    border-radius: var(--small-radius); !important;
+    font-size: var(--subtitle-text-size); !important;
+    text-transform: uppercase; !important;
 }
 
 .card:hover .card-text {
@@ -688,22 +695,11 @@ input[type="range"]:hover::-webkit-slider-thumb {
     opacity: 0;
 }
 
-#cards-controls-container {
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    padding: var(--spacing-large);
-    max-width: var(--max-body-width);
-    border: none;
-    background-color: transparent;
-}
-
 /* ----------------------------- Project Page Styling ----------------------------- */
 
 #title-block-header .quarto-title-banner {
     width: var(--max-content-width);
-    height: var(--project-banner-height);
+    height: var(--project-card-height);
     border-radius: var(--default-radius);
     display: flex;
     justify-content: center;
@@ -720,7 +716,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 !important;
     padding: 0;
 !important;
-    height: var(--project-banner-height);
+    height: var(--project-card-height);
 !important;
 }
 
@@ -732,8 +728,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 .img-cover {
-    width: var(--project-banner-height);
-    height: var(--project-banner-height);
+    width: var(--project-card-height);
+    height: var(--project-card-height);
     object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
     border-bottom-left-radius: var(--default-radius);
     border-top-left-radius: var(--default-radius);
@@ -1393,8 +1389,6 @@ body.dark-mode {
     color: var(--color-dark-imp);
     background-color: var(--color-dark-contrast);
 }
-
-
 .dark-mode .search-input:focus,
 .dark-mode .search-input:active,
 .dark-mode .search-input:hover {
@@ -1482,21 +1476,4 @@ body.dark-mode {
 .dark-mode .custom-dropdown {
     background-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
-}
-
-
-/* -------------------------- Screen Size Styling -------------------------- */
-
-/* Medium screens: 2 columns */
-@media (max-width: 1024px) {
-    #project-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Small screens: 1 column */
-@media (max-width: 600px) {
-    #project-list {
-        grid-template-columns: 1fr;
-    }
 }

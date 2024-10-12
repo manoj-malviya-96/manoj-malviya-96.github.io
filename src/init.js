@@ -166,36 +166,6 @@ function initScrollTracking() {
     });
 }
 
-
-// Function to initialize Sort Filter
-const sortOptions = [
-    {value: 'date-desc', label: 'Latest', icon: 'bi-sort-down-alt'},
-    {value: 'date-asc', label: 'When I was a kid', icon: 'bi-sort-up'},
-    {value: 'title-asc', label: 'A-Z', icon: 'bi-sort-alpha-down'},
-    {value: 'title-desc', label: 'Z-A', icon: 'bi-sort-alpha-down-alt'}
-];
-const defaultSortOption = 'date-desc';
-
-function initSortOptions() {
-    const dropdown = document.getElementById('categoryFilter');
-    const selectedValue = document.getElementById('selectedCategoryValue');
-    const button = document.getElementById('categoryFilterBtn');
-
-    if (!dropdown || !selectedValue || !button) {
-        console.error('Dropdown elements not found');
-        return;
-    }
-    sortOptions.forEach(option => {
-        let item = document.createElement('li');
-        item.setAttribute('data-value', option.value);
-        item.textContent = option.label;
-        item.className = 'dropdown-item';
-        dropdown.appendChild(item);
-    });
-    setupDropdown(button, dropdown, sortProjects , selectedValue);
-}
-
-
 // Initialize the Math rendering library
 function initMathJax() {
     const typesetMath = (el) => {
