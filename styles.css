@@ -1,12 +1,12 @@
 :root {
 	/* Color Palette */
-	--color-light-primary: rgb(255, 255, 255);
-	--color-light-contrast: rgba(193, 193, 193, 0.69);
+	--color-light-primary: rgb(237, 237, 237);
+	--color-light-contrast: rgba(169, 169, 169, 0.69);
 	--color-light-imp: rgb(47, 47, 47);
 
-	--color-dark-primary: rgb(0, 0, 0);
-	--color-dark-contrast: rgba(69, 69, 69, 0.69);
-	--color-dark-imp: rgb(208, 208, 208);
+	--color-dark-primary: rgb(7, 7, 7);
+	--color-dark-contrast: rgba(47, 47, 47, 0.69);
+	--color-dark-imp: rgb(169, 169, 169);
 
 	--color-brand-primary: rgb(220, 20, 60, 0.73); /*#DC143C - Crimson, my boos fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
@@ -155,6 +155,20 @@ body.dark-mode {
 	color: var(--color-dark-imp);
 }
 
+.collapsible-content {
+	height: 0;
+	width: var(--max-body-width);
+	opacity: 0;
+	overflow: hidden;
+	margin: 0 auto;
+	transition: all var(--transition-default);
+}
+.collapsible-content.expanded {
+	height: auto;
+	opacity: 1;
+	padding: var(--spacing-large);
+}
+
 /* ----------------------------- Text Styling ----------------------------- */
 
 h1 {
@@ -256,9 +270,9 @@ p {
 	border: 1px solid;
 	align-content: center;
 	justify-content: center;
-	width: 17%;
 	margin: var(--spacing-huge) auto;
 	display: block;
+	width: 50%;
 }
 
 .light-mode .horizontal-separator {
@@ -382,7 +396,7 @@ p {
 
 .dropdown-item.selected {
 	background-color: var(--color-brand-primary); /* Use your primary color here */
-	color: white;
+	color: var(--color-dark-imp);
 }
 
 /* --------------------  Progress Area  Styling ------------------- */
@@ -419,95 +433,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]:hover::-webkit-slider-thumb {
 	transform: scale(1.8);
-}
-
-
-/** ------------------------  About me ------------------------ */
-.about-container {
-	margin: 0 auto;
-	justify-content: center;
-	align-items: center;
-}
-
-.about-entity {
-	display: flex;
-	width: var(--max-body-width);
-	height: auto;
-	margin: 0 auto;
-	border-radius: var(--default-radius);
-	border-style: solid;
-	border-width: var(--border-width);
-	transition: all var(--transition-default);
-}
-
-.about-entity.collapsed {
-	display: none;
-	opacity: 0;
-}
-
-
-.profile-image img {
-	padding: 0;
-	margin: 0 auto;
-	width: calc(1.2 * var(--about-entity-height));
-	height: var(--about-entity-height);
-	border-bottom-left-radius: var(--default-radius);
-	border-top-left-radius: var(--default-radius);
-	object-fit: cover;
-	display: block;
-	transition: all var(--transition-default);
-}
-
-
-.about-title {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	max-height: var(--about-entity-height);
-	padding: var(--spacing-medium);
-	font-size: 100px;
-	margin-left: var(--spacing-large);
-}
-
-.collapsible-content {
-	height: 0;
-	width: var(--max-body-width);
-	opacity: 0;
-	overflow: hidden;
-	margin: 0 auto;
-	transition: all var(--transition-default);
-}
-
-.collapsible-content.expanded {
-	height: auto;
-	opacity: 1;
-	padding: var(--spacing-large);
-}
-
-.calendar {
-	font-size: var(--subtitle-text-size);
-	font-family: var(--font-family), serif;
-	justify-content: center;
-	align-items: center;
-	width: var(--max-image-width);
-	height: auto;
-	background-color: transparent;
-!important;
-	color: var(--color-dark-imp);
-	border-radius: var(--default-radius);
-!important;
-	border: none;
-!important;
-	transition: all var(--transition-default);
-}
-
-.calendar .table-column {
-	border: none;
-!important;
-}
-
-.calendar .contrib-column {
-	border: none;
 }
 
 /* ----------------------- Project Components --------------------------- */
@@ -853,7 +778,7 @@ code {
 
 .code-copy-button {
 	background-color: transparent;
-	color: white;
+	color: var(--color-dark-imp);;
 	border: none;
 	padding: 12px 0;
 	cursor: pointer;
@@ -910,7 +835,7 @@ th, td {
 
 th {
 	background-color: var(--color-brand-primary);
-	color: white;
+	color: var(--color-dark-imp);;
 }
 
 .plot {
