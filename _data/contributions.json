@@ -1,5 +1,45 @@
 [
   {
+    "id": "42788909834",
+    "type": "PushEvent",
+    "actor": {
+      "id": 78374110,
+      "login": "manoj-malviya-96",
+      "display_login": "manoj-malviya-96",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/manoj-malviya-96",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78374110?"
+    },
+    "repo": {
+      "id": 845128908,
+      "name": "manoj-malviya-96/manoj-malviya-96.github.io",
+      "url": "https://api.github.com/repos/manoj-malviya-96/manoj-malviya-96.github.io"
+    },
+    "payload": {
+      "repository_id": 845128908,
+      "push_id": 20681345073,
+      "size": 1,
+      "distinct_size": 1,
+      "ref": "refs/heads/master",
+      "head": "9156fe1f9167833d8d5dc24a8d132e89934da553",
+      "before": "83fb7b5e0c3ae3adec0f5081ee3f54664d6fd274",
+      "commits": [
+        {
+          "sha": "9156fe1f9167833d8d5dc24a8d132e89934da553",
+          "author": {
+            "email": "actions@github.com",
+            "name": "GitHub Actions"
+          },
+          "message": "Update contributions data",
+          "distinct": true,
+          "url": "https://api.github.com/repos/manoj-malviya-96/manoj-malviya-96.github.io/commits/9156fe1f9167833d8d5dc24a8d132e89934da553"
+        }
+      ]
+    },
+    "public": true,
+    "created_at": "2024-10-12T16:30:04Z"
+  },
+  {
     "id": "42788907633",
     "type": "PushEvent",
     "actor": {
@@ -2613,45 +2653,5 @@
     },
     "public": true,
     "created_at": "2024-10-12T13:33:53Z"
-  },
-  {
-    "id": "42787106272",
-    "type": "PushEvent",
-    "actor": {
-      "id": 78374110,
-      "login": "manoj-malviya-96",
-      "display_login": "manoj-malviya-96",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/manoj-malviya-96",
-      "avatar_url": "https://avatars.githubusercontent.com/u/78374110?"
-    },
-    "repo": {
-      "id": 845128908,
-      "name": "manoj-malviya-96/manoj-malviya-96.github.io",
-      "url": "https://api.github.com/repos/manoj-malviya-96/manoj-malviya-96.github.io"
-    },
-    "payload": {
-      "repository_id": 845128908,
-      "push_id": 20680147575,
-      "size": 1,
-      "distinct_size": 1,
-      "ref": "refs/heads/wake-up-sid",
-      "head": "494f97d8db8517c719dd7302c1ed324e9628a88f",
-      "before": "923159832b7535a15ab56b9827e63bdca5684955",
-      "commits": [
-        {
-          "sha": "494f97d8db8517c719dd7302c1ed324e9628a88f",
-          "author": {
-            "email": "78374110+mmalviyarFL@users.noreply.github.com",
-            "name": "mmalviyarfl"
-          },
-          "message": "updated white point",
-          "distinct": true,
-          "url": "https://api.github.com/repos/manoj-malviya-96/manoj-malviya-96.github.io/commits/494f97d8db8517c719dd7302c1ed324e9628a88f"
-        }
-      ]
-    },
-    "public": true,
-    "created_at": "2024-10-12T13:17:22Z"
   }
 ]
