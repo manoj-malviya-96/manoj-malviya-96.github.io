@@ -62,7 +62,7 @@ function initImageFluidHandler() {
 
 
 function initToggleForAbout() {
-    const button = window.document.querySelector('.toggle-expand-button');
+    const button = window.document.getElementById('toggleAboutBtn');
     if (!button) {
         return; // Button not found
     }

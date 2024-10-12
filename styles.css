@@ -330,42 +330,6 @@ p {
 	border-color: var(--color-dark-contrast);
 }
 
-
-/* ----------------------------- Toggle Button Styling ----------------------------- */
-
-.toggle-expand-button-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: var(--regular-icon-size);
-	height: var(--regular-icon-size);
-	margin: 0 auto;
-	padding: 0;
-}
-
-.toggle-expand-button {
-	font-size: var(--title-font-size);
-	border: none;
-	cursor: pointer;
-	margin: 0 auto;
-	padding: 0;
-	background-color: transparent;
-	transition: all var(--transition-default);
-}
-
-.toggle-expand-button:hover .bi {
-	color: var(--color-brand-primary);
-}
-
-.light-mode .toggle-expand-button {
-	color: var(--color-light-imp);
-}
-
-.dark-mode .toggle-expand-button {
-	color: var(--color-dark-imp);
-}
-
-
 /* --------------------  Searchbar  Styling ------------------- */
 .search-container {
 	display: flex;
