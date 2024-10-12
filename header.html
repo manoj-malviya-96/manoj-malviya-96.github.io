@@ -10,39 +10,40 @@
 		flex-direction: column;
 		justify-content: left; !important;
 		align-content: flex-start; !important;
-        padding: var(--spacing-small);
+        padding: 0 var(--spacing-small);
 		z-index: var(--z-index-overlay);
 		backdrop-filter: blur(var(--blur-radius));
 		border-radius: var(--default-radius);
 		border: none;
 	}
+
 	.navbar-group {
         list-style: none;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start; !important;
-		text-align: left; !important;
 		width: 100%;
 		padding: 0;
-		margin: 0 auto; !important;
-		border-bottom: var(--color-dark-contrast) solid var(--border-width);
+        margin: 0 auto;
+		border-bottom: solid var(--border-width);
 	}
+
 	.navbar-group:last-child {
 		border-bottom: none;
-	}
-	.navbar-group .nav-item {
-		text-align: left;
-		justify-content: flex-start; !important;
-		align-content: flex-start; !important;
-		margin: 0 auto !important;
-		cursor: pointer;
-		transition: all var(--transition-default);
-		height: 100%;
-		padding: var(--spacing-small) !important;
 	}
 	.navbar.collapsed .navbar-group .button-label {
 		display: none;
 	}
+	.navbar-group .nav-item {
+		text-align: left;
+		margin: 0 auto !important;
+		cursor: pointer;
+		transition: all var(--transition-default);
+		height: 100%;
+        width: 100%;
+		padding: var(--spacing-small) !important;
+	}
+
 	.light-mode .navbar {
 		background-color: var(--color-light-contrast);
 		box-shadow: var(--shadows-light);
@@ -60,7 +61,7 @@
     <!-- Home Group -->
     <ul class="navbar-group">
         <li class="nav-item">
-            <button class="primary-button smaller" onclick="loadHomePage(event)">
+            <button class="primary-button smaller left-aligned" onclick="loadHomePage(event)">
                 <i class="bi bi-house-door-fill"></i> <!-- Home icon -->
                 <span class="button-label">Home</span> <!-- Hidden text -->
             </button>
@@ -69,19 +70,19 @@
     <ul class="navbar-group">
         <!-- Social Media Group -->
         <li class="nav-item">
-            <button class="primary-button smaller"  onclick="loadSocialMediaLink('Linkedin')">
+            <button class="primary-button smaller left-aligned"  onclick="loadSocialMediaLink('Linkedin')">
                 <i class="bi bi-linkedin"></i>
                 <span class="button-label">LinkedIn</span> <!-- Hidden text -->
             </button>
         </li>
         <li class="nav-item">
-            <button class="primary-button smaller" onclick="loadSocialMediaLink('GitHub')">
+            <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('GitHub')">
                 <i class="bi bi-github"></i>
                 <span class="button-label">GitHub</span> <!-- Hidden text -->
             </button>
         </li>
         <li class="nav-item">
-            <button class="primary-button smaller" onclick="loadSocialMediaLink('Instagram')">
+            <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Instagram')">
                 <i class="bi bi-instagram"></i>
                 <span class="button-label">Instagram</span> <!-- Hidden text -->
             </button>
@@ -89,7 +90,7 @@
 
         <!-- Settings Group -->
         <li class="nav-item">
-            <button class="primary-button smaller" onclick="loadPDFInMainWindow('./assets/resume.pdf')">
+            <button class="primary-button smaller left-aligned" onclick="loadPDFInMainWindow('./assets/resume.pdf')">
                 <i class="bi bi-file-earmark-person-fill"></i>
                 <span class="button-label">Resume</span> <!-- Hidden text -->
             </button>
@@ -99,7 +100,7 @@
     <ul class="navbar-group">
         <!-- Dark Mode Toggle -->
         <li class="nav-item">
-            <button id="theme-switch-btn" class="primary-button smaller" onclick="toggleTheme()">
+            <button id="theme-switch-btn" class="primary-button smaller left-aligned" onclick="toggleTheme()">
                 <i id="theme-icon" class="bi bi-moon-stars-fill"></i>
                 <span class="button-label">Theme</span> <!-- Hidden text -->
             </button>
@@ -108,7 +109,7 @@
 
         <!-- Sidebar Toggle Button -->
         <li class="nav-item">
-            <button id="sidebar-toggle-btn" class="primary-button smaller" onclick="toggleSidebar()">
+            <button id="sidebar-toggle-btn" class="primary-button smaller left-aligned" onclick="toggleSidebar()">
                 <i class="bi bi-chevron-right" id="sidebar-toggle-icon"></i> <!-- Toggle icon -->
                 <span class="button-label">Collapse</span> <!-- Hidden text -->
             </button>

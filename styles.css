@@ -49,7 +49,9 @@
 	--regular-icon-size: 21px;
 	--large-icon-size: 37px;
 
-	--border-width: 2px;
+
+	--border-width: 1px;
+
 	--z-index-overlay: 1000;
 	--z-index-max: 2000;
 
@@ -266,7 +268,7 @@ p {
 }
 
 .horizontal-separator {
-	border: 1px solid;
+	border: var(--border-width) solid;
 	align-content: center;
 	justify-content: center;
 	margin: var(--spacing-huge) auto;
@@ -300,6 +302,10 @@ p {
 	transition: all var(--transition-default);
 }
 
+.primary-button.left-aligned {
+	justify-content: left;
+}
+
 .primary-button .bi {
 	font-size: var(--large-icon-size);
 }
@@ -317,8 +323,7 @@ p {
 .primary-button:hover .bi,
 .primary-button:hover .button-label {
 	cursor: pointer;
-	color: var(--color-brand-primary);
-!important;
+	color: var(--color-brand-primary); !important;
 }
 
 .primary-button.with-border {
@@ -352,9 +357,21 @@ p {
 	font-size: var(--regular-text-size);
 	align-content: center;
 	justify-content: center;
+	border: var(--border-width) solid;
 }
 
-.search-container i {
+.light-mode .search-container {
+	border-color: var(--color-light-contrast);
+	color: var(--color-light-imp);
+	background-color: var(--color-light-primary);
+}
+.dark-mode .search-container {
+	border-color: var(--color-dark-contrast);
+	color: var(--color-dark-imp);
+	background-color: var(--color-dark-contrast);
+}
+
+.search-container .bi {
 	padding: 0 var(--spacing-medium);
 	font-size: var(--large-icon-size);
 }
@@ -365,6 +382,19 @@ p {
 	width: 100%;
 	outline: none;
 	background-color: transparent;
+}
+
+.light-mode .search-input:focus,
+.light-mode .search-input:active,
+.light-mode .search-input:hover {
+	color: var(--color-light-imp);
+	background-color: var(--color-light-contrast);
+}
+.dark-mode .search-input:focus,
+.dark-mode .search-input:active,
+.dark-mode .search-input:hover {
+	color: var(--color-dark-imp);
+	background-color: var(--color-dark-contrast);
 }
 
 
@@ -547,7 +577,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-	border: 1px solid;
+	border: var(--border-width) solid;
 !important;
 	margin-right: var(--spacing-small) !important;
 	margin-top: var(--spacing-small) !important;
@@ -1086,20 +1116,6 @@ canvas {
 }
 
 
-.light-mode .search-container {
-	border-color: var(--color-light-contrast);
-	color: var(--color-light-imp);
-	background-color: var(--color-light-primary);
-}
-
-.light-mode .search-input:focus,
-.light-mode .search-input:active,
-.light-mode .search-input:hover {
-	color: var(--color-light-imp);
-	background-color: var(--color-light-contrast);
-}
-
-
 .light-mode .listing-category,
 .light-mode .quarto-category {
 	border-color: var(--color-light-imp) !important;
@@ -1196,20 +1212,6 @@ canvas {
 .dark-mode code.inline {
 	background-color: transparent;
 }
-
-.dark-mode .search-container {
-	border-color: var(--color-dark-contrast);
-	color: var(--color-dark-imp);
-	background-color: var(--color-dark-contrast);
-}
-
-.dark-mode .search-input:focus,
-.dark-mode .search-input:active,
-.dark-mode .search-input:hover {
-	color: var(--color-dark-imp);
-	background-color: var(--color-dark-contrast);
-}
-
 .dark-mode .listing-category,
 .dark-mode .quarto-category {
 	border-color: var(--color-dark-imp) !important;
