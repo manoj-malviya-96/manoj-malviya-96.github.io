@@ -111,28 +111,31 @@ body.dark-mode {
 
 
 /* ----------------------------- Content Styling ----------------------------- */
-.quarto-about-jolla,
-.reading-content {
+.content {
 	margin: 0 auto;
 	text-align: left;
-	width: var(--max-content-width);
-	line-height: var(--line-height);
+	width: var(--max-body-width);
 	border-style: solid;
 	border-width: var(--border-width);
 	border-radius: var(--default-radius);
 	transition: all var(--transition-default);
 }
 
-.light-mode .reading-content {
+.light-mode .content {
 	background-color: var(--color-light-primary);
 	border-color: var(--color-light-contrast);
 	box-shadow: var(--shadows-light);
 }
-
-.dark-mode .reading-content {
+.dark-mode .content {
 	background-color: var(--color-dark-primary);
 	border-color: var(--color-dark-contrast);
 	box-shadow: var(--shadows-dark)
+}
+
+.content.reading {
+	font-size: var(--regular-text-size);
+	width: var(--max-content-width);
+	line-height: var(--line-height);
 }
 
 .block {
@@ -155,7 +158,7 @@ body.dark-mode {
 	color: var(--color-dark-imp);
 }
 
-.collapsible-content {
+.content.collapsible {
 	height: 0;
 	width: var(--max-body-width);
 	opacity: 0;
@@ -163,7 +166,7 @@ body.dark-mode {
 	margin: 0 auto;
 	transition: all var(--transition-default);
 }
-.collapsible-content.expanded {
+.content.collapsible.expanded {
 	height: auto;
 	opacity: 1;
 	padding: var(--spacing-large);
@@ -272,7 +275,7 @@ p {
 	justify-content: center;
 	margin: var(--spacing-huge) auto;
 	display: block;
-	width: 50%;
+	width: 21%;
 }
 
 .light-mode .horizontal-separator {
@@ -852,8 +855,8 @@ th {
 
 .app-drawer {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	justify-content: flex-start;
+	align-items: flex-start;
 	padding-left: var(--spacing-large);
 	height: 100%;
 	margin: 0 auto;
@@ -1119,9 +1122,6 @@ canvas {
 	border-color: var(--color-light-contrast);
 }
 
-.light-mode .collapsible-content.expanded {
-	border-color: var(--color-light-contrast);
-}
 
 .light-mode .app-controller-item {
 	border-color: var(--color-light-contrast);
@@ -1234,10 +1234,6 @@ canvas {
 
 
 .dark-mode .app-window {
-	border-color: var(--color-dark-contrast);
-}
-
-.dark-mode .collapsible-content.expanded {
 	border-color: var(--color-dark-contrast);
 }
 

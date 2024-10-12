@@ -69,10 +69,10 @@ function initToggleForAbout() {
     button.addEventListener('click', function () {
         this.classList.toggle('expanded');
 
-        const content = window.document.querySelector('.collapsible-content');
+        const content = window.document.getElementById('moreDetailsAboutMe');
         content.classList.toggle('expanded');
 
-        const aboutEntity = window.document.querySelector('.about-entity');
+        const aboutEntity = window.document.getElementById('titleAndPictureRow');
         aboutEntity.classList.toggle('collapsed');
 
 
