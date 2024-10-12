@@ -12,7 +12,7 @@
 	--color-dark-contrast: rgba(47, 47, 47, 0.69);
 	--color-dark-imp: rgb(169, 169, 169);
 
-	--color-brand-primary: rgb(220, 20, 60, 0.73); /*#DC143C - Crimson, my boos fav*/
+	--color-brand-primary: rgb(220, 20, 60, 0.89); /*#DC143C - Crimson, my boos fav*/
 	/* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
 
 	--color-passive-element: rgba(128, 128, 128, 0.47);
