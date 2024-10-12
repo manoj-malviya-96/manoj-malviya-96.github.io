@@ -6,7 +6,7 @@ on:
     - cron: '0 * * * *'  # Runs every hour
   push:
     branches:
-      - master   # Update this when you push-to-master
+      - master  # Replace with gh-pages if needed for GitHub Pages branch
 
 jobs:
   update:
@@ -17,7 +17,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: manoj-malviya-96/manoj-malviya-96.github.io  # Explicitly specify the repo
+          repository: manoj-malviya-96/manoj-malviya-96.github.io
+          persist-credentials: false  # Prevents conflicts with the next authentication step
+
+      # Set up the GitHub token for authentication
+      - name: Setup GitHub token
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.WEBSITE_TOKEN }}@github.com/manoj-malviya-96/manoj-malviya-96.github.io.git
 
       # Fetch GitHub Contributions data for the username 'manoj-malviya-96'
       - name: Fetch GitHub Contributions
@@ -33,4 +39,4 @@ jobs:
           git config --global user.email "actions@github.com"
           git add _data/contributions.json
           git commit -m "Update contributions data"
-          git push
+          git push origin master  # Push to the correct branch
