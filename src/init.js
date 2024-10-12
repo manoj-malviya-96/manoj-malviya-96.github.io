@@ -15,6 +15,7 @@ function initScrollBehavior() {
     window.document.documentElement.style.scrollBehavior = 'smooth';
 }
 
+
 function initTheme() {
     const userTheme = getValueFromStorage('theme', 'dark-mode');
     const isThemeSameAsStorage = window.document.body.classList.contains(userTheme);
@@ -33,7 +34,7 @@ function initImageFluidHandler() {
     }
 
     const modal = window.document.createElement('div');
-    modal.id = 'fullScreenModal';
+    modal.className = 'full-screen-modal';
     const modalImg = window.document.createElement('img');
     modal.appendChild(modalImg);
     window.document.body.appendChild(modal);
@@ -61,15 +62,19 @@ function initImageFluidHandler() {
 
 
 function initToggleForAbout() {
-    const button = window.document.querySelector('.toggle-expand-button');
+    const button = window.document.getElementById('toggleAboutBtn');
     if (!button) {
         return; // Button not found
     }
     button.addEventListener('click', function () {
         this.classList.toggle('expanded');
 
-        const content = window.document.querySelector('.collapsible-content');
+        const content = window.document.getElementById('moreDetailsAboutMe');
         content.classList.toggle('expanded');
+
+        const aboutEntity = window.document.getElementById('titleAndPictureRow');
+        aboutEntity.classList.toggle('collapsed');
+
 
         // Toggle icon class and button text based on the state
         if (content.classList.contains('expanded')) {
@@ -161,34 +166,8 @@ function initScrollTracking() {
     });
 }
 
-
-// Function to initialize Sort Filter
-const sortOptions = [
-    {value: 'date-desc', label: 'Latest', icon: 'bi-sort-down-alt'},
-    {value: 'date-asc', label: 'When I was a kid', icon: 'bi-sort-up'},
-    {value: 'title-asc', label: 'A-Z', icon: 'bi-sort-alpha-down'},
-    {value: 'title-desc', label: 'Z-A', icon: 'bi-sort-alpha-down-alt'}
-];
-const defaultSortOption = 'date-desc';
-
-function initSortOptions() {
-    const select = document.getElementById('sort-filter');
-
-    if (!select) {
-        return; // Select element not found
-    }
-
-    sortOptions.forEach(option => {
-        const opt = document.createElement('option');
-        opt.value = option.value;
-        opt.textContent = option.label;
-        select.appendChild(opt);
-    });
-}
-
-
 // Initialize the Math rendering library
-function initMathJax(){
+function initMathJax() {
     const typesetMath = (el) => {
         if (window.MathJax) {
             // MathJax Typeset
@@ -213,4 +192,38 @@ function initMathJax(){
     window.Quarto = {
         typesetMath
     };
+}
+
+// Function to initialize theme toggle after loading header
+function toggleTheme() {
+    const icon = document.getElementById('theme-icon');
+    const toDarkMode = document.body.classList.contains('light-mode');
+
+    if (!icon) {
+        console.error("No button");
+        return;
+    }
+
+    if (toDarkMode) {
+        document.body.classList.replace('light-mode', 'dark-mode');
+        icon.className = 'bi bi-moon-stars-fill';
+    } else {
+        document.body.classList.replace('dark-mode', 'light-mode');
+        icon.className = 'bi bi-sunrise-fill';
+    }
+
+    storeValueInStorage('theme', toDarkMode ? 'dark-mode' : 'light-mode');
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById("sideBar");
+    const icon = document.getElementById('sidebar-toggle-icon');
+
+    sidebar.classList.toggle("collapsed");
+
+    if (sidebar.classList.contains("collapsed")) {
+        icon.className = 'bi bi-chevron-right';
+    } else {
+        icon.className = 'bi bi-chevron-left';
+    }
 }

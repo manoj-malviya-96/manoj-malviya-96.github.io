@@ -5,7 +5,7 @@ const contentPlaceholder = window.document.getElementById('content-placeholder')
 const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
 
 const homePage = './home.html';
-const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, initSortOptions, loadProjects];
+const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, setupSortOptions, loadApps, loadProjects];
 
 const defaultProjectCallbacks = [initTheme, loadProjectFooter, initImageFluidHandler, initScrollTracking];
 // Order matters- loadProjectFooter should be called before initScrollTracking
@@ -23,16 +23,19 @@ const projectHTMLToCallBackMap = {
 // App-specific callbacks
 const defaultAppCallbacks = [initTheme];
 const appHTMLToCallBackMap = {
-    './apps/music-viz/music-viz.html': [initMusicApp]
+    './apps/music-viz/music-viz.html': [initMusicApp],
 }
+
 
 
 // Load Content with Overlay, used to show a loading spinner while content is being fetched
 function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = true) {
+
     if (!contentPlaceholder || !contentPlaceholderOverlay) {
         console.error('Content placeholders not found');
         return;
     }
+
     loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
         if (callbacks.length > 0) {
             for (const callback of callbacks) {
@@ -40,6 +43,7 @@ function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = 
             }
         }
         initScrollTracking();
+        handleRunningApps();
     });
     handleURLinHistory(addParamsToURL({'pageName': page}), doPushToHistory);
     initContentObserver(contentPlaceholder);
@@ -63,7 +67,6 @@ function loadApp(page, event, doPushToHistory = true) {
     const callbacks = defaultAppCallbacks.concat(appHTMLToCallBackMap[page]);
     loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
-
 
 // Load the page from the URL with the 'pageName' parameter
 function loadPageFromTypedURL(event) {
@@ -118,29 +121,71 @@ function setupLoadPageUrlHandler() {
     window.document.addEventListener('DOMContentLoaded', loadPageFromTypedURL);
 }
 
-function loadMusicApp(){
-    loadApp('./apps/music-viz/music-viz.html', null, true);
+// Function to load the app.html and copy the app-brand-container
+function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
+    return fetch(appHtmlPath)
+        .then(response => response.text())  // Load the HTML as text
+        .then(html => {
+            // Create a temporary DOM element to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // Find the app-brand-container in the loaded HTML
+            const appBrandContainer = tempDiv.querySelector('.app-brand-container');
+
+            if (appBrandContainer) {
+                // Create a new button element
+                const appButton = document.createElement('button');
+                appButton.className = 'app-button';
+
+                // Set the provided onClickFunction dynamically
+                appButton.onclick = onClickFunction;
+
+                // Clone the app-brand-container and append it to the button
+                const clonedAppBrand = appBrandContainer.cloneNode(true);
+                appButton.appendChild(clonedAppBrand);
+
+                return appButton; // Return the created button
+            } else {
+                throw new Error('app-brand-container not found in the app.html file.');
+            }
+        })
+        .catch(error => console.error('Error loading app.html:', error));
 }
 
-function getCardHTML(filePath, imagePath, title,
-                     description, categories,
-                     type = "", date = "") {
+
+function makeAppButton(container, appHTMLPath) {
+    console.log(appHTMLPath);
+    const appLoaderFunction = ()=> {
+        loadApp(appHTMLPath, null, true);
+    }
+    createAppButtonFromHTML(appHTMLPath, appLoaderFunction)
+        .then(button => {
+            container.appendChild(button);  // Directly append the button element
+        })
+        .catch(error => console.error('Error creating and adding app button:', error));
+}
+
+function getCardHTML(filePath, imagePath, title, description, categories, type = "", date = "") {
     categories = categories.sort((a, b) => a.localeCompare(b));
+
+    // Limit description to 140 characters
+    const shortDescription = description.length > 140 ? description.substring(0, 140) + '...' : description;
+
     return `
-        <div class="g-col-1 project-card" 
-            data-categories="${categories.join(',')}" 
-             data-title="${title.toLowerCase()}" 
-             data-description="${description.toLowerCase()}"
-             data-date=${parseDate(date)}">
-            <a href="javascript:void(0)" class="quarto-grid-link"
-               onclick="loadProjectPage('${filePath}', event)">
-                <div class="quarto-grid-item card">
-                    <div class="column-image">
-                        <img src="${imagePath}" class="card-img" alt="">
-                    </div>
-                    <div class="card-body post-contents">
-                        <div class="project-type">${type}</div>
-                        <h3 class="no-anchor card-title listing-title">${title}</h3>
+      <div class="g-col-1 card" 
+          data-categories="${categories.join(',')}" 
+          data-title="${title.toLowerCase()}" 
+          data-description="${shortDescription.toLowerCase()}"
+          data-date=${parseDate(date)}>
+          <a href="javascript:void(0)" class="quarto-grid-link" 
+             onclick="loadProjectPage('${filePath}', event)">
+                <img src="${imagePath}" class="card-img" alt="">
+                <div class="card-body post-contents">
+                    <div class="project-type">${type}</div>
+                    <span class="card-title-default">${title}</span>
+                    <div class="card-details">
+                        <h3 class="card-title">${title}</h3>
                         <div class="card-text listing-description">${description}</div>
                         <div class="listing-categories">
                             ${categories.map(cat => `<div class="listing-category">${cat}</div>`).join('')}
@@ -148,12 +193,12 @@ function getCardHTML(filePath, imagePath, title,
                         <div class="project-date">${date} </div>
                     </div>
                 </div>
-            </a>
-        </div>
+          </a>
+      </div>
     `;
 }
 
-function makeProjectCard(filePath, containerId) {
+function makeProjectCard(filePath, container) {
     return fetch(filePath)
         .then(response => {
             if (!response.ok) {
@@ -175,11 +220,6 @@ function makeProjectCard(filePath, containerId) {
             const categories = Array.from(doc.querySelectorAll('.quarto-category')).map(el => el.textContent);
 
             const cardHTML = getCardHTML(filePath, imagePath, title, description, categories, type, date);
-
-            const container = document.getElementById(containerId);
-            if (!container) {
-                throw new Error(`Element with ID '${containerId}' not found.`);
-            }
             container.insertAdjacentHTML('beforeend', cardHTML);
 
             // Return categories for this project
@@ -192,10 +232,14 @@ function makeProjectCard(filePath, containerId) {
 }
 
 function loadProjects() {
-    const containerId = 'project-list';
+    const container = window.document.getElementById('project-list');
+    if (!container) {
+        throw new Error(`Element with ID '${container}' not found.`);
+    }
+
     let allCategories = new Set();
     const promises = Object.entries(projectHTMLToCallBackMap).map(([projectKey,]) =>
-        makeProjectCard(projectKey, containerId)
+        makeProjectCard(projectKey, container)
     );
 
     // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
@@ -204,29 +248,75 @@ function loadProjects() {
             categories.forEach(category => allCategories.add(category));
             // Update the Set with each project's categories
         });
-        makeCategoryDropdownFilters(allCategories);
+        setupCategoryDropDown(allCategories);
         sortProjects(defaultSortOption);
     }).catch(err => {
         console.error('Error loading all projects:', err);
     });
 }
 
-// Function to dynamically generate the dropdown options based on unique categories
-function makeCategoryDropdownFilters(allCategories) {
-    const filterDropdown = document.getElementById('category-filter');
-
-    // Create option elements for each category dynamically
-    allCategories.forEach(category => {
-        let option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        filterDropdown.appendChild(option);
+function loadApps() {
+    const container = window.document.getElementById("app-list");
+    if (!container) {
+        throw new Error(`Element with ID- app-list not found.`);
+    }
+    const promises = Object.entries(appHTMLToCallBackMap).map(([appHTML, ]) =>
+        makeAppButton(container, appHTML));
+    Promise.all(promises).catch(err => {
+        console.error('Error loading all apps:', err);
     });
 }
 
+// Function to dynamically generate the dropdown options based on unique categories
+function setupCategoryDropDown(allCategories) {
+    const filterDropdown = document.getElementById('categoryFilter');
+    const filterSelectedValue = document.getElementById('selectedCategoryValue');
+    const button = document.getElementById('categoryFilterBtn');
+
+    if (!filterDropdown || !filterSelectedValue || !button) {
+        console.error('Dropdown elements not found');
+        return;
+    }
+
+    // Creating dropdown items for each category
+    allCategories.forEach(category => {
+        filterDropdown.appendChild(createDropdownItem(category, category));
+    });
+
+    setupDropdown(button, filterDropdown, filterProjects, filterSelectedValue);
+}
+
+
+
+// Function to initialize Sort Filter
+const sortOptions = [
+    {value: 'date-desc', label: 'Latest', icon: 'bi bi-sort-down-alt'},
+    {value: 'date-asc', label: 'Oldest', icon: 'bi bi-sort-up'},
+    {value: 'title-asc', label: 'A-Z', icon: 'bi bi-sort-alpha-down'},
+    {value: 'title-desc', label: 'Z-A', icon: 'bi bi-sort-alpha-down-alt'}
+];
+const defaultSortOption = 'date-desc';
+
+function setupSortOptions() {
+    const dropdown = document.getElementById('sortFilter');
+    const selectedValue = document.getElementById('selectedSortValue');
+    const icon = document.getElementById('sortIcon');
+    const button = document.getElementById('sortFilterBtn');
+
+    if (!dropdown || !selectedValue || !button) {
+        console.error('Dropdown elements not found');
+        return;
+    }
+    sortOptions.forEach(option => {
+        dropdown.appendChild(createDropdownItem(option.value, option.label, option.icon));
+    });
+    setupDropdown(button, dropdown, sortProjects , selectedValue, icon);
+}
+
+
 // Search projects based on title or description
 function filterProjectsBySearchAndCategory(searchInput = null, category = null) {
-    let cards = document.querySelectorAll('.project-card');
+    const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
         let isSearchMatch = true;
@@ -234,7 +324,7 @@ function filterProjectsBySearchAndCategory(searchInput = null, category = null) 
         // Check if the card matches the search input and category
         if (category !== null) {
             const cardCategories = card.getAttribute('data-categories').split(',');
-            isInCategory = category === 'all' || cardCategories.includes(category);
+            isInCategory = (category === 'All Categories' || cardCategories.includes(category));
         }
         // Check if the card matches the search input
         if (searchInput !== null && searchInput !== "") {
@@ -287,13 +377,13 @@ function sortProjects(sortBy) {
         return 0;
     });
     cards.forEach(card => container.appendChild(card));
-    updateSortingIcon(sortBy);
+    // updateSortingIcon(sortBy);
 }
 
 function updateSortingIcon(value) {
-    let icon = document.getElementById('sort-icon').querySelector("i");
+    const icon = window.document.getElementById('sortFilterIcn');
     if (!icon) {
-        console.error('Sort icon not found');
+        console.error('sortFilterIcn not found');
         return;
     }
     icon.className = sortOptions.find(option => option.value === value).icon;
@@ -354,50 +444,15 @@ function loadProjectFooter() {
             <button class="footer-icon" id="footer-toggle">
                 <i class="bi bi-chevron-down"></i>
             </button>
-            <label for="footer-toggle">Table of contents</label>
+            <label for="footer-toggle">On this Page </label>
         </div>
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc"> 
             <ul class="footer-toc" id="dynamic-toc"></ul>
         </nav>
         `;
     // Call the function to dynamically generate the TOC
     generateTOC();
     initProjectFooterToggle();
-}
-
-function toggleSidebar() {
-    const sidebar = document.getElementById("sideBar");
-    const icon = document.getElementById('sidebar-toggle-icon');
-
-    sidebar.classList.toggle("collapsed");
-
-    if (sidebar.classList.contains("collapsed")) {
-        icon.className = 'bi bi-chevron-right';
-    } else {
-        icon.className = 'bi bi-chevron-left';
-    }
-}
-
-
-// Function to initialize theme toggle after loading header
-function toggleTheme() {
-    const icon = document.getElementById('theme-icon');
-    const toDarkMode = document.body.classList.contains('light-mode');
-
-    if (!icon) {
-        console.error("No button");
-        return;
-    }
-
-    if (toDarkMode) {
-        document.body.classList.replace('light-mode', 'dark-mode');
-        icon.className = 'bi bi-moon-stars-fill';
-    } else {
-        document.body.classList.replace('dark-mode', 'light-mode');
-        icon.className = 'bi bi-sunrise-fill';
-    }
-
-    storeValueInStorage('theme', toDarkMode ? 'dark-mode' : 'light-mode');
 }
 
 

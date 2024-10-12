@@ -1,40 +1,108 @@
-<!-- About Section -->
+<style>
+	.about-container {
+		margin: 0 auto;
+		width: var(--max-body-width);
+		justify-content: center;
+		align-items: center;
+	}
+
+	.about-entity {
+		display: flex;
+		width: 100%;
+		height: auto;
+		margin: 0 auto;
+		border-radius: var(--default-radius);
+		border-style: solid;
+		border-width: var(--border-width);
+		transition: all var(--transition-default);
+	}
+
+	.about-entity.collapsed {
+		display: none;
+		opacity: 0;
+	}
+
+	.profile-image img {
+		padding: 0;
+		margin: 0 auto;
+		width: calc(1.2 * var(--about-entity-height));
+		height: var(--about-entity-height);
+		border-bottom-left-radius: var(--default-radius);
+		border-top-left-radius: var(--default-radius);
+		object-fit: cover;
+		display: block;
+		transition: all var(--transition-default);
+	}
+	.about-title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-height: var(--about-entity-height);
+		padding: var(--spacing-medium);
+		font-size: 100px;
+		margin-left: var(--spacing-large);
+	}
+	.calendar {
+		font-size: var(--subtitle-text-size);
+		font-family: var(--font-family), serif;
+		justify-content: center;
+		align-items: center;
+		width: var(--max-image-width);
+		height: auto;
+		background-color: transparent; !important;
+		color: var(--color-dark-imp);
+		border-radius: var(--default-radius); !important;
+		border: none; !important;
+		transition: all var(--transition-default);
+	}
+	.calendar .table-column {
+		border: none;
+	!important;
+	}
+	.calendar .contrib-column {
+		border: none;
+	}
+</style>
+
+<!-------------------------- About Section -------------------------->
+
 <div class="about-container">
     <!-- Add padding to the container -->
-    <div class="about-entity">
+    <div class="about-entity" id="titleAndPictureRow">
         <div class="profile-image">
             <img src="assets/profile.jpeg" alt="Profile Picture">
         </div>
-        <div class="about-text">
-            <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex
-                ideas
-                into tangible results using advanced computational tools and methodologies. </p>
-            <p style="margin-top: var(--spacing-large);"><i class="bi bi-building"></i><strong> Work
-                Experience:</strong></p>
-            <ul>
-                <li><strong>Software Engineer at Formlabs Kft.</strong> Leading UI framework development and
-                    optimizing 3D printing workflows
-                </li>
-                <li><strong>R&D Engineer at Formlabs Inc.</strong> Developed additive manufacturing algorithms
-                    to
-                    boost efficiency.
-                </li>
-                <li><strong>Research Assistant at Pennsylvania State University:</strong> Conducted research in
-                    computational design and additive manufacturing.
-                </li>
-            </ul>
-
-            <p style="margin-top: var(--spacing-large);"><i
-                    class="bi bi-book-half"></i><strong> Education:</strong>
-            </p>
-            <ul>
-                <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
-                <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
-            </ul>
+        <div class="about-title">
+            <span> MANOJ MALVIYA </span>
         </div>
     </div>
     <!-- Collapsible content starts here -->
-    <div class="collapsible-content">
+    <div class="content collapsible" id="moreDetailsAboutMe">
+        <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex
+            ideas
+            into tangible results using advanced computational tools and methodologies. </p>
+        <p style="margin-top: var(--spacing-large);"><i class="bi bi-building"></i><strong> Work
+            Experience:</strong></p>
+        <ul>
+            <li><strong>Software Engineer at Formlabs Kft.</strong> Leading UI framework development and
+                optimizing 3D printing workflows
+            </li>
+            <li><strong>R&D Engineer at Formlabs Inc.</strong> Developed additive manufacturing algorithms
+                to
+                boost efficiency.
+            </li>
+            <li><strong>Research Assistant at Pennsylvania State University:</strong> Conducted research in
+                computational design and additive manufacturing.
+            </li>
+        </ul>
+
+        <p style="margin-top: var(--spacing-large);"><i
+                class="bi bi-book-half"></i><strong> Education:</strong>
+        </p>
+        <ul>
+            <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
+            <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
+        </ul>
         <p style="margin-top: var(--spacing-large);"><i class="bi bi-palette"></i><strong> Other
             Interests:</strong></p>
         <ul>
@@ -53,51 +121,53 @@
         <!-- Collapsible content ends here -->
     </div>
     <!-- Button to expand the about section -->
-    <div class="toggle-expand-button-container">
-        <button class="toggle-expand-button"><i class="bi bi-chevron-compact-down"></i></button>
-    </div>
+    <button id="toggleAboutBtn" class="primary-button"><i class="bi bi-chevron-compact-down"></i></button>
 </div>
 
-<!-- Apps Section -->
-<div class="app-drawer content">
-    <button id="music-app" class="app-button" onclick='loadMusicApp()'>
-        <i class="bi bi-soundwave"></i>
-        <span>Oscillate</span>
-    </button>
+
+<!-------------------------- Apps Section -------------------------->
+<div id="app-list" class="content with-padding app-drawer grid" style="margin-top: var(--spacing-huge)">
+    <!-- Will be dynamically added here -->
 </div>
 
-<div class="content" style="margin-top: var(--spacing-huge)">
-    <!-- Project Section -->
-    <div id="cards-controls-container">
+
+
+<!-------------------------- Project Section -------------------------->
+
+<div class="quarto-listing content with-padding" style="margin-top: var(--spacing-huge)">
+    <div id="cards-controls-container" class="row-layout"
+         style=" margin-bottom: var(--spacing-huge);">
+
         <!-- Filter Container -->
-        <div id="filter-container" class="control-selector-container">
-            <label for="category-filter" class="control-selector-icon">
+        <div id="filter-container" style="width: 200px; margin-right: var(--spacing-huge)">
+            <button class="primary-button with-border" id="categoryFilterBtn">
                 <i class="bi bi-filter"></i>
-            </label>
-            <select id="category-filter" class="control-selector" onchange="filterProjects(this.value)">
-                <option value="all">All Categories</option>
-                <!-- Dynamic categories will be added here -->
-            </select>
+                <span id="selectedCategoryValue" class="button-label">Select Category...</span>
+            </button>
+            <ul id="categoryFilter" class="custom-dropdown hidden">
+                <li data-value="All Categories" class="dropdown-item">All Categories</li>
+            </ul>
         </div>
+
         <!-- Sort Container -->
-        <div id="sort-container" class="control-selector-container">
-            <label for="sort-filter" id="sort-icon" class="control-selector-icon">
-                <i class="bi bi-sort-alpha-down"></i>
-            </label>
-            <select id="sort-filter" class="control-selector"
-                    onchange="sortProjects(this.value);">
-            </select>
+        <div id="sort-container" style="width: 150px; margin-right: var(--spacing-huge)">
+            <button class="primary-button with-border" id="sortFilterBtn">
+                <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
+                <span id="selectedSortValue" class="button-label">Sort by...</span>
+            </button>
+            <ul id="sortFilter" class="custom-dropdown hidden">
+            </ul>
         </div>
+
         <!-- Search Container -->
-        <div class="search-container">
-            <div class="search-icon"><i class="bi bi-search"></i></div>
-            <input type="text" id="search-input" class="search-input" placeholder=" Search..." oninput="searchProjects()">
+        <div class="search-container" style="width: 250px">
+            <i class="bi bi-search"></i>
+            <input type="text" id="search-input" class="search-input" placeholder="Search..."
+                   oninput="searchProjects()">
         </div>
     </div>
 
-    <div class="quarto-listing quarto-listing-container-default">
-        <div id="project-list" class="list grid quarto-listing-cols-3">
-            <!-- The project cards will be dynamically inserted here -->
-        </div>
+    <div id="project-list" class="grid-container">
+        <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>

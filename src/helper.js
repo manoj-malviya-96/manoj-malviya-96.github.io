@@ -164,3 +164,91 @@ function adjustColor(color, opacity = 1, brightness = 1) {
     // Return the modified color as 'rgba(r, g, b, opacity)'
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
+
+
+function getStyleValue(property){
+    return getComputedStyle(window.document.documentElement).getPropertyValue(property);
+}
+
+
+function getPrimaryColor(){
+    return getStyleValue('--color-brand-primary');
+}
+
+function getPassiveColor(){
+    return getStyleValue('--color-passive-element');
+}
+
+
+function createDropdownItem(dataValue, dataLabel, dataIcon){
+
+    let item = document.createElement('li');
+
+    item.setAttribute('data-value', dataValue);
+
+    if (dataIcon) {
+        item.setAttribute('data-icon', dataIcon);
+    }
+
+    item.textContent = dataLabel;
+    item.className = 'dropdown-item';
+    return item;
+}
+
+function setupDropdown(button, dropdown, callback = null, selected_value = null, icon = null) {
+
+    if (!dropdown || !button) {
+        console.error('Dropdown elements not found');
+        return;
+    }
+
+    // Function to toggle the dropdown visibility
+    const toggleDropdown = () => {
+        dropdown.classList.toggle('hidden');
+    }
+
+    // Add event listeners to the button
+    button.addEventListener('click', toggleDropdown);
+
+    const handleDropdownSelect = (event) => {
+        const selectedValue = event.target.getAttribute('data-value');
+
+        // Select the clicked item and deselect others
+        dropdownItems.forEach(item => item.classList.remove('selected'));
+        event.target.classList.add('selected');
+
+        // Run the callback function if provided
+        if (callback) {
+            callback(selectedValue);
+        }
+
+        if (icon){
+            const newIcon = event.target.getAttribute('data-icon');
+            if (newIcon) {
+                icon.className = newIcon;
+            }
+        }
+
+        // Update the selected value in the button
+        if (selected_value) {
+            selected_value.textContent = event.target.textContent;
+        }
+
+        // Close the dropdown after selecting a category
+        toggleDropdown();
+    }
+
+    // Setting up the dropdown items
+    const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', (event) => handleDropdownSelect(event));
+    });
+
+    // Close the dropdown when clicking outside
+    window.addEventListener('click', (event) => {
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+}
+

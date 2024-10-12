@@ -1,64 +1,117 @@
+<style>
+	/* ----------------------------- Sidebar Styling ----------------------------- */
+	.navbar {
+		position: fixed;
+		top: var(--spacing-large);
+		left: var(--spacing-large);
+		height: auto;
+		width: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: left; !important;
+		align-content: flex-start; !important;
+        padding: 0 var(--spacing-small);
+		z-index: var(--z-index-overlay);
+		backdrop-filter: blur(var(--blur-radius));
+		border-radius: var(--default-radius);
+		border: none;
+	}
+
+	.navbar-group {
+        list-style: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start; !important;
+		width: 100%;
+		padding: 0;
+        margin: 0 auto;
+		border-bottom: solid var(--border-width);
+	}
+
+	.navbar-group:last-child {
+		border-bottom: none;
+	}
+	.navbar.collapsed .navbar-group .button-label {
+		display: none;
+	}
+	.navbar-group .nav-item {
+		text-align: left;
+		margin: 0 auto !important;
+		cursor: pointer;
+		transition: all var(--transition-default);
+		height: 100%;
+        width: 100%;
+		padding: var(--spacing-small) !important;
+	}
+
+	.light-mode .navbar {
+		background-color: var(--color-light-contrast);
+		box-shadow: var(--shadows-light);
+	}
+	.dark-mode .navbar {
+		background-color: var(--color-dark-contrast);
+		box-shadow: var(--shadows-dark);
+	}
+</style>
+
+
 <!-- Sidebar -->
 <div id="sideBar" class="navbar collapsed"> <!-- Add collapsed class for default collapsed view -->
 
     <!-- Home Group -->
-    <ul class="navbar-nav">
+    <ul class="navbar-group">
         <li class="nav-item">
-            <i class="bi bi-slash-circle" style='color:var(--color-brand-primary)'></i> <!-- Home icon -->
-            <span class="nav-text" style='color:var(--color-brand-primary)'>Manoj Malviya</span> <!-- Hidden text -->
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onClick="loadHomePage(event)">
+            <button class="primary-button smaller left-aligned" onclick="loadHomePage(event)">
                 <i class="bi bi-house-door-fill"></i> <!-- Home icon -->
-                <span class="nav-text">Home</span> <!-- Hidden text -->
-            </a>
+                <span class="button-label">Home</span> <!-- Hidden text -->
+            </button>
         </li>
     </ul>
-    <ul class="navbar-nav">
+    <ul class="navbar-group">
         <!-- Social Media Group -->
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Linkedin')">
+            <button class="primary-button smaller left-aligned"  onclick="loadSocialMediaLink('Linkedin')">
                 <i class="bi bi-linkedin"></i>
-                <span class="nav-text">LinkedIn</span> <!-- Hidden text -->
-            </a>
+                <span class="button-label">LinkedIn</span> <!-- Hidden text -->
+            </button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('GitHub')">
+            <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('GitHub')">
                 <i class="bi bi-github"></i>
-                <span class="nav-text">GitHub</span> <!-- Hidden text -->
-            </a>
+                <span class="button-label">GitHub</span> <!-- Hidden text -->
+            </button>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="loadSocialMediaLink('Instagram')">
+            <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Instagram')">
                 <i class="bi bi-instagram"></i>
-                <span class="nav-text">Instagram</span> <!-- Hidden text -->
-            </a>
+                <span class="button-label">Instagram</span> <!-- Hidden text -->
+            </button>
         </li>
 
         <!-- Settings Group -->
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="loadPDFInMainWindow('./assets/resume.pdf')">
+            <button class="primary-button smaller left-aligned" onclick="loadPDFInMainWindow('./assets/resume.pdf')">
                 <i class="bi bi-file-earmark-person-fill"></i>
-                <span class="nav-text">Resume</span> <!-- Hidden text -->
-            </a>
+                <span class="button-label">Resume</span> <!-- Hidden text -->
+            </button>
         </li>
     </ul>
 
-    <ul class="navbar-nav">
+    <ul class="navbar-group">
         <!-- Dark Mode Toggle -->
         <li class="nav-item">
-            <button id="theme-switch-btn" class="nav-link" onclick="toggleTheme()">
+            <button id="theme-switch-btn" class="primary-button smaller left-aligned" onclick="toggleTheme()">
                 <i id="theme-icon" class="bi bi-moon-stars-fill"></i>
-                <span class="nav-text">Theme</span> <!-- Hidden text -->
+                <span class="button-label">Theme</span> <!-- Hidden text -->
             </button>
         </li>
 
 
         <!-- Sidebar Toggle Button -->
         <li class="nav-item">
-            <button id="sidebar-toggle-btn" class="nav-link" onclick="toggleSidebar()">
+            <button id="sidebar-toggle-btn" class="primary-button smaller left-aligned" onclick="toggleSidebar()">
                 <i class="bi bi-chevron-right" id="sidebar-toggle-icon"></i> <!-- Toggle icon -->
-                <span class="nav-text">Collapse</span> <!-- Hidden text -->
+                <span class="button-label">Collapse</span> <!-- Hidden text -->
             </button>
         </li>
     </ul>

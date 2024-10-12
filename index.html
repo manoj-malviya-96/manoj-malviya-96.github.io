@@ -24,7 +24,7 @@
     <script src="site_libs/bootstrap/bootstrap.min.js"></script>
     <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
     <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-    <link  href="https://unpkg.com/github-calendar/dist/github-calendar-responsive.css" rel="stylesheet">
+    <link href="https://unpkg.com/github-calendar/dist/github-calendar-responsive.css" rel="stylesheet">
 
     <script id="quarto-search-options" type="application/json">{
         "location": "navbar",
@@ -54,6 +54,7 @@
         }
     }</script>
     <link rel="stylesheet" href="styles.css">
+    <link href="./assets/logo.svg" rel="icon" type="image/png">
     <title>Manoj Malviya</title>
 </head>
 
@@ -67,11 +68,19 @@
 <script src="https://unpkg.com/github-calendar/dist/github-calendar.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 
+
 <!-- header -->
 <div id="header-placeholder" style="display: none;"></div>
+
+
 <!-- Overlay with Three Dot Loading Spinner -->
 <div id="content-placeholder-overlay" style="display: none;">
-    <div class="spinner-border" role="status"></div>
+    <div class="spinner-border" role="status" style="
+        color: var(--color-brand-primary);
+        width: var(--spinner-size);
+        height: var(--spinner-size);
+        border-width: var(--spinner-border-width);">
+    </div>
 </div>
 
 <!-- main content -->
@@ -82,8 +91,14 @@
 <script src="./src/helper.js"></script>
 <script src="./src/init.js"></script>
 <script src="./src/projects.js"></script>
+<script src="./src/app.js"></script>
 <script src="./src/main.js"></script>
 
+<!-- Apps -->
+<script src="./apps/music-viz/music-viz.js"></script>
+
+
+<!-- Initialize the Website -->
 <script>
     initHeader();
     initScrollBehavior();
