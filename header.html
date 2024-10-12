@@ -1,3 +1,127 @@
+<style>
+	/* ----------------------------- Sidebar Styling ----------------------------- */
+	.navbar {
+		position: fixed;
+		top: var(--spacing-large);
+		left: var(--spacing-large);
+		height: auto;
+		width: auto;
+		background-color: var(--color-dark-contrast);
+	!important;
+		border-radius: var(--default-radius);
+		border: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: left;
+	!important;
+		align-content: flex-start;
+	!important;
+		padding: var(--spacing-medium);
+		z-index: var(--z-index-overlay);
+		backdrop-filter: blur(var(--blur-radius));
+	}
+
+	.navbar-nav {
+		display: flex;
+		flex-direction: column;
+		justify-content: left;
+	!important;
+		text-align: left;
+	!important;
+		width: 100%;
+		padding: 0;
+		margin: 0 auto;
+	!important;
+		border-bottom: var(--color-dark-contrast) solid var(--border-width);
+	}
+
+	.navbar-nav:last-child {
+		border-bottom: none;
+	}
+
+	.navbar-nav .nav-item {
+		text-align: left;
+		margin: 0 !important;
+		cursor: pointer;
+		justify-content: left;
+	!important;
+		align-content: flex-start;
+	!important;
+		transition: all var(--transition-default);
+		height: 100%;
+		padding: var(--spacing-small) !important;
+	}
+
+
+	.navbar-nav .nav-link {
+		display: flex;
+		justify-items: center;
+	!important;
+		align-items: center;
+	!important;
+		height: 100%;
+		padding: 0;
+		margin: 0 !important;
+	}
+
+	.navbar-nav .nav-link:hover {
+		color: var(--color-brand-primary) !important;
+	}
+
+	.navbar-nav .nav-link.active {
+		color: var(--color-brand-primary) !important;
+	}
+
+	.navbar-nav .nav-link .bi {
+		font-size: var(--regular-text-size);
+	}
+
+	.navbar-nav .nav-link .nav-text {
+		justify-content: center;
+		align-content: center;
+		font-size: var(--regular-text-size);
+		line-height: var(--line-height);
+		margin-left: var(--spacing-small);
+	}
+
+	.navbar.collapsed .navbar-nav .nav-text {
+		display: none;
+	}
+
+	.navbar.collapsed .navbar-nav .bi {
+		font-size: var(--regular-icon-size);
+	}
+
+
+	.light-mode .navbar-nav .nav-link {
+		color: var(--color-light-imp);
+	}
+
+	.light-mode .navbar {
+		background-color: var(--color-light-contrast);
+		box-shadow: var(--shadows-light);
+	}
+
+	.light-mode .navbar-nav .nav-item {
+		color: var(--color-light-imp);
+	}
+
+	.dark-mode .navbar-nav .nav-link {
+		color: var(--color-dark-imp);
+	}
+
+	.dark-mode .navbar {
+		background-color: var(--color-dark-contrast);
+		box-shadow: var(--shadows-dark);
+	}
+
+	.dark-mode .navbar-nav .nav-item {
+		color: var(--color-dark-imp);
+	}
+
+</style>
+
+
 <!-- Sidebar -->
 <div id="sideBar" class="navbar collapsed"> <!-- Add collapsed class for default collapsed view -->
 

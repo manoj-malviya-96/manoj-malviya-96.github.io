@@ -83,7 +83,7 @@
     --app-window-height: calc(3 * var(--app-window-width) / 4);
 }
 
-/* ----------------------------- General Styling ----------------------------- */
+/* ----------------------------- Body Styling ----------------------------- */
 body {
     font-family: var(--font-family), serif;
     margin: 0;
@@ -95,6 +95,18 @@ body {
     align-content: center;
 }
 
+body.light-mode {
+    background-color: var(--color-light-primary);
+    color: var(--color-light-imp);
+}
+
+body.dark-mode {
+    background-color: var(--color-dark-primary);
+    color: var(--color-dark-imp);
+}
+
+
+/* ----------------------------- Content Styling ----------------------------- */
 .quarto-about-jolla,
 .reading-content {
     margin: 0 auto;
@@ -116,6 +128,8 @@ body {
     margin: var(--spacing-large);
     transition: all var(--transition-default);
 }
+
+/* ----------------------------- Text Styling ----------------------------- */
 
 h1 {
     font-size: var(--super-title-font-size);
@@ -142,6 +156,8 @@ p {
     transition: all var(--transition-short);
 }
 
+/* ----------------------------- Toggle Button Styling ----------------------------- */
+
 .toggle-expand-button-container {
     display: flex;
     justify-content: center;
@@ -164,99 +180,6 @@ p {
 
 .toggle-expand-button:hover .bi {
     color: var(--color-brand-primary);
-}
-
-/* ----------------------------- Sidebar Styling ----------------------------- */
-.navbar {
-    position: fixed;
-    top: var(--spacing-large);
-    left: var(--spacing-large);
-    height: auto;
-    width: auto;
-    background-color: var(--color-dark-contrast);
-!important;
-    border-radius: var(--default-radius);
-    border: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-!important;
-    align-content: flex-start;
-!important;
-    padding: var(--spacing-medium);
-    z-index: var(--z-index-overlay);
-    backdrop-filter: blur(var(--blur-radius));
-}
-
-.navbar-nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-!important;
-    text-align: left;
-!important;
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
-!important;
-    border-bottom: var(--color-dark-contrast) solid var(--border-width);
-}
-
-.navbar-nav:last-child {
-    border-bottom: none;
-}
-
-.navbar-nav .nav-item {
-    text-align: left;
-    margin: 0 !important;
-    cursor: pointer;
-    justify-content: left;
-!important;
-    align-content: flex-start;
-!important;
-    transition: all var(--transition-default);
-    height: 100%;
-    padding: var(--spacing-small) !important;
-}
-
-
-.navbar-nav .nav-link {
-    display: flex;
-    justify-items: center;
-!important;
-    align-items: center;
-!important;
-    height: 100%;
-    padding: 0;
-    margin: 0 !important;
-}
-
-.navbar-nav .nav-link:hover {
-    color: var(--color-brand-primary) !important;
-}
-
-.navbar-nav .nav-link.active {
-    color: var(--color-brand-primary) !important;
-}
-
-.navbar-nav .nav-link .bi {
-    font-size: var(--regular-text-size);
-}
-
-.navbar-nav .nav-link .nav-text {
-    justify-content: center;
-    align-content: center;
-    font-size: var(--regular-text-size);
-    line-height: var(--line-height);
-    margin-left: var(--spacing-small);
-}
-
-.navbar.collapsed .navbar-nav .nav-text {
-    display: none;
-}
-
-.navbar.collapsed .navbar-nav .bi {
-    font-size: var(--regular-icon-size);
 }
 
 
@@ -1108,19 +1031,6 @@ canvas {
 
 /* -------------------------- Light Mode -------------------------- */
 
-body.light-mode {
-    background-color: var(--color-light-primary);
-    color: var(--color-light-imp);
-}
-
-.light-mode .navbar-nav .nav-link {
-    color: var(--color-light-imp);
-}
-
-
-.light-mode .btn-icon {
-    color: var(--color-light-imp);
-}
 
 .light-mode .reading-content {
     background-color: var(--color-light-primary);
@@ -1264,16 +1174,6 @@ body.light-mode {
     border-color: var(--color-light-contrast);
 }
 
-
-.light-mode .navbar {
-    background-color: var(--color-light-contrast);
-    box-shadow: var(--shadows-light);
-}
-
-.light-mode .navbar-nav .nav-item {
-    color: var(--color-light-imp);
-}
-
 .light-mode .collapsible-content.expanded {
     border-color: var(--color-light-contrast);
 }
@@ -1293,19 +1193,6 @@ body.light-mode {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-body.dark-mode {
-    background-color: var(--color-dark-primary);
-    color: var(--color-dark-imp);
-}
-
-.dark-mode .navbar-nav .nav-link {
-    color: var(--color-dark-imp);
-}
-
-.dark-mode .btn-icon {
-    color: var(--color-dark-imp);
-!important;
-}
 
 .dark-mode .reading-content {
     background-color: var(--color-dark-primary);
@@ -1450,16 +1337,6 @@ body.dark-mode {
 .dark-mode .app-window {
     border-color: var(--color-dark-contrast);
 }
-
-.dark-mode .navbar {
-    background-color: var(--color-dark-contrast);
-    box-shadow: var(--shadows-dark);
-}
-
-.dark-mode .navbar-nav .nav-item {
-    color: var(--color-dark-imp);
-}
-
 
 .dark-mode .collapsible-content.expanded {
     border-color: var(--color-dark-contrast);
