@@ -118,6 +118,16 @@ body.dark-mode {
     border-radius: var(--default-radius);
     transition: all var(--transition-default);
 }
+.light-mode .reading-content {
+    background-color: var(--color-light-primary);
+    border-color: var(--color-light-contrast);
+    box-shadow: var(--shadows-light);
+}
+.dark-mode .reading-content {
+    background-color: var(--color-dark-primary);
+    border-color: var(--color-dark-contrast);
+    box-shadow: var(--shadows-dark)
+}
 
 .block {
     text-align: left;
@@ -127,6 +137,14 @@ body.dark-mode {
     border-radius: var(--default-radius);
     margin: var(--spacing-large);
     transition: all var(--transition-default);
+}
+.light-mode .block {
+    background-color: var(--color-light-contrast);
+    color: var(--color-light-imp);
+}
+.dark-mode .block {
+    background-color: var(--color-dark-contrast);
+    color: var(--color-dark-imp);
 }
 
 /* ----------------------------- Text Styling ----------------------------- */
@@ -155,6 +173,15 @@ p {
     margin-bottom: var(--spacing-small);
     transition: all var(--transition-short);
 }
+
+.light-mode h1, .light-mode h2, .light-mode p {
+    color: var(--color-light-imp);
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode p {
+    color: var(--color-dark-imp);
+}
+
 
 /* ----------------------------- Toggle Button Styling ----------------------------- */
 
@@ -1031,26 +1058,6 @@ canvas {
 
 /* -------------------------- Light Mode -------------------------- */
 
-
-.light-mode .reading-content {
-    background-color: var(--color-light-primary);
-    border-color: var(--color-light-contrast);
-    box-shadow: var(--shadows-light);
-}
-
-.light-mode .block {
-    background-color: var(--color-light-contrast);
-    color: var(--color-light-imp);
-}
-
-.light-mode h1, .light-mode h2 {
-    color: var(--color-light-imp);
-}
-
-.light-mode p {
-    color: var(--color-light-imp);
-}
-
 .light-mode .about-entity {
     border-color: var(--color-light-contrast);
     background-color: var(--color-light-primary);
@@ -1193,26 +1200,6 @@ canvas {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-
-.dark-mode .reading-content {
-    background-color: var(--color-dark-primary);
-    border-color: var(--color-dark-contrast);
-    box-shadow: var(--shadows-dark)
-}
-
-.dark-mode .block {
-    background-color: var(--color-dark-contrast);
-    color: var(--color-dark-imp);
-}
-
-.dark-mode h1, .dark-mode h2 {
-    color: var(--color-dark-imp);
-}
-
-.dark-mode p {
-    color: var(--color-dark-imp);
-}
-
 
 .dark-mode .about-entity {
     border-color: var(--color-dark-contrast);
