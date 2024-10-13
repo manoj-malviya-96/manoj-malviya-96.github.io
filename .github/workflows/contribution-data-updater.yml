@@ -1,4 +1,4 @@
-name: Update GitHub Contributions
+name: update-github-profile-report
 
 on:
   workflow_dispatch:  # Allows manual run from GitHub Actions tab
@@ -6,10 +6,10 @@ on:
     - cron: '0 0 */7 * *'  # Runs every 7 days at midnight UTC
   push:
     branches:
-      - master  # Replace with gh-pages if needed for GitHub Pages branch
+      - main  # Adjust the branch name here to your current branch (e.g., 'main')
 
 jobs:
-  update:
+  update_contributions_report:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,19 +24,110 @@ jobs:
       - name: Setup GitHub token
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.WEBSITE_TOKEN }}@github.com/manoj-malviya-96/manoj-malviya-96.github.io.git
+          echo "GitHub token set for authentication."
 
-      # Fetch GitHub Contributions data for the username 'manoj-malviya-96'
-      - name: Fetch GitHub Contributions
+      # Set usernames and period to environment variables
+      - name: Set environment variables
         run: |
-          curl -H "Authorization: token ${{ secrets.WEBSITE_TOKEN }}" \
-          https://api.github.com/users/manoj-malviya-96/events \
-          -o _data/contributions.json
+          echo "Setting usernames and period..."
+          echo "usernames=manoj-malviya-96 mmalviyar" >> $GITHUB_ENV
+          echo "period=2021-02-01T00:00:00Z" >> $GITHUB_ENV
 
-      # Commit and push the updated contributions.json file to the repository
-      - name: Commit and Push
+      # Manually add repositories to fetch commit counts for
+      - name: Fetch repositories, commit counts, and languages
+        run: |
+          echo "Manually specifying repositories..."
+
+          # Define the repositories manually
+          repositories=(
+            "Formlabs/PreForm"
+            "Formlabs/formule-protocol"
+            "manoj-malviya-96/manoj-malviya-96.github.io"
+            "manoj-malviya-96/murph"
+            "Formlabs/mordor"
+            "Formlabs/Playground"
+            "Formlabs/SetOps"
+            "mmalviyar/TopOpt-GAN"
+            "mmalviyar/2D-TOpt-V2"
+          )
+
+          # Initialize JSON for storing repository data
+          echo '{"repositories": []}' > _data/github_user_report.json
+
+          # Loop through each repository and fetch basic commit counts, grouped by date, and languages
+          for repo in "${repositories[@]}"; do
+            echo "Processing repository: $repo"
+
+            # Initialize page counter and an empty array for all commits
+            page=1
+            all_commits="[]"
+
+            ### Step 1: Fetch commits by author, handle pagination
+            while true; do
+              echo "Fetching page $page of commits for $repo..."
+
+              # Fetch a page of commits
+              commit_data=$(curl -s -H "Authorization: token ${{ secrets.WEBSITE_TOKEN }}" \
+                "https://api.github.com/search/commits?q=repo:$repo+author:manoj-malviya-96+committer-date:>$period&per_page=100&page=$page" \
+                -H "Accept: application/vnd.github.cloak-preview")
+
+              # Extract only the `items` array from the API response
+              current_page_commits=$(echo "$commit_data" | jq '.items')
+
+              # If no more commits are returned, break the loop
+              if [[ $(echo "$current_page_commits" | jq length) -eq 0 ]]; then
+                break
+              fi
+
+              # Combine the current page of commits with previous pages
+              all_commits=$(echo "$all_commits $current_page_commits" | jq -s 'add')
+
+              # Increment the page counter
+              page=$((page + 1))
+            done
+
+            # Group all commits by date (YYYY-MM-DD format)
+            daily_log=$(echo "$all_commits" | jq '[.[] 
+                | {date: (.commit.committer.date 
+                  | sub("\\.[0-9]+([+-][0-9]{2}:[0-9]{2})?$"; "Z") 
+                  | fromdateiso8601 
+                  | strftime("%Y-%m-%d")), 
+                  commits: 1}] 
+                | group_by(.date) 
+                | map({date: .[0].date, commits: length})')
+
+            ### Step 2: Fetch languages used in the repository
+            languages=$(curl -s -H "Authorization: token ${{ secrets.WEBSITE_TOKEN }}" \
+              "https://api.github.com/repos/$repo/languages")
+
+            # If the repository has commits, proceed with adding the data to the JSON
+            if [[ $(echo "$daily_log" | jq length) -gt 0 ]]; then
+              echo "Processing commits and languages for $repo"
+
+              # Add repository data (daily log with commit date and languages) to the JSON output
+              jq --arg repo "$repo" --argjson daily_log "$daily_log" --argjson languages "$languages" \
+                '.repositories += [{"repo": $repo, "daily_log": $daily_log, "languages": $languages}]' _data/github_user_report.json > _data/temp.json && mv _data/temp.json _data/github_user_report.json
+            else
+              echo "Skipping repository $repo due to no commits found."
+            fi
+          done
+
+          echo "Finished processing repositories."
+
+      # Create a new branch for the report with date and time
+      - name: Create a New Branch
+        run: |
+          git checkout -b update-contributions-report-$(date +%Y-%m-%d-%H-%M-%S)
+
+      # Commit the changes to the new branch
+      - name: Commit Changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add _data/contributions.json
-          git commit -m "Update contributions data"
-          git push origin master  # Push to the correct branch
+          git add _data/github_user_report.json
+          git commit -m "Update contributions report for selected repositories"
+
+      # Push the new branch
+      - name: Push Changes
+        run: |
+          git push origin update-contributions-report-$(date +%Y-%m-%d-%H-%M-%S)
