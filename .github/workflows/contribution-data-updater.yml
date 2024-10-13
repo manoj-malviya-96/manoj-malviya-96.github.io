@@ -52,7 +52,7 @@ jobs:
           )
 
           # Initialize JSON for storing repository data
-          echo '{"repositories": []}' > _data/github_user_report.json
+          echo '{"repositories": []}' > data/github_user_report.json
 
           # Loop through each repository and fetch basic commit counts, grouped by date, and languages
           for repo in "${repositories[@]}"; do
@@ -106,7 +106,7 @@ jobs:
 
               # Add repository data (daily log with commit date and languages) to the JSON output
               jq --arg repo "$repo" --argjson daily_log "$daily_log" --argjson languages "$languages" \
-                '.repositories += [{"repo": $repo, "daily_log": $daily_log, "languages": $languages}]' _data/github_user_report.json > _data/temp.json && mv _data/temp.json _data/github_user_report.json
+                '.repositories += [{"repo": $repo, "daily_log": $daily_log, "languages": $languages}]' data/github_user_report.json > data/temp.json && mv data/temp.json data/github_user_report.json
             else
               echo "Skipping repository $repo due to no commits found."
             fi
@@ -124,7 +124,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add _data/github_user_report.json
+          git add data/github_user_report.json
           git commit -m "Update contributions report for selected repositories"
 
       # Push the new branch
