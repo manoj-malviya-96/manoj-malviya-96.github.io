@@ -76,82 +76,6 @@ function getElementAttribute(doc, selector, attr = 'textContent', defaultValue =
     return element ? (attr === 'textContent' ? element.textContent : element.getAttribute(attr)) : defaultValue;
 }
 
-// Utility to create layout for Plotly plots
-function createLayout(title, xTitle, yTitle, showTickLabels = true) {
-    const margin = Number(getStyleValue('--spacing-small'));
-    const backgroundColor = 'rgba(0,0,0,0)';
-    const textColor = window.isDarkMode ? getStyleValue('--color-dark-imp') : getStyleValue('--color-light-imp');
-
-    const regFontSize = Number(getStyleValue('--regular-text-size'));
-    const subtitleFontSize = Number(getStyleValue('--subtitle-text-size'));
-
-    return {
-        title: {
-            text: title,
-            font: {
-                size: Number(getStyleValue('--title-text-size')),
-                color: textColor
-            }
-        },
-        xaxis: {
-            title: {
-                text: xTitle,
-                font: {
-                    size: regFontSize,
-                    color: textColor
-                }
-            },
-            tickfont: {
-                size: subtitleFontSize,
-                color: textColor
-            },
-            automargin: true,
-            showgrid: false,
-            zeroline: false,
-            showline: false,
-            showticklabels: showTickLabels,
-        },
-        yaxis: {
-            title: {
-                text: yTitle,
-                font: {
-                    size: regFontSize,  // Set Y-axis title font size
-                    color: textColor
-                }
-            },
-            tickfont: {
-                size: subtitleFontSize,
-                color: textColor
-            },
-            automargin: true,
-            showgrid: false,
-            zeroline: false,
-            showline: false,
-            showticklabels: showTickLabels,
-        },
-        margin: {t: margin, l: 0, r: 0, b: margin},
-        autosize: true,
-        paper_bgcolor: backgroundColor,
-        plot_bgcolor: backgroundColor,
-    };
-}
-
-
-// Utility function to create a heatmap plot using Plotly
-function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "") {
-    const data = {
-        z: z,
-        x: x,
-        y: y,
-        type: 'heatmap',
-        colorscale: 'Jet',
-        colorbar: {
-            ticks: 'outside',
-            title: 'Probability'
-        }
-    };
-    Plotly.newPlot(containerId, [data], createLayout(title, xTitle, yTitle));
-}
 
 // Loading a PDF file in an iframe
 function loadPDF(url, placeholder, overlay) {
@@ -218,6 +142,124 @@ function getPrimaryColor() {
 
 function getPassiveColor() {
     return getStyleValue('--color-passive-element');
+}
+
+
+
+function getPrimaryColorScale(numStops){
+    const primaryColor = getPrimaryColor();
+    const lastColor = getPassiveColor();
+    let result = [[0, lastColor]];
+    for (let i = 1; i <= numStops; i += 1) {
+        const intensity = i / numStops;
+        result.push([intensity, adjustColor(primaryColor, 1, intensity)]);
+    }
+    return result;
+}
+
+
+// Useful constants and utility functions for styling
+const textColor = getStyleValue('--color-white');
+const backgroundColor = getStyleValue('--color-black');
+const regFontSize = Number(getStyleValue('--regular-text-size'));
+const subtitleFontSize = Number(getStyleValue('--subtitle-text-size'));
+
+
+// Utility to create layout for Plotly plots
+function createLayout(title, xTitle, yTitle, showTickLabels = true) {
+    const margin =  30;
+    return {
+        title: {
+            text: title,
+            font: {
+                size: Number(getStyleValue('--title-text-size')),
+                color: textColor
+            }
+        },
+        xaxis: {
+            title: {
+                text: xTitle,
+                font: {
+                    size: regFontSize,
+                    color: textColor
+                }
+            },
+            tickfont: {
+                size: subtitleFontSize,
+                color: textColor
+            },
+            showgrid: false,
+            zeroline: false,
+            showline: false,
+            showticklabels: showTickLabels,
+        },
+        yaxis: {
+            title: {
+                text: yTitle,
+                font: {
+                    size: regFontSize,  // Set Y-axis title font size
+                    color: textColor
+                }
+            },
+            tickfont: {
+                size: subtitleFontSize,
+                color: textColor
+            },
+            showgrid: false,
+            zeroline: false,
+            showline: false,
+            showticklabels: showTickLabels,
+        },
+        margin: {t: margin, l: margin, r: margin, b: margin},
+        autosize: true,
+        paper_bgcolor: backgroundColor,
+        plot_bgcolor: backgroundColor,
+    };
+}
+
+function getColorBar(text){
+    return {
+        title: {
+            text: text,
+            font: {
+                size: regFontSize,
+                color: textColor
+            }
+        },
+        ticks: 'outside',
+        tickfont: {
+            size: subtitleFontSize,
+            color: textColor
+        },
+        thickness: 10
+    };
+}
+
+
+// Utility function to create a heatmap plot using Plotly
+function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "", minimalisticView = false) {
+    const data = {
+        z: z,
+        x: x,
+        y: y,
+        type: 'heatmap',
+        xgap: 1,
+        ygap: 1,
+        colorscale: getPrimaryColorScale(5),
+        colorbar: getColorBar('Probability'),
+        width: 800,
+        height: 600,
+    };
+
+    createHeatmapFromTrace(containerId, data, title, xTitle, yTitle, minimalisticView);
+}
+
+function createHeatmapFromTrace(containerId, data, title = "", xTitle = "", yTitle = "", minimalisticView = false) {
+    if (!data.type || data.type !== 'heatmap') {
+        console.error('Invalid trace data for heatmap');
+    }
+    const showTickLabels = !minimalisticView;
+    Plotly.newPlot(containerId, [data], createLayout(title, xTitle, yTitle, showTickLabels));
 }
 
 

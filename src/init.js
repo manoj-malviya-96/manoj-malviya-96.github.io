@@ -11,9 +11,6 @@ function initScrollBehavior() {
 
 
 function initTheme() {
-
-    window.isDarkMode = true; // By default, the theme is dark mode
-
     const userTheme = getValueFromStorage('theme', 'dark-mode');
     const isThemeSameAsStorage = window.document.body.classList.contains(userTheme);
     if (!isThemeSameAsStorage) {
@@ -202,13 +199,11 @@ function toggleTheme() {
     }
 
     if (toDarkMode) {
-        document.body.classList.replace('light-mode', 'dark-mode');
+        window.document.body.classList.replace('light-mode', 'dark-mode');
         icon.className = 'bi bi-moon-stars-fill';
-        window.isDarkMode = true;
     } else {
-        document.body.classList.replace('dark-mode', 'light-mode');
+        window.document.body.classList.replace('dark-mode', 'light-mode');
         icon.className = 'bi bi-sunrise-fill';
-        window.isDarkMode = false;
     }
 
     storeValueInStorage('theme', toDarkMode ? 'dark-mode' : 'light-mode');

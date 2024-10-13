@@ -44,31 +44,6 @@
 		margin-left: var(--spacing-large);
 	}
 
-	.calendar {
-		font-size: var(--subtitle-text-size);
-		font-family: var(--font-family), serif;
-		justify-content: center;
-		align-items: center;
-		width: var(--max-image-width);
-		height: auto;
-		background-color: transparent;
-	!important;
-		color: var(--color-dark-imp);
-		border-radius: var(--default-radius);
-	!important;
-		border: none;
-	!important;
-		transition: all var(--transition-default);
-	}
-
-	.calendar .table-column {
-		border: none;
-	!important;
-	}
-
-	.calendar .contrib-column {
-		border: none;
-	}
 </style>
 
 <!-------------------------- About Section -------------------------->
@@ -122,34 +97,43 @@
 
         <!-- GitHub Contributions -->
         <p style="margin-top: var(--spacing-large);"><i class="bi bi-github"></i><strong> Github: </strong></p>
-        <div class="column-layout ">
+        <div id="githubUserReport" class="column-layout">
 
-            <div id="controlBar" class="row-layout" style="width: auto; height: auto;">
+            <!--Control Bar-->
+            <div class="row-layout" style="justify-content: space-evenly; align-content: center">
+                <!--Year Buttons-->
+                <div id="yearButtons" class="row-layout block" style="
+                    width: 27%;
+                    padding: 0;
+                    margin-left: var(--spacing-medium)">
+                </div>
 
-                <div id="yearButtons" class="row-layout" style="
+                <!--Results Bar-->
+                <div class="row-layout" style="
+                    width: 27%;
+                    height: 100px;">
+
+                    <!-- Todo make a stats card component -->
+                    <div class="column-layout block" style="
+                    text-align: center;
                     height: 100%;
-                    margin-left: var(--spacing-medium)"></div>
-
-                <div class="column-layout block" style="width: 600px;">
-                    <div class="row-layout" style="margin-left: var(--spacing-medium)">
-                        <i class="bi bi-code-slash" style="margin-right: var(--spacing-medium);"></i>
-                        <h1>Commits</h1>
+                    margin-left: var(--spacing-large);">
+                        <p> Number of Commits</p>
+                        <h2 id="totalCommits">0 </h2>
                     </div>
-                    <p id="totalCommits">0 </p>
+
+                    <div class="column-layout block" style="
+                    text-align: center;
+                    height: 100%;
+                    margin-left: var(--spacing-large);">
+                        <p>Longest Streak </p>
+                        <h2 id="longestStreak">0</h2>
+                    </div>
+
                 </div>
-
-
-                <div class="row-layout block" style="margin-left: var(--spacing-medium)">
-                    <i class="bi bi-trophy" style="margin-right: var(--spacing-medium);"></i>
-                    <p>Longest Streak:  </p>
-                    <p id="longestStreak">0</p>
-                </div>
-
             </div>
 
-            <div id="githubHeatMap" class="plot" style="width: 100%;">
-            </div>
-
+            <div id="githubHeatMap" class="plot" style="width: 100%;"></div>
         </div>
 
         <!-- Collapsible content ends here -->

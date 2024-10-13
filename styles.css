@@ -39,7 +39,7 @@
 	--font-family: 'Helvetica';
 	--regular-weight: 420;
 	--bold-weight: 690;
-	--line-height: 1.25;
+	--line-height: 1.5;
 
 	--subtitle-text-size: 12px;
 	--regular-text-size: 16px;
@@ -196,25 +196,26 @@ h1 {
 	font-size: var(--super-title-font-size);
 	line-height: var(--line-height);
 	font-weight: var(--bold-weight);
-	text-align: left;
 	border: none;
-	transition: all var(--transition-short);
+	margin: 0;
+	padding: 0;
 }
 
 h2 {
 	font-size: var(--title-font-size);
 	line-height: var(--line-height);
 	font-weight: var(--bold-weight);
-	text-align: left;
-	transition: all var(--transition-short);
+	margin: 0;
+	padding: 0;
+	border: none;
 }
-
 
 p {
 	line-height: var(--line-height);
 	font-weight: var(--regular-weight);
-	margin-bottom: var(--spacing-small);
-	transition: all var(--transition-short);
+	padding: 0;
+	margin: 0;
+	border: none;
 }
 
 .light-mode h1, .light-mode h2, .light-mode p {
@@ -318,6 +319,10 @@ p {
 
 .primary-button.left-aligned {
 	justify-content: left;
+}
+
+.primary-button.text-only {
+	padding: var(--spacing-medium);
 }
 
 .primary-button .bi {
@@ -509,6 +514,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	bottom: var(--spacing-small);
 }
 
+
+
 /* ----------------------- Grid Layout--------------------------- */
 
 .quarto-listing {
@@ -596,18 +603,13 @@ input[type="range"]:hover::-webkit-slider-thumb {
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-	border: var(--border-width) solid;
-!important;
+	border: var(--border-width) solid; !important;
 	margin-right: var(--spacing-small) !important;
 	margin-top: var(--spacing-small) !important;
 	padding: var(--spacing-small) !important;
 	width: fit-content;
-	border-radius: var(--small-radius);
-!important;
-	font-size: var(--subtitle-text-size);
-!important;
-	text-transform: uppercase;
-!important;
+	border-radius: var(--small-radius); !important;
+	font-size: var(--subtitle-text-size); !important;
 }
 
 .card:hover .card-text {
