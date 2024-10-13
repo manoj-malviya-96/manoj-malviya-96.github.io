@@ -3,72 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Contributions</title>
+    <title>GitHub Commit Visualizer</title>
+
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Plotly JS -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Styling -->
     <style>
 		body {
-			font-family: Arial, sans-serif;
-			background-color: #f4f4f4;
+			font-family: 'Inter', sans-serif;
 			margin: 0;
-			padding: 20px;
-		}
-		h1 {
+			padding: 0;
+			background-color: #f4f4f9;
 			color: #333;
 		}
-		#contribution-container {
+
+		h1, h2 {
+			text-align: center;
 			margin-top: 20px;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
 		}
-		.contribution-box {
-			background-color: #4CAF50;
-			margin: 5px;
+
+		#streaks {
+			display: flex;
+			justify-content: space-around;
+			padding: 20px;
+			background-color: #ffffff;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			margin: 20px;
+			border-radius: 10px;
+		}
+
+		#streaks div {
+			text-align: center;
+		}
+
+		#streaks div i {
+			font-size: 2rem;
+			color: #4CAF50;
+		}
+
+		#heatmap, #accumulatedCommits, #topLanguages {
+			background-color: #ffffff;
+            width: 100%;
+            align-content: center;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+		}
+
+		#heatmapPlot, #accumulatedCommitsPlot {
+			width: 100%;
+			height: 500px;
+		}
+
+		.icon-text {
+			margin-top: 10px;
+			font-weight: bold;
+		}
+
+		footer {
+			text-align: center;
 			padding: 10px;
-			border-radius: 5px;
-			color: white;
+			background-color: #333;
+			color: #fff;
+			position: fixed;
+			width: 100%;
+			bottom: 0;
 		}
     </style>
 </head>
 <body>
-<h1>My GitHub Contributions</h1>
-<p>This page displays my latest GitHub activities. Data is refreshed automatically every hour using GitHub Actions.</p>
 
-<div id="contribution-container"></div>
+<h1><i class="fab fa-github"></i> GitHub Commit Visualizer</h1>
+
+<!-- Section for Streaks and Total Commits -->
+<div id="streaks">
+    <div>
+        <i class="fas fa-code-branch"></i>
+        <p class="icon-text">Total Commits</p>
+        <p id="totalCommits">0</p>
+    </div>
+    <div>
+        <i class="fas fa-fire"></i>
+        <p class="icon-text">Current Streak</p>
+        <p id="currentStreak">0</p>
+    </div>
+    <div>
+        <i class="fas fa-trophy"></i>
+        <p class="icon-text">Longest Streak</p>
+        <p id="longestStreak">0</p>
+    </div>
+</div>
+
+<!-- Heatmap Section -->
+<div id="heatmap">
+    <h2><i class="fas fa-th"></i> Commits Heatmap (Week Start Date vs Weekdays)</h2>
+    <div id="heatmapPlot"></div>
+</div>
+
+<!-- Accumulated Commits Over Time Section -->
+<div id="accumulatedCommits">
+    <h2><i class="fas fa-chart-line"></i> Accumulated Commits Over Time</h2>
+    <div id="accumulatedCommitsPlot"></div>
+</div>
+
+<!-- Top 5 Languages Section -->
+<div id="topLanguages">
+    <h2><i class="fas fa-language"></i> Top 5 Languages (Normalized)</h2>
+    <div id="languagePieChart"></div>
+</div>
+
+<footer>
+    Made with <i class="fas fa-heart"></i> by Manoj
+</footer>
 
 <script>
-    // Fetch the contributions data from GitHub's API (as saved in contributions.json by GitHub Actions)
-    fetch('/_data/contributions.json')  // assuming you are using Jekyll to store it in _data folder
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+    // Fetch and read the JSON data
+    const dataUrl = 'github_user_report.json'; // Update with actual path
+
+    fetch(dataUrl)
+        .then(response => response.json())
         .then(data => {
-            displayContributions(data);
-        })
-        .catch(error => {
-            console.error('Error fetching contributions:', error);
+            const newData = {};
+            const languageStats = {};
+
+            data.repositories.forEach(repo => {
+                repo.daily_log.forEach(log => {
+                    const date = log.date;
+                    if (!newData[date]) {
+                        newData[date] = 0;
+                    }
+                    newData[date] += log.commits;
+                });
+
+                // Collect language statistics only for the allowed languages
+                const allowedLanguages = ['C++', 'Python', 'QML', 'JavaScript', 'HTML', 'MATLAB', 'SQL'];
+                for (let [language, bytes] of Object.entries(repo.languages)) {
+                    if (allowedLanguages.includes(language)) {
+                        if (!languageStats[language]) {
+                            languageStats[language] = 0;
+                        }
+                        languageStats[language] += bytes;
+                    }
+                }
+            });
+
+            // 1. Calculate Streaks and Total Commits
+            const streaksAndCommits = calculateStreaksAndCommits(newData);
+            document.getElementById('totalCommits').textContent = streaksAndCommits.totalCommits;
+            document.getElementById('currentStreak').textContent = streaksAndCommits.currentStreak;
+            document.getElementById('longestStreak').textContent = streaksAndCommits.longestStreak;
+
+            // 2. Heatmap of Commits (Week Start Date vs Weekdays)
+            const heatmapData = prepareHeatmapData(newData);
+            plotHeatmap(heatmapData);
+
+            // 3. Accumulated Commits Over Time
+            const commitsOverTime = prepareAccumulatedCommits(newData);
+            plotAccumulatedCommits(commitsOverTime);
+
+            // 4. Top 5 Languages (Normalized)
+            const normalizedLanguages = normalizeLanguages(languageStats);
+            displayTopLanguages(normalizedLanguages);
         });
 
-    // Function to display contributions in the container
-    function displayContributions(contributions) {
-        const container = document.getElementById('contribution-container');
+    // Function to calculate streaks and commits
+    function calculateStreaksAndCommits(data) {
+        const dates = Object.keys(data).sort();
+        let totalCommits = 0, currentStreak = 0, longestStreak = 0;
+        let streak = 0;
+        let lastDate = null;
 
-        contributions.forEach(event => {
-            const eventBox = document.createElement('div');
-            eventBox.classList.add('contribution-box');
+        dates.forEach(date => {
+            const commits = data[date];
+            totalCommits += commits;
 
-            const eventDate = new Date(event.created_at).toLocaleDateString();
-            eventBox.innerHTML = `
-                    <strong>Type:</strong> ${event.type} <br>
-                    <strong>Date:</strong> ${eventDate} <br>
-                    <strong>Repo:</strong> ${event.repo.name}
-                `;
-
-            container.appendChild(eventBox);
+            if (lastDate) {
+                const diffDays = Math.floor((new Date(date) - new Date(lastDate)) / (1000 * 60 * 60 * 24));
+                if (diffDays === 1) {
+                    streak++;
+                } else {
+                    longestStreak = Math.max(longestStreak, streak);
+                    streak = 0;
+                }
+            }
+            lastDate = date;
         });
+
+        currentStreak = streak;
+        longestStreak = Math.max(longestStreak, streak);
+
+        return { totalCommits, currentStreak, longestStreak };
     }
+
+    // Function to get the week start date (Monday) from a given date
+    function getWeekStartDate(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = (day <= 1) ? day - 1 : day - 1;
+        d.setDate(d.getDate() - diff);
+        return d.toISOString().split('T')[0]; // Return the date as "YYYY-MM-DD"
+    }
+
+    // Function to prepare heatmap data (week start date vs weekdays)
+    function prepareHeatmapData(data) {
+        const heatmapData = [];
+
+        Object.keys(data).forEach(dateStr => {
+            const date = new Date(dateStr);
+            const weekStartDate = getWeekStartDate(date); // Get Monday as the start of the week
+            const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+            heatmapData.push([weekStartDate, dayOfWeek, data[dateStr] || 0]);
+        });
+
+        return heatmapData;
+    }
+
+    // Function to plot heatmap
+    function plotHeatmap(heatmapData) {
+        const trace = {
+            x: heatmapData.map(d => d[0]),  // Week start dates
+            y: heatmapData.map(d => d[1]),  // Day of the week (0=Sunday, 6=Saturday)
+            z: heatmapData.map(d => d[2]),  // Number of commits
+            type: 'heatmap',
+        };
+
+        const layout = {
+            title: 'Commits Heatmap (Week Start Date vs Weekdays)',
+            xaxis: {showGrid: false},
+            yaxis: {showGrid: false, tickvals: [0, 1, 2, 3, 4, 5, 6], ticktext: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] },
+            showlegend: true,
+            height: 400,
+            width: 1200,
+        };
+
+        Plotly.newPlot('heatmapPlot', [trace], layout);
+    }
+
+    // Function to prepare accumulated commits data
+    function prepareAccumulatedCommits(data) {
+        let accumulatedCommits = 0;
+        const commitsOverTime = [];
+
+        Object.keys(data).sort().forEach(date => {
+            accumulatedCommits += data[date];
+            commitsOverTime.push({ date, accumulatedCommits });
+        });
+
+        return commitsOverTime;
+    }
+
+    // Function to plot accumulated commits
+    function plotAccumulatedCommits(commitsOverTime) {
+        const trace = {
+            x: commitsOverTime.map(d => d.date),
+            y: commitsOverTime.map(d => d.accumulatedCommits),
+            type: 'scatter',
+            mode: 'lines',
+            line: { color: '#1f77b4' }
+        };
+
+        const layout = {
+            title: 'Accumulated Commits Over Time',
+            xaxis: { title: 'Date' },
+            yaxis: { title: 'Commits' }
+        };
+
+        Plotly.newPlot('accumulatedCommitsPlot', [trace], layout);
+    }
+
+    // Function to normalize languages
+    function normalizeLanguages(languageStats) {
+        const normalizationFactors = {
+            'HTML': 3, 'CSS': 1.3, 'JavaScript': 0.85, 'C++': 1, 'Python': 0.6, 'MATLAB': 1.4, 'SQL': 1.2, 'QML': 0.8 // Adjust as needed
+        };
+
+        const normalizedStats = Object.keys(languageStats).map(language => {
+            const factor = normalizationFactors[language] || 1;
+            return { language, normalizedBytes: languageStats[language] / factor };
+        });
+        const totalBytes = normalizedStats.reduce((acc, lang) => acc + lang.normalizedBytes, 0);
+        const result = normalizedStats.map(lang => ({ ...lang, normalizedBytes: 100*lang.normalizedBytes / totalBytes }));
+
+        // Sort by normalized bytes and get the top 5
+        return result.sort((a, b) => b.normalizedBytes - a.normalizedBytes).slice(0, 5);
+    }
+
+    // Function to display top 5 languages
+    function displayTopLanguages(normalizedLanguages) {
+        const labels = ['Languages'];
+        const languages = normalizedLanguages.map(lang => lang.language);
+        const values = normalizedLanguages.map(lang => lang.normalizedBytes);
+
+        const data = languages.map((language, index) => {
+            return {
+                x: [values[index]],   // Percentage value of each language
+                y: labels,            // Single row
+                name: language,
+                type: 'bar',
+                orientation: 'h',     // Horizontal bars
+                text: `${Math.round(values[index])}%`,  // Display percentage
+                textposition: 'auto',
+            };
+        });
+
+        const layout = {
+            barmode: 'stack',
+            title: '(Language Usage %)',
+            xaxis: {
+                range: [0, 100], // Ensure the range is 100%
+                title: 'Percentage (%)'
+            },
+            height: 300,
+            showlegend: true,
+        };
+
+        Plotly.newPlot('languagePieChart', data, layout);
+    }
+
 </script>
 </body>
 </html>
