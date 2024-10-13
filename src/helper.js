@@ -364,12 +364,16 @@ function setupDropdown(button, dropdown, callback = null, selected_value = null,
 }
 
 
-function scrollElementInView(elementId){
+function scrollElementInView(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
-        element.scrollIntoView({behavior: 'smooth'});
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'  // This ensures the element scrolls into the center of the page
+        });
     } else {
         console.error('Element not found:', elementId);
     }
 }
+
 
