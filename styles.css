@@ -1,6 +1,6 @@
 :root {
 	/* Black and White */
-	--color-white: rgb(221, 221, 221);
+	--color-white: rgb(230, 230, 230);
 	--color-black: rgb(7, 7, 7);
 
 	/* Color Palette */
@@ -130,19 +130,24 @@ body.dark-mode {
 .light-mode .content {
 	background-color: var(--color-light-primary);
 	border-color: var(--color-light-contrast);
-	box-shadow: var(--shadows-light);
 }
 
 .dark-mode .content {
 	background-color: var(--color-dark-primary);
 	border-color: var(--color-dark-contrast);
-	box-shadow: var(--shadows-dark)
 }
 
 .content.reading {
 	font-size: var(--regular-text-size);
 	width: var(--max-content-width);
 	line-height: var(--line-height);
+}
+
+.light-mode .content.reading {
+	box-shadow: var(--shadows-light);
+}
+.dark-mode .content.reading {
+	box-shadow: var(--shadows-dark);
 }
 
 .content.with-padding {
