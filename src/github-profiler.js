@@ -16,7 +16,7 @@ class GithubProfile {
                 setTimeout(() => this.changeYear(this.currentYear), timeOut_ms);
                 // Delay to ensure the buttons are rendered first
             })
-            .catch(error => console.error('Error fetching JSON:', error));
+            .catch(error => console.error('Error fetching JSON:', error, this.dataUrl));
     }
 
     // Process the JSON data and populate newData
