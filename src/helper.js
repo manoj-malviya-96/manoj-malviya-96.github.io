@@ -45,6 +45,7 @@ function getURLParams(key) {
     const params = new URLSearchParams(window.location.search);
     return params.get(key);
 }
+
 function storeValueInStorage(key, value) {
     localStorage.setItem(key, value);
 }
@@ -58,6 +59,7 @@ const months = {
     'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10,
     'Nov': 11, 'Dec': 12
 };
+
 function fromTxtMonth(month) {
     return months[month] || 0;
 }
@@ -75,26 +77,65 @@ function getElementAttribute(doc, selector, attr = 'textContent', defaultValue =
 }
 
 // Utility to create layout for Plotly plots
-function createLayout(title, xTitle, yTitle) {
+function createLayout(title, xTitle, yTitle, showTickLabels = true) {
+    const margin = Number(getStyleValue('--spacing-small'));
+    const backgroundColor = 'rgba(0,0,0,0)';
+    const textColor = window.isDarkMode ? getStyleValue('--color-dark-imp') : getStyleValue('--color-light-imp');
+
+    const regFontSize = Number(getStyleValue('--regular-text-size'));
+    const subtitleFontSize = Number(getStyleValue('--subtitle-text-size'));
+
     return {
-        title: title,
+        title: {
+            text: title,
+            font: {
+                size: Number(getStyleValue('--title-text-size')),
+                color: textColor
+            }
+        },
         xaxis: {
-            title: xTitle,
+            title: {
+                text: xTitle,
+                font: {
+                    size: regFontSize,
+                    color: textColor
+                }
+            },
+            tickfont: {
+                size: subtitleFontSize,
+                color: textColor
+            },
             automargin: true,
-            showgrid: false
+            showgrid: false,
+            zeroline: false,
+            showline: false,
+            showticklabels: showTickLabels,
         },
         yaxis: {
-            title: yTitle,
+            title: {
+                text: yTitle,
+                font: {
+                    size: regFontSize,  // Set Y-axis title font size
+                    color: textColor
+                }
+            },
+            tickfont: {
+                size: subtitleFontSize,
+                color: textColor
+            },
             automargin: true,
-            showgrid: false
+            showgrid: false,
+            zeroline: false,
+            showline: false,
+            showticklabels: showTickLabels,
         },
-        width: 500,
-        height: 400,
-        autosize: false,
-        paper_bgcolor: 'rgba(0,0,0,0)', // Makes the overall plot background transparent
-        plot_bgcolor: 'rgba(0,0,0,0)'   // Makes the area where data is plotted transparent
+        margin: {t: margin, l: 0, r: 0, b: margin},
+        autosize: true,
+        paper_bgcolor: backgroundColor,
+        plot_bgcolor: backgroundColor,
     };
 }
+
 
 // Utility function to create a heatmap plot using Plotly
 function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "") {
@@ -166,21 +207,21 @@ function adjustColor(color, opacity = 1, brightness = 1) {
 }
 
 
-function getStyleValue(property){
+function getStyleValue(property) {
     return getComputedStyle(window.document.documentElement).getPropertyValue(property);
 }
 
 
-function getPrimaryColor(){
+function getPrimaryColor() {
     return getStyleValue('--color-brand-primary');
 }
 
-function getPassiveColor(){
+function getPassiveColor() {
     return getStyleValue('--color-passive-element');
 }
 
 
-function createDropdownItem(dataValue, dataLabel, dataIcon){
+function createDropdownItem(dataValue, dataLabel, dataIcon) {
 
     let item = document.createElement('li');
 
@@ -222,7 +263,7 @@ function setupDropdown(button, dropdown, callback = null, selected_value = null,
             callback(selectedValue);
         }
 
-        if (icon){
+        if (icon) {
             const newIcon = event.target.getAttribute('data-icon');
             if (newIcon) {
                 icon.className = newIcon;
