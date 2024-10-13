@@ -144,6 +144,7 @@ class MusicApp {
             } else {
                 this.elements.appWindow.classList.remove('full-screen-modal');
                 this.elements.toggleFullScreen.innerHTML = '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
+                this.showMusicHud() ; // Hide the music HUD when exiting full-screen
             }
         });
     }
