@@ -45,6 +45,7 @@ function getURLParams(key) {
     const params = new URLSearchParams(window.location.search);
     return params.get(key);
 }
+
 function storeValueInStorage(key, value) {
     localStorage.setItem(key, value);
 }
@@ -58,6 +59,7 @@ const months = {
     'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10,
     'Nov': 11, 'Dec': 12
 };
+
 function fromTxtMonth(month) {
     return months[month] || 0;
 }
@@ -74,43 +76,6 @@ function getElementAttribute(doc, selector, attr = 'textContent', defaultValue =
     return element ? (attr === 'textContent' ? element.textContent : element.getAttribute(attr)) : defaultValue;
 }
 
-// Utility to create layout for Plotly plots
-function createLayout(title, xTitle, yTitle) {
-    return {
-        title: title,
-        xaxis: {
-            title: xTitle,
-            automargin: true,
-            showgrid: false
-        },
-        yaxis: {
-            title: yTitle,
-            automargin: true,
-            showgrid: false
-        },
-        width: 500,
-        height: 400,
-        autosize: false,
-        paper_bgcolor: 'rgba(0,0,0,0)', // Makes the overall plot background transparent
-        plot_bgcolor: 'rgba(0,0,0,0)'   // Makes the area where data is plotted transparent
-    };
-}
-
-// Utility function to create a heatmap plot using Plotly
-function createHeatmap(containerId, x, y, z, title = "", xTitle = "", yTitle = "") {
-    const data = {
-        z: z,
-        x: x,
-        y: y,
-        type: 'heatmap',
-        colorscale: 'Jet',
-        colorbar: {
-            ticks: 'outside',
-            title: 'Probability'
-        }
-    };
-    Plotly.newPlot(containerId, [data], createLayout(title, xTitle, yTitle));
-}
 
 // Loading a PDF file in an iframe
 function loadPDF(url, placeholder, overlay) {
@@ -166,21 +131,153 @@ function adjustColor(color, opacity = 1, brightness = 1) {
 }
 
 
-function getStyleValue(property){
+function getStyleValue(property) {
     return getComputedStyle(window.document.documentElement).getPropertyValue(property);
 }
 
 
-function getPrimaryColor(){
+function getPrimaryColor() {
     return getStyleValue('--color-brand-primary');
 }
 
-function getPassiveColor(){
+function getPassiveColor() {
     return getStyleValue('--color-passive-element');
 }
 
 
-function createDropdownItem(dataValue, dataLabel, dataIcon){
+
+function getPrimaryColorScale(numStops){
+    const primaryColor = getPrimaryColor();
+    const lastColor = getPassiveColor();
+    let result = [[0, lastColor]];
+    for (let i = 1; i <= numStops; i += 1) {
+        const intensity = i / numStops;
+        result.push([intensity, adjustColor(primaryColor, 1, intensity)]);
+    }
+    return result;
+}
+
+
+// Useful constants and utility functions for styling
+const textColor = getStyleValue('--color-white');
+const backgroundColor = getStyleValue('--color-black');
+const regFontSize = Number(getStyleValue('--regular-text-size'));
+const subtitleFontSize = Number(getStyleValue('--subtitle-text-size'));
+
+
+// Utility to create layout for Plotly plots
+function createLayout(width, height, title, xTitle, yTitle, showTickLabels = true) {
+    const margin =  100;
+    return {
+        title: {
+            text: title,
+            font: {
+                size: Number(getStyleValue('--title-text-size')),
+                color: textColor
+            }
+        },
+        xaxis: {
+            title: {
+                text: xTitle,
+                font: {
+                    size: regFontSize,
+                    color: textColor
+                }
+            },
+            tickfont: {
+                size: subtitleFontSize,
+                color: textColor
+            },
+            showgrid: false,
+            zeroline: false,
+            showline: false,
+            showticklabels: showTickLabels,
+        },
+        yaxis: {
+            title: {
+                text: yTitle,
+                font: {
+                    size: regFontSize,  // Set Y-axis title font size
+                    color: textColor
+                }
+            },
+            tickfont: {
+                size: subtitleFontSize,
+                color: textColor
+            },
+            showgrid: false,
+            zeroline: false,
+            showline: false,
+            showticklabels: showTickLabels,
+        },
+        padding: 10,
+        margin: {t: margin, l: margin, r: margin, b: margin},
+        autosize: true,
+        width: width,
+        height: height,
+        paper_bgcolor: backgroundColor,
+        plot_bgcolor: backgroundColor,
+    };
+}
+
+function getColorBar(text){
+    return {
+        title: {
+            text: text,
+            font: {
+                size: regFontSize,
+                color: textColor
+            }
+        },
+        ticks: 'outside',
+        tickfont: {
+            size: subtitleFontSize,
+            color: textColor
+        },
+        thickness: 10
+    };
+}
+
+function getHackyHeightMultiplier(xLength, yLength) {
+    let result =  yLength / xLength;
+    if (result < 1.0) {
+        result = Math.min(1.0 , result + 0.18); // Accounting for other elements
+    }
+    return result;
+}
+
+
+// Utility function to create a heatmap plot using Plotly
+function createHeatmap(containerId, x, y, z, max_width = 600,
+                       title = "", xTitle = "", yTitle = "", minimalisticView = false) {
+    const data = {
+        z: z,
+        x: x,
+        y: y,
+        type: 'heatmap',
+        xgap: 1,
+        ygap: 1,
+        colorscale: getPrimaryColorScale(5),
+        colorbar: getColorBar('Probability'),
+    };
+
+    const width = max_width;
+    const height = Math.ceil(width * getHackyHeightMultiplier(x.length, y.length));  // Maintain aspect ratio
+
+    createHeatmapFromTrace(containerId, data, width, height, title, xTitle, yTitle, minimalisticView);
+}
+
+function createHeatmapFromTrace(containerId, data, width, height,
+                                title = "", xTitle = "", yTitle = "", minimalisticView = false) {
+    if (!data.type || data.type !== 'heatmap') {
+        console.error('Invalid trace data for heatmap');
+    }
+    const showTickLabels = !minimalisticView;
+    Plotly.newPlot(containerId, [data], createLayout(width, height, title, xTitle, yTitle, showTickLabels));
+}
+
+
+function createDropdownItem(dataValue, dataLabel, dataIcon) {
 
     let item = document.createElement('li');
 
@@ -222,7 +319,7 @@ function setupDropdown(button, dropdown, callback = null, selected_value = null,
             callback(selectedValue);
         }
 
-        if (icon){
+        if (icon) {
             const newIcon = event.target.getAttribute('data-icon');
             if (newIcon) {
                 icon.className = newIcon;

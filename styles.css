@@ -39,7 +39,7 @@
 	--font-family: 'Helvetica';
 	--regular-weight: 420;
 	--bold-weight: 690;
-	--line-height: 1.25;
+	--line-height: 1.5;
 
 	--subtitle-text-size: 12px;
 	--regular-text-size: 16px;
@@ -151,12 +151,18 @@ body.dark-mode {
 
 .block {
 	text-align: left;
+	justify-content: center;
+	align-content: center;
 	max-width: var(--max-content-width);
-	padding: var(--spacing-large);
+	padding: var(--spacing-medium);
 	line-height: var(--line-height);
 	border-radius: var(--default-radius);
 	margin: var(--spacing-large);
 	transition: all var(--transition-default);
+}
+
+.block .padding {
+	padding: var(--spacing-large);
 }
 
 .light-mode .block {
@@ -190,25 +196,32 @@ h1 {
 	font-size: var(--super-title-font-size);
 	line-height: var(--line-height);
 	font-weight: var(--bold-weight);
-	text-align: left;
 	border: none;
-	transition: all var(--transition-short);
+	margin: var(--spacing-medium) 0;
+	padding: 0;
 }
 
 h2 {
 	font-size: var(--title-font-size);
 	line-height: var(--line-height);
 	font-weight: var(--bold-weight);
-	text-align: left;
-	transition: all var(--transition-short);
+	margin: var(--spacing-medium) 0;
+	padding: 0;
+	border: none;
 }
-
 
 p {
 	line-height: var(--line-height);
 	font-weight: var(--regular-weight);
-	margin-bottom: var(--spacing-small);
-	transition: all var(--transition-short);
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+a {
+	text-decoration: underline;
+	opacity: 0.69;
+	color: var(--color-brand-primary);
 }
 
 .light-mode h1, .light-mode h2, .light-mode p {
@@ -221,8 +234,19 @@ p {
 
 /* ----------------------------- Bootstrap Icon Styling ----------------------------- */
 .bi {
-	font-size: var(--regular-icon-size);
+	font-size: var(--regular-icon-size); !important;
 }
+
+/* ----------------------------- Animations  ----------------------------- */
+@keyframes rotationAnimation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(45deg);
+	}
+}
+
 
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
 #content-placeholder-overlay,
@@ -249,22 +273,20 @@ p {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
+	align-content: center;
 	width: 100%;
 	height: auto;
-	padding: 0;
-	margin: 0;
+	margin: auto 0;
 }
 
 .column-layout {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	align-content: center;
 	width: auto;
 	height: 100%;
-	padding: 0;
-	margin: 0;
+	margin: 0 auto;
 }
 
 .horizontal-separator {
@@ -283,7 +305,6 @@ p {
 .dark-mode .horizontal-separator {
 	border-color: var(--color-dark-contrast);
 }
-
 
 /* --------------------------- Primary Button ------------------------------ */
 
@@ -306,6 +327,10 @@ p {
 	justify-content: left;
 }
 
+.primary-button.text-only {
+	padding: var(--spacing-medium);
+}
+
 .primary-button .bi {
 	font-size: var(--large-icon-size);
 }
@@ -314,16 +339,6 @@ p {
 	font-size: var(--regular-text-size);
 	line-height: var(--line-height);
 	margin-left: var(--spacing-small);
-}
-
-.primary-button:active {
-	transform: scale(var(--active-scale));
-}
-
-.primary-button:hover .bi,
-.primary-button:hover .button-label {
-	cursor: pointer;
-	color: var(--color-brand-primary); !important;
 }
 
 .primary-button.with-border {
@@ -347,6 +362,21 @@ p {
 .dark-mode .primary-button {
 	color: var(--color-dark-imp);
 	border-color: var(--color-dark-contrast);
+}
+
+.primary-button.selected {
+	color: var(--color-white);
+	background-color: var(--color-brand-primary);
+}
+
+.primary-button:active {
+	transform: scale(var(--active-scale));
+}
+
+.primary-button:hover .bi,
+.primary-button:hover .button-label {
+	cursor: pointer;
+	color: var(--color-brand-primary); !important;
 }
 
 /* --------------------  Searchbar  Styling ------------------- */
@@ -490,6 +520,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	bottom: var(--spacing-small);
 }
 
+
+
 /* ----------------------- Grid Layout--------------------------- */
 
 .quarto-listing {
@@ -577,18 +609,13 @@ input[type="range"]:hover::-webkit-slider-thumb {
 /* Listing category NOTE: important is needed to override the default bootstrap styling */
 .listing-category,
 .quarto-category {
-	border: var(--border-width) solid;
-!important;
+	border: var(--border-width) solid; !important;
 	margin-right: var(--spacing-small) !important;
 	margin-top: var(--spacing-small) !important;
 	padding: var(--spacing-small) !important;
 	width: fit-content;
-	border-radius: var(--small-radius);
-!important;
-	font-size: var(--subtitle-text-size);
-!important;
-	text-transform: uppercase;
-!important;
+	border-radius: var(--small-radius); !important;
+	font-size: var(--subtitle-text-size); !important;
 }
 
 .card:hover .card-text {
@@ -757,7 +784,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	color: var(--color-dark-imp);
 }
 
-
 /* -------------------------------- Project content --------------------------------  */
 #quarto-document-content {
 	max-width: var(--max-content-width);
@@ -872,13 +898,17 @@ th {
 	color: var(--color-white);;
 }
 
+/* -------------------------- Plots Styling -------------------------- */
+
 .plot {
 	border-radius: var(--default-radius);
-	margin: var(--spacing-large) auto;
-	width: 500px;
-!important; /* Confirm with layout of plot */
-	height: 400px;
-!important; /* Confirm with layout of plot */
+	margin: 0 auto;
+	width: 100%; !important; /* Confirm with layout of plot */
+	height: auto; !important; /* Confirm with layout of plot */
+	padding: 0;
+	display: block;
+	justify-content: center;
+	align-content: center;
 	transition: all var(--transition-default);
 }
 
@@ -1126,14 +1156,6 @@ canvas {
 	background-color: var(--color-light-contrast);
 }
 
-.light-mode .plot:hover {
-	box-shadow: var(--shadows-light);
-}
-
-.light-mode .plot {
-	background-color: var(--color-light-contrast);
-!important;
-}
 
 .light-mode .app-drawer {
 	border-color: var(--color-light-contrast);
@@ -1222,14 +1244,6 @@ canvas {
 	background-color: var(--color-dark-contrast);
 }
 
-.dark-mode .plot:hover {
-	box-shadow: var(--shadows-dark);
-}
-
-.dark-mode .plot {
-	background-color: var(--color-dark-contrast);
-!important;
-}
 
 .dark-mode .app-drawer {
 	border-color: var(--color-dark-contrast);
