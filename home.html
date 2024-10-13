@@ -52,7 +52,7 @@
 
 <!-------------------------- About Section -------------------------->
 
-<div class="about-container">
+<div class="about-container" id="about-me">
     <!-- Add padding to the container -->
     <div class="about-entity" id="titleAndPictureRow">
         <div class="profile-image">
@@ -144,7 +144,7 @@
         <!-- Collapsible content ends here -->
     </div>
     <!-- Button to expand the about section -->
-    <button id="toggleAboutBtn" class="primary-button"><i class="bi bi-chevron-compact-down"></i></button>
+    <button id="toggleAboutBtn" class="primary-button" onclick="toggleForAbout()"><i class="bi bi-chevron-compact-down"></i></button>
 </div>
 
 
@@ -156,7 +156,7 @@
 
 <!-------------------------- Project Section -------------------------->
 
-<div class="quarto-listing content with-padding" style="margin-top: var(--spacing-huge)">
+<div id="project-listings" class="quarto-listing content with-padding" style="margin-top: var(--spacing-huge)">
     <div id="cards-controls-container" class="row-layout"
          style=" margin-bottom: var(--spacing-huge);">
 

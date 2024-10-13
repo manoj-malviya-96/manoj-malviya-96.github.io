@@ -55,28 +55,28 @@ function initImageFluidHandler() {
 }
 
 
-function initToggleForAbout() {
+function toggleForAbout(keepItExpanded=false) {
     const button = window.document.getElementById('toggleAboutBtn');
     if (!button) {
         return; // Button not found
     }
-    button.addEventListener('click', function () {
-        this.classList.toggle('expanded');
+    const content = window.document.getElementById('moreDetailsAboutMe');
 
-        const content = window.document.getElementById('moreDetailsAboutMe');
-        content.classList.toggle('expanded');
+    if (keepItExpanded && content.classList.contains('expanded')) {
+        return; // Keep it expanded
+    }
+    button.classList.toggle('expanded');
+    content.classList.toggle('expanded');
 
-        const aboutEntity = window.document.getElementById('titleAndPictureRow');
-        aboutEntity.classList.toggle('collapsed');
+    const aboutEntity = window.document.getElementById('titleAndPictureRow');
+    aboutEntity.classList.toggle('collapsed');
 
-
-        // Toggle icon class and button text based on the state
-        if (content.classList.contains('expanded')) {
-            this.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
-        } else {
-            this.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
-        }
-    });
+    // Toggle icon class and button text based on the state
+    if (content.classList.contains('expanded')) {
+        button.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
+    } else {
+        button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
+    }
 }
 
 
@@ -106,9 +106,6 @@ function initContentObserver(contentPlaceholder) {
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                // Re-initialize scroll and active link logic
-                initScrollTracking();
-
                 // Disconnect observer after the content has loaded
                 observer.disconnect();
             }

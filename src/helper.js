@@ -1,7 +1,21 @@
 /* ------ Helper functions ------ */
 const timeOut_ms = 269; // Global Timeout
 
-function loadContentWithOverlay(page, placeholder, overlay = null, callback = null, delay_ms = timeOut_ms) {
+
+function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
+    if (!callback) {
+        console.error('Callback function not provided');
+        return;
+    }
+    if (single_arg === null) {
+        setTimeout(callback, delay_ms);
+        return;
+    }
+    const run = () => callback(single_arg);
+    setTimeout(run, delay_ms);
+}
+
+function loadContentWithOverlay(page, placeholder, overlay = null, callback = null) {
     const toggleDisplay = (element, displayStyle) => {
         if (element) element.style.display = displayStyle;
     };
@@ -13,11 +27,11 @@ function loadContentWithOverlay(page, placeholder, overlay = null, callback = nu
         .then(response => response.ok ? response.text() : Promise.reject('Failed to load'))
         .then(data => {
             placeholder.innerHTML = data;
-            setTimeout(() => {
+            runWithDelay(() => {
                 toggleDisplay(overlay, 'none');
                 toggleDisplay(placeholder, 'block');
                 callback?.(); // Call the callback if provided
-            }, delay_ms);
+            });
         })
         .catch(error => {
             console.error('Error loading content:', error);
@@ -347,5 +361,15 @@ function setupDropdown(button, dropdown, callback = null, selected_value = null,
             dropdown.classList.add('hidden');
         }
     });
+}
+
+
+function scrollElementInView(elementId){
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.scrollIntoView({behavior: 'smooth'});
+    } else {
+        console.error('Element not found:', elementId);
+    }
 }
 
