@@ -155,7 +155,6 @@ function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
 
 
 function makeAppButton(container, appHTMLPath) {
-    console.log(appHTMLPath);
     const appLoaderFunction = ()=> {
         loadApp(appHTMLPath, null, true);
     }
