@@ -218,6 +218,12 @@ p {
 	border: none;
 }
 
+a {
+	text-decoration: underline;
+	opacity: 0.69;
+	color: var(--color-brand-primary);
+}
+
 .light-mode h1, .light-mode h2, .light-mode p {
 	color: var(--color-light-imp);
 }
