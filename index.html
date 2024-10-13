@@ -75,12 +75,14 @@
 
 <!-- Overlay with Three Dot Loading Spinner -->
 <div id="content-placeholder-overlay" style="display: none;">
-    <div class="spinner-border" role="status" style="
-        color: var(--color-brand-primary);
-        width: var(--spinner-size);
-        height: var(--spinner-size);
-        border-width: var(--spinner-border-width);">
-    </div>
+    <img src="./assets/logo.svg"
+         style="
+                color: var(--color-brand-primary);
+                width: var(--spinner-size);
+                height: var(--spinner-size);
+                animation: rotationAnimation var(--transition-default) infinite ease-in-out;
+         "
+         alt="Logo"/>
 </div>
 
 <!-- main content -->

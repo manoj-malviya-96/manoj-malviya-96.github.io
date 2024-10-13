@@ -284,6 +284,16 @@ p {
 	border-color: var(--color-dark-contrast);
 }
 
+/* ----------------------------- Animations  ----------------------------- */
+@keyframes rotationAnimation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(45deg);
+	}
+}
+
 
 /* --------------------------- Primary Button ------------------------------ */
 
@@ -756,7 +766,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
 .dark-mode .footer-icon {
 	color: var(--color-dark-imp);
 }
-
 
 /* -------------------------------- Project content --------------------------------  */
 #quarto-document-content {
