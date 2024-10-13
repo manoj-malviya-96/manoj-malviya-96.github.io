@@ -79,8 +79,8 @@ class GithubProfile {
         const heatmapTrace = {
             z: z,
             type: 'heatmap',
-            xgap: 1,
-            ygap: 1,
+            xgap: 2,
+            ygap: 2,
             colorscale: getPrimaryColorScale(5),
             zmin: 1,  // Avoid 0 on the log scale
             zmax: Math.max(...z.flat()),  // Set zmax based on the highest commit count
@@ -88,7 +88,9 @@ class GithubProfile {
             colorbar: getColorBar('Commits'),
             hovertemplate: 'Week %{x}, Day %{y}: %{z} commits<extra></extra>',
         };
-        createHeatmapFromTrace('githubHeatMap', heatmapTrace, '', '', '', true);
+        const width = 1100;
+        const height = Math.ceil(width * getHackyHeightMultiplier(z[0].length, z.length));
+        createHeatmapFromTrace('githubHeatMap', heatmapTrace, width, height, '', '', '', true);
 
         // Update the header bar with total commits and longest streak
         this.updateStats(year);

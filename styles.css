@@ -197,7 +197,7 @@ h1 {
 	line-height: var(--line-height);
 	font-weight: var(--bold-weight);
 	border: none;
-	margin: 0;
+	margin: var(--spacing-medium) 0;
 	padding: 0;
 }
 
@@ -205,7 +205,7 @@ h2 {
 	font-size: var(--title-font-size);
 	line-height: var(--line-height);
 	font-weight: var(--bold-weight);
-	margin: 0;
+	margin: var(--spacing-medium) 0;
 	padding: 0;
 	border: none;
 }
