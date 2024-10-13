@@ -153,16 +153,13 @@ body.dark-mode {
 	text-align: left;
 	justify-content: center;
 	align-content: center;
-	max-width: var(--max-content-width);
-	padding: var(--spacing-medium);
+	font-size: var(--regular-text-size);
 	line-height: var(--line-height);
+	max-width: var(--max-content-width);
+	padding: var(--spacing-large);
 	border-radius: var(--default-radius);
 	margin: var(--spacing-large);
 	transition: all var(--transition-default);
-}
-
-.block .padding {
-	padding: var(--spacing-large);
 }
 
 .light-mode .block {
