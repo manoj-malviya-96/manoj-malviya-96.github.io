@@ -223,5 +223,5 @@ function toggleSidebar() {
 }
 
 function initGithub() {
-    window.githubProfile = new GithubProfile('_data/github_user_report.json');
+    window.githubProfile = new GithubProfile('./_data/github_user_report.json');
 }
