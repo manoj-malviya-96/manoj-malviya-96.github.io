@@ -5,7 +5,7 @@ const contentPlaceholder = window.document.getElementById('content-placeholder')
 const contentPlaceholderOverlay = window.document.getElementById('content-placeholder-overlay');
 
 const homePage = './home.html';
-const homePageCallbacks = [initTheme, initGithub, initToggleForAbout, setupSortOptions, loadApps, loadProjects];
+const homePageCallbacks = [initTheme, initGithub, setupSortOptions, loadApps, loadProjects];
 
 const defaultProjectCallbacks = [initTheme, loadProjectFooter, initImageFluidHandler, initScrollTracking];
 // Order matters- loadProjectFooter should be called before initScrollTracking
@@ -27,7 +27,6 @@ const appHTMLToCallBackMap = {
 }
 
 
-
 // Load Content with Overlay, used to show a loading spinner while content is being fetched
 function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = true) {
 
@@ -37,13 +36,12 @@ function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = 
     }
 
     loadContentWithOverlay(page, contentPlaceholder, contentPlaceholderOverlay, () => {
+        handleRunningApps();
         if (callbacks.length > 0) {
             for (const callback of callbacks) {
-                setTimeout(callback, 5); // Add a delay to ensure the content is loaded before calling the callback
+                runWithDelay(callback, 5); // Add a delay to ensure the content is loaded before calling the callback
             }
         }
-        initScrollTracking();
-        handleRunningApps();
     });
     handleURLinHistory(addParamsToURL({'pageName': page}), doPushToHistory);
     initContentObserver(contentPlaceholder);
@@ -52,8 +50,9 @@ function loadContentInMainWindow(page, event, callbacks = [], doPushToHistory = 
 /** We have three types of pages: home and project pages. */
 
 // 1. Load the homepage content -> About me and project cards.
-function loadHomePage(event = null, doPushToHistory = true) {
-    loadContentInMainWindow(homePage, event, homePageCallbacks, doPushToHistory);
+function loadHomePage(event = null, doPushToHistory = true, extraCallbacks = []) {
+    const callbacks = homePageCallbacks.concat(extraCallbacks);
+    loadContentInMainWindow(homePage, event, callbacks, doPushToHistory);
 }
 
 // 2. Load Project Page with the specified callbacks
@@ -155,7 +154,7 @@ function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
 
 
 function makeAppButton(container, appHTMLPath) {
-    const appLoaderFunction = ()=> {
+    const appLoaderFunction = () => {
         loadApp(appHTMLPath, null, true);
     }
     createAppButtonFromHTML(appHTMLPath, appLoaderFunction)
@@ -259,7 +258,7 @@ function loadApps() {
     if (!container) {
         throw new Error(`Element with ID- app-list not found.`);
     }
-    const promises = Object.entries(appHTMLToCallBackMap).map(([appHTML, ]) =>
+    const promises = Object.entries(appHTMLToCallBackMap).map(([appHTML,]) =>
         makeAppButton(container, appHTML));
     Promise.all(promises).catch(err => {
         console.error('Error loading all apps:', err);
@@ -286,7 +285,6 @@ function setupCategoryDropDown(allCategories) {
 }
 
 
-
 // Function to initialize Sort Filter
 const sortOptions = [
     {value: 'date-desc', label: 'Latest', icon: 'bi bi-sort-down-alt'},
@@ -309,7 +307,7 @@ function setupSortOptions() {
     sortOptions.forEach(option => {
         dropdown.appendChild(createDropdownItem(option.value, option.label, option.icon));
     });
-    setupDropdown(button, dropdown, sortProjects , selectedValue, icon);
+    setupDropdown(button, dropdown, sortProjects, selectedValue, icon);
 }
 
 
@@ -458,4 +456,20 @@ function loadProjectFooter() {
 // Example usage of loadPDF function
 function loadPDFInMainWindow(pdfUrl) {
     loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
+}
+
+
+function scrollElementInViewOnHome(event, elementId) {
+    const pageName = getURLParams('pageName');
+    // First Load the Home Page
+    if (pageName !== homePage) {
+        const scrollFn = () => {
+            console.log('Scrolling to element:', elementId);
+            runWithDelay(scrollElementInView, timeOut_ms, elementId);
+        }
+        loadHomePage(event, true, [scrollFn]);
+        return;
+    }
+    // If already on the home page
+    scrollElementInView(elementId);
 }
