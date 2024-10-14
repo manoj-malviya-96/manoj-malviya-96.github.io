@@ -230,8 +230,8 @@ class MusicApp {
       .toString()
       .padStart(2, "0");
 
-    const timeCurrent = `${currentMinutes}:${currentSeconds} / ${!isNaN(totalMinutes) ? totalMinutes : 0}`;
-    const timeTotal = `${!isNaN(totalSeconds) ? totalSeconds : "00"}`;
+    const timeCurrent = `${currentMinutes}:${currentSeconds} `;
+    const timeTotal = `${!isNaN(totalMinutes) ? totalMinutes : 0}:${!isNaN(totalSeconds) ? totalSeconds : "00"}`;
 
     this.elements.timeInfo.textContent = timeCurrent + " / " + timeTotal;
     this.elements.progressBar.value = (currentTime / totalDuration) * 100;
@@ -480,94 +480,98 @@ class MusicApp {
   }
 
   drawSpiralVisualizer() {
-    // Spiral parameters
+    // Parameters for the spiral
     let angle = 0;
-    let scale = 0.0069; // Reduced scale to make spiral smaller
-    let speed = 0.0069; // Slow rotation speed
     let points = []; // Stores current visible points
-    let fib1 = 1,
-      fib2 = 1; // Starting Fibonacci numbers
+    let globalFactor = 1; // Global factor to dropyness
     let totalPoints = 0; // Counter to keep track of points generated
 
+    const usualRadius = 9;
+    const maxGlow = 69; // Max glow intensity
+    const padding = 27; // Padding to keep points in view
+
+    // Set the canvas dimensions and get the Fibonacci generator
     const { canvasWidth, canvasHeight, centerX, centerY } =
       this.getCanvasCenterAndDimensions();
+    const fibGenerator = new FibonacciGenerator(); // Create Fibonacci sequence generator
 
-    // Colors for gradient effect
-    const colors = ["black", "#791f0d", "#a47971", "#a8a4a3", "#a92d14"];
+    // Function to add a new Fibonacci point
+    const addNewFibonacciPoint = (radius) => {
+      const fibRadius = fibGenerator.next() * 3; // Scale the Fibonacci radius
+      const angleOffset = totalPoints * 0.5; // Angle spacing for points
 
-    // Generate next Fibonacci number
-    function nextFibonacci() {
-      const next = fib1 + fib2;
-      fib1 = fib2;
-      fib2 = next;
-      return next;
-    }
-
-    const distPadding = 12;
-
-    // Draw spiral
-    const draw = () => {
-      this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-      this.canvasCtx.save();
-      this.canvasCtx.translate(centerX, centerY); // Move origin to the center
-      this.canvasCtx.rotate(angle); // Rotate for dynamic effect
-
-      // Draw each point in the points array
-      points.forEach((point) => {
-        const { x, y, r, color, opacity } = point;
-
-        // Draw a circle with color and depth effect
-        this.canvasCtx.beginPath();
-        this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
-        this.canvasCtx.fillStyle = `rgba(${hexToRgb(color)}, ${opacity})`;
-        this.canvasCtx.fill();
-
-        // Update point position (simulate movement outward)
-        point.r *= 1.0069; // Slight increase in size
-        point.x = distPadding * point.r * Math.cos(point.angle);
-        point.y = distPadding * point.r * Math.sin(point.angle);
-        if (point.opacity < 0.69) {
-          point.opacity += 0.005; // Slowly fade out
-        } else {
-          point.opacity -= 0.005;
-        }
-      });
-
-      // Remove points that are out of view or fully transparent
-      points = points.filter(
-        (point) => point.r < canvasWidth * 1.5 && point.opacity > 0,
-      );
-
-      // Generate new Fibonacci point
-      const fibRadius = nextFibonacci() * scale * 200; // Increase scale for larger distance
-      const angleOffset = totalPoints * 0.5; // Increase this for more spacing between points
-
-      const colorIndex = totalPoints % colors.length;
-      const color = colors[colorIndex];
-
-      const newPoint = {
+      points.push({
         x: fibRadius * Math.cos(angleOffset),
         y: fibRadius * Math.sin(angleOffset),
-        r: 30, // Keep the circles small but visible
-        color: color, // Use valid color
-        opacity: 0.05, // Full opacity initially
-        angle: angleOffset,
-      };
-
-      // Add new point to the list
-      points.push(newPoint);
-
-      totalPoints++; // Increment the total points counter
-
-      this.canvasCtx.restore();
-
-      // Increase angle slightly for smooth rotation
-      angle += speed;
-
-      // Loop the drawing
-      this.animationFrameId = requestAnimationFrame(draw);
+        r: radius, // Start with initial radius
+        angle: angleOffset, // Save angle for future movement
+      });
     };
-    draw();
+
+    // Function to update the position of each point
+    function updatePoint(point) {
+      point.r *= 1.0069; // Expand the radius over time
+      point.x = padding * point.r * Math.cos(point.angle); // Update x position
+      point.y = padding * point.r * Math.sin(point.angle); // Update y position
+    }
+
+    // Function to draw each point
+    const drawPoint = (point, index) => {
+      const { x, y, r } = point;
+
+      // Get the intensity from audio data
+      const intensity =
+        this.dataArray[(totalPoints - index) % this.bufferLength] / 255;
+      const factor = intensity ** 3;
+      const glow = factor * maxGlow;
+
+      globalFactor = Math.max(globalFactor, factor); // Update global factor
+
+      // Draw a circle with a glow effect based on audio intensity
+      this.canvasCtx.beginPath();
+      this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
+
+      const drawColor = adjustColor(this.primaryColor, factor, 1 + factor);
+
+      // Add shadow for glow effect
+      this.canvasCtx.shadowBlur = glow;
+      this.canvasCtx.shadowColor = drawColor;
+
+      this.canvasCtx.fillStyle = drawColor;
+      //Fill the circle
+      this.canvasCtx.fill();
+    };
+
+    // Main draw loop
+    const draw = () => {
+      this.animationFrameId = requestAnimationFrame(draw); // Loop the drawing
+
+      // Get audio frequency data
+      this.analyser.getByteFrequencyData(this.dataArray);
+
+      // Clear the canvas and prepare for drawing
+      this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      this.canvasCtx.save();
+      this.canvasCtx.translate(centerX, centerY); // Move origin to center
+      this.canvasCtx.rotate(angle); // Apply rotation
+
+      // Draw and update each point
+      points.forEach((point, index) => {
+        drawPoint.call(this, point, index); // Draw the point with glow
+        updatePoint(point); // Update the position
+      });
+
+      // Remove points that are out of view
+      points = points.filter((point) => point.r < canvasWidth * 1.5);
+      addNewFibonacciPoint(usualRadius); // Add a new point
+      totalPoints++;
+
+      // Restore canvas state and adjust angle for rotation
+      this.canvasCtx.restore();
+      angle += globalFactor * 0.01; // Increment rotation angle
+    };
+
+    draw(); // Start the drawing loop
   }
 
   // Toggle music HUD visibility
