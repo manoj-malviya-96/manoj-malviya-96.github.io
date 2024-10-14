@@ -1,5 +1,5 @@
 /* ------------ Helper functions ------------ */
-const timeOut_ms = 269; // Global Timeout
+const timeOut_ms = 369; // Global Timeout
 
 function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   if (!callback) {

@@ -25,7 +25,7 @@
 	--spacing-huge: 48px;
 
 	/* Transition */
-	--transition-default: 0.27s;
+	--transition-default: 0.420s;
 	--transition-short: 0.05s;
 
 	/* Size */
@@ -56,8 +56,7 @@
 	--z-index-max: 2000;
 
 	/* Spinner */
-	--spinner-size: 69px;
-	--spinner-border-width: 5px;
+	--spinner-size: 169px;
 
 	/* Shadow */
 	--shadows-light: 0 2px 7px rgba(0, 0, 0, 0.18);
@@ -1066,7 +1065,7 @@ canvas {
 	width: var(--app-window-width);
 	height: var(--app-window-height);
 	border-radius: var(--default-radius);
-	padding: var(--spacing-small);
+	padding: var(--border-width);
 	overflow: clip;
 	background-color: black;
 	justify-items: center;
