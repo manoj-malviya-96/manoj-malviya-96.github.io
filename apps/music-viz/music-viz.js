@@ -123,6 +123,7 @@ class MusicApp {
         this.toggleDropdown();
 
         // Trigger the visualizer change based on selection
+        this.stopVisualizer();
         this.drawVisualizer();
     }
 
@@ -225,8 +226,7 @@ class MusicApp {
         this.audio.play();
         this.isPlaying = true;
         this.updatePlayButton();
-        // Start Visualization;
-        this.drawVisualizer();
+        this.resumeVisualizer();
     }
 
     // Pause the audio
@@ -234,14 +234,8 @@ class MusicApp {
         this.audio.pause();
         this.isPlaying = false;
         this.updatePlayButton();
-        // Cancel the previous animation frame before starting a new one
-        if (this.animationFrameId) {
-            cancelAnimationFrame(this.animationFrameId);
-        }
-
+        this.stopVisualizer();
     }
-
-    ca
 
     // Setup a new audio file and initialize the visualizer
     setupNewAudio(file) {
@@ -275,10 +269,7 @@ class MusicApp {
             console.error("No audio context");
             return;
         }
-        // Cancel the previous animation frame before starting a new one
-        if (this.animationFrameId) {
-            cancelAnimationFrame(this.animationFrameId);
-        }
+        this.stopVisualizer();
 
         switch (this.selectedVisualizer) {
             case 'circles':
@@ -293,6 +284,19 @@ class MusicApp {
             default:
                 this.drawBarChartVisualizer();
                 break;
+        }
+    }
+
+    stopVisualizer() {
+        // Cancel the previous animation frame before starting a new one
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+        }
+    }
+
+    resumeVisualizer() {
+        if (this.animationFrameId) {
+            requestAnimationFrame(this.drawVisualizer.bind(this));
         }
     }
 
@@ -427,7 +431,7 @@ class MusicApp {
             return next;
         }
 
-        const distPadding = 7;
+        const distPadding = 12;
 
         // Draw spiral
         const draw = () =>{
@@ -470,7 +474,7 @@ class MusicApp {
             const newPoint = {
                 x: fibRadius * Math.cos(angleOffset),
                 y: fibRadius * Math.sin(angleOffset),
-                r: 5, // Keep the circles small but visible
+                r: 30, // Keep the circles small but visible
                 color: color, // Use valid color
                 opacity: 0.05, // Full opacity initially
                 angle: angleOffset
