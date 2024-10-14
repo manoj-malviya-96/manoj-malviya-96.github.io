@@ -26,6 +26,8 @@ class MusicApp {
       appWindow: window.document.querySelector(".app-window"),
       appController: window.document.querySelector(".app-controller"),
       fileUpload: window.document.getElementById("fileUpload"),
+      songDropdownBtn: window.document.getElementById("songDropdownBtn"),
+      songDropdown: window.document.getElementById("songDropdown"),
       canvas: window.document.getElementById("visualizer"),
       progressBar: window.document.getElementById("progressBar"),
       songTitle: window.document.getElementById("songTitle"),
@@ -35,7 +37,7 @@ class MusicApp {
       skipBackwardBtn: window.document.getElementById("skipBackwardBtn"),
       toggleBtn: window.document.getElementById("toggleMusicHud"),
       toggleFullScreen: window.document.getElementById("toggleFullScreen"),
-      dropDownBtn: window.document.getElementById("dropDownBtn"),
+      vizDropDownBtn: window.document.getElementById("vizDropDownBtn"),
       vizDropdown: window.document.getElementById("vizDropdown"),
     };
   }
@@ -45,6 +47,10 @@ class MusicApp {
     this.elements.fileUpload.addEventListener(
       "change",
       this.handleFileUpload.bind(this),
+    );
+    this.elements.songDropdownBtn.addEventListener(
+      "click",
+      this.toggleSongDropdown.bind(this),
     );
     this.elements.progressBar.addEventListener(
       "input",
@@ -70,14 +76,15 @@ class MusicApp {
       "click",
       this.skipBackward.bind(this),
     );
-    this.elements.dropDownBtn.addEventListener(
+    this.elements.vizDropDownBtn.addEventListener(
       "click",
-      this.toggleDropdown.bind(this),
+      this.toggleVizDropdown.bind(this),
     );
 
     this.elements.progressBar.style.background = `${this.backgroundColor}`;
 
-    this.setupDropdown();
+    this.setupVizDropdown();
+    this.setupSongDropdown();
     this.setupResizing();
     this.setupKeyboardShortcuts();
   }
@@ -122,22 +129,33 @@ class MusicApp {
     }
   }
 
-  setupDropdown() {
+  // Todo - This can be done via setupDropdown method
+  setupVizDropdown() {
     // Handle selecting an item
     const dropdownItems =
       this.elements.vizDropdown.querySelectorAll(".dropdown-item");
     dropdownItems.forEach((item) => {
       item.addEventListener("click", (event) =>
-        this.handleDropdownSelect(event),
+        this.handleVizDropdownSelect(event),
       );
+    });
+
+    window.addEventListener("click", (event) => {
+      if (
+        !this.elements.vizDropDownBtn.contains(event.target) &&
+        !this.elements.vizDropdown.contains(event.target)
+      ) {
+        this.elements.vizDropdown.classList.add("hidden");
+      }
     });
   }
 
-  toggleDropdown() {
+  toggleVizDropdown() {
     this.elements.vizDropdown.classList.toggle("hidden");
   }
 
-  handleDropdownSelect(event) {
+  // Todo - This can be done via setupDropdown method
+  handleVizDropdownSelect(event) {
     this.selectedVisualizer = event.target.getAttribute("data-value");
     const dropdownItems =
       this.elements.vizDropdown.querySelectorAll(".dropdown-item");
@@ -147,15 +165,60 @@ class MusicApp {
     event.target.classList.add("selected");
 
     // Update Dropdown icon
-    const icon = this.elements.dropDownBtn.querySelector("i");
+    const icon = this.elements.vizDropDownBtn.querySelector("i");
     icon.className = event.target.getAttribute("data-icon");
 
     // Close the dropdown
-    this.toggleDropdown();
+    this.toggleVizDropdown();
 
     // Trigger the visualizer change based on selection
     this.stopVisualizer();
     this.drawVisualizer();
+  }
+
+  toggleSongDropdown() {
+    this.elements.songDropdown.classList.toggle("hidden");
+  }
+
+  // Todo - This can be done via setupDropdown method
+  setupSongDropdown() {
+    // Handle selecting an item
+    const dropdownItems =
+      this.elements.songDropdown.querySelectorAll(".dropdown-item");
+    dropdownItems.forEach((item) => {
+      item.addEventListener("click", (event) =>
+        this.handleSongDropdownSelect(event),
+      );
+    });
+
+    window.addEventListener("click", (event) => {
+      if (
+        !this.elements.songDropdownBtn.contains(event.target) &&
+        !this.elements.songDropdown.contains(event.target)
+      ) {
+        this.elements.songDropdown.classList.add("hidden");
+      }
+    });
+  }
+
+  // Todo - This can be done via setupDropdown method
+  handleSongDropdownSelect(event) {
+    const dropdownItems =
+      this.elements.songDropdown.querySelectorAll(".dropdown-item");
+
+    // Highlight the selected item with the primary color
+    dropdownItems.forEach((item) => item.classList.remove("selected"));
+
+    const songUrl = event.target.getAttribute("data-url");
+    this.resetAudio();
+    this.setupNewAudio(songUrl);
+
+    // Get selected song's name
+    this.elements.songTitle.textContent = event.target.innerHTML;
+    event.target.classList.add("selected");
+
+    this.togglePlayPause();
+    this.toggleSongDropdown();
   }
 
   toggleFullScreen() {

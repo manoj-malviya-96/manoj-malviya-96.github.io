@@ -431,6 +431,7 @@ a {
 	position: absolute;
 	padding: 0;
 	width: auto;
+	min-width: 100px;
 	margin: var(--spacing-small) 0;
 	border-radius: var(--default-radius);
 	z-index: var(--z-index-overlay);
