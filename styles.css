@@ -144,8 +144,10 @@ body.dark-mode {
 }
 
 .content.with-padding {
-	padding: var(--spacing-huge);
+	padding: var(--spacing-large);
 }
+
+/* ----------------------------- Block Styling ----------------------------- */
 
 .block {
 	text-align: left;
@@ -170,13 +172,14 @@ body.dark-mode {
 	color: var(--color-dark-imp);
 }
 
-.content.collapsible {
+/* ----------------------------- Collapsible Styling ----------------------------- */
+
+.content.collapsed {
 	height: 0;
 	width: var(--max-body-width);
 	opacity: 0;
 	overflow: hidden;
-	margin: 0 auto;
-	transition: all var(--transition-default);
+	padding: 0;
 }
 
 .content.collapsible.expanded {

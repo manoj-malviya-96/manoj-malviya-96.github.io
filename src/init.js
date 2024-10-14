@@ -62,20 +62,19 @@ function toggleForAbout(keepItExpanded=false) {
     }
     const content = window.document.getElementById('moreDetailsAboutMe');
 
-    if (keepItExpanded && content.classList.contains('expanded')) {
+    if (keepItExpanded && !content.classList.contains('collapsed')) {
         return; // Keep it expanded
     }
-    button.classList.toggle('expanded');
-    content.classList.toggle('expanded');
+    content.classList.toggle('collapsed');
 
     const aboutEntity = window.document.getElementById('titleAndPictureRow');
     aboutEntity.classList.toggle('collapsed');
 
     // Toggle icon class and button text based on the state
-    if (content.classList.contains('expanded')) {
-        button.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
-    } else {
+    if (content.classList.contains('collapsed')) {
         button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
+    } else {
+        button.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
     }
 }
 
