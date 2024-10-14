@@ -431,14 +431,15 @@ a {
 	list-style: none;
 	position: absolute;
 	padding: 0;
+	width: auto;
 	margin: var(--spacing-small) 0;
 	border-radius: var(--default-radius);
-	width: auto;
-	backdrop-filter: blur(var(--more-blur-radius));
 	z-index: var(--z-index-overlay);
 	font-size: var(--subtitle-text-size);
 	line-height: var(--line-height);
+	transform: translateY(-100%); /* Move the dropdown above the button */
 	transition: all var(--transition-default);
+	backdrop-filter: blur(var(--more-blur-radius));
 }
 
 .custom-dropdown.hidden {
@@ -848,12 +849,11 @@ code {
 
 /* Project Images */
 img.img-fluid {
-	width: calc(var(--max-image-width) * 0.8);
+	width: 100%;
 	height: auto;
 	display: block;
-	margin: var(--spacing-medium) auto;
+	margin: var(--spacing-large) auto;
 	border-radius: var(--default-radius);
-	padding: var(--spacing-large);
 }
 
 /* Full-screen overlay styling */
