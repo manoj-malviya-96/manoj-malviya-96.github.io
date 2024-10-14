@@ -94,7 +94,7 @@ class MusicApp {
     }
 
     // Check if the Enter key is pressed (keyCode 13 or 'Enter')
-    if (event.code === "Enter") {
+    if (event.code === "Enter" || event.code === "KeyF") {
       event.preventDefault(); // Prevent default behavior of Enter
       this.toggleFullScreen();
     }
@@ -191,7 +191,15 @@ class MusicApp {
     if (!file) return;
 
     this.resetAudio();
-    this.setupNewAudio(file);
+
+    try {
+      const fileURL = URL.createObjectURL(file);
+      this.setupNewAudio(fileURL);
+      this.extractMetadata(file);
+    } catch (error) {
+      console.error("Error loading audio", error);
+    }
+
     this.togglePlayPause();
   }
 
@@ -283,9 +291,9 @@ class MusicApp {
   }
 
   // Setup a new audio file and initialize the visualizer
-  setupNewAudio(file) {
+  setupNewAudio(fileURL) {
     this.audio = new Audio();
-    this.audio.src = URL.createObjectURL(file);
+    this.audio.src = fileURL;
     this.audio.load();
 
     this.audioContext = new (window.AudioContext ||
@@ -299,12 +307,6 @@ class MusicApp {
     this.analyser.fftSize = 256; // Number of bins for frequency analysis
     this.bufferLength = this.analyser.frequencyBinCount;
     this.dataArray = new Uint8Array(this.bufferLength);
-
-    try {
-      this.extractMetadata(file);
-    } catch (error) {
-      console.error("Error extracting metadata", error);
-    }
     this.audio.addEventListener("timeupdate", this.updateSlider.bind(this));
     this.audio.addEventListener("ended", this.resetAudio.bind(this));
     this.drawVisualizer();
