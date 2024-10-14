@@ -1,8 +1,7 @@
-
-
 const max_width = 600;
+
 function createPlotsForDfam() {
-    createHeatmap('heatmap1', ['Design Prompt', 'Add Material', 'Remove Material', 'Editing'], ['S1', 'S2', 'S3', 'S4'], [[0.91, 0, 0.08, 0], [0.88, 0, 0, 0.12], [0.23, 0, 0.53, 0.23], [0.08, 0.17, 0.67, 0.08]], max_width,"Analysis of the design process in Dfam", "Design Step", "States",);
+    createHeatmap('heatmap1', ['Design Prompt', 'Add Material', 'Remove Material', 'Editing'], ['S1', 'S2', 'S3', 'S4'], [[0.91, 0, 0.08, 0], [0.88, 0, 0, 0.12], [0.23, 0, 0.53, 0.23], [0.08, 0.17, 0.67, 0.08]], max_width, "Analysis of the design process in Dfam", "Design Step", "States",);
     createHeatmap('heatmap2', ['S1', 'S2', 'S3', 'S4'], ['S1', 'S2', 'S3', 'S4'], [[0.05, 0.91, 0.03, 0], [0.75, 0.07, 0.05, 0.13], [0, 0.03, 0, 0.92], [0.01, 0.02, 0.65, 0.32]], max_width, "Transition Probabilities in Dfam", "From State", "To State",);
 }
 
@@ -19,5 +18,5 @@ function createPlotsForDeltaDesign() {
         [0.01, 0.79, 0.00, 0.09],  // S2 -> S1, S2, S3, S4
         [0.04, 0.01, 0.84, 0.02],  // S3 -> S1, S2, S3, S4
         [0.01, 0.00, 0.01, 0.89]   // S4 -> S1, S2, S3, S4
-    ], max_width,  "Transition Probabilities in Delta Design", "From State", "To State",)
+    ], max_width, "Transition Probabilities in Delta Design", "From State", "To State",)
 }
