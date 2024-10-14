@@ -273,10 +273,21 @@ class MusicApp {
             case 'bars':
                 this.drawBarChartVisualizer();
                 break;
+            case 'spiral':
+                this.drawSpiralVisualizer();
+                break;
             default:
                 this.drawBarChartVisualizer();
                 break;
         }
+    }
+
+    getCanvasCenterAndDimensions() {
+        const canvasWidth = this.elements.canvas.width;
+        const canvasHeight = this.elements.canvas.height;
+        const centerX = canvasWidth / 2;
+        const centerY = canvasHeight / 2;
+        return {canvasWidth, canvasHeight, centerX, centerY};
     }
 
     // Draw the visualizer on the canvas
@@ -286,14 +297,13 @@ class MusicApp {
         const maxBarHeight = this.elements.canvas.height / 4;
         const fftSize = this.analyser.fftSize; // Maximum intensity
 
-        const centerX = this.elements.canvas.width / 2;
-        const centerY = this.elements.canvas.height / 2;
+        const {canvasWidth, canvasHeight, centerX, centerY} = this.getCanvasCenterAndDimensions();
 
         const draw = () => {
             requestAnimationFrame(draw);
             this.analyser.getByteFrequencyData(this.dataArray);
 
-            this.canvasCtx.clearRect(0, 0, this.elements.canvas.width, this.elements.canvas.height);
+            this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 
             for (let i = 0; i < numBars; i++) {
@@ -328,11 +338,7 @@ class MusicApp {
         const maxRange = 21; // Adjust as needed for coverage
         const maxDistance = (maxRange * 3 + 1); // Max distance for mapping
 
-        const canvasWidth = this.elements.canvas.width;
-        const canvasHeight = this.elements.canvas.height;
-
-        const centerX = canvasWidth / 2;
-        const centerY = canvasHeight / 2;
+        const {canvasWidth, canvasHeight, centerX, centerY} = this.getCanvasCenterAndDimensions();
 
         const draw = () => {
             requestAnimationFrame(draw);
@@ -381,7 +387,90 @@ class MusicApp {
         };
 
         draw();
+    };
+
+    drawSpiralVisualizer() {
+        // Spiral parameters
+        let angle = 0;
+        let scale = 0.0069; // Reduced scale to make spiral smaller
+        let speed = 0.0069; // Slow rotation speed
+        let points = []; // Stores current visible points
+        let fib1 = 1, fib2 = 1; // Starting Fibonacci numbers
+        let totalPoints = 0; // Counter to keep track of points generated
+
+        // Colors for gradient effect
+        const colors = ["black", "#791f0d", "#a47971", "#a8a4a3", "#a92d14"];
+        const distPadding = 7;
+        const scaleForMovement = 1.0069;
+        const opacityThreshold = 0.69;
+        const opacityChange = 0.005;
+
+        const {canvasWidth, canvasHeight, centerX, centerY} = this.getCanvasCenterAndDimensions();
+
+        // Generate next Fibonacci number
+        const nextFibonacci = () => {
+            const next = fib1 + fib2;
+            fib1 = fib2;
+            fib2 = next;
+            return next;
+        };
+
+        // Draw spiral
+        const draw = () => {
+            // Loop the drawing
+            requestAnimationFrame(draw);
+
+
+            this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+            this.canvasCtx.save();
+            this.canvasCtx.translate(centerX, centerY); // Move origin to the center
+            this.canvasCtx.rotate(angle); // Rotate for dynamic effect
+
+            // Draw each point in the points array
+            points.forEach(point => {
+                const { x, y, r, color, opacity } = point;
+
+                // Draw a circle with color and depth effect
+                this.canvasCtx.beginPath();
+                this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
+                this.canvasCtx.fillStyle = `rgba(${hexToRgb(color)}, ${opacity})`;
+                this.canvasCtx.fill();
+
+                // Update point position (simulate movement outward)
+                point.r *= scaleForMovement; // Slight increase in size
+                point.x = distPadding * point.r * Math.cos(point.angle);
+                point.y = distPadding * point.r * Math.sin(point.angle);
+                point.opacity = point.opacity < opacityThreshold ? point.opacity + opacityChange : point.opacity - opacityChange;
+            });
+
+            // Remove points that are out of view or fully transparent
+            points = points.filter(point => point.r < canvas.width * 1.5 && point.opacity > 0);
+
+            // Generate new Fibonacci point
+            const fibRadius = nextFibonacci() * scale; // Increase scale for larger distance
+            const angleOffset = totalPoints * 0.5; // Increase this for more spacing between points
+
+            const color = colors[totalPoints % colors.length];
+
+            points.push({
+                x: fibRadius * Math.cos(angleOffset),
+                y: fibRadius * Math.sin(angleOffset),
+                r: 5, // Keep the circles small but visible
+                color: color, // Use valid color
+                opacity: 0.05, // Full opacity initially
+                angle: angleOffset
+            });
+
+            totalPoints++; // Increment the total points counter
+            this.canvasCtx.restore();
+
+            // Increase angle slightly for smooth rotation
+            angle += speed;
+        };
+
+        draw();
     }
+
 
     // Toggle music HUD visibility
     toggleMusicHud() {

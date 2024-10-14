@@ -2,290 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contribution Heatmap</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Endless Fibonacci Spiral</title>
     <style>
 		body {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			background-color: #1e1e1e;
-			color: white;
-			font-family: Arial, sans-serif;
+			margin: 0;
+			overflow: hidden;
+			background-color: black;
 		}
-
-		.container {
-			display: flex;
-			flex-direction: column;
-			width: 1200px;
-			background-color: #2c2c2c;
-			border-radius: 10px;
-			padding: 10px;
-			justify-content: center;
-			align-content: center;
-		}
-
-		.plot-container {
-			width: 100%;
-			height: 369px;
-			padding: 5px;
-			border-radius: 10px;
-		}
-
-		#heatmap-container {
-			width: 100%;
-			height: 100%;
-			transition: transform 0.5s ease;
-		}
-
-		#headerBar {
-			display: flex;
-			flex-direction: row;
-			width: 100%;
-			align-content: center;
-			justify-content: center;
-		}
-
-		.year-selector {
-			width: auto;
-			height: 40px;
-			display: flex;
-			flex-direction: row;
-			background-color: #1e1e1e;
-			border-radius: 10px;
-			padding: 5px;
-		}
-
-		.year-button {
-			background-color: transparent;
-			color: #aaa;
-			border: none;
-			padding: 5px;
-			font-size: 18px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-			margin-bottom: 5px;
-			width: 100%;
-			text-align: center;
-		}
-
-		.year-button.selected {
-			background-color: #2978ff;
-			color: white;
-		}
-
-		.stat-tile {
-			background-color: #1e1e1e;
-			padding: 5px 25px;
-			border-radius: 10px;
-			text-align: center;
-			height: 40px;
-			width: auto;
-			margin-left: 40px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-evenly;
-		}
-
-		.stat-tile img {
-			width: 24px;
-			margin-bottom: 8px;
+		canvas {
+			display: block;
 		}
     </style>
 </head>
 <body>
-<div class="container">
-
-    <div id="headerBar">
-        <div class="year-selector" id="yearButtons"></div>
-
-        <div class="stat-tile">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/code-file.png" alt="commits icon">
-            <h3 id="totalCommits">0</h3>
-            <p>Total Commits</p>
-        </div>
-
-        <div class="stat-tile">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/trophy.png" alt="streak icon">
-            <h3 id="longestStreak">0</h3>
-            <p>Longest Streak</p>
-        </div>
-    </div>
-
-    <div class="plot-container">
-        <div id="heatmap-container"></div>
-    </div>
-</div>
+<canvas id="blackHoleCanvas"></canvas>
 
 <script>
-    let newData = {};  // To store the daily commit counts by year
-    let currentYear = 0;
+    const canvas = document.getElementById('blackHoleCanvas');
+    const ctx = canvas.getContext('2d');
 
-    // Function to process and group commits by day of week and week number
-    function getHeatmapData(year) {
-        const commitData = newData[year] || {};
-        const dates = Object.keys(commitData);
-
-        // Prepare empty array for 7 days (week rows) and 52 weeks (cols)
-        const z = Array(7).fill().map(() => Array(52).fill(0));
-
-        dates.forEach(date => {
-            const currentDate = new Date(date);
-            const dayOfWeek = currentDate.getDay();  // Sunday = 0, Monday = 1, ..., Saturday = 6
-            const weekOfYear = Math.floor((currentDate - new Date(currentDate.getFullYear(), 0, 1)) / (7 * 24 * 60 * 60 * 1000));  // Calculate week number
-
-            // Fill the matrix with commit data
-            if (weekOfYear < 52) {  // Ensure we stay within 52 weeks
-                z[dayOfWeek][weekOfYear] = commitData[date] || 0;
-            }
-        });
-
-        return z;
+    // Set canvas dimensions
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
+    resizeCanvas();
 
-    // Function to update headerBar (Total Commits, Longest Streak)
-    function updateStats(year) {
-        const commitData = newData[year] || {};
-        const dates = Object.keys(commitData);
+    // Center of canvas
+    let centerX = canvas.width / 2;
+    let centerY = canvas.height / 2;
 
-        // Calculate total commits
-        const totalCommits = dates.reduce((sum, date) => sum + commitData[date], 0);
-        document.getElementById('totalCommits').innerText = totalCommits;
+    // Update center on resize
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        centerX = canvas.width / 2;
+        centerY = canvas.height / 2;
+    });
 
-        // Calculate the longest streak (consecutive days with commits)
-        let longestStreak = 0, currentStreak = 0;
-        dates.sort((a, b) => new Date(a) - new Date(b)).forEach((date, index, array) => {
-            if (index > 0 && (new Date(date) - new Date(array[index - 1])) / (1000 * 60 * 60 * 24) === 1) {
-                currentStreak++;
+    // Spiral parameters
+    let angle = 0;
+    let scale = 0.0069; // Reduced scale to make spiral smaller
+    let speed = 0.0069; // Slow rotation speed
+    let points = []; // Stores current visible points
+    let fib1 = 1, fib2 = 1; // Starting Fibonacci numbers
+    let totalPoints = 0; // Counter to keep track of points generated
+
+    // Colors for gradient effect
+    const colors = [
+        "black", "#791f0d", "#a47971", "#a8a4a3", "#a92d14"
+    ];
+
+    // Generate next Fibonacci number
+    function nextFibonacci() {
+        const next = fib1 + fib2;
+        fib1 = fib2;
+        fib2 = next;
+        return next;
+    }
+    const distPadding = 7;
+
+    // Draw spiral
+    function drawFibonacciSpiral() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(centerX, centerY); // Move origin to the center
+        ctx.rotate(angle); // Rotate for dynamic effect
+
+        // Draw each point in the points array
+        points.forEach((point) => {
+            const { x, y, r, color, opacity } = point;
+
+            // Draw a circle with color and depth effect
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${hexToRgb(color)}, ${opacity})`;
+            ctx.fill();
+
+            // Update point position (simulate movement outward)
+            point.r *= 1.0069; // Slight increase in size
+            point.x = distPadding * point.r * Math.cos(point.angle);
+            point.y = distPadding * point.r * Math.sin(point.angle);
+            if (point.opacity < 0.69) {
+                point.opacity += 0.005; // Slowly fade out
             } else {
-                longestStreak = Math.max(longestStreak, currentStreak);
-                currentStreak = 1;
+                point.opacity -= 0.095;
             }
         });
-        longestStreak = Math.max(longestStreak, currentStreak);
-        document.getElementById('longestStreak').innerText = longestStreak;
-    }
 
-    // Function to render the heatmap
-    function renderHeatmap(year) {
-        const z = getHeatmapData(year);
-        const totalCommits = z.flat().reduce((sum, val) => sum + val, 0);  // Calculate total commits for the year
+        // Remove points that are out of view or fully transparent
+        points = points.filter(point => point.r < canvas.width * 1.5 && point.opacity > 0);
 
-        const heatmapTrace = {
-            z: z,
-            type: 'heatmap',
-            xgap: 1,
-            ygap: 1,
-            colorscale: 'Reds',
-            zmin: 1,  // Avoid 0 on the log scale
-            zmax: Math.max(...z.flat()),  // Set zmax based on the highest commit count
-            showscale: true,
-            colorbar: {
-                title: 'Commits',
-                thickness: 10
-            },
-            hovertemplate: 'Week %{x}, Day %{y}: %{z} commits<extra></extra>',
+        // Generate new Fibonacci point
+        const fibRadius = nextFibonacci() * scale * 200; // Increase scale for larger distance
+        const angleOffset = totalPoints * 0.5; // Increase this for more spacing between points
+
+        const colorIndex = totalPoints % colors.length;
+        const color = colors[colorIndex];
+
+        const newPoint = {
+            x: fibRadius * Math.cos(angleOffset),
+            y: fibRadius * Math.sin(angleOffset),
+            r: 5, // Keep the circles small but visible
+            color: color, // Use valid color
+            opacity: 0.05, // Full opacity initially
+            angle: angleOffset
         };
 
-        const heatmapLayout = {
-            xaxis: {
-                showticklabels: false,
-                ticks: '',
-                showgrid: false,
-                showline: false,
-                zeroline: false,
-                automargin: true,
-                range: [0, 51],
-            },
-            yaxis: {
-                showticklabels: false,
-                ticks: '',
-                showgrid: false,
-                zeroline: false,
-                showline: false,
-                automargin: true,
-                range: [-0.5, 6.5],
-            },
-            xgap: 4,
-            ygap: 4,
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-        };
+        // Add new point to the list
+        points.push(newPoint);
 
-        Plotly.newPlot('heatmap-container', [heatmapTrace], heatmapLayout);
+        totalPoints++; // Increment the total points counter
 
-        // Update the headerBar section
-        updateStats(year);
+        ctx.restore();
+
+        // Increase angle slightly for smooth rotation
+        angle += speed;
+
+        // Loop the drawing
+        requestAnimationFrame(drawFibonacciSpiral);
     }
 
-    // Handle year change
-    function changeYear(year) {
-        if (year === currentYear) return;  // Don't re-render if the year hasn't changed
-
-        // Remove 'selected' class from the currently selected button, if any
-        const selectedButton = document.querySelector('.year-button.selected');
-        if (selectedButton) {
-            selectedButton.classList.remove('selected');
+    // Helper function to convert hex colors to RGB
+    function hexToRgb(hex) {
+        if (!hex) {
+            return "0,0,0"; // Fallback to black if color is undefined
         }
-
-        // Add 'selected' class to the newly selected button using its id
-        const newSelectedButton = document.getElementById(`buttonFor${year}`);
-        if (newSelectedButton) {
-            newSelectedButton.classList.add('selected');
-        }
-
-        // Render the heatmap
-        renderHeatmap(year);
-        currentYear = year;
+        const bigint = parseInt(hex.slice(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `${r},${g},${b}`;
     }
 
-    // Function to generate buttons dynamically
-    function generateYearButtons() {
-        const yearButtonsContainer = document.getElementById('yearButtons');
-        const years = Object.keys(newData).sort((a, b) => b - a);  // Sort years descending
+    drawFibonacciSpiral();
 
-        years.forEach(year => {
-            const button = document.createElement('button');
-            button.className = 'year-button';
-            button.id = `buttonFor${year}`;  // Set a unique id for each button
-            button.textContent = year;
-            button.addEventListener('click', () => changeYear(year));  // Add event listener for year change
-            yearButtonsContainer.appendChild(button);
-        });
-
-        // Ensure the button exists before adding the 'selected' class
-        const defaultButton = document.getElementById(`buttonFor${years[0]}`);
-        if (defaultButton) {
-            defaultButton.classList.add('selected');  // Set the first button (latest year) as selected
-        }
-    }
-
-
-    // Fetch the JSON file dynamically and initialize
-    fetch('github_user_report.json')
-        .then(response => response.json())
-        .then(data => {
-            data.repositories.forEach(repo => {
-                repo.daily_log.forEach(log => {
-                    const date = log.date;
-                    const year = new Date(date).getFullYear();
-                    currentYear = Math.max(year, currentYear);
-
-                    if (!newData[year]) newData[year] = {};
-                    if (!newData[year][date]) newData[year][date] = 0;
-
-                    newData[year][date] += log.commits;
-                });
-            });
-
-            generateYearButtons();  // Generate buttons after data is loaded
-            renderHeatmap(currentYear);  // Initial render with default year
-        })
-        .catch(error => console.error('Error fetching JSON:', error));
 </script>
 </body>
 </html>
