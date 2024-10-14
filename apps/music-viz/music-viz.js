@@ -146,6 +146,10 @@ class MusicApp {
     dropdownItems.forEach((item) => item.classList.remove("selected"));
     event.target.classList.add("selected");
 
+    // Update Dropdown icon
+    const icon = this.elements.dropDownBtn.querySelector("i");
+    icon.className = event.target.getAttribute("data-icon");
+
     // Close the dropdown
     this.toggleDropdown();
 
