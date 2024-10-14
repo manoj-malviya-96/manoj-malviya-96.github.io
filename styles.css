@@ -1081,23 +1081,6 @@ canvas {
 	object-fit: cover;
 }
 
-.music-hud {
-	display: flex;
-	flex-direction: column;
-	width: 80%;
-	height: 100%;
-	background-color: transparent;
-}
-
-.music-controls {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
-	height: 100%;
-	background-color: transparent;
-}
-
 /* -------------------------- Light Mode -------------------------- */
 
 .light-mode .about-entity {

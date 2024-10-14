@@ -5,6 +5,23 @@
         height: 100%;
     }
 
+    #music-hud {
+	    display: flex;
+	    flex-direction: column;
+	    width: 80%;
+	    height: 100%;
+	    background-color: transparent;
+    }
+
+    #music-controls {
+	    display: flex;
+	    width: 100%;
+	    align-items: center;
+	    justify-content: space-between;
+	    height: 100%;
+	    background-color: transparent;
+    }
+
 </style>
 
 <div class="app-window">
@@ -24,11 +41,11 @@
             </div>
 
             <!-- HUD for music controls and display -->
-            <div class="music-hud app-controller-item">
+            <div id="music-hud" class="app-controller-item">
                 <div class="progress-area">
                     <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
                 </div>
-                <div class="music-controls">
+                <div id="music-controls">
                     <div id="control-buttons" style="display: flex">
                         <!--Skip backward button -->
                         <button id="skipBackwardBtn" class="primary-button" style="scale: 0.9">
