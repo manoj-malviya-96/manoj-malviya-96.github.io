@@ -25,7 +25,7 @@
 	--spacing-huge: 48px;
 
 	/* Transition */
-	--transition-default: 0.27s;
+	--transition-default: 0.420s;
 	--transition-short: 0.05s;
 
 	/* Size */
@@ -56,8 +56,7 @@
 	--z-index-max: 2000;
 
 	/* Spinner */
-	--spinner-size: 69px;
-	--spinner-border-width: 5px;
+	--spinner-size: 169px;
 
 	/* Shadow */
 	--shadows-light: 0 2px 7px rgba(0, 0, 0, 0.18);
@@ -78,7 +77,7 @@
 	--active-scale: 0.869;
 
 	--blur-radius: 9px;
-	--more-blur-radius: 21px;
+	--more-blur-radius: 42px;
 
 	/* Github contributions */
 	--color-calendar-graph-day-bg: #3d3d3d;
@@ -143,16 +142,11 @@ body.dark-mode {
 	line-height: var(--line-height);
 }
 
-.light-mode .content.reading {
-	box-shadow: var(--shadows-light);
-}
-.dark-mode .content.reading {
-	box-shadow: var(--shadows-dark);
+.content.with-padding {
+	padding: var(--spacing-large);
 }
 
-.content.with-padding {
-	padding: var(--spacing-huge);
-}
+/* ----------------------------- Block Styling ----------------------------- */
 
 .block {
 	text-align: left;
@@ -177,13 +171,14 @@ body.dark-mode {
 	color: var(--color-dark-imp);
 }
 
-.content.collapsible {
+/* ----------------------------- Collapsible Styling ----------------------------- */
+
+.content.collapsed {
 	height: 0;
 	width: var(--max-body-width);
 	opacity: 0;
 	overflow: hidden;
-	margin: 0 auto;
-	transition: all var(--transition-default);
+	padding: 0;
 }
 
 .content.collapsible.expanded {
@@ -435,14 +430,16 @@ a {
 	list-style: none;
 	position: absolute;
 	padding: 0;
+	width: auto;
+	min-width: 100px;
 	margin: var(--spacing-small) 0;
 	border-radius: var(--default-radius);
-	width: auto;
-	backdrop-filter: blur(var(--more-blur-radius));
 	z-index: var(--z-index-overlay);
 	font-size: var(--subtitle-text-size);
 	line-height: var(--line-height);
+	transform: translateY(-100%); /* Move the dropdown above the button */
 	transition: all var(--transition-default);
+	backdrop-filter: blur(var(--more-blur-radius));
 }
 
 .custom-dropdown.hidden {
@@ -852,12 +849,11 @@ code {
 
 /* Project Images */
 img.img-fluid {
-	width: calc(var(--max-image-width) * 0.8);
+	width: 100%;
 	height: auto;
 	display: block;
-	margin: var(--spacing-medium) auto;
+	margin: var(--spacing-large) auto;
 	border-radius: var(--default-radius);
-	padding: var(--spacing-large);
 }
 
 /* Full-screen overlay styling */
@@ -1070,7 +1066,7 @@ canvas {
 	width: var(--app-window-width);
 	height: var(--app-window-height);
 	border-radius: var(--default-radius);
-	padding: var(--spacing-small);
+	padding: var(--border-width);
 	overflow: clip;
 	background-color: black;
 	justify-items: center;
@@ -1083,23 +1079,6 @@ canvas {
 	height: 100vh;
 	display: block;
 	object-fit: cover;
-}
-
-.music-hud {
-	display: flex;
-	flex-direction: column;
-	width: 80%;
-	height: 100%;
-	background-color: transparent;
-}
-
-.music-controls {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
-	height: 100%;
-	background-color: transparent;
 }
 
 /* -------------------------- Light Mode -------------------------- */

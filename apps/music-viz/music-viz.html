@@ -1,3 +1,29 @@
+<style>
+    #vizDropdown,
+    #songDropdown {
+        bottom: 0;
+        height: 100%;
+    }
+
+    #music-hud {
+	    display: flex;
+	    flex-direction: column;
+	    width: 80%;
+	    height: 100%;
+	    background-color: transparent;
+    }
+
+    #music-controls {
+	    display: flex;
+	    width: 100%;
+	    align-items: center;
+	    justify-content: space-between;
+	    height: 100%;
+	    background-color: transparent;
+    }
+
+</style>
+
 <div class="app-window">
     <!-- Visualizer section -->
     <canvas id="visualizer" width="1200" height="900"></canvas> <!-- 4:3 ratio -->
@@ -15,11 +41,11 @@
             </div>
 
             <!-- HUD for music controls and display -->
-            <div class="music-hud app-controller-item">
+            <div id="music-hud" class="app-controller-item">
                 <div class="progress-area">
                     <input type="range" id="progressBar" class="base-progress-bar" min="0" max="100" value="0">
                 </div>
-                <div class="music-controls">
+                <div id="music-controls">
                     <div id="control-buttons" style="display: flex">
                         <!--Skip backward button -->
                         <button id="skipBackwardBtn" class="primary-button" style="scale: 0.9">
@@ -42,22 +68,36 @@
             </div>
 
             <div id="vizSettings" class="app-controller-item">
+                <!-- Song selector dropdown -->
+                <div style="margin-right: var(--spacing-medium)">
+                    <button class="primary-button" id="songDropdownBtn">
+                        <i class="bi bi-music-note-list"></i>
+                    </button>
+                    <ul id="songDropdown" class="custom-dropdown hidden ">
+                        <li data-url="./apps/music-viz/closed_my_eyes.mp3" class="dropdown-item">Closed My Eyes</li>
+                        <li data-url="./apps/music-viz/i_need_you.mp3" class="dropdown-item">I Need You</li>
+                        <li data-url="./apps/music-viz/you_and_me.mp3" class="dropdown-item">You And Me</li>
+                    </ul>
+                </div>
+
+                <!-- Vizualizer dropdown -->
+                <div style="margin-right: var(--spacing-medium)">
+                    <button class="primary-button" id="vizDropDownBtn">
+                        <i class="bi bi-ui-radios-grid"></i>
+                    </button>
+                    <ul id="vizDropdown" class="custom-dropdown hidden">
+                        <li data-value="circles" data-icon="bi bi-ui-radios-grid" class="dropdown-item selected">Default</li>
+                        <li data-value="bars" data-icon="bi bi-bar-chart" class="dropdown-item">Bars</li>
+                        <li data-value="spiral" data-icon="bi bi-infinity" class="dropdown-item">Spirals</li>
+                    </ul>
+                </div>
+
                 <!-- Upload button -->
-                <div id="uploadButton" style="margin-right: var(--spacing-large)">
+                <div id="uploadButton" style="margin-right: var(--spacing-medium)">
                     <label for="fileUpload" class="primary-button">
                         <i class="bi bi-upload"></i>
                     </label>
                     <input type="file" id="fileUpload" accept="audio/*" style="display: none">
-                </div>
-
-                <div id="viz-dropdown-container" class="" style="margin-right: var(--spacing-large)">
-                    <button class="primary-button" id="dropDownBtn">
-                        <i class="bi bi-gear-fill"></i>
-                    </button>
-                    <ul id="vizDropdown" class="custom-dropdown hidden">
-                        <li data-value="circles" class="dropdown-item selected">Default</li>
-                        <li data-value="bars" class="dropdown-item">Bars</li>
-                    </ul>
                 </div>
 
 
