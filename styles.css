@@ -143,13 +143,6 @@ body.dark-mode {
 	line-height: var(--line-height);
 }
 
-.light-mode .content.reading {
-	box-shadow: var(--shadows-light);
-}
-.dark-mode .content.reading {
-	box-shadow: var(--shadows-dark);
-}
-
 .content.with-padding {
 	padding: var(--spacing-huge);
 }
