@@ -490,11 +490,15 @@
         {
           "date": "2024-10-10",
           "commits": 8
+        },
+        {
+          "date": "2024-10-14",
+          "commits": 7
         }
       ],
       "languages": {
-        "C++": 22976662,
-        "QML": 3304208,
+        "C++": 22976760,
+        "QML": 3305042,
         "Python": 1575050,
         "CMake": 828712,
         "Shell": 74248,
@@ -591,13 +595,21 @@
         },
         {
           "date": "2024-10-13",
-          "commits": 17
+          "commits": 26
+        },
+        {
+          "date": "2024-10-14",
+          "commits": 13
+        },
+        {
+          "date": "2024-10-15",
+          "commits": 4
         }
       ],
       "languages": {
-        "JavaScript": 140181,
-        "HTML": 113640,
-        "CSS": 27357
+        "JavaScript": 145644,
+        "HTML": 111600,
+        "CSS": 27121
       }
     },
     {
@@ -670,13 +682,13 @@
       ],
       "languages": {
         "C": 57707397,
-        "C++": 21490919,
-        "Python": 11239254,
+        "C++": 21496879,
+        "Python": 11239625,
         "Jupyter Notebook": 6719311,
         "QML": 6159647,
         "Go": 1609557,
         "JavaScript": 1524107,
-        "CMake": 1040377,
+        "CMake": 1040425,
         "Assembly": 568918,
         "TypeScript": 424443,
         "Shell": 419113,
@@ -1283,7 +1295,7 @@
         "Jupyter Notebook": 1053071270,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 39722253,
+        "Python": 39729043,
         "JavaScript": 14615804,
         "C++": 6982085,
         "Mathematica": 3004790,
