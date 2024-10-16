@@ -1,6 +1,5 @@
-/** Common utility functions for Quarto themes */
+/** ---------------------------- Global variables - Accessible across all scripts  ---------------------------- **/
 
-// Global variables - Accessible across all scripts
 const contentPlaceholder = window.document.getElementById(
   "content-placeholder",
 );
@@ -13,8 +12,8 @@ const homePageCallbacks = [
   initTheme,
   initGithub,
   setupSortOptions,
-  loadApps,
-  loadBlogs,
+  makeAppButtons,
+  makeBlogCards,
 ];
 
 const defaultBlogCallbacks = [
@@ -41,6 +40,7 @@ const appHTMLToInits = {
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
 };
 
+/** ---------------------------- Content Loader  ---------------------------- **/
 // Load Content with Overlay, used to show a loading spinner while content is being fetched
 function loadContentInMainWindow(
   page,
@@ -83,7 +83,7 @@ function loadHomePage(
 }
 
 // 2. Load Project Page with the specified callbacks
-function loadProjectPage(page, event, doPushToHistory = true) {
+function loadBlogPage(page, event, doPushToHistory = true) {
   const callbacks = defaultBlogCallbacks.concat(blogHTMLToExtraCallbacks[page]);
   loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
@@ -117,7 +117,7 @@ function loadPageFromTypedURL(event) {
     return;
   }
 
-  loadProjectPage(pageName, event, false);
+  loadBlogPage(pageName, event, false);
 }
 
 function handleURLinHistory(url, doPushToHistory) {
@@ -193,7 +193,7 @@ function makeAppButton(container, appHTMLPath) {
     );
 }
 
-function getCardHTML(
+function createBlogCardHTML(
   filePath,
   imagePath,
   title,
@@ -217,7 +217,7 @@ function getCardHTML(
           data-description="${shortDescription.toLowerCase()}"
           data-date=${parseDate(date)}>
           <a href="javascript:void(0)" class="quarto-grid-link" 
-             onclick="loadProjectPage('${filePath}', event)">
+             onclick="loadBlogPage('${filePath}', event)">
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-body post-contents">
                     <div class="project-type">${type}</div>
@@ -236,7 +236,7 @@ function getCardHTML(
     `;
 }
 
-function makeBlogCard(filePath, container) {
+function createBlogCardFromHTML(filePath, container) {
   return fetch(filePath)
     .then((response) => {
       if (!response.ok) {
@@ -279,7 +279,7 @@ function makeBlogCard(filePath, container) {
         doc.querySelectorAll(".quarto-category"),
       ).map((el) => el.textContent);
 
-      const cardHTML = getCardHTML(
+      const cardHTML = createBlogCardHTML(
         filePath,
         imagePath,
         title,
@@ -299,7 +299,7 @@ function makeBlogCard(filePath, container) {
     });
 }
 
-function loadBlogs() {
+function makeBlogCards() {
   const container = window.document.getElementById("project-list");
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
@@ -307,7 +307,7 @@ function loadBlogs() {
 
   let allCategories = new Set();
   const promises = Object.entries(blogHTMLToExtraCallbacks).map(
-    ([projectKey]) => makeBlogCard(projectKey, container),
+    ([projectKey]) => createBlogCardFromHTML(projectKey, container),
   );
 
   // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
@@ -325,7 +325,7 @@ function loadBlogs() {
     });
 }
 
-function loadApps() {
+function makeAppButtons() {
   const container = window.document.getElementById("app-list");
   if (!container) {
     throw new Error(`Element with ID- app-list not found.`);
