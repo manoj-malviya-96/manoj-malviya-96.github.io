@@ -517,6 +517,33 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	bottom: var(--spacing-small);
 }
 
+.tag-category {
+	padding: var(--spacing-small);
+	margin: var(--spacing-small) var(--spacing-small);
+	width: fit-content;
+	border-radius: var(--small-radius);
+	border: var(--border-width) solid; !important;
+	font-size: var(--subtitle-text-size);
+}
+
+.light-mode .tag-category {
+	border-color: var(--color-light-imp) !important;
+	color: var(--color-light-imp) !important;
+}
+
+.dark-mode .tag-category {
+	border-color: var(--color-dark-imp) !important;
+	color: var(--color-dark-imp) !important;
+}
+
+.tag-categories {
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+	opacity: 0.69;
+	transition: all var(--transition-default);
+}
+
 
 
 /* ----------------------- Grid Layout--------------------------- */
@@ -595,31 +622,11 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	transition: all var(--transition-default) ease-out;
 }
 
-.listing-categories {
-	transition: all var(--transition-default);
-	display: flex;
-	flex-wrap: wrap;
-	overflow: hidden;
-}
-
-
-/* Listing category NOTE: important is needed to override the default bootstrap styling */
-.listing-category,
-.quarto-category {
-	border: var(--border-width) solid; !important;
-	margin-right: var(--spacing-small) !important;
-	margin-top: var(--spacing-small) !important;
-	padding: var(--spacing-small) !important;
-	width: fit-content;
-	border-radius: var(--small-radius); !important;
-	font-size: var(--subtitle-text-size); !important;
-}
-
 .card:hover .card-text {
 	opacity: 1;
 }
 
-.card:hover .listing-categories {
+.card:hover .tag-categories {
 	opacity: 0.69;
 }
 
@@ -641,6 +648,35 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 
+.light-mode .card {
+	background-color: var(--color-light-contrast);
+	border-color: var(--color-light-contrast);
+}
+
+.dark-mode .card {
+	background-color: var(--color-dark-contrast);
+	border-color: var(--color-dark-contrast);
+}
+
+.light-mode .card:hover {
+	box-shadow: var(--shadows-light);
+}
+.dark-mode .card:hover {
+	box-shadow: var(--shadows-dark);
+}
+
+.light-mode .card-title,
+.light-mode .card-text {
+	color: var(--color-light-imp);
+}
+
+.dark-mode .card-text,
+.dark-mode .card-title {
+	color: var(--color-dark-imp);
+}
+
+
+
 /* ----------------------------- Project Page Styling ----------------------------- */
 
 #title-block-header .quarto-title-banner {
@@ -650,20 +686,15 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 0;
-!important;
+	padding: 0; !important;
 	box-sizing: border-box;
 }
 
 .quarto-title-block {
-	width: var(--max-content-width);
-!important;
-	margin: 0 auto;
-!important;
-	padding: 0;
-!important;
-	height: var(--project-card-height);
-!important;
+	width: var(--max-content-width); !important;
+	margin: 0 auto; !important;
+	padding: 0; !important;
+	height: var(--project-card-height); !important;
 }
 
 /* -------------------------------- Project Page Styling --------------------------------  */
@@ -1060,7 +1091,7 @@ th {
 
 
 
-/* -------------------------- Music App Styling -------------------------- */
+/* -------------------------- Canvas Styling -------------------------- */
 canvas {
 	position: absolute;
 	width: var(--app-window-width);
@@ -1083,24 +1114,6 @@ canvas {
 
 /* -------------------------- Light Mode -------------------------- */
 
-
-.light-mode .card {
-	background-color: var(--color-light-contrast);
-	border-color: var(--color-light-contrast);
-}
-
-.light-mode .card:hover {
-	box-shadow: var(--shadows-light);
-}
-
-.light-mode .card-title {
-	color: var(--color-light-imp);
-}
-
-.light-mode .card-text {
-	color: var(--color-light-imp);
-}
-
 .light-mode .quarto-title-banner {
 	color: var(--color-light-imp);
 	background-color: var(--color-light-contrast);
@@ -1120,11 +1133,6 @@ canvas {
 }
 
 
-.light-mode .listing-category,
-.light-mode .quarto-category {
-	border-color: var(--color-light-imp) !important;
-	color: var(--color-light-imp) !important;
-}
 
 .light-mode tr:hover {
 	background-color: var(--color-light-contrast);
@@ -1166,24 +1174,6 @@ canvas {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-
-.dark-mode .card {
-	background-color: var(--color-dark-contrast);
-	border-color: var(--color-dark-contrast);
-}
-
-.dark-mode .card:hover {
-	box-shadow: var(--shadows-dark);
-}
-
-.dark-mode .card-title {
-	color: var(--color-dark-imp);
-}
-
-.dark-mode .card-text {
-	color: var(--color-dark-imp);
-}
-
 .dark-mode .quarto-title-banner {
 	background-color: var(--color-dark-contrast);
 	color: var(--color-dark-imp);
@@ -1200,11 +1190,7 @@ canvas {
 .dark-mode code.inline {
 	background-color: transparent;
 }
-.dark-mode .listing-category,
-.dark-mode .quarto-category {
-	border-color: var(--color-dark-imp) !important;
-	color: var(--color-dark-imp) !important;
-}
+
 
 .dark-mode tr:hover {
 	background-color: var(--color-dark-contrast);

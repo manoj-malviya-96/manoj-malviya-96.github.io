@@ -246,8 +246,8 @@ function createBlogCardHTML(
                     <div class="card-details">
                         <h3 class="card-title">${title}</h3>
                         <div class="card-text listing-description">${description}</div>
-                        <div class="listing-categories">
-                            ${categories.map((cat) => `<div class="listing-category">${cat}</div>`).join("")}
+                        <div class="tag-categories">
+                            ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                         </div>
                         <div class="tag-date">${date} </div>
                     </div>
@@ -296,9 +296,9 @@ function makeBlogCard(filePath, container) {
         "default-image.jpg",
       );
 
-      const categories = Array.from(
-        doc.querySelectorAll(".quarto-category"),
-      ).map((el) => el.textContent);
+      const categories = Array.from(doc.querySelectorAll(".tag-category")).map(
+        (el) => el.textContent,
+      );
 
       const cardHTML = createBlogCardHTML(
         filePath,
