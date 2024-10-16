@@ -13,7 +13,7 @@ const homePageCallbacks = [
   initGithub,
   setupSortOptions,
   makeAppButtons,
-  makeBlogCards,
+  makeBlogCardsAndSetupControls,
 ];
 
 const defaultBlogCallbacks = [
@@ -70,8 +70,7 @@ function loadContentInMainWindow(
   initContentObserver(contentPlaceholder);
 }
 
-/** We have three types of pages: home and blogs pages. */
-
+/** We have three types of pages: home, apps and blogs pages. */
 // 1. Load the homepage content -> About me and blogs cards.
 function loadHomePage(
   event = null,
@@ -148,6 +147,8 @@ function setupLoadPageUrlHandler() {
   window.document.addEventListener("DOMContentLoaded", loadPageFromTypedURL);
 }
 
+/** ---------------------------- Apps Loader  ---------------------------- **/
+
 // Function to load the app.html and copy the app-brand-container
 function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
   return fetch(appHtmlPath)
@@ -193,6 +194,21 @@ function makeAppButton(container, appHTMLPath) {
     );
 }
 
+function makeAppButtons() {
+  const container = window.document.getElementById("app-list");
+  if (!container) {
+    throw new Error(`Element with ID- app-list not found.`);
+  }
+  const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
+    makeAppButton(container, appHTML),
+  );
+  Promise.all(promises).catch((err) => {
+    console.error("Error loading all apps:", err);
+  });
+}
+
+/** ---------------------------- Blog Cards  ---------------------------- **/
+
 function createBlogCardHTML(
   filePath,
   imagePath,
@@ -236,7 +252,7 @@ function createBlogCardHTML(
     `;
 }
 
-function createBlogCardFromHTML(filePath, container) {
+function makeBlogCard(filePath, container) {
   return fetch(filePath)
     .then((response) => {
       if (!response.ok) {
@@ -299,7 +315,7 @@ function createBlogCardFromHTML(filePath, container) {
     });
 }
 
-function makeBlogCards() {
+function makeBlogCardsAndSetupControls() {
   const container = window.document.getElementById("project-list");
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
@@ -307,7 +323,7 @@ function makeBlogCards() {
 
   let allCategories = new Set();
   const promises = Object.entries(blogHTMLToExtraCallbacks).map(
-    ([projectKey]) => createBlogCardFromHTML(projectKey, container),
+    ([projectKey]) => makeBlogCard(projectKey, container),
   );
 
   // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
@@ -323,19 +339,6 @@ function makeBlogCards() {
     .catch((err) => {
       console.error("Error loading all projects:", err);
     });
-}
-
-function makeAppButtons() {
-  const container = window.document.getElementById("app-list");
-  if (!container) {
-    throw new Error(`Element with ID- app-list not found.`);
-  }
-  const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
-    makeAppButton(container, appHTML),
-  );
-  Promise.all(promises).catch((err) => {
-    console.error("Error loading all apps:", err);
-  });
 }
 
 // Function to dynamically generate the dropdown options based on unique categories
@@ -460,24 +463,7 @@ function sortBlogCards(sortBy) {
   cards.forEach((card) => container.appendChild(card));
 }
 
-/* ------ End of sorting projects ------ */
-
-function loadSocialMediaLink(identifier) {
-  const links = {
-    Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
-    GitHub: "https://github.com/manoj-malviya-96",
-    Instagram: "https://www.instagram.com/manoj_malviya_/",
-    Resume:
-      "https://cvws.icloud-content.com/B/AZVr5aNt0EIq126VWazH9VSagW8wAR-7iN6Kpy4ay9LWMrZH__eUCrep/CV_2024.pdf?o=At--sekC2lhZ1aggH3t3zJnDqUoAZjSZIrRVNuS58fTa&v=1&x=3&a=CAogvhDM2lsOV2xkYoHk2YwLUnPHSzeJPzqZKG-6LcN_B68SbxDymOikoTIY8vXDpqEyIgEAUgSagW8wWgSUCrepaieq3z-R7OGiDXM-Cg9Cg1hrNMdgKQjpSxA6lpxOFvcqUUBfcrVPYwpyJ1_yMpsUA1yWT6mYtj-atAHgIdr7Tj2XHZVkcfdc3G8bHrZfbCrJgA&e=1726926093&fl=&r=74ca7087-0048-43e3-8418-e9fb8d2bc12c-1&k=XZ6ccwfTmF1UgIx9brekmQ&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=138&s=MnNIirEZTpjkg0RoJyWc3e_evMk&cd=i",
-  };
-
-  if (links[identifier]) {
-    window.location.href = links[identifier];
-  } else {
-    console.error("Link not found for identifier:", identifier);
-  }
-}
-
+/** ---------------------------- Blog Page Functions  ---------------------------- **/
 function generateTableOfContentsForBlogPages() {
   const tocList = document.getElementById("dynamic-toc");
   const sections = document.querySelectorAll("main section[id]"); // Assuming sections in the main content have ids
@@ -527,7 +513,8 @@ function loadBlogFooter() {
   initProjectFooterToggle();
 }
 
-// Example usage of loadPDF function
+/** ---------------------------- Misc Functions  ---------------------------- **/
+
 function loadPDFInMainWindow(pdfUrl) {
   loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
 }

@@ -221,3 +221,19 @@ function toggleSidebar() {
 function initGithub() {
   window.githubProfile = new GithubProfile("./data/github_user_report.json");
 }
+
+function loadSocialMediaLink(identifier) {
+  const links = {
+    Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
+    GitHub: "https://github.com/manoj-malviya-96",
+    Instagram: "https://www.instagram.com/manoj_malviya_/",
+    Resume:
+      "https://cvws.icloud-content.com/B/AZVr5aNt0EIq126VWazH9VSagW8wAR-7iN6Kpy4ay9LWMrZH__eUCrep/CV_2024.pdf?o=At--sekC2lhZ1aggH3t3zJnDqUoAZjSZIrRVNuS58fTa&v=1&x=3&a=CAogvhDM2lsOV2xkYoHk2YwLUnPHSzeJPzqZKG-6LcN_B68SbxDymOikoTIY8vXDpqEyIgEAUgSagW8wWgSUCrepaieq3z-R7OGiDXM-Cg9Cg1hrNMdgKQjpSxA6lpxOFvcqUUBfcrVPYwpyJ1_yMpsUA1yWT6mYtj-atAHgIdr7Tj2XHZVkcfdc3G8bHrZfbCrJgA&e=1726926093&fl=&r=74ca7087-0048-43e3-8418-e9fb8d2bc12c-1&k=XZ6ccwfTmF1UgIx9brekmQ&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=138&s=MnNIirEZTpjkg0RoJyWc3e_evMk&cd=i",
+  };
+
+  if (links[identifier]) {
+    window.location.href = links[identifier];
+  } else {
+    console.error("Link not found for identifier:", identifier);
+  }
+}
