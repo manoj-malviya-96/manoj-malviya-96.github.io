@@ -25,14 +25,14 @@ const defaultProjectCallbacks = [
 ];
 // Order matters- loadProjectFooter should be called before initScrollTracking
 const projectHTMLToCallBackMap = {
-  "./research/delta-design/delta-design.html": [createPlotsForDeltaDesign],
-  "./research/topt/rapid-topt.html": [],
-  "./research/cub-companion/cub-companion.html": [],
-  "./research/dfam/dfam.html": [createPlotsForDfam],
-  "./research/embed-am/embed-am.html": [],
-  "./research/build-orient/build-orient.html": [],
-  "./job/formlabs-ui/ui-lead.html": [],
-  "./job/formlabs-supports/supports.html": [],
+  "./blogs/delta-design/delta-design.html": [createPlotsForDeltaDesign],
+  "./blogs/topt/rapid-topt.html": [],
+  "./blogs/cub-companion/cub-companion.html": [],
+  "./blogs/dfam/dfam.html": [createPlotsForDfam],
+  "./blogs/embed-am/embed-am.html": [],
+  "./blogs/build-orient/build-orient.html": [],
+  "./blogs/formlabs-ui/ui-lead.html": [],
+  "./blogs/formlabs-supports/supports.html": [],
 };
 // App-specific callbacks
 const defaultAppCallbacks = [initTheme];

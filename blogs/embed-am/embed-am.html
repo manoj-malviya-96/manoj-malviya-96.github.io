@@ -9,7 +9,7 @@
     <div class="quarto-title-banner page-columns page-full">
         <!-- cover-->
         <div class="quarto-title-banner-image column-image">
-            <img src="./research/embed-am/cover.png" id="cover" class="img-cover">
+            <img src="./blogs/embed-am/cover.png" id="cover" class="img-cover">
         </div>
         <!-- title-->
         <div class="quarto-title column-body">
@@ -76,7 +76,7 @@
                     object as shown in figure. In this work, we design an additional part called shape convertor to
                     provide flush surface. Concluding, automating the design process requires the production of the
                     cavity, shape convertor, and the orientation of embedding object.</p>
-                <img src="./research/embed-am/embed.png" class="img-fluid" alt="">
+                <img src="./blogs/embed-am/embed.png" class="img-fluid" alt="">
             </section>
 
 
@@ -88,7 +88,7 @@
                     was broken into three stages: 1) embedding orientation selection, 2) automation of cavity design,
                     and 3) automation of shape converter design. Two approaches are presented for stage 2 and 3: Shadow
                     Projection and the Voxel Simulation ​.</p>
-                <img src="./research/embed-am/algo.png" alt="" class="img-fluid">
+                <img src="./blogs/embed-am/algo.png" alt="" class="img-fluid">
                 <h3>Stage 1: Orientation Optimization</h3>
                 <p> With the understanding of material strength and orientation generated from previous research, an
                     embedded component should ideally be oriented so that cross-sectional area of the cavity is
@@ -105,7 +105,7 @@
                     cloud is obtained as the cross-section of the cavity at the paused layer using 2D quick-hull
                     algorithm, for this orientation. The shadow curve obtained contains all the projected points to
                     paused layer and thus, this cross section will allow the object would successfully be inserted.</p>
-                <img src="./research/embed-am/cavity_geom.png" alt="" class="img-fluid">
+                <img src="./blogs/embed-am/cavity_geom.png" alt="" class="img-fluid">
                 <p> To obtain an ideal orientation, optimization is performed for the cavity for minimizing cross
                     section area at paused layer over design variable orientation , which is determined by obtaining the
                     area of the closed shadow curve obtained and is denoted as As. However, for any geometry, at least
@@ -124,8 +124,8 @@
                     embedded object that could cause print failure, or damage through friction within the cavity. An
                     ideal embedding approach must be able to account for the volumetric gaps. This led to investigate a
                     new methodology for cavity and shape convertor called voxel simulation.</p>
-                <img src="./research/embed-am/shadow-project.png" alt="" class="img-fluid">
-                <img src="./research/embed-am/voxel-bool.png" alt="" class="img-fluid">
+                <img src="./blogs/embed-am/shadow-project.png" alt="" class="img-fluid">
+                <img src="./blogs/embed-am/voxel-bool.png" alt="" class="img-fluid">
                 <p>This approach comprises two steps: defining both the part and the object spaces and then performing
                     the Voxel Boolean simulation. The first step is to generate the two different virtual spaces: the
                     object space and the part space. In the current implementation, the object space is a cuboidal voxel
@@ -139,7 +139,7 @@
                     repeated until the object reaches the bottom of the object space. To identify the final embedding
                     cavity, the material in the part space is inverted and saved as a separate STL file. This cavity is
                     then used in a Boolean operation with the original AM part.</p>
-                <img src="./research/embed-am/voxel-sim.png" alt="" class="img-fluid">
+                <img src="./blogs/embed-am/voxel-sim.png" alt="" class="img-fluid">
                 <h3>Stage 3: Shape Convertor Automation </h3>
                 <p>To automate the shape convertor design, a scenario of moving the embedding object into the cavity
                     geometry from bottom to top in a straight line is simulated. Like the previous part space, a cavity
@@ -151,12 +151,12 @@
                     simulation, a Boolean subtractive operation is carried out where the object space is removed from
                     the cavity space until the object reaches the top of the object space, resulting in the final shape
                     converter design.</p>
-                <img src="./research/embed-am/shape-conv.png" alt="" class="img-fluid">
+                <img src="./blogs/embed-am/shape-conv.png" alt="" class="img-fluid">
             </section>
             <section id="output" class="level2">
                 <h2>Conclusion</h2>
-                <img src="./research/embed-am/result-1.png" alt=""  class="img-fluid">
-                <img src="./research/embed-am/result-2.png" alt=""  class="img-fluid">
+                <img src="./blogs/embed-am/result-1.png" alt=""  class="img-fluid">
+                <img src="./blogs/embed-am/result-2.png" alt=""  class="img-fluid">
             </section>
         </div>
     </main> <!-- /main -->
