@@ -444,14 +444,14 @@ a {
 	display: none;
 }
 
-.dropdown-item {
+.modern-dropdown-item {
 	padding: var(--spacing-medium);
 	cursor: pointer;
 	transition: all var(--transition-default);
 	border-radius: var(--default-radius);
 }
 
-.dropdown-item.selected {
+.modern-dropdown-item.selected {
 	background-color: var(--color-brand-primary); /* Use your primary color here */
 	color: var(--color-white);
 }

@@ -132,8 +132,9 @@ class MusicApp {
   // Todo - This can be done via setupDropdown method
   setupVizDropdown() {
     // Handle selecting an item
-    const dropdownItems =
-      this.elements.vizDropdown.querySelectorAll(".dropdown-item");
+    const dropdownItems = this.elements.vizDropdown.querySelectorAll(
+      ".modern-dropdown-item",
+    );
     dropdownItems.forEach((item) => {
       item.addEventListener("click", (event) =>
         this.handleVizDropdownSelect(event),
@@ -157,8 +158,9 @@ class MusicApp {
   // Todo - This can be done via setupDropdown method
   handleVizDropdownSelect(event) {
     this.selectedVisualizer = event.target.getAttribute("data-value");
-    const dropdownItems =
-      this.elements.vizDropdown.querySelectorAll(".dropdown-item");
+    const dropdownItems = this.elements.vizDropdown.querySelectorAll(
+      ".modern-dropdown-item",
+    );
 
     // Highlight the selected item with the primary color
     dropdownItems.forEach((item) => item.classList.remove("selected"));
@@ -183,8 +185,9 @@ class MusicApp {
   // Todo - This can be done via setupDropdown method
   setupSongDropdown() {
     // Handle selecting an item
-    const dropdownItems =
-      this.elements.songDropdown.querySelectorAll(".dropdown-item");
+    const dropdownItems = this.elements.songDropdown.querySelectorAll(
+      ".modern-dropdown-item",
+    );
     dropdownItems.forEach((item) => {
       item.addEventListener("click", (event) =>
         this.handleSongDropdownSelect(event),
@@ -203,8 +206,9 @@ class MusicApp {
 
   // Todo - This can be done via setupDropdown method
   handleSongDropdownSelect(event) {
-    const dropdownItems =
-      this.elements.songDropdown.querySelectorAll(".dropdown-item");
+    const dropdownItems = this.elements.songDropdown.querySelectorAll(
+      ".modern-dropdown-item",
+    );
 
     // Highlight the selected item with the primary color
     dropdownItems.forEach((item) => item.classList.remove("selected"));

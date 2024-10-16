@@ -189,7 +189,7 @@ function createDropdownItem(dataValue, dataLabel, dataIcon) {
     item.setAttribute("data-icon", dataIcon);
   }
   item.textContent = dataLabel;
-  item.className = "dropdown-item";
+  item.className = "modern-dropdown-item";
   return item;
 }
 
@@ -242,7 +242,7 @@ function setupDropdown(
   };
 
   // Setting up the dropdown items
-  const dropdownItems = dropdown.querySelectorAll(".dropdown-item");
+  const dropdownItems = dropdown.querySelectorAll(".modern-dropdown-item");
   dropdownItems.forEach((item) => {
     item.addEventListener("click", (event) => handleDropdownSelect(event));
   });
