@@ -424,7 +424,7 @@ a {
 
 
 /* --------------------  Dropdown  Styling ------------------- */
-.custom-dropdown {
+.modern-dropdown {
 	list-style: none;
 	position: absolute;
 	padding: 0;
@@ -440,7 +440,7 @@ a {
 	backdrop-filter: blur(var(--more-blur-radius));
 }
 
-.custom-dropdown.hidden {
+.modern-dropdown.hidden {
 	display: none;
 }
 
@@ -1166,7 +1166,7 @@ canvas {
 	box-shadow: var(--shadows-light);
 }
 
-.light-mode .custom-dropdown {
+.light-mode .modern-dropdown {
 	background-color: var(--color-light-contrast);
 	color: var(--color-light-imp);
 }
@@ -1252,7 +1252,7 @@ canvas {
 	box-shadow: var(--shadows-dark);
 }
 
-.dark-mode .custom-dropdown {
+.dark-mode .modern-dropdown {
 	background-color: var(--color-dark-contrast);
 	color: var(--color-dark-imp);
 }
