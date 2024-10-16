@@ -673,22 +673,26 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 /* ----------------------------- Project Page Styling ----------------------------- */
 
-.blog-title-header {
+.blog-header {
 	width: var(--max-content-width); !important;
 	margin: 0 auto; !important;
 	padding: 0; !important;
 	height: var(--project-card-height); !important;
-}
-
-.blog-title-header .quarto-title-banner {
-	width: var(--max-content-width);
-	height: var(--project-card-height);
 	border-radius: var(--default-radius);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 0; !important;
 	box-sizing: border-box;
+}
+
+.light-mode .blog-header {
+	background-color: var(--color-light-contrast);
+	box-shadow: var(--shadows-light);
+}
+
+.dark-mode .blog-header {
+	background-color: var(--color-dark-contrast);
+	color: var(--color-dark-imp);
 }
 
 /* -------------------------------- Project Page Styling --------------------------------  */
@@ -1108,12 +1112,6 @@ canvas {
 
 /* -------------------------- Light Mode -------------------------- */
 
-.light-mode .quarto-title-banner {
-	color: var(--color-light-imp);
-	background-color: var(--color-light-contrast);
-	box-shadow: var(--shadows-light);
-}
-
 .light-mode code.sourceCode {
 	background-color: var(--color-light-contrast);
 }
@@ -1168,10 +1166,6 @@ canvas {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-.dark-mode .quarto-title-banner {
-	background-color: var(--color-dark-contrast);
-	color: var(--color-dark-imp);
-}
 
 .dark-mode code.sourceCode {
 	background-color: var(--color-dark-contrast);
