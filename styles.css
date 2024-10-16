@@ -493,7 +493,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 /* ----------------------- Project Components --------------------------- */
-.project-type {
+.tag-label {
 	font-size: 10px !important;
 	text-transform: uppercase;
 	position: absolute;

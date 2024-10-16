@@ -241,7 +241,7 @@ function createBlogCardHTML(
              onclick="loadBlogPage('${filePath}', event)">
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-body post-contents">
-                    <div class="project-type">${type}</div>
+                    <div class="tag-label">${type}</div>
                     <span class="card-title-default">${title}</span>
                     <div class="card-details">
                         <h3 class="card-title">${title}</h3>
@@ -285,7 +285,7 @@ function makeBlogCard(filePath, container) {
       const date = getElementAttribute(doc, "#date", "textContent", "No date");
       const type = getElementAttribute(
         doc,
-        "#project-type",
+        "#tag-label",
         "textContent",
         "No type",
       );
