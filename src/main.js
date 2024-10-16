@@ -38,6 +38,7 @@ const projectHTMLToCallBackMap = {
 const defaultAppCallbacks = [initTheme];
 const appHTMLToCallBackMap = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
+  "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
 };
 
 // Load Content with Overlay, used to show a loading spinner while content is being fetched

@@ -1,141 +1,335 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Endless Fibonacci Spiral</title>
-    <style>
-		body {
-			margin: 0;
-			overflow: hidden;
-			background-color: black;
-		}
-		canvas {
-			display: block;
-		}
-    </style>
-</head>
-<body>
-<canvas id="blackHoleCanvas"></canvas>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+<!--    <title>3D Mesh Visualizer</title>-->
+<!--    <style>-->
+<!--		body { margin: 0; }-->
+<!--		canvas { display: block; }-->
+<!--		#drop-zone {-->
+<!--			width: 100vw;-->
+<!--			height: 100vh;-->
+<!--			display: flex;-->
+<!--			justify-content: center;-->
+<!--			align-items: center;-->
+<!--			border: 2px dashed #aaa;-->
+<!--			color: #aaa;-->
+<!--			font-size: 1.5em;-->
+<!--			position: absolute;-->
+<!--			top: 0;-->
+<!--			left: 0;-->
+<!--			border-radius: 10px;-->
+<!--			cursor: pointer;-->
+<!--			z-index: 5;-->
+<!--			pointer-events: auto;-->
+<!--		}-->
+<!--		#drop-zone.small {-->
+<!--			width: 300px;-->
+<!--			height: 200px;-->
+<!--			position: fixed;-->
+<!--			bottom: 20px;-->
+<!--			right: 20px;-->
+<!--			border-radius: 10px;-->
+<!--			pointer-events: auto;-->
+<!--		}-->
+<!--		#drop-zone::before {-->
+<!--			content: 'Drop your STL file here or click to upload';-->
+<!--			font-size: 1.5em;-->
+<!--			color: #aaa;-->
+<!--		}-->
+<!--		#loading {-->
+<!--			display: none;-->
+<!--			position: absolute;-->
+<!--			top: 50%;-->
+<!--			left: 50%;-->
+<!--			transform: translate(-50%, -50%);-->
+<!--			font-size: 2em;-->
+<!--			color: #777;-->
+<!--		}-->
+<!--		#info-panel {-->
+<!--			position: fixed;-->
+<!--			top: 10px;-->
+<!--			right: 10px;-->
+<!--			width: 300px;-->
+<!--			padding: 20px;-->
+<!--			background-color: rgba(255, 255, 255, 0.9);-->
+<!--			border-radius: 10px;-->
+<!--			box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);-->
+<!--			font-family: Arial, sans-serif;-->
+<!--			z-index: 20;-->
+<!--		}-->
+<!--		#info-panel h2 {-->
+<!--			margin-top: 0;-->
+<!--			font-size: 1.2em;-->
+<!--		}-->
+<!--		#info-panel p {-->
+<!--			margin: 0.5em 0;-->
+<!--			font-size: 1em;-->
+<!--		}-->
+<!--		#view-panel {-->
+<!--			position: fixed;-->
+<!--			bottom: 20px;-->
+<!--			left: 20px;-->
+<!--			width: 120px;-->
+<!--			padding: 10px;-->
+<!--			background-color: rgba(255, 255, 255, 0.9);-->
+<!--			border-radius: 10px;-->
+<!--			box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);-->
+<!--			font-family: Arial, sans-serif;-->
+<!--			z-index: 20;-->
+<!--			display: grid;-->
+<!--			grid-template-columns: repeat(2, 1fr);-->
+<!--			gap: 5px;-->
+<!--		}-->
+<!--		.view-button {-->
+<!--			padding: 10px;-->
+<!--			text-align: center;-->
+<!--			background-color: #f0f0f0;-->
+<!--			border: 1px solid #ccc;-->
+<!--			border-radius: 5px;-->
+<!--			cursor: pointer;-->
+<!--			user-select: none;-->
+<!--		}-->
+<!--		.view-button:hover {-->
+<!--			background-color: #ddd;-->
+<!--		}-->
+<!--    </style>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="drop-zone"></div>-->
+<!--<div id="loading">Loading...</div>-->
+<!--<div id="info-panel" style="display: none;">-->
+<!--    <h2>Mesh Information</h2>-->
+<!--    <p id="info-centroid">Centroid: (0, 0, 0)</p>-->
+<!--    <p id="info-volume">Volume: 0</p>-->
+<!--    <p id="info-triangles">Number of Triangles: 0</p>-->
+<!--</div>-->
+<!--<div id="view-panel">-->
+<!--    <div class="view-button" data-view="top">Top</div>-->
+<!--    <div class="view-button" data-view="front">Front</div>-->
+<!--    <div class="view-button" data-view="right">Right</div>-->
+<!--    <div class="view-button" data-view="left">Left</div>-->
+<!--    <div class="view-button" data-view="back">Back</div>-->
+<!--    <div class="view-button" data-view="bottom">Bottom</div>-->
+<!--</div>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/STLLoader.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>-->
+<!--<script>-->
+<!--    class MeshLoader {-->
+<!--        constructor() {-->
+<!--            this.loader = new THREE.STLLoader();-->
+<!--        }-->
 
-<script>
-    const canvas = document.getElementById('blackHoleCanvas');
-    const ctx = canvas.getContext('2d');
+<!--        load(arrayBuffer) {-->
+<!--            return this.loader.parse(arrayBuffer);-->
+<!--        }-->
 
-    // Set canvas dimensions
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
+<!--        computeAccurateCentroid(geometry) {-->
+<!--            const centroid = new THREE.Vector3();-->
+<!--            const position = geometry.attributes.position;-->
+<!--            const numVertices = position.count;-->
 
-    // Center of canvas
-    let centerX = canvas.width / 2;
-    let centerY = canvas.height / 2;
+<!--            for (let i = 0; i < numVertices; i++) {-->
+<!--                centroid.add(new THREE.Vector3(position.getX(i), position.getY(i), position.getZ(i)));-->
+<!--            }-->
 
-    // Update center on resize
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        centerX = canvas.width / 2;
-        centerY = canvas.height / 2;
-    });
+<!--            centroid.divideScalar(numVertices);-->
+<!--            return centroid;-->
+<!--        }-->
 
-    // Spiral parameters
-    let angle = 0;
-    let scale = 0.0069; // Reduced scale to make spiral smaller
-    let speed = 0.0069; // Slow rotation speed
-    let points = []; // Stores current visible points
-    let fib1 = 1, fib2 = 1; // Starting Fibonacci numbers
-    let totalPoints = 0; // Counter to keep track of points generated
+<!--        computeVolume(geometry) {-->
+<!--            let volume = 0;-->
+<!--            const position = geometry.attributes.position;-->
 
-    // Colors for gradient effect
-    const colors = [
-        "black", "#791f0d", "#a47971", "#a8a4a3", "#a92d14"
-    ];
+<!--            for (let i = 0; i < position.count; i += 3) {-->
+<!--                const p1 = new THREE.Vector3(position.getX(i), position.getY(i), position.getZ(i));-->
+<!--                const p2 = new THREE.Vector3(position.getX(i + 1), position.getY(i + 1), position.getZ(i + 1));-->
+<!--                const p3 = new THREE.Vector3(position.getX(i + 2), position.getY(i + 2), position.getZ(i + 2));-->
+<!--                volume += p1.dot(p2.cross(p3)) / 6.0;-->
+<!--            }-->
 
-    // Generate next Fibonacci number
-    function nextFibonacci() {
-        const next = fib1 + fib2;
-        fib1 = fib2;
-        fib2 = next;
-        return next;
-    }
-    const distPadding = 7;
+<!--            return Math.abs(volume);-->
+<!--        }-->
+<!--    }-->
 
-    // Draw spiral
-    function drawFibonacciSpiral() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(centerX, centerY); // Move origin to the center
-        ctx.rotate(angle); // Rotate for dynamic effect
+<!--    class MeshRenderer {-->
+<!--        constructor(scene) {-->
+<!--            this.scene = scene;-->
+<!--            this.mesh = null;-->
+<!--            this.centroidPoint = null;-->
+<!--        }-->
 
-        // Draw each point in the points array
-        points.forEach((point) => {
-            const { x, y, r, color, opacity } = point;
+<!--        renderMesh(geometry, material) {-->
+<!--            if (this.mesh) {-->
+<!--                this.scene.remove(this.mesh);-->
+<!--                if (this.centroidPoint) this.scene.remove(this.centroidPoint);-->
+<!--            }-->
 
-            // Draw a circle with color and depth effect
-            ctx.beginPath();
-            ctx.arc(x, y, r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${hexToRgb(color)}, ${opacity})`;
-            ctx.fill();
+<!--            this.mesh = new THREE.Mesh(geometry, material);-->
+<!--            this.scene.add(this.mesh);-->
 
-            // Update point position (simulate movement outward)
-            point.r *= 1.0069; // Slight increase in size
-            point.x = distPadding * point.r * Math.cos(point.angle);
-            point.y = distPadding * point.r * Math.sin(point.angle);
-            if (point.opacity < 0.69) {
-                point.opacity += 0.005; // Slowly fade out
-            } else {
-                point.opacity -= 0.095;
-            }
-        });
+<!--            return this.mesh;-->
+<!--        }-->
 
-        // Remove points that are out of view or fully transparent
-        points = points.filter(point => point.r < canvas.width * 1.5 && point.opacity > 0);
+<!--        addCentroidPoint(centroid) {-->
+<!--            const centroidGeometry = new THREE.SphereGeometry(0.05, 16, 16);-->
+<!--            const centroidMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });-->
+<!--            this.centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);-->
+<!--            this.centroidPoint.position.copy(centroid);-->
+<!--            this.scene.add(this.centroidPoint);-->
+<!--        }-->
+<!--    }-->
 
-        // Generate new Fibonacci point
-        const fibRadius = nextFibonacci() * scale * 200; // Increase scale for larger distance
-        const angleOffset = totalPoints * 0.5; // Increase this for more spacing between points
+<!--    class MeshView {-->
+<!--        constructor() {-->
+<!--            this.scene = new THREE.Scene();-->
+<!--            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);-->
+<!--            this.renderer = new THREE.WebGLRenderer();-->
+<!--            this.renderer.setSize(window.innerWidth, window.innerHeight);-->
+<!--            document.body.appendChild(this.renderer.domElement);-->
 
-        const colorIndex = totalPoints % colors.length;
-        const color = colors[colorIndex];
+<!--            // Add light sources-->
+<!--            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);-->
+<!--            directionalLight.position.set(5, 5, 5).normalize();-->
+<!--            this.scene.add(directionalLight);-->
 
-        const newPoint = {
-            x: fibRadius * Math.cos(angleOffset),
-            y: fibRadius * Math.sin(angleOffset),
-            r: 5, // Keep the circles small but visible
-            color: color, // Use valid color
-            opacity: 0.05, // Full opacity initially
-            angle: angleOffset
-        };
+<!--            const ambientLight = new THREE.AmbientLight(0x404040); // Soft light-->
+<!--            this.scene.add(ambientLight);-->
 
-        // Add new point to the list
-        points.push(newPoint);
+<!--            // Add OrbitControls for better user interaction like CAD software-->
+<!--            this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);-->
+<!--            this.controls.enableDamping = true; // Smooth the control movements-->
+<!--            this.controls.dampingFactor = 0.05;-->
+<!--            this.controls.screenSpacePanning = false;-->
+<!--            this.controls.maxPolarAngle = Math.PI * 2;-->
 
-        totalPoints++; // Increment the total points counter
+<!--            this.camera.position.set(0, 0, 20);-->
+<!--            this.meshLoader = new MeshLoader();-->
+<!--            this.meshRenderer = new MeshRenderer(this.scene);-->
 
-        ctx.restore();
+<!--            this.infoPanel = document.getElementById('info-panel');-->
+<!--            this.loadingText = document.getElementById('loading');-->
+<!--            this.dropZone = document.getElementById('drop-zone');-->
 
-        // Increase angle slightly for smooth rotation
-        angle += speed;
+<!--            this.initEventListeners();-->
+<!--        }-->
 
-        // Loop the drawing
-        requestAnimationFrame(drawFibonacciSpiral);
-    }
+<!--        loadMesh(arrayBuffer) {-->
+<!--            const geometry = this.meshLoader.load(arrayBuffer);-->
+<!--            const material = new THREE.MeshPhongMaterial({ color: 0x808080 }); // Gray color for the model-->
+<!--            const mesh = this.meshRenderer.renderMesh(geometry, material);-->
 
-    // Helper function to convert hex colors to RGB
-    function hexToRgb(hex) {
-        if (!hex) {
-            return "0,0,0"; // Fallback to black if color is undefined
-        }
-        const bigint = parseInt(hex.slice(1), 16);
-        const r = (bigint >> 16) & 255;
-        const g = (bigint >> 8) & 255;
-        const b = bigint & 255;
-        return `${r},${g},${b}`;
-    }
+<!--            // Compute the centroid and volume of the mesh-->
+<!--            const centroid = this.meshLoader.computeAccurateCentroid(geometry);-->
+<!--            const volume = this.meshLoader.computeVolume(geometry);-->
+<!--            mesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh-->
 
-    drawFibonacciSpiral();
+<!--            this.meshRenderer.addCentroidPoint(new THREE.Vector3(0, 0, 0));-->
+<!--            this.controls.target.set(0, 0, 0);-->
+<!--            this.controls.update();-->
 
-</script>
-</body>
-</html>
+<!--            // Update information panel-->
+<!--            this.infoPanel.style.display = 'block';-->
+<!--            this.dropZone.classList.add('small'); // Restrict drop zone to the bottom panel-->
+<!--            this.loadingText.style.display = 'none';-->
+<!--            document.getElementById('info-centroid').innerText = `Centroid: (${centroid.x.toFixed(2)}, ${centroid.y.toFixed(2)}, ${centroid.z.toFixed(2)})`;-->
+<!--            document.getElementById('info-volume').innerText = `Volume: ${volume.toFixed(2)}`;-->
+<!--            document.getElementById('info-triangles').innerText = `Number of Triangles: ${(geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3)}`;-->
+<!--        }-->
+
+<!--        animate() {-->
+<!--            requestAnimationFrame(() => this.animate());-->
+<!--            this.controls.update();-->
+<!--            this.renderer.render(this.scene, this.camera);-->
+<!--        }-->
+
+<!--        initEventListeners() {-->
+
+<!--            // Handle file uploads via the drop zone-->
+<!--            this.dropZone.addEventListener('click', () => {-->
+<!--                const input = document.createElement('input');-->
+<!--                input.type = 'file';-->
+<!--                input.accept = '.stl';-->
+<!--                input.onchange = (event) => {-->
+<!--                    const file = event.target.files[0];-->
+<!--                    if (file) {-->
+<!--                        this.loadingText.style.display = 'block';-->
+<!--                        const reader = new FileReader();-->
+<!--                        reader.onload = (e) => {-->
+<!--                            this.loadMesh(e.target.result);-->
+<!--                        };-->
+<!--                        reader.readAsArrayBuffer(file);-->
+<!--                    }-->
+<!--                };-->
+<!--                input.click();-->
+<!--            });-->
+
+<!--            // Handle drag-and-drop uploads-->
+<!--            this.dropZone.addEventListener('dragover', (event) => {-->
+<!--                event.preventDefault();-->
+<!--                this.dropZone.classList.add('active');-->
+<!--                this.dropZone.style.borderColor = '#777';-->
+<!--                this.dropZone.style.color = '#777';-->
+<!--            });-->
+
+<!--            this.dropZone.addEventListener('dragleave', (event) => {-->
+<!--                event.preventDefault();-->
+<!--                this.dropZone.classList.remove('active');-->
+<!--                this.dropZone.style.borderColor = '#aaa';-->
+<!--                this.dropZone.style.color = '#aaa';-->
+<!--            });-->
+
+<!--            this.dropZone.addEventListener('drop', (event) => {-->
+<!--                event.preventDefault();-->
+<!--                this.dropZone.classList.remove('active');-->
+<!--                this.loadingText.style.display = 'block';-->
+
+<!--                const file = event.dataTransfer.files[0];-->
+<!--                if (file) {-->
+<!--                    const reader = new FileReader();-->
+<!--                    reader.onload = (e) => {-->
+<!--                        this.loadMesh(e.target.result);-->
+<!--                    };-->
+<!--                    reader.readAsArrayBuffer(file);-->
+<!--                }-->
+<!--            });-->
+
+<!--            // Handle view panel button clicks-->
+<!--            document.querySelectorAll('.view-button').forEach(button => {-->
+<!--                button.addEventListener('click', () => {-->
+<!--                    const view = button.getAttribute('data-view');-->
+<!--                    switch (view) {-->
+<!--                        case 'top':-->
+<!--                            this.camera.position.set(0, 10, 0);-->
+<!--                            break;-->
+<!--                        case 'front':-->
+<!--                            this.camera.position.set(0, 0, 10);-->
+<!--                            break;-->
+<!--                        case 'right':-->
+<!--                            this.camera.position.set(10, 0, 0);-->
+<!--                            break;-->
+<!--                        case 'left':-->
+<!--                            this.camera.position.set(-10, 0, 0);-->
+<!--                            break;-->
+<!--                        case 'back':-->
+<!--                            this.camera.position.set(0, 0, -10);-->
+<!--                            break;-->
+<!--                        case 'bottom':-->
+<!--                            this.camera.position.set(0, -10, 0);-->
+<!--                            break;-->
+<!--                    }-->
+<!--                    this.camera.lookAt(0, 0, 0);-->
+<!--                    this.controls.update();-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+<!--    }-->
+
+<!--    const meshView = new MeshView();-->
+<!--    meshView.animate();-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
