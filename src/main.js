@@ -14,17 +14,17 @@ const homePageCallbacks = [
   initGithub,
   setupSortOptions,
   loadApps,
-  loadProjects,
+  loadBlogs,
 ];
 
-const defaultProjectCallbacks = [
+const defaultBlogCallbacks = [
   initTheme,
-  loadProjectFooter,
+  loadBlogFooter,
   initImageFluidHandler,
   initScrollTracking,
 ];
 // Order matters- loadProjectFooter should be called before initScrollTracking
-const projectHTMLToCallBackMap = {
+const blogHTMLToExtraCallbacks = {
   "./blogs/delta-design/delta-design.html": [createPlotsForDeltaDesign],
   "./blogs/topt/rapid-topt.html": [],
   "./blogs/cub-companion/cub-companion.html": [],
@@ -36,7 +36,7 @@ const projectHTMLToCallBackMap = {
 };
 // App-specific callbacks
 const defaultAppCallbacks = [initTheme];
-const appHTMLToCallBackMap = {
+const appHTMLToInits = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
 };
@@ -70,9 +70,9 @@ function loadContentInMainWindow(
   initContentObserver(contentPlaceholder);
 }
 
-/** We have three types of pages: home and project pages. */
+/** We have three types of pages: home and blogs pages. */
 
-// 1. Load the homepage content -> About me and project cards.
+// 1. Load the homepage content -> About me and blogs cards.
 function loadHomePage(
   event = null,
   doPushToHistory = true,
@@ -84,15 +84,13 @@ function loadHomePage(
 
 // 2. Load Project Page with the specified callbacks
 function loadProjectPage(page, event, doPushToHistory = true) {
-  const callbacks = defaultProjectCallbacks.concat(
-    projectHTMLToCallBackMap[page],
-  );
+  const callbacks = defaultBlogCallbacks.concat(blogHTMLToExtraCallbacks[page]);
   loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
 
 // 3. Load App Window with the specified callbacks
 function loadApp(page, event, doPushToHistory = true) {
-  const callbacks = defaultAppCallbacks.concat(appHTMLToCallBackMap[page]);
+  const callbacks = defaultAppCallbacks.concat(appHTMLToInits[page]);
   loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
 
@@ -113,7 +111,7 @@ function loadPageFromTypedURL(event) {
     return;
   }
 
-  // Check if the 'pageName' is an app or a project page
+  // Check if the 'pageName' is an app or a blogs page
   if (pageName.includes("apps")) {
     loadApp(pageName, event, false);
     return;
@@ -238,11 +236,11 @@ function getCardHTML(
     `;
 }
 
-function makeProjectCard(filePath, container) {
+function makeBlogCard(filePath, container) {
   return fetch(filePath)
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`Failed to load project: ${response.statusText}`);
+        throw new Error(`Failed to load blogs: ${response.statusText}`);
       }
       return response.text();
     })
@@ -301,15 +299,15 @@ function makeProjectCard(filePath, container) {
     });
 }
 
-function loadProjects() {
+function loadBlogs() {
   const container = window.document.getElementById("project-list");
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
   }
 
   let allCategories = new Set();
-  const promises = Object.entries(projectHTMLToCallBackMap).map(
-    ([projectKey]) => makeProjectCard(projectKey, container),
+  const promises = Object.entries(blogHTMLToExtraCallbacks).map(
+    ([projectKey]) => makeBlogCard(projectKey, container),
   );
 
   // Use Promise.all to ensure all projects are loaded and allCategories is updated before calling the filter generation
@@ -320,7 +318,7 @@ function loadProjects() {
         // Update the Set with each project's categories
       });
       setupCategoryDropDown(allCategories);
-      sortProjects(defaultSortOption);
+      sortBlogCards(defaultSortOption);
     })
     .catch((err) => {
       console.error("Error loading all projects:", err);
@@ -332,7 +330,7 @@ function loadApps() {
   if (!container) {
     throw new Error(`Element with ID- app-list not found.`);
   }
-  const promises = Object.entries(appHTMLToCallBackMap).map(([appHTML]) =>
+  const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
   Promise.all(promises).catch((err) => {
@@ -356,7 +354,12 @@ function setupCategoryDropDown(allCategories) {
     filterDropdown.appendChild(createDropdownItem(category, category));
   });
 
-  setupDropdown(button, filterDropdown, filterProjects, filterSelectedValue);
+  setupDropdown(
+    button,
+    filterDropdown,
+    filterBlogsByCategory,
+    filterSelectedValue,
+  );
 }
 
 // Function to initialize Sort Filter
@@ -383,14 +386,11 @@ function setupSortOptions() {
       createDropdownItem(option.value, option.label, option.icon),
     );
   });
-  setupDropdown(button, dropdown, sortProjects, selectedValue, icon);
+  setupDropdown(button, dropdown, sortBlogCards, selectedValue, icon);
 }
 
 // Search projects based on title or description
-function filterProjectsBySearchAndCategory(
-  searchInput = null,
-  category = null,
-) {
+function filterBlogs(searchInput = null, category = null) {
   const cards = document.querySelectorAll(".card");
 
   cards.forEach((card) => {
@@ -414,18 +414,18 @@ function filterProjectsBySearchAndCategory(
 }
 
 // Filter projects based on the selected category in the dropdown
-function filterProjects(category) {
-  filterProjectsBySearchAndCategory(null, category); // Apply the search filter as well
+function filterBlogsByCategory(category) {
+  filterBlogs(null, category); // Apply the search filter as well
 }
 
 // Search projects based on the input value (not case-sensitive)
-function searchProjects() {
+function filterBlogsByKeywords() {
   let input = document.getElementById("search-input").value.toLowerCase();
-  filterProjectsBySearchAndCategory(input, null);
+  filterBlogs(input, null);
 }
 
 /* ------ Sorting projects ------ */
-function sortProjects(sortBy) {
+function sortBlogCards(sortBy) {
   if (!sortOptions.some((option) => option.value === sortBy)) {
     console.error("Invalid sorting option:", sortBy);
     return;
@@ -458,16 +458,6 @@ function sortProjects(sortBy) {
     return 0;
   });
   cards.forEach((card) => container.appendChild(card));
-  // updateSortingIcon(sortBy);
-}
-
-function updateSortingIcon(value) {
-  const icon = window.document.getElementById("sortFilterIcn");
-  if (!icon) {
-    console.error("sortFilterIcn not found");
-    return;
-  }
-  icon.className = sortOptions.find((option) => option.value === value).icon;
 }
 
 /* ------ End of sorting projects ------ */
@@ -488,7 +478,7 @@ function loadSocialMediaLink(identifier) {
   }
 }
 
-function generateTOC() {
+function generateTableOfContentsForBlogPages() {
   const tocList = document.getElementById("dynamic-toc");
   const sections = document.querySelectorAll("main section[id]"); // Assuming sections in the main content have ids
 
@@ -510,7 +500,7 @@ function generateTOC() {
   }
 }
 
-function loadProjectFooter() {
+function loadBlogFooter() {
   let footer = document.getElementById("quarto-footer");
 
   // Check if the footer element exists, if not, dynamically create it
@@ -533,7 +523,7 @@ function loadProjectFooter() {
         </nav>
         `;
   // Call the function to dynamically generate the TOC
-  generateTOC();
+  generateTableOfContentsForBlogPages();
   initProjectFooterToggle();
 }
 
