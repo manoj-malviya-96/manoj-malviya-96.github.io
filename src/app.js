@@ -7,6 +7,9 @@ function handleRunningApps() {
   if (window.musicApp) {
     window.musicApp.resetAudio();
   }
+  if (window.meshaMorph) {
+    window.meshaMorph = null;
+  }
 }
 
 function initMeshMorph() {

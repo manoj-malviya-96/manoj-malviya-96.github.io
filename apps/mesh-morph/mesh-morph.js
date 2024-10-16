@@ -47,6 +47,12 @@ class MeshLoader {
 
     return Math.abs(volume);
   }
+
+  computeBoundingBox(geometry) {
+    return new THREE.Box3().setFromBufferAttribute(
+      geometry.attributes.position,
+    );
+  }
 }
 
 class MeshRenderer {
@@ -82,19 +88,13 @@ class MeshView {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      1200 / 900, // Aspect ratio to match your canvas
       0.1,
       1000,
     );
-    this.renderer = new THREE.WebGLRenderer();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const existingCanvas = document.getElementById("meshCanvas");
-    if (existingCanvas) {
-      document.body.replaceChild(this.renderer.domElement, existingCanvas);
-    } else {
-      document.body.appendChild(this.renderer.domElement);
-    }
+    const canvas = document.getElementById("meshCanvas");
+    this.renderer = new THREE.WebGLRenderer({ canvas });
+    this.renderer.setSize(1200, 900); // Match the canvas size
 
     // Add light sources
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -114,15 +114,19 @@ class MeshView {
     this.controls.screenSpacePanning = false;
     this.controls.maxPolarAngle = Math.PI * 2;
 
-    this.camera.position.set(0, 0, 20);
     this.meshLoader = new MeshLoader();
     this.meshRenderer = new MeshRenderer(this.scene);
 
     this.infoPanel = document.getElementById("infoPanel");
     this.loadingText = document.getElementById("loading");
-    this.dropZone = document.getElementById("dropZone");
+    this.fullScreenDropZone = document.getElementById("fullScreenDropZone");
+    this.smallerDropZone = document.getElementById("smallerDropZone");
     this.toggleBtn = window.document.getElementById("toggleViewBar");
+    this.appControllerContainer = window.document.getElementById(
+      "appControllerContainer",
+    );
     this.appController = window.document.querySelector(".app-controller");
+
     this.initEventListeners();
     this.toggleAppController();
   }
@@ -141,14 +145,17 @@ class MeshView {
     this.controls.target.set(0, 0, 0);
     this.controls.update();
 
+    this.geometry = geometry;
+
     // Update information panel
-    this.infoPanel.style.display = "block";
-    this.dropZone.classList.add("small"); // Restrict drop zone to the bottom panel
-    this.loadingText.style.display = "none";
+    this.prepareAppControllerPostSuccessfulFileUpload();
+
     document.getElementById("info-volume").innerText =
       `Volume: ${volume.toFixed(2)}`;
     document.getElementById("info-triangles").innerText =
       `Number of Triangles: ${geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3}`;
+
+    this.homeView();
   }
 
   animate() {
@@ -157,11 +164,135 @@ class MeshView {
     this.renderer.render(this.scene, this.camera);
   }
 
-  toggleAppController() {
+  prepareAppControllerPostSuccessfulFileUpload() {
+    this.infoPanel.style.display = "block";
+    this.loadingText.style.display = "none";
+
+    if (!this.fullScreenDropZone.classList.contains("hidden")) {
+      this.fullScreenDropZone.classList.add("hidden");
+    }
+
+    this.smallerDropZone.classList.remove("hidden");
+    this.appControllerContainer.classList.remove("hidden");
+
+    this.toggleAppController(true);
+  }
+
+  toggleAppController(forceShow = false) {
+    if (forceShow && !this.appController.classList.contains("hidden")) {
+      return;
+    }
     this.appController.classList.toggle("hidden");
     this.toggleBtn.innerHTML = this.appController.classList.contains("hidden")
       ? '<i class="bi bi-chevron-compact-up"></i>'
       : '<i class="bi bi-chevron-compact-down"></i>';
+  }
+
+  handleDropZoneBtnClick() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".stl";
+    input.onchange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        this.loadingText.style.display = "block";
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.loadMesh(e.target.result);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    };
+    input.click();
+  }
+
+  handleDropZoneDragOver(event) {
+    event.preventDefault();
+    this.fullScreenDropZone.classList.add("active");
+    this.fullScreenDropZone.style.borderColor = "#777";
+    this.fullScreenDropZone.style.color = "#777";
+  }
+
+  handleDropZoneDragLeave(event) {
+    event.preventDefault();
+    this.fullScreenDropZone.classList.remove("active");
+    this.fullScreenDropZone.style.borderColor = "#aaa";
+    this.fullScreenDropZone.style.color = "#aaa";
+  }
+
+  handleDropZoneDrop(event) {
+    event.preventDefault();
+    this.fullScreenDropZone.classList.remove("active");
+    this.loadingText.style.display = "block";
+
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.loadMesh(e.target.result);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  homeView(onlyApplyPosition = false) {
+    if (!this.meshLoader && !this.geometry) {
+      console.error("No geometry available to compute home view.");
+      return;
+    }
+
+    const boundingBox = this.meshLoader.computeBoundingBox(this.geometry);
+
+    const center = new THREE.Vector3();
+    boundingBox.getCenter(center);
+    const size = new THREE.Vector3();
+    boundingBox.getSize(size);
+
+    // Set the camera to a position that fits the entire model
+    const maxDimension = Math.max(size.x, size.y, size.z);
+    const fitHeightDistance =
+      maxDimension /
+      (2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)));
+    const fitWidthDistance = fitHeightDistance / this.camera.aspect;
+    const distance = Math.max(fitHeightDistance, fitWidthDistance);
+
+    // Update camera position to make sure the model fits
+    this.camera.position.set(center.x, center.y, center.z + distance * 1.5); // Add a little extra distance for padding
+    if (onlyApplyPosition) {
+      return;
+    }
+
+    this.camera.lookAt(center);
+    // Update controls, if applicable
+    if (this.controls) {
+      this.controls.target.copy(center);
+      this.controls.update();
+    }
+  }
+
+  handleViewButton(view) {
+    const angle = Math.PI / 2; // 90 degrees in radians
+
+    switch (view) {
+      case "top":
+        this.camera.position.applyAxisAngle(new THREE.Vector3(1, 0, 0), -angle);
+        break;
+      case "bottom":
+        this.camera.position.applyAxisAngle(new THREE.Vector3(1, 0, 0), angle);
+        break;
+      case "right":
+        this.camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), -angle);
+        break;
+      case "left":
+        this.camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+        break;
+      case "home": // Reset to default position
+        this.homeView(true);
+        break;
+    }
+
+    this.camera.lookAt(0, 0, 0);
+    this.controls.update();
   }
 
   initEventListeners() {
@@ -171,82 +302,49 @@ class MeshView {
     );
 
     // Handle file uploads via the drop zone
-    this.dropZone.addEventListener("click", () => {
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = ".stl";
-      input.onchange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-          this.loadingText.style.display = "block";
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            this.loadMesh(e.target.result);
-          };
-          reader.readAsArrayBuffer(file);
-        }
-      };
-      input.click();
-    });
-
+    this.fullScreenDropZone.addEventListener(
+      "click",
+      this.handleDropZoneBtnClick.bind(this),
+    );
     // Handle drag-and-drop uploads
-    this.dropZone.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      this.dropZone.classList.add("active");
-      this.dropZone.style.borderColor = "#777";
-      this.dropZone.style.color = "#777";
-    });
+    this.fullScreenDropZone.addEventListener(
+      "dragover",
+      this.handleDropZoneDragOver.bind(this),
+    );
+    this.fullScreenDropZone.addEventListener(
+      "dragleave",
+      this.handleDropZoneDragLeave.bind(this),
+    );
+    this.fullScreenDropZone.addEventListener(
+      "drop",
+      this.handleDropZoneDrop.bind(this),
+    );
+    // Handle file uploads via the smaller-drop zone
+    this.smallerDropZone.addEventListener(
+      "click",
+      this.handleDropZoneBtnClick.bind(this),
+    );
 
-    this.dropZone.addEventListener("dragleave", (event) => {
-      event.preventDefault();
-      this.dropZone.classList.remove("active");
-      this.dropZone.style.borderColor = "#aaa";
-      this.dropZone.style.color = "#aaa";
-    });
-
-    this.dropZone.addEventListener("drop", (event) => {
-      event.preventDefault();
-      this.dropZone.classList.remove("active");
-      this.loadingText.style.display = "block";
-
-      const file = event.dataTransfer.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.loadMesh(e.target.result);
-        };
-        reader.readAsArrayBuffer(file);
-      }
-    });
+    this.smallerDropZone.addEventListener(
+      "dragover",
+      this.handleDropZoneDragOver.bind(this),
+    );
+    this.smallerDropZone.addEventListener(
+      "dragleave",
+      this.handleDropZoneDragLeave.bind(this),
+    );
+    this.smallerDropZone.addEventListener(
+      "drop",
+      this.handleDropZoneDrop.bind(this),
+    );
 
     // Handle view panel button clicks
     const viewContainer = document.getElementById("viewButtonGrid");
     viewContainer.querySelectorAll(".primary-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const view = button.getAttribute("data-view");
-        switch (view) {
-          case "top":
-            this.camera.position.set(0, 10, 0);
-            break;
-          case "front":
-            this.camera.position.set(0, 0, 10);
-            break;
-          case "right":
-            this.camera.position.set(10, 0, 0);
-            break;
-          case "left":
-            this.camera.position.set(-10, 0, 0);
-            break;
-          case "back":
-            this.camera.position.set(0, 0, -10);
-            break;
-          case "bottom":
-            this.camera.position.set(0, -10, 0);
-            break;
-        }
-        this.camera.lookAt(0, 0, 0);
-        this.controls.update();
-      });
+      button.addEventListener(
+        "click",
+        this.handleViewButton.bind(this, button.getAttribute("data-view")),
+      );
     });
   }
 }
