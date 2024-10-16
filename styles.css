@@ -41,7 +41,7 @@
 	--bold-weight: 690;
 	--line-height: 1.5;
 
-	--subtitle-text-size: 12px;
+	--subtitle-text-size: 11px;
 	--regular-text-size: 16px;
 	--title-font-size: 25px;
 	--super-title-font-size: 41px;
@@ -67,7 +67,7 @@
 	--navbar-height: 47px;
 
 	/* Project specific */
-	--project-card-height: 300px; /* Width of the project card should be less than content width /4  */
+	--blog-card-and-header-height: 300px; /* Width of the project card should be less than content width /4  */
 	--project-side-bar-top: 57px; /* navbar height + spacing-medium */
 	--project-searchbar-width: 250px;
 	--project-footer-width: 250px;
@@ -515,6 +515,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	padding: var(--spacing-small);
 	margin: var(--spacing-small) var(--spacing-small);
 	width: fit-content;
+	text-transform: uppercase;
 	border-radius: var(--small-radius);
 	border: var(--border-width) solid; !important;
 	font-size: var(--subtitle-text-size);
@@ -535,6 +536,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	flex-wrap: wrap;
 	overflow: hidden;
 	opacity: 0.69;
+	margin-top: var(--spacing-medium);
 	transition: all var(--transition-default);
 }
 
@@ -551,7 +553,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(var(--project-card-height), 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(var(--blog-card-and-header-height), 1fr));
 	grid-gap: var(--spacing-huge);
 	padding-left: var(--spacing-huge);
 }
@@ -561,8 +563,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	border: var(--border-width) solid var(--color-light-contrast);
 	border-radius: var(--default-radius);
 	flex-direction: row;
-	height: var(--project-card-height);
-	width: var(--project-card-height);
+	height: var(--blog-card-and-header-height);
+	width: var(--blog-card-and-header-height);
 	overflow: clip;
 }
 
@@ -606,8 +608,8 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 .card-img {
 	margin: 0 auto;
-	width: var(--project-card-height);
-	height: var(--project-card-height);
+	width: var(--blog-card-and-header-height);
+	height: var(--blog-card-and-header-height);
 	object-fit: cover;
 	overflow: clip;
 	display: flex;
@@ -677,7 +679,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	width: var(--max-content-width); !important;
 	margin: 0 auto; !important;
 	padding: 0; !important;
-	height: var(--project-card-height); !important;
+	height: var(--blog-card-and-header-height); !important;
 	border-radius: var(--default-radius);
 	display: flex;
 	justify-content: center;
@@ -696,10 +698,9 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 .blog-header-image {
-	width: var(--project-card-height);
-	height: var(--project-card-height);
+	width: var(--blog-card-and-header-height);
+	height: var(--blog-card-and-header-height);
 	flex-shrink: 0; /* Prevent the image from shrinking */
-	margin-right: var(--spacing-large);
 }
 
 .blog-header-image img {
@@ -711,15 +712,15 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	margin: 0;
 }
 
-/* Ensure the text part takes remaining width */
-.column-body {
-	flex-grow: 1; /* Make sure text takes up available space */
-}
-
-.description {
-	font-size: var(--regular-text-size);
-	line-height: var(--line-height);
-	margin: 0 auto;
+.blog-header-contents {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	border: red 2px solid;
+	width: auto; height: auto;
+	max-height: var(--blog-card-and-header-height);
+	margin: 0 var(--spacing-large);
 }
 
 /* Project footer */
