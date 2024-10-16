@@ -8,3 +8,8 @@ function handleRunningApps() {
     window.musicApp.resetAudio();
   }
 }
+
+function initMeshMorph() {
+  window.meshaMorph = new MeshView();
+  window.meshaMorph.animate();
+}

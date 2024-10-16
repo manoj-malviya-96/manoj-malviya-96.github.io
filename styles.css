@@ -914,8 +914,8 @@ th {
 
 .app-drawer {
 	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
+	justify-content: center;
+	align-items: center;
 	padding-left: var(--spacing-large);
 	height: 100%;
 	margin: 0 auto;

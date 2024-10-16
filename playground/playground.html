@@ -67,30 +67,31 @@
 			margin: 0.5em 0;
 			font-size: 1em;
 		}
-		#view-cube {
+		#view-panel {
 			position: fixed;
 			bottom: 20px;
 			left: 20px;
-			width: 100px;
-			height: 100px;
+			width: 120px;
+			padding: 10px;
 			background-color: rgba(255, 255, 255, 0.9);
 			border-radius: 10px;
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			grid-template-rows: repeat(3, 1fr);
 			box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 			font-family: Arial, sans-serif;
 			z-index: 20;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 5px;
 		}
-		.view-cube-face {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+		.view-button {
+			padding: 10px;
+			text-align: center;
+			background-color: #f0f0f0;
 			border: 1px solid #ccc;
+			border-radius: 5px;
 			cursor: pointer;
 			user-select: none;
 		}
-		.view-cube-face:hover {
+		.view-button:hover {
 			background-color: #ddd;
 		}
     </style>
@@ -105,28 +106,25 @@
     <p id="info-volume">Volume: 0</p>
     <p id="info-triangles">Number of Triangles: 0</p>
 </div>
-<div id="view-cube">
-    <div class="view-cube-face" data-view="top">Top</div>
-    <div class="view-cube-face" data-view="front">Front</div>
-    <div class="view-cube-face" data-view="right">Right</div>
-    <div class="view-cube-face" data-view="left">Left</div>
-    <div class="view-cube-face" data-view="back">Back</div>
-    <div class="view-cube-face" data-view="bottom">Bottom</div>
+<div id="view-panel">
+    <div class="view-button" data-view="top">Top</div>
+    <div class="view-button" data-view="front">Front</div>
+    <div class="view-button" data-view="right">Right</div>
+    <div class="view-button" data-view="left">Left</div>
+    <div class="view-button" data-view="back">Back</div>
+    <div class="view-button" data-view="bottom">Bottom</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/STLLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
 <script>
-    class MeshHandler {
-        constructor(scene, camera, renderer, controls) {
-            this.scene = scene;
-            this.camera = camera;
-            this.renderer = renderer;
-            this.controls = controls;
+    class MeshLoader {
+        constructor() {
             this.loader = new THREE.STLLoader();
-            this.mesh = null;
-            this.centroid = new THREE.Vector3();
-            this.volume = 0;
+        }
+
+        load(arrayBuffer) {
+            return this.loader.parse(arrayBuffer);
         }
 
         computeAccurateCentroid(geometry) {
@@ -148,175 +146,190 @@
 
             for (let i = 0; i < position.count; i += 3) {
                 const p1 = new THREE.Vector3(position.getX(i), position.getY(i), position.getZ(i));
-                const p2 = new THREE.Vector3(position.getX(i + 1), position.getY(i + 1), position.getZ(i + 2));
+                const p2 = new THREE.Vector3(position.getX(i + 1), position.getY(i + 1), position.getZ(i + 1));
                 const p3 = new THREE.Vector3(position.getX(i + 2), position.getY(i + 2), position.getZ(i + 2));
                 volume += p1.dot(p2.cross(p3)) / 6.0;
             }
 
             return Math.abs(volume);
         }
+    }
 
-        loadMesh(arrayBuffer) {
+    class MeshRenderer {
+        constructor(scene) {
+            this.scene = scene;
+            this.mesh = null;
+            this.centroidPoint = null;
+        }
+
+        renderMesh(geometry, material) {
             if (this.mesh) {
                 this.scene.remove(this.mesh);
                 if (this.centroidPoint) this.scene.remove(this.centroidPoint);
             }
 
-            const geometry = this.loader.parse(arrayBuffer);
-            const material = new THREE.MeshPhongMaterial({ color: 0x808080 }); // Gray color for the model
             this.mesh = new THREE.Mesh(geometry, material);
-            this.mesh.scale.set(0.1, 0.1, 0.1); // Scale down the model if it's too large
-
-            // Compute the centroid and volume of the mesh
-            this.centroid = this.computeAccurateCentroid(geometry);
-            this.volume = this.computeVolume(geometry);
-            this.mesh.geometry.translate(-this.centroid.x, -this.centroid.y, -this.centroid.z); // Center the mesh
-
             this.scene.add(this.mesh);
-            loadingText.style.display = 'none';
-            infoPanel.style.display = 'block';
-            dropZone.classList.add('small'); // Restrict drop zone to the bottom panel
-            console.log("STL file successfully loaded and added to the scene.");
 
-            // Set controls target to the centroid for orbiting around the center of the mesh
-            this.controls.target.set(0, 0, 0);
-            this.controls.update();
+            return this.mesh;
+        }
 
-            // Add a point to indicate the centroid of the mesh
+        addCentroidPoint(centroid) {
             const centroidGeometry = new THREE.SphereGeometry(0.05, 16, 16);
             const centroidMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
             this.centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
-            this.centroidPoint.position.set(0, 0, 0);
+            this.centroidPoint.position.copy(centroid);
             this.scene.add(this.centroidPoint);
+        }
+    }
+
+    class MeshView {
+        constructor() {
+            this.scene = new THREE.Scene();
+            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            this.renderer = new THREE.WebGLRenderer();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(this.renderer.domElement);
+
+            // Add light sources
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 5, 5).normalize();
+            this.scene.add(directionalLight);
+
+            const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+            this.scene.add(ambientLight);
+
+            // Add OrbitControls for better user interaction like CAD software
+            this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+            this.controls.enableDamping = true; // Smooth the control movements
+            this.controls.dampingFactor = 0.05;
+            this.controls.screenSpacePanning = false;
+            this.controls.maxPolarAngle = Math.PI * 2;
+
+            this.camera.position.set(0, 0, 20);
+            this.meshLoader = new MeshLoader();
+            this.meshRenderer = new MeshRenderer(this.scene);
+
+            this.infoPanel = document.getElementById('info-panel');
+            this.loadingText = document.getElementById('loading');
+            this.dropZone = document.getElementById('drop-zone');
+
+            this.initEventListeners();
+        }
+
+        loadMesh(arrayBuffer) {
+            const geometry = this.meshLoader.load(arrayBuffer);
+            const material = new THREE.MeshPhongMaterial({ color: 0x808080 }); // Gray color for the model
+            const mesh = this.meshRenderer.renderMesh(geometry, material);
+
+            // Compute the centroid and volume of the mesh
+            const centroid = this.meshLoader.computeAccurateCentroid(geometry);
+            const volume = this.meshLoader.computeVolume(geometry);
+            mesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
+
+            this.meshRenderer.addCentroidPoint(new THREE.Vector3(0, 0, 0));
+            this.controls.target.set(0, 0, 0);
+            this.controls.update();
 
             // Update information panel
-            document.getElementById('info-centroid').innerText = `Centroid: (${this.centroid.x.toFixed(2)}, ${this.centroid.y.toFixed(2)}, ${this.centroid.z.toFixed(2)})`;
-            document.getElementById('info-volume').innerText = `Volume: ${this.volume.toFixed(2)}`;
+            this.infoPanel.style.display = 'block';
+            this.dropZone.classList.add('small'); // Restrict drop zone to the bottom panel
+            this.loadingText.style.display = 'none';
+            document.getElementById('info-centroid').innerText = `Centroid: (${centroid.x.toFixed(2)}, ${centroid.y.toFixed(2)}, ${centroid.z.toFixed(2)})`;
+            document.getElementById('info-volume').innerText = `Volume: ${volume.toFixed(2)}`;
             document.getElementById('info-triangles').innerText = `Number of Triangles: ${(geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3)}`;
         }
-    }
 
-    // Set up the scene, camera, and renderer
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // Add light sources
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 5, 5).normalize();
-    scene.add(directionalLight);
-
-    const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
-    scene.add(ambientLight);
-
-    // Add OrbitControls for better user interaction like CAD software
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // Smooth the control movements
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false;
-    controls.maxPolarAngle = Math.PI * 2;
-
-    const infoPanel = document.getElementById('info-panel');
-    const loadingText = document.getElementById('loading');
-    const dropZone = document.getElementById('drop-zone');
-
-    const meshHandler = new MeshHandler(scene, camera, renderer, controls);
-
-    // Handle file uploads via the drop zone
-    dropZone.addEventListener('click', () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.stl';
-        input.onchange = (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                loadingText.style.display = 'block';
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    meshHandler.loadMesh(e.target.result);
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        };
-        input.click();
-    });
-
-    // Handle drag-and-drop uploads
-    dropZone.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        dropZone.classList.add('active');
-        dropZone.style.borderColor = '#777';
-        dropZone.style.color = '#777';
-    });
-
-    dropZone.addEventListener('dragleave', (event) => {
-        event.preventDefault();
-        dropZone.classList.remove('active');
-        dropZone.style.borderColor = '#aaa';
-        dropZone.style.color = '#aaa';
-    });
-
-    dropZone.addEventListener('drop', (event) => {
-        event.preventDefault();
-        dropZone.classList.remove('active');
-        loadingText.style.display = 'block';
-
-        const file = event.dataTransfer.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                meshHandler.loadMesh(e.target.result);
-            };
-            reader.readAsArrayBuffer(file);
+        animate() {
+            requestAnimationFrame(() => this.animate());
+            this.controls.update();
+            this.renderer.render(this.scene, this.camera);
         }
-    });
 
-    // Set the camera position
-    camera.position.set(0, 0, 10);
+        initEventListeners() {
 
-    // Handle view cube clicks
-    document.querySelectorAll('.view-cube-face').forEach(face => {
-        face.addEventListener('click', () => {
-            const view = face.getAttribute('data-view');
-            switch (view) {
-                case 'top':
-                    camera.position.set(0, 10, 0);
-                    camera.lookAt(0, 0, 0);
-                    break;
-                case 'front':
-                    camera.position.set(0, 0, 10);
-                    camera.lookAt(0, 0, 0);
-                    break;
-                case 'right':
-                    camera.position.set(10, 0, 0);
-                    camera.lookAt(0, 0, 0);
-                    break;
-                case 'left':
-                    camera.position.set(-10, 0, 0);
-                    camera.lookAt(0, 0, 0);
-                    break;
-                case 'back':
-                    camera.position.set(0, 0, -10);
-                    camera.lookAt(0, 0, 0);
-                    break;
-                case 'bottom':
-                    camera.position.set(0, -10, 0);
-                    camera.lookAt(0, 0, 0);
-                    break;
-            }
-            controls.update();
-        });
-    });
+            // Handle file uploads via the drop zone
+            this.dropZone.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.stl';
+                input.onchange = (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.loadingText.style.display = 'block';
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.loadMesh(e.target.result);
+                        };
+                        reader.readAsArrayBuffer(file);
+                    }
+                };
+                input.click();
+            });
 
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
+            // Handle drag-and-drop uploads
+            this.dropZone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                this.dropZone.classList.add('active');
+                this.dropZone.style.borderColor = '#777';
+                this.dropZone.style.color = '#777';
+            });
+
+            this.dropZone.addEventListener('dragleave', (event) => {
+                event.preventDefault();
+                this.dropZone.classList.remove('active');
+                this.dropZone.style.borderColor = '#aaa';
+                this.dropZone.style.color = '#aaa';
+            });
+
+            this.dropZone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                this.dropZone.classList.remove('active');
+                this.loadingText.style.display = 'block';
+
+                const file = event.dataTransfer.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.loadMesh(e.target.result);
+                    };
+                    reader.readAsArrayBuffer(file);
+                }
+            });
+
+            // Handle view panel button clicks
+            document.querySelectorAll('.view-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const view = button.getAttribute('data-view');
+                    switch (view) {
+                        case 'top':
+                            this.camera.position.set(0, 10, 0);
+                            break;
+                        case 'front':
+                            this.camera.position.set(0, 0, 10);
+                            break;
+                        case 'right':
+                            this.camera.position.set(10, 0, 0);
+                            break;
+                        case 'left':
+                            this.camera.position.set(-10, 0, 0);
+                            break;
+                        case 'back':
+                            this.camera.position.set(0, 0, -10);
+                            break;
+                        case 'bottom':
+                            this.camera.position.set(0, -10, 0);
+                            break;
+                    }
+                    this.camera.lookAt(0, 0, 0);
+                    this.controls.update();
+                });
+            });
+        }
     }
-    animate();
+
+    const meshView = new MeshView();
+    meshView.animate();
 </script>
 </body>
 </html>

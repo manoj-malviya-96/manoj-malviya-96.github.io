@@ -1,0 +1,106 @@
+<style>
+	#viewButtonGrid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+		max-width: 150px;
+		margin: auto;
+	}
+	#dropZone {
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px dashed #aaa;
+		color: #aaa;
+		font-size: 1.5em;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: 10px;
+		cursor: pointer;
+		z-index: 5;
+		pointer-events: auto;
+	}
+	#dropZone.small {
+		width: 300px;
+		height: 200px;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		border-radius: 10px;
+		pointer-events: auto;
+	}
+	#dropZone::before {
+		content: 'Drop your STL file here or click to upload';
+		font-size: 1.5em;
+		color: #aaa;
+	}
+</style>
+
+<div class="app-window">
+    <!-- Visualizer section -->
+    <canvas id="visualizer" width="1200" height="900"></canvas> <!-- 4:3 ratio -->
+
+    <div id="meshCanvas"></div>
+    <div id="dropZone"></div>
+    <div id="loading">Loading...</div>
+
+    <div class="app-controller-container">
+
+        <!-- Button to toggle app-header -->
+        <button id="toggleViewBar" class="primary-button"><i class="bi bi-chevron-compact-down"></i> </button>
+
+        <!-- App Header -->
+        <div class="app-controller">
+            <!-- Icon and App Name in  layout -->
+            <div class="app-brand-container app-controller-item">
+                <i class="bi bi-hexagon-half" id="appIcon"></i>
+                <span class="app-name">MeshaMorph</span>
+            </div>
+
+
+            <!-- View Buttons -->
+            <div id="viewButtonGrid" class="app-controller-item">
+                <div></div>
+                <div class="primary-button smaller" data-view="top">
+                    <i class="bi bi-arrow-up"></i>
+                </div>
+                <div></div>
+                <div class="primary-button smaller" data-view="left">
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+                <div class="primary-button smaller" data-view="front">
+                    <i class="bi bi-box-arrow-in-down"></i>
+                </div>
+                <div class="primary-button smaller" data-view="right">
+                    <i class="bi bi-arrow-right"></i>
+                </div>
+                <div></div>
+                <div class="primary-button smaller" data-view="bottom">
+                    <i class="bi bi-arrow-down"></i>
+                </div>
+                <div></div>
+            </div>
+
+<!--            <div id="dropZone" class="app-controller-item">-->
+<!--                <div  style="margin-right: var(&#45;&#45;spacing-medium)">-->
+<!--                    <label for="fileUpload" class="primary-button">-->
+<!--                        <i class="bi bi-upload"></i>-->
+<!--                    </label>-->
+<!--                    <input type="file" id="fileUpload" accept="audio/*" style="display: none">-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+            <!-- Mesh Place -->
+            <div id="infoPanel" class="app-controller-item column-layout">
+                <p id="info-volume">Volume: 0</p>
+                <p id="info-triangles">Number of Triangles: 0</p>
+            </div>
+            </div> <!-- settings -->
+        </div>
+    </div>
+
+</div>
