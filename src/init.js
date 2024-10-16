@@ -1,8 +1,11 @@
 /* Collection of functions to initialize the website */
 
-function initHeader() {
-  let headerPlaceholder = document.getElementById("header-placeholder");
-  loadContent("./header.html", headerPlaceholder);
+function initSidebar() {
+  const sidebarPlaceholder = document.getElementById("sidebar-placeholder");
+  if (!sidebarPlaceholder) {
+    console.error("Side bar Placeholder doesnt exists");
+  }
+  loadContent("./sidebar.html", sidebarPlaceholder);
 }
 
 function initScrollBehavior() {
