@@ -492,7 +492,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	transform: scale(1.8);
 }
 
-/* ----------------------- Project Components --------------------------- */
+/* ----------------------- Tags --------------------------- */
 .tag-label {
 	font-size: 10px !important;
 	text-transform: uppercase;
@@ -1083,13 +1083,6 @@ canvas {
 
 /* -------------------------- Light Mode -------------------------- */
 
-.light-mode .about-entity {
-	border-color: var(--color-light-contrast);
-	background-color: var(--color-light-primary);
-	color: var(--color-light-imp);
-	box-shadow: var(--shadows-light);
-}
-
 
 .light-mode .card {
 	background-color: var(--color-light-contrast);
@@ -1173,14 +1166,6 @@ canvas {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-
-.dark-mode .about-entity {
-	border-color: var(--color-dark-contrast);
-	background-color: var(--color-dark-primary);
-	color: var(--color-dark-imp);
-	box-shadow: var(--shadows-dark);
-}
-
 
 .dark-mode .card {
 	background-color: var(--color-dark-contrast);
