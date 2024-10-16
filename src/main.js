@@ -31,7 +31,7 @@ const blogHTMLToExtraCallbacks = {
   "./blogs/embed-am/embed-am.html": [],
   "./blogs/build-orient/build-orient.html": [],
   "./blogs/formlabs-ui/ui-lead.html": [],
-  "./blogs/formlabs-supports/supports.html": [],
+  // "./blogs/formlabs-supports/supports.html": [],
 };
 // App-specific callbacks
 const defaultAppCallbacks = [initTheme];
