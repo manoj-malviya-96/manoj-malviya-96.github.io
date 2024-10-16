@@ -146,26 +146,21 @@ body.dark-mode {
 }
 
 /* ----------------------------- Block Styling ----------------------------- */
-
-.block {
-	text-align: left;
+.content.block {
 	justify-content: center;
 	align-content: center;
-	font-size: var(--regular-text-size);
-	line-height: var(--line-height);
 	max-width: var(--max-content-width);
 	padding: var(--spacing-large);
 	border-radius: var(--default-radius);
 	margin: var(--spacing-large);
-	transition: all var(--transition-default);
 }
 
-.light-mode .block {
+.light-mode .content.block {
 	background-color: var(--color-light-contrast);
 	color: var(--color-light-imp);
 }
 
-.dark-mode .block {
+.dark-mode .content.block {
 	background-color: var(--color-dark-contrast);
 	color: var(--color-dark-imp);
 }
