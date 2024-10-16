@@ -93,6 +93,10 @@ function loadApp(page, event, doPushToHistory = true) {
   loadContentInMainWindow(page, event, callbacks, doPushToHistory);
 }
 
+function loadPDFInMainWindow(pdfUrl) {
+  loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
+}
+
 // Load the page from the URL with the 'pageName' parameter
 function loadPageFromTypedURL(event) {
   // Get the 'pageName' parameter from the URL
@@ -515,14 +519,14 @@ function loadBlogFooter() {
 
 /** ---------------------------- Misc Functions  ---------------------------- **/
 
-function loadPDFInMainWindow(pdfUrl) {
-  loadPDF(pdfUrl, contentPlaceholder, contentPlaceholderOverlay);
+function isUserOnHomePage() {
+  const pageName = getURLParams("pageName");
+  return pageName === homePage;
 }
 
 function scrollElementInViewOnHome(event, elementId) {
-  const pageName = getURLParams("pageName");
   // First Load the Home Page
-  if (pageName !== homePage) {
+  if (!isUserOnHomePage()) {
     const scrollFn = () => {
       console.log("Scrolling to element:", elementId);
       runWithDelay(scrollElementInView, timeOut_ms, elementId);
