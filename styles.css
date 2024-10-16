@@ -5,11 +5,11 @@
 
 	/* Color Palette */
 	--color-light-primary: var(--color-white);
-	--color-light-contrast: rgba(169, 169, 169, 0.69);
+	--color-light-contrast: rgba(169, 169, 169, 0.73);
 	--color-light-imp: rgb(47, 47, 47);
 
 	--color-dark-primary: var(--color-black);
-	--color-dark-contrast: rgba(47, 47, 47, 0.69);
+	--color-dark-contrast: rgba(27, 27, 27, 0.73);
 	--color-dark-imp: rgb(169, 169, 169);
 
 	--color-brand-primary: rgb(220, 20, 60, 0.89); /*#DC143C - Crimson, my boos fav*/
@@ -59,8 +59,8 @@
 	--spinner-size: 169px;
 
 	/* Shadow */
-	--shadows-light: 0 2px 7px rgba(0, 0, 0, 0.18);
-	--shadows-dark: 0 2px 7px rgba(255, 255, 255, 0.18);
+	--shadows-light: 0 1px 5px rgba(0, 0, 0, 0.27);
+	--shadows-dark: 0 1px 5px rgba(255, 255, 255, 0.27 );
 
 	/* specific sizes */
 	--navbar-height: 47px;
@@ -127,12 +127,10 @@ body.dark-mode {
 }
 
 .light-mode .content {
-	background-color: var(--color-light-primary);
 	border-color: var(--color-light-contrast);
 }
 
 .dark-mode .content {
-	background-color: var(--color-dark-primary);
 	border-color: var(--color-dark-contrast);
 }
 
