@@ -45,6 +45,7 @@
 	--regular-text-size: 16px;
 	--title-font-size: 25px;
 	--super-title-font-size: 41px;
+	--hero-font-size: 100px;
 
 	--regular-icon-size: 21px;
 	--large-icon-size: 37px;
@@ -548,7 +549,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 /* ----------------------- Grid Layout--------------------------- */
 
-.quarto-listing {
+.blog-listing {
 	width: var(--max-body-width);
 	justify-content: center;
 	align-content: center;

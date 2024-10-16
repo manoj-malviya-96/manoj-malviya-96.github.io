@@ -1,15 +1,8 @@
 <style>
-    /*#meshCanvas {*/
-    /*    width: 100vw;*/
-    /*    height: 100vh;*/
-    /*    position: absolute;*/
-    /*    top: 0;*/
-    /*    left: 0;*/
-    /*}*/
 	#viewButtonGrid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 10px;
+		gap: var(--spacing-medium);
 		max-width: 150px;
 		margin: auto;
 	}
@@ -19,7 +12,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		color: #aaa;
+		color: var(--color-white);
 		cursor: pointer;
 		z-index: var(--z-index-overlay);
 		pointer-events: auto;
@@ -31,7 +24,7 @@
     }
 
     #fullScreenDropZone .bi{
-        font-size: 100px;
+        font-size: var(--hero-font-size);
         margin-right: var(--spacing-large);
     }
 
