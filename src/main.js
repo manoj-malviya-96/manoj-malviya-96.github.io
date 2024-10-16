@@ -18,11 +18,11 @@ const homePageCallbacks = [
 
 const defaultBlogCallbacks = [
   initTheme,
-  loadBlogFooter,
+  loadBlogFooter, //Order Matters
   initImageFluidHandler,
   initScrollTracking,
 ];
-// Order matters- loadProjectFooter should be called before initScrollTracking
+
 const blogHTMLToExtraCallbacks = {
   "./blogs/delta-design/delta-design.html": [createPlotsForDeltaDesign],
   "./blogs/topt/rapid-topt.html": [],
@@ -33,6 +33,7 @@ const blogHTMLToExtraCallbacks = {
   "./blogs/formlabs-ui/ui-lead.html": [],
   // "./blogs/formlabs-supports/supports.html": [],
 };
+
 // App-specific callbacks
 const defaultAppCallbacks = [initTheme];
 const appHTMLToInits = {
