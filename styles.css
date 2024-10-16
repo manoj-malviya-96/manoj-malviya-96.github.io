@@ -157,12 +157,10 @@ body.dark-mode {
 
 .light-mode .content.block {
 	background-color: var(--color-light-contrast);
-	color: var(--color-light-imp);
 }
 
 .dark-mode .content.block {
 	background-color: var(--color-dark-contrast);
-	color: var(--color-dark-imp);
 }
 
 /* ----------------------------- Collapsible Styling ----------------------------- */
