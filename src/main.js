@@ -249,7 +249,7 @@ function createBlogCardHTML(
                         <div class="listing-categories">
                             ${categories.map((cat) => `<div class="listing-category">${cat}</div>`).join("")}
                         </div>
-                        <div class="project-date">${date} </div>
+                        <div class="tag-date">${date} </div>
                     </div>
                 </div>
           </a>
