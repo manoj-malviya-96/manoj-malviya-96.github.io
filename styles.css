@@ -472,14 +472,12 @@ input[type="range"]::-webkit-slider-thumb {
 	appearance: none;
 	width: var(--spacing-medium);
 	height: var(--spacing-medium);
-	transform: scale(1.3);
 	background: var(--color-brand-primary);
-	border-radius: var(--default-radius);
 	cursor: pointer;
 }
 
-input[type="range"]:hover::-webkit-slider-thumb {
-	transform: scale(1.8);
+input[type="range"]:hover {
+	transform: scale(var(--transform-scale));
 }
 
 /* ----------------------- Tags --------------------------- */
