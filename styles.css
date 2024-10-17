@@ -44,8 +44,8 @@
 	--subtitle-text-size: 11px;
 	--regular-text-size: 16px;
 	--title-font-size: 25px;
-	--super-title-font-size: 41px;
-	--hero-font-size: 100px;
+	--super-title-font-size: 33px;
+	--hero-font-size: 69px;
 
 	--regular-icon-size: 21px;
 	--large-icon-size: 37px;
@@ -181,15 +181,7 @@ body.dark-mode {
 
 /* ----------------------------- Text Styling ----------------------------- */
 
-h1 {
-	font-size: var(--super-title-font-size);
-	line-height: var(--line-height);
-	font-weight: var(--bold-weight);
-	border: none;
-	margin: var(--spacing-medium) 0;
-	padding: 0;
-}
-
+h1,
 h2 {
 	font-size: var(--title-font-size);
 	line-height: var(--line-height);
@@ -197,6 +189,10 @@ h2 {
 	margin: var(--spacing-medium) 0;
 	padding: 0;
 	border: none;
+}
+
+h1 {
+	font-size: var(--super-title-font-size);
 }
 
 p {
@@ -717,7 +713,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	border: red 2px solid;
 	width: auto; height: auto;
 	max-height: var(--blog-card-and-header-height);
 	margin: 0 var(--spacing-large);
