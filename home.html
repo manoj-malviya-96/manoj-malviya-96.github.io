@@ -1,13 +1,6 @@
 <style>
     #aboutEntity {
         display: flex;
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-        border-radius: var(--default-radius);
-        border-style: solid;
-        border-width: var(--border-width);
-        transition: all var(--transition-default);
     }
 
     #aboutEntity.collapsed {
@@ -15,7 +8,7 @@
         opacity: 0;
     }
 
-    #profile-image img {
+    #aboutEntity img {
         padding: 0;
         margin: 0 auto;
         width: calc(1.2 * var(--about-entity-height));
@@ -31,8 +24,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        max-height: var(--about-entity-height);
-        padding: var(--spacing-medium);
         font-size: var(--hero-font-size);
         margin-left: var(--spacing-large);
     }
@@ -66,15 +57,12 @@
 
 <div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div id="aboutEntity">
+    <div id="aboutEntity" class="content reading">
         <div id="profile-image">
             <img src="assets/profile.jpeg" alt="Profile Picture">
         </div>
         <div class="column-layout" style="margin-left: var(--spacing-large);">
             <span class="about-title"> MANOJ MALVIYA </span>
-            <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex
-                ideas
-                into tangible results using advanced computational tools and methodologies. </p>
         </div>
     </div>
     <!-- Collapsible content starts here -->

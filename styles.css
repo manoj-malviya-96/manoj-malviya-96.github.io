@@ -1,7 +1,7 @@
 :root {
 	/* Black and White */
 	--color-white: rgb(230, 230, 230);
-	--color-black: rgb(7, 7, 7);
+	--color-black: rgb(13, 13, 13);
 
 	/* Color Palette */
 	--color-light-primary: var(--color-white);
@@ -9,7 +9,7 @@
 	--color-light-imp: rgb(47, 47, 47);
 
 	--color-dark-primary: var(--color-black);
-	--color-dark-contrast: rgba(37, 37, 37, 0.73);
+	--color-dark-contrast: rgba(47, 47, 47, 0.73);
 	--color-dark-imp: rgb(169, 169, 169);
 
 	--color-brand-primary: rgb(220, 20, 60, 0.89); /*#DC143C - Crimson, my boos fav*/
