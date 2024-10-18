@@ -1077,14 +1077,14 @@ th {
 }
 
 .app-brand-logo .bi {
-	font-size: var(--large-icon-size);
-	color: var(--color-brand-primary);
+	font-size: var(--large-icon-size) !important;
+	color: var(--color-brand-primary) !important;;
 	padding: 0;
 	margin: 0 auto;
 }
 
 .app-brand-logo .app-name {
-	color: var(--color-brand-primary);
+	color: var(--color-brand-primary) !important;;
 	padding: 0;
 	text-transform: uppercase;
 	align-content: center;
