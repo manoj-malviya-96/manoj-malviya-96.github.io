@@ -90,8 +90,8 @@
 
 	/* App */
 	--app-button-height: 69px;
-	--app-window-width: var(--max-body-width);
-	--app-window-height: calc(3 * var(--app-window-width) / 4);
+	--app-window-width: 1100px;
+	--app-window-height: 869px;
 }
 
 /* ----------------------------- Body Styling ----------------------------- */
@@ -984,8 +984,6 @@ th {
 	height: var(--app-window-height);
 	background-color: transparent;
 	border-radius: var(--default-radius);
-	border-width: var(--border-width);
-	border-style: solid;
 }
 
 .app-window.full-screen-modal {
@@ -996,6 +994,13 @@ th {
 	align-items: center;
 }
 
+.app-window .primary-button {
+	color: var(--color-dark-imp); /* Making sure window is always dark */
+}
+
+.app-window p {
+	color: var(--color-dark-imp);  /* Making sure window is always dark */
+}
 
 .app-controller-container {
 	display: flex;
@@ -1067,6 +1072,7 @@ th {
 	align-items: center;
 	justify-content: left;
 	height: auto;
+	width: 320px;
 }
 
 .app-brand-logo {
@@ -1149,15 +1155,6 @@ canvas {
 }
 
 
-.light-mode .app-window {
-	border-color: var(--color-light-contrast);
-}
-
-
-.light-mode .app-window {
-	box-shadow: var(--shadows-light);
-}
-
 .light-mode .modern-dropdown {
 	background-color: var(--color-light-contrast);
 	color: var(--color-light-imp);
@@ -1190,16 +1187,6 @@ canvas {
 
 .dark-mode input[type="range"] {
 	background: var(--color-dark-contrast);
-}
-
-.dark-mode .app-window {
-	border-color: var(--color-dark-contrast);
-}
-
-
-
-.dark-mode .app-window {
-	box-shadow: var(--shadows-dark);
 }
 
 .dark-mode .modern-dropdown {
