@@ -72,8 +72,11 @@
         <div class="profile-image">
             <img src="assets/profile.jpeg" alt="Profile Picture">
         </div>
-        <div class="about-title">
-            <span> MANOJ MALVIYA </span>
+        <div class="column-layout" style="margin-left: var(--spacing-large);">
+            <span class="about-title"> MANOJ MALVIYA </span>
+            <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex
+                ideas
+                into tangible results using advanced computational tools and methodologies. </p>
         </div>
     </div>
     <!-- Collapsible content starts here -->
@@ -158,7 +161,10 @@
         <!-- Collapsible content ends here -->
     </div>
     <!-- Button to expand the about section -->
-    <button id="toggleAboutBtn" class="primary-button" onclick="toggleForAbout()"><i class="bi bi-chevron-compact-down"></i></button>
+    <button id="toggleAboutBtn" class="primary-button modern-tooltip"
+            data-tooltip="show more" onclick="toggleForAbout()">
+        <i class="bi bi-chevron-compact-down"></i>
+    </button>
 </div>
 
 

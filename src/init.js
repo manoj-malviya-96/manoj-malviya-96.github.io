@@ -225,6 +225,25 @@ function initGithub() {
   window.githubProfile = new GithubProfile("./data/github_user_report.json");
 }
 
+function initTooltip() {
+  const tooltipTimer_ms = 690; // Delay before showing the tooltip (1000ms)
+
+  document.querySelectorAll('.modern-tooltip').forEach(function (item) {
+    let timer;
+
+    item.addEventListener('mouseover', function () {
+      timer = setTimeout(function () {
+        item.classList.add('show'); // Add class to show the tooltip (via ::after)
+      }, tooltipTimer_ms); // Delay before showing the tooltip
+    });
+
+    item.addEventListener('mouseout', function () {
+      clearTimeout(timer); // Cancel the timer if mouse leaves early
+      item.classList.remove('show'); // Remove class to hide the tooltip
+    });
+  });
+}
+
 function loadSocialMediaLink(identifier) {
   const links = {
     Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",

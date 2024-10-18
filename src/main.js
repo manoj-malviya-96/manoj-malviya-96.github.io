@@ -10,6 +10,7 @@ const contentPlaceholderOverlay = window.document.getElementById(
 const homePage = "./home.html";
 const homePageCallbacks = [
   initTheme,
+  initTooltip,
   initGithub,
   setupSortOptions,
   makeAppButtons,
@@ -18,6 +19,7 @@ const homePageCallbacks = [
 
 const defaultBlogCallbacks = [
   initTheme,
+  initTooltip,
   loadBlogFooter, //Order Matters
   initImageFluidHandler,
   initScrollTracking,
@@ -35,7 +37,7 @@ const blogHTMLToExtraCallbacks = {
 };
 
 // App-specific callbacks
-const defaultAppCallbacks = [initTheme];
+const defaultAppCallbacks = [initTheme, initTooltip];
 const appHTMLToInits = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
@@ -170,6 +172,13 @@ function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
         // Create a new button element
         const appButton = document.createElement("button");
         appButton.className = "app-button";
+
+        const description = window.document.getElementById("description");
+        if (description) {
+          console.log("Description found:", description.textContent);
+          appButton.classList.add('modern-tooltip');
+          appButton.setAttribute("data-tooltip", description.textContent);
+        }
 
         // Set the provided onClickFunction dynamically
         appButton.onclick = onClickFunction;

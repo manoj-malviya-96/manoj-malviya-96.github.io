@@ -9,7 +9,7 @@
 	--color-light-imp: rgb(47, 47, 47);
 
 	--color-dark-primary: var(--color-black);
-	--color-dark-contrast: rgba(27, 27, 27, 0.73);
+	--color-dark-contrast: rgba(37, 37, 37, 0.73);
 	--color-dark-imp: rgb(169, 169, 169);
 
 	--color-brand-primary: rgb(220, 20, 60, 0.89); /*#DC143C - Crimson, my boos fav*/
@@ -291,6 +291,39 @@ a {
 	border-color: var(--color-dark-contrast);
 }
 
+/* ----------------------------- Navbar Styling ----------------------------- */
+.modern-tooltip {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.modern-tooltip::after {
+	content: attr(data-tooltip);
+	visibility: hidden;
+	opacity: 0;
+	width: auto;
+	min-width: 150px;
+	background-color: var(--color-dark-primary);
+	color: var(--color-white);
+	text-align: left;
+	border-radius: var(--default-radius);
+	padding: var(--spacing-medium);
+	position: absolute;
+	bottom: -69%; left: 69%;
+	pointer-events: none;
+	z-index: var(--z-index-overlay);
+	transition: all var(--transition-default);
+	border: var(--border-width) solid var(--color-dark-contrast);
+}
+
+.modern-tooltip.show::after {
+	visibility: visible;
+	opacity: 1;
+}
+
+
+
 /* --------------------------- Primary Button ------------------------------ */
 
 .primary-button {
@@ -470,14 +503,10 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: var(--spacing-medium);
-	height: var(--spacing-medium);
+	width: 100%;
+	height: 100%;
 	background: var(--color-brand-primary);
 	cursor: pointer;
-}
-
-input[type="range"]:hover {
-	transform: scale(var(--transform-scale));
 }
 
 /* ----------------------- Tags --------------------------- */
@@ -971,11 +1000,11 @@ th {
 .app-controller-container {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
-	justify-content: flex-end;
+	align-items: center;
+	justify-content: center;
 	height: auto;
-	width: calc(0.96 * var(--app-window-width));
-	margin: auto auto var(--spacing-huge);
+	width: calc(0.87 * var(--app-window-width));
+	margin: auto auto var(--spacing-medium);
 	z-index: var(--z-index-max);
 	background-color: transparent;
 }
@@ -988,11 +1017,13 @@ th {
 	height: auto;
 	width: 100%;
 	border-radius: var(--default-radius);
-	padding: var(--spacing-medium);
+	padding: var(--spacing-small);
 	backdrop-filter: blur(var(--blur-radius));
 	transition: all var(--transition-default);
+	border: var(--border-width) solid var(--color-dark-contrast);
+	background-color: var(--color-dark-contrast);
+	color: var(--color-dark-imp);
 }
-
 
 .app-controller.hidden {
 	height: 0; /* Collapsed state */
@@ -1129,12 +1160,6 @@ canvas {
 	border-color: var(--color-light-contrast);
 }
 
-.light-mode .app-controller {
-	border-color: var(--color-light-contrast);
-	background-color: var(--color-light-contrast);
-	color: var(--color-light-imp);
-}
-
 .light-mode input[type="range"] {
 	background: var(--color-light-contrast);
 }
@@ -1144,10 +1169,6 @@ canvas {
 	border-color: var(--color-light-contrast);
 }
 
-
-.light-mode .app-controller-item {
-	border-color: var(--color-light-contrast);
-}
 
 .light-mode .app-window {
 	box-shadow: var(--shadows-light);
@@ -1183,12 +1204,6 @@ canvas {
 	border-color: var(--color-dark-contrast);
 }
 
-.dark-mode .app-controller {
-	border-color: var(--color-dark-contrast);
-	background-color: var(--color-dark-contrast);
-	color: var(--color-dark-imp);
-}
-
 .dark-mode input[type="range"] {
 	background: var(--color-dark-contrast);
 }
@@ -1197,9 +1212,7 @@ canvas {
 	border-color: var(--color-dark-contrast);
 }
 
-.dark-mode .app-controller-item {
-	border-color: var(--color-dark-contrast);
-}
+
 
 .dark-mode .app-window {
 	box-shadow: var(--shadows-dark);
