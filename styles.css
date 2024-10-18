@@ -1048,7 +1048,7 @@ th {
 }
 
 .app-drawer .primary-button {
-	width: 269px;
+	width: 269px; /* Adjust the width as needed */
 	height: 100px;
 }
 
