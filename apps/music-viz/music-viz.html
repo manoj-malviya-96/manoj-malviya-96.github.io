@@ -6,20 +6,20 @@
     }
 
     #music-hud {
-	    display: flex;
-	    flex-direction: column;
-	    width: 100%;
-	    height: 100%;
-	    background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
     }
 
     #music-controls {
-	    display: flex;
-	    width: 100%;
-	    align-items: center;
-	    justify-content: space-between;
-	    height: 100%;
-	    background-color: transparent;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        background-color: transparent;
     }
 
     #vizSettings {
@@ -30,22 +30,31 @@
         background-color: transparent;
     }
 
+    #toggleMusicHud {
+        width: auto;
+    }
+
 </style>
 
 <div class="app-window">
     <!-- Visualizer section -->
-    <canvas id="visualizer" width="1200" height="900"></canvas> <!-- 4:3 ratio -->
+    <canvas id="visualizer" width="1100" height="900"></canvas> <!-- 4:3 ratio -->
 
     <div class="app-controller-container">
         <!-- Button to toggle app-header -->
-        <button id="toggleMusicHud" class="primary-button"><i class="bi bi-chevron-compact-down"></i> </button>
+        <button id="toggleMusicHud" class="primary-button modern-tooltip smaller"
+                data-tooltip="Toggle the music controls to get more screen space for your content"><i
+                class="bi bi-chevron-compact-down"></i></button>
 
         <!-- App Header -->
         <div class="app-controller">
             <!-- Icon and App Name in  layout -->
             <div class="app-brand-container app-controller-item">
-                <i class="bi bi-soundwave" id="appIcon"></i>
-                <span class="app-name">ShadowPulse</span>
+                <div class="app-brand-logo">
+                    <i class="bi bi-soundwave" id="appIcon"></i>
+                    <h2 class="app-name">Vibe</h2>
+                </div>
+                <p class="app-description">Visualize your music in a elegant and creative way </p>
             </div>
 
             <!-- HUD for music controls and display -->
@@ -56,15 +65,19 @@
                 <div id="music-controls">
                     <div id="control-buttons" style="display: flex">
                         <!--Skip backward button -->
-                        <button id="skipBackwardBtn" class="primary-button" style="scale: 0.9">
+                        <button id="skipBackwardBtn"
+                                class="primary-button  modern-tooltip" style="scale: 0.9"
+                                data-tooltip="10s backward">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </button>
                         <!-- Play button -->
-                        <button id="playPauseBtn" class="primary-button">
+                        <button id="playPauseBtn" class="primary-button modern-tooltip"
+                                data-tooltip="pause or play">
                             <i class="bi bi-play-fill"></i>
                         </button>
                         <!-- Skip forward button -->
-                        <button id="skipForwardBtn" class="primary-button" style="scale: 0.9">
+                        <button id="skipForwardBtn" class="primary-button modern-tooltip" style="scale: 0.9"
+                                data-tooltip="10s forward">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -78,30 +91,36 @@
             <div id="vizSettings" class="app-controller-item">
                 <!-- Song selector dropdown -->
                 <div style="margin-right: var(--spacing-medium)">
-                    <button class="primary-button" id="songDropdownBtn">
+                    <button class="primary-button modern-tooltip" id="songDropdownBtn"
+                            data-tooltip="Select Music from Predefined List">
                         <i class="bi bi-music-note-list"></i>
                     </button>
-                    <ul id="songDropdown" class="custom-dropdown hidden ">
-                        <li data-url="./apps/music-viz/closed_my_eyes.mp3" class="dropdown-item">Closed My Eyes</li>
-                        <li data-url="./apps/music-viz/i_need_you.mp3" class="dropdown-item">I Need You</li>
-                        <li data-url="./apps/music-viz/you_and_me.mp3" class="dropdown-item">You And Me</li>
+                    <ul id="songDropdown" class="modern-dropdown hidden ">
+                        <li data-url="./apps/music-viz/closed_my_eyes.mp3" class="modern-dropdown-item">Closed My Eyes
+                        </li>
+                        <li data-url="./apps/music-viz/i_need_you.mp3" class="modern-dropdown-item">I Need You</li>
+                        <li data-url="./apps/music-viz/you_and_me.mp3" class="modern-dropdown-item">You And Me</li>
                     </ul>
                 </div>
 
                 <!-- Vizualizer dropdown -->
                 <div style="margin-right: var(--spacing-medium)">
-                    <button class="primary-button" id="vizDropDownBtn">
+                    <button class="primary-button modern-tooltip" id="vizDropDownBtn"
+                            data-tooltip="Select your visualizer">
                         <i class="bi bi-ui-radios-grid"></i>
                     </button>
-                    <ul id="vizDropdown" class="custom-dropdown hidden">
-                        <li data-value="circles" data-icon="bi bi-ui-radios-grid" class="dropdown-item selected">LookUp</li>
-                        <li data-value="bars" data-icon="bi bi-bar-chart" class="dropdown-item">Basic </li>
-                        <li data-value="spiral" data-icon="bi bi-nut" class="dropdown-item">GoNuts</li>
+                    <ul id="vizDropdown" class="modern-dropdown hidden">
+                        <li data-value="circles" data-icon="bi bi-ui-radios-grid" class="modern-dropdown-item selected">
+                            LookUp
+                        </li>
+                        <li data-value="bars" data-icon="bi bi-bar-chart" class="modern-dropdown-item">Basic</li>
+                        <li data-value="spiral" data-icon="bi bi-nut" class="modern-dropdown-item">GoNuts</li>
                     </ul>
                 </div>
 
                 <!-- Upload button -->
-                <div id="uploadButton" style="margin-right: var(--spacing-medium)">
+                <div id="uploadButton" class="modern-tooltip" data-tooltip="Upload your music file"
+                     style="margin-right: var(--spacing-medium)">
                     <label for="fileUpload" class="primary-button">
                         <i class="bi bi-upload"></i>
                     </label>
@@ -109,7 +128,7 @@
                 </div>
 
                 <!-- Fullscreen button -->
-                <div id="fullscreenButton">
+                <div id="fullscreenButton" class="modern-tooltip" data-tooltip="Toggle full screen mode">
                     <button id="toggleFullScreen" class="primary-button">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </button>

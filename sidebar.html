@@ -3,25 +3,26 @@
 	.navbar {
 		position: fixed;
 		top: var(--spacing-large);
-		left: var(--spacing-large);
+		left: var(--spacing-medium);
 		height: auto;
 		width: auto;
 		display: flex;
 		flex-direction: column;
 		justify-content: left; !important;
 		align-content: flex-start; !important;
-        padding: 0 var(--spacing-small);
+        padding: var(--spacing-medium) var(--spacing-large);
 		z-index: var(--z-index-overlay);
 		backdrop-filter: blur(var(--blur-radius));
 		border-radius: var(--default-radius);
 		border: none;
+		transition: all var(--transition-default);
 	}
 
 	.navbar-group {
         list-style: none;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start; !important;
+		justify-content: space-evenly; !important;
 		width: 100%;
 		padding: 0;
         margin: 0 auto;
@@ -31,9 +32,15 @@
 	.navbar-group:last-child {
 		border-bottom: none;
 	}
+
 	.navbar.collapsed .navbar-group .button-label {
 		display: none;
 	}
+
+    .navbar.collapsed {
+	    padding: var(--spacing-medium) var(--spacing-small);
+    }
+
 	.navbar-group .nav-item {
 		text-align: left;
 		margin: 0 auto !important;
@@ -90,7 +97,6 @@
             </button>
         </li>
     </ul>
-
 
 
     <!-- Social Media Group -->

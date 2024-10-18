@@ -1,15 +1,8 @@
 <style>
-    /*#meshCanvas {*/
-    /*    width: 100vw;*/
-    /*    height: 100vh;*/
-    /*    position: absolute;*/
-    /*    top: 0;*/
-    /*    left: 0;*/
-    /*}*/
 	#viewButtonGrid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 10px;
+		gap: var(--spacing-medium);
 		max-width: 150px;
 		margin: auto;
 	}
@@ -19,7 +12,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		color: #aaa;
+		color: var(--color-white);
 		cursor: pointer;
 		z-index: var(--z-index-overlay);
 		pointer-events: auto;
@@ -31,14 +24,14 @@
     }
 
     #fullScreenDropZone .bi{
-        font-size: 100px;
+        font-size: var(--hero-font-size);
         margin-right: var(--spacing-large);
     }
 
 </style>
 
 <div class="app-window">
-    <canvas id="meshCanvas" width="1200" height="900"></canvas>
+    <canvas id="meshCanvas" width="1100" height="900"></canvas>
 
     <div id="fullScreenDropZone" class="primary-button">
         <i class="bi bi-upload"></i>
@@ -55,10 +48,12 @@
         <div class="app-controller">
             <!-- Icon and App Name in  layout -->
             <div class="app-brand-container app-controller-item">
-                <i class="bi bi-hexagon-half" id="appIcon"></i>
-                <span class="app-name">MeshaMorph</span>
+                <div class="app-brand-logo">
+                    <i class="bi bi-hexagon" id="appIcon"></i>
+                    <h2 class="app-name">Mesha</h2>
+                </div>
+                <p class="app-description">Provides an easy to render Mesh from STL </p>
             </div>
-
             <!-- Settings -->
             <div class="app-controller-item">
                 <button id="smallerDropZone" class="primary-button with-border">
@@ -66,7 +61,6 @@
                     <span class="button-label">Drop your STL file here or click to upload</span>
                 </button>
             </div>
-
 
             <!-- View Buttons -->
             <div id="viewButtonGrid" class="app-controller-item">
