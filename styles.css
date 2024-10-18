@@ -122,7 +122,7 @@ body.dark-mode {
 	text-align: left;
 	width: var(--max-body-width);
 	border-style: solid;
-	border-width: var(--border-width);
+	border-width: 0;
 	border-radius: var(--default-radius);
 	transition: all var(--transition-default);
 }
@@ -143,6 +143,10 @@ body.dark-mode {
 
 .content.with-padding {
 	padding: var(--spacing-large);
+}
+
+.content.with-border {
+	border-width: var(--border-width);
 }
 
 /* ----------------------------- Block Styling ----------------------------- */
@@ -961,19 +965,6 @@ th {
 }
 
 /* -------------------------- App Styling -------------------------- */
-
-.app-drawer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding-left: var(--spacing-large);
-	height: 100%;
-	margin: 0 auto;
-	width: var(--max-body-width);
-	background-color: transparent;
-	border-width: var(--border-width);
-}
-
 .app-window {
 	display: flex;
 	flex-direction: column;
@@ -1029,6 +1020,7 @@ th {
 	height: 0; /* Collapsed state */
 }
 
+
 .app-controller-item {
 	height: 100%;
 	width: 100%;
@@ -1043,76 +1035,59 @@ th {
 	border-right: none;
 }
 
-.app-brand-container {
+
+.app-drawer {
 	display: flex;
-	flex-direction: row;
+	justify-content: center;
 	align-items: center;
-	justify-content: left;
-	width: auto;
+	padding: 0 var(--spacing-medium);
+	height: 100%;
+	margin: 0 auto;
+	width: var(--max-body-width);
+	background-color: transparent;
 }
 
-.app-brand-container .bi {
+.app-drawer .primary-button {
+	width: 269px;
+	height: 100px;
+}
+
+.app-brand-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: left;
+	height: auto;
+}
+
+.app-brand-logo {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+}
+
+.app-brand-logo .bi {
 	font-size: var(--large-icon-size);
 	color: var(--color-brand-primary);
 	padding: 0;
 	margin: 0 auto;
 }
 
-.app-name {
-	font-size: var(--regular-text-size);
-	font-weight: var(--bold-weight);
-	margin-left: var(--spacing-small);
-	margin-right: var(--spacing-small);
+.app-brand-logo .app-name {
 	color: var(--color-brand-primary);
 	padding: 0;
 	text-transform: uppercase;
+	align-content: center;
+	margin: 0 var(--spacing-medium);
 }
 
-.app-button {
-	display: flex;
-	flex-direction: column;
-	cursor: pointer;
-	justify-content: center;
-	align-items: center;
-	height: var(--app-button-height);
+.app-brand-container .app-description {
+	text-align: center;
 	width: auto;
-	font-size: var(--regular-text-size);
-	padding: var(--spacing-medium);
-	border-radius: var(--default-radius);
-	border: none;
-	transition: all var(--transition-default);
+	margin: 0 var(--spacing-large);
+	font-size: var(--subtitle-text-size);
 }
-
-.light-mode .app-button {
-	background-color: var(--color-light-contrast);
-}
-
-.light-mode .app-button:hover {
-	box-shadow: var(--shadows-light);
-}
-
-.dark-mode .app-button {
-	background-color: var(--color-dark-contrast);
-}
-
-.dark-mode .app-button:hover {
-	box-shadow: var(--shadows-dark);
-}
-
-.app-button:hover {
-	background-color: var(--color-brand-primary);;
-}
-
-.app-button:hover .bi,
-.app-button:hover .app-name {
-	color: var(--color-white)
-}
-
-.app-button .bi:active {
-	transform: scale(var(--active-scale));
-}
-
-
 
 /* -------------------------- Canvas Styling -------------------------- */
 canvas {
