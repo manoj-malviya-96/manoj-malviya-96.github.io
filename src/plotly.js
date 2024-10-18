@@ -12,7 +12,7 @@ function createLayout(
   yTitle,
   showTickLabels = true,
 ) {
-  const margin = 100;
+  const margin = showTickLabels ? 100: 0;
   return {
     title: {
       text: title,
@@ -55,7 +55,7 @@ function createLayout(
       showline: false,
       showticklabels: showTickLabels,
     },
-    padding: 10,
+    padding: 0,
     margin: { t: margin, l: margin, r: margin, b: margin },
     autosize: true,
     width: width,
@@ -86,7 +86,7 @@ function getColorBar(text) {
 function getHackyHeightMultiplier(xLength, yLength) {
   let result = yLength / xLength;
   if (result < 1.0) {
-    result = Math.min(1.0, result + 0.18); // Accounting for other elements
+    result = Math.min(1.0, result + 0.05); // Accounting for other elements
   }
   return result;
 }

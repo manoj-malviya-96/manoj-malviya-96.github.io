@@ -228,19 +228,34 @@ function initGithub() {
 function initTooltip() {
   const tooltipTimer_ms = 690; // Delay before showing the tooltip (1000ms)
 
+  let timer;
+
+  const showTooltip = (item)=> {
+    return setTimeout(function () {
+        item.classList.add('show'); // Add class to show the
+    }, tooltipTimer_ms); // Delay before showing the tooltip
+  }
+
+
+  const hideTooltip = (item)=> {
+    clearTimeout(timer); // Cancel the timer if mouse leaves early
+    item.classList.remove('show'); // Remove class to hide the tooltip
+  }
+
   document.querySelectorAll('.modern-tooltip').forEach(function (item) {
-    let timer;
 
     item.addEventListener('mouseover', function () {
-      timer = setTimeout(function () {
-        item.classList.add('show'); // Add class to show the tooltip (via ::after)
-      }, tooltipTimer_ms); // Delay before showing the tooltip
+      timer = showTooltip(item);
     });
 
     item.addEventListener('mouseout', function () {
-      clearTimeout(timer); // Cancel the timer if mouse leaves early
-      item.classList.remove('show'); // Remove class to hide the tooltip
+        hideTooltip(item);
     });
+
+    item.addEventListener('click', function () {
+      hideTooltip(item);
+    });
+
   });
 }
 
