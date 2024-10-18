@@ -67,7 +67,7 @@ function toggleForAbout(keepItExpanded = false) {
   }
   content.classList.toggle("collapsed");
 
-  const aboutEntity = window.document.getElementById("titleAndPictureRow");
+  const aboutEntity = window.document.getElementById("aboutEntity");
   aboutEntity.classList.toggle("collapsed");
 
   // Toggle icon class and button text based on the state

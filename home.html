@@ -1,5 +1,5 @@
 <style>
-    .about-entity {
+    #aboutEntity {
         display: flex;
         width: 100%;
         height: auto;
@@ -10,12 +10,12 @@
         transition: all var(--transition-default);
     }
 
-    .about-entity.collapsed {
+    #aboutEntity.collapsed {
         display: none;
         opacity: 0;
     }
 
-    .profile-image img {
+    #profile-image img {
         padding: 0;
         margin: 0 auto;
         width: calc(1.2 * var(--about-entity-height));
@@ -46,14 +46,14 @@
         margin: 0 auto;
     }
 
-    .light-mode .about-entity {
+    .light-mode #aboutEntity {
         border-color: var(--color-light-contrast);
         background-color: var(--color-light-primary);
         color: var(--color-light-imp);
         box-shadow: var(--shadows-light);
     }
 
-    .dark-mode .about-entity {
+    .dark-mode #aboutEntity {
         border-color: var(--color-dark-contrast);
         background-color: var(--color-dark-primary);
         color: var(--color-dark-imp);
@@ -64,10 +64,10 @@
 
 <!-------------------------- About Section -------------------------->
 
-<div class="content" id="about-me">
+<div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div class="about-entity" id="titleAndPictureRow">
-        <div class="profile-image">
+    <div id="aboutEntity">
+        <div id="profile-image">
             <img src="assets/profile.jpeg" alt="Profile Picture">
         </div>
         <div class="column-layout" style="margin-left: var(--spacing-large);">
@@ -119,9 +119,10 @@
             Learn More about how it works.</a></p>
         <div id="githubUserReport" class="column-layout">
             <!--Control Bar-->
-            <div class="row-layout" style="justify-content: space-evenly; align-content: center">
+            <div class="row-layout"
+                 style="justify-content: space-evenly; align-content: center; margin-bottom: var(--spacing-large);">
                 <!--Year Buttons-->
-                <div id="yearButtons" class="row-layout block" style="
+                <div id="yearButtons" class="row-layout content block" style="
                     width: 27%;
                     padding: 0;
                     margin-left: var(--spacing-medium)">
@@ -131,20 +132,21 @@
                 <div class="row-layout" style="
                     width: 27%;
                     height: 100px;">
-
                     <!-- Todo make a stats card component -->
-                    <div class="column-layout block" style="
+                    <div class="column-layout content block" style="
                     text-align: center;
+                    width: 100%;
                     height: 100%;
-                    margin-left: var(--spacing-large);">
-                        <p> Number of Commits</p>
+                    margin: 0 var(--spacing-large);">
+                        <p> Total Commits</p>
                         <h2 id="totalCommits">0 </h2>
                     </div>
 
-                    <div class="column-layout block" style="
+                    <div class="column-layout content with block" style="
                     text-align: center;
+                    width: auto;
                     height: 100%;
-                    margin-left: var(--spacing-large);">
+                    margin: 0 var(--spacing-large);">
                         <p>Longest Streak </p>
                         <h2 id="longestStreak">0</h2>
                     </div>
@@ -153,7 +155,6 @@
             </div>
             <div id="githubHeatMap" class="plot" style="width: 100%;"></div>
         </div>
-
         <!-- Collapsible content ends here -->
     </div>
     <!-- Button to expand the about section -->
