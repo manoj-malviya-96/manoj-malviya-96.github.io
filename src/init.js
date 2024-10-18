@@ -73,8 +73,10 @@ function toggleForAbout(keepItExpanded = false) {
   // Toggle icon class and button text based on the state
   if (content.classList.contains("collapsed")) {
     button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
+    button.setAttribute("data-tooltip", "show more");
   } else {
     button.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
+    button.setAttribute("data-tooltip", "show less");
   }
 }
 
