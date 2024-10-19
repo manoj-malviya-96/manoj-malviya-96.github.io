@@ -90,8 +90,8 @@
 
 	/* App */
 	--app-button-height: 69px;
-	--app-window-width: 79vw;
-	--app-window-height: 95vh;
+	--app-window-width: 1100px;
+	--app-window-height: 869px;
 }
 
 /* ----------------------------- Body Styling ----------------------------- */
