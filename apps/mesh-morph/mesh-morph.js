@@ -83,25 +83,33 @@ class MeshRenderer {
   }
 }
 
+const meshViewWidth = 1200;
+const meshViewHeight = 900;
+const mainLightColor = 0xffffff;
+const softLightColor = 0x404040;
+const modelColor = 0x808080;
+const primaryColor = getPrimaryColor();
+
+
 class MeshView {
   constructor() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
       75,
-      1200 / 900, // Aspect ratio to match your canvas
-      0.1,
+      meshViewWidth / meshViewHeight, // Aspect ratio to match your canvas
+      1,
       1000,
     );
     const canvas = document.getElementById("meshCanvas");
     this.renderer = new THREE.WebGLRenderer({ canvas });
-    this.renderer.setSize(1200, 900); // Match the canvas size
+    this.renderer.setSize(meshViewWidth, meshViewHeight); // Match the canvas size
 
     // Add light sources
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionalLight = new THREE.DirectionalLight(mainLightColor, 1);
     directionalLight.position.set(5, 5, 5).normalize();
     this.scene.add(directionalLight);
 
-    const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
+    const ambientLight = new THREE.AmbientLight(softLightColor); // Soft light
     this.scene.add(ambientLight);
 
     // Add OrbitControls for better user interaction like CAD software
@@ -121,7 +129,6 @@ class MeshView {
     this.loadingText = document.getElementById("loading");
     this.fullScreenDropZone = document.getElementById("fullScreenDropZone");
     this.smallerDropZone = document.getElementById("smallerDropZone");
-    this.toggleBtn = window.document.getElementById("toggleViewBar");
     this.appControllerContainer = window.document.getElementById(
       "appControllerContainer",
     );
@@ -133,7 +140,7 @@ class MeshView {
 
   loadMesh(arrayBuffer) {
     const geometry = this.meshLoader.load(arrayBuffer);
-    const material = new THREE.MeshPhongMaterial({ color: 0x808080 }); // Gray color for the model
+    const material = new THREE.MeshPhongMaterial({ color: modelColor });
     const mesh = this.meshRenderer.renderMesh(geometry, material);
 
     // Compute the centroid and volume of the mesh
@@ -183,9 +190,6 @@ class MeshView {
       return;
     }
     this.appController.classList.toggle("hidden");
-    this.toggleBtn.innerHTML = this.appController.classList.contains("hidden")
-      ? '<i class="bi bi-chevron-compact-up"></i>'
-      : '<i class="bi bi-chevron-compact-down"></i>';
   }
 
   handleDropZoneBtnClick() {
@@ -209,14 +213,14 @@ class MeshView {
   handleDropZoneDragOver(event) {
     event.preventDefault();
     this.fullScreenDropZone.classList.add("active");
-    this.fullScreenDropZone.style.borderColor = "#777";
+    this.fullScreenDropZone.style.backgroundColor = primaryColor;
     this.fullScreenDropZone.style.color = "#777";
   }
 
   handleDropZoneDragLeave(event) {
     event.preventDefault();
     this.fullScreenDropZone.classList.remove("active");
-    this.fullScreenDropZone.style.borderColor = "#aaa";
+    this.fullScreenDropZone.style.backgroundColor = "transparent";
     this.fullScreenDropZone.style.color = "#aaa";
   }
 
@@ -296,11 +300,6 @@ class MeshView {
   }
 
   initEventListeners() {
-    this.toggleBtn.addEventListener(
-      "click",
-      this.toggleAppController.bind(this),
-    );
-
     // Handle file uploads via the drop zone
     this.fullScreenDropZone.addEventListener(
       "click",
