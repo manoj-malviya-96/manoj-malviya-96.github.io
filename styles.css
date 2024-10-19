@@ -389,10 +389,18 @@ a {
 	color: var(--color-light-imp);
 	border-color: var(--color-light-contrast);
 }
+.light-mode .primary-button:hover {
+	box-shadow: var(--shadows-light);
+}
+
 
 .dark-mode .primary-button {
 	color: var(--color-dark-imp);
 	border-color: var(--color-dark-contrast);
+}
+
+.dark-mode .primary-button:hover {
+	box-shadow: var(--shadows-dark);
 }
 
 .primary-button.selected {
@@ -597,6 +605,16 @@ input[type="range"]::-webkit-slider-thumb {
 	padding-left: var(--spacing-huge);
 }
 
+.grid-container.buttons {
+	grid-template-columns: repeat(auto-fill, minmax(10px, 1fr));
+}
+
+.grid-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .card {
 	background-color: var(--color-light-contrast);
 	border: var(--border-width) solid var(--color-light-contrast);
@@ -776,13 +794,11 @@ input[type="range"]::-webkit-slider-thumb {
 .light-mode #quarto-footer {
 	background-color: var(--color-light-contrast);
 	color: var(--color-light-imp);
-	box-shadow: var(--shadows-light);
 }
 
 .dark-mode #quarto-footer {
 	background-color: var(--color-dark-contrast);
 	color: var(--color-dark-imp);
-	box-shadow: var(--shadows-dark);
 }
 
 .footer-title {
@@ -797,9 +813,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .footer-toc {
-	padding: var(--spacing-small);
+	padding: 0;
 	text-align: left;
-	margin: 0 auto;
+	margin: 0;
 	list-style-type: none;
 }
 
@@ -807,11 +823,11 @@ input[type="range"]::-webkit-slider-thumb {
 	padding-left: var(--spacing-huge);
 	text-align: left;
 	border: none;
-	margin: 0 auto;
+	margin: 0;
 }
 
 .footer-hidden {
-	max-height: 40px;
+	max-height: 50px;
 	right: var(--spacing-large);
 	bottom: 0;
 	position: fixed;
@@ -1072,14 +1088,22 @@ th {
 	align-items: center;
 	justify-content: left;
 	height: auto;
-	width: 320px;
+	width: 100px;
+	position: fixed;
+	top: var(--spacing-large);
+	right: var(--spacing-large);
+	padding: var(--spacing-small);
+	border: 2px solid green;
+	border-radius: var(--default-radius);
 }
 
 .app-brand-logo {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
-	align-content: center;
+	justify-content: flex-start;
+	align-content: flex-start;
+	width: auto;
+	height: auto;
 }
 
 .app-brand-logo .bi {
@@ -1098,7 +1122,7 @@ th {
 }
 
 .app-brand-container .app-description {
-	text-align: center;
+	text-align: left;
 	width: auto;
 	margin: 0 var(--spacing-large);
 	font-size: var(--subtitle-text-size);
