@@ -762,7 +762,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* Project footer */
 #quarto-footer {
 	position: fixed;
-	bottom: var(--spacing-large);
+	top: var(--spacing-large);
 	right: var(--spacing-large);
 	padding: var(--spacing-small);
 	margin: 0 auto;
