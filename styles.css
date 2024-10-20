@@ -49,8 +49,7 @@
 	--hero-font-size: 69px;
 
 	--regular-icon-size: 21px;
-	--large-icon-size: 37px;
-
+	--large-icon-size: 27px;
 
 	--border-width: 1px;
 
@@ -91,7 +90,7 @@
 	/* App */
 	--app-button-height: 69px;
 	--app-window-width: 1100px;
-	--app-window-height: 869px;
+	--app-window-height: 690px;
 }
 
 /* ----------------------------- Body Styling ----------------------------- */
@@ -308,7 +307,8 @@ a {
 /* ----------------------------- Navbar Styling ----------------------------- */
 .modern-tooltip {
 	position: relative;
-	display: inline-block;
+	display: inline-flex;
+	flex-wrap: wrap;
 	cursor: pointer;
 }
 
@@ -317,13 +317,14 @@ a {
 	visibility: hidden;
 	opacity: 0;
 	width: auto;
+	min-width: 100px;
 	background-color: var(--color-dark-primary);
 	color: var(--color-white);
 	text-align: left;
 	border-radius: var(--default-radius);
 	padding: var(--spacing-medium);
 	position: absolute;
-	bottom: -69%; left: 69%;
+	bottom: -125%; left: 69%;
 	pointer-events: none;
 	z-index: var(--z-index-overlay);
 	transition: all var(--transition-default);
@@ -473,6 +474,7 @@ a {
 	position: absolute;
 	padding: 0;
 	width: auto;
+	height: auto;
 	min-width: 100px;
 	margin: var(--spacing-small) 0;
 	border-radius: var(--default-radius);
@@ -482,6 +484,7 @@ a {
 	transform: translateY(-100%); /* Move the dropdown above the button */
 	transition: all var(--transition-default);
 	backdrop-filter: blur(var(--more-blur-radius));
+	border: 2px solid green;
 }
 
 .modern-dropdown.hidden {
@@ -493,6 +496,8 @@ a {
 	cursor: pointer;
 	transition: all var(--transition-default);
 	border-radius: var(--default-radius);
+	height: auto;
+	width: auto;
 }
 
 .modern-dropdown-item.selected {
@@ -503,6 +508,7 @@ a {
 /* --------------------  Progress Area  Styling ------------------- */
 .progress-area {
 	width: 100%;
+	height: auto;
 	display: block;
 	background-color: transparent;
 	border-radius: var(--default-radius);
@@ -517,8 +523,8 @@ input[type="range"] {
 	outline: none;
 	cursor: pointer;
 	color: var(--color-brand-primary);
-	border-radius: var(--default-radius);
 	padding: 0;
+	margin: 0 var(--spacing-small);
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -1032,13 +1038,14 @@ th {
 
 .app-controller {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: flex-end;
 	justify-content: flex-end;
 	height: auto;
 	width: 100%;
+	margin: 0;
+	padding: 0;
 	border-radius: var(--default-radius);
-	padding: var(--spacing-small);
 	backdrop-filter: blur(var(--blur-radius));
 	transition: all var(--transition-default);
 	border: var(--border-width) solid var(--color-dark-contrast);
@@ -1055,9 +1062,11 @@ th {
 	height: 100%;
 	width: 100%;
 	display: flex;
+	flex-direction: row;
 	align-content: center;
-	justify-content: center;
-	padding: var(--spacing-medium);
+	justify-content: space-between;
+	padding: 0;
+	margin: 2px 0;
 	border-right: solid var(--border-width) var(--color-dark-contrast);
 }
 
@@ -1078,7 +1087,7 @@ th {
 }
 
 .app-drawer .primary-button {
-	width: 269px; /* Adjust the width as needed */
+	width: 321px; /* Adjust the width as needed */
 	height: 100px;
 }
 
@@ -1086,15 +1095,12 @@ th {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: left;
+	justify-content: center;
 	height: auto;
-	width: 100px;
-	position: fixed;
-	top: var(--spacing-large);
-	right: var(--spacing-large);
-	padding: var(--spacing-small);
-	border: 2px solid green;
-	border-radius: var(--default-radius);
+	margin: 0 auto;
+	border: none;
+	width: var(--max-content-width);
+	padding: var(--spacing-medium);
 }
 
 .app-brand-logo {
@@ -1118,11 +1124,12 @@ th {
 	padding: 0;
 	text-transform: uppercase;
 	align-content: center;
+	text-align: center;
 	margin: 0 var(--spacing-medium);
 }
 
 .app-brand-container .app-description {
-	text-align: left;
+	text-align: center;
 	width: auto;
 	margin: 0 var(--spacing-large);
 	font-size: var(--subtitle-text-size);
