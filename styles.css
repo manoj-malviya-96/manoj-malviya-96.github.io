@@ -23,7 +23,7 @@
     --spacing-small: 6px;
     --spacing-medium: 12px;
     --spacing-large: 24px;
-    --spacing-huge: 48px;
+    --spacing-huge: 69px;
 
     /* Transition */
     --transition-default: 0.420s;
@@ -357,8 +357,9 @@ a {
 .primary-button {
     background-color: transparent;
     cursor: pointer;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
+    margin: auto;
     padding: 0 var(--spacing-small);
     display: flex;
     justify-content: center;
