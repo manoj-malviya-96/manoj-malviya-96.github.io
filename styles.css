@@ -318,7 +318,7 @@ a {
 	visibility: hidden;
 	opacity: 0;
 	width: auto;
-	max-width: 269px; /* Max width for the tooltip */
+	max-width: 369px; /* Max width for the tooltip */
 	white-space: nowrap; /* Prevent wrapping to the next line unless it exceeds max-width */
 	background-color: var(--color-dark-primary);
 	color: var(--color-white);

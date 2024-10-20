@@ -167,7 +167,8 @@
 
         <!-- Filter Container -->
         <div id="filter-container" style="width: 200px; margin-right: var(--spacing-huge)">
-            <button class="primary-button with-border" id="categoryFilterBtn">
+            <button class="primary-button with-border modern-tooltip"
+                    data-tooltip="Filter blogs by type of skills I employed" id="categoryFilterBtn">
                 <i class="bi bi-filter"></i>
                 <span id="selectedCategoryValue" class="button-label">Select Category...</span>
             </button>
@@ -178,7 +179,7 @@
 
         <!-- Sort Container -->
         <div id="sort-container" style="width: 150px; margin-right: var(--spacing-huge)">
-            <button class="primary-button with-border" id="sortFilterBtn">
+            <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs" id="sortFilterBtn">
                 <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
                 <span id="selectedSortValue" class="button-label">Sort by...</span>
             </button>
@@ -187,7 +188,7 @@
         </div>
 
         <!-- Search Container -->
-        <div class="search-container" style="width: 250px">
+        <div class="search-container" data-tooltip="Search blogs" style="width: 250px">
             <i class="bi bi-search"></i>
             <input type="text" id="search-input" class="search-input" placeholder="Search..."
                    oninput="filterBlogsByKeywords()">
