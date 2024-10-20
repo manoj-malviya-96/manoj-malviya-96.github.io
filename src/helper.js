@@ -51,7 +51,7 @@ function loadContentWithOverlay(
 
 // Overloaded function with no overlay and no delay
 function loadContent(page, placeholder, callback = null) {
-  loadContentWithOverlay(page, placeholder, null, callback, 0);
+  loadContentWithOverlay(page, placeholder, null, callback);
 }
 
 /* ------------ URL and Storage ------------ */

@@ -2,7 +2,6 @@
     #viewButtonGrid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-medium);
         max-width: 150px;
         margin: auto;
     }
@@ -86,6 +85,12 @@
                 <div id="infoPanel" class="column-layout" style="margin-left: var(--spacing-medium);">
                     <p id="info-volume">Volume: 0</p>
                     <p id="info-triangles">Number of Triangles: 0</p>
+                </div>
+                <!-- Full Screen Button -->
+                <div id="fullscreenButton" class="modern-tooltip" data-tooltip="Toggle full screen mode">
+                    <button id="toggleFullScreen" class="primary-button">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
                 </div>
             </div> <!-- End of Settings -->
         </div> <!-- End of App Header -->
