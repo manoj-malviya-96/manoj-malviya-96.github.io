@@ -39,6 +39,7 @@ const defaultAppCallbacks = [initTheme];
 const appHTMLToInits = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
+  "./apps/coming-soon/coming-soon.html": [],
 };
 
 /** ---------------------------- Content Loader  ---------------------------- **/
@@ -202,6 +203,7 @@ function makeAppButton(container, appHTMLPath) {
 
 function makeAppButtons() {
   const container = window.document.getElementById("appList");
+  container.innerHTML = ""; // Clear the container before adding new cards
   if (!container) {
     throw new Error(`Element with ID- appList not found.`);
   }
@@ -326,6 +328,7 @@ function makeBlogCardsAndSetupControls() {
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
   }
+  container.innerHTML = ""; // Clear the container before adding new cards
 
   let allCategories = new Set();
   const promises = Object.entries(blogHTMLToExtraCallbacks).map(
