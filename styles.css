@@ -48,7 +48,7 @@
 	--super-title-font-size: 33px;
 	--hero-font-size: 69px;
 
-	--regular-icon-size: 21px;
+	--regular-icon-size: 19px;
 	--large-icon-size: 27px;
 
 	--border-width: 1px;
@@ -305,6 +305,7 @@ a {
 }
 
 /* ----------------------------- Navbar Styling ----------------------------- */
+
 .modern-tooltip {
 	position: relative;
 	display: inline-flex;
@@ -317,24 +318,27 @@ a {
 	visibility: hidden;
 	opacity: 0;
 	width: auto;
-	min-width: 100px;
+	max-width: 269px; /* Max width for the tooltip */
+	white-space: nowrap; /* Prevent wrapping to the next line unless it exceeds max-width */
 	background-color: var(--color-dark-primary);
 	color: var(--color-white);
 	text-align: left;
 	border-radius: var(--default-radius);
 	padding: var(--spacing-medium);
 	position: absolute;
-	bottom: -125%; left: 69%;
+	bottom: -139%; left: 69%;
 	pointer-events: none;
 	z-index: var(--z-index-overlay);
 	transition: all var(--transition-default);
 	border: var(--border-width) solid var(--color-dark-contrast);
+	word-wrap: break-word; /* Wrap to the next line if it exceeds max-width */
 }
 
 .modern-tooltip.show::after {
 	visibility: visible;
 	opacity: 1;
 }
+
 
 
 
