@@ -699,7 +699,7 @@ class MusicVizView {
         this.elements.songTitle.textContent = metadataString;
       },
       onError: (error) => {
-        console.log("Error reading metadata:", error);
+        console.error("Error reading metadata:", error);
       },
     });
   }

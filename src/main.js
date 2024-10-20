@@ -557,7 +557,6 @@ function scrollElementInViewOnHome(event, elementId) {
   // First Load the Home Page
   if (!isUserOnHomePage()) {
     const scrollFn = () => {
-      console.log("Scrolling to element:", elementId);
       runWithDelay(scrollElementInView, timeOut_ms, elementId);
     };
     loadHomePage(event, true, [scrollFn]);

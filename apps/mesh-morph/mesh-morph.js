@@ -91,6 +91,8 @@ class MeshRenderer {
     this.setupWebGLRenderer(canvas, width, height);
     this.setupLights();
     this.setupControls();
+
+    this._exporter = new THREE.STLExporter();
   }
 
   setupWebGLRenderer(canvas, width, height) {
@@ -101,6 +103,10 @@ class MeshRenderer {
   updateModal() {
     this.controls.update();
     this.webGLRenderer.render(this.scene, this.camera);
+  }
+
+  saveMesh() {
+    return this._exporter.parse(this.scene);
   }
 
   setupCamera(width, height) {
@@ -279,6 +285,7 @@ class MeshView {
       loadingModal: window.document.getElementById("loadingModal"),
       fileDropZone: window.document.getElementById("fileDropZone"),
       fileUploadBtn: window.document.getElementById("fileUploadBtn"),
+      fileDownloadBtn: window.document.getElementById("fileDownloadBtn"),
       appControllerContainer: window.document.getElementById(
         "appControllerContainer",
       ),
@@ -352,6 +359,12 @@ class MeshView {
     this.loadFile(event.dataTransfer.files[0]);
   }
 
+  handleSaveFile() {
+    console.log("Saving file");
+    event.preventDefault();
+    this.saveFile();
+  }
+
   toggleLoadingDisplay(showOrHide = "show") {
     toggleElementVisibility(this.elements.loadingModal, showOrHide);
   }
@@ -389,6 +402,22 @@ class MeshView {
       };
       reader.readAsArrayBuffer(file);
     }); // Wait for the mesh to load
+  }
+
+  saveFile() {
+    const stlString = this.renderer.saveMesh();
+    console.log("Saving file", stlString);
+    // Create a Blob from the STL string
+    const blob = new Blob([stlString], { type: "model/stl" });
+
+    // Create an anchor element to download the file
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "mesha.stl";
+    link.click();
+
+    // Release the URL
+    URL.revokeObjectURL(link.href);
   }
 
   handleViewButton(view) {
@@ -437,6 +466,12 @@ class MeshView {
     this.elements.fileUploadBtn.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
+    );
+
+    // Handle file downloads
+    this.elements.fileDownloadBtn.addEventListener(
+      "click",
+      this.handleSaveFile.bind(this),
     );
 
     this.elements.toggleFullScreenBtn.addEventListener(
