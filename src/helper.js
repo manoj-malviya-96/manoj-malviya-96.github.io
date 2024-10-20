@@ -323,3 +323,11 @@ function addKeyValueToTable(table, key, value) {
   cell1.textContent = key;
   cell2.textContent = value;
 }
+
+function addOutsideClickHandler(button, popup) {
+  window.addEventListener("click", (event) => {
+    if (!button.contains(event.target) && !popup.contains(event.target)) {
+      popup.classList.add("hidden");
+    }
+  });
+}

@@ -1175,6 +1175,21 @@ th {
     font-size: var(--subtitle-text-size);
 }
 
+.app-popup-container {
+    position: absolute;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: var(--spacing-small);
+    transform: translateY(-120%);
+    font-size : var(--regular-text-size);
+    border-radius: var(--default-radius);
+    z-index: var(--z-index-overlay);
+    border-color: var(--color-dark-imp);
+    background-color: var(--color-dark-contrast);
+    color: var(--color-dark-imp);
+}
+
 /* -------------------------- Canvas Styling -------------------------- */
 canvas {
     position: absolute;

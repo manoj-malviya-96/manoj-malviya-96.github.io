@@ -142,14 +142,10 @@ class MusicVizView {
       );
     });
 
-    window.addEventListener("click", (event) => {
-      if (
-        !this.elements.vizDropDownBtn.contains(event.target) &&
-        !this.elements.vizDropdown.contains(event.target)
-      ) {
-        this.elements.vizDropdown.classList.add("hidden");
-      }
-    });
+    addOutsideClickHandler(
+      this.elements.vizDropDownBtn,
+      this.elements.vizDropdown,
+    );
   }
 
   toggleVizDropdown() {
@@ -194,15 +190,10 @@ class MusicVizView {
         this.handleSongDropdownSelect(event),
       );
     });
-
-    window.addEventListener("click", (event) => {
-      if (
-        !this.elements.songDropdownBtn.contains(event.target) &&
-        !this.elements.songDropdown.contains(event.target)
-      ) {
-        this.elements.songDropdown.classList.add("hidden");
-      }
-    });
+    addOutsideClickHandler(
+      this.elements.songDropdownBtn,
+      this.elements.songDropdown,
+    );
   }
 
   // Todo - This can be done via setupDropdown method

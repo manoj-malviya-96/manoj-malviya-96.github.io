@@ -28,6 +28,52 @@ class LoadedMesh {
     this.boundingBox = this.computeBoundingBox(this.geometry);
   }
 
+  simplifyMesh(value = 0.5) {
+    console.log("Custom simplifying mesh with value", value);
+
+    // Get the original geometry attributes
+    let geometry = this.geometry.clone();
+
+    // Ensure the geometry is a BufferGeometry
+    if (!(geometry instanceof THREE.BufferGeometry)) {
+      console.error(
+        "Geometry is not a BufferGeometry. Custom simplification requires BufferGeometry.",
+      );
+      return;
+    }
+
+    const positionAttribute = geometry.getAttribute("position");
+
+    // Number of original vertices
+    const totalVertices = positionAttribute.count;
+    const reduceFactor = Math.floor(1 / value); // Reduction factor to keep vertices
+
+    // Create an array to store new vertex positions
+    const newVertices = [];
+
+    // Iterate over the vertices and keep only every nth vertex based on reduction factor
+    for (let i = 0; i < totalVertices; i += reduceFactor) {
+      newVertices.push(positionAttribute.getX(i));
+      newVertices.push(positionAttribute.getY(i));
+      newVertices.push(positionAttribute.getZ(i));
+    }
+
+    // Create a new BufferGeometry with the reduced set of vertices
+    const newGeometry = new THREE.BufferGeometry();
+    newGeometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(newVertices, 3),
+    );
+
+    // Dispose of old geometry and set the simplified one
+    this.geometry.dispose();
+    this.geometry = newGeometry;
+
+    console.log(
+      `Simplified mesh from ${totalVertices} vertices to ${newVertices.length / 3} vertices.`,
+    );
+  }
+
   computeAccurateCentroid(geometry) {
     const centroid = new THREE.Vector3();
     const position = geometry.attributes.position;
@@ -148,22 +194,29 @@ class MeshRenderer {
     try {
       // Load the mesh from buffer
       this.loadedMesh.load(arrayBuffer);
+      this.renderMesh(true); // Loading first time, so center to centroid
       // Render it with centered to centroid
-      this.renderMesh(
-        this.loadedMesh.geometry,
-        this.material,
-        this.loadedMesh.centroid,
-      );
-
-      // Render the centroid
-      this.renderCentroid(new THREE.Vector3(0, 0, 0));
-
-      // Set the camera to look at the centroid
-      this.controls.target.set(0, 0, 0);
-      this.controls.update();
     } catch (error) {
       console.error("Error loading mesh", error);
     }
+  }
+
+  renderMesh(centerToModelOrigin = false) {
+    if (this.renderedMeshes.length > 0) {
+      console.log("Clearing existing meshes");
+      this.clearRenderedMeshes();
+    }
+    // Render the loaded mesh
+    this.renderLoadedMesh(
+      this.loadedMesh.geometry,
+      this.material,
+      centerToModelOrigin ? this.loadedMesh.centroid : null,
+    );
+    // Render the centroid
+    this.renderCentroid(new THREE.Vector3(0, 0, 0));
+    // Set the camera to look at the centroid
+    this.controls.target.set(0, 0, 0);
+    this.controls.update();
   }
 
   updateScreenSize(width, height) {
@@ -183,20 +236,17 @@ class MeshRenderer {
     this.renderedMeshes.push(mesh);
   }
 
-  renderMesh(geometry, material, centroid) {
-    if (this.renderedMeshes.length > 0) {
-      console.log("Clearing existing meshes");
-      this.clearRenderedMeshes();
-    }
-
+  renderLoadedMesh(geometry, material, centroid = null) {
     const renderedMesh = new THREE.Mesh(geometry, material);
-    renderedMesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
+    if (centroid) {
+      renderedMesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
+    }
 
     this.addRenderedMeshToScene(renderedMesh);
   }
 
   renderCentroid(centroid) {
-    const radius = 0.1;
+    const radius = 0.69;
     const segments = 16;
     const centroidGeometry = new THREE.SphereGeometry(
       radius,
@@ -282,6 +332,10 @@ class MeshView {
       infoBtn: window.document.getElementById("infoBtn"),
       infoModal: window.document.getElementById("infoModal"),
       infoTable: window.document.getElementById("infoTable"),
+      simplifyBtn: window.document.getElementById("simplifyBtn"),
+      simplifyModal: window.document.getElementById("simplifyModal"),
+      simplifyValue: window.document.getElementById("simplifyFactor"),
+      simplifySlider: window.document.getElementById("simplifySlider"),
       loadingModal: window.document.getElementById("loadingModal"),
       fileDropZone: window.document.getElementById("fileDropZone"),
       fileUploadBtn: window.document.getElementById("fileUploadBtn"),
@@ -483,6 +537,20 @@ class MeshView {
       "click",
       this.toggleInfoModal.bind(this),
     );
+    addOutsideClickHandler(this.elements.infoBtn, this.elements.infoModal);
+
+    this.elements.simplifyBtn.addEventListener(
+      "click",
+      this.toggleSimplifyModal.bind(this),
+    );
+    addOutsideClickHandler(
+      this.elements.simplifyBtn,
+      this.elements.simplifyModal,
+    );
+    this.elements.simplifySlider.addEventListener(
+      "input",
+      this.handleSimplify.bind(this),
+    );
 
     // Handle view panel button clicks
     const viewContainer = window.document.getElementById("viewButtonGrid");
@@ -494,6 +562,22 @@ class MeshView {
     });
     this.setupResizing();
     this.setupKeyboardShortcuts();
+  }
+
+  handleSimplify(event) {
+    const value = event.target.value;
+    this.elements.simplifyValue.innerHTML = value.toString();
+
+    this.renderer.clearRenderedMeshes();
+    this.toggleLoadingDisplay("show");
+
+    this.renderer.loadedMesh.simplifyMesh(value);
+
+    runWithDelay(() => {
+      this.renderer.renderMesh();
+      this.updateTable();
+      this.toggleLoadingDisplay("hide");
+    });
   }
 
   updateTable() {
@@ -572,5 +656,9 @@ class MeshView {
 
   toggleInfoModal() {
     toggleElementVisibility(this.elements.infoModal);
+  }
+
+  toggleSimplifyModal() {
+    toggleElementVisibility(this.elements.simplifyModal);
   }
 }

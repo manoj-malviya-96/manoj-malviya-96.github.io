@@ -23,21 +23,14 @@
         margin-right: var(--spacing-large);
     }
 
-    #infoModal {
-        position: absolute;
-        width: auto;
-        height: auto;
-        margin: 0;
-        padding: 0;
-        transform: translateY(-50%) translateX(25%);
-        border-radius: var(--default-radius);
-        z-index: var(--z-index-overlay);
+    #infoModal,
+    #simplifyModal {
+        transform: translateY(-120%);
     }
 
     #infoTable {
         margin: 0;
         padding: 0;
-        font-size: var(--subtitle-text-size);
         border-collapse: collapse;
         width: 100%;
     }
@@ -46,16 +39,6 @@
         width: auto;
         height: auto;
         padding: var(--spacing-small);
-    }
-
-    .light-mode #infoModal {
-        background-color: var(--color-light-contrast);
-        color: var(--color-black);
-    }
-
-    .dark-mode #infoModal {
-        background-color: var(--color-dark-contrast);
-        color: var(--color-white);
     }
 
 </style>
@@ -115,7 +98,7 @@
                 <div class="app-controller-row-group">
                     <!--File Upload Button -->
                     <button id="fileUploadBtn" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="click to upload STL">
+                            data-tooltip="Upload STL">
                         <i class="bi bi-upload"></i>
                     </button>
                     <!-- download Button -->
@@ -125,22 +108,39 @@
                     </button>
                 </div>
 
+                <div class="app-controller-row-group">
+                    <!-- Info Button -->
+                    <button id="infoBtn" class="primary-button app-controller-row-item">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <div id="infoModal" class="app-popup-container hidden">
+                        <table id="infoTable">
+                            <!-- dynamically will be added -->
+                        </table>
+                    </div>
 
+                    <!-- Simple Button -->
+<!--                    <button id="simplifyBtn" class="primary-button app-controller-row-item">-->
+<!--                        <i class="bi bi-sliders"></i>-->
+<!--                    </button>-->
+<!--                    <div id="simplifyModal" class="app-popup-container hidden">-->
+<!--                        <label for="simplifySlider">Reduce quality by a factor of :-->
+<!--                            <span id="simplifyFactor">1.0</span>-->
+<!--                        </label>-->
+<!--                        <input type="range" id="simplifySlider" class="app-controller-row-item" min="0.5" max="1"-->
+<!--                               step="0.05"-->
+<!--                               value="1.0">-->
+<!--                    </div>-->
+                </div>
+
+
+                <!-- Scene Settings -->
                 <div class="app-controller-row-group">
                     <!-- Full Screen Button -->
                     <button id="toggleFullScreenBtn" class="primary-button modern-tooltip app-controller-row-item"
                             data-tooltip="Toggle full screen mode">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </button>
-
-                    <button id="infoBtn" class="primary-button app-controller-row-item">
-                        <i class="bi bi-info-circle"></i>
-                    </button>
-                    <div id="infoModal" class="hidden">
-                        <table id="infoTable">
-                            <!-- dynamically will be added -->
-                        </table>
-                    </div>
                 </div>
             </div>
             <!-- End of App Header -->
