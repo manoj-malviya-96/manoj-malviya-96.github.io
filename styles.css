@@ -1168,6 +1168,7 @@ canvas {
     background-color: black;
     justify-items: center;
     align-items: center;
+    border: var(--border-width) solid;
 }
 
 
@@ -1176,6 +1177,14 @@ canvas {
     height: 100vh;
     display: block;
     object-fit: cover;
+}
+
+.light-mode canvas {
+    border-color: var(--color-light-contrast);
+}
+
+.dark-mode canvas {
+    border-color: var(--color-dark-contrast);
 }
 
 /* -------------------------- Light Mode -------------------------- */
