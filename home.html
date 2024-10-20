@@ -13,35 +13,6 @@
         opacity: 0;
     }
 
-    #aboutEntity img {
-        padding: 0;
-        margin: 0 auto;
-        width: calc(1.2 * var(--about-entity-height));
-        height: var(--about-entity-height);
-        border-bottom-left-radius: var(--default-radius);
-        border-top-left-radius: var(--default-radius);
-        object-fit: cover;
-        display: block;
-        transition: all var(--transition-default);
-    }
-
-    .about-title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: var(--hero-font-size);
-        margin-left: var(--spacing-large);
-    }
-
-    #githubUserReport h2 {
-        margin: 0;
-    }
-
-    #toggleAboutBtn {
-        width: auto;
-        margin: 0 auto;
-    }
-
     .light-mode #aboutEntity {
         border-color: var(--color-light-contrast);
         background-color: var(--color-light-primary);
@@ -60,12 +31,50 @@
         box-shadow: var(--shadows-dark);
     }
 
+    #aboutEntity img {
+        padding: 0;
+        margin: 0 auto;
+        width: calc(1.2 * var(--about-entity-height));
+        height: var(--about-entity-height);
+        border-bottom-left-radius: var(--default-radius);
+        border-top-left-radius: var(--default-radius);
+        object-fit: cover;
+        display: block;
+        transition: all var(--transition-default);
+    }
+
+    #aboutTitle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--hero-font-size);
+        margin-left: var(--spacing-large);
+    }
+
+    #githubUserReport h2 {
+        margin: 0;
+    }
+
+    #toggleAboutBtn {
+        width: auto;
+        margin: 0 auto;
+    }
+
     #blogListings,
     #appListings {
-        width: var(--max-body-width);
+        max-width: var(--max-body-width);
+        width: auto;
         height: auto;
         align-content: center;
         margin: 0 auto;
+    }
+
+    #appList {
+        grid-gap: calc((var(--max-body-width) - 3 * var(--blog-card-and-header-height)) / 2.02);
+    }
+
+    #blogList {
+        grid-gap: calc((var(--max-body-width) - 4 * var(--blog-card-and-header-height)) / 3.08);
     }
 
     #appList .primary-button {
@@ -79,12 +88,12 @@
 
 <div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div id="aboutEntity" class="content reading" onclick="toggleForAbout()">
+    <div id="aboutEntity" class="content" onclick="toggleForAbout()">
         <div id="profile-image">
-            <img src="assets/profile.jpeg" alt="Profile Picture">
+            <img src="./assets/profile.jpeg" alt="Profile Picture">
         </div>
         <div class="column-layout" style="margin-left: var(--spacing-large);">
-            <span class="about-title"> MANOJ MALVIYA </span>
+            <span id="aboutTitle"> MANOJ MALVIYA </span>
         </div>
     </div>
     <!-- Collapsible content starts here -->
@@ -176,7 +185,7 @@
 
 
 <!-------------------------- Apps Section -------------------------->
-<div id="appListings" class="content with-padding" style="margin-top: var(--spacing-huge)">
+<div id="appListings" class="content" style="margin-top: var(--spacing-huge)">
     <div id="appList" class="grid-container home-page">
         <!-- Will be dynamically added here -->
     </div>
@@ -185,12 +194,12 @@
 
 <!-------------------------- Project Section -------------------------->
 
-<div id="blogListings" class="blog-listing content with-padding" style="margin-top: var(--spacing-huge)">
+<div id="blogListings" class="blog-listing content" style="margin-top: var(--spacing-huge)">
     <div id="cards-controls-container" class="row-layout"
          style=" margin-bottom: var(--spacing-huge)">
 
         <!-- Filter Container -->
-        <div id="filter-container" style="width: 200px; margin-right: var(--spacing-huge)">
+        <div id="filter-container" style="width: 200px; margin-right: var(--spacing-large)">
             <button class="primary-button with-border modern-tooltip"
                     data-tooltip="Filter blogs by type of skills I employed" id="categoryFilterBtn">
                 <i class="bi bi-filter"></i>
@@ -202,7 +211,7 @@
         </div>
 
         <!-- Sort Container -->
-        <div id="sort-container" style="width: 150px; margin-right: var(--spacing-huge)">
+        <div id="sort-container" style="width: 150px; margin-right: var(--spacing-large)">
             <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs" id="sortFilterBtn">
                 <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
                 <span id="selectedSortValue" class="button-label">Sort by...</span>
@@ -212,7 +221,7 @@
         </div>
 
         <!-- Search Container -->
-        <div class="search-container" data-tooltip="Search blogs" style="width: 250px">
+        <div class="search-container" data-tooltip="Search blogs" style="width: 200px">
             <i class="bi bi-search"></i>
             <input type="text" id="search-input" class="search-input" placeholder="Search..."
                    oninput="filterBlogsByKeywords()">
