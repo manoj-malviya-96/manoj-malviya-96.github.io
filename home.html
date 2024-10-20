@@ -1,6 +1,11 @@
 <style>
     #aboutEntity {
         display: flex;
+        border: var(--border-width) solid;
+    }
+
+    #aboutEntity:hover {
+        cursor: pointer;
     }
 
     #aboutEntity.collapsed {
@@ -40,14 +45,17 @@
     .light-mode #aboutEntity {
         border-color: var(--color-light-contrast);
         background-color: var(--color-light-primary);
-        color: var(--color-light-imp);
-        box-shadow: var(--shadows-light);
     }
 
     .dark-mode #aboutEntity {
         border-color: var(--color-dark-contrast);
         background-color: var(--color-dark-primary);
-        color: var(--color-dark-imp);
+    }
+
+    .light-mode #aboutEntity:hover {
+        box-shadow: var(--shadows-light);
+    }
+    .dark-mode #aboutEntity:hover {
         box-shadow: var(--shadows-dark);
     }
 
@@ -57,7 +65,7 @@
 
 <div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div id="aboutEntity" class="content reading">
+    <div id="aboutEntity" class="content reading" onclick="toggleForAbout()">
         <div id="profile-image">
             <img src="assets/profile.jpeg" alt="Profile Picture">
         </div>
