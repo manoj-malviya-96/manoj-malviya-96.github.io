@@ -1073,8 +1073,8 @@ th {
     align-items: center;
     justify-content: center;
     height: auto;
-    /*width: auto;*/
-    width: var(--app-controller-max-width);
+    width: auto;
+    max-width: var(--app-controller-max-width);
     margin: auto auto var(--spacing-medium);
     z-index: var(--z-index-max);
     background-color: transparent;
