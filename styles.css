@@ -395,14 +395,13 @@ a {
     border-color: var(--color-light-contrast);
 }
 
-.light-mode .primary-button:hover {
-    box-shadow: var(--shadows-light);
-}
-
-
 .dark-mode .primary-button {
     color: var(--color-dark-imp);
     border-color: var(--color-dark-contrast);
+}
+
+.light-mode .primary-button:hover {
+    box-shadow: var(--shadows-light);
 }
 
 .dark-mode .primary-button:hover {
