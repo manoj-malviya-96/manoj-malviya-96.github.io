@@ -1,3 +1,4 @@
+`
 <style>
     #viewButtonGrid {
         display: grid;
@@ -16,12 +17,6 @@
         cursor: pointer;
         z-index: var(--z-index-overlay);
         pointer-events: auto;
-    }
-
-    #smallerDropZone {
-        width: auto;
-        border-style: dashed;
-        height: 100%;
     }
 
     #fullScreenDropZone .bi {
@@ -48,16 +43,34 @@
         <h2> Drop your STL file here or click to upload</h2>
     </div>
 
-    <div id="loading" class="hidden">Loading...</div>
+    <div id="loadingModal" class="loading-overlay hidden">
+        <div class="spinner-border loading-spinner"></div>
+    </div>
 
     <div class="app-controller-container hidden" id="appControllerContainer">
         <!-- App Header -->
         <div class="app-controller">
             <!-- Settings -->
             <div class="app-controller-item">
-                <button id="smallerDropZone" class="primary-button with-border">
+
+                <!-- Mesh Place -->
+                <div id="infoModalContainer">
+                    <button class="primary-button">
+                        <i class="bi bi-info-circle"></i> Show Info
+                    </button>
+
+                    <div id="infoModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <table id="infoModalTable" style="border-collapse: collapse;">
+                                <!-- dynamically will be added -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="fileUploadBtn" class="primary-button modern-tooltip" data-tooltip="click to upload STL">
                     <i class="bi bi-upload"></i>
-                    <span class="button-label">Drop your STL file here or click to upload</span>
                 </button>
                 <!-- View Buttons -->
                 <div id="viewButtonGrid" style="margin-left: var(--spacing-medium);">
@@ -87,12 +100,15 @@
                     <p id="info-triangles">Number of Triangles: 0</p>
                 </div>
                 <!-- Full Screen Button -->
-                <div id="fullscreenButton" class="modern-tooltip" data-tooltip="Toggle full screen mode">
-                    <button id="toggleFullScreen" class="primary-button">
-                        <i class="bi bi-arrows-fullscreen"></i>
-                    </button>
-                </div>
-            </div> <!-- End of Settings -->
-        </div> <!-- End of App Header -->
-    </div> <!-- End of App Controller Container -->
-</div><!-- End of App Window -->
+                <button id="toggleFullScreen" class="primary-button modern-tooltip"
+                        data-tooltip="Toggle full screen mode">
+                    <i class="bi bi-arrows-fullscreen"></i>
+                </button>
+                <!-- End of Settings -->
+            </div>
+            <!-- End of App Header -->
+        </div>
+        <!-- End of App Controller Container -->
+    </div>
+    <!-- End of App Window -->
+</div>`

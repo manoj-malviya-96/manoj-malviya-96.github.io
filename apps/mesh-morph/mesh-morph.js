@@ -90,7 +90,6 @@ const softLightColor = 0x404040;
 const modelColor = 0x808080;
 const primaryColor = getPrimaryColor();
 
-
 class MeshView {
   constructor() {
     this.scene = new THREE.Scene();
@@ -109,6 +108,7 @@ class MeshView {
     directionalLight.position.set(5, 5, 5).normalize();
     this.scene.add(directionalLight);
 
+    // Add ambient light
     const ambientLight = new THREE.AmbientLight(softLightColor); // Soft light
     this.scene.add(ambientLight);
 
@@ -124,18 +124,25 @@ class MeshView {
 
     this.meshLoader = new MeshLoader();
     this.meshRenderer = new MeshRenderer(this.scene);
-
-    this.infoPanel = document.getElementById("infoPanel");
-    this.loadingText = document.getElementById("loading");
-    this.fullScreenDropZone = document.getElementById("fullScreenDropZone");
-    this.smallerDropZone = document.getElementById("smallerDropZone");
-    this.appControllerContainer = window.document.getElementById(
-      "appControllerContainer",
-    );
-    this.appController = window.document.querySelector(".app-controller");
+    this.elements = this.getDomElements();
 
     this.initEventListeners();
     this.toggleAppController();
+  }
+
+  getDomElements() {
+    return {
+      appWindow: window.document.querySelector(".app-window"),
+      appController: window.document.querySelector(".app-controller"),
+      canvas: window.document.getElementById("meshCanvas"),
+      infoModal: window.document.getElementById("infoModal"),
+      loadingModal: window.document.getElementById("loadingModal"),
+      fullScreenDropZone: window.document.getElementById("fullScreenDropZone"),
+      fileUploadBtn: window.document.getElementById("fileUploadBtn"),
+      appControllerContainer: window.document.getElementById(
+        "appControllerContainer",
+      ),
+    };
   }
 
   loadMesh(arrayBuffer) {
@@ -157,9 +164,9 @@ class MeshView {
     // Update information panel
     this.prepareAppControllerPostSuccessfulFileUpload();
 
-    document.getElementById("info-volume").innerText =
+    window.document.getElementById("info-volume").innerText =
       `Volume: ${volume.toFixed(2)}`;
-    document.getElementById("info-triangles").innerText =
+    window.document.getElementById("info-triangles").innerText =
       `Number of Triangles: ${geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3}`;
 
     this.homeView();
@@ -172,71 +179,82 @@ class MeshView {
   }
 
   prepareAppControllerPostSuccessfulFileUpload() {
-    this.infoPanel.style.display = "block";
-    this.loadingText.style.display = "none";
-
-    if (!this.fullScreenDropZone.classList.contains("hidden")) {
-      this.fullScreenDropZone.classList.add("hidden");
+    if (!this.elements.fullScreenDropZone.classList.contains("hidden")) {
+      this.elements.fullScreenDropZone.classList.add("hidden");
     }
 
-    this.smallerDropZone.classList.remove("hidden");
-    this.appControllerContainer.classList.remove("hidden");
+    this.elements.fileUploadBtn.classList.remove("hidden");
+    this.elements.appControllerContainer.classList.remove("hidden");
 
     this.toggleAppController(true);
   }
 
   toggleAppController(forceShow = false) {
-    if (forceShow && !this.appController.classList.contains("hidden")) {
+    if (
+      forceShow &&
+      !this.elements.appController.classList.contains("hidden")
+    ) {
       return;
     }
-    this.appController.classList.toggle("hidden");
+    this.elements.appController.classList.toggle("hidden");
   }
 
   handleDropZoneBtnClick() {
-    const input = document.createElement("input");
+    const input = window.document.createElement("input");
     input.type = "file";
     input.accept = ".stl";
     input.onchange = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        this.loadingText.style.display = "block";
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.loadMesh(e.target.result);
-        };
-        reader.readAsArrayBuffer(file);
-      }
+      this.loadFile(event.target.files[0]);
     };
     input.click();
   }
 
   handleDropZoneDragOver(event) {
     event.preventDefault();
-    this.fullScreenDropZone.classList.add("active");
-    this.fullScreenDropZone.style.backgroundColor = primaryColor;
-    this.fullScreenDropZone.style.color = "#777";
+    this.elements.fullScreenDropZone.classList.add("active");
   }
 
   handleDropZoneDragLeave(event) {
     event.preventDefault();
-    this.fullScreenDropZone.classList.remove("active");
-    this.fullScreenDropZone.style.backgroundColor = "transparent";
-    this.fullScreenDropZone.style.color = "#aaa";
+    this.elements.fullScreenDropZone.classList.remove("active");
   }
 
   handleDropZoneDrop(event) {
     event.preventDefault();
-    this.fullScreenDropZone.classList.remove("active");
-    this.loadingText.style.display = "block";
+    this.loadFile(event.dataTransfer.files[0]);
+  }
 
-    const file = event.dataTransfer.files[0];
-    if (file) {
+  toggleLoadingDisplay(showOrHide = "show") {
+    const isHidden = this.elements.loadingModal.classList.contains("hidden");
+    // Check if the modal is already in the desired state
+    if (
+      (isHidden && showOrHide === "hide") ||
+      (!isHidden && showOrHide === "show")
+    ) {
+      return;
+    }
+    this.elements.loadingModal.classList.toggle("hidden");
+  }
+
+  loadFile(file) {
+    if (!file) {
+      console.error("No file provided to load.");
+    }
+
+    this.elements.fullScreenDropZone.classList.remove("active");
+    this.elements.fullScreenDropZone.classList.add("hidden");
+
+    this.toggleLoadingDisplay("show");
+    console.log("Loading file: ", file);
+
+    runWithDelay(() => {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.loadMesh(e.target.result);
       };
       reader.readAsArrayBuffer(file);
-    }
+      this.toggleLoadingDisplay("hide");
+    });
   }
 
   homeView(onlyApplyPosition = false) {
@@ -319,22 +337,9 @@ class MeshView {
       this.handleDropZoneDrop.bind(this),
     );
     // Handle file uploads via the smaller-drop zone
-    this.smallerDropZone.addEventListener(
+    this.stlUploadBtn.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
-    );
-
-    this.smallerDropZone.addEventListener(
-      "dragover",
-      this.handleDropZoneDragOver.bind(this),
-    );
-    this.smallerDropZone.addEventListener(
-      "dragleave",
-      this.handleDropZoneDragLeave.bind(this),
-    );
-    this.smallerDropZone.addEventListener(
-      "drop",
-      this.handleDropZoneDrop.bind(this),
     );
 
     // Handle view panel button clicks
