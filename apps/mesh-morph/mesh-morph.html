@@ -4,7 +4,6 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         max-width: 150px;
-        margin: auto;
     }
 
     #fullScreenDropZone {
@@ -27,7 +26,7 @@
 </style>
 
 <!-- Icon and App Name in  layout -->
-<div class="app-brand-container app-controller-item">
+<div class="app-brand-container app-controller-row">
     <div class="app-brand-logo">
         <i class="bi bi-hexagon" id="appIcon"></i>
         <h2 class="app-name">Mesha</h2>
@@ -51,12 +50,11 @@
         <!-- App Header -->
         <div class="app-controller">
             <!-- Settings -->
-            <div class="app-controller-item">
-
+            <div class="app-controller-row">
                 <!-- Mesh Place -->
-                <div id="infoModalContainer">
+                <div id="infoModalContainer" class="app-controller-row-item">
                     <button class="primary-button">
-                        <i class="bi bi-info-circle"></i> Show Info
+                        <i class="bi bi-info-circle"></i>
                     </button>
 
                     <div id="infoModal" class="modal" style="display: none;">
@@ -69,11 +67,8 @@
                     </div>
                 </div>
 
-                <button id="fileUploadBtn" class="primary-button modern-tooltip" data-tooltip="click to upload STL">
-                    <i class="bi bi-upload"></i>
-                </button>
                 <!-- View Buttons -->
-                <div id="viewButtonGrid" style="margin-left: var(--spacing-medium);">
+                <div id="viewButtonGrid" class="app-controller-row-item">
                     <div></div>
                     <div class="primary-button smaller" data-view="top">
                         <i class="bi bi-arrow-up"></i>
@@ -94,13 +89,14 @@
                     </div>
                     <div></div>
                 </div>
-                <!-- Mesh Place -->
-                <div id="infoPanel" class="column-layout" style="margin-left: var(--spacing-medium);">
-                    <p id="info-volume">Volume: 0</p>
-                    <p id="info-triangles">Number of Triangles: 0</p>
-                </div>
+
+
+                <button id="fileUploadBtn" class="primary-button modern-tooltip app-controller-row-item"
+                        data-tooltip="click to upload STL">
+                    <i class="bi bi-upload"></i>
+                </button>
                 <!-- Full Screen Button -->
-                <button id="toggleFullScreen" class="primary-button modern-tooltip"
+                <button id="toggleFullScreen" class="primary-button modern-tooltip app-controller-row-item"
                         data-tooltip="Toggle full screen mode">
                     <i class="bi bi-arrows-fullscreen"></i>
                 </button>
