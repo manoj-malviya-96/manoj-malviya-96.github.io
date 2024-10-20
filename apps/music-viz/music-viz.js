@@ -5,6 +5,9 @@ class MusicApp {
     this.elements = this.getDomElements();
     if (!this.elements.canvas) return;
 
+    this.elements.canvas.height = appWindowHeight;
+    this.elements.canvas.width = appWindowWidth;
+
     this.canvasCtx = this.elements.canvas.getContext("2d");
     this.audioContext = null;
     this.analyser = null;

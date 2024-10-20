@@ -83,8 +83,8 @@ class MeshRenderer {
   }
 }
 
-const meshViewWidth = 1200;
-const meshViewHeight = 900;
+const meshViewWidth = appWindowWidth;
+const meshViewHeight = appWindowHeight;
 const mainLightColor = 0xffffff;
 const softLightColor = 0x404040;
 const modelColor = 0x808080;

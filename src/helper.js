@@ -162,6 +162,10 @@ function getStyleValue(property) {
   );
 }
 
+function getSizeFromStyle(property) {
+    return Number(getStyleValue(property).replace("px", ""));
+}
+
 function getPrimaryColor() {
   return getStyleValue("--color-brand-primary");
 }

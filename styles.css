@@ -472,15 +472,14 @@ a {
 .modern-dropdown {
 	list-style: none;
 	position: absolute;
-	padding: 0;
 	width: auto;
 	height: auto;
 	min-width: 100px;
+	padding: var(--spacing-small);
 	margin: var(--spacing-small) 0;
 	border-radius: var(--default-radius);
 	z-index: var(--z-index-overlay);
 	font-size: var(--subtitle-text-size);
-	line-height: var(--line-height);
 	transform: translateY(-100%); /* Move the dropdown above the button */
 	transition: all var(--transition-default);
 	backdrop-filter: blur(var(--more-blur-radius));
@@ -494,7 +493,6 @@ a {
 .modern-dropdown-item {
 	padding: var(--spacing-medium);
 	cursor: pointer;
-	transition: all var(--transition-default);
 	border-radius: var(--default-radius);
 	height: auto;
 	width: auto;
