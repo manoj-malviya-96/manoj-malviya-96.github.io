@@ -1,8 +1,6 @@
 /** ---------------------------- Global variables - Accessible across all scripts  ---------------------------- **/
 
-const contentPlaceholder = window.document.getElementById(
-  "contentPlaceholder",
-);
+const contentPlaceholder = window.document.getElementById("contentPlaceholder");
 const contentPlaceholderOverlay = window.document.getElementById(
   "contentLoadingOverlay",
 );
@@ -210,9 +208,35 @@ function makeAppButtons() {
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
-  Promise.all(promises).catch((err) => {
-    console.error("Error loading all apps:", err);
+  Promise.all(promises)
+    .then(() => {
+      // Wait for a second before sorting the apps
+      runWithDelay(sortApps, 100);
+    })
+    .catch((err) => {
+      console.error("Error loading all apps:", err);
+    });
+}
+
+function sortApps() {
+  const container = document.getElementById("appList");
+  if (!container) {
+    console.error("App container not found");
+    return;
+  }
+  const buttons = Array.from(container.children);
+  if (buttons.length === 0) {
+    console.error("No app buttons found in the container");
+    return;
+  }
+
+  buttons.sort((a, b) => {
+    const titleA = a.querySelector(".app-name").textContent;
+    const titleB = b.querySelector(".app-name").textContent;
+    return titleA.localeCompare(titleB);
   });
+
+  buttons.forEach((button) => container.appendChild(button));
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
