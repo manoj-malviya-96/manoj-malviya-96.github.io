@@ -163,7 +163,7 @@ function getStyleValue(property) {
 }
 
 function getSizeFromStyle(property) {
-    return Number(getStyleValue(property).replace("px", ""));
+  return Number(getStyleValue(property).replace("px", ""));
 }
 
 function getPrimaryColor() {
@@ -297,4 +297,19 @@ function loadPDF(url, placeholder, overlay) {
     overlay.style.display = "none";
     alert("Failed to load the PDF. Please try again.");
   };
+}
+
+function toggleElementVisibility(element, showOrHide = "show") {
+  if (!element) {
+    console.error("Element not found");
+  }
+  const isHidden = element.classList.contains("hidden");
+  // Check if the modal is already in the desired state
+  if (
+    (isHidden && showOrHide === "hide") ||
+    (!isHidden && showOrHide === "show")
+  ) {
+    return;
+  }
+  element.classList.toggle("hidden");
 }

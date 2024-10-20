@@ -1,10 +1,31 @@
-class MeshLoader {
+const meshViewWidth = appWindowWidth;
+const meshViewHeight = appWindowHeight;
+const mainLightColor = 0xffffff;
+const softLightColor = 0x404040;
+const modelColor = 0x808080;
+const primaryColor = getPrimaryColor();
+
+class LoadedMesh {
   constructor() {
-    this.loader = new THREE.STLLoader();
+    this.geometry = null;
+    this.centroid = null;
+
+    this.volume = 0;
+    this.numTriangles = 0;
+    this.boundingBox = null;
+
+    // Internals
+    this._loader = new THREE.STLLoader();
   }
 
   load(arrayBuffer) {
-    return this.loader.parse(arrayBuffer);
+    this.geometry = this._loader.parse(arrayBuffer);
+    this.centroid = this.computeAccurateCentroid(this.geometry);
+    this.volume = this.computeVolume(this.geometry);
+    this.numTriangles = this.geometry.index
+      ? this.geometry.index.count / 3
+      : this.geometry.attributes.position.count / 3;
+    this.boundingBox = this.computeBoundingBox(this.geometry);
   }
 
   computeAccurateCentroid(geometry) {
@@ -56,76 +77,185 @@ class MeshLoader {
 }
 
 class MeshRenderer {
-  constructor(scene) {
-    this.scene = scene;
-    this.mesh = null;
-    this.centroidPoint = null;
-  }
-
-  renderMesh(geometry, material) {
-    if (this.mesh) {
-      this.scene.remove(this.mesh);
-      if (this.centroidPoint) this.scene.remove(this.centroidPoint);
-    }
-
-    this.mesh = new THREE.Mesh(geometry, material);
-    this.scene.add(this.mesh);
-
-    return this.mesh;
-  }
-
-  addCentroidPoint(centroid) {
-    const centroidGeometry = new THREE.SphereGeometry(0.05, 16, 16);
-    const centroidMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    this.centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
-    this.centroidPoint.position.copy(centroid);
-    this.scene.add(this.centroidPoint);
-  }
-}
-
-const meshViewWidth = appWindowWidth;
-const meshViewHeight = appWindowHeight;
-const mainLightColor = 0xffffff;
-const softLightColor = 0x404040;
-const modelColor = 0x808080;
-const primaryColor = getPrimaryColor();
-
-class MeshView {
-  constructor() {
+  constructor(canvas) {
     this.scene = new THREE.Scene();
+    this.material = new THREE.MeshPhongMaterial({ color: modelColor });
+    this.loadedMesh = new LoadedMesh();
+
+    this.webGLRenderer = null;
+    this.camera = null;
+    this.controls = null;
+    this.renderedMeshes = []; // Keeps track of all rendered meshes
+
+    this.setupCamera();
+    this.setupWebGLRenderer(canvas);
+    this.setupLights();
+    this.setupControls();
+  }
+
+  setupWebGLRenderer(canvas) {
+    this.webGLRenderer = new THREE.WebGLRenderer({ canvas });
+    this.webGLRenderer.setSize(meshViewWidth, meshViewHeight);
+  }
+
+  updateModal() {
+    this.controls.update();
+    this.webGLRenderer.render(this.scene, this.camera);
+  }
+
+  setupCamera() {
     this.camera = new THREE.PerspectiveCamera(
       75,
       meshViewWidth / meshViewHeight, // Aspect ratio to match your canvas
       1,
       1000,
     );
-    const canvas = document.getElementById("meshCanvas");
-    this.renderer = new THREE.WebGLRenderer({ canvas });
-    this.renderer.setSize(meshViewWidth, meshViewHeight); // Match the canvas size
+  }
 
-    // Add light sources
-    const directionalLight = new THREE.DirectionalLight(mainLightColor, 1);
-    directionalLight.position.set(5, 5, 5).normalize();
-    this.scene.add(directionalLight);
+  setupLights() {
+    if (!this.scene) {
+      console.error("No scene available to add lights to.");
+      return;
+    }
+    const hemisphereLight = new THREE.HemisphereLight(
+      mainLightColor,
+      softLightColor,
+      1.2,
+    );
+    hemisphereLight.position.set(0, 20, 0);
+    this.scene.add(hemisphereLight);
+  }
 
-    // Add ambient light
-    const ambientLight = new THREE.AmbientLight(softLightColor); // Soft light
-    this.scene.add(ambientLight);
-
+  setupControls() {
     // Add OrbitControls for better user interaction like CAD software
     this.controls = new THREE.OrbitControls(
       this.camera,
-      this.renderer.domElement,
+      this.webGLRenderer.domElement,
     );
     this.controls.enableDamping = true; // Smooth the control movements
     this.controls.dampingFactor = 0.05;
     this.controls.screenSpacePanning = false;
     this.controls.maxPolarAngle = Math.PI * 2;
+  }
 
-    this.meshLoader = new MeshLoader();
-    this.meshRenderer = new MeshRenderer(this.scene);
+  loadMesh(arrayBuffer) {
+    try {
+      // Load the mesh from buffer
+      this.loadedMesh.load(arrayBuffer);
+      // Render it with centered to centroid
+      this.renderMesh(
+        this.loadedMesh.geometry,
+        this.material,
+        this.loadedMesh.centroid,
+      );
+
+      // Render the centroid
+      this.renderCentroid(new THREE.Vector3(0, 0, 0));
+
+      // Set the camera to look at the centroid
+      this.controls.target.set(0, 0, 0);
+      this.controls.update();
+    } catch (error) {
+      console.error("Error loading mesh", error);
+    }
+  }
+
+  clearRenderedMeshes() {
+    this.renderedMeshes.forEach((mesh) => this.scene.remove(mesh));
+    this.renderedMeshes = [];
+  }
+
+  addRenderedMeshToScene(mesh) {
+    this.scene.add(mesh);
+    this.renderedMeshes.push(mesh);
+  }
+
+  renderMesh(geometry, material, centroid) {
+    if (this.renderedMeshes.length > 0) {
+      console.log("Clearing existing meshes");
+      this.clearRenderedMeshes();
+    }
+
+    const renderedMesh = new THREE.Mesh(geometry, material);
+    renderedMesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
+
+    this.addRenderedMeshToScene(renderedMesh);
+  }
+
+  renderCentroid(centroid) {
+    const radius = 0.1;
+    const segments = 16;
+    const centroidGeometry = new THREE.SphereGeometry(
+      radius,
+      segments,
+      segments,
+    );
+
+    const centroidMaterial = new THREE.MeshBasicMaterial({
+      color: primaryColor,
+    });
+
+    const centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
+    centroidPoint.position.copy(centroid);
+    this.addRenderedMeshToScene(centroidPoint);
+  }
+
+  homeControls() {
+    this.controls.lookAt(0, 0, 0);
+    this.controls.update();
+  }
+
+  homeView(onlyApplyPosition = false) {
+    const boundingBox = this.loadedMesh.boundingBox;
+
+    const center = new THREE.Vector3();
+    boundingBox.getCenter(center);
+    const size = new THREE.Vector3();
+    boundingBox.getSize(size);
+
+    // Set the camera to a position that fits the entire model
+    const maxDimension = Math.max(size.x, size.y, size.z);
+    const fitHeightDistance =
+      maxDimension /
+      (2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)));
+    const fitWidthDistance = fitHeightDistance / this.camera.aspect;
+    const distance = Math.max(fitHeightDistance, fitWidthDistance);
+
+    // Update camera position to make sure the model fits
+    this.camera.position.set(center.x, center.y, center.z + distance * 1.5); // Add a little extra distance for padding
+    if (onlyApplyPosition) {
+      return;
+    }
+
+    this.camera.lookAt(center);
+    // Update controls, if applicable
+    if (this.controls) {
+      this.controls.target.copy(center);
+      this.controls.update();
+    }
+  }
+
+  moveCameraBy(axis = "x", angle) {
+    let axisVector = null;
+    switch (axis) {
+      case "x":
+        axisVector = new THREE.Vector3(1, 0, 0);
+        break;
+      case "y":
+        axisVector = new THREE.Vector3(0, 1, 0);
+        break;
+      case "z":
+        axisVector = new THREE.Vector3(0, 0, 1);
+        break;
+    }
+    this.camera.position.applyAxisAngle(axisVector, angle);
+  }
+}
+
+class MeshView {
+  constructor() {
     this.elements = this.getDomElements();
-
+    this.renderer = new MeshRenderer(this.elements.canvas);
     this.initEventListeners();
     this.toggleAppController();
   }
@@ -146,39 +276,32 @@ class MeshView {
   }
 
   loadMesh(arrayBuffer) {
-    const geometry = this.meshLoader.load(arrayBuffer);
-    const material = new THREE.MeshPhongMaterial({ color: modelColor });
-    const mesh = this.meshRenderer.renderMesh(geometry, material);
+    if (!this.renderer) {
+      console.error("Some how mesh-renderer is not init");
+    }
 
-    // Compute the centroid and volume of the mesh
-    const centroid = this.meshLoader.computeAccurateCentroid(geometry);
-    const volume = this.meshLoader.computeVolume(geometry);
-    mesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
-
-    this.meshRenderer.addCentroidPoint(new THREE.Vector3(0, 0, 0));
-    this.controls.target.set(0, 0, 0);
-    this.controls.update();
-
-    this.geometry = geometry;
+    this.renderer.loadMesh(arrayBuffer);
+    if (!this.renderer.renderedMeshes.length > 0) {
+      console.error("Mesh cant be loaded");
+    }
 
     // Update information panel
-    this.prepareAppControllerPostSuccessfulFileUpload();
+    this.handleSuccessFileUpload();
 
-    window.document.getElementById("info-volume").innerText =
-      `Volume: ${volume.toFixed(2)}`;
-    window.document.getElementById("info-triangles").innerText =
-      `Number of Triangles: ${geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3}`;
+    // window.document.getElementById("info-volume").innerText =
+    //   `Volume: ${volume.toFixed(2)}`;
+    // window.document.getElementById("info-triangles").innerText =
+    //   `Number of Triangles: ${geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3}`;
 
-    this.homeView();
+    this.renderer.homeView();
   }
 
   animate() {
     requestAnimationFrame(() => this.animate());
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
+    this.renderer.updateModal();
   }
 
-  prepareAppControllerPostSuccessfulFileUpload() {
+  handleSuccessFileUpload() {
     if (!this.elements.fullScreenDropZone.classList.contains("hidden")) {
       this.elements.fullScreenDropZone.classList.add("hidden");
     }
@@ -225,15 +348,19 @@ class MeshView {
   }
 
   toggleLoadingDisplay(showOrHide = "show") {
-    const isHidden = this.elements.loadingModal.classList.contains("hidden");
-    // Check if the modal is already in the desired state
-    if (
-      (isHidden && showOrHide === "hide") ||
-      (!isHidden && showOrHide === "show")
-    ) {
-      return;
+    toggleElementVisibility(this.elements.loadingModal, showOrHide);
+  }
+
+  toggleFullScreenDropZone(showOrHide = "show") {
+    toggleElementVisibility(this.elements.fullScreenDropZone, showOrHide);
+  }
+
+  toggleFullScreenActive(makeItActive = false) {
+    if (makeItActive) {
+      this.elements.fullScreenDropZone.classList.add("active");
+    } else {
+      this.elements.fullScreenDropZone.classList.remove("active");
     }
-    this.elements.loadingModal.classList.toggle("hidden");
   }
 
   loadFile(file) {
@@ -241,10 +368,12 @@ class MeshView {
       console.error("No file provided to load.");
     }
 
-    this.elements.fullScreenDropZone.classList.remove("active");
-    this.elements.fullScreenDropZone.classList.add("hidden");
+    this.renderer.clearRenderedMeshes(); // Clear any existing meshes
 
+    this.toggleFullScreenActive(false);
+    this.toggleFullScreenDropZone("hide");
     this.toggleLoadingDisplay("show");
+
     console.log("Loading file: ", file);
 
     runWithDelay(() => {
@@ -257,93 +386,56 @@ class MeshView {
     });
   }
 
-  homeView(onlyApplyPosition = false) {
-    if (!this.meshLoader && !this.geometry) {
-      console.error("No geometry available to compute home view.");
-      return;
-    }
-
-    const boundingBox = this.meshLoader.computeBoundingBox(this.geometry);
-
-    const center = new THREE.Vector3();
-    boundingBox.getCenter(center);
-    const size = new THREE.Vector3();
-    boundingBox.getSize(size);
-
-    // Set the camera to a position that fits the entire model
-    const maxDimension = Math.max(size.x, size.y, size.z);
-    const fitHeightDistance =
-      maxDimension /
-      (2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)));
-    const fitWidthDistance = fitHeightDistance / this.camera.aspect;
-    const distance = Math.max(fitHeightDistance, fitWidthDistance);
-
-    // Update camera position to make sure the model fits
-    this.camera.position.set(center.x, center.y, center.z + distance * 1.5); // Add a little extra distance for padding
-    if (onlyApplyPosition) {
-      return;
-    }
-
-    this.camera.lookAt(center);
-    // Update controls, if applicable
-    if (this.controls) {
-      this.controls.target.copy(center);
-      this.controls.update();
-    }
-  }
-
   handleViewButton(view) {
     const angle = Math.PI / 2; // 90 degrees in radians
 
     switch (view) {
       case "top":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(1, 0, 0), -angle);
+        this.renderer.moveCameraBy("x", angle);
         break;
       case "bottom":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(1, 0, 0), angle);
+        this.renderer.moveCameraBy("x", -angle);
         break;
       case "right":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), -angle);
+        this.renderer.moveCameraBy("y", -angle);
         break;
       case "left":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+        this.renderer.moveCameraBy("y", angle);
         break;
       case "home": // Reset to default position
-        this.homeView(true);
+        this.renderer.homeView(true);
         break;
     }
-
-    this.camera.lookAt(0, 0, 0);
-    this.controls.update();
+    this.renderer.homeControls();
   }
 
   initEventListeners() {
     // Handle file uploads via the drop zone
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fullScreenDropZone.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
     );
     // Handle drag-and-drop uploads
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fullScreenDropZone.addEventListener(
       "dragover",
       this.handleDropZoneDragOver.bind(this),
     );
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fullScreenDropZone.addEventListener(
       "dragleave",
       this.handleDropZoneDragLeave.bind(this),
     );
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fullScreenDropZone.addEventListener(
       "drop",
       this.handleDropZoneDrop.bind(this),
     );
     // Handle file uploads via the smaller-drop zone
-    this.stlUploadBtn.addEventListener(
+    this.elements.fileUploadBtn.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
     );
 
     // Handle view panel button clicks
-    const viewContainer = document.getElementById("viewButtonGrid");
+    const viewContainer = window.document.getElementById("viewButtonGrid");
     viewContainer.querySelectorAll(".primary-button").forEach((button) => {
       button.addEventListener(
         "click",
