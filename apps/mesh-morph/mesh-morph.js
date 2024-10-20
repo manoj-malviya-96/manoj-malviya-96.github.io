@@ -77,7 +77,7 @@ class LoadedMesh {
 }
 
 class MeshRenderer {
-  constructor(canvas) {
+  constructor(canvas, width = meshViewWidth, height = meshViewHeight) {
     this.scene = new THREE.Scene();
     this.material = new THREE.MeshPhongMaterial({ color: modelColor });
     this.loadedMesh = new LoadedMesh();
@@ -87,15 +87,15 @@ class MeshRenderer {
     this.controls = null;
     this.renderedMeshes = []; // Keeps track of all rendered meshes
 
-    this.setupCamera();
-    this.setupWebGLRenderer(canvas);
+    this.setupCamera(width, height);
+    this.setupWebGLRenderer(canvas, width, height);
     this.setupLights();
     this.setupControls();
   }
 
-  setupWebGLRenderer(canvas) {
+  setupWebGLRenderer(canvas, width, height) {
     this.webGLRenderer = new THREE.WebGLRenderer({ canvas });
-    this.webGLRenderer.setSize(meshViewWidth, meshViewHeight);
+    this.webGLRenderer.setSize(width, height);
   }
 
   updateModal() {
@@ -103,10 +103,10 @@ class MeshRenderer {
     this.webGLRenderer.render(this.scene, this.camera);
   }
 
-  setupCamera() {
+  setupCamera(width, height) {
     this.camera = new THREE.PerspectiveCamera(
       75,
-      meshViewWidth / meshViewHeight, // Aspect ratio to match your canvas
+      width / height, // Aspect ratio to match your canvas
       1,
       1000,
     );
@@ -158,6 +158,13 @@ class MeshRenderer {
     } catch (error) {
       console.error("Error loading mesh", error);
     }
+  }
+
+  updateScreenSize(width, height) {
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.webGLRenderer.setSize(width, height);
+    this.controls.update();
   }
 
   clearRenderedMeshes() {
@@ -272,6 +279,7 @@ class MeshView {
       appControllerContainer: window.document.getElementById(
         "appControllerContainer",
       ),
+      toggleFullScreen: window.document.getElementById("toggleFullScreen"),
     };
   }
 
@@ -434,6 +442,11 @@ class MeshView {
       this.handleDropZoneBtnClick.bind(this),
     );
 
+    this.elements.toggleFullScreen.addEventListener(
+      "click",
+      this.toggleFullScreen.bind(this),
+    );
+
     // Handle view panel button clicks
     const viewContainer = window.document.getElementById("viewButtonGrid");
     viewContainer.querySelectorAll(".primary-button").forEach((button) => {
@@ -442,5 +455,36 @@ class MeshView {
         this.handleViewButton.bind(this, button.getAttribute("data-view")),
       );
     });
+
+    this.setupResizing();
+  }
+
+  setupResizing() {
+    window.document.addEventListener("fullscreenchange", () => {
+      // Enter full-screen
+      if (document.fullscreenElement === this.elements.appWindow) {
+        this.elements.appWindow.classList.add("full-screen-modal");
+        this.elements.toggleFullScreen.innerHTML =
+          '<i class="bi bi-fullscreen-exit"></i>'; // Change icon for full-screen
+        this.renderer.updateScreenSize(window.innerWidth, window.innerHeight);
+        return;
+      }
+      // Exit full-screen
+      this.elements.appWindow.classList.remove("full-screen-modal");
+      this.elements.toggleFullScreen.innerHTML =
+        '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
+      this.renderer.updateScreenSize(meshViewWidth, meshViewHeight);
+    });
+  }
+
+  toggleFullScreen() {
+    if (
+      !this.elements.appWindow.classList.contains("full-screen-modal") &&
+      !window.document.fullscreenElement
+    ) {
+      this.elements.appWindow.requestFullscreen();
+    } else if (window.document.exitFullscreen) {
+      window.document.exitFullscreen();
+    }
   }
 }
