@@ -201,9 +201,9 @@ function makeAppButton(container, appHTMLPath) {
 }
 
 function makeAppButtons() {
-  const container = window.document.getElementById("app-list");
+  const container = window.document.getElementById("appList");
   if (!container) {
-    throw new Error(`Element with ID- app-list not found.`);
+    throw new Error(`Element with ID- appList not found.`);
   }
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
@@ -322,7 +322,7 @@ function makeBlogCard(filePath, container) {
 }
 
 function makeBlogCardsAndSetupControls() {
-  const container = window.document.getElementById("project-list");
+  const container = window.document.getElementById("blogList");
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
   }
@@ -444,7 +444,7 @@ function sortBlogCards(sortBy) {
   const sortOrder = sortBy.split("-")[1]; // Get the order (asc or desc)
 
   // Get all project cards
-  const container = document.getElementById("project-list");
+  const container = document.getElementById("blogList");
   const cards = Array.from(container.children);
 
   cards.sort((a, b) => {

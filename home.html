@@ -55,8 +55,17 @@
     .light-mode #aboutEntity:hover {
         box-shadow: var(--shadows-light);
     }
+
     .dark-mode #aboutEntity:hover {
         box-shadow: var(--shadows-dark);
+    }
+
+    #blogList {
+        grid-template-columns: repeat(auto-fill, minmax(var(--blog-card-and-header-height), 1fr));
+    }
+
+    #appList {
+        grid-template-columns: repeat(auto-fill, minmax(var(--app-drawer-button-height), 1fr));
     }
 
 </style>
@@ -162,14 +171,14 @@
 
 
 <!-------------------------- Apps Section -------------------------->
-<div id="app-list" class="content with-padding app-drawer grid" style="margin-top: var(--spacing-huge)">
+<div id="appList" class="content with-padding app-drawer grid-container" style="margin-top: var(--spacing-huge)">
     <!-- Will be dynamically added here -->
 </div>
 
 
 <!-------------------------- Project Section -------------------------->
 
-<div id="project-listings" class="blog-listing content with-padding" style="margin-top: var(--spacing-huge)">
+<div id="blogListings" class="blog-listing content with-padding" style="margin-top: var(--spacing-huge)">
     <div id="cards-controls-container" class="row-layout"
          style=" margin-bottom: var(--spacing-huge);">
 
@@ -203,7 +212,7 @@
         </div>
     </div>
 
-    <div id="project-list" class="grid-container">
+    <div id="blogList" class="grid-container">
         <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>
