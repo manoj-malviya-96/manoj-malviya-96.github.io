@@ -1,10 +1,10 @@
 /** ---------------------------- Global variables - Accessible across all scripts  ---------------------------- **/
 
 const contentPlaceholder = window.document.getElementById(
-  "content-placeholder",
+  "contentPlaceholder",
 );
 const contentPlaceholderOverlay = window.document.getElementById(
-  "content-placeholder-overlay",
+  "contentLoadingOverlay",
 );
 
 const homePage = "./home.html";

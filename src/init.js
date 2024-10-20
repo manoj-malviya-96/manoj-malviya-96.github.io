@@ -1,7 +1,7 @@
 /* Collection of functions to initialize the website */
 
 function initSidebar() {
-  const sidebarPlaceholder = document.getElementById("sidebar-placeholder");
+  const sidebarPlaceholder = document.getElementById("sidebarPlaceholder");
   if (!sidebarPlaceholder) {
     console.error("Side bar Placeholder doesnt exists");
   }

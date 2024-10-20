@@ -230,10 +230,18 @@ a {
     color: var(--color-dark-imp);
 }
 
-/* ----------------------------- Bootstrap Icon Styling ----------------------------- */
+/* ----------------------------- Misc ----------------------------- */
 .bi {
     font-size: var(--regular-icon-size);
 !important;
+}
+
+.loading-spinner {
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    border-top-color: var(--color-brand-primary);
+    border-bottom-color: transparent;
+    border-width: calc(3*var(--border-width));
 }
 
 /* ----------------------------- Animations  ----------------------------- */
@@ -248,7 +256,7 @@ a {
 
 
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
-#content-placeholder-overlay,
+.loading-overlay,
 #quarto-content {
     display: flex;
     justify-content: center;
@@ -258,7 +266,7 @@ a {
 }
 
 
-#content-placeholder-overlay {
+.loading-overlay {
     position: fixed;
     left: 0;
     top: 0;
