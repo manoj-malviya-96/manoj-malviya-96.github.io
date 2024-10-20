@@ -457,6 +457,31 @@ class MeshView {
     });
 
     this.setupResizing();
+    this.setupKeyboardShortcuts();
+  }
+
+  setupKeyboardShortcuts() {
+    window.document.addEventListener("keydown", this.handleKeydown.bind(this));
+  }
+
+  handleKeydown(event) {
+    event.preventDefault(); // Prevent default behavior of keys
+
+    if (event.code === "Enter" || event.code === "KeyF") {
+      this.toggleFullScreen();
+    }
+    if (event.code === "ArrowUp") {
+      this.handleViewButton("top");
+    }
+    if (event.code === "ArrowDown") {
+      this.handleViewButton("bottom");
+    }
+    if (event.code === "ArrowLeft") {
+      this.handleViewButton("left");
+    }
+    if (event.code === "ArrowRight") {
+      this.handleViewButton("right");
+    }
   }
 
   setupResizing() {

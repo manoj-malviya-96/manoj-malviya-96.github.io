@@ -97,37 +97,33 @@ class MusicVizView {
   }
 
   handleKeydown(event) {
+    event.preventDefault(); // Prevent default behavior of keys
+
     // Check if the space key is pressed (keyCode 32 or ' ')
     if (event.code === "Space") {
-      event.preventDefault(); // Prevent default behavior of space (e.g., scrolling)
       this.togglePlayPause();
     }
 
     // Check if the Enter key is pressed (keyCode 13 or 'Enter')
     if (event.code === "Enter" || event.code === "KeyF") {
-      event.preventDefault(); // Prevent default behavior of Enter
       this.toggleFullScreen();
     }
 
     // Handle arrow keys for skipping
     if (event.code === "ArrowRight") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.skipForward(); // Call the skip forward method
     }
 
     if (event.code === "ArrowLeft") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.skipBackward(); // Call the skip backward method
     }
 
     // Handle arrow keys for skipping
     if (event.code === "ArrowDown") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.hideMusicHud();
     }
 
     if (event.code === "ArrowUp") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.showMusicHud();
     }
   }
