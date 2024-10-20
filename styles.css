@@ -78,7 +78,7 @@
 	--active-scale: 0.869;
 
 	--blur-radius: 9px;
-	--more-blur-radius: 42px;
+	--more-blur-radius: 27px;
 
 	/* Github contributions */
 	--color-calendar-graph-day-bg: #3d3d3d;
@@ -484,10 +484,9 @@ a {
 	border-radius: var(--default-radius);
 	z-index: var(--z-index-overlay);
 	font-size: var(--subtitle-text-size);
-	transform: translateY(-100%); /* Move the dropdown above the button */
+	transform: translateY(-50%) translateX(-105%);
 	transition: all var(--transition-default);
 	backdrop-filter: blur(var(--more-blur-radius));
-	border: 2px solid green;
 }
 
 .modern-dropdown.hidden {
@@ -505,6 +504,16 @@ a {
 .modern-dropdown-item.selected {
 	background-color: var(--color-brand-primary); /* Use your primary color here */
 	color: var(--color-white);
+}
+
+.light-mode .modern-dropdown {
+	background-color: var(--color-light-contrast);
+	color: var(--color-light-imp);
+}
+
+.dark-mode .modern-dropdown {
+	background-color: var(--color-dark-contrast);
+	color: var(--color-dark-imp);
 }
 
 /* --------------------  Progress Area  Styling ------------------- */

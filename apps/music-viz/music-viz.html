@@ -1,8 +1,9 @@
 <style>
     #vizDropdown,
     #songDropdown {
-        bottom: 100%;
-        height: 100%;
+        height: auto;
+        width: auto;
+        transform: translateY(-156%) translateX(-25%);
     }
 
     #toggleMusicHud {
@@ -71,7 +72,7 @@
                                 data-tooltip="Select Music from Predefined List">
                             <i class="bi bi-music-note-list"></i>
                         </button>
-                        <ul id="songDropdown" class="modern-dropdown hidden ">
+                        <ul id="songDropdown" class="modern-dropdown hidden">
                             <li data-url="./apps/music-viz/closed_my_eyes.mp3" class="modern-dropdown-item">Closed My Eyes
                             </li>
                             <li data-url="./apps/music-viz/i_need_you.mp3" class="modern-dropdown-item">I Need You</li>
