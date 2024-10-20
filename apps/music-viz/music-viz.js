@@ -39,7 +39,9 @@ class MusicVizView {
       skipForwardBtn: window.document.getElementById("skipForwardBtn"),
       skipBackwardBtn: window.document.getElementById("skipBackwardBtn"),
       toggleBtn: window.document.getElementById("toggleMusicHud"),
-      toggleFullScreen: window.document.getElementById("toggleFullScreen"),
+      toggleFullScreenBtn: window.document.getElementById(
+        "toggleFullScreenBtn",
+      ),
       vizDropDownBtn: window.document.getElementById("vizDropDownBtn"),
       vizDropdown: window.document.getElementById("vizDropdown"),
     };
@@ -67,7 +69,7 @@ class MusicVizView {
       "click",
       this.toggleMusicHud.bind(this),
     );
-    this.elements.toggleFullScreen.addEventListener(
+    this.elements.toggleFullScreenBtn.addEventListener(
       "click",
       this.toggleFullScreen.bind(this),
     );
@@ -239,12 +241,12 @@ class MusicVizView {
     window.document.addEventListener("fullscreenchange", () => {
       if (document.fullscreenElement === this.elements.appWindow) {
         this.elements.appWindow.classList.add("full-screen-modal");
-        this.elements.toggleFullScreen.innerHTML =
+        this.elements.toggleFullScreenBtn.innerHTML =
           '<i class="bi bi-fullscreen-exit"></i>'; // Change icon for full-screen
         this.hideMusicHud(); // Hide the music HUD when exiting full-screen
       } else {
         this.elements.appWindow.classList.remove("full-screen-modal");
-        this.elements.toggleFullScreen.innerHTML =
+        this.elements.toggleFullScreenBtn.innerHTML =
           '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
         this.showMusicHud(); // Hide the music HUD when exiting full-screen
       }

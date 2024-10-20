@@ -274,12 +274,14 @@ class MeshView {
       canvas: window.document.getElementById("meshCanvas"),
       infoModal: window.document.getElementById("infoModal"),
       loadingModal: window.document.getElementById("loadingModal"),
-      fullScreenDropZone: window.document.getElementById("fullScreenDropZone"),
+      fileDropZone: window.document.getElementById("fileDropZone"),
       fileUploadBtn: window.document.getElementById("fileUploadBtn"),
       appControllerContainer: window.document.getElementById(
         "appControllerContainer",
       ),
-      toggleFullScreen: window.document.getElementById("toggleFullScreen"),
+      toggleFullScreenBtn: window.document.getElementById(
+        "toggleFullScreenBtn",
+      ),
     };
   }
 
@@ -310,8 +312,8 @@ class MeshView {
   }
 
   handleSuccessFileUpload() {
-    if (!this.elements.fullScreenDropZone.classList.contains("hidden")) {
-      this.elements.fullScreenDropZone.classList.add("hidden");
+    if (!this.elements.fileDropZone.classList.contains("hidden")) {
+      this.elements.fileDropZone.classList.add("hidden");
     }
 
     this.elements.fileUploadBtn.classList.remove("hidden");
@@ -342,12 +344,12 @@ class MeshView {
 
   handleDropZoneDragOver(event) {
     event.preventDefault();
-    this.elements.fullScreenDropZone.classList.add("active");
+    this.elements.fileDropZone.classList.add("active");
   }
 
   handleDropZoneDragLeave(event) {
     event.preventDefault();
-    this.elements.fullScreenDropZone.classList.remove("active");
+    this.elements.fileDropZone.classList.remove("active");
   }
 
   handleDropZoneDrop(event) {
@@ -360,14 +362,14 @@ class MeshView {
   }
 
   toggleFullScreenDropZone(showOrHide = "show") {
-    toggleElementVisibility(this.elements.fullScreenDropZone, showOrHide);
+    toggleElementVisibility(this.elements.fileDropZone, showOrHide);
   }
 
   toggleFullScreenActive(makeItActive = false) {
     if (makeItActive) {
-      this.elements.fullScreenDropZone.classList.add("active");
+      this.elements.fileDropZone.classList.add("active");
     } else {
-      this.elements.fullScreenDropZone.classList.remove("active");
+      this.elements.fileDropZone.classList.remove("active");
     }
   }
 
@@ -419,20 +421,20 @@ class MeshView {
 
   initEventListeners() {
     // Handle file uploads via the drop zone
-    this.elements.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
     );
     // Handle drag-and-drop uploads
-    this.elements.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "dragover",
       this.handleDropZoneDragOver.bind(this),
     );
-    this.elements.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "dragleave",
       this.handleDropZoneDragLeave.bind(this),
     );
-    this.elements.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "drop",
       this.handleDropZoneDrop.bind(this),
     );
@@ -442,7 +444,7 @@ class MeshView {
       this.handleDropZoneBtnClick.bind(this),
     );
 
-    this.elements.toggleFullScreen.addEventListener(
+    this.elements.toggleFullScreenBtn.addEventListener(
       "click",
       this.toggleFullScreen.bind(this),
     );
@@ -489,14 +491,14 @@ class MeshView {
       // Enter full-screen
       if (document.fullscreenElement === this.elements.appWindow) {
         this.elements.appWindow.classList.add("full-screen-modal");
-        this.elements.toggleFullScreen.innerHTML =
+        this.elements.toggleFullScreenBtn.innerHTML =
           '<i class="bi bi-fullscreen-exit"></i>'; // Change icon for full-screen
         this.renderer.updateScreenSize(window.innerWidth, window.innerHeight);
         return;
       }
       // Exit full-screen
       this.elements.appWindow.classList.remove("full-screen-modal");
-      this.elements.toggleFullScreen.innerHTML =
+      this.elements.toggleFullScreenBtn.innerHTML =
         '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
       this.renderer.updateScreenSize(meshViewWidth, meshViewHeight);
     });
