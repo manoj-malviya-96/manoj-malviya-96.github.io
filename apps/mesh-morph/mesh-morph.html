@@ -25,22 +25,26 @@
 
     #infoModal {
         position: absolute;
-        width: auto; height: auto;
-        margin: 0; padding: 0;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
         transform: translateY(-50%) translateX(25%);
         border-radius: var(--default-radius);
         z-index: var(--z-index-overlay);
     }
 
     #infoTable {
-        margin: 0; padding: 0;
+        margin: 0;
+        padding: 0;
         font-size: var(--subtitle-text-size);
         border-collapse: collapse;
         width: 100%;
     }
 
     #infoModal td {
-        width: auto; height: auto;
+        width: auto;
+        height: auto;
         padding: var(--spacing-small);
     }
 
@@ -83,52 +87,64 @@
             <!-- Settings -->
             <div class="app-controller-row">
 
-                <!-- View Buttons -->
-                <div id="viewButtonGrid" class="app-controller-row-item">
-                    <div></div>
-                    <div class="primary-button smaller" data-view="top">
-                        <i class="bi bi-arrow-up"></i>
+                <div class="app-controller-row-group">
+                    <!-- View Buttons -->
+                    <div id="viewButtonGrid" class="app-controller-row-item">
+                        <div></div>
+                        <div class="primary-button smaller" data-view="top">
+                            <i class="bi bi-arrow-up"></i>
+                        </div>
+                        <div></div>
+                        <div class="primary-button smaller" data-view="left">
+                            <i class="bi bi-arrow-left"></i>
+                        </div>
+                        <div class="primary-button smaller" data-view="home">
+                            <i class="bi bi-house"></i>
+                        </div>
+                        <div class="primary-button smaller" data-view="right">
+                            <i class="bi bi-arrow-right"></i>
+                        </div>
+                        <div></div>
+                        <div class="primary-button smaller" data-view="bottom">
+                            <i class="bi bi-arrow-down"></i>
+                        </div>
+                        <div></div>
                     </div>
-                    <div></div>
-                    <div class="primary-button smaller" data-view="left">
-                        <i class="bi bi-arrow-left"></i>
-                    </div>
-                    <div class="primary-button smaller" data-view="home">
-                        <i class="bi bi-house"></i>
-                    </div>
-                    <div class="primary-button smaller" data-view="right">
-                        <i class="bi bi-arrow-right"></i>
-                    </div>
-                    <div></div>
-                    <div class="primary-button smaller" data-view="bottom">
-                        <i class="bi bi-arrow-down"></i>
-                    </div>
-                    <div></div>
                 </div>
-                <!--File Upload Button -->
-                <button id="fileUploadBtn" class="primary-button modern-tooltip app-controller-row-item"
-                        data-tooltip="click to upload STL">
-                    <i class="bi bi-upload"></i>
-                </button>
-                <!-- Full Screen Button -->
-                <button id="toggleFullScreenBtn" class="primary-button modern-tooltip app-controller-row-item"
-                        data-tooltip="Toggle full screen mode">
-                    <i class="bi bi-arrows-fullscreen"></i>
-                </button>
 
-                <!-- Mesh Place -->
-                <div class="app-controller-row-item">
-                    <button id="infoBtn" class="primary-button">
-                        <i class="bi bi-info-circle"></i>
+                <div class="app-controller-row-group">
+                    <!--File Upload Button -->
+                    <button id="fileUploadBtn" class="primary-button modern-tooltip app-controller-row-item"
+                            data-tooltip="click to upload STL">
+                        <i class="bi bi-upload"></i>
                     </button>
-                    <div id="infoModal" class="hidden">
-                        <table id="infoTable">
-                            <!-- dynamically will be added -->
-                        </table>
-                    </div>
+                    <!-- download Button -->
+                    <button id="downloadBtn" class="primary-button modern-tooltip app-controller-row-item"
+                            data-tooltip="Download Mesh">
+                        <i class="bi bi-box-arrow-down"></i>
+                    </button>
                 </div>
 
-                <!-- End of Settings -->
+
+                <div class="app-controller-row-group">
+                    <!-- Full Screen Button -->
+                    <button id="toggleFullScreenBtn" class="primary-button modern-tooltip app-controller-row-item"
+                            data-tooltip="Toggle full screen mode">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+
+                    <!-- Mesh Place -->
+                    <div class="app-controller-row-item">
+                        <button id="infoBtn" class="primary-button">
+                            <i class="bi bi-info-circle"></i>
+                        </button>
+                        <div id="infoModal" class="hidden">
+                            <table id="infoTable">
+                                <!-- dynamically will be added -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- End of App Header -->
         </div>

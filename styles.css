@@ -1073,8 +1073,8 @@ th {
     align-items: center;
     justify-content: center;
     height: auto;
-    width: auto;
-    max-width: var(--app-controller-max-width);
+    /*width: auto;*/
+    width: var(--app-controller-max-width);
     margin: auto auto var(--spacing-medium);
     z-index: var(--z-index-max);
     background-color: transparent;
@@ -1113,12 +1113,19 @@ th {
     margin: var(--spacing-tiny) 0; /* Give enough space for border of buttons */
 }
 
-.app-controller-row-item {
+.app-controller-row-group {
     display: flex;
     flex-direction: row;
     margin-right: var(--spacing-medium);
 }
 
+.app-controller-row-group:last-child {
+    border-right: none;
+}
+
+.app-controller-row-item {
+    margin-right: var(--spacing-medium);
+}
 .app-controller-row-item:last-child {
     margin-right: 0;
 }

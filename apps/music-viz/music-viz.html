@@ -46,7 +46,7 @@
             </div>
             <!-- HUD for music controls and display -->
             <div id="music-hud" class="app-controller-row">
-                <div id="control-buttons" class="app-controller-row-item" style="display: flex; width: auto">
+                <div id="control-buttons" class="app-controller-row-group" style="display: flex; width: auto">
                     <!--Skip backward button -->
                     <button id="skipBackwardBtn"
                             class="primary-button  modern-tooltip"
@@ -66,14 +66,14 @@
                 </div>
 
                 <!-- Info control -->
-                <div class="row-layout app-controller-row-item">
+                <div class="row-layout app-controller-row-group">
                     <!-- Song Title -->
                     <span id="songTitle">Currently Playing</span>
                     <!-- Time Info -->
                     <div id="timeInfo" style="margin-left: var(--spacing-medium);">0:00/0:00</div>
                 </div>
 
-                <div id="vizSettings" class="app-controller-row-item" style="width: auto">
+                <div id="vizSettings" class="app-controller-row-group" style="width: auto">
                     <!-- Song selector dropdown -->
                     <div class="app-controller-row-item">
                         <button class="primary-button modern-tooltip" id="songDropdownBtn"
