@@ -11,6 +11,7 @@ function handleRunningApps() {
   if (window.musicApp) {
     window.musicApp.resetAudio();
   }
+  // Pause the mesh morph app if it exists before loading new content
   if (window.meshaMorph) {
     window.meshaMorph = null;
   }
