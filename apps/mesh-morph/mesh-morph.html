@@ -23,6 +23,37 @@
         margin-right: var(--spacing-large);
     }
 
+    #infoModal {
+        position: absolute;
+        width: auto; height: auto;
+        margin: 0; padding: 0;
+        transform: translateY(-50%) translateX(25%);
+        border-radius: var(--default-radius);
+        z-index: var(--z-index-overlay);
+    }
+
+    #infoTable {
+        margin: 0; padding: 0;
+        font-size: var(--subtitle-text-size);
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #infoModal td {
+        width: auto; height: auto;
+        padding: var(--spacing-small);
+    }
+
+    .light-mode #infoModal {
+        background-color: var(--color-light-contrast);
+        color: var(--color-black);
+    }
+
+    .dark-mode #infoModal {
+        background-color: var(--color-dark-contrast);
+        color: var(--color-white);
+    }
+
 </style>
 
 <!-- Icon and App Name in  layout -->
@@ -74,24 +105,7 @@
                     </div>
                     <div></div>
                 </div>
-
-                <!-- Mesh Place -->
-                <div id="infoModalContainer" class="app-controller-row-item">
-                    <button id="infoModalBtn" class="primary-button">
-                        <i class="bi bi-info-circle"></i>
-                    </button>
-
-                    <div id="infoModal" class="modal" style="display: none;">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <table id="infoModalTable" style="border-collapse: collapse;">
-                                <!-- dynamically will be added -->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-
+                <!--File Upload Button -->
                 <button id="fileUploadBtn" class="primary-button modern-tooltip app-controller-row-item"
                         data-tooltip="click to upload STL">
                     <i class="bi bi-upload"></i>
@@ -101,6 +115,19 @@
                         data-tooltip="Toggle full screen mode">
                     <i class="bi bi-arrows-fullscreen"></i>
                 </button>
+
+                <!-- Mesh Place -->
+                <div class="app-controller-row-item">
+                    <button id="infoBtn" class="primary-button">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <div id="infoModal" class="hidden">
+                        <table id="infoTable">
+                            <!-- dynamically will be added -->
+                        </table>
+                    </div>
+                </div>
+
                 <!-- End of Settings -->
             </div>
             <!-- End of App Header -->

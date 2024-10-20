@@ -299,17 +299,27 @@ function loadPDF(url, placeholder, overlay) {
   };
 }
 
-function toggleElementVisibility(element, showOrHide = "show") {
+function toggleElementVisibility(element, showOrHide = "") {
   if (!element) {
     console.error("Element not found");
   }
+  const doCheck = showOrHide === "show" || showOrHide === "hide";
   const isHidden = element.classList.contains("hidden");
   // Check if the modal is already in the desired state
   if (
-    (isHidden && showOrHide === "hide") ||
-    (!isHidden && showOrHide === "show")
+    doCheck &&
+    ((isHidden && showOrHide === "hide") ||
+      (!isHidden && showOrHide === "show"))
   ) {
     return;
   }
   element.classList.toggle("hidden");
+}
+
+function addKeyValueToTable(table, key, value) {
+  const row = table.insertRow();
+  const cell1 = row.insertCell(0);
+  const cell2 = row.insertCell(1);
+  cell1.textContent = key;
+  cell2.textContent = value;
 }

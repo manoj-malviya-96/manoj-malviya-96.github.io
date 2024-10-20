@@ -263,6 +263,7 @@ class MeshView {
   constructor() {
     this.elements = this.getDomElements();
     this.renderer = new MeshRenderer(this.elements.canvas);
+    this.fileName = "No file loaded";
     this.initEventListeners();
     this.toggleAppController();
   }
@@ -272,7 +273,9 @@ class MeshView {
       appWindow: window.document.querySelector(".app-window"),
       appController: window.document.querySelector(".app-controller"),
       canvas: window.document.getElementById("meshCanvas"),
+      infoBtn: window.document.getElementById("infoBtn"),
       infoModal: window.document.getElementById("infoModal"),
+      infoTable: window.document.getElementById("infoTable"),
       loadingModal: window.document.getElementById("loadingModal"),
       fileDropZone: window.document.getElementById("fileDropZone"),
       fileUploadBtn: window.document.getElementById("fileUploadBtn"),
@@ -294,15 +297,7 @@ class MeshView {
     if (!this.renderer.renderedMeshes.length > 0) {
       console.error("Mesh cant be loaded");
     }
-
-    // Update information panel
     this.handleSuccessFileUpload();
-
-    // window.document.getElementById("info-volume").innerText =
-    //   `Volume: ${volume.toFixed(2)}`;
-    // window.document.getElementById("info-triangles").innerText =
-    //   `Number of Triangles: ${geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3}`;
-
     this.renderer.homeView();
   }
 
@@ -379,21 +374,21 @@ class MeshView {
     }
 
     this.renderer.clearRenderedMeshes(); // Clear any existing meshes
+    this.fileName = file.name; // Update the file name
 
     this.toggleFullScreenActive(false);
     this.toggleFullScreenDropZone("hide");
     this.toggleLoadingDisplay("show");
 
-    console.log("Loading file: ", file);
-
     runWithDelay(() => {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.loadMesh(e.target.result);
+        this.toggleLoadingDisplay("hide");
+        this.updateTable();
       };
       reader.readAsArrayBuffer(file);
-      this.toggleLoadingDisplay("hide");
-    });
+    }); // Wait for the mesh to load
   }
 
   handleViewButton(view) {
@@ -449,6 +444,11 @@ class MeshView {
       this.toggleFullScreen.bind(this),
     );
 
+    this.elements.infoBtn.addEventListener(
+      "click",
+      this.toggleInfoModal.bind(this),
+    );
+
     // Handle view panel button clicks
     const viewContainer = window.document.getElementById("viewButtonGrid");
     viewContainer.querySelectorAll(".primary-button").forEach((button) => {
@@ -457,9 +457,29 @@ class MeshView {
         this.handleViewButton.bind(this, button.getAttribute("data-view")),
       );
     });
-
     this.setupResizing();
     this.setupKeyboardShortcuts();
+  }
+
+  updateTable() {
+    this.elements.infoTable.innerHTML = ""; // Clear the table
+    addKeyValueToTable(this.elements.infoTable, "File", this.fileName);
+
+    if (!this.renderer.loadedMesh) {
+      console.error(this.renderer.loadedMesh);
+      return;
+    }
+
+    addKeyValueToTable(
+      this.elements.infoTable,
+      "Volume",
+      Math.round(this.renderer.loadedMesh.volume),
+    );
+    addKeyValueToTable(
+      this.elements.infoTable,
+      "Triangles",
+      this.renderer.loadedMesh.numTriangles,
+    );
   }
 
   setupKeyboardShortcuts() {
@@ -513,5 +533,9 @@ class MeshView {
     } else if (window.document.exitFullscreen) {
       window.document.exitFullscreen();
     }
+  }
+
+  toggleInfoModal() {
+    toggleElementVisibility(this.elements.infoModal);
   }
 }
