@@ -1,6 +1,6 @@
 const skipTime_s = 10; // Skip time in seconds
 
-class MusicApp {
+class MusicVizView {
   constructor() {
     this.elements = this.getDomElements();
     if (!this.elements.canvas) return;

@@ -3,7 +3,7 @@ const appWindowWidth = getSizeFromStyle('--app-window-width');
 const appWindowHeight = getSizeFromStyle('--app-window-height');
 
 function initMusicApp() {
-  window.musicApp = new MusicApp();
+  window.musicApp = new MusicVizView();
 }
 
 function handleRunningApps() {
