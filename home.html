@@ -60,12 +60,17 @@
         box-shadow: var(--shadows-dark);
     }
 
-    #blogList {
-        grid-template-columns: repeat(auto-fill, minmax(var(--blog-card-and-header-height), 1fr));
+    #blogListings,
+    #appListings {
+        width: var(--max-body-width);
+        height: auto;
+        align-content: center;
+        margin: 0 auto;
     }
 
-    #appList {
-        grid-template-columns: repeat(auto-fill, minmax(var(--app-drawer-button-height), 1fr));
+    #appList .primary-button {
+        width: var(--blog-card-and-header-height);
+        height: var(--app-drawer-button-height);
     }
 
 </style>
@@ -171,8 +176,10 @@
 
 
 <!-------------------------- Apps Section -------------------------->
-<div id="appList" class="content with-padding app-drawer grid-container" style="margin-top: var(--spacing-huge)">
-    <!-- Will be dynamically added here -->
+<div id="appListings" class="content with-padding" style="margin-top: var(--spacing-huge)">
+    <div id="appList" class="grid-container home-page">
+        <!-- Will be dynamically added here -->
+    </div>
 </div>
 
 
@@ -212,7 +219,7 @@
         </div>
     </div>
 
-    <div id="blogList" class="grid-container">
+    <div id="blogList" class="grid-container home-page">
         <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>
