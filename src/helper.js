@@ -51,7 +51,7 @@ function loadContentWithOverlay(
 
 // Overloaded function with no overlay and no delay
 function loadContent(page, placeholder, callback = null) {
-  loadContentWithOverlay(page, placeholder, null, callback, 0);
+  loadContentWithOverlay(page, placeholder, null, callback);
 }
 
 /* ------------ URL and Storage ------------ */
@@ -160,6 +160,10 @@ function getStyleValue(property) {
   return getComputedStyle(window.document.documentElement).getPropertyValue(
     property,
   );
+}
+
+function getSizeFromStyle(property) {
+  return Number(getStyleValue(property).replace("px", ""));
 }
 
 function getPrimaryColor() {
@@ -293,4 +297,37 @@ function loadPDF(url, placeholder, overlay) {
     overlay.style.display = "none";
     alert("Failed to load the PDF. Please try again.");
   };
+}
+
+function toggleElementVisibility(element, showOrHide = "") {
+  if (!element) {
+    console.error("Element not found");
+  }
+  const doCheck = showOrHide === "show" || showOrHide === "hide";
+  const isHidden = element.classList.contains("hidden");
+  // Check if the modal is already in the desired state
+  if (
+    doCheck &&
+    ((isHidden && showOrHide === "hide") ||
+      (!isHidden && showOrHide === "show"))
+  ) {
+    return;
+  }
+  element.classList.toggle("hidden");
+}
+
+function addKeyValueToTable(table, key, value) {
+  const row = table.insertRow();
+  const cell1 = row.insertCell(0);
+  const cell2 = row.insertCell(1);
+  cell1.textContent = key;
+  cell2.textContent = value;
+}
+
+function addOutsideClickHandler(button, popup) {
+  window.addEventListener("click", (event) => {
+    if (!button.contains(event.target) && !popup.contains(event.target)) {
+      popup.classList.add("hidden");
+    }
+  });
 }

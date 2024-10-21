@@ -1,10 +1,77 @@
-class MeshLoader {
+const meshViewWidth = appWindowWidth;
+const meshViewHeight = appWindowHeight;
+const mainLightColor = 0xffffff;
+const softLightColor = 0x404040;
+const modelColor = 0x808080;
+const primaryColor = getPrimaryColor();
+
+class LoadedMesh {
   constructor() {
-    this.loader = new THREE.STLLoader();
+    this.geometry = null;
+    this.centroid = null;
+
+    this.volume = 0;
+    this.numTriangles = 0;
+    this.boundingBox = null;
+
+    // Internals
+    this._loader = new THREE.STLLoader();
   }
 
   load(arrayBuffer) {
-    return this.loader.parse(arrayBuffer);
+    this.geometry = this._loader.parse(arrayBuffer);
+    this.centroid = this.computeAccurateCentroid(this.geometry);
+    this.volume = this.computeVolume(this.geometry);
+    this.numTriangles = this.geometry.index
+      ? this.geometry.index.count / 3
+      : this.geometry.attributes.position.count / 3;
+    this.boundingBox = this.computeBoundingBox(this.geometry);
+  }
+
+  simplifyMesh(value = 0.5) {
+    console.log("Custom simplifying mesh with value", value);
+
+    // Get the original geometry attributes
+    let geometry = this.geometry.clone();
+
+    // Ensure the geometry is a BufferGeometry
+    if (!(geometry instanceof THREE.BufferGeometry)) {
+      console.error(
+        "Geometry is not a BufferGeometry. Custom simplification requires BufferGeometry.",
+      );
+      return;
+    }
+
+    const positionAttribute = geometry.getAttribute("position");
+
+    // Number of original vertices
+    const totalVertices = positionAttribute.count;
+    const reduceFactor = Math.floor(1 / value); // Reduction factor to keep vertices
+
+    // Create an array to store new vertex positions
+    const newVertices = [];
+
+    // Iterate over the vertices and keep only every nth vertex based on reduction factor
+    for (let i = 0; i < totalVertices; i += reduceFactor) {
+      newVertices.push(positionAttribute.getX(i));
+      newVertices.push(positionAttribute.getY(i));
+      newVertices.push(positionAttribute.getZ(i));
+    }
+
+    // Create a new BufferGeometry with the reduced set of vertices
+    const newGeometry = new THREE.BufferGeometry();
+    newGeometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(newVertices, 3),
+    );
+
+    // Dispose of old geometry and set the simplified one
+    this.geometry.dispose();
+    this.geometry = newGeometry;
+
+    console.log(
+      `Simplified mesh from ${totalVertices} vertices to ${newVertices.length / 3} vertices.`,
+    );
   }
 
   computeAccurateCentroid(geometry) {
@@ -56,192 +123,153 @@ class MeshLoader {
 }
 
 class MeshRenderer {
-  constructor(scene) {
-    this.scene = scene;
-    this.mesh = null;
-    this.centroidPoint = null;
-  }
-
-  renderMesh(geometry, material) {
-    if (this.mesh) {
-      this.scene.remove(this.mesh);
-      if (this.centroidPoint) this.scene.remove(this.centroidPoint);
-    }
-
-    this.mesh = new THREE.Mesh(geometry, material);
-    this.scene.add(this.mesh);
-
-    return this.mesh;
-  }
-
-  addCentroidPoint(centroid) {
-    const centroidGeometry = new THREE.SphereGeometry(0.05, 16, 16);
-    const centroidMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    this.centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
-    this.centroidPoint.position.copy(centroid);
-    this.scene.add(this.centroidPoint);
-  }
-}
-
-class MeshView {
-  constructor() {
+  constructor(canvas, width = meshViewWidth, height = meshViewHeight) {
     this.scene = new THREE.Scene();
+    this.material = new THREE.MeshPhongMaterial({ color: modelColor });
+    this.loadedMesh = new LoadedMesh();
+
+    this.webGLRenderer = null;
+    this.camera = null;
+    this.controls = null;
+    this.renderedMeshes = []; // Keeps track of all rendered meshes
+
+    this.setupCamera(width, height);
+    this.setupWebGLRenderer(canvas, width, height);
+    this.setupLights();
+    this.setupControls();
+
+    this._exporter = new THREE.STLExporter();
+  }
+
+  setupWebGLRenderer(canvas, width, height) {
+    this.webGLRenderer = new THREE.WebGLRenderer({ canvas });
+    this.webGLRenderer.setSize(width, height);
+  }
+
+  updateModal() {
+    this.controls.update();
+    this.webGLRenderer.render(this.scene, this.camera);
+  }
+
+  saveMesh() {
+    return this._exporter.parse(this.scene);
+  }
+
+  setupCamera(width, height) {
     this.camera = new THREE.PerspectiveCamera(
       75,
-      1200 / 900, // Aspect ratio to match your canvas
-      0.1,
+      width / height, // Aspect ratio to match your canvas
+      1,
       1000,
     );
-    const canvas = document.getElementById("meshCanvas");
-    this.renderer = new THREE.WebGLRenderer({ canvas });
-    this.renderer.setSize(1200, 900); // Match the canvas size
+  }
 
-    // Add light sources
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 5, 5).normalize();
-    this.scene.add(directionalLight);
+  setupLights() {
+    if (!this.scene) {
+      console.error("No scene available to add lights to.");
+      return;
+    }
+    const hemisphereLight = new THREE.HemisphereLight(
+      mainLightColor,
+      softLightColor,
+      1.2,
+    );
+    hemisphereLight.position.set(0, 20, 0);
+    this.scene.add(hemisphereLight);
+  }
 
-    const ambientLight = new THREE.AmbientLight(0x404040); // Soft light
-    this.scene.add(ambientLight);
-
+  setupControls() {
     // Add OrbitControls for better user interaction like CAD software
     this.controls = new THREE.OrbitControls(
       this.camera,
-      this.renderer.domElement,
+      this.webGLRenderer.domElement,
     );
     this.controls.enableDamping = true; // Smooth the control movements
     this.controls.dampingFactor = 0.05;
     this.controls.screenSpacePanning = false;
     this.controls.maxPolarAngle = Math.PI * 2;
-
-    this.meshLoader = new MeshLoader();
-    this.meshRenderer = new MeshRenderer(this.scene);
-
-    this.infoPanel = document.getElementById("infoPanel");
-    this.loadingText = document.getElementById("loading");
-    this.fullScreenDropZone = document.getElementById("fullScreenDropZone");
-    this.smallerDropZone = document.getElementById("smallerDropZone");
-    this.toggleBtn = window.document.getElementById("toggleViewBar");
-    this.appControllerContainer = window.document.getElementById(
-      "appControllerContainer",
-    );
-    this.appController = window.document.querySelector(".app-controller");
-
-    this.initEventListeners();
-    this.toggleAppController();
   }
 
   loadMesh(arrayBuffer) {
-    const geometry = this.meshLoader.load(arrayBuffer);
-    const material = new THREE.MeshPhongMaterial({ color: 0x808080 }); // Gray color for the model
-    const mesh = this.meshRenderer.renderMesh(geometry, material);
+    try {
+      // Load the mesh from buffer
+      this.loadedMesh.load(arrayBuffer);
+      this.renderMesh(true); // Loading first time, so center to centroid
+      // Render it with centered to centroid
+    } catch (error) {
+      console.error("Error loading mesh", error);
+    }
+  }
 
-    // Compute the centroid and volume of the mesh
-    const centroid = this.meshLoader.computeAccurateCentroid(geometry);
-    const volume = this.meshLoader.computeVolume(geometry);
-    mesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
-
-    this.meshRenderer.addCentroidPoint(new THREE.Vector3(0, 0, 0));
+  renderMesh(centerToModelOrigin = false) {
+    if (this.renderedMeshes.length > 0) {
+      console.log("Clearing existing meshes");
+      this.clearRenderedMeshes();
+    }
+    // Render the loaded mesh
+    this.renderLoadedMesh(
+      this.loadedMesh.geometry,
+      this.material,
+      centerToModelOrigin ? this.loadedMesh.centroid : null,
+    );
+    // Render the centroid
+    this.renderCentroid(new THREE.Vector3(0, 0, 0));
+    // Set the camera to look at the centroid
     this.controls.target.set(0, 0, 0);
     this.controls.update();
-
-    this.geometry = geometry;
-
-    // Update information panel
-    this.prepareAppControllerPostSuccessfulFileUpload();
-
-    document.getElementById("info-volume").innerText =
-      `Volume: ${volume.toFixed(2)}`;
-    document.getElementById("info-triangles").innerText =
-      `Number of Triangles: ${geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3}`;
-
-    this.homeView();
   }
 
-  animate() {
-    requestAnimationFrame(() => this.animate());
+  updateScreenSize(width, height) {
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.webGLRenderer.setSize(width, height);
     this.controls.update();
-    this.renderer.render(this.scene, this.camera);
   }
 
-  prepareAppControllerPostSuccessfulFileUpload() {
-    this.infoPanel.style.display = "block";
-    this.loadingText.style.display = "none";
+  clearRenderedMeshes() {
+    this.renderedMeshes.forEach((mesh) => this.scene.remove(mesh));
+    this.renderedMeshes = [];
+  }
 
-    if (!this.fullScreenDropZone.classList.contains("hidden")) {
-      this.fullScreenDropZone.classList.add("hidden");
+  addRenderedMeshToScene(mesh) {
+    this.scene.add(mesh);
+    this.renderedMeshes.push(mesh);
+  }
+
+  renderLoadedMesh(geometry, material, centroid = null) {
+    const renderedMesh = new THREE.Mesh(geometry, material);
+    if (centroid) {
+      renderedMesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
     }
 
-    this.smallerDropZone.classList.remove("hidden");
-    this.appControllerContainer.classList.remove("hidden");
-
-    this.toggleAppController(true);
+    this.addRenderedMeshToScene(renderedMesh);
   }
 
-  toggleAppController(forceShow = false) {
-    if (forceShow && !this.appController.classList.contains("hidden")) {
-      return;
-    }
-    this.appController.classList.toggle("hidden");
-    this.toggleBtn.innerHTML = this.appController.classList.contains("hidden")
-      ? '<i class="bi bi-chevron-compact-up"></i>'
-      : '<i class="bi bi-chevron-compact-down"></i>';
+  renderCentroid(centroid) {
+    const radius = 0.69;
+    const segments = 16;
+    const centroidGeometry = new THREE.SphereGeometry(
+      radius,
+      segments,
+      segments,
+    );
+
+    const centroidMaterial = new THREE.MeshBasicMaterial({
+      color: primaryColor,
+    });
+
+    const centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
+    centroidPoint.position.copy(centroid);
+    this.addRenderedMeshToScene(centroidPoint);
   }
 
-  handleDropZoneBtnClick() {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = ".stl";
-    input.onchange = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        this.loadingText.style.display = "block";
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.loadMesh(e.target.result);
-        };
-        reader.readAsArrayBuffer(file);
-      }
-    };
-    input.click();
-  }
-
-  handleDropZoneDragOver(event) {
-    event.preventDefault();
-    this.fullScreenDropZone.classList.add("active");
-    this.fullScreenDropZone.style.borderColor = "#777";
-    this.fullScreenDropZone.style.color = "#777";
-  }
-
-  handleDropZoneDragLeave(event) {
-    event.preventDefault();
-    this.fullScreenDropZone.classList.remove("active");
-    this.fullScreenDropZone.style.borderColor = "#aaa";
-    this.fullScreenDropZone.style.color = "#aaa";
-  }
-
-  handleDropZoneDrop(event) {
-    event.preventDefault();
-    this.fullScreenDropZone.classList.remove("active");
-    this.loadingText.style.display = "block";
-
-    const file = event.dataTransfer.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.loadMesh(e.target.result);
-      };
-      reader.readAsArrayBuffer(file);
-    }
+  homeControls() {
+    this.controls.lookAt(0, 0, 0);
+    this.controls.update();
   }
 
   homeView(onlyApplyPosition = false) {
-    if (!this.meshLoader && !this.geometry) {
-      console.error("No geometry available to compute home view.");
-      return;
-    }
-
-    const boundingBox = this.meshLoader.computeBoundingBox(this.geometry);
+    const boundingBox = this.loadedMesh.boundingBox;
 
     const center = new THREE.Vector3();
     boundingBox.getCenter(center);
@@ -270,81 +298,367 @@ class MeshView {
     }
   }
 
+  moveCameraBy(axis = "x", angle) {
+    let axisVector = null;
+    switch (axis) {
+      case "x":
+        axisVector = new THREE.Vector3(1, 0, 0);
+        break;
+      case "y":
+        axisVector = new THREE.Vector3(0, 1, 0);
+        break;
+      case "z":
+        axisVector = new THREE.Vector3(0, 0, 1);
+        break;
+    }
+    this.camera.position.applyAxisAngle(axisVector, angle);
+  }
+}
+
+class MeshView {
+  constructor() {
+    this.elements = this.getDomElements();
+    this.renderer = new MeshRenderer(this.elements.canvas);
+    this.fileName = "No file loaded";
+    this.initEventListeners();
+    this.toggleAppController();
+  }
+
+  getDomElements() {
+    return {
+      appWindow: window.document.querySelector(".app-window"),
+      appController: window.document.querySelector(".app-controller"),
+      canvas: window.document.getElementById("meshCanvas"),
+      infoBtn: window.document.getElementById("infoBtn"),
+      infoModal: window.document.getElementById("infoModal"),
+      infoTable: window.document.getElementById("infoTable"),
+      simplifyBtn: window.document.getElementById("simplifyBtn"),
+      simplifyModal: window.document.getElementById("simplifyModal"),
+      simplifyValue: window.document.getElementById("simplifyFactor"),
+      simplifySlider: window.document.getElementById("simplifySlider"),
+      loadingModal: window.document.getElementById("loadingModal"),
+      fileDropZone: window.document.getElementById("fileDropZone"),
+      fileUploadBtn: window.document.getElementById("fileUploadBtn"),
+      fileDownloadBtn: window.document.getElementById("fileDownloadBtn"),
+      appControllerContainer: window.document.getElementById(
+        "appControllerContainer",
+      ),
+      toggleFullScreenBtn: window.document.getElementById(
+        "toggleFullScreenBtn",
+      ),
+    };
+  }
+
+  loadMesh(arrayBuffer) {
+    if (!this.renderer) {
+      console.error("Some how mesh-renderer is not init");
+    }
+
+    this.renderer.loadMesh(arrayBuffer);
+    if (!this.renderer.renderedMeshes.length > 0) {
+      console.error("Mesh cant be loaded");
+    }
+    this.handleSuccessFileUpload();
+    this.renderer.homeView();
+  }
+
+  animate() {
+    requestAnimationFrame(() => this.animate());
+    this.renderer.updateModal();
+  }
+
+  handleSuccessFileUpload() {
+    if (!this.elements.fileDropZone.classList.contains("hidden")) {
+      this.elements.fileDropZone.classList.add("hidden");
+    }
+
+    this.elements.fileUploadBtn.classList.remove("hidden");
+    this.elements.appControllerContainer.classList.remove("hidden");
+
+    this.toggleAppController(true);
+  }
+
+  toggleAppController(forceShow = false) {
+    if (
+      forceShow &&
+      !this.elements.appController.classList.contains("hidden")
+    ) {
+      return;
+    }
+    this.elements.appController.classList.toggle("hidden");
+  }
+
+  handleDropZoneBtnClick() {
+    const input = window.document.createElement("input");
+    input.type = "file";
+    input.accept = ".stl";
+    input.onchange = (event) => {
+      this.loadFile(event.target.files[0]);
+    };
+    input.click();
+  }
+
+  handleDropZoneDragOver(event) {
+    event.preventDefault();
+    this.elements.fileDropZone.classList.add("active");
+  }
+
+  handleDropZoneDragLeave(event) {
+    event.preventDefault();
+    this.elements.fileDropZone.classList.remove("active");
+  }
+
+  handleDropZoneDrop(event) {
+    event.preventDefault();
+    this.loadFile(event.dataTransfer.files[0]);
+  }
+
+  handleSaveFile() {
+    console.log("Saving file");
+    event.preventDefault();
+    this.saveFile();
+  }
+
+  toggleLoadingDisplay(showOrHide = "show") {
+    toggleElementVisibility(this.elements.loadingModal, showOrHide);
+  }
+
+  toggleFullScreenDropZone(showOrHide = "show") {
+    toggleElementVisibility(this.elements.fileDropZone, showOrHide);
+  }
+
+  toggleFullScreenActive(makeItActive = false) {
+    if (makeItActive) {
+      this.elements.fileDropZone.classList.add("active");
+    } else {
+      this.elements.fileDropZone.classList.remove("active");
+    }
+  }
+
+  loadFile(file) {
+    if (!file) {
+      console.error("No file provided to load.");
+    }
+
+    this.renderer.clearRenderedMeshes(); // Clear any existing meshes
+    this.fileName = file.name; // Update the file name
+
+    this.toggleFullScreenActive(false);
+    this.toggleFullScreenDropZone("hide");
+    this.toggleLoadingDisplay("show");
+
+    runWithDelay(() => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.loadMesh(e.target.result);
+        this.toggleLoadingDisplay("hide");
+        this.updateTable();
+      };
+      reader.readAsArrayBuffer(file);
+    }); // Wait for the mesh to load
+  }
+
+  saveFile() {
+    const stlString = this.renderer.saveMesh();
+    console.log("Saving file", stlString);
+    // Create a Blob from the STL string
+    const blob = new Blob([stlString], { type: "model/stl" });
+
+    // Create an anchor element to download the file
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "mesha.stl";
+    link.click();
+
+    // Release the URL
+    URL.revokeObjectURL(link.href);
+  }
+
   handleViewButton(view) {
     const angle = Math.PI / 2; // 90 degrees in radians
 
     switch (view) {
       case "top":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(1, 0, 0), -angle);
+        this.renderer.moveCameraBy("x", angle);
         break;
       case "bottom":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(1, 0, 0), angle);
+        this.renderer.moveCameraBy("x", -angle);
         break;
       case "right":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), -angle);
+        this.renderer.moveCameraBy("y", -angle);
         break;
       case "left":
-        this.camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+        this.renderer.moveCameraBy("y", angle);
         break;
       case "home": // Reset to default position
-        this.homeView(true);
+        this.renderer.homeView(true);
         break;
     }
-
-    this.camera.lookAt(0, 0, 0);
-    this.controls.update();
+    this.renderer.homeControls();
   }
 
   initEventListeners() {
-    this.toggleBtn.addEventListener(
-      "click",
-      this.toggleAppController.bind(this),
-    );
-
     // Handle file uploads via the drop zone
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
     );
     // Handle drag-and-drop uploads
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "dragover",
       this.handleDropZoneDragOver.bind(this),
     );
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "dragleave",
       this.handleDropZoneDragLeave.bind(this),
     );
-    this.fullScreenDropZone.addEventListener(
+    this.elements.fileDropZone.addEventListener(
       "drop",
       this.handleDropZoneDrop.bind(this),
     );
     // Handle file uploads via the smaller-drop zone
-    this.smallerDropZone.addEventListener(
+    this.elements.fileUploadBtn.addEventListener(
       "click",
       this.handleDropZoneBtnClick.bind(this),
     );
 
-    this.smallerDropZone.addEventListener(
-      "dragover",
-      this.handleDropZoneDragOver.bind(this),
+    // Handle file downloads
+    this.elements.fileDownloadBtn.addEventListener(
+      "click",
+      this.handleSaveFile.bind(this),
     );
-    this.smallerDropZone.addEventListener(
-      "dragleave",
-      this.handleDropZoneDragLeave.bind(this),
+
+    this.elements.toggleFullScreenBtn.addEventListener(
+      "click",
+      this.toggleFullScreen.bind(this),
     );
-    this.smallerDropZone.addEventListener(
-      "drop",
-      this.handleDropZoneDrop.bind(this),
+
+    this.elements.infoBtn.addEventListener(
+      "click",
+      this.toggleInfoModal.bind(this),
+    );
+    addOutsideClickHandler(this.elements.infoBtn, this.elements.infoModal);
+
+    this.elements.simplifyBtn.addEventListener(
+      "click",
+      this.toggleSimplifyModal.bind(this),
+    );
+    addOutsideClickHandler(
+      this.elements.simplifyBtn,
+      this.elements.simplifyModal,
+    );
+    this.elements.simplifySlider.addEventListener(
+      "input",
+      this.handleSimplify.bind(this),
     );
 
     // Handle view panel button clicks
-    const viewContainer = document.getElementById("viewButtonGrid");
+    const viewContainer = window.document.getElementById("viewButtonGrid");
     viewContainer.querySelectorAll(".primary-button").forEach((button) => {
       button.addEventListener(
         "click",
         this.handleViewButton.bind(this, button.getAttribute("data-view")),
       );
     });
+    this.setupResizing();
+    this.setupKeyboardShortcuts();
+  }
+
+  handleSimplify(event) {
+    const value = event.target.value;
+    this.elements.simplifyValue.innerHTML = value.toString();
+
+    this.renderer.clearRenderedMeshes();
+    this.toggleLoadingDisplay("show");
+
+    this.renderer.loadedMesh.simplifyMesh(value);
+
+    runWithDelay(() => {
+      this.renderer.renderMesh();
+      this.updateTable();
+      this.toggleLoadingDisplay("hide");
+    });
+  }
+
+  updateTable() {
+    this.elements.infoTable.innerHTML = ""; // Clear the table
+    addKeyValueToTable(this.elements.infoTable, "File", this.fileName);
+
+    if (!this.renderer.loadedMesh) {
+      console.error(this.renderer.loadedMesh);
+      return;
+    }
+
+    addKeyValueToTable(
+      this.elements.infoTable,
+      "Volume",
+      Math.round(this.renderer.loadedMesh.volume),
+    );
+    addKeyValueToTable(
+      this.elements.infoTable,
+      "Triangles",
+      this.renderer.loadedMesh.numTriangles,
+    );
+  }
+
+  setupKeyboardShortcuts() {
+    window.document.addEventListener("keydown", this.handleKeydown.bind(this));
+  }
+
+  handleKeydown(event) {
+    event.preventDefault(); // Prevent default behavior of keys
+
+    if (event.code === "Enter" || event.code === "KeyF") {
+      this.toggleFullScreen();
+    }
+    if (event.code === "ArrowUp") {
+      this.handleViewButton("top");
+    }
+    if (event.code === "ArrowDown") {
+      this.handleViewButton("bottom");
+    }
+    if (event.code === "ArrowLeft") {
+      this.handleViewButton("left");
+    }
+    if (event.code === "ArrowRight") {
+      this.handleViewButton("right");
+    }
+  }
+
+  setupResizing() {
+    window.document.addEventListener("fullscreenchange", () => {
+      // Enter full-screen
+      if (document.fullscreenElement === this.elements.appWindow) {
+        this.elements.appWindow.classList.add("full-screen-modal");
+        this.elements.toggleFullScreenBtn.innerHTML =
+          '<i class="bi bi-fullscreen-exit"></i>'; // Change icon for full-screen
+        this.renderer.updateScreenSize(window.innerWidth, window.innerHeight);
+        return;
+      }
+      // Exit full-screen
+      this.elements.appWindow.classList.remove("full-screen-modal");
+      this.elements.toggleFullScreenBtn.innerHTML =
+        '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
+      this.renderer.updateScreenSize(meshViewWidth, meshViewHeight);
+    });
+  }
+
+  toggleFullScreen() {
+    if (
+      !this.elements.appWindow.classList.contains("full-screen-modal") &&
+      !window.document.fullscreenElement
+    ) {
+      this.elements.appWindow.requestFullscreen();
+    } else if (window.document.exitFullscreen) {
+      window.document.exitFullscreen();
+    }
+  }
+
+  toggleInfoModal() {
+    toggleElementVisibility(this.elements.infoModal);
+  }
+
+  toggleSimplifyModal() {
+    toggleElementVisibility(this.elements.simplifyModal);
   }
 }

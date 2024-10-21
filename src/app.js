@@ -1,5 +1,9 @@
+
+const appWindowWidth = getSizeFromStyle('--app-window-width');
+const appWindowHeight = getSizeFromStyle('--app-window-height');
+
 function initMusicApp() {
-  window.musicApp = new MusicApp();
+  window.musicApp = new MusicVizView();
 }
 
 function handleRunningApps() {
@@ -7,6 +11,7 @@ function handleRunningApps() {
   if (window.musicApp) {
     window.musicApp.resetAudio();
   }
+  // Pause the mesh morph app if it exists before loading new content
   if (window.meshaMorph) {
     window.meshaMorph = null;
   }

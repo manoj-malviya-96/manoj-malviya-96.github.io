@@ -1,10 +1,8 @@
 /** ---------------------------- Global variables - Accessible across all scripts  ---------------------------- **/
 
-const contentPlaceholder = window.document.getElementById(
-  "content-placeholder",
-);
+const contentPlaceholder = window.document.getElementById("contentPlaceholder");
 const contentPlaceholderOverlay = window.document.getElementById(
-  "content-placeholder-overlay",
+  "contentLoadingOverlay",
 );
 
 const homePage = "./home.html";
@@ -39,6 +37,7 @@ const defaultAppCallbacks = [initTheme];
 const appHTMLToInits = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
+  "./apps/coming-soon/coming-soon.html": [],
 };
 
 /** ---------------------------- Content Loader  ---------------------------- **/
@@ -201,16 +200,43 @@ function makeAppButton(container, appHTMLPath) {
 }
 
 function makeAppButtons() {
-  const container = window.document.getElementById("app-list");
+  const container = window.document.getElementById("appList");
+  container.innerHTML = ""; // Clear the container before adding new cards
   if (!container) {
-    throw new Error(`Element with ID- app-list not found.`);
+    throw new Error(`Element with ID- appList not found.`);
   }
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
-  Promise.all(promises).catch((err) => {
-    console.error("Error loading all apps:", err);
+  Promise.all(promises)
+    .then(() => {
+      // Wait for a second before sorting the apps
+      runWithDelay(sortApps, 100);
+    })
+    .catch((err) => {
+      console.error("Error loading all apps:", err);
+    });
+}
+
+function sortApps() {
+  const container = document.getElementById("appList");
+  if (!container) {
+    console.error("App container not found");
+    return;
+  }
+  const buttons = Array.from(container.children);
+  if (buttons.length === 0) {
+    console.error("No app buttons found in the container");
+    return;
+  }
+
+  buttons.sort((a, b) => {
+    const titleA = a.querySelector(".app-name").textContent;
+    const titleB = b.querySelector(".app-name").textContent;
+    return titleA.localeCompare(titleB);
   });
+
+  buttons.forEach((button) => container.appendChild(button));
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
@@ -322,10 +348,11 @@ function makeBlogCard(filePath, container) {
 }
 
 function makeBlogCardsAndSetupControls() {
-  const container = window.document.getElementById("project-list");
+  const container = window.document.getElementById("blogList");
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
   }
+  container.innerHTML = ""; // Clear the container before adding new cards
 
   let allCategories = new Set();
   const promises = Object.entries(blogHTMLToExtraCallbacks).map(
@@ -444,7 +471,7 @@ function sortBlogCards(sortBy) {
   const sortOrder = sortBy.split("-")[1]; // Get the order (asc or desc)
 
   // Get all project cards
-  const container = document.getElementById("project-list");
+  const container = document.getElementById("blogList");
   const cards = Array.from(container.children);
 
   cards.sort((a, b) => {
@@ -530,7 +557,6 @@ function scrollElementInViewOnHome(event, elementId) {
   // First Load the Home Page
   if (!isUserOnHomePage()) {
     const scrollFn = () => {
-      console.log("Scrolling to element:", elementId);
       runWithDelay(scrollElementInView, timeOut_ms, elementId);
     };
     loadHomePage(event, true, [scrollFn]);

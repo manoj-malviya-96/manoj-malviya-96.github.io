@@ -1,9 +1,12 @@
 const skipTime_s = 10; // Skip time in seconds
 
-class MusicApp {
+class MusicVizView {
   constructor() {
     this.elements = this.getDomElements();
     if (!this.elements.canvas) return;
+
+    this.elements.canvas.height = appWindowHeight;
+    this.elements.canvas.width = appWindowWidth;
 
     this.canvasCtx = this.elements.canvas.getContext("2d");
     this.audioContext = null;
@@ -36,7 +39,9 @@ class MusicApp {
       skipForwardBtn: window.document.getElementById("skipForwardBtn"),
       skipBackwardBtn: window.document.getElementById("skipBackwardBtn"),
       toggleBtn: window.document.getElementById("toggleMusicHud"),
-      toggleFullScreen: window.document.getElementById("toggleFullScreen"),
+      toggleFullScreenBtn: window.document.getElementById(
+        "toggleFullScreenBtn",
+      ),
       vizDropDownBtn: window.document.getElementById("vizDropDownBtn"),
       vizDropdown: window.document.getElementById("vizDropdown"),
     };
@@ -64,7 +69,7 @@ class MusicApp {
       "click",
       this.toggleMusicHud.bind(this),
     );
-    this.elements.toggleFullScreen.addEventListener(
+    this.elements.toggleFullScreenBtn.addEventListener(
       "click",
       this.toggleFullScreen.bind(this),
     );
@@ -94,37 +99,33 @@ class MusicApp {
   }
 
   handleKeydown(event) {
+    event.preventDefault(); // Prevent default behavior of keys
+
     // Check if the space key is pressed (keyCode 32 or ' ')
     if (event.code === "Space") {
-      event.preventDefault(); // Prevent default behavior of space (e.g., scrolling)
       this.togglePlayPause();
     }
 
     // Check if the Enter key is pressed (keyCode 13 or 'Enter')
     if (event.code === "Enter" || event.code === "KeyF") {
-      event.preventDefault(); // Prevent default behavior of Enter
       this.toggleFullScreen();
     }
 
     // Handle arrow keys for skipping
     if (event.code === "ArrowRight") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.skipForward(); // Call the skip forward method
     }
 
     if (event.code === "ArrowLeft") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.skipBackward(); // Call the skip backward method
     }
 
     // Handle arrow keys for skipping
     if (event.code === "ArrowDown") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.hideMusicHud();
     }
 
     if (event.code === "ArrowUp") {
-      event.preventDefault(); // Prevent horizontal scrolling
       this.showMusicHud();
     }
   }
@@ -141,14 +142,10 @@ class MusicApp {
       );
     });
 
-    window.addEventListener("click", (event) => {
-      if (
-        !this.elements.vizDropDownBtn.contains(event.target) &&
-        !this.elements.vizDropdown.contains(event.target)
-      ) {
-        this.elements.vizDropdown.classList.add("hidden");
-      }
-    });
+    addOutsideClickHandler(
+      this.elements.vizDropDownBtn,
+      this.elements.vizDropdown,
+    );
   }
 
   toggleVizDropdown() {
@@ -193,15 +190,10 @@ class MusicApp {
         this.handleSongDropdownSelect(event),
       );
     });
-
-    window.addEventListener("click", (event) => {
-      if (
-        !this.elements.songDropdownBtn.contains(event.target) &&
-        !this.elements.songDropdown.contains(event.target)
-      ) {
-        this.elements.songDropdown.classList.add("hidden");
-      }
-    });
+    addOutsideClickHandler(
+      this.elements.songDropdownBtn,
+      this.elements.songDropdown,
+    );
   }
 
   // Todo - This can be done via setupDropdown method
@@ -240,12 +232,12 @@ class MusicApp {
     window.document.addEventListener("fullscreenchange", () => {
       if (document.fullscreenElement === this.elements.appWindow) {
         this.elements.appWindow.classList.add("full-screen-modal");
-        this.elements.toggleFullScreen.innerHTML =
+        this.elements.toggleFullScreenBtn.innerHTML =
           '<i class="bi bi-fullscreen-exit"></i>'; // Change icon for full-screen
         this.hideMusicHud(); // Hide the music HUD when exiting full-screen
       } else {
         this.elements.appWindow.classList.remove("full-screen-modal");
-        this.elements.toggleFullScreen.innerHTML =
+        this.elements.toggleFullScreenBtn.innerHTML =
           '<i class="bi bi-arrows-fullscreen"></i>'; // Change icon when exiting full-screen
         this.showMusicHud(); // Hide the music HUD when exiting full-screen
       }
@@ -698,7 +690,7 @@ class MusicApp {
         this.elements.songTitle.textContent = metadataString;
       },
       onError: (error) => {
-        console.log("Error reading metadata:", error);
+        console.error("Error reading metadata:", error);
       },
     });
   }

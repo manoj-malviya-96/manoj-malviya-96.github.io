@@ -1,97 +1,151 @@
+`
 <style>
-	#viewButtonGrid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-medium);
-		max-width: 150px;
-		margin: auto;
-	}
-	#fullScreenDropZone {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		color: var(--color-white);
-		cursor: pointer;
-		z-index: var(--z-index-overlay);
-		pointer-events: auto;
-	}
-
-    #smallerDropZone {
-        border-style: dashed;
-        height: 100%;
+    #viewButtonGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 150px;
     }
 
-    #fullScreenDropZone .bi{
+    #fileDropZone {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-white);
+        cursor: pointer;
+        z-index: var(--z-index-overlay);
+        pointer-events: auto;
+    }
+
+    #fileDropZone .bi {
         font-size: var(--hero-font-size);
         margin-right: var(--spacing-large);
     }
 
+    #infoModal,
+    #simplifyModal {
+        transform: translateY(-120%);
+    }
+
+    #infoTable {
+        margin: 0;
+        padding: 0;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #infoModal td {
+        width: auto;
+        height: auto;
+        padding: var(--spacing-small);
+    }
+
 </style>
 
-<div class="app-window">
-    <canvas id="meshCanvas" width="1100" height="900"></canvas>
+<!-- Icon and App Name in  layout -->
+<div class="app-brand-container app-controller-row">
+    <div class="app-brand-logo">
+        <i class="bi bi-hexagon" id="appIcon"></i>
+        <h2 class="app-name">Mesha</h2>
+    </div>
+    <p class="app-description">Provides an easy to render Mesh from STL </p>
+</div>
 
-    <div id="fullScreenDropZone" class="primary-button">
+<div class="app-window">
+    <canvas id="meshCanvas"></canvas>
+
+    <div id="fileDropZone" class="primary-button">
         <i class="bi bi-upload"></i>
-        <h2> Drop your STL file here or click to upload</h2>
+        <span class="button-label"> Drop your STL file here or click to upload</span>
     </div>
 
-    <div id="loading" class="hidden">Loading...</div>
+    <div id="loadingModal" class="loading-overlay hidden">
+        <div class="spinner-border loading-spinner"></div>
+    </div>
 
     <div class="app-controller-container hidden" id="appControllerContainer">
-        <!-- Button to toggle app-header -->
-        <button id="toggleViewBar" class="primary-button"><i class="bi bi-chevron-compact-down"></i> </button>
-
         <!-- App Header -->
         <div class="app-controller">
-            <!-- Icon and App Name in  layout -->
-            <div class="app-brand-container app-controller-item">
-                <div class="app-brand-logo">
-                    <i class="bi bi-hexagon" id="appIcon"></i>
-                    <h2 class="app-name">Mesha</h2>
-                </div>
-                <p class="app-description">Provides an easy to render Mesh from STL </p>
-            </div>
             <!-- Settings -->
-            <div class="app-controller-item">
-                <button id="smallerDropZone" class="primary-button with-border">
-                    <i class="bi bi-upload"></i>
-                    <span class="button-label">Drop your STL file here or click to upload</span>
-                </button>
-            </div>
+            <div class="app-controller-row">
 
-            <!-- View Buttons -->
-            <div id="viewButtonGrid" class="app-controller-item">
-                <div></div>
-                <div class="primary-button smaller" data-view="top">
-                    <i class="bi bi-arrow-up"></i>
+                <div class="app-controller-row-group">
+                    <!-- View Buttons -->
+                    <div id="viewButtonGrid" class="app-controller-row-item">
+                        <div></div>
+                        <div class="primary-button smaller" data-view="top">
+                            <i class="bi bi-arrow-up"></i>
+                        </div>
+                        <div></div>
+                        <div class="primary-button smaller" data-view="left">
+                            <i class="bi bi-arrow-left"></i>
+                        </div>
+                        <div class="primary-button smaller" data-view="home">
+                            <i class="bi bi-house"></i>
+                        </div>
+                        <div class="primary-button smaller" data-view="right">
+                            <i class="bi bi-arrow-right"></i>
+                        </div>
+                        <div></div>
+                        <div class="primary-button smaller" data-view="bottom">
+                            <i class="bi bi-arrow-down"></i>
+                        </div>
+                        <div></div>
+                    </div>
                 </div>
-                <div></div>
-                <div class="primary-button smaller" data-view="left">
-                    <i class="bi bi-arrow-left"></i>
+
+                <div class="app-controller-row-group">
+                    <!--File Upload Button -->
+                    <button id="fileUploadBtn" class="primary-button modern-tooltip app-controller-row-item"
+                            data-tooltip="Upload STL">
+                        <i class="bi bi-upload"></i>
+                    </button>
+                    <!-- download Button -->
+                    <button id="fileDownloadBtn" class="primary-button modern-tooltip app-controller-row-item"
+                            data-tooltip="Download Mesh">
+                        <i class="bi bi-box-arrow-down"></i>
+                    </button>
                 </div>
-                <div class="primary-button smaller" data-view="home">
-                    <i class="bi bi-house"></i>
+
+                <div class="app-controller-row-group">
+                    <!-- Info Button -->
+                    <button id="infoBtn" class="primary-button app-controller-row-item">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <div id="infoModal" class="app-popup-container hidden">
+                        <table id="infoTable">
+                            <!-- dynamically will be added -->
+                        </table>
+                    </div>
+
+                    <!-- Simple Button -->
+<!--                    <button id="simplifyBtn" class="primary-button app-controller-row-item">-->
+<!--                        <i class="bi bi-sliders"></i>-->
+<!--                    </button>-->
+<!--                    <div id="simplifyModal" class="app-popup-container hidden">-->
+<!--                        <label for="simplifySlider">Reduce quality by a factor of :-->
+<!--                            <span id="simplifyFactor">1.0</span>-->
+<!--                        </label>-->
+<!--                        <input type="range" id="simplifySlider" class="app-controller-row-item" min="0.5" max="1"-->
+<!--                               step="0.05"-->
+<!--                               value="1.0">-->
+<!--                    </div>-->
                 </div>
-                <div class="primary-button smaller" data-view="right">
-                    <i class="bi bi-arrow-right"></i>
-                </div>
-                <div></div>
-                <div class="primary-button smaller" data-view="bottom">
-                    <i class="bi bi-arrow-down"></i>
-                </div>
-                <div></div>
-            </div>
 
 
-            <!-- Mesh Place -->
-            <div id="infoPanel" class="app-controller-item column-layout">
-                <p id="info-volume">Volume: 0</p>
-                <p id="info-triangles">Number of Triangles: 0</p>
+                <!-- Scene Settings -->
+                <div class="app-controller-row-group">
+                    <!-- Full Screen Button -->
+                    <button id="toggleFullScreenBtn" class="primary-button modern-tooltip app-controller-row-item"
+                            data-tooltip="Toggle full screen mode">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                </div>
             </div>
+            <!-- End of App Header -->
         </div>
+        <!-- End of App Controller Container -->
     </div>
-
-</div>
+    <!-- End of App Window -->
+</div>`
