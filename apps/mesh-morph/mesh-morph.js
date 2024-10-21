@@ -29,49 +29,7 @@ class LoadedMesh {
   }
 
   simplifyMesh(value = 0.5) {
-    console.log("Custom simplifying mesh with value", value);
-
-    // Get the original geometry attributes
-    let geometry = this.geometry.clone();
-
-    // Ensure the geometry is a BufferGeometry
-    if (!(geometry instanceof THREE.BufferGeometry)) {
-      console.error(
-        "Geometry is not a BufferGeometry. Custom simplification requires BufferGeometry.",
-      );
-      return;
-    }
-
-    const positionAttribute = geometry.getAttribute("position");
-
-    // Number of original vertices
-    const totalVertices = positionAttribute.count;
-    const reduceFactor = Math.floor(1 / value); // Reduction factor to keep vertices
-
-    // Create an array to store new vertex positions
-    const newVertices = [];
-
-    // Iterate over the vertices and keep only every nth vertex based on reduction factor
-    for (let i = 0; i < totalVertices; i += reduceFactor) {
-      newVertices.push(positionAttribute.getX(i));
-      newVertices.push(positionAttribute.getY(i));
-      newVertices.push(positionAttribute.getZ(i));
-    }
-
-    // Create a new BufferGeometry with the reduced set of vertices
-    const newGeometry = new THREE.BufferGeometry();
-    newGeometry.setAttribute(
-      "position",
-      new THREE.Float32BufferAttribute(newVertices, 3),
-    );
-
-    // Dispose of old geometry and set the simplified one
-    this.geometry.dispose();
-    this.geometry = newGeometry;
-
-    console.log(
-      `Simplified mesh from ${totalVertices} vertices to ${newVertices.length / 3} vertices.`,
-    );
+    console.log("Simplifying mesh with value", value);
   }
 
   computeAccurateCentroid(geometry) {
@@ -332,10 +290,10 @@ class MeshView {
       infoBtn: window.document.getElementById("infoBtn"),
       infoModal: window.document.getElementById("infoModal"),
       infoTable: window.document.getElementById("infoTable"),
-      simplifyBtn: window.document.getElementById("simplifyBtn"),
-      simplifyModal: window.document.getElementById("simplifyModal"),
-      simplifyValue: window.document.getElementById("simplifyFactor"),
-      simplifySlider: window.document.getElementById("simplifySlider"),
+      // simplifyBtn: window.document.getElementById("simplifyBtn"),
+      // simplifyModal: window.document.getElementById("simplifyModal"),
+      // simplifyValue: window.document.getElementById("simplifyFactor"),
+      // simplifySlider: window.document.getElementById("simplifySlider"),
       loadingModal: window.document.getElementById("loadingModal"),
       fileDropZone: window.document.getElementById("fileDropZone"),
       fileUploadBtn: window.document.getElementById("fileUploadBtn"),
@@ -539,18 +497,18 @@ class MeshView {
     );
     addOutsideClickHandler(this.elements.infoBtn, this.elements.infoModal);
 
-    this.elements.simplifyBtn.addEventListener(
-      "click",
-      this.toggleSimplifyModal.bind(this),
-    );
-    addOutsideClickHandler(
-      this.elements.simplifyBtn,
-      this.elements.simplifyModal,
-    );
-    this.elements.simplifySlider.addEventListener(
-      "input",
-      this.handleSimplify.bind(this),
-    );
+    // this.elements.simplifyBtn.addEventListener(
+    //   "click",
+    //   this.toggleSimplifyModal.bind(this),
+    // );
+    // addOutsideClickHandler(
+    //   this.elements.simplifyBtn,
+    //   this.elements.simplifyModal,
+    // );
+    // this.elements.simplifySlider.addEventListener(
+    //   "input",
+    //   this.handleSimplify.bind(this),
+    // );
 
     // Handle view panel button clicks
     const viewContainer = window.document.getElementById("viewButtonGrid");
@@ -658,7 +616,7 @@ class MeshView {
     toggleElementVisibility(this.elements.infoModal);
   }
 
-  toggleSimplifyModal() {
-    toggleElementVisibility(this.elements.simplifyModal);
-  }
+  // toggleSimplifyModal() {
+  //   toggleElementVisibility(this.elements.simplifyModal);
+  // }
 }
