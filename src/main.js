@@ -9,6 +9,7 @@ const homePage = "./home.html";
 const homePageCallbacks = [
   initTheme,
   initGithub,
+  initSlideShow,
   setupSortOptions,
   makeAppButtons,
   makeBlogCardsAndSetupControls,
