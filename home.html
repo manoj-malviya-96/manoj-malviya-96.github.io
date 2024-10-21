@@ -8,11 +8,6 @@
         cursor: pointer;
     }
 
-    #aboutEntity.collapsed {
-        display: none;
-        opacity: 0;
-    }
-
     .light-mode #aboutEntity {
         border-color: var(--color-light-contrast);
         background-color: var(--color-light-primary);
@@ -82,6 +77,26 @@
         height: var(--app-drawer-button-height);
     }
 
+    #socialMediaContainer {
+        display: inline-flex;
+        flex-direction: row;
+        height: auto;
+        padding: var(--spacing-small) var(--spacing-small);
+        z-index: var(--z-index-overlay);
+        backdrop-filter: blur(var(--blur-radius));
+        border-radius: var(--default-radius);
+        border: none;
+        transition: all var(--transition-default);
+    }
+
+    #aboutNameAndSocial {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: var(--about-entity-height);
+    }
+
 </style>
 
 <!-------------------------- About Section -------------------------->
@@ -92,10 +107,38 @@
         <div id="profile-image">
             <img src="./assets/profile.jpeg" alt="Profile Picture">
         </div>
-        <div class="column-layout" style="margin-left: var(--spacing-large);">
+        <div id="aboutNameAndSocial" class="column-layout" style="margin-left: var(--spacing-large);">
             <span id="aboutTitle"> MANOJ MALVIYA </span>
+            <!-- Side Footer -->
+            <div id="socialMediaContainer">
+                <button class="primary-button smaller left-aligned"  onclick="loadSocialMediaLink('Linkedin', event)">
+                    <i class="bi bi-linkedin"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('GitHub', event)">
+                    <i class="bi bi-github"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Instagram', event)">
+                    <i class="bi bi-instagram"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Spotify', event)">
+                    <i class="bi bi-spotify"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Youtube', event)">
+                    <i class="bi bi-youtube"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Apple', event)">
+                    <i class="bi bi-apple"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('SoundCloud', event)">
+                    <i class="bi bi-soundwave"></i>
+                </button>
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('MixCloud', event)">
+                    <i class="bi bi-disc"></i>
+                </button>
+            </div>
         </div>
     </div>
+
     <!-- Collapsible content starts here -->
     <div class="content collapsed with-padding" id="moreDetailsAboutMe">
         <p>Hello! I’m Manoj Malviya, a <strong> Software Engineer </strong> passionate about transforming complex
@@ -185,7 +228,7 @@
 
 
 <!-------------------------- Apps Section -------------------------->
-<div id="appListings" class="content" style="margin-top: var(--spacing-huge)">
+<div id="appListings" class="content" style="margin-top:  var(--spacing-huge)">
     <div id="appList" class="grid-container home-page">
         <!-- Will be dynamically added here -->
     </div>
