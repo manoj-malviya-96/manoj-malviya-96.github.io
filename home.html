@@ -97,6 +97,10 @@
         height: var(--about-entity-height);
     }
 
+    #cards-controls-container .primary-button {
+        width: 100%;
+    }
+
 </style>
 
 <!-------------------------- About Section -------------------------->
@@ -227,6 +231,7 @@
 </div>
 
 
+
 <!-------------------------- Apps Section -------------------------->
 <div id="appListings" class="content" style="margin-top:  var(--spacing-huge)">
     <div id="appList" class="grid-container home-page">
@@ -239,7 +244,7 @@
 
 <div id="blogListings" class="blog-listing content" style="margin-top: var(--spacing-huge)">
     <div id="cards-controls-container" class="row-layout"
-         style=" margin-bottom: var(--spacing-huge)">
+         style=" margin-bottom: var(--spacing-large)">
 
         <!-- Filter Container -->
         <div id="filter-container" style="width: 200px; margin-right: var(--spacing-large)">
@@ -254,7 +259,7 @@
         </div>
 
         <!-- Sort Container -->
-        <div id="sort-container" style="width: 150px; margin-right: var(--spacing-large)">
+        <div id="sort-container" style="width: 169px; margin-right: var(--spacing-large)">
             <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs" id="sortFilterBtn">
                 <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
                 <span id="selectedSortValue" class="button-label">Sort by...</span>
@@ -264,7 +269,7 @@
         </div>
 
         <!-- Search Container -->
-        <div class="search-container" data-tooltip="Search blogs" style="width: 200px">
+        <div class="search-container" data-tooltip="Search blogs" style="width: 250px">
             <i class="bi bi-search"></i>
             <input type="text" id="search-input" class="search-input" placeholder="Search..."
                    oninput="filterBlogsByKeywords()">

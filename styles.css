@@ -23,7 +23,7 @@
     --spacing-small: 6px;
     --spacing-medium: 12px;
     --spacing-large: 24px;
-    --spacing-huge: 69px;
+    --spacing-huge: 100px;
 
     /* Transition */
     --transition-default: 0.420s;
@@ -865,7 +865,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .footer-toc li {
-    padding-left: var(--spacing-huge);
+    padding-left: calc(1.5*var(--spacing-large));
     text-align: left;
     border: none;
     margin: 0;
