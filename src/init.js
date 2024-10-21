@@ -67,9 +67,6 @@ function toggleForAbout(keepItExpanded = false) {
   }
   content.classList.toggle("collapsed");
 
-  const aboutEntity = window.document.getElementById("aboutEntity");
-  aboutEntity.classList.toggle("collapsed");
-
   // Toggle icon class and button text based on the state
   if (content.classList.contains("collapsed")) {
     button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
@@ -232,47 +229,46 @@ function initTooltip() {
 
   let timer;
 
-  const showTooltip = (item)=> {
+  const showTooltip = (item) => {
     return setTimeout(function () {
-        item.classList.add('show'); // Add class to show the
+      item.classList.add("show"); // Add class to show the
     }, tooltipTimer_ms); // Delay before showing the tooltip
-  }
+  };
 
-
-  const hideTooltip = (item)=> {
+  const hideTooltip = (item) => {
     clearTimeout(timer); // Cancel the timer if mouse leaves early
-    item.classList.remove('show'); // Remove class to hide the tooltip
-  }
+    item.classList.remove("show"); // Remove class to hide the tooltip
+  };
 
-  document.querySelectorAll('.modern-tooltip').forEach(function (item) {
-
-    item.addEventListener('mouseover', function () {
+  document.querySelectorAll(".modern-tooltip").forEach(function (item) {
+    item.addEventListener("mouseover", function () {
       timer = showTooltip(item);
     });
 
-    item.addEventListener('mouseout', function () {
-        hideTooltip(item);
-    });
-
-    item.addEventListener('click', function () {
+    item.addEventListener("mouseout", function () {
       hideTooltip(item);
     });
 
+    item.addEventListener("click", function () {
+      hideTooltip(item);
+    });
   });
 }
 
-function loadSocialMediaLink(identifier) {
-  const links = {
-    Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
-    GitHub: "https://github.com/manoj-malviya-96",
-    Instagram: "https://www.instagram.com/manoj_malviya_/",
-    Resume:
-      "https://cvws.icloud-content.com/B/AZVr5aNt0EIq126VWazH9VSagW8wAR-7iN6Kpy4ay9LWMrZH__eUCrep/CV_2024.pdf?o=At--sekC2lhZ1aggH3t3zJnDqUoAZjSZIrRVNuS58fTa&v=1&x=3&a=CAogvhDM2lsOV2xkYoHk2YwLUnPHSzeJPzqZKG-6LcN_B68SbxDymOikoTIY8vXDpqEyIgEAUgSagW8wWgSUCrepaieq3z-R7OGiDXM-Cg9Cg1hrNMdgKQjpSxA6lpxOFvcqUUBfcrVPYwpyJ1_yMpsUA1yWT6mYtj-atAHgIdr7Tj2XHZVkcfdc3G8bHrZfbCrJgA&e=1726926093&fl=&r=74ca7087-0048-43e3-8418-e9fb8d2bc12c-1&k=XZ6ccwfTmF1UgIx9brekmQ&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=138&s=MnNIirEZTpjkg0RoJyWc3e_evMk&cd=i",
-  };
+function initSlideShow() {
+  const slides = document.querySelectorAll(".slideshow img");
+  const timeBetweenSlides_ms = 6900; // Time between slides (10s)
+  let index = 0;
 
-  if (links[identifier]) {
-    window.location.href = links[identifier];
-  } else {
-    console.error("Link not found for identifier:", identifier);
-  }
+  // Show the first image initially
+  slides[index].classList.add("active");
+
+  setInterval(function () {
+    // Hide the current image
+    slides[index].classList.remove("active");
+    // Move to the next image
+    index = (index + 1) % slides.length;
+    // Show the next image
+    slides[index].classList.add("active");
+  }, timeBetweenSlides_ms); // Change image every 3 seconds
 }

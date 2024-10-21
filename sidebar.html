@@ -51,11 +51,12 @@
 		padding: var(--spacing-small) !important;
 	}
 
+
 	.light-mode .navbar {
 		background-color: var(--color-light-contrast);
 		box-shadow: var(--shadows-light);
 	}
-	.dark-mode .navbar {
+	.dark-mode .navbar{
 		background-color: var(--color-dark-contrast);
 		box-shadow: var(--shadows-dark);
 	}
@@ -73,6 +74,12 @@
                 <span class="button-label">Home</span> <!-- Hidden text -->
             </button>
         </li>
+        <li class="nav-item">
+            <button class="primary-button smaller left-aligned" onclick="loadPDFInMainWindow('./assets/manoj-malviya-resume.pdf')">
+                <i class="bi bi-file-pdf"></i>
+                <span class="button-label">Resume</span> <!-- Hidden text -->
+            </button>
+        </li>
     </ul>
 
     <!-- Navigation Group -->
@@ -80,56 +87,33 @@
         <li class="nav-item">
             <button class="primary-button smaller left-aligned"
                     onclick="scrollElementInViewOnHome(event, 'about-me'); runWithDelay(toggleForAbout, 500, true)">
-                <i class="bi bi-slash-circle"></i> <!-- App icon -->
+                <i class="bi bi bi-person"></i> <!-- App icon -->
                 <span class="button-label">About me</span> <!-- Hidden text -->
             </button>
         </li>
         <li class="nav-item">
             <button class="primary-button smaller left-aligned" onclick="scrollElementInViewOnHome(event, 'appList')">
-                <i class="bi bi-app"></i> <!-- App icon -->
+                <i class="bi bi-app-indicator"></i> <!-- App icon -->
                 <span class="button-label">Apps</span> <!-- Hidden text -->
             </button>
         </li>
         <li class="nav-item">
             <button class="primary-button smaller left-aligned" onclick="scrollElementInViewOnHome(event, 'blogListings')">
-                <i class="bi bi-view-list"></i> <!-- Project icon -->
+                <i class="bi bi-view-stacked"></i> <!-- Project icon -->
                 <span class="button-label">Projects</span> <!-- Hidden text -->
             </button>
         </li>
     </ul>
 
-
-    <!-- Social Media Group -->
     <ul class="navbar-group">
-        <li class="nav-item">
-            <button class="primary-button smaller left-aligned"  onclick="loadSocialMediaLink('Linkedin')">
-                <i class="bi bi-linkedin"></i>
-                <span class="button-label">LinkedIn</span> <!-- Hidden text -->
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('GitHub')">
-                <i class="bi bi-github"></i>
-                <span class="button-label">GitHub</span> <!-- Hidden text -->
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Instagram')">
-                <i class="bi bi-instagram"></i>
-                <span class="button-label">Instagram</span> <!-- Hidden text -->
-            </button>
-        </li>
+        <!-- Search Button -->
+<!--        <li class="nav-item">-->
+<!--            <button id="search-btn" class="primary-button smaller left-aligned">-->
+<!--                <i class="bi bi-search" id="search-btn-icon"></i> &lt;!&ndash; Toggle icon &ndash;&gt;-->
+<!--                <span class="button-label">Search</span> &lt;!&ndash; Hidden text &ndash;&gt;-->
+<!--            </button>-->
+<!--        </li>-->
 
-        <!-- Settings Group -->
-        <li class="nav-item">
-            <button class="primary-button smaller left-aligned" onclick="loadPDFInMainWindow('./assets/manoj-malviya-resume.pdf')">
-                <i class="bi bi-file-earmark-person-fill"></i>
-                <span class="button-label">Resume</span> <!-- Hidden text -->
-            </button>
-        </li>
-    </ul>
-
-    <ul class="navbar-group">
         <!-- Dark Mode Toggle -->
         <li class="nav-item">
             <button id="theme-switch-btn" class="primary-button smaller left-aligned" onclick="toggleTheme()">

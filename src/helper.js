@@ -331,3 +331,25 @@ function addOutsideClickHandler(button, popup) {
     }
   });
 }
+
+function loadSocialMediaLink(identifier, event) {
+  event.stopPropagation();
+  event.preventDefault();
+  const links = {
+    Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
+    GitHub: "https://github.com/manoj-malviya-96",
+    Instagram: "https://www.instagram.com/manoj_malviya_/",
+    YouTube: "https://www.youtube.com/@manoj_malviya_",
+    Spotify:
+      "https://open.spotify.com/artist/2oq6u1YZ7biOF4NOPwDp8o?si=ijyL-yRWQqGWqdGIr7Irfg&utm_medium=share&utm_source=linktree&nd=1&dlsi=1234682c3e064aaf",
+    Apple: "https://music.apple.com/us/artist/manoj-malviya/1721435458",
+    SoundCloud: "https://soundcloud.com/manoj-malviya-96",
+    MixCloud: "https://www.mixcloud.com/manoj-malviya/",
+  };
+
+  if (links[identifier]) {
+    window.location.href = links[identifier];
+  } else {
+    console.error("Link not found for identifier:", identifier);
+  }
+}
