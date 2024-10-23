@@ -140,7 +140,6 @@ body.dark-mode {
 .content.block {
     justify-content: center;
     align-content: center;
-    /*max-width: var(--max-content-width);*/
     padding: var(--spacing-large);
     width: 100%;
     border-radius: var(--default-radius);
