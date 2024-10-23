@@ -137,6 +137,23 @@ body.dark-mode {
     border-color: var(--color-dark-contrast);
 }
 
+.content.block {
+    justify-content: center;
+    align-content: center;
+    /*max-width: var(--max-content-width);*/
+    padding: var(--spacing-large);
+    width: 100%;
+    border-radius: var(--default-radius);
+}
+
+.light-mode .content.block {
+    background-color: var(--color-light-contrast);
+}
+
+.dark-mode .content.block {
+    background-color: var(--color-dark-contrast);
+}
+
 .content.reading {
     font-size: var(--regular-text-size);
     width: var(--max-content-width);
@@ -150,26 +167,6 @@ body.dark-mode {
 .content.with-border {
     border-width: var(--border-width);
 }
-
-/* ----------------------------- Block Styling ----------------------------- */
-.content.block {
-    justify-content: center;
-    align-content: center;
-    max-width: var(--max-content-width);
-    padding: var(--spacing-large);
-    border-radius: var(--default-radius);
-    margin: var(--spacing-large);
-}
-
-.light-mode .content.block {
-    background-color: var(--color-light-contrast);
-}
-
-.dark-mode .content.block {
-    background-color: var(--color-dark-contrast);
-}
-
-/* ----------------------------- Collapsible Styling ----------------------------- */
 
 .content.collapsed {
     height: 0;
