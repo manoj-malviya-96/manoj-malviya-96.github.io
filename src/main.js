@@ -437,7 +437,7 @@ function filterBlogs(searchInput = null, category = null) {
     if (category !== null) {
       const cardCategories = card.getAttribute("data-categories").split(",");
       isInCategory =
-        category === "All Categories" || cardCategories.includes(category);
+        category === "All" || cardCategories.includes(category);
     }
     // Check if the card matches the search input
     if (searchInput !== null && searchInput !== "") {

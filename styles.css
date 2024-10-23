@@ -276,6 +276,19 @@ a {
     }
 }
 
+/* ------- Modern List -----*/
+.modern-list {
+    list-style: none;
+    padding: 0 var(--spacing-large);
+    margin-left: var(--spacing-medium);
+    border-left : var(--border-width) solid var(--color-brand-primary);
+}
+
+.modern-list li {
+    list-style: none;
+    margin-bottom : var(--spacing-small);
+}
+
 
 /* ------------------------------ Content Placeholder Styling ------------------------------ */
 .loading-overlay,

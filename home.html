@@ -27,8 +27,9 @@
     }
 
     #profile-image {
-        padding: 0; margin: 0;
-        width: calc(2* var(--about-entity-height));
+        padding: 0;
+        margin: 0;
+        width: calc(2 * var(--about-entity-height));
         height: var(--about-entity-height);
         overflow: hidden;
         position: relative;
@@ -96,7 +97,16 @@
         height: var(--about-entity-height);
     }
 
-    #cards-controls-container .primary-button {
+    #cardsControlsContainer {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: space-evenly;
+        align-content: center;
+        border-bottom: var(--border-width) solid;
+    }
+
+    #cardsControlsContainer .primary-button {
         width: 100%;
     }
 
@@ -122,7 +132,7 @@
             <span id="aboutTitle"> MANOJ MALVIYA </span>
             <!-- Side Footer -->
             <div id="socialMediaContainer">
-                <button class="primary-button smaller left-aligned"  onclick="loadSocialMediaLink('Linkedin', event)">
+                <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Linkedin', event)">
                     <i class="bi bi-linkedin"></i>
                 </button>
                 <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('GitHub', event)">
@@ -164,11 +174,12 @@
             problems with elegant solutions and turning them
             into tangible results using advanced computational tools and methodologies. Strong problem-solver with a
             user-first mindset, and a track record of leading complex projects and
-            delivering elegant solutions.</div>
+            delivering elegant solutions.
+        </div>
 
         <!-- Work Experience String -->
         <h2><i class="bi bi-building"></i> Work Experience</h2>
-        <ul>
+        <ul class="modern-list">
             <li><strong>Software Engineer at Formlabs Kft.</strong> Leading UI framework development and
                 optimizing 3D printing workflows
             </li>
@@ -181,15 +192,15 @@
             </li>
         </ul>
 
-        <h2 style="margin-top: var(--spacing-large);"> <i class="bi bi-book-half"></i> Education </h2>
-        <ul>
+        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education </h2>
+        <ul class="modern-list">
             <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
             <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
         </ul>
 
         <!-- Other interests -->
         <h2><i class="bi bi-palette"></i> Personal Interests</h2>
-        <ul>
+        <ul class="modern-list">
             <li>Electronic music composer with a passion for blending digital
                 soundscapes
                 with piano influences.
@@ -244,7 +255,6 @@
 </div>
 
 
-
 <!-------------------------- Apps Section -------------------------->
 <div id="appListings" class="content" style="margin-top:  var(--spacing-huge)">
     <div id="appList" class="grid-container home-page">
@@ -256,36 +266,41 @@
 <!-------------------------- Project Section -------------------------->
 
 <div id="blogListings" class="blog-listing content" style="margin-top: var(--spacing-huge)">
-    <div id="cards-controls-container" class="row-layout"
-         style=" margin-bottom: var(--spacing-large)">
+    <div id="cardsControlsContainer" style=" margin-bottom: var(--spacing-large)">
 
-        <!-- Filter Container -->
-        <div id="filter-container" style="width: 200px; margin-right: var(--spacing-large)">
-            <button class="primary-button with-border modern-tooltip"
-                    data-tooltip="Filter blogs by type of skills I employed" id="categoryFilterBtn">
-                <i class="bi bi-filter"></i>
-                <span id="selectedCategoryValue" class="button-label">Select Category...</span>
-            </button>
-            <ul id="categoryFilter" class="modern-dropdown hidden">
-                <li data-value="All Categories" class="modern-dropdown-item">All Categories</li>
-            </ul>
+        <div id="leftControls" class="row-layout">
+            <!-- Sort Container -->
+            <div id="sort-container" style="width: 169px; margin-right: var(--spacing-large)">
+                <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs" id="sortFilterBtn">
+                    <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
+                    <span id="selectedSortValue" class="button-label">Sort by...</span>
+                </button>
+                <ul id="sortFilter" class="modern-dropdown hidden">
+                </ul>
+            </div>
+
+            <!-- Filter Container -->
+            <div id="filter-container" style="width: 200px; margin-right: var(--spacing-large)">
+                <button class="primary-button with-border modern-tooltip"
+                        data-tooltip="Filter blogs by type of skills I employed" id="categoryFilterBtn">
+                    <i class="bi bi-filter"></i>
+                    <span id="selectedCategoryValue" class="button-label">Select Skills...</span>
+                </button>
+                <ul id="categoryFilter" class="modern-dropdown hidden">
+                    <li data-value="All" class="modern-dropdown-item">All</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Sort Container -->
-        <div id="sort-container" style="width: 169px; margin-right: var(--spacing-large)">
-            <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs" id="sortFilterBtn">
-                <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
-                <span id="selectedSortValue" class="button-label">Sort by...</span>
-            </button>
-            <ul id="sortFilter" class="modern-dropdown hidden">
-            </ul>
-        </div>
 
-        <!-- Search Container -->
-        <div class="search-container" data-tooltip="Search blogs" style="width: 250px">
-            <i class="bi bi-search"></i>
-            <input type="text" id="search-input" class="search-input" placeholder="Search..."
-                   oninput="filterBlogsByKeywords()">
+        <div id="rightControls" class="row-layout">
+            <!-- Search Container -->
+            <div class="search-container" data-tooltip="Search blogs"
+                 style="width: 250px; margin-right: var(--spacing-large)">
+                <i class="bi bi-search"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Search..."
+                       oninput="filterBlogsByKeywords()">
+            </div>
         </div>
     </div>
 
