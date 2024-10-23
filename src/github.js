@@ -119,7 +119,7 @@ class GithubProfile {
       ), // Generate x values as "Month Week"
     };
 
-    const width = 950;
+    const width = getSizeFromStyle("--max-body-width");
     const height = Math.ceil(
       width * getHackyHeightMultiplier(z[0].length, z.length),
     );
