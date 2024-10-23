@@ -44,7 +44,7 @@
     --smallest-text-size: 8px;
     --subtitle-text-size: 11px;
     --regular-text-size: 16px;
-    --title-font-size: 25px;
+    --title-font-size: 21px;
     --super-title-font-size: 33px;
     --hero-font-size: 69px;
 
@@ -121,7 +121,7 @@ body.dark-mode {
 .content {
     margin: 0 auto;
     padding: 0;
-    text-align: left;
+    text-align: justify;
     width: var(--max-body-width);
     border-style: solid;
     border-width: 0;
@@ -189,7 +189,7 @@ h3 {
     font-size: var(--title-font-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
-    margin: var(--spacing-medium) 0;
+    margin: var(--spacing-medium) 0; /* Top Right Bottom Left */
     padding: 0;
     border: none;
 }
@@ -208,6 +208,7 @@ p {
     padding: 0;
     margin: 0;
     border: none;
+    text-align: justify-all;
 }
 
 p.smaller {
@@ -232,6 +233,9 @@ a {
 .bi {
     font-size: var(--regular-icon-size);
 !important;
+    height: auto;
+    justify-content: center;
+    align-content: center;
 }
 
 .loading-spinner {
@@ -297,8 +301,8 @@ a {
 .row-layout {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-content: center;
+    /*justify-content: center;*/
+    /*align-content: center;*/
     width: 100%;
     height: auto;
     margin: auto 0;
