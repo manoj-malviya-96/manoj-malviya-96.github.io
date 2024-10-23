@@ -5,7 +5,7 @@
 
     /* Color Palette */
     --color-light-primary: var(--color-white);
-    --color-light-contrast: rgba(169, 169, 169, 0.73);
+    --color-light-contrast: rgba(221, 221, 221, 0.73);
     --color-light-imp: rgb(47, 47, 47);
 
     --color-dark-primary: var(--color-black);
@@ -936,6 +936,7 @@ input[type="range"]::-webkit-slider-thumb {
 .code-copy-button:hover {
     transform : scale(var(--transform-scale));
 }
+
 
 /* Project Images */
 img.img-fluid {
