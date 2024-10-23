@@ -921,68 +921,20 @@ input[type="range"]::-webkit-slider-thumb {
     color: var(--color-dark-imp);
 }
 
-/* -------------------------------- Project content --------------------------------  */
-#quarto-document-content {
-    max-width: var(--max-content-width);
-    padding: var(--spacing-medium);
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding-left: 20px; /* Adjust the padding as needed */
-    padding-right: 20px; /* Adjust the padding as needed */
-    font-size: var(--regular-text-size);
-    line-height: var(--line-height);
-}
-
-/* Code block styling */
-code {
-    color: var(--color-brand-primary);
-    padding: 0;
-    border: none;
-    border-radius: var(--default-radius);
-    font-family: 'Courier New', Courier, monospace;
-    font-size: var(--regular-text-size);
-}
-
-.sourceCode .pre {
-    background-color: transparent;
-    border: none;
-    padding: var(--spacing-medium);
-    white-space: pre-wrap;
-    overflow-x: auto;
-}
-
-.sourceCode .keyword {
-    color: var(--color-brand-primary);
-    font-weight: var(--bold-weight);
-}
-
-.sourceCode .string {
-    color: #000000; /* Color for strings */
-}
-
-.sourceCode .comment {
-    color: #6a737d; /* Color for comments */
-    font-style: italic; /* Italicize comments */
-}
-
-.sourceCode .number {
-    color: #0075f8; /* Color for numbers */
-}
-
-.sourceCode .function {
-    color: #0075f8; /* Color for function names */
-}
-
+/* -------------------------------- Code --------------------------------  */
 .code-copy-button {
     background-color: transparent;
     color: var(--color-white);;
     border: none;
-    padding: 12px 0;
     cursor: pointer;
     border-radius: var(--border-width);
     position: absolute;
     right: var(--spacing-medium);
     top: var(--spacing-medium);
+}
+
+.code-copy-button:hover {
+    transform : scale(var(--transform-scale));
 }
 
 /* Project Images */
@@ -1233,20 +1185,6 @@ canvas {
 }
 
 /* -------------------------- Light Mode -------------------------- */
-
-.light-mode code.sourceCode {
-    background-color: var(--color-light-contrast);
-}
-
-.light-mode code.sourceCode:hover {
-    box-shadow: var(--shadows-light);
-}
-
-.light-mode code.inline {
-    background-color: transparent;
-}
-
-
 .light-mode tr:hover {
     background-color: var(--color-light-contrast);
 }
@@ -1263,19 +1201,6 @@ canvas {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-
-.dark-mode code.sourceCode {
-    background-color: var(--color-dark-contrast);
-}
-
-.dark-mode code.sourceCode:hover {
-    box-shadow: var(--shadows-dark);
-}
-
-.dark-mode code.inline {
-    background-color: transparent;
-}
-
 
 .dark-mode tr:hover {
     background-color: var(--color-dark-contrast);
