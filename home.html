@@ -1,21 +1,10 @@
 <style>
     #aboutEntity {
         display: flex;
-        border: var(--border-width) solid;
     }
 
     #aboutEntity:hover {
         cursor: pointer;
-    }
-
-    .light-mode #aboutEntity {
-        border-color: var(--color-light-contrast);
-        background-color: var(--color-light-primary);
-    }
-
-    .dark-mode #aboutEntity {
-        border-color: var(--color-dark-contrast);
-        background-color: var(--color-dark-primary);
     }
 
     .light-mode #aboutEntity:hover {
@@ -99,9 +88,10 @@
 
     #cardsControlsContainer {
         width: 100%;
-        margin: 0;
         display: flex;
+        margin: var(--spacing-medium) auto var(--spacing-large) auto;
     }
+
     #rightControls {
         margin-left: auto;
     }
@@ -116,7 +106,7 @@
 
 <div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div id="aboutEntity" class="content" onclick="toggleForAbout()">
+    <div id="aboutEntity" class="content with-border" onclick="toggleForAbout()">
         <div id="profile-image">
             <div class="slideshow">
                 <img src="./assets/profile-1.jpeg" alt="Profile Picture 1">
@@ -159,14 +149,15 @@
             </div>
         </div>
     </div>
+
     <!-- Button to expand the about section -->
     <button id="toggleAboutBtn" class="primary-button modern-tooltip"
             data-tooltip="show more" onclick="toggleForAbout()">
-        <i class="bi bi-chevron-compact-up"></i>
+        <i class="bi bi-chevron-compact-down"></i>
     </button>
 
     <!-- Collapsible content starts here -->
-    <div class="content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
+    <div class="content hidden" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
         <!-- Introduction String -->
         <div class="content block" style="margin-bottom: var(--spacing-large)">
             Hello! I’m Manoj Malviya, a versatile, language agnostic <strong> Software Engineer </strong> passionate
@@ -256,7 +247,8 @@
 
 
 <!-------------------------- Apps Section -------------------------->
-<div id="appListings" class="content" style="margin-top:  var(--spacing-huge)">
+<div id="appListings" class="content" style="margin-top: var(--spacing-huge)">
+    <h2><i class="bi bi-app-indicator"></i> Apps</h2>
     <div id="appList" class="grid-container home-page">
         <!-- Will be dynamically added here -->
     </div>
@@ -266,7 +258,9 @@
 <!-------------------------- Project Section -------------------------->
 
 <div id="blogListings" class="blog-listing content" style="margin-top: var(--spacing-huge)">
-    <div id="cardsControlsContainer" style=" margin-bottom: var(--spacing-large)">
+    <h2><i class="bi bi-view-stacked"></i> Blogs</h2>
+
+    <div id="cardsControlsContainer">
 
         <div id="leftControls" class="row-layout">
             <!-- Sort Container -->

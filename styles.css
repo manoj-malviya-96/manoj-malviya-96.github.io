@@ -167,20 +167,6 @@ body.dark-mode {
     border-width: var(--border-width);
 }
 
-.content.collapsed {
-    height: 0;
-    width: var(--max-body-width);
-    opacity: 0;
-    overflow: hidden;
-    padding: 0;
-}
-
-.content.collapsible.expanded {
-    height: auto;
-    opacity: 1;
-    padding: var(--spacing-large);
-}
-
 /* ----------------------------- Text Styling ----------------------------- */
 
 h1,
