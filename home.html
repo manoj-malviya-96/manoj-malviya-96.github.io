@@ -101,9 +101,9 @@
         width: 100%;
         margin: 0;
         display: flex;
-        justify-content: space-evenly;
-        align-content: center;
-        border-bottom: var(--border-width) solid;
+    }
+    #rightControls {
+        margin-left: auto;
     }
 
     #cardsControlsContainer .primary-button {
@@ -280,7 +280,7 @@
             </div>
 
             <!-- Filter Container -->
-            <div id="filter-container" style="width: 200px; margin-right: var(--spacing-large)">
+            <div id="filter-container" style="width: 200px;">
                 <button class="primary-button with-border modern-tooltip"
                         data-tooltip="Filter blogs by type of skills I employed" id="categoryFilterBtn">
                     <i class="bi bi-filter"></i>
@@ -296,7 +296,7 @@
         <div id="rightControls" class="row-layout">
             <!-- Search Container -->
             <div class="search-container" data-tooltip="Search blogs"
-                 style="width: 250px; margin-right: var(--spacing-large)">
+                 style="width: 250px;">
                 <i class="bi bi-search"></i>
                 <input type="text" id="search-input" class="search-input" placeholder="Search..."
                        oninput="filterBlogsByKeywords()">

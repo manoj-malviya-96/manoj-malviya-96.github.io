@@ -314,9 +314,6 @@ a {
 .row-layout {
     display: flex;
     flex-direction: row;
-    /*justify-content: center;*/
-    /*align-content: center;*/
-    width: 100%;
     height: auto;
     margin: auto 0;
 }
@@ -324,10 +321,7 @@ a {
 .column-layout {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
     width: auto;
-    height: 100%;
     margin: 0 auto;
 }
 
@@ -477,18 +471,17 @@ a {
     align-content: center;
     justify-content: center;
     border: var(--border-width) solid;
+    background-color: transparent;
 }
 
 .light-mode .search-container {
     border-color: var(--color-light-contrast);
     color: var(--color-light-imp);
-    background-color: var(--color-light-primary);
 }
 
 .dark-mode .search-container {
     border-color: var(--color-dark-contrast);
     color: var(--color-dark-imp);
-    background-color: var(--color-dark-contrast);
 }
 
 .search-container .bi {

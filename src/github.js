@@ -106,9 +106,9 @@ class GithubProfile {
     const heatmapTrace = {
       z: z,
       type: "heatmap",
-      xgap: 2,
-      ygap: 2,
-      colorscale: getPrimaryColorScale(5),
+      xgap: 3,
+      ygap: 3,
+      colorscale: getPrimaryColorScale(7),
       zmin: 1, // Avoid 0 on the log scale
       zmax: Math.max(...z.flat()), // Set zmax based on the highest commit count
       showscale: true,
