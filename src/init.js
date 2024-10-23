@@ -62,13 +62,13 @@ function toggleForAbout(keepItExpanded = false) {
   }
   const content = window.document.getElementById("moreDetailsAboutMe");
 
-  if (keepItExpanded && !content.classList.contains("collapsed")) {
+  if (keepItExpanded && !content.classList.contains("hidden")) {
     return; // Keep it expanded
   }
-  content.classList.toggle("collapsed");
+  content.classList.toggle("hidden");
 
   // Toggle icon class and button text based on the state
-  if (content.classList.contains("collapsed")) {
+  if (content.classList.contains("hidden")) {
     button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
     button.setAttribute("data-tooltip", "show more");
   } else {
