@@ -1,0 +1,174 @@
+<!-- Dont change this-->
+<footer id="quarto-footer" class="footer">
+</footer>
+<!-- Dont change this-->
+
+<div id="title-block-header" class="blog-header">
+    <div class="blog-header-image">
+        <img src="./blogs/formlabs-ui/cover.png" id="cover" alt="Cover Image">
+    </div>
+    <div class="tag-label" id="tag-label">C++</div>
+    <div class="blog-header-contents">
+        <h1 id="title">Multi-Threading in C++</h1>
+        <p id="description">My experience with handling concurrency and avoiding race conditions in C++.</p>
+        <div class="tag-categories" id="skills">
+            <div class="tag-category">C++</div>
+            <div class="tag-category">Multi-Threading</div>
+            <div class="tag-category">Concurrency</div>
+        </div>
+    </div>
+    <div class="tag-date" id="date">Oct 24 2024</div>
+</div>
+
+<main>
+    <div class="content reading">
+        <section id="intro" class="level1">
+            <h2>Introduction</h2>
+            <p>Multi-threading is one of those things in programming that sounds easy in theory, but once you dive in,
+                you quickly realize it’s a whole different beast. I remember when I started working on a project where I
+                needed to speed up some operations, and multi-threading seemed like the perfect solution. Spoiler alert:
+                it wasn’t as straightforward as just launching a few threads.</p>
+            <p>In this post, I’ll walk you through what I learned while navigating the world of multi-threading in C++.
+                I’ll cover some essentials like <strong>mutexes</strong>, <strong>lock guards</strong>, <strong>unique
+                    locks</strong>, and <strong>atomic variables</strong> and share a real-world example that helped me
+                wrap my head around these concepts—managing an <strong>inventory map</strong> in a multi-threaded
+                environment.</p>
+        </section>
+
+        <section id="threads" class="level1">
+            <h2>1. C++ Threads: Creating and Managing Execution</h2>
+            <p>When I first started exploring C++ threads, it was like stepping into an entirely new territory. C++ has
+                built-in support for multi-threading via the <code>&lt;thread&gt;</code> library. The basic idea is that
+                a thread runs a separate flow of execution, allowing you to do multiple things at once. At first, I
+                thought, “How hard can this be?”—but as I quickly found out, threads can get pretty wild if you don't
+                manage them carefully.</p>
+            <h3>Creating a Simple Thread</h3>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+
+void print_message() {
+    std::cout &lt;&lt; "Hello from a thread!" &lt;&lt; std::endl;
+}
+
+int main() {
+    std::thread t(print_message); // Create a thread to run print_message
+    t.join(); // Wait for the thread to finish
+    return 0;
+    </code></pre>
+            </div>
+            <p>In this example, I launched a simple thread to print a message. This seemed easy enough, and I was
+                feeling pretty good at this point. However, when it came time to manage shared data, things started to
+                get a bit more complicated…</p>
+        </section>
+
+        <section id="race-condition" class="level1">
+            <h2>2. Race Condition: My First Headache</h2>
+            <p>One of the first things I ran into was a <strong>race condition</strong>. It’s like having multiple
+                people trying to update the same Excel file simultaneously—everyone thinks they're editing the latest
+                version, but chaos ensues. Let me paint a picture: I had a shared <strong>inventory map</strong> that
+                stored the stock count of different items.</p>
+            <p>Imagine multiple threads trying to update this map at the same time. It might look something like
+                this:</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-cpp">
+std::map&lt;std::string, int&gt; inventory;
+                </code></pre>
+            </div>
+            <p>The problem started when one thread tried to <code>restock</code> an item while another tried to <code>sell</code>
+                it simultaneously. If both threads hit the map at the same time, things went haywire.</p>
+            <ul>
+                <li>One thread is adding new stock with a <code>restock</code> function.</li>
+                <li>Another thread is reducing stock with a <code>sell</code> function.</li>
+            </ul>
+        </section>
+
+        <section id="mutex" class="level1">
+            <h2>3. Solving It with a Mutex</h2>
+            <p>After a few too many headaches with unpredictable results, I learned about <strong>mutexes</strong>. A
+                mutex (short for mutual exclusion) makes sure that only one thread can access a critical section of code
+                at a time, preventing the chaos of race conditions.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;map&gt;
+#include &lt;mutex&gt;
+
+std::map&lt;std::string, int&gt; inventory; // Shared resource
+std::mutex inventory_mutex; // Mutex to protect the shared map
+
+void restock(const std::string&amp; item, int quantity) {
+    std::lock_guard&lt;std::mutex&gt; lock(inventory_mutex); // Locking the mutex
+    inventory[item] += quantity;
+    std::cout &lt;&lt; "Restocked " &lt;&lt; quantity &lt;&lt; " units of " &lt;&lt; item &lt;&lt; std::endl;
+}
+
+void sell(const std::string&amp; item, int quantity) {
+    std::lock_guard&lt;std::mutex&gt; lock(inventory_mutex); // Locking the mutex
+    if (inventory[item] &gt;= quantity) {
+        inventory[item] -= quantity;
+        std::cout &lt;&lt; "Sold " &lt;&lt; quantity &lt;&lt; " units of " &lt;&lt; item &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "Not enough stock to sell " &lt;&lt; quantity &lt;&lt; " units of " &lt;&lt; item &lt;&lt; std::endl;
+    }
+}
+                </code>
+                </pre>
+            </div>
+            <p>By using a mutex, I made sure that only one thread could access the inventory map at a time. This was a
+                game-changer, and my multi-threaded code was finally behaving predictably.</p>
+        </section>
+
+        <section id="lock-guards" class="level1">
+            <h2>4. Lock Guards: Making My Life Easier</h2>
+            <p>Manually locking and unlocking a mutex felt like juggling with one too many balls in the air. I
+                discovered <code>std::lock_guard</code>, which automatically locks and unlocks the mutex for you—much
+                less risky.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="cpp">
+void restock(const std::string&amp; item, int quantity) {
+    std::lock_guard&lt;std::mutex&gt; lock(inventory_mutex); // Automatically locks and unlocks the mutex
+    inventory[item] += quantity;
+    std::cout &lt;&lt; "Restocked " &lt;&lt; quantity &lt;&lt; " units of " &lt;&lt; item &lt;&lt; std::endl;
+}
+
+void sell(const std::string&amp; item, int quantity) {
+    std::lock_guard&lt;std::mutex&gt; lock(inventory_mutex);
+    if (inventory[item] &gt;= quantity) {
+        inventory[item] -= quantity;
+        std::cout &lt;&lt; "Sold " &lt;&lt; quantity &lt;&lt; " units of " &lt;&lt; item &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "Not enough stock to sell " &lt;&lt; quantity &lt;&lt; " units of " &lt;&lt; item &lt;&lt; std::endl;
+    }
+}
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="conclusion" class="level1">
+            <h2>Conclusion</h2>
+            <p>Learning multi-threading was a journey of trial and error, but mastering these essentials made all the
+                difference. Using threads, mutexes, lock guards, unique locks, atomic variables, and condition
+                variables, I was able to write code that was both efficient and predictable.</p>
+            <p>If you’re diving into multi-threading, remember:</p>
+            <ul>
+                <li>Use <strong>Threads</strong> (<code>std::thread</code>) to run functions concurrently.</li>
+                <li>Use <strong>Mutexes</strong> (<code>std::mutex</code>) to protect shared resources.</li>
+                <li><strong>Lock Guards</strong> (<code>std::lock_guard</code>) simplify mutex management.</li>
+                <li><strong>Unique Locks</strong> (<code>std::unique_lock</code>) offer flexibility for locking.</li>
+                <li><strong>Atomic Variables</strong> (<code>std::atomic</code>) provide lock-free safety for simple
+                    data types.
+                </li>
+                <li><strong>Condition Variables</strong> (<code>std::condition_variable</code>) coordinate thread
+                    execution.
+                </li>
+            </ul>
+        </section>
+    </div>
+</main>

@@ -922,21 +922,32 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* -------------------------------- Code --------------------------------  */
+code {
+    background-color: transparent !important;
+    color: var(--color-brand-primary)!important;
+}
+
+.code-block {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
 .code-copy-button {
-    background-color: transparent;
-    color: var(--color-white);;
+    position: absolute;
+    top: var(--spacing-medium);
+    right: var(--spacing-medium);
+    background: transparent !important;
+    color: var(--color-white)!important;
     border: none;
     cursor: pointer;
-    border-radius: var(--border-width);
-    position: absolute;
-    right: var(--spacing-medium);
-    top: var(--spacing-medium);
 }
 
-.code-copy-button:hover {
-    transform : scale(var(--transform-scale));
+pre code.hljs {
+    background-color: var(--color-black) !important;
+    color: var(--color-dark-imp);
+    border-radius: var(--default-radius);
+    border: var(--border-width) solid var(--color-dark-contrast);
 }
-
 
 /* Project Images */
 img.img-fluid {

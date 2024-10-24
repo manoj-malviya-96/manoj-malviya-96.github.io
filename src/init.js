@@ -272,3 +272,42 @@ function initSlideShow() {
     slides[index].classList.add("active");
   }, timeBetweenSlides_ms); // Change image every 3 seconds
 }
+
+function initCodeHighlighting() {
+  hljs.highlightAll();
+  initCopySelectButton();
+}
+
+function initCopySelectButton() {
+  const showAgainTimeout_ms = 1000 * 60; // Timeout to show the "Copy" button again
+
+  // JavaScript to copy code to clipboard
+  const allButtons = window.document.querySelectorAll(".code-copy-button");
+
+  allButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // First, reset all other buttons to the default state
+      allButtons.forEach((btn) => {
+        if (btn !== button) {
+          btn.innerHTML = `<i class="bi bi-clipboard"></i>`;
+        }
+      });
+
+      // Copy the text of the associated code block
+      const codeBlock = button.nextElementSibling.querySelector("code");
+      const text = codeBlock.textContent;
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          // Change the clicked button's inner HTML to show "Copied!"
+          button.innerHTML = `<i class="bi bi-check"></i>`;
+          setTimeout(() => {
+            button.innerHTML = `<i class="bi bi-clipboard"></i>`;
+          }, showAgainTimeout_ms);
+        })
+        .catch(() => {
+          button.innerHTML = `<i class="bi bi-exclamation"></i>`;
+        });
+    });
+  });
+}

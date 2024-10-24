@@ -20,6 +20,7 @@ const defaultBlogCallbacks = [
   loadBlogFooter, //Order Matters
   initImageFluidHandler,
   initScrollTracking,
+  initCodeHighlighting, //Should be after initTheme
 ];
 
 const blogHTMLToExtraCallbacks = {
@@ -30,6 +31,7 @@ const blogHTMLToExtraCallbacks = {
   "./blogs/embed-am/embed-am.html": [],
   "./blogs/build-orient/build-orient.html": [],
   "./blogs/formlabs-ui/ui-lead.html": [],
+  "./blogs/cpp-threads/cpp-threads.html": [],
   // "./blogs/formlabs-supports/supports.html": [],
 };
 
@@ -436,8 +438,7 @@ function filterBlogs(searchInput = null, category = null) {
     // Check if the card matches the search input and category
     if (category !== null) {
       const cardCategories = card.getAttribute("data-categories").split(",");
-      isInCategory =
-        category === "All" || cardCategories.includes(category);
+      isInCategory = category === "All" || cardCategories.includes(category);
     }
     // Check if the card matches the search input
     if (searchInput !== null && searchInput !== "") {
