@@ -66,9 +66,16 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/modifiers/SimplifyModifier.js"></script>-->
     <!--Progressive Mesh type Polygon Reduction Algorithm-->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+
+    <link id="hljs-theme" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
+
     <!-- Load custom styles -->
     <link rel="stylesheet" href="./styles.css">
     <link href="./assets/logo.svg" rel="icon" type="image/png">
+
     <title>Manoj Malviya</title>
 </head>
 
@@ -120,186 +127,6 @@
     initMathJax();
     setupPopStateHandler();
     setupLoadPageUrlHandler();
-</script>
-
-<script id="quarto-html-after-body" type="application/javascript">
-    document.addEventListener("DOMContentLoaded", function (event) {
-        // Function to check if an element is a code annotation
-        const isCodeAnnotation = (el) => {
-            for (const clz of el.classList) {
-                if (clz.startsWith('code-annotation-')) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // Initialize clipboard.js for code copy buttons
-        const clipboard = new window.ClipboardJS('.code-copy-button', {
-            text: function (trigger) {
-                const codeEl = trigger.previousElementSibling.cloneNode(true);
-                for (const childEl of codeEl.children) {
-                    if (isCodeAnnotation(childEl)) {
-                        childEl.remove();
-                    }
-                }
-                return codeEl.innerText;
-            }
-        });
-
-        // Event listener for successful copy action
-        clipboard.on('success', function (e) {
-            const button = e.trigger;
-            button.blur(); // don't keep focus
-            button.classList.add('code-copy-button-checked'); // flash "checked"
-            var currentTitle = button.getAttribute("title");
-            button.setAttribute("title", "Copied!");
-            let tooltip;
-            if (window.bootstrap) {
-                button.setAttribute("data-bs-toggle", "tooltip");
-                button.setAttribute("data-bs-placement", "left");
-                button.setAttribute("data-bs-title", "Copied!");
-                tooltip = new bootstrap.Tooltip(button, {
-                    trigger: "manual",
-                    customClass: "code-copy-button-tooltip",
-                    offset: [0, -8]
-                });
-                tooltip.show();
-            }
-            runWithDelay(function () {
-                if (tooltip) {
-                    tooltip.hide();
-                    button.removeAttribute("data-bs-title");
-                    button.removeAttribute("data-bs-toggle");
-                    button.removeAttribute("data-bs-placement");
-                }
-                button.setAttribute("title", currentTitle);
-                button.classList.remove('code-copy-button-checked');
-            }, 1000);
-            e.clearSelection(); // clear code selection
-        });
-
-        // Variables to store selected annotation element
-        let selectedAnnoteEl;
-
-        // Function to generate selector for annotation
-        const selectorForAnnotation = (cell, annotation) => {
-            let cellAttr = 'data-code-cell="' + cell + '"';
-            let lineAttr = 'data-code-annotation="' + annotation + '"';
-            return 'span[' + cellAttr + '][' + lineAttr + ']';
-        }
-
-        // Function to select code lines based on annotation
-        const selectCodeLines = (annoteEl) => {
-            const doc = document;
-            const targetCell = annoteEl.getAttribute("data-target-cell");
-            const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-            const annoteSpan = document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-            const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-            const lineIds = lines.map((line) => {
-                return targetCell + "-" + line;
-            })
-            let top = null;
-            let height = null;
-            let parent = null;
-            if (lineIds.length > 0) {
-                const el = document.getElementById(lineIds[0]);
-                top = el.offsetTop;
-                height = el.offsetHeight;
-                parent = el.parentElement.parentElement;
-                if (lineIds.length > 1) {
-                    const lastEl = document.getElementById(lineIds[lineIds.length - 1]);
-                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-                    height = bottom - top;
-                }
-                if (top !== null && height !== null && parent !== null) {
-                    let div = document.getElementById("code-annotation-line-highlight");
-                    if (div === null) {
-                        div = document.createElement("div");
-                        div.setAttribute("id", "code-annotation-line-highlight");
-                        div.style.position = 'absolute';
-                        parent.appendChild(div);
-                    }
-                    div.style.top = top - 2 + "px";
-                    div.style.height = height + 4 + "px";
-                    div.style.left = 0;
-                    let gutterDiv = document.getElementById("code-annotation-line-highlight-gutter");
-                    if (gutterDiv === null) {
-                        gutterDiv = document.createElement("div");
-                        gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                        gutterDiv.style.position = 'absolute';
-                        const codeCell = document.getElementById(targetCell);
-                        const gutter = codeCell.querySelector('.code-annotation-gutter');
-                        gutter.appendChild(gutterDiv);
-                    }
-                    gutterDiv.style.top = top - 2 + "px";
-                    gutterDiv.style.height = height + 4 + "px";
-                }
-                selectedAnnoteEl = annoteEl;
-            }
-        };
-
-        // Function to unselect code lines
-        const unselectCodeLines = () => {
-            const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-            elementsIds.forEach((elId) => {
-                const div = document.getElementById(elId);
-                if (div) {
-                    div.remove();
-                }
-            });
-            selectedAnnoteEl = undefined;
-        };
-
-        // Handle positioning of the toggle on window resize
-        window.addEventListener(
-            "resize",
-            throttle(() => {
-                elRect = undefined;
-                if (selectedAnnoteEl) {
-                    selectCodeLines(selectedAnnoteEl);
-                }
-            }, 10)
-        );
-
-        // Function to throttle events
-        function throttle(fn, ms) {
-            let throttle = false;
-            let timer;
-            return (...args) => {
-                if (!throttle) {
-                    fn.apply(this, args);
-                    throttle = true;
-                } else {
-                    if (timer) clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        fn.apply(this, args);
-                        timer = throttle = false;
-                    }, ms);
-                }
-            };
-        }
-
-        // Attach click handler to the DT elements
-        const annoteDls = document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-            annoteDlNode.addEventListener('click', (event) => {
-                const clickedEl = event.target;
-                if (clickedEl !== selectedAnnoteEl) {
-                    unselectCodeLines();
-                    const activeEl = document.querySelector('dt[data-target-cell].code-annotation-active');
-                    if (activeEl) {
-                        activeEl.classList.remove('code-annotation-active');
-                    }
-                    selectCodeLines(clickedEl);
-                    clickedEl.classList.add('code-annotation-active');
-                } else {
-                    unselectCodeLines();
-                    clickedEl.classList.remove('code-annotation-active');
-                }
-            });
-        }
-    });
 </script>
 </body>
 </html>

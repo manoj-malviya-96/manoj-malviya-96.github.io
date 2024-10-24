@@ -5,7 +5,7 @@
 
     /* Color Palette */
     --color-light-primary: var(--color-white);
-    --color-light-contrast: rgba(169, 169, 169, 0.73);
+    --color-light-contrast: rgba(221, 221, 221, 0.73);
     --color-light-imp: rgb(47, 47, 47);
 
     --color-dark-primary: var(--color-black);
@@ -575,15 +575,25 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ----------------------- Tags --------------------------- */
 .tag-label {
-    font-size: var(--smallest-text-size) !important;
+    font-size: var(--subtitle-text-size) !important;
     text-transform: uppercase;
     position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: var(--small-radius);
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
     padding: var(--spacing-small);
-    background-color: var(--color-brand-primary);
-    color: var(--color-white);
+    border: none;
+}
+
+.light-mode .tag-label {
+    color: var(--color-light-imp) !important;
+    background-color: var(--color-light-contrast) !important;
+}
+
+.dark-mode .tag-label {
+    color: var(--color-dark-imp) !important;
+    background-color: var(--color-dark-contrast) !important;
 }
 
 
@@ -600,13 +610,13 @@ input[type="range"]::-webkit-slider-thumb {
 
 .tag-category {
     padding: var(--spacing-small);
-    margin: var(--spacing-small) var(--spacing-small);
+    margin: var(--spacing-small) var(--spacing-small) var(--spacing-small) 0;
     width: fit-content;
     text-transform: uppercase;
     border-radius: var(--small-radius);
     border: var(--border-width) solid;
 !important;
-    font-size: var(--smallest-text-size);
+    font-size: var(--subtitle-text-size);
 }
 
 .light-mode .tag-category {
@@ -668,7 +678,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 .card {
     background-color: var(--color-light-contrast);
-    border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
     flex-direction: row;
     height: var(--blog-card-and-header-height);
@@ -683,15 +692,6 @@ input[type="range"]::-webkit-slider-thumb {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.card-title-default {
-    position: absolute;
-    text-transform: uppercase;
-    left: var(--spacing-small);
-    bottom: var(--spacing-small);
-    font-size: var(--subtitle-text-size);
-    color: var(--color-passive-element);
 }
 
 .card-details {
@@ -739,10 +739,6 @@ input[type="range"]::-webkit-slider-thumb {
     display: block;
 }
 
-.card:hover .card-title-default {
-    opacity: 0;
-}
-
 .card:hover .tag-label {
     opacity: 0;
 }
@@ -754,12 +750,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 .light-mode .card {
     background-color: var(--color-light-contrast);
-    border-color: var(--color-light-contrast);
 }
 
 .dark-mode .card {
     background-color: var(--color-dark-contrast);
-    border-color: var(--color-dark-contrast);
 }
 
 .light-mode .card:hover {
@@ -921,68 +915,32 @@ input[type="range"]::-webkit-slider-thumb {
     color: var(--color-dark-imp);
 }
 
-/* -------------------------------- Project content --------------------------------  */
-#quarto-document-content {
-    max-width: var(--max-content-width);
-    padding: var(--spacing-medium);
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding-left: 20px; /* Adjust the padding as needed */
-    padding-right: 20px; /* Adjust the padding as needed */
-    font-size: var(--regular-text-size);
-    line-height: var(--line-height);
-}
-
-/* Code block styling */
+/* -------------------------------- Code --------------------------------  */
 code {
-    color: var(--color-brand-primary);
-    padding: 0;
-    border: none;
-    border-radius: var(--default-radius);
-    font-family: 'Courier New', Courier, monospace;
-    font-size: var(--regular-text-size);
+    background-color: transparent !important;
+    color: var(--color-brand-primary)!important;
 }
 
-.sourceCode .pre {
-    background-color: transparent;
-    border: none;
-    padding: var(--spacing-medium);
-    white-space: pre-wrap;
-    overflow-x: auto;
-}
-
-.sourceCode .keyword {
-    color: var(--color-brand-primary);
-    font-weight: var(--bold-weight);
-}
-
-.sourceCode .string {
-    color: #000000; /* Color for strings */
-}
-
-.sourceCode .comment {
-    color: #6a737d; /* Color for comments */
-    font-style: italic; /* Italicize comments */
-}
-
-.sourceCode .number {
-    color: #0075f8; /* Color for numbers */
-}
-
-.sourceCode .function {
-    color: #0075f8; /* Color for function names */
+.code-block {
+    position: relative;
+    margin-bottom: 1rem;
 }
 
 .code-copy-button {
-    background-color: transparent;
-    color: var(--color-white);;
-    border: none;
-    padding: 12px 0;
-    cursor: pointer;
-    border-radius: var(--border-width);
     position: absolute;
-    right: var(--spacing-medium);
     top: var(--spacing-medium);
+    right: var(--spacing-medium);
+    background: transparent !important;
+    color: var(--color-white)!important;
+    border: none;
+    cursor: pointer;
+}
+
+pre code.hljs {
+    background-color: var(--color-black) !important;
+    color: var(--color-dark-imp);
+    border-radius: var(--default-radius);
+    border: var(--border-width) solid var(--color-dark-contrast);
 }
 
 /* Project Images */
@@ -1233,20 +1191,6 @@ canvas {
 }
 
 /* -------------------------- Light Mode -------------------------- */
-
-.light-mode code.sourceCode {
-    background-color: var(--color-light-contrast);
-}
-
-.light-mode code.sourceCode:hover {
-    box-shadow: var(--shadows-light);
-}
-
-.light-mode code.inline {
-    background-color: transparent;
-}
-
-
 .light-mode tr:hover {
     background-color: var(--color-light-contrast);
 }
@@ -1263,19 +1207,6 @@ canvas {
 
 
 /* -------------------------- Dark Mode -------------------------- */
-
-.dark-mode code.sourceCode {
-    background-color: var(--color-dark-contrast);
-}
-
-.dark-mode code.sourceCode:hover {
-    box-shadow: var(--shadows-dark);
-}
-
-.dark-mode code.inline {
-    background-color: transparent;
-}
-
 
 .dark-mode tr:hover {
     background-color: var(--color-dark-contrast);
