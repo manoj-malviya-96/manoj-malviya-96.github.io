@@ -270,9 +270,8 @@ function createBlogCardHTML(
           <a href="javascript:void(0)" class="quarto-grid-link" 
              onclick="loadBlogPage('${filePath}', event)">
                 <img src="${imagePath}" class="card-img" alt="">
-                <div class="tag-label">${type}</div>
+                <div class="tag-label">${title}</div>
                 <div class="card-body">
-                    <span class="card-title-default">${title}</span>
                     <div class="card-details">
                         <h3>${title}</h3>
                         <p class="smaller">${description}</p>

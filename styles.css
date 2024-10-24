@@ -575,15 +575,25 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ----------------------- Tags --------------------------- */
 .tag-label {
-    font-size: var(--smallest-text-size) !important;
+    font-size: var(--subtitle-text-size) !important;
     text-transform: uppercase;
     position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: var(--small-radius);
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
     padding: var(--spacing-small);
-    background-color: var(--color-brand-primary);
-    color: var(--color-white);
+    border: none;
+}
+
+.light-mode .tag-label {
+    color: var(--color-light-imp) !important;
+    background-color: var(--color-light-contrast) !important;
+}
+
+.dark-mode .tag-label {
+    color: var(--color-dark-imp) !important;
+    background-color: var(--color-dark-contrast) !important;
 }
 
 
@@ -600,13 +610,13 @@ input[type="range"]::-webkit-slider-thumb {
 
 .tag-category {
     padding: var(--spacing-small);
-    margin: var(--spacing-small) var(--spacing-small);
+    margin: var(--spacing-small) var(--spacing-small) var(--spacing-small) 0;
     width: fit-content;
     text-transform: uppercase;
     border-radius: var(--small-radius);
     border: var(--border-width) solid;
 !important;
-    font-size: var(--smallest-text-size);
+    font-size: var(--subtitle-text-size);
 }
 
 .light-mode .tag-category {
@@ -668,7 +678,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 .card {
     background-color: var(--color-light-contrast);
-    border: var(--border-width) solid var(--color-light-contrast);
     border-radius: var(--default-radius);
     flex-direction: row;
     height: var(--blog-card-and-header-height);
@@ -683,15 +692,6 @@ input[type="range"]::-webkit-slider-thumb {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.card-title-default {
-    position: absolute;
-    text-transform: uppercase;
-    left: var(--spacing-small);
-    bottom: var(--spacing-small);
-    font-size: var(--subtitle-text-size);
-    color: var(--color-passive-element);
 }
 
 .card-details {
@@ -739,10 +739,6 @@ input[type="range"]::-webkit-slider-thumb {
     display: block;
 }
 
-.card:hover .card-title-default {
-    opacity: 0;
-}
-
 .card:hover .tag-label {
     opacity: 0;
 }
@@ -754,12 +750,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 .light-mode .card {
     background-color: var(--color-light-contrast);
-    border-color: var(--color-light-contrast);
 }
 
 .dark-mode .card {
     background-color: var(--color-dark-contrast);
-    border-color: var(--color-dark-contrast);
 }
 
 .light-mode .card:hover {
