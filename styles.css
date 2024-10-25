@@ -181,6 +181,7 @@ h3 {
 }
 
 h1 {
+    text-transform: uppercase;
     font-size: var(--super-title-font-size);
 }
 
@@ -710,6 +711,10 @@ input[type="range"]::-webkit-slider-thumb {
     text-align: center;
     padding: var(--spacing-small);
     border: none;
+}
+
+.card h3 {
+    text-transform: uppercase;
 }
 
 .card:hover .card-text {
