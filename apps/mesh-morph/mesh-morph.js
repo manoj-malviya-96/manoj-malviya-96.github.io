@@ -2,7 +2,7 @@ const meshViewWidth = appWindowWidth;
 const meshViewHeight = appWindowHeight;
 const mainLightColor = 0xffffff;
 const softLightColor = 0x404040;
-const modelColor = 0x808080;
+const modelColor = getContrastColor();
 const primaryColor = getPrimaryColor();
 
 class LoadedMesh {
