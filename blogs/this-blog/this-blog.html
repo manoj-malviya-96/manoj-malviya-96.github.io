@@ -1,0 +1,154 @@
+<!-- Dont change this -->
+<footer id="quarto-footer" class="footer">
+</footer>
+<!-- Dont change this -->
+
+<div id="title-block-header" class="blog-header">
+    <div class="blog-header-image">
+        <img src="./blogs/website-build/cover.png" id="cover" alt="Cover Image">
+    </div>
+    <div class="blog-header-contents">
+        <h1 id="title">Building My Portfolio Website</h1>
+        <p id="description">How I built my dynamic portfolio website using HTML, CSS, JavaScript, and some cool tricks!</p>
+        <div class="tag-categories" id="skills">
+            <div class="tag-category">HTML</div>
+            <div class="tag-category">JavaScript</div>
+            <div class="tag-category">CSS</div>
+            <div class="tag-category">Web Development</div>
+        </div>
+    </div>
+    <div class="tag-date" id="date">Oct 25 2024</div>
+</div>
+
+<main>
+    <div class="content reading">
+        <section id="intro" class="level1">
+            <h2>Introduction</h2>
+            <p>I recently built my portfolio website to showcase my work, projects, and interests. I wanted it to be simple, easy to navigate, and visually engaging. In this blog, I'll take you through the process, tools, and decisions that went into building it, along with a few lessons I learned along the way.</p>
+        </section>
+
+        <section id="structure" class="level1">
+            <h2>1. Structuring the Website</h2>
+            <p>My portfolio website is built using classic web technologies: HTML for structure, CSS for styling, and JavaScript for interactivity. The project started by sketching out what sections I wanted: an "About Me" page, a "Projects" section, and a blog. The main structure of the site is organized into different HTML files, each representing a page, with shared elements such as the header and footer included using JavaScript for easier maintenance.</p>
+            <p>I used a single-page application (SPA) approach to make navigating between pages seamless. Instead of reloading the entire page, JavaScript loads content dynamically into a placeholder div. This made the experience feel smoother and more modern.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-html">&lt;div id="content-placeholder"&gt;&lt;/div&gt;
+&lt;script&gt;
+    function loadContent(url) {
+        fetch(url)
+            .then(response =&gt; response.text())
+            .then(data =&gt; {
+                document.getElementById("content-placeholder").innerHTML = data;
+            })
+            .catch(error =&gt; console.error("Error loading content:", error));
+    }
+&lt;/script&gt;</code></pre>
+            </div>
+            <p>The code snippet above shows how content is dynamically loaded into a placeholder div using JavaScript and the <code>fetch()</code> API. This way, I can reuse the header and footer and only change the content in the main area, saving on redundant code.</p>
+        </section>
+
+        <section id="styling" class="level1">
+            <h2>2. Styling with CSS</h2>
+            <p>For the styling, I went for a minimalist and clean look, using a mix of CSS flexbox and grid to ensure the layout is responsive across devices. I wanted the site to work well on both desktops and smaller screens, which meant paying attention to margins, padding, and making sure all content is properly centered.</p>
+            <p>I also included a dark mode option, which users can toggle using a button. This was done by adding a CSS class to the <code>&lt;body&gt;</code> element that switches colors, using CSS variables for easy adjustments. The dark mode toggle state is saved in <code>localStorage</code>, so the site remembers your preference on your next visit.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-css">:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+}
+
+body.dark-mode {
+    --background-color: #333333;
+    --text-color: #ffffff;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}</code></pre>
+            </div>
+            <p>The above code snippet shows how CSS variables are used to switch between light and dark modes. By toggling the <code>dark-mode</code> class on the <code>&lt;body&gt;</code> element, the colors of the entire site can be adjusted with minimal changes.</p>
+        </section>
+
+        <section id="dynamic-content" class="level1">
+            <h2>3. Adding Interactivity with JavaScript</h2>
+            <p>JavaScript played a big role in making the website dynamic. I used JavaScript to manage content loading, handle the navigation, and create interactivity. For example, clicking a link in the navigation bar doesn’t reload the page but rather loads the relevant content into the main container using the <code>fetch()</code> API.</p>
+            <p>One interesting challenge was creating a smooth scrolling effect when navigating within the page. This was achieved using JavaScript's <code>scrollIntoView()</code> function with smooth scrolling behavior, giving the website a more polished user experience.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-javascript">document.querySelectorAll('a[href^="#"]').forEach(anchor =&gt; {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});</code></pre>
+            </div>
+            <p>The snippet above adds an event listener to all anchor links that start with <code>#</code>. This ensures that clicking on any of these links results in a smooth scroll animation to the corresponding section.</p>
+        </section>
+
+        <section id="hosting" class="level1">
+            <h2>4. Hosting with GitHub Pages</h2>
+            <p>The website is hosted using GitHub Pages, which makes deployment easy and integrates well with version control. Any changes I push to the <code>main</code> branch are automatically deployed. It also allowed me to use a custom domain, making the site more professional-looking.</p>
+            <p>One notable aspect is using GitHub Actions for automated testing and deployment. This CI/CD pipeline ensures that each change is tested before being published, minimizing the chances of breaking the live site.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-yaml">name: GitHub Pages Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Website
+        run: npm run build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./public</code></pre>
+            </div>
+            <p>The above GitHub Actions workflow file automates the deployment process, ensuring that every time a change is pushed to the <code>main</code> branch, the website is rebuilt and deployed seamlessly.</p>
+        </section>
+
+        <section id="lessons-learned" class="level1">
+            <h2>5. Lessons Learned</h2>
+            <p>Building this website taught me a lot about web development, especially the importance of keeping things modular and easy to maintain. Separating content into reusable components made it easier to update. Dynamic loading of content added a lot of complexity, but it made for a much better user experience in the end.</p>
+            <p>If you're planning to create your own portfolio, my biggest tip is to start small. Sketch out what you need, and then start building step by step. You can always add more features later.</p>
+            <div class="code-block">
+                <button class="code-copy-button primary-button smaller"><i class="bi bi-copy"></i></button>
+                <pre><code class="language-html">&lt;!-- Example component: Header --&gt;
+&lt;header&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+            </div>
+            <p>Breaking the site into components like the header above makes it easier to update in the future. If I ever need to add another link, I only need to do it in one place.</p>
+        </section>
+
+        <section id="conclusion" class="level1">
+            <h2>Conclusion</h2>
+            <p>My portfolio website is an ongoing project that grows as I learn more about web development. It serves not only as a showcase of my work but also as a sandbox to try out new techniques. I'm quite happy with the end result, and I hope this blog gave you some insights into how it was built.</p>
+        </section>
+    </div>
+</main>
