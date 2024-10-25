@@ -15,7 +15,7 @@
     --color-brand-primary: rgb(220, 20, 60); /*#DC143C - Crimson, my boos fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
 
-    --color-brand-contrast: rgba(117, 11, 32, 0.47);
+    --color-brand-contrast: rgba(91, 128, 166, 0.47);
 
 
     /* Spacing */
@@ -79,13 +79,6 @@
 
     --blur-radius: 9px;
     --more-blur-radius: 27px;
-
-    /* Github contributions */
-    --color-calendar-graph-day-bg: #3d3d3d;
-    --color-calendar-graph-day-L1-bg: #8992a8;
-    --color-calendar-graph-day-L2-bg: #67d827;
-    --color-calendar-graph-day-L3-bg: #8da0cb;
-    --color-calendar-graph-day-L4-bg: var(--color-brand-primary);
 
     /* App */
     --app-drawer-button-height: 100px;
