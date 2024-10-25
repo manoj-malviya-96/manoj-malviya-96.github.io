@@ -574,10 +574,17 @@ input[type="range"]::-webkit-slider-thumb {
 !important;
     line-height: var(--line-height);
     text-transform: uppercase;
-    color: var(--color-brand-contrast);
     position: absolute;
     right: var(--spacing-small);
     bottom: var(--spacing-small);
+}
+
+.light-mode .tag-date {
+    color: var(--color-light-imp);
+}
+
+.dark-mode .tag-date {
+    color: var(--color-dark-imp);
 }
 
 .tag-category {
