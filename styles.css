@@ -15,7 +15,7 @@
     --color-brand-primary: rgb(220, 20, 60); /*#DC143C - Crimson, my boos fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
 
-    --color-brand-contrast: rgba(120, 142, 182, 0.47);
+    --color-brand-contrast: rgba(117, 11, 32, 0.47);
 
 
     /* Spacing */
@@ -37,8 +37,8 @@
 
     /* Font */
     --font-family: 'Helvetica';
-    --regular-weight: 420;
-    --bold-weight: 690;
+    --regular-weight: 469;
+    --bold-weight: 869;
     --line-height: 1.5;
 
     --smallest-text-size: 8px;
@@ -228,10 +228,11 @@ a {
 .loading-spinner {
     width: var(--spinner-size);
     height: var(--spinner-size);
-    border-top-color: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
     border-bottom-color: transparent;
     border-width: calc(3 * var(--border-width));
 }
+
 .slideshow {
     position: relative;
     width: 100%;
@@ -576,7 +577,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ----------------------- Tags --------------------------- */
 .tag-date {
-    font-size: var(--smallest-text-size);
+    font-size: var(--subtitle-text-size);
 !important;
     line-height: var(--line-height);
     text-transform: uppercase;
@@ -923,7 +924,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* -------------------------------- Code --------------------------------  */
 code {
     background-color: transparent !important;
-    color: #6783ba !important;
+    color: var(--color-brand-contrast); !important;
 }
 
 .code-block {
