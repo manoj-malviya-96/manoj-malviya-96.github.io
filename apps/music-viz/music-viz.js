@@ -18,7 +18,7 @@ class MusicVizView {
     this.selectedVisualizer = "circles";
 
     this.primaryColor = getPrimaryColor();
-    this.backgroundColor = getPassiveColor();
+    this.backgroundColor = getContrastColor();
 
     this.init();
   }

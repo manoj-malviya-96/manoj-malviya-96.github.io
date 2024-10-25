@@ -270,7 +270,7 @@ function createBlogCardHTML(
           <a href="javascript:void(0)" class="quarto-grid-link" 
              onclick="loadBlogPage('${filePath}', event)">
                 <img src="${imagePath}" class="card-img" alt="">
-                <div class="tag-label">${title}</div>
+                <div class="card-label">${title}</div>
                 <div class="card-body">
                     <div class="card-details">
                         <h3>${title}</h3>
@@ -314,7 +314,7 @@ function makeBlogCard(filePath, container) {
       const date = getElementAttribute(doc, "#date", "textContent", "No date");
       const type = getElementAttribute(
         doc,
-        "#tag-label",
+        "#card-label",
         "textContent",
         "No type",
       );

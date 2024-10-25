@@ -170,13 +170,13 @@ function getPrimaryColor() {
   return getStyleValue("--color-brand-primary");
 }
 
-function getPassiveColor() {
-  return getStyleValue("--color-passive-element");
+function getContrastColor() {
+  return getStyleValue("--color-brand-contrast");
 }
 
 function getPrimaryColorScale(numStops) {
   const primaryColor = getPrimaryColor();
-  const lastColor = getPassiveColor();
+  const lastColor = getContrastColor();
   let result = [[0, lastColor]];
   for (let i = 1; i <= numStops; i += 1) {
     const intensity = i / numStops;

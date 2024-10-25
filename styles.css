@@ -15,7 +15,7 @@
     --color-brand-primary: rgb(220, 20, 60); /*#DC143C - Crimson, my boos fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
 
-    --color-passive-element: rgba(128, 128, 128, 0.47);
+    --color-brand-contrast: rgba(120, 142, 182, 0.47);
 
 
     /* Spacing */
@@ -574,35 +574,12 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* ----------------------- Tags --------------------------- */
-.tag-label {
-    font-size: var(--subtitle-text-size) !important;
-    text-transform: uppercase;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding: var(--spacing-small);
-    border: none;
-}
-
-.light-mode .tag-label {
-    color: var(--color-light-imp) !important;
-    background-color: var(--color-light-contrast) !important;
-}
-
-.dark-mode .tag-label {
-    color: var(--color-dark-imp) !important;
-    background-color: var(--color-dark-contrast) !important;
-}
-
-
 .tag-date {
     font-size: var(--smallest-text-size);
 !important;
     line-height: var(--line-height);
     text-transform: uppercase;
-    color: var(--color-passive-element);
+    color: var(--color-brand-contrast);
     position: absolute;
     right: var(--spacing-small);
     bottom: var(--spacing-small);
@@ -722,6 +699,19 @@ input[type="range"]::-webkit-slider-thumb {
     transition: all var(--transition-default) ease-out;
 }
 
+.card-label {
+    font-size: var(--subtitle-text-size) !important;
+    font-weight : var(--bold-weight);
+    text-transform: uppercase;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: var(--spacing-small);
+    border: none;
+}
+
 .card:hover .card-text {
     opacity: 1;
 }
@@ -739,7 +729,7 @@ input[type="range"]::-webkit-slider-thumb {
     display: block;
 }
 
-.card:hover .tag-label {
+.card:hover .card-label {
     opacity: 0;
 }
 
@@ -772,6 +762,16 @@ input[type="range"]::-webkit-slider-thumb {
 .dark-mode .card-text,
 .dark-mode .card-title {
     color: var(--color-dark-imp);
+}
+
+.light-mode .card-label {
+    color: var(--color-light-imp) !important;
+    background-color: var(--color-light-contrast) !important;
+}
+
+.dark-mode .card-label {
+    color: var(--color-dark-imp) !important;
+    background-color: var(--color-dark-contrast) !important;
 }
 
 
@@ -918,7 +918,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* -------------------------------- Code --------------------------------  */
 code {
     background-color: transparent !important;
-    color: var(--color-brand-primary)!important;
+    color: #6783ba !important;
 }
 
 .code-block {
