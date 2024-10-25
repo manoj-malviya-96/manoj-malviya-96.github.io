@@ -32,7 +32,7 @@ const blogHTMLToExtraCallbacks = {
   "./blogs/build-orient/build-orient.html": [],
   "./blogs/formlabs-ui/ui-lead.html": [],
   "./blogs/cpp-threads/cpp-threads.html": [],
-  // "./blogs/formlabs-supports/supports.html": [],
+  // "./blogs/this-blog/this-blog.html": [],
 };
 
 // App-specific callbacks
