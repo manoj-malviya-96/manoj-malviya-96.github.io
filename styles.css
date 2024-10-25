@@ -5,7 +5,7 @@
 
     /* Color Palette */
     --color-light-primary: var(--color-white);
-    --color-light-contrast: rgba(221, 221, 221, 0.73);
+    --color-light-contrast: rgba(201, 201, 201, 0.73);
     --color-light-imp: rgb(47, 47, 47);
 
     --color-dark-primary: var(--color-black);
