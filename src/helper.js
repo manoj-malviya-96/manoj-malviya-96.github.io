@@ -273,6 +273,59 @@ function setupDropdown(
   });
 }
 
+function setupSpinbox(spinbox, onChangeCallback = null) {
+  if (!spinbox) {
+    console.error("Spinbox element not found");
+    return;
+  }
+
+  const input = spinbox.querySelector("input");
+  if (input.type !== "text") {
+    console.error("Input type must be text");
+    return;
+  }
+
+  const maxValue = Number(input.getAttribute("max")) || 10000;
+  const minValue = Number(input.getAttribute("min")) || -10000;
+  const stepSize = Number(input.getAttribute("step")) || 1;
+
+  const incrementBtn = spinbox.querySelector(".modern-spinbox-btn-up");
+  const decrementBtn = spinbox.querySelector(".modern-spinbox-btn-down");
+
+  if (!incrementBtn || !decrementBtn) {
+    console.error("Increment and decrement buttons not found");
+    return;
+  }
+
+  const handleChange = (newValue) => {
+    if (newValue > maxValue || newValue < minValue) {
+      return;
+    }
+    input.value = newValue;
+    onChangeCallback?.(newValue);
+  };
+
+  const handleIncrement = () => {
+    const newValue = Number(input.value) + stepSize;
+    handleChange(newValue);
+  };
+
+  const handleDecrement = () => {
+    const newValue = Number(input.value) - stepSize;
+    handleChange(newValue);
+  };
+
+  incrementBtn.addEventListener("click", handleIncrement);
+  decrementBtn.addEventListener("click", handleDecrement);
+}
+
+function setupAllSpinBoxs() {
+  const spinBoxList = document.querySelectorAll(".modern-spinbox");
+  spinBoxList.forEach((spinbox) => {
+    setupSpinbox(spinbox);
+  });
+}
+
 /* ------------ PDF Loading ------------ */
 function loadPDF(url, placeholder, overlay) {
   // Show the loading spinner
@@ -366,4 +419,32 @@ function loadSocialMediaLink(identifier, event) {
   } else {
     console.error("Link not found for identifier:", identifier);
   }
+}
+
+function runALoopTask(task_func, args, progressBar) {
+  if (!task_func) {
+    console.error("Task not provided");
+    return;
+  }
+  if (!args) {
+    console.error("Arguments not provided");
+    return;
+  }
+  if (!progressBar) {
+    console.error("Progress bar container not provided");
+    return;
+  }
+
+  const totalTasks = args.length;
+
+  const updateProgress = (index) => {
+    progressBar.value = ((index + 1) / totalTasks) * 100;
+  };
+
+  let result = [];
+  args.forEach((arg, index) => {
+    result[index] = task_func(arg);
+    updateProgress(index);
+  });
+  return result;
 }

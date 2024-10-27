@@ -40,7 +40,7 @@ const defaultAppCallbacks = [initTheme];
 const appHTMLToInits = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
-  "./apps/lattice-topt/lattice-topt.html": [],
+  "./apps/lattice-topt/lattice-topt.html": [initLatticeTopt, setupAllSpinBoxs],
   "./apps/coming-soon/coming-soon.html": [],
 };
 

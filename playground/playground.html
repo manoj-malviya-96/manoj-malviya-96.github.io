@@ -39,9 +39,6 @@
         <option value="square">Square</option>
         <option value="checkerboard">Checkerboard</option>
     </select>
-
-    <label for="lineWidths">Line Widths (comma-separated):</label>
-    <input type="text" id="lineWidths" value="2, 3, 4, 5" placeholder="e.g., 2, 3, 4, 5">
 </div>
 
 <div id="mesh-output"></div>
@@ -50,7 +47,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const viewer = new Viewer();
-        viewer.initialize(); // Initialize the viewer
+        viewer.init(); // init the viewer
     });
 
     // Mesh Class to store points and connections
@@ -117,9 +114,9 @@
 
     // Drawer Class to interact with HTML and draw the Mesh using Plotly
     class Drawer {
-        constructor(mesh, lineWidths) {
+        constructor(mesh, lineWidths = []) {
             this.mesh = mesh;
-            this.lineWidths = lineWidths;
+            this.lineWidths = lineWidths.length ? lineWidths : new Array(mesh.getConnections().length).fill(2); // Default width 2 if not provided
         }
 
         plot() {
@@ -174,6 +171,10 @@
             Plotly.newPlot('mesh-plot', data, layout);
             document.getElementById("mesh-output").innerText = `Generated ${coords.length} nodes.`;
         }
+
+        setLineWidths(widths) {
+            this.lineWidths = widths.length ? widths : new Array(this.mesh.getConnections().length).fill(2);
+        }
     }
 
     // Viewer Class to handle HTML interactions and manage Mesh and Drawer
@@ -183,16 +184,14 @@
             this.meshWidthInput = document.getElementById("meshWidth");
             this.meshHeightInput = document.getElementById("meshHeight");
             this.latticeTypeInput = document.getElementById("latticeType");
-            this.lineWidthsInput = document.getElementById("lineWidths");
         }
 
-        initialize() {
+        init() {
             // Bind listeners to HTML inputs
             this.cellSizeInput.addEventListener("input", () => this.updateMesh());
             this.meshWidthInput.addEventListener("input", () => this.updateMesh());
             this.meshHeightInput.addEventListener("input", () => this.updateMesh());
             this.latticeTypeInput.addEventListener("change", () => this.updateMesh());
-            this.lineWidthsInput.addEventListener("input", () => this.updateMesh());
 
             // Generate initial mesh
             this.updateMesh();
@@ -204,13 +203,16 @@
             const meshWidth = parseFloat(this.meshWidthInput.value);
             const meshHeight = parseFloat(this.meshHeightInput.value);
             const latticeType = this.latticeTypeInput.value;
-            const lineWidths = this.lineWidthsInput.value.split(',').map(Number).filter(w => !isNaN(w) && w > 0);
 
             // Create Mesh object
             const mesh = new Mesh(cellSize, meshWidth, meshHeight, latticeType);
 
-            // Create Drawer object with variable line widths and plot the mesh
-            const drawer = new Drawer(mesh, lineWidths);
+            // Example internal API usage for setting variable line widths
+            const lineWidths = [2, 3, 4, 5, 3, 2]; // Example line widths (internal logic)
+            const drawer = new Drawer(mesh);
+            drawer.setLineWidths(lineWidths);
+
+            // Plot the mesh
             drawer.plot();
         }
     }
