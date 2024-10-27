@@ -481,7 +481,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .tag-category {
     padding: var(--spacing-tiny);
-    margin: var(--spacing-small) var(--spacing-medium) var(--spacing-medium) 0;
+    margin: var(--spacing-tiny);
     width: fit-content;
     text-transform: uppercase;
     border-radius: var(--small-radius);
@@ -491,15 +491,10 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .tag-categories {
-    display: flex;
-    flex-wrap: wrap;
-    overflow: hidden;
-    align-content: flex-start;
-    justify-content: left;
-    opacity: 0.69;
-    width: 100%;
-    padding: 0; margin: 0;
-    transition: all var(--transition-default);
+    display: flex; flex-wrap: wrap;
+    overflow: hidden; align-content: flex-start;
+    justify-content: left; opacity: 0.69;
+    width: 100%; padding: 0; margin: 0;
 }
 
 
