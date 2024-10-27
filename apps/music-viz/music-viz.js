@@ -18,7 +18,6 @@ class MusicVizView {
     this.selectedVisualizer = "circles";
 
     this.primaryColor = getPrimaryColor();
-    this.backgroundColor = getContrastColor();
 
     this.init();
   }
@@ -86,12 +85,17 @@ class MusicVizView {
       this.toggleVizDropdown.bind(this),
     );
 
-    this.elements.progressBar.style.background = `${this.backgroundColor}`;
-
     this.setupVizDropdown();
     this.setupSongDropdown();
     this.setupResizing();
     this.setupKeyboardShortcuts();
+
+    initThemeChangeHandler(() => this.updateProgressBarStyle());
+    this.updateProgressBarStyle();
+  }
+
+  updateProgressBarStyle() {
+    this.elements.progressBar.style.background = `${getContrastColor()}`;
   }
 
   setupKeyboardShortcuts() {

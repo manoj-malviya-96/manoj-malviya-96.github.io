@@ -17,7 +17,7 @@ const homePageCallbacks = [
 
 const defaultBlogCallbacks = [
   initTheme,
-  loadBlogFooter, //Order Matters
+  loadTableOfContents, //Order Matters
   initImageFluidHandler,
   initScrollTracking,
   initCodeHighlighting, //Should be after initTheme
@@ -216,6 +216,7 @@ function makeAppButtons() {
     console.error("Error loading all apps:", err);
   });
 }
+
 /** ---------------------------- Blog Cards  ---------------------------- **/
 
 function createBlogCardHTML(
@@ -245,15 +246,13 @@ function createBlogCardHTML(
              onclick="loadBlogPage('${filePath}', event)">
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-label">${title}</div>
-                <div class="card-body">
-                    <div class="card-details">
-                        <h3>${title}</h3>
-                        <p class="smaller">${description}</p>
-                        <div class="tag-categories">
-                            ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
-                        </div>
-                         <div class="tag-date">${date} </div>
+                <div class="card-details">
+                    <h3>${title}</h3>
+                    <p class="smaller">${description}</p>
+                    <div class="tag-categories">
+                        ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
+                    <div class="tag-date">${date} </div>
                 </div>
           </a>
       </div>
@@ -472,8 +471,35 @@ function sortBlogCards(sortBy) {
 }
 
 /** ---------------------------- Blog Page Functions  ---------------------------- **/
+function loadTableOfContents() {
+  let tableOfContents = document.getElementById("tableOfContents");
+
+  // Check if the footer element exists, if not, dynamically create it
+  if (!tableOfContents) {
+    console.error("Footer placeholder not found in project page");
+    return;
+  }
+
+  // Use template literals to create the footer structure
+  // Inject the footer HTML into the footer element
+  tableOfContents.innerHTML = `
+        <div class="blog-sidebar-title">
+            <button class="blog-sidebar-toggle" id="tocToggle">
+                <i class="bi bi-chevron-down"></i>
+            </button>
+            <label for="tocToggle">On this Page </label>
+        </div>
+        <nav id="tocListContainer" role="doc-toc"> 
+            <ul class="blog-sidebar-list" id="tocList"></ul>
+        </nav>
+        `;
+  // Call the function to dynamically generate the TOC
+  generateTableOfContentsForBlogPages();
+  setupBlogToggleButton();
+}
+
 function generateTableOfContentsForBlogPages() {
-  const tocList = document.getElementById("dynamic-toc");
+  const tocList = document.getElementById("tocList");
   const sections = document.querySelectorAll("main section[id]"); // Assuming sections in the main content have ids
 
   // Use template literals to generate TOC items
@@ -494,31 +520,26 @@ function generateTableOfContentsForBlogPages() {
   }
 }
 
-function loadBlogFooter() {
-  let footer = document.getElementById("quarto-footer");
+function setupBlogToggleButton() {
+  // Function to initialize the theme toggle after loading the content
+  window.document
+    .getElementById("tocToggle")
+    .addEventListener("click", function () {
+      const toc = document.getElementById("tableOfContents");
 
-  // Check if the footer element exists, if not, dynamically create it
-  if (!footer) {
-    console.error("Footer placeholder not found in project page");
-    return;
-  }
-
-  // Use template literals to create the footer structure
-  // Inject the footer HTML into the footer element
-  footer.innerHTML = `
-        <div class="footer-title">
-            <button class="footer-icon" id="footer-toggle">
-                <i class="bi bi-chevron-down"></i>
-            </button>
-            <label for="footer-toggle">On this Page </label>
-        </div>
-        <nav id="TOC" role="doc-toc"> 
-            <ul class="footer-toc" id="dynamic-toc"></ul>
-        </nav>
-        `;
-  // Call the function to dynamically generate the TOC
-  generateTableOfContentsForBlogPages();
-  initProjectFooterToggle();
+      // change the icon based on the footer visibility
+      const icon = this.querySelector("i");
+      const iconUp = "bi-chevron-up";
+      const iconDown = "bi-chevron-down";
+      if (icon.classList.contains(iconDown)) {
+        icon.classList.remove(iconDown);
+        icon.classList.add(iconUp);
+      } else {
+        icon.classList.remove(iconUp);
+        icon.classList.add(iconDown);
+      }
+      toc.classList.toggle("hide-list"); // Toggle the "footer-collapsed" class
+    });
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/

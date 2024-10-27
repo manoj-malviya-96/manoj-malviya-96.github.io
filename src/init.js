@@ -39,18 +39,18 @@ function initImageFluidHandler() {
   images.forEach((img) => {
     img.addEventListener("click", () => {
       modalImg.src = img.src;
-      modal.style.display = "flex";
+      modal.classList.add("show");
     });
   });
 
   modal.addEventListener("click", () => {
-    modal.style.display = "none"; // Hide modal on click
+    modal.classList.remove("show");
   });
 
   // Hide the modal when the Esc key is pressed
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
-      modal.style.display = "none"; // Hide modal on Esc key press
+      modal.classList.remove("show");
     }
   });
 }
@@ -77,28 +77,6 @@ function toggleForAbout(keepItExpanded = false) {
   }
 }
 
-function initProjectFooterToggle() {
-  // Function to initialize the theme toggle after loading the content
-  window.document
-    .getElementById("footer-toggle")
-    .addEventListener("click", function () {
-      const footer = document.getElementById("quarto-footer");
-
-      // change the icon based on the footer visibility
-      const icon = this.querySelector("i");
-      const iconUp = "bi-chevron-up";
-      const iconDown = "bi-chevron-down";
-      if (icon.classList.contains(iconDown)) {
-        icon.classList.remove(iconDown);
-        icon.classList.add(iconUp);
-      } else {
-        icon.classList.remove(iconUp);
-        icon.classList.add(iconDown);
-      }
-      footer.classList.toggle("footer-hidden"); // Toggle the "footer-collapsed" class
-    });
-}
-
 function initContentObserver(contentPlaceholder) {
   // Use MutationObserver to detect content change in contentPlaceholder
   const observer = new MutationObserver((mutations) => {
@@ -117,7 +95,7 @@ function initContentObserver(contentPlaceholder) {
 // Function to initialize the scroll tracking
 function initScrollTracking() {
   const sections = document.querySelectorAll("main section"); // Select all sections within the dynamically loaded content
-  const navLinks = document.querySelectorAll("#TOC .nav-link"); // Sidebar links
+  const navLinks = document.querySelectorAll("#tocListContainer .nav-link"); // Sidebar links
 
   // Helper function to remove 'active' class from all links
   const removeActiveClasses = () => {
@@ -127,7 +105,9 @@ function initScrollTracking() {
   // Function to add 'active' class to the corresponding link
   const addActiveClass = (id) => {
     removeActiveClasses();
-    const activeLink = document.querySelector(`#TOC a[href="#${id}"]`);
+    const activeLink = document.querySelector(
+      `#tocListContainer a[href="#${id}"]`,
+    );
     if (activeLink) {
       activeLink.classList.add("active");
     }
@@ -204,7 +184,15 @@ function toggleTheme() {
     icon.className = "bi bi-sunrise-fill";
   }
 
-  storeValueInStorage("theme", toDarkMode ? "dark-mode" : "light-mode");
+  const theme = toDarkMode ? "dark-mode" : "light-mode";
+  storeValueInStorage("theme", theme);
+  emitEvent("themeChange", null);
+}
+
+// Allows to change the theme of the website
+function initThemeChangeHandler(callback) {
+  console.log("initThemeChangeHandler");
+  window.document.addEventListener("themeChange", callback);
 }
 
 function toggleSidebar() {

@@ -1,6 +1,6 @@
 <!-- Dont change this-->
-<footer id="quarto-footer" class="footer">
-</footer>
+<div id="tableOfContents" class="blog-sidebar">
+</div>
 <!-- Dont change this-->
 
 <!-- header -->
@@ -28,107 +28,104 @@
 </header>
 
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-    <!-- main -->
-    <main>
-        <div class="content block reading">
-            <!-- abstract -->
-            <p> Led feature-development for automated support structure generation, optimizing for stability and
-                material efficiency for
-                3D Printing. Introduced light touchtip supports, driving 50% usage growth and reducing print-failure
-                rate by 15%. Pioneered a novel topology algorithm for support structures, utilizing lattices and FEA.
-                Achieved up to 70% material
-                savings while maintaining critical stiffness, with enhanced speed through a novel optimization approach.
+<main class="blog-main-content">
+    <div class="content block reading">
+        <!-- abstract -->
+        <p> Led feature-development for automated support structure generation, optimizing for stability and
+            material efficiency for
+            3D Printing. Introduced light touchtip supports, driving 50% usage growth and reducing print-failure
+            rate by 15%. Pioneered a novel topology algorithm for support structures, utilizing lattices and FEA.
+            Achieved up to 70% material
+            savings while maintaining critical stiffness, with enhanced speed through a novel optimization approach.
+        </p>
+        <p style="padding-top: var(--spacing-medium)"><strong>Objective: </strong> Create a modular framework and
+            UI/UX elements, for a simpler and
+            powerful user-experience to streamline workflows.
+        </p>
+        <a href="https://support.formlabs.com/s/article/PreForm-Release-Notes?language=en_US"><i
+                class="bi bi-app-indicator"></i> PreForm </a>
+    </div>
+    <!-- more -->
+    <div class="content reading" style="margin-top: var(--spacing-medium);">
+        <!-- intro-->
+        <section id="intro" class="level1">
+            <h2>Introduction</h2>
+            <p>
+                PreForm is a Desktop Application that allows users to prepare 3D models for printing on Formlabs
+                printers. The application is used by engineers, designers, and other professionals to create
+                high-quality prints.
+                The goal of the project was to create a new UI framework that would make the application more
+                user-friendly and intuitive.
             </p>
-            <p style="padding-top: var(--spacing-medium)"><strong>Objective: </strong> Create a modular framework and
-                UI/UX elements, for a simpler and
-                powerful user-experience to streamline workflows.
+
+            <img src="./blogs/ui-lead/before-preform.png" alt="Before-Me" class="img-fluid">
+            <p>
+                <strong>Before:</strong> Problems with preform were identified through user testing and feedback.
             </p>
-            <a href="https://support.formlabs.com/s/article/PreForm-Release-Notes?language=en_US"><i
-                    class="bi bi-app-indicator"></i> PreForm </a>
-        </div>
-        <!-- more -->
-        <div class="content reading" style="margin-top: var(--spacing-medium);">
-            <!-- intro-->
-            <section id="intro" class="level1">
-                <h2>Introduction</h2>
-                <p>
-                    PreForm is a Desktop Application that allows users to prepare 3D models for printing on Formlabs
-                    printers. The application is used by engineers, designers, and other professionals to create
-                    high-quality prints.
-                    The goal of the project was to create a new UI framework that would make the application more
-                    user-friendly and intuitive.
-                </p>
+            <ul>
+                <li>The application was not
+                    intuitive enough, and the user had to navigate through multiple screens to perform a single
+                    task.
+                </li>
+                <li>In addition, visual clutter and lack of consistency in the UI elements made the application
+                    difficult to use.
+                </li>
+                <li>Architecture was not modular and had a lot of copy-paste code.</li>
+            </ul>
+            <img src="./blogs/ui-lead/after-preform.png" alt="After-Me" class="img-fluid">
+            <p>
+                <strong>After:</strong> The new UI framework was designed to be more user-friendly and intuitive.
+                The
+                application was redesigned to have a more modern look and feel.
+            </p>
+            <ul>
+                <li>The new UI framework is modular and allows for easy customization of UI elements.</li>
+                <li>It also has a consistent design language that makes the application easier to use.</li>
+                <li>Architecture was modularized and made it easier to maintain and extend.</li>
+                <li>QMl Standards were optimized and used a better QML Coding Standards and optimization</li>
+            </ul>
+        </section>
+        <!-- toolbar -->
+        <section id="toolbar" class="level1">
+            <h2>Toolbar Improvements</h2>
+            <p>
+                <strong>Before:</strong>
+                Problems with the toolbar were identified through user testing and feedback. The toolbar was
+                cluttered and had too many options.
+                The icons were not intuitive and the user had to hover over each icon to see what it did.
+                In addition, it's taking up too much space on the screen.
+            </p>
+            <img src="./blogs/ui-lead/before-toolbar.png" style="height: 300px; width: auto;" alt="Before-Toolbar"
+                 class="img-fluid">
+            <p>
+                <strong>After:</strong>
+                The toolbar was redesigned to be more intuitive and user-friendly. The icons were updated to be more
+                recognizable and the button text was added.
+                We also made the toolbar floating, to allow for more screen space. It also has extensive tooltips to
+                help users understand the functionality of each button.
+            </p>
+            <img src="./blogs/ui-lead/after-toolbar.png" style="height: 300px; width: auto;" alt="After-Toolbar"
+                 class="img-fluid">
+        </section>
 
-                <img src="./blogs/ui-lead/before-preform.png" alt="Before-Me" class="img-fluid">
-                <p>
-                    <strong>Before:</strong> Problems with preform were identified through user testing and feedback.
-                </p>
-                <ul>
-                    <li>The application was not
-                        intuitive enough, and the user had to navigate through multiple screens to perform a single
-                        task.
-                    </li>
-                    <li>In addition, visual clutter and lack of consistency in the UI elements made the application
-                        difficult to use.
-                    </li>
-                    <li>Architecture was not modular and had a lot of copy-paste code.</li>
-                </ul>
-                <img src="./blogs/ui-lead/after-preform.png" alt="After-Me" class="img-fluid">
-                <p>
-                    <strong>After:</strong> The new UI framework was designed to be more user-friendly and intuitive.
-                    The
-                    application was redesigned to have a more modern look and feel.
-                </p>
-                <ul>
-                    <li>The new UI framework is modular and allows for easy customization of UI elements.</li>
-                    <li>It also has a consistent design language that makes the application easier to use.</li>
-                    <li>Architecture was modularized and made it easier to maintain and extend.</li>
-                    <li>QMl Standards were optimized and used a better QML Coding Standards and optimization</li>
-                </ul>
-            </section>
-            <!-- toolbar -->
-            <section id="toolbar" class="level1">
-                <h2>Toolbar Improvements</h2>
-                <p>
-                    <strong>Before:</strong>
-                    Problems with the toolbar were identified through user testing and feedback. The toolbar was
-                    cluttered and had too many options.
-                    The icons were not intuitive and the user had to hover over each icon to see what it did.
-                    In addition, it's taking up too much space on the screen.
-                </p>
-                <img src="./blogs/ui-lead/before-toolbar.png" style="height: 300px; width: auto;" alt="Before-Toolbar"
-                     class="img-fluid">
-                <p>
-                    <strong>After:</strong>
-                    The toolbar was redesigned to be more intuitive and user-friendly. The icons were updated to be more
-                    recognizable and the button text was added.
-                    We also made the toolbar floating, to allow for more screen space. It also has extensive tooltips to
-                    help users understand the functionality of each button.
-                </p>
-                <img src="./blogs/ui-lead/after-toolbar.png" style="height: 300px; width: auto;" alt="After-Toolbar"
-                     class="img-fluid">
-            </section>
+        <section id="print-upload" class="level1">
+            <h2>Print Upload Workflow Improvements</h2>
+            <p>
+                <strong>Before:</strong>
+                The print upload workflow was not user-friendly. Users had to navigate through multiple screens to
+                upload a print.
+                It also included some copying of logic, to have errors and printer-info in print-dialog.
+            </p>
+            <img src="./blogs/ui-lead/before-print.png" alt="Before-Print" class="img-fluid">
+            <p>
+                <strong>After:</strong>
+                Complexity was reduced by combining the print upload workflow into a single modal. The user can now
+                upload a print in a single step.
+                Print Dialog was removed and the user can now see the printer-info and errors in the other relevant
+                parts of the application.
+            </p>
+            <img src="./blogs/ui-lead/after-print.png" alt="After-Print" class="img-fluid">
+        </section>
 
-            <section id="print-upload" class="level1">
-                <h2>Print Upload Workflow Improvements</h2>
-                <p>
-                    <strong>Before:</strong>
-                    The print upload workflow was not user-friendly. Users had to navigate through multiple screens to
-                    upload a print.
-                    It also included some copying of logic, to have errors and printer-info in print-dialog.
-                </p>
-                <img src="./blogs/ui-lead/before-print.png" alt="Before-Print" class="img-fluid">
-                <p>
-                    <strong>After:</strong>
-                    Complexity was reduced by combining the print upload workflow into a single modal. The user can now
-                    upload a print in a single step.
-                    Print Dialog was removed and the user can now see the printer-info and errors in the other relevant
-                    parts of the application.
-                </p>
-                <img src="./blogs/ui-lead/after-print.png" alt="After-Print" class="img-fluid">
-            </section>
-
-        </div>
-    </main> <!-- /main -->
-</div> <!-- /content -->
+    </div>
+</main> <!-- /main -->

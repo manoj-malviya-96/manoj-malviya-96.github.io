@@ -1,6 +1,6 @@
 <!-- Dont change this-->
-<footer id="quarto-footer" class="footer">
-</footer>
+<div id="tableOfContents" class="blog-sidebar">
+</div>
 <!-- Dont change this-->
 
 
@@ -30,180 +30,177 @@
 </header>
 
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-    <!-- main -->
-    <main>
-        <div class="content block reading">
-            <!-- abstract -->
-            <p>This paper presents design findings from a study employing a digital version of the Delta
-                Design
-                Game
-                tool, originally developed by Bucciarelli in 1991. In this work, we present a digital interface in
+<main class="blog-main-content">
+    <div class="content block reading">
+        <!-- abstract -->
+        <p>This paper presents design findings from a study employing a digital version of the Delta
+            Design
+            Game
+            tool, originally developed by Bucciarelli in 1991. In this work, we present a digital interface in
+            which
+            users play the Delta Design game online while the interface collects data on the behavior of the
+            designer. Using our tool, players can compose, revise and verify the designs on a digital platform,
+            while the digital tool captures every action taken in the interface. For this research, we studied
+            N=15
+            engineering graduate students to compare design behaviors in groups of high-performing and
+            low-performing designers. We used Hidden Markov Modeling techniques to discern patterns of behaviors
+            between high-performing designers and low-performing designers. Our findings from the Hidden Markov
+            Models show that designers proceed through four procedural latent states for the design challenge.
+            High-performing designers typically achieve optimal performance by dividing the complex novel
+            problems
+            into sub-problems and defining an analogy with familiar tasks. Both efficient and inefficient
+            designers
+            are able to achieve high-performing scores but show different cognitive processes. Interpreted
+            through
+            Schraagen’s theory of design cognition, the high performing designers in general showed progressive
+            deepening strategies, progressing systematically through subtasks, starting with structural aspects
+            of
+            the challenge before the parametric optimization.
+        </p>
+        <a href="https://github.com/mmalviyar/Delta-Design-Tool"><i class="bi bi-github"></i></a>
+        <a href="https://github.com/mmalviyar/Delta-Design-Tool">Code</a>
+    </div>
+    <div class="content reading" style="margin-top: var(--spacing-medium);">
+
+        <!-- getting-started -->
+        <section id="introduction" class="level1">
+            <h2>Introduction</h2>
+
+            <p>Because engineering design requires significant  iterative  cognitive activities and the synthesis of
+                domain-specific knowledge, researchers are often interested in the transfer of strategies for
+                domain-specific knowledge. There are three classifications of strategies that are typically studied:
+                Control strategies, Heuristic strategies, and Learning strategies. Control strategies determine
                 which
-                users play the Delta Design game online while the interface collects data on the behavior of the
-                designer. Using our tool, players can compose, revise and verify the designs on a digital platform,
-                while the digital tool captures every action taken in the interface. For this research, we studied
-                N=15
-                engineering graduate students to compare design behaviors in groups of high-performing and
-                low-performing designers. We used Hidden Markov Modeling techniques to discern patterns of behaviors
-                between high-performing designers and low-performing designers. Our findings from the Hidden Markov
-                Models show that designers proceed through four procedural latent states for the design challenge.
-                High-performing designers typically achieve optimal performance by dividing the complex novel
-                problems
-                into sub-problems and defining an analogy with familiar tasks. Both efficient and inefficient
-                designers
-                are able to achieve high-performing scores but show different cognitive processes. Interpreted
-                through
-                Schraagen’s theory of design cognition, the high performing designers in general showed progressive
-                deepening strategies, progressing systematically through subtasks, starting with structural aspects
+                tasks should be carried out, heuristic strategies determine how a task should be carried out, and
+                learning strategies are the ways that designers learn to carry out tasks. These transfer learning
+                attributes vary between expert designers and novices and therefore affects the solution quality of
+                novel
+                problems.</p>
+            <p>Researchers have explored the behaviors of experts and novices while solving novel problems. Results
                 of
-                the challenge before the parametric optimization.
-            </p>
-            <a href="https://github.com/mmalviyar/Delta-Design-Tool"><i class="bi bi-github"></i></a>
-            <a href="https://github.com/mmalviyar/Delta-Design-Tool">Code</a>
-        </div>
-        <div class="content reading" style="margin-top: var(--spacing-medium);">
+                these studies suggests that the experts use general control and heuristic strategies that they
+                learned
+                previously while working in a specific domain. Besides using task-specific strategies, experts also
+                implement their abstract and organized domain knowledge. Schraagen showed that experts tend to solve
+                novel problems by dividing subproblems in a specific order and then applying abstract knowledge
+                structures and heuristic strategies to compensate for their lack of domain knowledge. Schraagen
+                presented two global characteristic strategies for the way experts tackling novel problems: The
+                first is
+                called progressive deepening and the second is called mental simulation. **Progressive deepening**
+                is a
+                control strategy, where the designer proceeds through the same sub-problem repeatedly, with each
+                pass
+                gaining new information, and establishing automaticity in their design responses. **Mental
+                simulation**,
+                on the other hand, is a heuristic strategy where design experts mentally establish the outcome of a
+                design action before taking action. We build on the previous work and explore the novel problem
+                solving
+                process of graduate students for a potential impact on design education research and computational
+                design, where these learned strategies can benefit engineering graduate students and the development
+                of
+                generative artificial intelligence. </p>
+            <img src="./blogs/delta-design/background.png" alt="Research Background"
+                 class="img-fluid">
+            <p> In this work, we present a digital interface of the Delta Design Game to facilitate our
+                investigation of
+                novel design problems. Participants play the Delta Design game interactively, while the interface
+                collects all moves representing design decisions throughout the duration of the game. Players can
+                compose, revise, and analyze their design using this tool on an online platform while our interface
+                capture every state of design and thus, providing a rich source to analyze the enacted design
+                behaviors.
+                We employ this design platform to compare the design behaviors between high-performing and
+                low-performing designers in a novel problem design context. We also compared the design behaviors
+                between efficient and inefficient designers, to study the effect of automaticity. To this end, the
+                overarching question this research seeks to answer is as follows:</p>
 
-            <!-- getting-started -->
-            <section id="introduction" class="level1">
-                <h2>Introduction</h2>
-
-                <p>Because engineering design requires significant  iterative  cognitive activities and the synthesis of
-                    domain-specific knowledge, researchers are often interested in the transfer of strategies for
-                    domain-specific knowledge. There are three classifications of strategies that are typically studied:
-                    Control strategies, Heuristic strategies, and Learning strategies. Control strategies determine
-                    which
-                    tasks should be carried out, heuristic strategies determine how a task should be carried out, and
-                    learning strategies are the ways that designers learn to carry out tasks. These transfer learning
-                    attributes vary between expert designers and novices and therefore affects the solution quality of
-                    novel
-                    problems.</p>
-                <p>Researchers have explored the behaviors of experts and novices while solving novel problems. Results
-                    of
-                    these studies suggests that the experts use general control and heuristic strategies that they
-                    learned
-                    previously while working in a specific domain. Besides using task-specific strategies, experts also
-                    implement their abstract and organized domain knowledge. Schraagen showed that experts tend to solve
-                    novel problems by dividing subproblems in a specific order and then applying abstract knowledge
-                    structures and heuristic strategies to compensate for their lack of domain knowledge. Schraagen
-                    presented two global characteristic strategies for the way experts tackling novel problems: The
-                    first is
-                    called progressive deepening and the second is called mental simulation. **Progressive deepening**
-                    is a
-                    control strategy, where the designer proceeds through the same sub-problem repeatedly, with each
-                    pass
-                    gaining new information, and establishing automaticity in their design responses. **Mental
-                    simulation**,
-                    on the other hand, is a heuristic strategy where design experts mentally establish the outcome of a
-                    design action before taking action. We build on the previous work and explore the novel problem
-                    solving
-                    process of graduate students for a potential impact on design education research and computational
-                    design, where these learned strategies can benefit engineering graduate students and the development
-                    of
-                    generative artificial intelligence. </p>
-                <img src="./blogs/delta-design/background.png" alt="Research Background"
-                     class="img-fluid">
-                <p> In this work, we present a digital interface of the Delta Design Game to facilitate our
-                    investigation of
-                    novel design problems. Participants play the Delta Design game interactively, while the interface
-                    collects all moves representing design decisions throughout the duration of the game. Players can
-                    compose, revise, and analyze their design using this tool on an online platform while our interface
-                    capture every state of design and thus, providing a rich source to analyze the enacted design
-                    behaviors.
-                    We employ this design platform to compare the design behaviors between high-performing and
-                    low-performing designers in a novel problem design context. We also compared the design behaviors
-                    between efficient and inefficient designers, to study the effect of automaticity. To this end, the
-                    overarching question this research seeks to answer is as follows:</p>
-
-                <blockquote>What design strategies do intermediate-level designers employ when challenged with a novel
-                    complex problem?
-                </blockquote>
-            </section>
+            <blockquote>What design strategies do intermediate-level designers employ when challenged with a novel
+                complex problem?
+            </blockquote>
+        </section>
 
 
-            <section id="main-content" class="level2">
-                <h2>Details</h2>
+        <section id="main-content" class="level2">
+            <h2>Details</h2>
 
-                <p>Delta-Design is a fictional design game developed by Bucciarelli, to teach students the social
-                    designing skills such as communications, trade-offs, and team-dynamics. This game consists of a
-                    well-defined configuration design problem, but on a skewed physics system. Due to this anomaly
-                    in
-                    world, this makes it challenging for designers to apply existing domain knowledge and design
-                    heuristics. However, the objectives in the design problem are identical to typical configuration
-                    design problems, therefore, making it a research tool suitable for studying designing for
-                    structurally similar novel problem.</p>
-                <img src="./blogs/delta-design/game-ui.png" alt="Delta Design Game"
-                     class="img-fluid">
-                <p>To facilitate design and data collection, we developed a graphical user interface (GUI) using
-                    MATLAB’s App designer. Besides facilitating the virtual design, we also focused on providing a
-                    more
-                    authentic design environment by embedding client feedback as a feature in the tool. The back end
-                    of
-                    the GUI tests the design score and satisfaction of constraints in real-time. The GUI also does
-                    not
-                    allow for impossible design features (for example, overlapping delta triangles). There are nine
-                    design actions that can be performed to complete the challenge. We place these actions on three
-                    different panels based on their roles. There are three message boxes in GUI: Delta World Status,
-                    Design Feedback, and Participant Information. The “Delta Status” message box displays the
-                    success or
-                    an error message corresponding to a designer’s actions. The “Participant Information” box
-                    displays
-                    the participant number, time left for the study and number of deltas. The “Design Score” message
-                    box
-                    is an essential feature for making this GUI a real-life experience, providing real-time insight
-                    as
-                    to the constraints when designs do not meet requirements. We also designed a control panel to
-                    provide a way to mitigate accidental mistakes. For example, if a designer accidentally deletes a
-                    triangle, they can use the UNDO function to return to the previous state. We added a panel at
-                    bottom
-                    for an overview of design constraints and objective function details. More information about the
-                    software can be found here.</p>
-            </section>
-            <section id="output" class="level2">
-                <h2>Conclusion</h2>
+            <p>Delta-Design is a fictional design game developed by Bucciarelli, to teach students the social
+                designing skills such as communications, trade-offs, and team-dynamics. This game consists of a
+                well-defined configuration design problem, but on a skewed physics system. Due to this anomaly
+                in
+                world, this makes it challenging for designers to apply existing domain knowledge and design
+                heuristics. However, the objectives in the design problem are identical to typical configuration
+                design problems, therefore, making it a research tool suitable for studying designing for
+                structurally similar novel problem.</p>
+            <img src="./blogs/delta-design/game-ui.png" alt="Delta Design Game"
+                 class="img-fluid">
+            <p>To facilitate design and data collection, we developed a graphical user interface (GUI) using
+                MATLAB’s App designer. Besides facilitating the virtual design, we also focused on providing a
+                more
+                authentic design environment by embedding client feedback as a feature in the tool. The back end
+                of
+                the GUI tests the design score and satisfaction of constraints in real-time. The GUI also does
+                not
+                allow for impossible design features (for example, overlapping delta triangles). There are nine
+                design actions that can be performed to complete the challenge. We place these actions on three
+                different panels based on their roles. There are three message boxes in GUI: Delta World Status,
+                Design Feedback, and Participant Information. The “Delta Status” message box displays the
+                success or
+                an error message corresponding to a designer’s actions. The “Participant Information” box
+                displays
+                the participant number, time left for the study and number of deltas. The “Design Score” message
+                box
+                is an essential feature for making this GUI a real-life experience, providing real-time insight
+                as
+                to the constraints when designs do not meet requirements. We also designed a control panel to
+                provide a way to mitigate accidental mistakes. For example, if a designer accidentally deletes a
+                triangle, they can use the UNDO function to return to the previous state. We added a panel at
+                bottom
+                for an overview of design constraints and objective function details. More information about the
+                software can be found here.</p>
+        </section>
+        <section id="output" class="level2">
+            <h2>Conclusion</h2>
 
-                <p>We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
-                    investigate high- and low-performing designers (as classified using their design performance),
-                    and
-                    efficient- and inefficient designers (as classified using number of actions they took).</p>
+            <p>We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
+                investigate high- and low-performing designers (as classified using their design performance),
+                and
+                efficient- and inefficient designers (as classified using number of actions they took).</p>
 
-                <div id="heatmap1" class="plot" style="margin: var(--spacing-large) auto"></div>
+            <div id="heatmap1" class="plot" style="margin: var(--spacing-large) auto"></div>
 
-                <p> HMM captured variances and similarities in the patterns of behaviors and the way that different
-                    groups of designers proceeded through latent states. This data were analyzed statistically in
-                    aggregate and then by training four Hidden Markov Models to depict the underlying latent
-                    “states” of
-                    behaviors in which the designers engaged. The participants for this study were
-                    intermediate-level
-                    designers currently enrolled in graduate engineering programs. Our findings indicated that both
-                    efficient and inefficient designers could achieve high-performing client scores, but the
-                    underlying
-                    patterns of behaviors between the groups were dissimilar. </p>
+            <p> HMM captured variances and similarities in the patterns of behaviors and the way that different
+                groups of designers proceeded through latent states. This data were analyzed statistically in
+                aggregate and then by training four Hidden Markov Models to depict the underlying latent
+                “states” of
+                behaviors in which the designers engaged. The participants for this study were
+                intermediate-level
+                designers currently enrolled in graduate engineering programs. Our findings indicated that both
+                efficient and inefficient designers could achieve high-performing client scores, but the
+                underlying
+                patterns of behaviors between the groups were dissimilar. </p>
 
-                <div id="heatmap2" class="plot" style="margin: var(--spacing-large) auto"></div>
+            <div id="heatmap2" class="plot" style="margin: var(--spacing-large) auto"></div>
 
-                <p> Interpreted through Schraagen’s design
-                    theory, we observed:</p>
-                <ol type="1">
-                    <li>The high-performing and efficient designers indicated more methodical Progressive Deepening
-                        strategies as they systematically divided the task into small subtasks, approaching the
-                        structural components first and then optimizing the parametric components of the design
-                        later..
-                    </li>
-                    <li>The inefficient designers took a more trial-and-error approach throughout the process,
-                        resulting
-                        in rougher state transitions via the HMM.
-                    </li>
-                    <li>Results from this study show how intermediate level designers may still be developing
-                        learning
-                        strategies to apply which solving a novel design problem and illuminate how design theory
-                        manifests in a population group that is neither novice nor expert.
-                    </li>
-                </ol>
-                <p>Further, this study is the first to demonstrate a digital version of the classic Delta Design
-                    challenge for an individual, which we posit can be used to continue to investigate the
-                    problem-solving strategies inherent in engineering design thinking.</p>
-            </section>
-        </div>
-    </main> <!-- /main -->
-</div> <!-- /content -->
+            <p> Interpreted through Schraagen’s design
+                theory, we observed:</p>
+            <ol type="1">
+                <li>The high-performing and efficient designers indicated more methodical Progressive Deepening
+                    strategies as they systematically divided the task into small subtasks, approaching the
+                    structural components first and then optimizing the parametric components of the design
+                    later..
+                </li>
+                <li>The inefficient designers took a more trial-and-error approach throughout the process,
+                    resulting
+                    in rougher state transitions via the HMM.
+                </li>
+                <li>Results from this study show how intermediate level designers may still be developing
+                    learning
+                    strategies to apply which solving a novel design problem and illuminate how design theory
+                    manifests in a population group that is neither novice nor expert.
+                </li>
+            </ol>
+            <p>Further, this study is the first to demonstrate a digital version of the classic Delta Design
+                challenge for an individual, which we posit can be used to continue to investigate the
+                problem-solving strategies inherent in engineering design thinking.</p>
+        </section>
+    </div>
+</main> <!-- /main -->

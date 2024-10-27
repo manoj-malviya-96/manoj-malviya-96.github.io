@@ -130,6 +130,14 @@ function scrollElementInView(elementId) {
   }
 }
 
+function emitEvent(eventName, data) {
+  const event = new CustomEvent(
+    eventName,
+    data !== null ? { detail: data } : null,
+  );
+  window.document.dispatchEvent(event);
+}
+
 /* ------------ Color Utilities ------------ */
 function adjustColor(color, opacity = 1, brightness = 1) {
   // Extract RGB values from the input color string (assumes 'rgb(r, g, b)' format)
@@ -157,6 +165,12 @@ function hexToRgb(hex) {
 
 /* ------------ Style Utilities ------------ */
 function getStyleValue(property) {
+  const propertyFromBody = getComputedStyle(
+    window.document.body,
+  ).getPropertyValue(property);
+  if (propertyFromBody !== "") {
+    return propertyFromBody;
+  }
   return getComputedStyle(window.document.documentElement).getPropertyValue(
     property,
   );
@@ -167,11 +181,11 @@ function getSizeFromStyle(property) {
 }
 
 function getPrimaryColor() {
-  return getStyleValue("--color-brand-primary");
+  return getStyleValue("--color-brand");
 }
 
 function getContrastColor() {
-  return getStyleValue("--color-brand-contrast");
+  return getStyleValue("--color-primary");
 }
 
 function getPrimaryColorScale(numStops) {

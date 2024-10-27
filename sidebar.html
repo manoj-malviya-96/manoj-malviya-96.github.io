@@ -2,20 +2,17 @@
 	/* ----------------------------- Sidebar Styling ----------------------------- */
 	.navbar {
 		position: fixed;
-		top: var(--spacing-large);
-		left: var(--spacing-medium);
-		height: auto;
-		width: auto;
-		display: flex;
-		flex-direction: column;
-		justify-content: left; !important;
-		align-content: flex-start; !important;
+		top: var(--spacing-large); left: var(--spacing-medium);
+		height: auto; width: auto;
+		display: flex; flex-direction: column;
+		justify-content: left; !important; align-content: flex-start; !important;
         padding: var(--spacing-medium) var(--spacing-large);
 		z-index: var(--z-index-overlay);
-		backdrop-filter: blur(var(--blur-radius));
-		border-radius: var(--default-radius);
-		border: none;
+        border-radius: var(--default-radius); border: none;
 		transition: all var(--transition-default);
+        background-color: var(--color-primary);
+        backdrop-filter: blur(var(--blur-radius));
+        box-shadow: var(--box-shadow);
 	}
 
 	.navbar-group {
@@ -49,16 +46,6 @@
 		height: 100%;
         width: 100%;
 		padding: var(--spacing-small) !important;
-	}
-
-
-	.light-mode .navbar {
-		background-color: var(--color-light-contrast);
-		box-shadow: var(--shadows-light);
-	}
-	.dark-mode .navbar{
-		background-color: var(--color-dark-contrast);
-		box-shadow: var(--shadows-dark);
 	}
 </style>
 
