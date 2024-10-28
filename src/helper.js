@@ -268,11 +268,7 @@ function setupDropdown(
   });
 
   // Close the dropdown when clicking outside
-  window.addEventListener("click", (event) => {
-    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-      dropdown.classList.add("hidden");
-    }
-  });
+  addOutsideClickHandler(button, dropdown);
 }
 
 function setupSpinbox(spinbox, onChangeCallback = null) {

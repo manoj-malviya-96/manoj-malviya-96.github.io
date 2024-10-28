@@ -52,10 +52,6 @@ class MusicVizView {
       "change",
       this.handleFileUpload.bind(this),
     );
-    this.elements.songDropdownBtn.addEventListener(
-      "click",
-      this.toggleSongDropdown.bind(this),
-    );
     this.elements.progressBar.addEventListener(
       "input",
       this.updateProgress.bind(this),
@@ -79,10 +75,6 @@ class MusicVizView {
     this.elements.skipBackwardBtn.addEventListener(
       "click",
       this.skipBackward.bind(this),
-    );
-    this.elements.vizDropDownBtn.addEventListener(
-      "click",
-      this.toggleVizDropdown.bind(this),
     );
 
     this.setupVizDropdown();
@@ -141,91 +133,42 @@ class MusicVizView {
     }
   }
 
-  // Todo - This can be done via setupDropdown method
   setupVizDropdown() {
-    // Handle selecting an item
-    const dropdownItems = this.elements.vizDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-    dropdownItems.forEach((item) => {
-      item.addEventListener("click", (event) =>
-        this.handleVizDropdownSelect(event),
-      );
-    });
-
-    addOutsideClickHandler(
+    const icon = this.elements.vizDropDownBtn.querySelector("i");
+    setupDropdown(
       this.elements.vizDropDownBtn,
       this.elements.vizDropdown,
+      this.handleVizDropdownSelect.bind(this),
+      null,
+      icon,
     );
   }
 
-  toggleVizDropdown() {
-    this.elements.vizDropdown.classList.toggle("hidden");
-  }
-
-  // Todo - This can be done via setupDropdown method
-  handleVizDropdownSelect(event) {
-    this.selectedVisualizer = event.target.getAttribute("data-value");
-    const dropdownItems = this.elements.vizDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-
-    // Highlight the selected item with the primary color
-    dropdownItems.forEach((item) => item.classList.remove("selected"));
-    event.target.classList.add("selected");
-
-    // Update Dropdown icon
-    const icon = this.elements.vizDropDownBtn.querySelector("i");
-    icon.className = event.target.getAttribute("data-icon");
-
-    // Close the dropdown
-    this.toggleVizDropdown();
-
+  handleVizDropdownSelect(selectedViz) {
+    // update the selected visualizer
+    this.selectedVisualizer = selectedViz;
     // Trigger the visualizer change based on selection
     this.stopVisualizer();
     this.drawVisualizer();
   }
 
-  toggleSongDropdown() {
-    this.elements.songDropdown.classList.toggle("hidden");
-  }
-
-  // Todo - This can be done via setupDropdown method
   setupSongDropdown() {
-    // Handle selecting an item
-    const dropdownItems = this.elements.songDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-    dropdownItems.forEach((item) => {
-      item.addEventListener("click", (event) =>
-        this.handleSongDropdownSelect(event),
-      );
-    });
-    addOutsideClickHandler(
+    setupDropdown(
       this.elements.songDropdownBtn,
       this.elements.songDropdown,
+      this.handleSongDropdownSelect.bind(this),
     );
   }
 
   // Todo - This can be done via setupDropdown method
-  handleSongDropdownSelect(event) {
-    const dropdownItems = this.elements.songDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-
-    // Highlight the selected item with the primary color
-    dropdownItems.forEach((item) => item.classList.remove("selected"));
-
-    const songUrl = event.target.getAttribute("data-url");
+  handleSongDropdownSelect(selectedSong) {
     this.resetAudio();
-    this.setupNewAudio(songUrl);
+    this.setupNewAudio(selectedSong);
 
     // Get selected song's name
     this.elements.songTitle.textContent = event.target.innerHTML;
-    event.target.classList.add("selected");
 
     this.togglePlayPause();
-    this.toggleSongDropdown();
   }
 
   toggleFullScreen() {
