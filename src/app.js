@@ -1,6 +1,3 @@
-const appWindowWidth = getSizeFromStyle("--app-window-width");
-const appWindowHeight = getSizeFromStyle("--app-window-height");
-
 function handleRunningApps() {
   // Pause the music app if it exists before loading new content
   if (window.musicApp) {

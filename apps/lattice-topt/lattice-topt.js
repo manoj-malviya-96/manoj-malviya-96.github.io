@@ -1,3 +1,4 @@
+const brandColor = getPrimaryColor();
 class LatticeMesh {
   constructor(cellSize, meshWidth, meshHeight, latticeType) {
     this.cellSize = cellSize;
@@ -71,12 +72,12 @@ class LatticeDrawer {
   plot(container) {
     const coords = this.mesh.getPoints();
     const connections = this.mesh.getConnections();
-    let lines = {
+    const lines = {
       x: [],
       y: [],
       mode: "lines",
       type: "scatter",
-      line: { color: "blue", width: [] },
+      line: { color: getContrastColor(), width: [] },
     };
 
     // Add lines for connections with specified widths
@@ -88,40 +89,25 @@ class LatticeDrawer {
     });
 
     // Plot using Plotly
-    let data = [
+    const data = [
+      lines,
       {
         x: coords.map((coord) => coord[0]),
         y: coords.map((coord) => coord[1]),
         mode: "markers",
         type: "scatter",
-        marker: { color: "red", size: 4 },
+        marker: { color: brandColor, size: 7 },
       },
-      lines,
     ];
-
-    let layout = {
-      title: "Generated Mesh",
-      autosize: true,
-      plot_bgcolor: "#1e1e1e", // Dark background for the plot
-      paper_bgcolor: "#1e1e1e", // Dark background for the plot area
-      font: { color: "white" },
-      xaxis: {
-        title: "X (mm)",
-        range: [0, this.mesh.meshWidth],
-        showgrid: true,
-        gridcolor: "#444",
-        tickformat: ".0f", // Set tick format to show as integer in mm
-      },
-      yaxis: {
-        title: "Y (mm)",
-        range: [0, this.mesh.meshHeight],
-        scaleanchor: "x",
-        scaleratio: 1,
-        showgrid: true,
-        gridcolor: "#444",
-        tickformat: ".0f", // Set tick format to show as integer in mm
-      },
-    };
+    const aspectRatio = this.mesh.meshWidth / this.mesh.meshHeight;
+    const layout = createLayout(
+      "",
+      appWindowHeight,
+      appWindowWidth * aspectRatio,
+      "",
+      "",
+      false,
+    );
 
     Plotly.newPlot(container, data, layout);
   }
@@ -139,15 +125,13 @@ class LatticeViewer {
     this.cellSizeInput = document.getElementById("cellSize");
     this.meshWidthInput = document.getElementById("meshWidth");
     this.meshHeightInput = document.getElementById("meshHeight");
-    this.latticeTypeInput = document.getElementById("latticeType");
+    // this.latticeTypeInput = document.getElementById("latticeType");
+    this.init();
   }
 
   init() {
-    // Bind listeners to HTML inputs
-    this.cellSizeInput.addEventListener("input", () => this.updateMesh());
-    this.meshWidthInput.addEventListener("input", () => this.updateMesh());
-    this.meshHeightInput.addEventListener("input", () => this.updateMesh());
-    this.latticeTypeInput.addEventListener("change", () => this.updateMesh());
+    setupAllSpinBoxs(this.updateMesh.bind(this));
+    // this.latticeTypeInput.addEventListener("change", () => this.updateMesh());
 
     // Generate initial mesh
     this.updateMesh();
@@ -158,17 +142,18 @@ class LatticeViewer {
     const cellSize = parseFloat(this.cellSizeInput.value);
     const meshWidth = parseFloat(this.meshWidthInput.value);
     const meshHeight = parseFloat(this.meshHeightInput.value);
-    const latticeType = this.latticeTypeInput.value;
+    const latticeType = "square"; // this.latticeTypeInput.value;
 
     // Create Mesh object
     const mesh = new LatticeMesh(cellSize, meshWidth, meshHeight, latticeType);
 
     // Example internal API usage for setting variable line widths
-    const lineWidths = [2, 3, 4, 5, 3, 2]; // Example line widths (internal logic)
     const drawer = new LatticeDrawer(mesh);
-    drawer.setLineWidths(lineWidths);
 
     // Plot the mesh
-    drawer.plot("mesh-plot");
+    const plotFn = () => {
+      drawer.plot("meshPlot");
+    };
+    updatePlotHandler([plotFn]);
   }
 }

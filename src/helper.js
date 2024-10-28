@@ -1,5 +1,7 @@
 /* ------------ Helper functions ------------ */
 const timeOut_ms = 369; // Global Timeout
+const appWindowWidth = getSizeFromStyle("--app-window-width");
+const appWindowHeight = getSizeFromStyle("--app-window-height");
 
 function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   if (!callback) {
@@ -317,12 +319,17 @@ function setupSpinbox(spinbox, onChangeCallback = null) {
 
   incrementBtn.addEventListener("click", handleIncrement);
   decrementBtn.addEventListener("click", handleDecrement);
+
+  input.addEventListener("input", () => {
+    let value = parseInt(input.value, 10);
+    handleChange(value);
+  });
 }
 
-function setupAllSpinBoxs() {
+function setupAllSpinBoxs(callback = null) {
   const spinBoxList = document.querySelectorAll(".modern-spinbox");
   spinBoxList.forEach((spinbox) => {
-    setupSpinbox(spinbox);
+    setupSpinbox(spinbox, callback);
   });
 }
 

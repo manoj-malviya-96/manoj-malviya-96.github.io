@@ -95,7 +95,14 @@ class MusicVizView {
   }
 
   updateProgressBarStyle() {
-    this.elements.progressBar.style.background = `${getContrastColor()}`;
+    const backgroundColor = getContrastColor();
+    if (this.isPlaying) {
+      this.elements.progressBar.style.background = `linear-gradient(to right, 
+                                                            ${this.primaryColor} ${this.elements.progressBar.value}%,  
+                                                            ${backgroundColor} ${this.elements.progressBar.value}%)`;
+    } else {
+      this.elements.progressBar.style.background = `${backgroundColor}`;
+    }
   }
 
   setupKeyboardShortcuts() {
@@ -310,10 +317,7 @@ class MusicVizView {
 
     this.elements.timeInfo.textContent = timeCurrent + " / " + timeTotal;
     this.elements.progressBar.value = (currentTime / totalDuration) * 100;
-
-    this.elements.progressBar.style.background = `linear-gradient(to right, 
-                                                        ${this.primaryColor} ${this.elements.progressBar.value}%,  
-                                                        ${this.backgroundColor} ${this.elements.progressBar.value}%)`;
+    this.updateProgressBarStyle();
   }
 
   // Update progress when the user interacts with the progress bar

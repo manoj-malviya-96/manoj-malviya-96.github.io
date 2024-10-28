@@ -56,6 +56,7 @@ function createLayout(
       showline: false,
       showticklabels: showTickLabels,
     },
+    showlegend: false, // Hide the legend
     padding: 0,
     margin: { t: margin, l: margin, r: margin, b: margin },
     autosize: true,
@@ -160,7 +161,6 @@ class PlotHandler {
   }
 
   updatePlotFunctions(plotFunctions = []) {
-    console.log("Updating plot functions", plotFunctions);
     if (plotFunctions.length === 0) {
       console.error("No plot functions provided to updatePlotFunctions");
       return;

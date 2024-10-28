@@ -191,7 +191,6 @@ function toggleTheme() {
 
 // Allows to change the theme of the website
 function initThemeChangeHandler(callback) {
-  console.log("initThemeChangeHandler");
   window.document.addEventListener("themeChange", callback);
 }
 
