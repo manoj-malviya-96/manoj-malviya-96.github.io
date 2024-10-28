@@ -341,7 +341,7 @@ function makeBlogCardsAndSetupControls() {
         categories.forEach((category) => allCategories.add(category));
         // Update the Set with each project's categories
       });
-      setupCategoryDropDown(allCategories);
+      setupSkillsDropDown(allCategories);
       sortBlogCards(defaultSortOption);
     })
     .catch((err) => {
@@ -350,27 +350,20 @@ function makeBlogCardsAndSetupControls() {
 }
 
 // Function to dynamically generate the dropdown options based on unique categories
-function setupCategoryDropDown(allCategories) {
-  const filterDropdown = document.getElementById("categoryFilter");
-  const filterSelectedValue = document.getElementById("selectedCategoryValue");
-  const button = document.getElementById("categoryFilterBtn");
+function setupSkillsDropDown(allCategories) {
+  const dropdownList = window.document.getElementById("skillsList");
+  const dropdown = window.document.getElementById("skillsFilter");
 
-  if (!filterDropdown || !filterSelectedValue || !button) {
-    console.error("Dropdown elements not found");
+  if (!dropdownList || !dropdown) {
+    console.error("Dropdown elements not found" + dropdownList + dropdown);
     return;
   }
 
   // Creating dropdown items for each category
   allCategories.forEach((category) => {
-    filterDropdown.appendChild(createDropdownItem(category, category));
+    dropdownList.appendChild(createDropdownItem(category, category));
   });
-
-  setupDropdown(
-    button,
-    filterDropdown,
-    filterBlogsByCategory,
-    filterSelectedValue,
-  );
+  setupDropdownFromContainer(dropdown, filterBlogsByCategory);
 }
 
 // Function to initialize Sort Filter
@@ -381,23 +374,20 @@ const sortOptions = [
   { value: "title-desc", label: "Z-A", icon: "bi bi-sort-alpha-down-alt" },
 ];
 const defaultSortOption = "date-desc";
-
 function setupSortOptions() {
-  const dropdown = document.getElementById("sortFilter");
-  const selectedValue = document.getElementById("selectedSortValue");
-  const icon = document.getElementById("sortIcon");
-  const button = document.getElementById("sortFilterBtn");
+  const dropdown = window.document.getElementById("sortDropdown");
+  const dropdownList = document.getElementById("sortFilterList");
 
-  if (!dropdown || !selectedValue || !button) {
-    console.error("Dropdown elements not found");
+  if (!dropdownList || !dropdown) {
+    console.error("Dropdown elements not found" + dropdownList + dropdown);
     return;
   }
   sortOptions.forEach((option) => {
-    dropdown.appendChild(
+    dropdownList.appendChild(
       createDropdownItem(option.value, option.label, option.icon),
     );
   });
-  setupDropdown(button, dropdown, sortBlogCards, selectedValue, icon);
+  setupDropdownFromContainer(dropdown, sortBlogCards);
 }
 
 // Search projects based on title or description

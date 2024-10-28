@@ -245,11 +245,9 @@ function setupDropdown(
       callback(selectedValue);
     }
 
-    if (icon) {
-      const newIcon = event.target.getAttribute("data-icon");
-      if (newIcon) {
-        icon.className = newIcon;
-      }
+    const newIcon = event.target.getAttribute("data-icon");
+    if (newIcon) {
+      icon.className = newIcon;
     }
 
     // Update the selected value in the button
@@ -269,6 +267,23 @@ function setupDropdown(
 
   // Close the dropdown when clicking outside
   addOutsideClickHandler(button, dropdown);
+}
+
+function setupDropdownFromContainer(dropdownContainer, callback = null) {
+  if (
+    !dropdownContainer &&
+    !dropdownContainer.classList.contains("modern-dropdown-container")
+  ) {
+    console.error("Dropdown container invalid");
+    return;
+  }
+
+  const button = dropdownContainer.querySelector(".primary-button");
+  const dropdown = dropdownContainer.querySelector(".modern-dropdown-list");
+  const selectedValue = button.querySelector(".button-label");
+  const icon = button.querySelector("i");
+
+  setupDropdown(button, dropdown, callback, selectedValue, icon);
 }
 
 function setupSpinbox(spinbox, onChangeCallback = null) {
@@ -322,7 +337,7 @@ function setupSpinbox(spinbox, onChangeCallback = null) {
   });
 }
 
-function setupAllSpinBoxs(callback = null) {
+function setupAllSpinBoxsWithOneCallback(callback = null) {
   const spinBoxList = document.querySelectorAll(".modern-spinbox");
   spinBoxList.forEach((spinbox) => {
     setupSpinbox(spinbox, callback);

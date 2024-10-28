@@ -28,7 +28,6 @@ class MusicVizView {
       appWindow: window.document.querySelector(".app-window"),
       appController: window.document.querySelector(".app-controller"),
       fileUpload: window.document.getElementById("fileUpload"),
-      songDropdownBtn: window.document.getElementById("songDropdownBtn"),
       songDropdown: window.document.getElementById("songDropdown"),
       canvas: window.document.getElementById("visualizer"),
       progressBar: window.document.getElementById("progressBar"),
@@ -41,7 +40,6 @@ class MusicVizView {
       toggleFullScreenBtn: window.document.getElementById(
         "toggleFullScreenBtn",
       ),
-      vizDropDownBtn: window.document.getElementById("vizDropDownBtn"),
       vizDropdown: window.document.getElementById("vizDropdown"),
     };
   }
@@ -77,8 +75,16 @@ class MusicVizView {
       this.skipBackward.bind(this),
     );
 
-    this.setupVizDropdown();
-    this.setupSongDropdown();
+    setupDropdownFromContainer(
+      this.elements.vizDropdown,
+      this.handleVizDropdownSelect.bind(this),
+    );
+
+    setupDropdownFromContainer(
+      this.elements.songDropdown,
+      this.handleSongDropdownSelect.bind(this),
+    );
+
     this.setupResizing();
     this.setupKeyboardShortcuts();
 
@@ -133,17 +139,6 @@ class MusicVizView {
     }
   }
 
-  setupVizDropdown() {
-    const icon = this.elements.vizDropDownBtn.querySelector("i");
-    setupDropdown(
-      this.elements.vizDropDownBtn,
-      this.elements.vizDropdown,
-      this.handleVizDropdownSelect.bind(this),
-      null,
-      icon,
-    );
-  }
-
   handleVizDropdownSelect(selectedViz) {
     // update the selected visualizer
     this.selectedVisualizer = selectedViz;
@@ -152,22 +147,11 @@ class MusicVizView {
     this.drawVisualizer();
   }
 
-  setupSongDropdown() {
-    setupDropdown(
-      this.elements.songDropdownBtn,
-      this.elements.songDropdown,
-      this.handleSongDropdownSelect.bind(this),
-    );
-  }
-
-  // Todo - This can be done via setupDropdown method
   handleSongDropdownSelect(selectedSong) {
     this.resetAudio();
     this.setupNewAudio(selectedSong);
-
     // Get selected song's name
     this.elements.songTitle.textContent = event.target.innerHTML;
-
     this.togglePlayPause();
   }
 

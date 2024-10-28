@@ -1,6 +1,6 @@
 <style>
-    #vizDropdown,
-    #songDropdown {
+    #vizDropdown .modern-dropdown-list,
+    #songDropdown .modern-dropdown-list {
         height: auto;
         width: auto;
         transform: translateY(-125%) translateX(-25%);
@@ -75,12 +75,12 @@
 
                 <div id="vizSettings" class="app-controller-row-group" style="width: auto">
                     <!-- Song selector dropdown -->
-                    <div class="app-controller-row-item">
-                        <button class="primary-button modern-tooltip" id="songDropdownBtn"
+                    <div id="songDropdown" class="modern-dropdown app-controller-row-item">
+                        <button class="primary-button modern-tooltip modern-dropdown-btn" id="songDropdownBtn"
                                 data-tooltip="Select Music from Predefined List">
                             <i class="bi bi-music-note-list"></i>
                         </button>
-                        <ul id="songDropdown" class="modern-dropdown hidden">
+                        <ul class="modern-dropdown-list hidden">
                             <li data-value="./apps/music-viz/closed_my_eyes.mp3" class="modern-dropdown-item">Closed My
                                 Eyes
                             </li>
@@ -90,12 +90,12 @@
                     </div>
 
                     <!-- Visualizer dropdown -->
-                    <div class="app-controller-row-item">
+                    <div id="vizDropdown" class="modern-dropdown app-controller-row-item">
                         <button class="primary-button modern-tooltip" id="vizDropDownBtn"
                                 data-tooltip="Select your visualizer">
                             <i class="bi bi-ui-radios-grid"></i>
                         </button>
-                        <ul id="vizDropdown" class="modern-dropdown hidden">
+                        <ul class="modern-dropdown-list hidden">
                             <li data-value="circles" data-icon="bi bi-ui-radios-grid"
                                 class="modern-dropdown-item selected">
                                 LookUp

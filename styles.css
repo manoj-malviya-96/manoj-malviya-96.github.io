@@ -402,11 +402,10 @@ a {
 
 
 /* --------------------  Dropdown  Styling ------------------- */
-.modern-dropdown {
+.modern-dropdown-list {
     list-style: none;
     position: absolute;
-    width: auto;
-    height: auto;
+    width: auto; height: auto;
     min-width: 100px;
     padding: var(--spacing-small);
     margin: var(--spacing-small) 0;
@@ -420,7 +419,7 @@ a {
     color: var(--color-text);
 }
 
-.modern-dropdown.hidden {
+.modern-dropdown-list.hidden {
     display: none;
 }
 
