@@ -20,5 +20,4 @@ function initMeshMorph() {
 
 function initLatticeTopt() {
   window.latticeTopt = new LatticeViewer();
-  window.latticeTopt.init();
 }

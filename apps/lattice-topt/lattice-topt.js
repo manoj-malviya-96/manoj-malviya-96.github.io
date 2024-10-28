@@ -125,15 +125,20 @@ class LatticeViewer {
     this.cellSizeInput = document.getElementById("cellSize");
     this.meshWidthInput = document.getElementById("meshWidth");
     this.meshHeightInput = document.getElementById("meshHeight");
-    // this.latticeTypeInput = document.getElementById("latticeType");
-    this.init();
-  }
+    this.latticeType = "square"; // document.getElementById("latticeType");
 
-  init() {
-    setupAllSpinBoxs(this.updateMesh.bind(this));
-    // this.latticeTypeInput.addEventListener("change", () => this.updateMesh());
+    setupAllSpinBoxsWithOneCallback(this.updateMesh.bind(this));
+    setupDropdown(
+      document.getElementById("latticeTypeDropdown"),
+      this.updateLattice.bind(this),
+    );
 
     // Generate initial mesh
+    this.updateMesh();
+  }
+
+  updateLattice(newValue) {
+    this.latticeType = newValue;
     this.updateMesh();
   }
 
@@ -142,10 +147,14 @@ class LatticeViewer {
     const cellSize = parseFloat(this.cellSizeInput.value);
     const meshWidth = parseFloat(this.meshWidthInput.value);
     const meshHeight = parseFloat(this.meshHeightInput.value);
-    const latticeType = "square"; // this.latticeTypeInput.value;
 
     // Create Mesh object
-    const mesh = new LatticeMesh(cellSize, meshWidth, meshHeight, latticeType);
+    const mesh = new LatticeMesh(
+      cellSize,
+      meshWidth,
+      meshHeight,
+      this.latticeType,
+    );
 
     // Example internal API usage for setting variable line widths
     const drawer = new LatticeDrawer(mesh);

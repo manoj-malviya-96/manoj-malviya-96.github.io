@@ -692,6 +692,7 @@ canvas {
 .app-controller-row-group {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-right: var(--spacing-medium);
 }
 .app-controller-row-group:last-child { border-right: none;}
