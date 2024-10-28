@@ -18,7 +18,6 @@ class MusicVizView {
     this.selectedVisualizer = "circles";
 
     this.primaryColor = getPrimaryColor();
-    this.backgroundColor = getPassiveColor();
 
     this.init();
   }
@@ -29,7 +28,6 @@ class MusicVizView {
       appWindow: window.document.querySelector(".app-window"),
       appController: window.document.querySelector(".app-controller"),
       fileUpload: window.document.getElementById("fileUpload"),
-      songDropdownBtn: window.document.getElementById("songDropdownBtn"),
       songDropdown: window.document.getElementById("songDropdown"),
       canvas: window.document.getElementById("visualizer"),
       progressBar: window.document.getElementById("progressBar"),
@@ -42,7 +40,6 @@ class MusicVizView {
       toggleFullScreenBtn: window.document.getElementById(
         "toggleFullScreenBtn",
       ),
-      vizDropDownBtn: window.document.getElementById("vizDropDownBtn"),
       vizDropdown: window.document.getElementById("vizDropdown"),
     };
   }
@@ -52,10 +49,6 @@ class MusicVizView {
     this.elements.fileUpload.addEventListener(
       "change",
       this.handleFileUpload.bind(this),
-    );
-    this.elements.songDropdownBtn.addEventListener(
-      "click",
-      this.toggleSongDropdown.bind(this),
     );
     this.elements.progressBar.addEventListener(
       "input",
@@ -81,17 +74,33 @@ class MusicVizView {
       "click",
       this.skipBackward.bind(this),
     );
-    this.elements.vizDropDownBtn.addEventListener(
-      "click",
-      this.toggleVizDropdown.bind(this),
+
+    setupDropdown(
+      this.elements.vizDropdown,
+      this.handleVizDropdownSelect.bind(this),
     );
 
-    this.elements.progressBar.style.background = `${this.backgroundColor}`;
+    setupDropdown(
+      this.elements.songDropdown,
+      this.handleSongDropdownSelect.bind(this),
+    );
 
-    this.setupVizDropdown();
-    this.setupSongDropdown();
     this.setupResizing();
     this.setupKeyboardShortcuts();
+
+    initThemeChangeHandler(() => this.updateProgressBarStyle());
+    this.updateProgressBarStyle();
+  }
+
+  updateProgressBarStyle() {
+    const backgroundColor = getContrastColor();
+    if (this.isPlaying) {
+      this.elements.progressBar.style.background = `linear-gradient(to right, 
+                                                            ${this.primaryColor} ${this.elements.progressBar.value}%,  
+                                                            ${backgroundColor} ${this.elements.progressBar.value}%)`;
+    } else {
+      this.elements.progressBar.style.background = `${backgroundColor}`;
+    }
   }
 
   setupKeyboardShortcuts() {
@@ -130,91 +139,20 @@ class MusicVizView {
     }
   }
 
-  // Todo - This can be done via setupDropdown method
-  setupVizDropdown() {
-    // Handle selecting an item
-    const dropdownItems = this.elements.vizDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-    dropdownItems.forEach((item) => {
-      item.addEventListener("click", (event) =>
-        this.handleVizDropdownSelect(event),
-      );
-    });
-
-    addOutsideClickHandler(
-      this.elements.vizDropDownBtn,
-      this.elements.vizDropdown,
-    );
-  }
-
-  toggleVizDropdown() {
-    this.elements.vizDropdown.classList.toggle("hidden");
-  }
-
-  // Todo - This can be done via setupDropdown method
-  handleVizDropdownSelect(event) {
-    this.selectedVisualizer = event.target.getAttribute("data-value");
-    const dropdownItems = this.elements.vizDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-
-    // Highlight the selected item with the primary color
-    dropdownItems.forEach((item) => item.classList.remove("selected"));
-    event.target.classList.add("selected");
-
-    // Update Dropdown icon
-    const icon = this.elements.vizDropDownBtn.querySelector("i");
-    icon.className = event.target.getAttribute("data-icon");
-
-    // Close the dropdown
-    this.toggleVizDropdown();
-
+  handleVizDropdownSelect(selectedViz) {
+    // update the selected visualizer
+    this.selectedVisualizer = selectedViz;
     // Trigger the visualizer change based on selection
     this.stopVisualizer();
     this.drawVisualizer();
   }
 
-  toggleSongDropdown() {
-    this.elements.songDropdown.classList.toggle("hidden");
-  }
-
-  // Todo - This can be done via setupDropdown method
-  setupSongDropdown() {
-    // Handle selecting an item
-    const dropdownItems = this.elements.songDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-    dropdownItems.forEach((item) => {
-      item.addEventListener("click", (event) =>
-        this.handleSongDropdownSelect(event),
-      );
-    });
-    addOutsideClickHandler(
-      this.elements.songDropdownBtn,
-      this.elements.songDropdown,
-    );
-  }
-
-  // Todo - This can be done via setupDropdown method
-  handleSongDropdownSelect(event) {
-    const dropdownItems = this.elements.songDropdown.querySelectorAll(
-      ".modern-dropdown-item",
-    );
-
-    // Highlight the selected item with the primary color
-    dropdownItems.forEach((item) => item.classList.remove("selected"));
-
-    const songUrl = event.target.getAttribute("data-url");
+  handleSongDropdownSelect(selectedSong) {
     this.resetAudio();
-    this.setupNewAudio(songUrl);
-
+    this.setupNewAudio(selectedSong);
     // Get selected song's name
     this.elements.songTitle.textContent = event.target.innerHTML;
-    event.target.classList.add("selected");
-
     this.togglePlayPause();
-    this.toggleSongDropdown();
   }
 
   toggleFullScreen() {
@@ -306,10 +244,7 @@ class MusicVizView {
 
     this.elements.timeInfo.textContent = timeCurrent + " / " + timeTotal;
     this.elements.progressBar.value = (currentTime / totalDuration) * 100;
-
-    this.elements.progressBar.style.background = `linear-gradient(to right, 
-                                                        ${this.primaryColor} ${this.elements.progressBar.value}%,  
-                                                        ${this.backgroundColor} ${this.elements.progressBar.value}%)`;
+    this.updateProgressBarStyle();
   }
 
   // Update progress when the user interacts with the progress bar

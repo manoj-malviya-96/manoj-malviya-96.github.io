@@ -89,14 +89,7 @@
 
 <!-- Overlay with Three Dot Loading Spinner -->
 <div id="contentLoadingOverlay" class="loading-overlay" style="display: none;">
-    <img src="./assets/logo.svg"
-         style="
-                color: var(--color-brand-primary);
-                width: var(--spinner-size);
-                height: var(--spinner-size);
-                animation: rotationAnimation var(--transition-default) infinite ease-in-out;
-         "
-         alt="Logo"/>
+    <div class="spinner-border loading-spinner"></div>
 </div>
 
 <!-- main content -->
@@ -109,15 +102,17 @@
 <script src="./src/math.js"></script>
 <script src="./src/github.js"></script>
 <script src="./src/projects.js"></script>
-<script src="./src/app.js"></script>
-
-<!-- Main Scripts --->
-<script src="./src/init.js"></script> <!-- initializing components -->
-<script src="./src/main.js"></script>
 
 <!-- Apps -->
 <script src="./apps/music-viz/music-viz.js"></script>
 <script src="./apps/mesh-morph/mesh-morph.js"></script>
+<script src="./apps/lattice-topt/lattice-topt.js"></script>
+
+
+<!-- Main Scripts --->
+<script src="./src/app.js"></script>
+<script src="./src/init.js"></script> <!-- initializing components -->
+<script src="./src/main.js"></script>
 
 
 <!-- Initialize the Website -->

@@ -13,6 +13,7 @@ class GithubProfile {
       .then((data) => {
         this.processData(data);
         this.generateYearButtons(); // Generate buttons after data is loaded
+        initThemeChangeHandler(() => this.renderHeatmap(this.currentYear));
         setTimeout(() => this.changeYear(this.currentYear), timeOut_ms);
         // Delay to ensure the buttons are rendered first
       })

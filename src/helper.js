@@ -1,5 +1,7 @@
 /* ------------ Helper functions ------------ */
 const timeOut_ms = 369; // Global Timeout
+const appWindowWidth = getSizeFromStyle("--app-window-width");
+const appWindowHeight = getSizeFromStyle("--app-window-height");
 
 function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   if (!callback) {
@@ -130,6 +132,14 @@ function scrollElementInView(elementId) {
   }
 }
 
+function emitEvent(eventName, data) {
+  const event = new CustomEvent(
+    eventName,
+    data !== null ? { detail: data } : null,
+  );
+  window.document.dispatchEvent(event);
+}
+
 /* ------------ Color Utilities ------------ */
 function adjustColor(color, opacity = 1, brightness = 1) {
   // Extract RGB values from the input color string (assumes 'rgb(r, g, b)' format)
@@ -157,6 +167,12 @@ function hexToRgb(hex) {
 
 /* ------------ Style Utilities ------------ */
 function getStyleValue(property) {
+  const propertyFromBody = getComputedStyle(
+    window.document.body,
+  ).getPropertyValue(property);
+  if (propertyFromBody !== "") {
+    return propertyFromBody;
+  }
   return getComputedStyle(window.document.documentElement).getPropertyValue(
     property,
   );
@@ -167,16 +183,16 @@ function getSizeFromStyle(property) {
 }
 
 function getPrimaryColor() {
-  return getStyleValue("--color-brand-primary");
+  return getStyleValue("--color-brand");
 }
 
-function getPassiveColor() {
-  return getStyleValue("--color-passive-element");
+function getContrastColor() {
+  return getStyleValue("--color-primary");
 }
 
 function getPrimaryColorScale(numStops) {
   const primaryColor = getPrimaryColor();
-  const lastColor = getPassiveColor();
+  const lastColor = getContrastColor();
   let result = [[0, lastColor]];
   for (let i = 1; i <= numStops; i += 1) {
     const intensity = i / numStops;
@@ -197,7 +213,7 @@ function createDropdownItem(dataValue, dataLabel, dataIcon) {
   return item;
 }
 
-function setupDropdown(
+function internal_setupDropdown(
   button,
   dropdown,
   callback = null,
@@ -229,11 +245,9 @@ function setupDropdown(
       callback(selectedValue);
     }
 
-    if (icon) {
-      const newIcon = event.target.getAttribute("data-icon");
-      if (newIcon) {
-        icon.className = newIcon;
-      }
+    const newIcon = event.target.getAttribute("data-icon");
+    if (newIcon) {
+      icon.className = newIcon;
     }
 
     // Update the selected value in the button
@@ -252,10 +266,81 @@ function setupDropdown(
   });
 
   // Close the dropdown when clicking outside
-  window.addEventListener("click", (event) => {
-    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-      dropdown.classList.add("hidden");
+  addOutsideClickHandler(button, dropdown);
+}
+
+function setupDropdown(dropdownContainer, callback = null) {
+  if (
+    !dropdownContainer &&
+    !dropdownContainer.classList.contains("modern-dropdown-container")
+  ) {
+    console.error("Dropdown container invalid");
+    return;
+  }
+
+  const button = dropdownContainer.querySelector(".primary-button");
+  const dropdown = dropdownContainer.querySelector(".modern-dropdown-list");
+  const selectedValue = button.querySelector(".button-label");
+  const icon = button.querySelector("i");
+
+  internal_setupDropdown(button, dropdown, callback, selectedValue, icon);
+}
+
+function setupSpinbox(spinbox, onChangeCallback = null) {
+  if (!spinbox) {
+    console.error("Spinbox element not found");
+    return;
+  }
+
+  const input = spinbox.querySelector("input");
+  if (input.type !== "text") {
+    console.error("Input type must be text");
+    return;
+  }
+
+  const maxValue = Number(input.getAttribute("max")) || 10000;
+  const minValue = Number(input.getAttribute("min")) || -10000;
+  const stepSize = Number(input.getAttribute("step")) || 1;
+
+  const incrementBtn = spinbox.querySelector(".modern-spinbox-btn-up");
+  const decrementBtn = spinbox.querySelector(".modern-spinbox-btn-down");
+
+  if (!incrementBtn || !decrementBtn) {
+    console.error("Increment and decrement buttons not found");
+    return;
+  }
+
+  const handleChange = (newValue) => {
+    if (newValue > maxValue || newValue < minValue) {
+      return;
     }
+    input.value = newValue;
+    onChangeCallback?.(newValue);
+  };
+
+  const handleIncrement = () => {
+    const newValue = Number(input.value) + stepSize;
+    handleChange(newValue);
+  };
+
+  const handleDecrement = () => {
+    const newValue = Number(input.value) - stepSize;
+    handleChange(newValue);
+  };
+
+  incrementBtn.addEventListener("click", handleIncrement);
+  decrementBtn.addEventListener("click", handleDecrement);
+
+  input.addEventListener("input", () => {
+    let value = parseInt(input.value, 10);
+    handleChange(value);
+  });
+}
+
+function setupAllSpinBoxsWithOneCallback(callback = null) {
+  const spinBoxList = document.querySelectorAll(".modern-spinbox");
+  spinBoxList.forEach((spinbox) => {
+    setupSpinbox(spinbox, callback);
   });
 }
 
@@ -352,4 +437,32 @@ function loadSocialMediaLink(identifier, event) {
   } else {
     console.error("Link not found for identifier:", identifier);
   }
+}
+
+function runALoopTask(task_func, args, progressBar) {
+  if (!task_func) {
+    console.error("Task not provided");
+    return;
+  }
+  if (!args) {
+    console.error("Arguments not provided");
+    return;
+  }
+  if (!progressBar) {
+    console.error("Progress bar container not provided");
+    return;
+  }
+
+  const totalTasks = args.length;
+
+  const updateProgress = (index) => {
+    progressBar.value = ((index + 1) / totalTasks) * 100;
+  };
+
+  let result = [];
+  args.forEach((arg, index) => {
+    result[index] = task_func(arg);
+    updateProgress(index);
+  });
+  return result;
 }

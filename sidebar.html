@@ -2,20 +2,17 @@
 	/* ----------------------------- Sidebar Styling ----------------------------- */
 	.navbar {
 		position: fixed;
-		top: var(--spacing-large);
-		left: var(--spacing-medium);
-		height: auto;
-		width: auto;
-		display: flex;
-		flex-direction: column;
-		justify-content: left; !important;
-		align-content: flex-start; !important;
+		top: var(--spacing-large); left: var(--spacing-medium);
+		height: auto; width: auto;
+		display: flex; flex-direction: column;
+		justify-content: left; !important; align-content: flex-start; !important;
         padding: var(--spacing-medium) var(--spacing-large);
 		z-index: var(--z-index-overlay);
-		backdrop-filter: blur(var(--blur-radius));
-		border-radius: var(--default-radius);
-		border: none;
+        border-radius: var(--default-radius); border: none;
 		transition: all var(--transition-default);
+        background-color: var(--color-primary);
+        backdrop-filter: blur(var(--blur-radius));
+        box-shadow: var(--box-shadow);
 	}
 
 	.navbar-group {
@@ -50,16 +47,6 @@
         width: 100%;
 		padding: var(--spacing-small) !important;
 	}
-
-
-	.light-mode .navbar {
-		background-color: var(--color-light-contrast);
-		box-shadow: var(--shadows-light);
-	}
-	.dark-mode .navbar{
-		background-color: var(--color-dark-contrast);
-		box-shadow: var(--shadows-dark);
-	}
 </style>
 
 
@@ -72,12 +59,6 @@
             <button class="primary-button smaller left-aligned" onclick="loadHomePage(event)">
                 <i class="bi bi-house-door-fill"></i> <!-- Home icon -->
                 <span class="button-label">Home</span> <!-- Hidden text -->
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="primary-button smaller left-aligned" onclick="loadPDFInMainWindow('./assets/manoj-malviya-resume.pdf')">
-                <i class="bi bi-file-pdf"></i>
-                <span class="button-label">Resume</span> <!-- Hidden text -->
             </button>
         </li>
     </ul>
@@ -115,6 +96,13 @@
 <!--                <span class="button-label">Search</span> &lt;!&ndash; Hidden text &ndash;&gt;-->
 <!--            </button>-->
 <!--        </li>-->
+        <!-- Resume Button -->
+        <li class="nav-item">
+            <button class="primary-button smaller left-aligned" onclick="loadPDFInMainWindow('./assets/manoj-malviya-resume.pdf')">
+                <i class="bi bi-file-pdf"></i>
+                <span class="button-label">Resume</span> <!-- Hidden text -->
+            </button>
+        </li>
 
         <!-- Dark Mode Toggle -->
         <li class="nav-item">

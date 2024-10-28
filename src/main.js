@@ -17,7 +17,7 @@ const homePageCallbacks = [
 
 const defaultBlogCallbacks = [
   initTheme,
-  loadBlogFooter, //Order Matters
+  loadTableOfContents, //Order Matters
   initImageFluidHandler,
   initScrollTracking,
   initCodeHighlighting, //Should be after initTheme
@@ -32,7 +32,7 @@ const blogHTMLToExtraCallbacks = {
   "./blogs/build-orient/build-orient.html": [],
   "./blogs/formlabs-ui/ui-lead.html": [],
   "./blogs/cpp-threads/cpp-threads.html": [],
-  // "./blogs/formlabs-supports/supports.html": [],
+  // "./blogs/this-blog/this-blog.html": [],
 };
 
 // App-specific callbacks
@@ -40,6 +40,7 @@ const defaultAppCallbacks = [initTheme];
 const appHTMLToInits = {
   "./apps/music-viz/music-viz.html": [initMusicApp],
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
+  "./apps/lattice-topt/lattice-topt.html": [initLatticeTopt],
   "./apps/coming-soon/coming-soon.html": [],
 };
 
@@ -211,35 +212,9 @@ function makeAppButtons() {
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
-  Promise.all(promises)
-    .then(() => {
-      // Wait for a second before sorting the apps
-      runWithDelay(sortApps, 100);
-    })
-    .catch((err) => {
-      console.error("Error loading all apps:", err);
-    });
-}
-
-function sortApps() {
-  const container = document.getElementById("appList");
-  if (!container) {
-    console.error("App container not found");
-    return;
-  }
-  const buttons = Array.from(container.children);
-  if (buttons.length === 0) {
-    console.error("No app buttons found in the container");
-    return;
-  }
-
-  buttons.sort((a, b) => {
-    const titleA = a.querySelector(".app-name").textContent;
-    const titleB = b.querySelector(".app-name").textContent;
-    return titleA.localeCompare(titleB);
+  Promise.all(promises).catch((err) => {
+    console.error("Error loading all apps:", err);
   });
-
-  buttons.forEach((button) => container.appendChild(button));
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
@@ -270,16 +245,14 @@ function createBlogCardHTML(
           <a href="javascript:void(0)" class="quarto-grid-link" 
              onclick="loadBlogPage('${filePath}', event)">
                 <img src="${imagePath}" class="card-img" alt="">
-                <div class="tag-label">${title}</div>
-                <div class="card-body">
-                    <div class="card-details">
-                        <h3>${title}</h3>
-                        <p class="smaller">${description}</p>
-                        <div class="tag-categories">
-                            ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
-                        </div>
-                         <div class="tag-date">${date} </div>
+                <div class="card-label">${title}</div>
+                <div class="card-details">
+                    <h3>${title}</h3>
+                    <p class="smaller">${description}</p>
+                    <div class="tag-categories">
+                        ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
+                    <div class="tag-date">${date} </div>
                 </div>
           </a>
       </div>
@@ -314,7 +287,7 @@ function makeBlogCard(filePath, container) {
       const date = getElementAttribute(doc, "#date", "textContent", "No date");
       const type = getElementAttribute(
         doc,
-        "#tag-label",
+        "#card-label",
         "textContent",
         "No type",
       );
@@ -368,7 +341,7 @@ function makeBlogCardsAndSetupControls() {
         categories.forEach((category) => allCategories.add(category));
         // Update the Set with each project's categories
       });
-      setupCategoryDropDown(allCategories);
+      setupSkillsDropDown(allCategories);
       sortBlogCards(defaultSortOption);
     })
     .catch((err) => {
@@ -377,27 +350,20 @@ function makeBlogCardsAndSetupControls() {
 }
 
 // Function to dynamically generate the dropdown options based on unique categories
-function setupCategoryDropDown(allCategories) {
-  const filterDropdown = document.getElementById("categoryFilter");
-  const filterSelectedValue = document.getElementById("selectedCategoryValue");
-  const button = document.getElementById("categoryFilterBtn");
+function setupSkillsDropDown(allCategories) {
+  const dropdownList = window.document.getElementById("skillsList");
+  const dropdown = window.document.getElementById("skillsFilter");
 
-  if (!filterDropdown || !filterSelectedValue || !button) {
-    console.error("Dropdown elements not found");
+  if (!dropdownList || !dropdown) {
+    console.error("Dropdown elements not found" + dropdownList + dropdown);
     return;
   }
 
   // Creating dropdown items for each category
   allCategories.forEach((category) => {
-    filterDropdown.appendChild(createDropdownItem(category, category));
+    dropdownList.appendChild(createDropdownItem(category, category));
   });
-
-  setupDropdown(
-    button,
-    filterDropdown,
-    filterBlogsByCategory,
-    filterSelectedValue,
-  );
+  setupDropdown(dropdown, filterBlogsByCategory);
 }
 
 // Function to initialize Sort Filter
@@ -408,23 +374,20 @@ const sortOptions = [
   { value: "title-desc", label: "Z-A", icon: "bi bi-sort-alpha-down-alt" },
 ];
 const defaultSortOption = "date-desc";
-
 function setupSortOptions() {
-  const dropdown = document.getElementById("sortFilter");
-  const selectedValue = document.getElementById("selectedSortValue");
-  const icon = document.getElementById("sortIcon");
-  const button = document.getElementById("sortFilterBtn");
+  const dropdown = window.document.getElementById("sortDropdown");
+  const dropdownList = document.getElementById("sortFilterList");
 
-  if (!dropdown || !selectedValue || !button) {
-    console.error("Dropdown elements not found");
+  if (!dropdownList || !dropdown) {
+    console.error("Dropdown elements not found" + dropdownList + dropdown);
     return;
   }
   sortOptions.forEach((option) => {
-    dropdown.appendChild(
+    dropdownList.appendChild(
       createDropdownItem(option.value, option.label, option.icon),
     );
   });
-  setupDropdown(button, dropdown, sortBlogCards, selectedValue, icon);
+  setupDropdown(dropdown, sortBlogCards);
 }
 
 // Search projects based on title or description
@@ -498,8 +461,35 @@ function sortBlogCards(sortBy) {
 }
 
 /** ---------------------------- Blog Page Functions  ---------------------------- **/
+function loadTableOfContents() {
+  let tableOfContents = document.getElementById("tableOfContents");
+
+  // Check if the footer element exists, if not, dynamically create it
+  if (!tableOfContents) {
+    console.error("Footer placeholder not found in project page");
+    return;
+  }
+
+  // Use template literals to create the footer structure
+  // Inject the footer HTML into the footer element
+  tableOfContents.innerHTML = `
+        <div class="blog-sidebar-title">
+            <button class="blog-sidebar-toggle" id="tocToggle">
+                <i class="bi bi-chevron-down"></i>
+            </button>
+            <label for="tocToggle">On this Page </label>
+        </div>
+        <nav id="tocListContainer" role="doc-toc"> 
+            <ul class="blog-sidebar-list" id="tocList"></ul>
+        </nav>
+        `;
+  // Call the function to dynamically generate the TOC
+  generateTableOfContentsForBlogPages();
+  setupBlogToggleButton();
+}
+
 function generateTableOfContentsForBlogPages() {
-  const tocList = document.getElementById("dynamic-toc");
+  const tocList = document.getElementById("tocList");
   const sections = document.querySelectorAll("main section[id]"); // Assuming sections in the main content have ids
 
   // Use template literals to generate TOC items
@@ -520,31 +510,26 @@ function generateTableOfContentsForBlogPages() {
   }
 }
 
-function loadBlogFooter() {
-  let footer = document.getElementById("quarto-footer");
+function setupBlogToggleButton() {
+  // Function to initialize the theme toggle after loading the content
+  window.document
+    .getElementById("tocToggle")
+    .addEventListener("click", function () {
+      const toc = document.getElementById("tableOfContents");
 
-  // Check if the footer element exists, if not, dynamically create it
-  if (!footer) {
-    console.error("Footer placeholder not found in project page");
-    return;
-  }
-
-  // Use template literals to create the footer structure
-  // Inject the footer HTML into the footer element
-  footer.innerHTML = `
-        <div class="footer-title">
-            <button class="footer-icon" id="footer-toggle">
-                <i class="bi bi-chevron-down"></i>
-            </button>
-            <label for="footer-toggle">On this Page </label>
-        </div>
-        <nav id="TOC" role="doc-toc"> 
-            <ul class="footer-toc" id="dynamic-toc"></ul>
-        </nav>
-        `;
-  // Call the function to dynamically generate the TOC
-  generateTableOfContentsForBlogPages();
-  initProjectFooterToggle();
+      // change the icon based on the footer visibility
+      const icon = this.querySelector("i");
+      const iconUp = "bi-chevron-up";
+      const iconDown = "bi-chevron-down";
+      if (icon.classList.contains(iconDown)) {
+        icon.classList.remove(iconDown);
+        icon.classList.add(iconUp);
+      } else {
+        icon.classList.remove(iconUp);
+        icon.classList.add(iconDown);
+      }
+      toc.classList.toggle("hide-list"); // Toggle the "footer-collapsed" class
+    });
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/

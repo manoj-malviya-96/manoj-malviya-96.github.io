@@ -1,0 +1,89 @@
+<style>
+    #latticeTypeDropdown .modern-dropdown-list {
+        height: auto;
+        width: auto;
+        transform: translateY(-169%) translateX(-25%);
+    }
+</style>
+
+<!-- Icon and App Name in  layout -->
+<div class="app-brand-container">
+    <div class="app-brand-logo">
+        <i class="bi bi-grid-3x3-gap" id="appIcon"></i>
+        <h2 class="app-name" id="appName">Lopt</h2>
+    </div>
+    <p class="app-description" id="appDescription"> Generate and optimize lattices </p>
+</div>
+
+<div class="app-window">
+    <!-- Visualizer section -->
+    <div id="meshPlot" class="canvas-like"></div>
+
+    <div class="app-controller-container">
+        <!-- App Header -->
+        <div class="app-controller">
+            <div class="progress-area app-controller-row hidden">
+                <input type="range" id="progressBar" min="0" max="100" value="0">
+            </div>
+            <!-- options for lattice generation -->
+            <div id="controls" class="app-controller-row">
+                <div class="app-controller-row-group">
+                    <div class="modern-spinbox app-controller-row-item">
+                        <label for="cellSize">Cell Size (mm)</label>
+                        <div class="modern-spinbox-container">
+                            <button class="primary-button smaller modern-spinbox-btn-up">
+                                <i class="bi bi-chevron-compact-up"></i>
+                            </button>
+                            <input type="text" id="cellSize" class="modern-spinbox-input"
+                                   value="10" max="100" min="10" step="5">
+                            <button class="primary-button smaller modern-spinbox-btn-down">
+                                <i class="bi bi-chevron-compact-down"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="modern-spinbox app-controller-row-item">
+                        <label for="meshWidth">Mesh Width (mm)</label>
+                        <div class="modern-spinbox-container">
+                            <button class="primary-button smaller modern-spinbox-btn-up">
+                                <i class="bi bi-chevron-compact-up"></i>
+                            </button>
+                            <input type="text" id="meshWidth" class="modern-spinbox-input"
+                                   value="100" max="500" min="10" step="10">
+                            <button class="primary-button smaller modern-spinbox-btn-down">
+                                <i class="bi bi-chevron-compact-down"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="modern-spinbox app-controller-row-item">
+                        <label for="meshHeight">Mesh Height (mm)</label>
+                        <div class="modern-spinbox-container">
+                            <button class="primary-button smaller modern-spinbox-btn-up">
+                                <i class="bi bi-chevron-compact-up"></i>
+                            </button>
+                            <input type="text" id="meshHeight" class="modern-spinbox-input"
+                                   value="100" max="500" min="10" step="10">
+                            <button class="primary-button smaller modern-spinbox-btn-down">
+                                <i class="bi bi-chevron-compact-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-controller-row-group">
+                    <div id="latticeTypeDropdown" class="modern-dropdown app-controller-row-item">
+                        <button class="primary-button modern-tooltip"
+                                data-tooltip="Select Lattice Type">
+                            <i class="bi bi-gear"></i>
+                        </button>
+                        <ul class="modern-dropdown-list hidden">
+                            <li data-value="square" class="modern-dropdown-item">Square</li>
+                            <li data-value="checkerboard" class="modern-dropdown-item">Checkerboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

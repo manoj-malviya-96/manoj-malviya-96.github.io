@@ -5,14 +5,7 @@
 
     #aboutEntity:hover {
         cursor: pointer;
-    }
-
-    .light-mode #aboutEntity:hover {
-        box-shadow: var(--shadows-light);
-    }
-
-    .dark-mode #aboutEntity:hover {
-        box-shadow: var(--shadows-dark);
+        box-shadow: var(--box-shadow);
     }
 
     #profile-image {
@@ -53,10 +46,7 @@
         margin: 0 auto;
     }
 
-    #appList {
-        grid-gap: calc((var(--max-body-width) - 3 * var(--blog-card-and-header-height)) / 2.02);
-    }
-
+    #appList,
     #blogList {
         grid-gap: calc((var(--max-body-width) - 4 * var(--blog-card-and-header-height)) / 3.08);
     }
@@ -264,23 +254,23 @@
 
         <div id="leftControls" class="row-layout">
             <!-- Sort Container -->
-            <div id="sort-container" style="width: 169px; margin-right: var(--spacing-large)">
-                <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs" id="sortFilterBtn">
-                    <i id="sortIcon" class="bi bi-sort-alpha-down"></i>
-                    <span id="selectedSortValue" class="button-label">Sort by...</span>
+            <div id="sortDropdown" class="modern-dropdown" style="width: 169px; margin-right: var(--spacing-large)">
+                <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs">
+                    <i class="bi bi-sort-down-alt"></i>
+                    <span class="button-label">Sort by...</span>
                 </button>
-                <ul id="sortFilter" class="modern-dropdown hidden">
+                <ul id="sortFilterList" class="modern-dropdown-list hidden">
                 </ul>
             </div>
 
-            <!-- Filter Container -->
-            <div id="filter-container" style="width: 200px;">
+            <!-- Skill Container -->
+            <div id="skillsFilter" class="modern-dropdown"  style="width: 200px;">
                 <button class="primary-button with-border modern-tooltip"
-                        data-tooltip="Filter blogs by type of skills I employed" id="categoryFilterBtn">
+                        data-tooltip="Filter blogs by type of skills I employed" >
                     <i class="bi bi-filter"></i>
-                    <span id="selectedCategoryValue" class="button-label">Select Skills...</span>
+                    <span class="button-label">Select Skills...</span>
                 </button>
-                <ul id="categoryFilter" class="modern-dropdown hidden">
+                <ul id="skillsList" class="modern-dropdown-list hidden">
                     <li data-value="All" class="modern-dropdown-item">All</li>
                 </ul>
             </div>

@@ -1,5 +1,3 @@
-const textColor = getStyleValue("--color-white");
-const backgroundColor = getStyleValue("--color-black");
 const regFontSize = Number(getStyleValue("--regular-text-size"));
 const subtitleFontSize = Number(getStyleValue("--subtitle-text-size"));
 
@@ -13,6 +11,9 @@ function createLayout(
   showTickLabels = true,
 ) {
   const margin = showTickLabels ? 100 : 0;
+  const textColor = getStyleValue("--color-text");
+  const backgroundColor = `rgba(0, 0, 0, 0)`;
+
   return {
     title: {
       text: title,
@@ -55,6 +56,7 @@ function createLayout(
       showline: false,
       showticklabels: showTickLabels,
     },
+    showlegend: false, // Hide the legend
     padding: 0,
     margin: { t: margin, l: margin, r: margin, b: margin },
     autosize: true,
@@ -66,6 +68,7 @@ function createLayout(
 }
 
 function getColorBar(text) {
+  const textColor = getStyleValue("--color-text");
   return {
     title: {
       text: text,
@@ -149,4 +152,41 @@ function createHeatmapFromTrace(
     [data],
     createLayout(width, height, title, xTitle, yTitle, showTickLabels),
   );
+}
+
+class PlotHandler {
+  constructor() {
+    this.plotFunctions = [];
+    initThemeChangeHandler(() => this.drawPlots());
+  }
+
+  updatePlotFunctions(plotFunctions = []) {
+    if (plotFunctions.length === 0) {
+      console.error("No plot functions provided to updatePlotFunctions");
+      return;
+    }
+    this.plotFunctions = plotFunctions;
+  }
+
+  drawPlots() {
+    if (this.plotFunctions && this.plotFunctions.length === 0) {
+      console.error("No plot functions to draw");
+      return;
+    }
+    this.plotFunctions.forEach((plotFunction) => plotFunction());
+  }
+}
+
+function updatePlotHandler(callbacks = []) {
+  if (callbacks.length === 0) {
+    console.error("No callbacks provided to updatePlotHandler");
+    return;
+  }
+
+  if (!window.plotHandler) {
+    window.plotHandler = new PlotHandler();
+  }
+
+  window.plotHandler.updatePlotFunctions(callbacks);
+  window.plotHandler.drawPlots();
 }
