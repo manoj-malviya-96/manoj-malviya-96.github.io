@@ -75,12 +75,12 @@ class MusicVizView {
       this.skipBackward.bind(this),
     );
 
-    setupDropdownFromContainer(
+    setupDropdown(
       this.elements.vizDropdown,
       this.handleVizDropdownSelect.bind(this),
     );
 
-    setupDropdownFromContainer(
+    setupDropdown(
       this.elements.songDropdown,
       this.handleSongDropdownSelect.bind(this),
     );

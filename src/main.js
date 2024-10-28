@@ -363,7 +363,7 @@ function setupSkillsDropDown(allCategories) {
   allCategories.forEach((category) => {
     dropdownList.appendChild(createDropdownItem(category, category));
   });
-  setupDropdownFromContainer(dropdown, filterBlogsByCategory);
+  setupDropdown(dropdown, filterBlogsByCategory);
 }
 
 // Function to initialize Sort Filter
@@ -387,7 +387,7 @@ function setupSortOptions() {
       createDropdownItem(option.value, option.label, option.icon),
     );
   });
-  setupDropdownFromContainer(dropdown, sortBlogCards);
+  setupDropdown(dropdown, sortBlogCards);
 }
 
 // Search projects based on title or description

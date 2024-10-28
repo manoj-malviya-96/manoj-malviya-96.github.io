@@ -213,7 +213,7 @@ function createDropdownItem(dataValue, dataLabel, dataIcon) {
   return item;
 }
 
-function setupDropdown(
+function internal_setupDropdown(
   button,
   dropdown,
   callback = null,
@@ -269,7 +269,7 @@ function setupDropdown(
   addOutsideClickHandler(button, dropdown);
 }
 
-function setupDropdownFromContainer(dropdownContainer, callback = null) {
+function setupDropdown(dropdownContainer, callback = null) {
   if (
     !dropdownContainer &&
     !dropdownContainer.classList.contains("modern-dropdown-container")
@@ -283,7 +283,7 @@ function setupDropdownFromContainer(dropdownContainer, callback = null) {
   const selectedValue = button.querySelector(".button-label");
   const icon = button.querySelector("i");
 
-  setupDropdown(button, dropdown, callback, selectedValue, icon);
+  internal_setupDropdown(button, dropdown, callback, selectedValue, icon);
 }
 
 function setupSpinbox(spinbox, onChangeCallback = null) {
