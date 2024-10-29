@@ -109,7 +109,6 @@ class LatticeDrawer {
       "",
       false,
     );
-
     Plotly.newPlot(container, data, layout);
   }
 
