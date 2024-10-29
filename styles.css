@@ -72,6 +72,8 @@
 
     --blur-radius: 9px;
     --more-blur-radius: 27px;
+	--brighter: 1.69; /* make it lighter */
+	--darker: 0.69; /* make it darker */
 
     /* App */
     --app-drawer-button-height: 100px;
@@ -582,8 +584,8 @@ input[type="range"]::-webkit-slider-thumb {
     height: var(--blog-card-and-header-height);
     margin: 0; padding: var(--spacing-small) var(--spacing-medium);
     justify-content: flex-start;
-    transition: all var(--transition-default);
-    transform: translateY(0%);
+    transition: transform var(--transition-default);
+	transform: translateY(100%);
 }
 
 .card-img {
@@ -604,10 +606,9 @@ input[type="range"]::-webkit-slider-thumb {
     width: 100%;
     text-align: center;
     padding: var(--spacing-small);
-    border: none;
-    background-color: var(--color-primary);
+    border: none; background-color: var(--color-primary);
+	transition: opacity var(--transition-default);
 }
-
 .card h3 { text-transform: uppercase; }
 
 .card:hover .card-details {
@@ -615,6 +616,7 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: var(--color-primary);
     backdrop-filter: blur(var(--blur-radius));
 }
+
 .card:hover .card-label { opacity: 0; /* Hide the label */}
 .card:hover { box-shadow: var(--box-shadow);}
 .card:active { transform: scale(var(--active-scale));}
@@ -675,7 +677,7 @@ canvas {
     display: flex; flex-direction: column;
     height: auto; width: auto; max-width: 100%;
     align-items: flex-start; justify-content: flex-start;
-    margin: 0; padding: 0;
+    margin: 0; padding: 0 var(--spacing-medium);
     backdrop-filter: blur(var(--more-blur-radius));
     transition: all var(--transition-default);
     color: var(--color-white);
@@ -689,6 +691,7 @@ canvas {
     padding: 0; margin: var(--spacing-tiny) 0;
     /* Give enough space for border of buttons */
 }
+
 .app-controller-row-group {
     display: flex;
     flex-direction: row;
@@ -792,7 +795,7 @@ canvas {
 }
 
 .blog-sidebar-list {
-    font-size : var(--smaller-text-size);
+    font-size : var(--regular-text-size);
     list-style-type: none;
     text-align: left;
 }
@@ -804,6 +807,13 @@ canvas {
 .blog-sidebar.hide-list .blog-sidebar-list{
     display: none;
 }
+
+.blog-sidebar-header label {
+	font-size: var(--regular-text-size);
+	font-weight: var(--bold-weight);
+	text-transform: uppercase;
+}
+
 
 /*-------------------------------- Full Screen Binding ---------------------*/
 .full-screen-modal {

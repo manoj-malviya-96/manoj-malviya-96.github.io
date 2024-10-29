@@ -69,7 +69,7 @@ class LatticeDrawer {
       : new Array(mesh.getConnections().length).fill(2); // Default width 2 if not provided
   }
 
-  plot(container) {
+  plot(container, heightMargin = 0) {
     const coords = this.mesh.getPoints();
     const connections = this.mesh.getConnections();
     const lines = {
@@ -96,14 +96,15 @@ class LatticeDrawer {
         y: coords.map((coord) => coord[1]),
         mode: "markers",
         type: "scatter",
-        marker: { color: brandColor, size: 7 },
+        marker: { color: brandColor, size: 7, opacity: 0.69 },
       },
     ];
     const aspectRatio = this.mesh.meshWidth / this.mesh.meshHeight;
+    const height = appWindowHeight - heightMargin;
     const layout = createLayout(
       "",
-      appWindowHeight,
-      appWindowWidth * aspectRatio,
+      height,
+      height * aspectRatio,
       "",
       "",
       false,
@@ -159,9 +160,17 @@ class LatticeViewer {
     // Example internal API usage for setting variable line widths
     const drawer = new LatticeDrawer(mesh);
 
+    const container = window.document.querySelector(
+      ".app-controller-container",
+    );
+    if (!container) {
+      console.error("Container not found");
+      return;
+    }
+
     // Plot the mesh
     const plotFn = () => {
-      drawer.plot("meshPlot");
+      drawer.plot("meshPlot", container.clientHeight);
     };
     updatePlotHandler([plotFn]);
   }

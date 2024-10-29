@@ -473,7 +473,7 @@ function loadTableOfContents() {
   // Use template literals to create the footer structure
   // Inject the footer HTML into the footer element
   tableOfContents.innerHTML = `
-        <div class="blog-sidebar-title">
+        <div class="blog-sidebar-header">
             <button class="blog-sidebar-toggle" id="tocToggle">
                 <i class="bi bi-chevron-down"></i>
             </button>
