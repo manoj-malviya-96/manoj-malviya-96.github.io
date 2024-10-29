@@ -500,19 +500,39 @@
           "commits": 5
         },
         {
+          "date": "2024-10-17",
+          "commits": 2
+        },
+        {
           "date": "2024-10-21",
           "commits": 2
+        },
+        {
+          "date": "2024-10-22",
+          "commits": 19
+        },
+        {
+          "date": "2024-10-23",
+          "commits": 3
+        },
+        {
+          "date": "2024-10-24",
+          "commits": 4
+        },
+        {
+          "date": "2024-10-25",
+          "commits": 1
         }
       ],
       "languages": {
-        "C++": 23260089,
-        "QML": 3306880,
-        "Python": 1597147,
-        "CMake": 834083,
+        "C++": 23330930,
+        "QML": 3316857,
+        "Python": 1598211,
+        "CMake": 835370,
         "Shell": 74018,
         "C": 65254,
         "GLSL": 61107,
-        "Gherkin": 57430,
+        "Gherkin": 57598,
         "Rich Text Format": 56322,
         "Batchfile": 40018,
         "CSS": 21715,
@@ -545,8 +565,8 @@
         }
       ],
       "languages": {
-        "C++": 179364,
-        "CMake": 19127,
+        "C++": 181200,
+        "CMake": 19389,
         "C": 1095
       }
     },
@@ -628,12 +648,24 @@
         {
           "date": "2024-10-22",
           "commits": 1
+        },
+        {
+          "date": "2024-10-23",
+          "commits": 1
+        },
+        {
+          "date": "2024-10-24",
+          "commits": 1
+        },
+        {
+          "date": "2024-10-29",
+          "commits": 1
         }
       ],
       "languages": {
-        "JavaScript": 166946,
-        "HTML": 116796,
-        "CSS": 29014
+        "JavaScript": 174660,
+        "HTML": 130428,
+        "CSS": 22839
       }
     },
     {
@@ -706,16 +738,16 @@
       ],
       "languages": {
         "C": 57755868,
-        "C++": 21586204,
-        "Python": 11461758,
+        "C++": 21736841,
+        "Python": 11456119,
         "Jupyter Notebook": 6719311,
-        "QML": 6166551,
-        "Go": 1616026,
+        "QML": 6168890,
+        "Go": 1620064,
         "JavaScript": 1524107,
-        "CMake": 1042504,
+        "CMake": 1046066,
         "Assembly": 568918,
         "TypeScript": 424443,
-        "Shell": 419113,
+        "Shell": 418980,
         "HTML": 305314,
         "CSS": 126878,
         "Makefile": 46243,
@@ -723,7 +755,7 @@
         "TeX": 27973,
         "Cython": 25392,
         "Rust": 19552,
-        "Jinja": 14630,
+        "Jinja": 18658,
         "QMake": 5520,
         "OpenSCAD": 2764,
         "Mako": 2548,
@@ -1319,7 +1351,7 @@
         "Jupyter Notebook": 1053071270,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 39776986,
+        "Python": 39791969,
         "JavaScript": 14615804,
         "C++": 6982085,
         "Mathematica": 3004790,
@@ -1358,134 +1390,6 @@
     {
       "repo": "Formlabs/SetOps",
       "daily_log": [
-        {
-          "date": "2021-08-25",
-          "commits": 4
-        },
-        {
-          "date": "2021-08-26",
-          "commits": 7
-        },
-        {
-          "date": "2021-08-27",
-          "commits": 1
-        },
-        {
-          "date": "2021-08-30",
-          "commits": 3
-        },
-        {
-          "date": "2021-08-31",
-          "commits": 8
-        },
-        {
-          "date": "2021-09-07",
-          "commits": 2
-        },
-        {
-          "date": "2021-09-08",
-          "commits": 4
-        },
-        {
-          "date": "2021-09-09",
-          "commits": 3
-        },
-        {
-          "date": "2021-09-10",
-          "commits": 2
-        },
-        {
-          "date": "2021-09-13",
-          "commits": 1
-        },
-        {
-          "date": "2021-09-14",
-          "commits": 2
-        },
-        {
-          "date": "2021-09-15",
-          "commits": 3
-        },
-        {
-          "date": "2021-09-22",
-          "commits": 1
-        },
-        {
-          "date": "2021-09-23",
-          "commits": 1
-        },
-        {
-          "date": "2021-09-25",
-          "commits": 5
-        },
-        {
-          "date": "2021-09-27",
-          "commits": 2
-        },
-        {
-          "date": "2021-09-28",
-          "commits": 3
-        },
-        {
-          "date": "2021-09-30",
-          "commits": 7
-        },
-        {
-          "date": "2021-10-01",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-04",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-05",
-          "commits": 2
-        },
-        {
-          "date": "2021-10-06",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-07",
-          "commits": 2
-        },
-        {
-          "date": "2021-10-08",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-11",
-          "commits": 3
-        },
-        {
-          "date": "2021-10-12",
-          "commits": 8
-        },
-        {
-          "date": "2021-10-13",
-          "commits": 2
-        },
-        {
-          "date": "2021-10-15",
-          "commits": 7
-        },
-        {
-          "date": "2021-10-17",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-18",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-19",
-          "commits": 8
-        },
-        {
-          "date": "2021-10-20",
-          "commits": 3
-        },
         {
           "date": "2021-10-21",
           "commits": 4
@@ -2144,14 +2048,14 @@
         }
       ],
       "languages": {
-        "Python": 4405792,
-        "JavaScript": 997405,
+        "Python": 4407307,
+        "JavaScript": 1000505,
         "C": 67455,
         "HTML": 25633,
         "Jupyter Notebook": 25007,
         "CSS": 20520,
         "OpenSCAD": 15810,
-        "Shell": 7255,
+        "Shell": 7355,
         "Makefile": 3871,
         "Dockerfile": 2518
       }
