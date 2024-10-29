@@ -497,14 +497,14 @@ function generateTableOfContentsForBlogPages() {
     const sectionTitle = section.querySelector("h2")?.textContent || section.id;
     tocList.innerHTML += `
             <li>
-                 <a href="#${section.id}" class="nav-link ">
+                 <div data-value="#${section.id}" class="nav-link" onclick="scrollElementInView('${section.id}')">
                     ${sectionTitle}
-                </a>
+                </div>
             </li>
         `;
   });
   // Set the first TOC item as active
-  const firstLink = tocList.querySelector("a");
+  const firstLink = tocList.querySelector("div");
   if (firstLink) {
     firstLink.classList.add("active");
   }
