@@ -61,7 +61,7 @@
 
     /* Project specific */
     --blog-card-and-header-height: 210px;
-    --project-side-bar-top: 57px; /* navbar height + spacing-medium */
+    --project-side-bar-top: calc(var(--navbar-height) + var(--spacing-large));
     --project-searchbar-width: 250px;
     --project-footer-width: 350px;
 
