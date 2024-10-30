@@ -75,8 +75,8 @@
 
     /* App */
     --app-drawer-button-height: 100px;
-    --app-window-width: 78vw; /*1347px;*/
-    --app-window-height: 85vh; /*790px;*/
+    --app-window-width: 1347px;
+    --app-window-height: 790px;
 }
 
 .light-mode {
@@ -266,7 +266,6 @@ a {
     width: auto;
     margin: 0 auto;
 }
-
 /* ----------------------------- Tooltip Styling ----------------------------- */
 
 .modern-tooltip {
@@ -785,7 +784,7 @@ canvas {
     position: fixed;
     top: var(--spacing-large); right: var(--spacing-large);
     padding: var(--spacing-small); margin: 0 auto;
-    height: auto; width: auto; max-width: var(--project-footer-width);
+    height: auto; width: auto; max-width: var(--blog-sidebar-max-width);
     border-radius: var(--default-radius);
     backdrop-filter: blur(var(--blur-radius));
     color: var(--color-text);
@@ -806,6 +805,7 @@ canvas {
     text-align: left;
 	cursor: pointer;
     padding: var(--spacing-small); margin: 0;
+    border-right: var(--border-width) solid var(--color-primary);
 }
 
 .blog-sidebar-list li:last-child{

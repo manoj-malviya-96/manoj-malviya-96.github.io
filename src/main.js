@@ -474,12 +474,12 @@ function loadTableOfContents() {
   // Inject the footer HTML into the footer element
   tableOfContents.innerHTML = `
         <div class="row-layout">
-          <button class="blog-sidebar-toggle" id="tocToggle">
-              <i class="bi bi-chevron-right"></i>
-          </button>
           <nav id="tocListContainer" role="doc-toc"> 
               <ul class="blog-sidebar-list" id="tocList"></ul>
           </nav>
+          <button class="blog-sidebar-toggle primary-button smaller with-border" id="tocToggle">
+              <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
         `;
   // Call the function to dynamically generate the TOC
