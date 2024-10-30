@@ -75,8 +75,8 @@
 
     /* App */
     --app-drawer-button-height: 100px;
-    --app-window-width: 1347px;
-    --app-window-height: 790px;
+    --app-window-width: 78vw; /*1347px;*/
+    --app-window-height: 85vh; /*790px;*/
 }
 
 .light-mode {
