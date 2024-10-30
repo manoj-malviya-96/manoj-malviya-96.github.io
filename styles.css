@@ -86,10 +86,10 @@
 }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     :root {
-        --max-body-width: 469px;
-        --max-content-width: 321px;
+        --max-body-width: 369px;
+        --max-content-width: 221px;
 
         --regular-text-size: 8px;
         --title-font-size: 14px;
@@ -107,11 +107,10 @@
         --spacing-huge: 48px;
 
         --blog-card-and-header-height: 99px;
-        --blog-sidebar-max-width: 69px;
         --about-entity-height: 100px;
         --spinner-size: 27px;
         --app-drawer-button-height: 27px;
-        --app-window-width: 321px;
+        --app-window-width: 221px;
         --app-window-height: 570px;
     }
 }
@@ -404,7 +403,7 @@ section {
 }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .primary-button .button-label {
         display: none;
     }
@@ -445,7 +444,7 @@ section {
 }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .search-input {
         width: 0; opacity: 0; padding: 0; margin: 0;
     }
@@ -493,7 +492,7 @@ section {
 }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .modern-dropdown {
         width: auto;
     }
@@ -707,7 +706,7 @@ input[type="range"]::-webkit-slider-thumb {
 .card:active { transform: scale(var(--active-scale)); }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .card-details p {
         display: none;
     }
@@ -864,7 +863,7 @@ canvas {
 }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .app-brand-container .app-description {
         display: none;
     }
@@ -936,7 +935,7 @@ canvas {
 }
 
 /* Phone Override */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .blog-sidebar {
         display: none;
     }
