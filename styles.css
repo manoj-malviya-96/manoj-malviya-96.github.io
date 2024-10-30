@@ -68,20 +68,20 @@
     --about-entity-height: 250px;
     --spinner-size: 69px;
     --app-drawer-button-height: 100px;
-    --app-window-width: 1347px;
+    --app-window-width: 1147px;
     --app-window-height: 790px;
 }
 
 .light-mode {
     --color-background: var(--color-white);
-    --color-primary: rgba(201, 201, 201, 0.73);
+    --color-primary: rgba(201, 201, 201, 0.47);
     --color-text: rgb(47, 47, 47);
     --box-shadow: 0 1px 5px rgba(0, 0, 0, 0.27);
 }
 
 .dark-mode {
     --color-background: var(--color-black);
-    --color-primary: rgba(69, 69, 69, 0.73);
+    --color-primary: rgba(47, 47, 47, 0.47);
     --color-text: rgb(169, 169, 169);
     --box-shadow: 0 1px 5px rgba(255, 255, 255, 0.27);
 }
@@ -123,7 +123,7 @@
 body {
     font-family: var(--font-family), serif;
     margin: 0;
-    padding: var(--spacing-large) !important;
+    padding: var(--spacing-medium) !important;
     letter-spacing: var(--border-width);
     transition: all var(--transition-default);
     justify-content: center;
@@ -153,6 +153,7 @@ body {
     width: 100%;
     border-radius: var(--default-radius);
     background-color: var(--color-primary);
+    transform : translateY(0%);
 }
 
 .content.reading {
@@ -343,13 +344,10 @@ section {
 .primary-button {
     background-color: transparent;
     cursor: pointer;
-    height: auto;
-    width: auto;
-    margin: auto;
+    height: auto; width: auto; margin: auto;
     padding: 0 var(--spacing-small);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; align-items: center;
     border-radius: var(--default-radius);
     border: 0 solid var(--color-primary);
     transition: all var(--transition-default);
@@ -358,6 +356,7 @@ section {
 }
 
 .primary-button.left-aligned {
+    width: 100%;
     justify-content: left;
 }
 
@@ -654,11 +653,10 @@ input[type="range"]::-webkit-slider-thumb {
     height: var(--blog-card-and-header-height);
     width: var(--blog-card-and-header-height);
     overflow: clip;
-    padding: 0;
-    margin: 0;
+    padding: 0; margin: 0;
     background-color: var(--color-primary);
     color: var(--color-text);
-    border-radius: var(--default-radius);
+    border-radius: var(--default-radius); border: none;
 }
 
 .card-details {
@@ -943,12 +941,11 @@ canvas {
 /* ----------------------------- Blog Sidebar Styling ----------------------------- */
 .blog-sidebar {
     position: fixed;
-    top: var(--spacing-large);
-    right: var(--spacing-large);
+    top: calc(var(--blog-card-and-header-height) +
+            2*var(--spacing-large) + var(--spacing-medium)) ;
+    right: var(--spacing-medium);
     padding: var(--spacing-small);
-    margin: 0 auto;
-    height: auto;
-    width: auto;
+    margin: 0 auto; height: auto; width: auto;
     max-width: var(--blog-sidebar-max-width);
     border-radius: var(--default-radius);
     backdrop-filter: blur(var(--blur-radius));

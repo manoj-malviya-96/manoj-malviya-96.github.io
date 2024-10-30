@@ -2,32 +2,32 @@
 	/* ----------------------------- Sidebar Styling ----------------------------- */
 	.navbar {
 		position: fixed;
-		top: var(--spacing-large); left: var(--spacing-large);
-		height: auto; width: auto;
+		top: 0; left: 0;
+		height: 100%; width: auto;
 		display: flex; flex-direction: column;
-		justify-content: left; !important; align-content: flex-start; !important;
-        padding: var(--spacing-medium) var(--spacing-large);
-		z-index: var(--z-index-overlay);
-        border-radius: var(--default-radius); border: none;
+		justify-content: left !important; align-content: flex-start !important;
+        padding: 0 var(--spacing-medium) 0 var(--spacing-small); margin: 0;
+		z-index: var(--z-index-overlay); border: none;
 		transition: all var(--transition-default);
-        background-color: var(--color-primary);
+        background-color: transparent;
         backdrop-filter: blur(var(--blur-radius));
         box-shadow: var(--box-shadow);
 	}
 
 	.navbar-group {
         list-style: none;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly; !important;
-		width: 100%;
-		padding: 0;
-        margin: 0 auto;
-		border-bottom: solid var(--border-width);
+		display: flex; flex-direction: column;
+		justify-content: space-evenly !important; align-content: flex-start !important;
+		width: 100%; padding: 0; margin: 0 auto;
+		border-top: solid var(--border-width);
 	}
 
+    .navbar-group:first-child {
+        border-top: none;
+    }
+
 	.navbar-group:last-child {
-		border-bottom: none;
+        margin-top: auto;
 	}
 
 	.navbar.collapsed .navbar-group .button-label {
@@ -35,18 +35,15 @@
 	}
 
     .navbar.collapsed {
-	    padding: var(--spacing-medium) var(--spacing-small);
+	    padding: 0 var(--spacing-small) 0 var(--spacing-small);
     }
 
 	.navbar-group .nav-item {
-		text-align: left;
-		margin: 0 auto !important;
 		cursor: pointer;
-		transition: all var(--transition-default);
-		height: 100%;
-        width: 100%;
+		height: 100%; width: 100%;
 		padding: var(--spacing-small) !important;
 	}
+
 </style>
 
 
@@ -116,7 +113,7 @@
         <!-- Sidebar Toggle Button -->
         <li class="nav-item">
             <button id="sidebar-toggle-btn" class="primary-button smaller left-aligned" onclick="toggleSidebar()">
-                <i class="bi bi-chevron-right" id="sidebar-toggle-icon"></i> <!-- Toggle icon -->
+                <i class="bi bi-layout-sidebar" id="sidebar-toggle-icon"></i> <!-- Toggle icon -->
                 <span class="button-label">Collapse</span> <!-- Hidden text -->
             </button>
         </li>

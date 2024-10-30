@@ -1,12 +1,12 @@
 <style>
-    #aboutEntity {
-        display: flex;
-    }
+    #aboutMe { overflow: clip;}
+    #aboutMe .content.hide-content { height: 0; transform : translateY(-7%);}
 
-    #aboutEntity:hover {
-        cursor: pointer;
-        box-shadow: var(--box-shadow);
-    }
+    #aboutEntity { display: flex; z-index: var(--z-index-overlay);}
+    #aboutEntity:hover { cursor: pointer; box-shadow: var(--box-shadow);}
+
+    #rightControls { margin-left: auto;}
+    #cardsControlsContainer .primary-button { width: auto;}
 
     #profile-image {
         padding: 0;
@@ -28,14 +28,8 @@
         margin-left: var(--spacing-large);
     }
 
-    #githubUserReport h2 {
-        margin: 0;
-    }
-
-    #toggleAboutBtn {
-        width: auto;
-        margin: 0 auto;
-    }
+    #githubUserReport h2 { margin: 0; }
+    #toggleAboutBtn { width: auto; margin: 0 auto;}
 
     #blogListings,
     #appListings {
@@ -75,14 +69,6 @@
         width: 100%;
         display: flex;
         margin: var(--spacing-medium) auto var(--spacing-large) auto;
-    }
-
-    #rightControls {
-        margin-left: auto;
-    }
-
-    #cardsControlsContainer .primary-button {
-        width: auto;
     }
 
 </style>
@@ -142,7 +128,7 @@
     </button>
 
     <!-- Collapsible content starts here -->
-    <div class="content hidden" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
+    <div class="content hide-content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
         <!-- Introduction String -->
         <div class="content block" style="margin-bottom: var(--spacing-large)">
             Hello! I’m Manoj Malviya, a versatile, language agnostic <strong> Software Engineer </strong> passionate
