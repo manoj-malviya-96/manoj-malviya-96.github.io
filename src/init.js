@@ -106,7 +106,7 @@ function initScrollTracking() {
   const addActiveClass = (id) => {
     removeActiveClasses();
     const activeLink = document.querySelector(
-      `#tocListContainer a[href="#${id}"]`,
+      `#tocListContainer div[data-value="#${id}"]`,
     );
     if (activeLink) {
       activeLink.classList.add("active");
@@ -116,7 +116,7 @@ function initScrollTracking() {
   // Track scroll position and update the active link based on the visible section
   window.addEventListener("scroll", function () {
     let currentSection = "";
-    const scrollPosition = window.scrollY + window.innerHeight / 2; // Get the scroll position relative to the viewport's center
+    const scrollPosition = window.scrollY + window.innerHeight / 1.5; // Get the scroll position relative to the viewport's center
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop; // Get section's distance from the top of the document

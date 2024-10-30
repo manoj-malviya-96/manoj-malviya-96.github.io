@@ -120,6 +120,13 @@ function getElementAttribute(
     : defaultValue;
 }
 
+function doScrollInViewAnimation(element, timeout_ms) {
+  element.classList.add("scroll-in-view-state");
+  setTimeout(() => {
+    element.classList.remove("scroll-in-view-state");
+  }, timeout_ms);
+}
+
 function scrollElementInView(elementId) {
   const element = document.getElementById(elementId);
   if (element) {
@@ -127,6 +134,7 @@ function scrollElementInView(elementId) {
       behavior: "smooth",
       block: "center", // This ensures the element scrolls into the center of the page
     });
+    doScrollInViewAnimation(element, 1000);
   } else {
     console.error("Element not found:", elementId);
   }
@@ -437,6 +445,12 @@ function loadSocialMediaLink(identifier, event) {
   } else {
     console.error("Link not found for identifier:", identifier);
   }
+}
+
+function toggleSearchInput(elementId) {
+  const searchInput = window.document.getElementById(elementId);
+  console.log(searchInput);
+  searchInput.focus();
 }
 
 function runALoopTask(task_func, args, progressBar) {

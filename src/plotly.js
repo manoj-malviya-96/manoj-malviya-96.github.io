@@ -18,7 +18,7 @@ function createLayout(
     title: {
       text: title,
       font: {
-        size: Number(getStyleValue("--title-text-size")),
+        size: title !== "" ? getSizeFromStyle("--title-text-size") : 0,
         color: textColor,
       },
     },
@@ -38,6 +38,8 @@ function createLayout(
       zeroline: false,
       showline: false,
       showticklabels: showTickLabels,
+      scaleanchor: "y", // Locks the X axis to the Y axis
+      scaleratio: 1, // Keeps the ratio 1:1
     },
     yaxis: {
       title: {
@@ -55,6 +57,8 @@ function createLayout(
       zeroline: false,
       showline: false,
       showticklabels: showTickLabels,
+      scaleanchor: "x", // Locks the Y axis to the X axis
+      scaleratio: 1, // Keeps the ratio 1:1
     },
     showlegend: false, // Hide the legend
     padding: 0,

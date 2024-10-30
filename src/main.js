@@ -247,8 +247,8 @@ function createBlogCardHTML(
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-label">${title}</div>
                 <div class="card-details">
-                    <h3>${title}</h3>
-                    <p class="smaller">${description}</p>
+                    <h3 class="underline">${title}</h3>
+                    <p>${description}</p>
                     <div class="tag-categories">
                         ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
@@ -473,15 +473,14 @@ function loadTableOfContents() {
   // Use template literals to create the footer structure
   // Inject the footer HTML into the footer element
   tableOfContents.innerHTML = `
-        <div class="blog-sidebar-title">
-            <button class="blog-sidebar-toggle" id="tocToggle">
-                <i class="bi bi-chevron-down"></i>
-            </button>
-            <label for="tocToggle">On this Page </label>
+        <div class="row-layout">
+          <nav id="tocListContainer" role="doc-toc"> 
+              <ul class="blog-sidebar-list" id="tocList"></ul>
+          </nav>
+          <button class="blog-sidebar-toggle primary-button smaller with-border" id="tocToggle">
+              <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
-        <nav id="tocListContainer" role="doc-toc"> 
-            <ul class="blog-sidebar-list" id="tocList"></ul>
-        </nav>
         `;
   // Call the function to dynamically generate the TOC
   generateTableOfContentsForBlogPages();
@@ -497,14 +496,14 @@ function generateTableOfContentsForBlogPages() {
     const sectionTitle = section.querySelector("h2")?.textContent || section.id;
     tocList.innerHTML += `
             <li>
-                 <a href="#${section.id}" class="nav-link ">
+                 <div data-value="#${section.id}" class="nav-link" onclick="scrollElementInView('${section.id}')">
                     ${sectionTitle}
-                </a>
+                </div>
             </li>
         `;
   });
   // Set the first TOC item as active
-  const firstLink = tocList.querySelector("a");
+  const firstLink = tocList.querySelector("div");
   if (firstLink) {
     firstLink.classList.add("active");
   }
@@ -519,14 +518,12 @@ function setupBlogToggleButton() {
 
       // change the icon based on the footer visibility
       const icon = this.querySelector("i");
-      const iconUp = "bi-chevron-up";
-      const iconDown = "bi-chevron-down";
-      if (icon.classList.contains(iconDown)) {
-        icon.classList.remove(iconDown);
-        icon.classList.add(iconUp);
+      const iconToHide = "bi-chevron-right";
+      const iconToShow = "bi-chevron-left";
+      if (icon.classList.contains(iconToHide)) {
+        icon.classList.replace(iconToHide, iconToShow);
       } else {
-        icon.classList.remove(iconUp);
-        icon.classList.add(iconDown);
+        icon.classList.replace(iconToShow, iconToHide);
       }
       toc.classList.toggle("hide-list"); // Toggle the "footer-collapsed" class
     });
