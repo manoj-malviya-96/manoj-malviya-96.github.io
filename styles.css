@@ -808,12 +808,12 @@ canvas {
     padding: var(--spacing-small); margin: 0;
 }
 
-.blog-sidebar-list:last-child li{
+.blog-sidebar-list li:last-child{
     margin-bottom: 0;
 }
 
 .blog-sidebar-list li {
-    margin-bottom: var(--spacing-medium);
+    margin-bottom: var(--spacing-small);
 }
 
 .blog-sidebar-list .nav-link.active {
