@@ -447,6 +447,12 @@ function loadSocialMediaLink(identifier, event) {
   }
 }
 
+function toggleSearchInput(elementId) {
+  const searchInput = window.document.getElementById(elementId);
+  console.log(searchInput);
+  searchInput.focus();
+}
+
 function runALoopTask(task_func, args, progressBar) {
   if (!task_func) {
     console.error("Task not provided");
