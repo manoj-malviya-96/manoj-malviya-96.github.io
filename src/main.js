@@ -247,8 +247,8 @@ function createBlogCardHTML(
                 <img src="${imagePath}" class="card-img" alt="">
                 <div class="card-label">${title}</div>
                 <div class="card-details">
-                    <h3>${title}</h3>
-                    <p class="smaller">${description}</p>
+                    <h3 class="underline">${title}</h3>
+                    <p>${description}</p>
                     <div class="tag-categories">
                         ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>

@@ -36,8 +36,7 @@
     --bold-weight: 869;
     --line-height: 1.5;
 
-    --smaller-text-size: 13px;
-    --regular-text-size: 16px;
+    --regular-text-size: 14px;
     --title-font-size: 21px;
     --super-title-font-size: 33px;
     --hero-font-size: 69px;
@@ -52,28 +51,19 @@
     /* Z-Index */
     --z-index-overlay: 1;
     --z-index-max: 2;
-
-    /* Spinner */
-    --spinner-size: 69px;
-
-    /* specific sizes */
-    --navbar-height: 47px;
-
-    /* Project specific */
-    --blog-card-and-header-height: 221px;
-    --project-footer-width: 269px;
-
-    /* Custom */
-    --about-entity-height: 250px;
     --transform-scale: 1.069;
     --active-scale: 0.869;
-
     --blur-radius: 9px;
     --more-blur-radius: 27px;
 	--brighter: 2.69; /* make it lighter */
 	--darker: 0.69; /* make it darker */
+    --magic-opacity: 0.69;
 
     /* App */
+    --blog-card-and-header-height: 221px;
+    --blog-sidebar-max-width: 269px;
+    --about-entity-height: 250px;
+    --spinner-size: 69px;
     --app-drawer-button-height: 100px;
     --app-window-width: 1347px;
     --app-window-height: 790px;
@@ -152,7 +142,7 @@ h1, h2, h3 {
     font-size: var(--title-font-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
-    margin: var(--spacing-medium) 0; /* Top Right Bottom Left */
+    margin: 0 0 var(--spacing-small) 0; /* Make sure to have space at the bottom */
     padding: 0;
     border: none;
 }
@@ -173,14 +163,21 @@ p {
     text-align: justify-all;
 }
 
-p.smaller {
-    font-size: var(--smaller-text-size);
-}
-
 a {
     text-decoration: underline;
     color: var(--color-brand);
 }
+
+section {
+    margin: var(--spacing-large) 0;
+    padding: 0;
+    border: none;
+}
+
+.underline {
+    border-bottom: var(--border-width) solid var(--color-text);
+}
+
 
 /* ----------------------------- Misc ----------------------------- */
 .bi {
@@ -266,6 +263,9 @@ a {
     width: auto;
     margin: 0 auto;
 }
+
+
+
 /* ----------------------------- Tooltip Styling ----------------------------- */
 
 .modern-tooltip {
@@ -307,16 +307,13 @@ a {
 .primary-button {
     background-color: transparent;
     cursor: pointer;
-    height: auto;
-    width: auto;
+    height: auto; width: auto;
     margin: auto;
     padding: 0 var(--spacing-small);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; align-items: center;
     border-radius: var(--default-radius);
-    border-style: solid;
-    border-width: 0;
+    border: 0 solid var(--color-primary);
     transition: all var(--transition-default);
     color: var(--color-text);
     border-color: var(--color-primary);
@@ -416,7 +413,7 @@ a {
     margin: var(--spacing-small) 0;
     border-radius: var(--default-radius);
     z-index: var(--z-index-overlay);
-    font-size: var(--smaller-text-size);
+    font-size: var(--regular-text-size);
     transform: translateY(-50%) translateX(-105%);
     transition: all var(--transition-default);
     backdrop-filter: blur(var(--more-blur-radius));
@@ -512,30 +509,29 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ----------------------- Tags --------------------------- */
 .tag-date {
-    font-size: var(--smaller-text-size); !important;
+    font-size: var(--regular-text-size); !important;
     line-height: var(--line-height);
-    text-transform: uppercase;
     position: absolute;
     right: var(--spacing-small);
     bottom: var(--spacing-small);
     color: var(--color-text);
+    opacity: var(--magic-opacity);
 }
 
 .tag-category {
     padding: var(--spacing-tiny);
     margin: var(--spacing-tiny);
     width: fit-content;
-    text-transform: uppercase;
     border-radius: var(--small-radius);
-    font-size: var(--smaller-text-size);
-    border: var(--border-width) solid var(--color-text) !important;
+    font-size: var(--regular-text-size);
     color: var(--color-text) !important;
+    background-color: var(--color-primary);
 }
 
 .tag-categories {
     display: flex; flex-wrap: wrap;
     overflow: hidden; align-content: flex-start;
-    justify-content: left; opacity: 0.69;
+    justify-content: left; opacity: var(--magic-opacity);
     width: 100%; padding: 0; margin: 0;
 }
 
@@ -601,7 +597,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .card-label {
-    font-size: var(--smaller-text-size) !important;
+    font-size: var(--regular-text-size) !important;
     font-weight : var(--bold-weight);
     text-transform: uppercase;
     position: absolute;
@@ -731,7 +727,7 @@ canvas {
 .app-brand-container .app-description {
     text-align: center; width: auto;
     margin: 0 var(--spacing-small);
-    font-size: var(--smaller-text-size);
+    font-size: var(--regular-text-size);
 }
 .app-popup-container {
     position: absolute;
@@ -794,13 +790,14 @@ canvas {
 
 
 .blog-sidebar-toggle {
+    height: 100%; width: auto;
     border: none;
     background-color: transparent;
     color: var(--color-text);
 }
 
 .blog-sidebar-list {
-    font-size : var(--smaller-text-size);
+    font-size : var(--regular-text-size);
     list-style-type: none;
     text-align: left;
 	cursor: pointer;
