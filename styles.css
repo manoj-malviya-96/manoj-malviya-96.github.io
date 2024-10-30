@@ -447,11 +447,11 @@ section {
 /* Phone Override */
 @media (max-width: 600px) {
     .search-input {
-        display: none;
+        width: 0; opacity: 0; padding: 0; margin: 0;
     }
+
     .search-input:focus {
-        display: block;
-        width: var(--home-control-width);
+        width: var(--home-control-width); opacity: 1;
     }
 }
 
