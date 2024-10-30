@@ -473,15 +473,14 @@ function loadTableOfContents() {
   // Use template literals to create the footer structure
   // Inject the footer HTML into the footer element
   tableOfContents.innerHTML = `
-        <div class="blog-sidebar-header">
-            <button class="blog-sidebar-toggle" id="tocToggle">
-                <i class="bi bi-chevron-down"></i>
-            </button>
-            <label for="tocToggle">On this Page </label>
+        <div class="row-layout">
+          <button class="blog-sidebar-toggle" id="tocToggle">
+              <i class="bi bi-chevron-right"></i>
+          </button>
+          <nav id="tocListContainer" role="doc-toc"> 
+              <ul class="blog-sidebar-list" id="tocList"></ul>
+          </nav>
         </div>
-        <nav id="tocListContainer" role="doc-toc"> 
-            <ul class="blog-sidebar-list" id="tocList"></ul>
-        </nav>
         `;
   // Call the function to dynamically generate the TOC
   generateTableOfContentsForBlogPages();
@@ -519,14 +518,12 @@ function setupBlogToggleButton() {
 
       // change the icon based on the footer visibility
       const icon = this.querySelector("i");
-      const iconUp = "bi-chevron-up";
-      const iconDown = "bi-chevron-down";
-      if (icon.classList.contains(iconDown)) {
-        icon.classList.remove(iconDown);
-        icon.classList.add(iconUp);
+      const iconToHide = "bi-chevron-right";
+      const iconToShow = "bi-chevron-left";
+      if (icon.classList.contains(iconToHide)) {
+        icon.classList.replace(iconToHide, iconToShow);
       } else {
-        icon.classList.remove(iconUp);
-        icon.classList.add(iconDown);
+        icon.classList.replace(iconToShow, iconToHide);
       }
       toc.classList.toggle("hide-list"); // Toggle the "footer-collapsed" class
     });

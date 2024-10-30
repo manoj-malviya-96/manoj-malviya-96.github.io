@@ -36,7 +36,7 @@
     --bold-weight: 869;
     --line-height: 1.5;
 
-    --smaller-text-size: 12px;
+    --smaller-text-size: 13px;
     --regular-text-size: 16px;
     --title-font-size: 21px;
     --super-title-font-size: 33px;
@@ -61,9 +61,7 @@
 
     /* Project specific */
     --blog-card-and-header-height: 210px;
-    --project-side-bar-top: calc(var(--navbar-height) + var(--spacing-large));
-    --project-searchbar-width: 250px;
-    --project-footer-width: 350px;
+    --project-footer-width: 269px;
 
     /* Custom */
     --about-entity-height: 250px;
@@ -785,15 +783,16 @@ canvas {
 /* ----------------------------- Blog Sidebar Styling ----------------------------- */
 .blog-sidebar {
     position: fixed;
-    bottom: var(--spacing-large); right: var(--spacing-medium);
+    top: var(--spacing-large); right: var(--spacing-large);
     padding: var(--spacing-small); margin: 0 auto;
-    height: auto; width: var(--project-footer-width);
+    height: auto; width: auto; max-width: var(--project-footer-width);
     border-radius: var(--default-radius);
     backdrop-filter: blur(var(--blur-radius));
     color: var(--color-text);
     background-color: var(--color-primary);
 	z-index: var(--z-index-overlay);
 }
+
 
 .blog-sidebar-toggle {
     border: none;
@@ -802,10 +801,19 @@ canvas {
 }
 
 .blog-sidebar-list {
-    font-size : var(--regular-text-size);
+    font-size : var(--smaller-text-size);
     list-style-type: none;
     text-align: left;
 	cursor: pointer;
+    padding: var(--spacing-small); margin: 0;
+}
+
+.blog-sidebar-list:last-child li{
+    margin-bottom: 0;
+}
+
+.blog-sidebar-list li {
+    margin-bottom: var(--spacing-medium);
 }
 
 .blog-sidebar-list .nav-link.active {
@@ -814,12 +822,6 @@ canvas {
 
 .blog-sidebar.hide-list .blog-sidebar-list{
     display: none;
-}
-
-.blog-sidebar-header label {
-	font-size: var(--regular-text-size);
-	font-weight: var(--bold-weight);
-	text-transform: uppercase;
 }
 
 
