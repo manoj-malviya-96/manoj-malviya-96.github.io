@@ -122,9 +122,7 @@
 /* ----------------------------- Body Styling ----------------------------- */
 body {
     font-family: var(--font-family), serif;
-    margin: 0;
-    padding: var(--spacing-medium) !important;
-    letter-spacing: var(--border-width);
+    margin: 0; padding: 0 !important;
     transition: all var(--transition-default);
     justify-content: center;
     align-content: center;
@@ -743,10 +741,8 @@ canvas {
 
 /* -------------------------- App Window Styling -------------------------- */
 .app-window {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
+    display: flex; flex-direction: column;
+    align-items: center; justify-items: flex-start;
     width: var(--app-window-width);
     height: var(--app-window-height);
     margin: 0 auto;
@@ -831,46 +827,32 @@ canvas {
 }
 
 .app-brand-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    width: var(--max-content-width);
-    margin: 0 auto;
-    padding: var(--spacing-medium);
-    border: none;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: auto; width: var(--max-content-width);
+    margin: var(--spacing-small) auto;
 }
 
 .app-brand-logo {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: flex-start;
-    width: auto;
-    height: auto;
+    display: flex; flex-direction: row;
+    justify-content: flex-start; align-content: flex-start;
+    width: auto; height: auto;
 }
 
 .app-brand-logo .bi {
     font-size: var(--large-icon-size) !important;
     color: var(--color-brand) !important;
-    padding: 0;
-    margin: 0 auto;
+    padding: 0; margin: 0 auto;
 }
 
 .app-brand-logo .app-name {
     color: var(--color-brand) !important;
-    padding: 0;
-    margin: 0 var(--spacing-small);
-    text-transform: uppercase;
-    text-align: center;
-    align-content: center;
+    padding: 0; margin: 0 var(--spacing-small);
+    text-transform: uppercase; text-align: center; align-content: center;
 }
 
 .app-brand-container .app-description {
-    text-align: center;
-    width: auto;
-    margin: 0 var(--spacing-small);
+    text-align: center; width: auto; padding: 0; margin: 0 var(--spacing-tiny);
     font-size: var(--regular-text-size);
 }
 
