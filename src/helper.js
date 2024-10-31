@@ -235,6 +235,7 @@ function internal_setupDropdown(
 
   // Function to toggle the dropdown visibility
   const toggleDropdown = () => {
+    togglePrimaryButton(button);
     dropdown.classList.toggle("hidden");
   };
 
@@ -450,6 +451,30 @@ function loadSocialMediaLink(identifier, event) {
 function bringElementToFocus(elementId) {
   const element = window.document.getElementById(elementId);
   element.focus({ preventScroll: false });
+}
+
+/* ------------ Button Utilities ------------ */
+
+function selectPrimaryButton(button) {
+  deselectAllButtons(); // Make sure only one button is selected
+  button.classList.add("selected");
+}
+
+function isPrimaryButtonSelected(button) {
+  return button.classList.contains("selected");
+}
+
+function togglePrimaryButton(button) {
+  if (button.classList.contains("selected")) {
+    button.classList.remove("selected");
+  } else {
+    selectPrimaryButton(button);
+  }
+}
+
+function deselectAllButtons() {
+  const buttons = window.document.querySelectorAll(".primary-button.selected");
+  buttons.forEach((button) => button.classList.remove("selected"));
 }
 
 function runALoopTask(task_func, args, progressBar) {

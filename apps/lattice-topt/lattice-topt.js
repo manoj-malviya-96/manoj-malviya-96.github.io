@@ -1,12 +1,19 @@
 const brandColor = getPrimaryColor();
+const maxLineWidth = 3;
+
 class LatticeMesh {
   constructor(cellSize, meshWidth, meshHeight, latticeType) {
     this.cellSize = cellSize;
     this.meshWidth = meshWidth;
     this.meshHeight = meshHeight;
     this.latticeType = latticeType;
+
     this.points = [];
     this.connections = [];
+    this.normThickness = [];
+    this.fixedPoints = new Set();
+    this.forcePoints = new Set();
+
     this.generateMeshData();
   }
 
@@ -49,29 +56,60 @@ class LatticeMesh {
 
   addConnection(start, end) {
     this.connections.push([start, end]);
+    this.normThickness.push(1); // Default line width
   }
 
-  getPoints() {
-    return this.points;
+  findClosestNode(x, y) {
+    let minDist = Infinity;
+    let closestNode = -1;
+    this.points.forEach((point, index) => {
+      const dist = Math.hypot(point[0] - x, point[1] - y);
+      if (dist < minDist) {
+        minDist = dist;
+        closestNode = index;
+      }
+    });
+    return closestNode;
   }
 
-  getConnections() {
-    return this.connections;
+  updateFixNode(x, y) {
+    const closestNode = this.findClosestNode(x, y);
+    if (closestNode === -1) {
+      console.error("No closest node found");
+      return;
+    }
+    if (this.fixedPoints.has(closestNode)) {
+      this.fixedPoints.delete(closestNode);
+    } else {
+      this.fixedPoints.add(closestNode);
+    }
+  }
+
+  updateForceNode(x, y) {
+    const closestNode = this.findClosestNode(x, y);
+    if (closestNode === -1) {
+      console.error("No closest node found");
+      return;
+    }
+    if (this.forcePoints.has(closestNode)) {
+      this.forcePoints.delete(closestNode);
+    } else {
+      this.forcePoints.add(closestNode);
+    }
   }
 }
 
 // Drawer Class to interact with HTML and draw the Mesh using Plotly
 class LatticeDrawer {
-  constructor(mesh, lineWidths = []) {
+  constructor(mesh) {
     this.mesh = mesh;
-    this.lineWidths = lineWidths.length
-      ? lineWidths
-      : new Array(mesh.getConnections().length).fill(2); // Default width 2 if not provided
   }
 
-  plot(container, heightMargin = 0) {
-    const coords = this.mesh.getPoints();
-    const connections = this.mesh.getConnections();
+  plot(container, heightMargin = 0, callback = null) {
+    const coords = this.mesh.points;
+    const connections = this.mesh.connections;
+    const normThickness = this.mesh.normThickness;
+
     const lines = {
       x: [],
       y: [],
@@ -85,8 +123,13 @@ class LatticeDrawer {
       lines.x.push(coords[start][0], coords[end][0], null);
       lines.y.push(coords[start][1], coords[end][1], null);
       // Assign variable widths based on the input widths
-      lines.line.width.push(this.lineWidths[index % this.lineWidths.length]);
+      lines.line.width.push(
+        maxLineWidth * normThickness[index % normThickness.length],
+      );
     });
+
+    const hoverTemplate = "(%{x}, %{y}) <extra></extra>";
+    const markerSize = 7;
 
     // Plot using Plotly
     const data = [
@@ -96,7 +139,24 @@ class LatticeDrawer {
         y: coords.map((coord) => coord[1]),
         mode: "markers",
         type: "scatter",
-        marker: { color: brandColor, size: 7, opacity: 0.69 },
+        marker: { color: getContrastColor(), size: markerSize },
+        hovertemplate: hoverTemplate,
+      },
+      {
+        x: Array.from(this.mesh.fixedPoints).map((index) => coords[index][0]),
+        y: Array.from(this.mesh.fixedPoints).map((index) => coords[index][1]),
+        mode: "markers",
+        type: "scatter",
+        marker: { symbol: "x", color: brandColor, size: markerSize },
+        hovertemplate: hoverTemplate,
+      },
+      {
+        x: Array.from(this.mesh.forcePoints).map((index) => coords[index][0]),
+        y: Array.from(this.mesh.forcePoints).map((index) => coords[index][1]),
+        mode: "markers",
+        type: "scatter",
+        marker: { symbol: "triangle-up", color: brandColor, size: markerSize },
+        hovertemplate: hoverTemplate,
       },
     ];
     const aspectRatio = this.mesh.meshWidth / this.mesh.meshHeight;
@@ -109,37 +169,98 @@ class LatticeDrawer {
       "",
       false,
     );
-    Plotly.newPlot(container, data, layout);
-  }
-
-  setLineWidths(widths) {
-    this.lineWidths = widths.length
-      ? widths
-      : new Array(this.mesh.getConnections().length).fill(2);
+    Plotly.newPlot(container, data, layout).then(() => {
+      callback?.();
+    });
   }
 }
+
+const MouseMode = {
+  Normal: 0,
+  Fix: 1,
+  Force: 2,
+};
 
 // Viewer Class to handle HTML interactions and manage Mesh and Drawer
 class LatticeViewer {
   constructor() {
+    this.canvasId = "meshPlot";
+
     this.cellSizeInput = document.getElementById("cellSize");
     this.meshWidthInput = document.getElementById("meshWidth");
     this.meshHeightInput = document.getElementById("meshHeight");
-    this.latticeType = "square"; // document.getElementById("latticeType");
+    this.fixedNodeBtn = document.getElementById("selectFixedButton");
+    this.forceNodeBtn = document.getElementById("selectForceButton");
 
-    setupAllSpinBoxsWithOneCallback(this.updateMesh.bind(this));
+    this.latticeType = "square";
+    setupAllSpinBoxsWithOneCallback(this.onSpinboxChange.bind(this));
     setupDropdown(
       document.getElementById("latticeTypeDropdown"),
-      this.updateLattice.bind(this),
+      this.onLatticeTypeChanged.bind(this),
     );
+
+    this.mouseClickMode = MouseMode.Normal;
+
+    this.fixedNodeBtn.addEventListener("click", () => {
+      togglePrimaryButton(this.fixedNodeBtn);
+      if (isPrimaryButtonSelected(this.fixedNodeBtn)) {
+        this.mouseClickMode = MouseMode.Fix;
+      } else {
+        this.mouseClickMode = MouseMode.Normal;
+      }
+    });
+
+    this.forceNodeBtn.addEventListener("click", () => {
+      togglePrimaryButton(this.forceNodeBtn);
+      if (isPrimaryButtonSelected(this.forceNodeBtn)) {
+        this.mouseClickMode = MouseMode.Force;
+      } else {
+        this.mouseClickMode = MouseMode.Normal;
+      }
+    });
 
     // Generate initial mesh
     this.updateMesh();
+    this.visualizeMesh();
   }
 
-  updateLattice(newValue) {
+  onLatticeTypeChanged(newValue) {
     this.latticeType = newValue;
     this.updateMesh();
+    this.visualizeMesh();
+  }
+
+  onSpinboxChange() {
+    this.updateMesh();
+    this.visualizeMesh();
+  }
+
+  initMouseClickInteraction() {
+    const element = window.document.getElementById(this.canvasId);
+    if (!element) {
+      console.error("Element not found");
+      return;
+    }
+    // Use an arrow function to keep the correct 'this' context
+    element.on("plotly_click", (data) => {
+      const clickedNodeX = data.points[0].x;
+      const clickedNodeY = data.points[0].y;
+
+      // Now 'this' correctly refers to the class instance
+      switch (this.mouseClickMode) {
+        case MouseMode.Normal:
+          break;
+        case MouseMode.Fix:
+          this.mesh.updateFixNode(clickedNodeX, clickedNodeY);
+          break;
+        case MouseMode.Force:
+          this.mesh.updateForceNode(clickedNodeX, clickedNodeY);
+          break;
+        default:
+          console.error("Invalid mode");
+      }
+      this.visualizeMesh();
+    });
   }
 
   updateMesh() {
@@ -149,16 +270,16 @@ class LatticeViewer {
     const meshHeight = parseFloat(this.meshHeightInput.value);
 
     // Create Mesh object
-    const mesh = new LatticeMesh(
+    this.mesh = new LatticeMesh(
       cellSize,
       meshWidth,
       meshHeight,
       this.latticeType,
     );
+    this.drawer = new LatticeDrawer(this.mesh);
+  }
 
-    // Example internal API usage for setting variable line widths
-    const drawer = new LatticeDrawer(mesh);
-
+  visualizeMesh() {
     const container = window.document.querySelector(
       ".app-controller-container",
     );
@@ -166,11 +287,14 @@ class LatticeViewer {
       console.error("Container not found");
       return;
     }
-
-    // Plot the mesh
-    const plotFn = () => {
-      drawer.plot("meshPlot", container.clientHeight);
-    };
-    updatePlotHandler([plotFn]);
+    this.drawer.plot(
+      this.canvasId,
+      container.clientHeight,
+      this.initMouseClickInteraction.bind(this),
+    );
+    // const plotFn = () => {
+    //   this.drawer.plot(this.canvasId, container.clientHeight);
+    // };
+    // updatePlotHandler([plotFn]);
   }
 }

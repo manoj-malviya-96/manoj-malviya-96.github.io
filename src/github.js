@@ -59,17 +59,10 @@ class GithubProfile {
 
   // Function to change the year and update the heatmap
   changeYear(year) {
-    // Remove 'selected' class from the currently selected button, if any
-    const selectedButton = document.querySelector(".primary-button.selected");
-    if (selectedButton) {
-      selectedButton.classList.remove("selected");
-    }
-
     // Add 'selected' class to the newly selected button using its id
     const newSelectedButton = document.getElementById(`buttonFor${year}`);
-    if (newSelectedButton) {
-      newSelectedButton.classList.add("selected");
-    }
+    selectPrimaryButton(newSelectedButton);
+
     // Render the heatmap
     this.renderHeatmap(year);
     this.currentYear = year;

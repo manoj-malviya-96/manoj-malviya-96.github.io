@@ -386,21 +386,25 @@ section {
     box-shadow: var(--box-shadow);
 }
 
-.primary-button.selected {
-    color: var(--color-white);
-    background-color: var(--color-brand);
-}
-
 .primary-button:active {
     transform: scale(var(--active-scale));
 }
-
 .primary-button:hover .bi,
 .primary-button:hover .button-label {
     cursor: pointer;
     color: var(--color-brand);
 !important;
 }
+
+.primary-button.selected {
+    color: var(--color-white);
+    background-color: var(--color-brand);
+}
+.primary-button.selected:hover .bi{
+    color: var(--color-white);
+}
+
+
 
 /* Phone Override */
 @media (max-width: 469px) {
