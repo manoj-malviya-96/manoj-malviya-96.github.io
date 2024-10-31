@@ -38,7 +38,6 @@ function createLayout(
       zeroline: false,
       showline: false,
       showticklabels: showTickLabels,
-      scaleanchor: "y", // Locks the X axis to the Y axis
       scaleratio: 1, // Keeps the ratio 1:1
     },
     yaxis: {
@@ -68,6 +67,7 @@ function createLayout(
     height: height,
     paper_bgcolor: backgroundColor,
     plot_bgcolor: backgroundColor,
+    hovermode: "closest",
   };
 }
 

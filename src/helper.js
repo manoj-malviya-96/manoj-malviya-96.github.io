@@ -235,6 +235,7 @@ function internal_setupDropdown(
 
   // Function to toggle the dropdown visibility
   const toggleDropdown = () => {
+    button.classList.toggle("selected");
     dropdown.classList.toggle("hidden");
   };
 
