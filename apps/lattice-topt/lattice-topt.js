@@ -207,7 +207,7 @@ class LatticeViewer {
         this.fixedNodeBtn.classList.remove("selected");
       } else {
         this.mouseClickMode = MouseMode.Fix;
-        this.fixedNodeBtn.classList.add("selected");
+        selectButton(this.fixedNodeBtn);
       }
     });
 
@@ -217,7 +217,7 @@ class LatticeViewer {
         this.forceNodeBtn.classList.remove("selected");
       } else {
         this.mouseClickMode = MouseMode.Force;
-        this.forceNodeBtn.classList.add("selected");
+        selectButton(this.forceNodeBtn);
       }
     });
 
