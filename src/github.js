@@ -61,7 +61,7 @@ class GithubProfile {
   changeYear(year) {
     // Add 'selected' class to the newly selected button using its id
     const newSelectedButton = document.getElementById(`buttonFor${year}`);
-    selectButton(newSelectedButton);
+    selectPrimaryButton(newSelectedButton);
 
     // Render the heatmap
     this.renderHeatmap(year);

@@ -202,22 +202,20 @@ class LatticeViewer {
     this.mouseClickMode = MouseMode.Normal;
 
     this.fixedNodeBtn.addEventListener("click", () => {
-      if (this.fixedNodeBtn.classList.contains("selected")) {
-        this.mouseClickMode = MouseMode.Normal;
-        this.fixedNodeBtn.classList.remove("selected");
-      } else {
+      togglePrimaryButton(this.fixedNodeBtn);
+      if (isPrimaryButtonSelected(this.fixedNodeBtn)) {
         this.mouseClickMode = MouseMode.Fix;
-        selectButton(this.fixedNodeBtn);
+      } else {
+        this.mouseClickMode = MouseMode.Normal;
       }
     });
 
     this.forceNodeBtn.addEventListener("click", () => {
-      if (this.forceNodeBtn.classList.contains("selected")) {
-        this.mouseClickMode = MouseMode.Normal;
-        this.forceNodeBtn.classList.remove("selected");
-      } else {
+      togglePrimaryButton(this.forceNodeBtn);
+      if (isPrimaryButtonSelected(this.forceNodeBtn)) {
         this.mouseClickMode = MouseMode.Force;
-        selectButton(this.forceNodeBtn);
+      } else {
+        this.mouseClickMode = MouseMode.Normal;
       }
     });
 
