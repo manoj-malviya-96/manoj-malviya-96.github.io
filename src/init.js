@@ -1,11 +1,11 @@
 /* Collection of functions to initialize the website */
 
-function initSidebar() {
-  const sidebarPlaceholder = document.getElementById("sidebarPlaceholder");
-  if (!sidebarPlaceholder) {
+function initNavbar() {
+  const placeholder = document.getElementById("navbarPlaceholder");
+  if (!placeholder) {
     console.error("Side bar Placeholder doesnt exists");
   }
-  loadContent("./sidebar.html", sidebarPlaceholder);
+  loadContent("./navbar.html", placeholder);
 }
 
 function initScrollBehavior() {
@@ -192,19 +192,6 @@ function toggleTheme() {
 // Allows to change the theme of the website
 function initThemeChangeHandler(callback) {
   window.document.addEventListener("themeChange", callback);
-}
-
-function toggleSidebar() {
-  const sidebar = document.getElementById("sideBar");
-  const icon = document.getElementById("sidebar-toggle-icon");
-
-  sidebar.classList.toggle("collapsed");
-
-  if (sidebar.classList.contains("collapsed")) {
-    icon.className = "bi bi-layout-sidebar";
-  } else {
-    icon.className = "bi bi-layout-sidebar-inset";
-  }
 }
 
 function initGithub() {

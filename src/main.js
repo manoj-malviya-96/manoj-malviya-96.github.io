@@ -474,12 +474,12 @@ function loadTableOfContents() {
   // Inject the footer HTML into the footer element
   tableOfContents.innerHTML = `
         <div class="row-layout">
+          <button class="blog-sidebar-toggle primary-button smaller with-border" id="tocToggle">
+              <i class="bi bi-chevron-left"></i>
+          </button>
           <nav id="tocListContainer" role="doc-toc"> 
               <ul class="blog-sidebar-list" id="tocList"></ul>
           </nav>
-          <button class="blog-sidebar-toggle primary-button smaller with-border" id="tocToggle">
-              <i class="bi bi-chevron-right"></i>
-          </button>
         </div>
         `;
   // Call the function to dynamically generate the TOC
@@ -518,8 +518,8 @@ function setupBlogToggleButton() {
 
       // change the icon based on the footer visibility
       const icon = this.querySelector("i");
-      const iconToHide = "bi-chevron-right";
-      const iconToShow = "bi-chevron-left";
+      const iconToHide = "bi-chevron-left";
+      const iconToShow = "bi-chevron-right";
       if (icon.classList.contains(iconToHide)) {
         icon.classList.replace(iconToHide, iconToShow);
       } else {

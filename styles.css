@@ -75,14 +75,14 @@
     --color-background: var(--color-white);
     --color-primary: rgba(201, 201, 201, 0.47);
     --color-text: rgb(47, 47, 47);
-    --box-shadow: 0 1px 5px rgba(0, 0, 0, 0.27);
+    --box-shadow: 0 1px 5px rgba(0, 0, 0, 0.11);
 }
 
 .dark-mode {
     --color-background: var(--color-black);
     --color-primary: rgba(47, 47, 47, 0.47);
     --color-text: rgb(169, 169, 169);
-    --box-shadow: 0 1px 5px rgba(255, 255, 255, 0.27);
+    --box-shadow: 0 1px 5px rgba(255, 255, 255, 0.11);
 }
 
 /* Phone Override */
@@ -120,7 +120,7 @@
 /* ----------------------------- Body Styling ----------------------------- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    margin: var(--spacing-medium) 0; padding: 0 !important;
+    margin: var(--spacing-huge) 0; padding: 0 !important;
     transition: all var(--transition-default);
     justify-content: center;
     align-content: center;
@@ -342,8 +342,7 @@ section {
     cursor: pointer;
     height: auto; width: auto; margin: auto;
     padding: 0 var(--spacing-small);
-    display: flex;
-    justify-content: center; align-items: center;
+    display: flex; justify-content: center; align-items: center;
     border-radius: var(--default-radius);
     border: 0 solid var(--color-primary);
     transition: all var(--transition-default);
@@ -832,7 +831,7 @@ canvas {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     height: auto; width: var(--max-content-width);
-    margin: var(--spacing-small) auto;
+    margin: 0 auto var(--spacing-medium) auto; padding: 0;
 }
 
 .app-brand-logo {
@@ -925,9 +924,8 @@ canvas {
 /* ----------------------------- Blog Sidebar Styling ----------------------------- */
 .blog-sidebar {
     position: fixed;
-    top: calc(var(--blog-card-and-header-height) +
-            2*var(--spacing-large) + var(--spacing-medium)) ;
-    right: var(--spacing-medium);
+    top: var(--spacing-huge);
+    left: var(--spacing-medium);
     padding: var(--spacing-small);
     margin: 0 auto; height: auto; width: auto;
     max-width: var(--blog-sidebar-max-width);
@@ -945,8 +943,6 @@ canvas {
     }
 }
 
-
-
 .blog-sidebar-toggle {
     height: 100%;
     width: auto;
@@ -960,9 +956,9 @@ canvas {
     list-style-type: none;
     text-align: left;
     cursor: pointer;
-    padding: var(--spacing-small);
+    padding-left: var(--spacing-medium);
     margin: 0;
-    border-right: var(--border-width) solid var(--color-primary);
+    border-left: var(--border-width) solid var(--color-primary);
 }
 
 .blog-sidebar-list li:last-child {

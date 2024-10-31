@@ -2,11 +2,10 @@
 	/* ----------------------------- Sidebar Styling ----------------------------- */
 	.navbar {
 		position: fixed;
-		top: 0; left: 0;
-		height: 100%; width: auto;
-		display: flex; flex-direction: column;
+		top: 0; left: 0; height: auto; width: 100%;;
+		display: flex; flex-direction: row;
 		justify-content: left !important; align-content: flex-start !important;
-        padding: 0 var(--spacing-medium) 0 var(--spacing-small); margin: 0;
+        padding: 0 var(--spacing-medium); margin: 0;
 		z-index: var(--z-index-overlay); border: none;
 		transition: all var(--transition-default);
         background-color: transparent;
@@ -16,27 +15,14 @@
 
 	.navbar-group {
         list-style: none;
-		display: flex; flex-direction: column;
+		display: flex; flex-direction: row;
 		justify-content: space-evenly !important; align-content: flex-start !important;
-		width: 100%; padding: 0; margin: 0 auto;
-		border-top: solid var(--border-width);
+		height: 100%; padding: 0; margin: auto 0;
 	}
-
-    .navbar-group:first-child {
-        border-top: none;
-    }
 
 	.navbar-group:last-child {
-        margin-top: auto;
+        margin-left: auto;
 	}
-
-	.navbar.collapsed .navbar-group .button-label {
-		display: none;
-	}
-
-    .navbar.collapsed {
-	    padding: 0 var(--spacing-small) 0 var(--spacing-small);
-    }
 
 	.navbar-group .nav-item {
 		cursor: pointer;
@@ -48,7 +34,7 @@
 
 
 <!-- Sidebar -->
-<div id="sideBar" class="navbar collapsed"> <!-- Add collapsed class for default collapsed view -->
+<div id="sideBar" class="navbar ">
 
     <!-- Home Group -->
     <ul class="navbar-group">
@@ -66,7 +52,7 @@
             <button class="primary-button smaller left-aligned"
                     onclick="scrollElementInViewOnHome(event, 'about-me'); runWithDelay(toggleForAbout, 500, true)">
                 <i class="bi bi bi-person"></i> <!-- App icon -->
-                <span class="button-label">About me</span> <!-- Hidden text -->
+                <span class="button-label">About</span> <!-- Hidden text -->
             </button>
         </li>
         <li class="nav-item">
@@ -106,15 +92,6 @@
             <button id="theme-switch-btn" class="primary-button smaller left-aligned" onclick="toggleTheme()">
                 <i id="theme-icon" class="bi bi-moon-stars-fill"></i>
                 <span class="button-label">Theme</span> <!-- Hidden text -->
-            </button>
-        </li>
-
-
-        <!-- Sidebar Toggle Button -->
-        <li class="nav-item">
-            <button id="sidebar-toggle-btn" class="primary-button smaller left-aligned" onclick="toggleSidebar()">
-                <i class="bi bi-layout-sidebar" id="sidebar-toggle-icon"></i> <!-- Toggle icon -->
-                <span class="button-label">Collapse</span> <!-- Hidden text -->
             </button>
         </li>
     </ul>
