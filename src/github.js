@@ -61,7 +61,7 @@ class GithubProfile {
   changeYear(year) {
     // Add 'selected' class to the newly selected button using its id
     const newSelectedButton = document.getElementById(`buttonFor${year}`);
-    selectPrimaryButton(newSelectedButton);
+    togglePrimaryButton(newSelectedButton, true);
 
     // Render the heatmap
     this.renderHeatmap(year);
@@ -100,8 +100,8 @@ class GithubProfile {
     const heatmapTrace = {
       z: z,
       type: "heatmap",
-      xgap: 3,
-      ygap: 3,
+      xgap: 5,
+      ygap: 5,
       colorscale: getPrimaryColorScale(7),
       zmin: 1, // Avoid 0 on the log scale
       zmax: Math.max(...z.flat()), // Set zmax based on the highest commit count
