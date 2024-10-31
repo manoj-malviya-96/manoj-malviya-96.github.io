@@ -96,7 +96,7 @@ class LatticeDrawer {
         y: coords.map((coord) => coord[1]),
         mode: "markers",
         type: "scatter",
-        marker: { color: brandColor, size: 7, opacity: 0.69 },
+        marker: { color: getContrastColor(), size: 7 },
       },
     ];
     const aspectRatio = this.mesh.meshWidth / this.mesh.meshHeight;
