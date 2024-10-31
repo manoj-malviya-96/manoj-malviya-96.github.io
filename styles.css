@@ -18,7 +18,7 @@
     --spacing-small: 6px;
     --spacing-medium: 12px;
     --spacing-large: 24px;
-    --spacing-very-large: 48px;
+    --spacing-very-large: 69px;
     --spacing-huge: 96px;
 
     /* Transition */
@@ -103,7 +103,7 @@
         --spacing-small: 3px;
         --spacing-medium: 6px;
         --spacing-large: 12px;
-        --spacing-very-large: 24px;
+        --spacing-very-large: 27px;
         --spacing-huge: 48px;
 
         --blog-card-and-header-height: 77px;
@@ -120,14 +120,11 @@
 /* ----------------------------- Body Styling ----------------------------- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    margin: var(--spacing-huge) 0; padding: 0 !important;
+    margin: var(--spacing-very-large) 0; padding: 0 !important;
     transition: all var(--transition-default);
-    justify-content: center;
-    align-content: center;
-    background-color: var(--color-background);
-    color: var(--color-text);
-    line-height: var(--line-height);
-    font-size: var(--regular-text-size);
+    justify-content: center; align-content: center;
+    background-color: var(--color-background); color: var(--color-text);
+    line-height: var(--line-height); font-size: var(--regular-text-size);
 }
 
 .content {
@@ -415,29 +412,23 @@ section {
 /* --------------------  Searchbar  Styling ------------------- */
 .search-container {
     display: flex;
+    height: auto; padding: 0 var(--spacing-small);
     border-radius: var(--default-radius);
-    height: auto;
     font-size: var(--regular-text-size);
-    align-content: center;
-    justify-content: center;
-    border: var(--border-width) solid;
-    background-color: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-text);
+    align-content: center; justify-content: center;
+    border: var(--border-width) solid var(--color-primary);
+    background-color: transparent; color: var(--color-text);
 }
 
 .search-container .bi {
-    padding: 0 var(--spacing-medium);
     font-size: var(--large-icon-size);
     cursor: pointer;
 }
 
 .search-input {
     padding: var(--spacing-small);
-    border: none;
-    width: 100%;
-    outline: none;
-    background-color: transparent;
+    border: none; outline: none;
+    width: 100%; background-color: transparent;
 }
 
 .search-input:focus,
@@ -460,17 +451,12 @@ section {
 
 /* --------------------  Dropdown  Styling ------------------- */
 .modern-dropdown-list {
-    list-style: none;
-    position: absolute;
-    width: auto;
-    height: auto;
+    list-style: none; position: absolute;
+    width: auto; height: auto;
     min-width: 100px;
-    padding: var(--spacing-small);
-    margin: var(--spacing-small) 0;
+    padding: var(--spacing-small); margin: var(--spacing-small) 0;
     border-radius: var(--default-radius);
-    z-index: var(--z-index-overlay);
-    font-size: var(--regular-text-size);
-    transform: translateY(-50%);
+    z-index: var(--z-index-overlay);font-size: var(--regular-text-size);
     transition: all var(--transition-default);
     backdrop-filter: blur(var(--more-blur-radius));
     background-color: var(--color-primary);
