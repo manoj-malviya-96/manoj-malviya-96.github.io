@@ -855,13 +855,10 @@ canvas {
 .blog-header {
     width: var(--max-content-width);
     height: var(--blog-card-and-header-height);
-    padding: 0;
-    margin: 0 auto;
+    padding: 0; margin: 0 auto;
     border-radius: var(--default-radius);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
+    display: flex; justify-content: flex-start;
+    align-items: center; box-sizing: border-box;
     border: var(--border-width) solid var(--color-primary);
     box-shadow: var(--box-shadow);
 }
@@ -873,8 +870,7 @@ canvas {
 }
 
 .blog-header-image img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
     border-radius: var(--default-radius) 0 0 var(--default-radius);
     margin: 0;
