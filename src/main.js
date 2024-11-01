@@ -25,9 +25,9 @@ const defaultBlogCallbacks = [
 
 const blogHTMLToExtraCallbacks = {
   "./blogs/delta-design/delta-design.html": [createPlotsForDeltaDesign],
-  "./blogs/topt/rapid-topt.html": [],
+  "./blogs/rapid-topt/rapid-topt.html": [],
   "./blogs/cub-companion/cub-companion.html": [],
-  "./blogs/dfam/dfam.html": [createPlotsForDfam],
+  "./blogs/eng-dfam/eng-dfam.html": [createPlotsForEngDfam],
   "./blogs/embed-am/embed-am.html": [],
   "./blogs/build-orient/build-orient.html": [],
   "./blogs/formlabs-ui/ui-lead.html": [],
@@ -236,14 +236,14 @@ function createBlogCardHTML(
       : description;
 
   return `
-      <div class="g-col-1 card blog-card" 
+      <div class="g-col-1 card" 
           onclick="loadBlogPage('${filePath}', event)"
           data-categories="${categories.join(",")}" 
           data-title="${title.toLowerCase()}" 
           data-description="${shortDescription.toLowerCase()}"
           data-date=${parseDate(date)}>
-                <img src="${imagePath}" class="blog-card-img" alt="blog-card">
-                <div class="blog-card-details">
+                <img src="${imagePath}" class="card-img" alt="card">
+                <div class="card-details">
                     <h3>${title}</h3>
                     <p>${description}</p>
                     <div class="tag-categories">

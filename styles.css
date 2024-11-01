@@ -8,10 +8,11 @@
     --color-black: rgb(13, 13, 13);
 
     /* Color Palette */
-    --color-brand: rgb(220, 20, 60);
+    --color-brand: rgb(131, 81, 69); /* Tomato, my fav*/
     /*Option 1 - #DC143C - rgb(220, 20, 60) Crimson, my boos fav*/
+    /*Option 2 - #835145FF rgb(131, 81, 69); Tomato, my fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
-    --shadow-brand: 0 5px 20px rgba(220, 20, 60, 0.47);
+    --shadow-brand: 0 5px 20px rgb(131, 81, 69, 0.47);
 
     /* Spacing */
     --spacing-tiny: 3px;
@@ -39,7 +40,7 @@
 
     --regular-text-size: 14px;
     --title-font-size: 21px;
-    --super-title-font-size: 33px;
+    --super-title-font-size: 27px;
     --hero-font-size: 69px;
 
     /* Icon */
@@ -60,6 +61,8 @@
     /* Magic */
     --magic-opacity: 0.69;
     --magic-size: 269px;
+    --magic-ratio: 1.618; /* Golden Ratio */
+    --magic-inverse-ratio: calc(1 / var(--magic-ratio)); /* Inverse of Golden Ratio */
 
     /* App */
     --spinner-size: 69px;
@@ -167,8 +170,7 @@ h1, h2, h3 {
     font-size: var(--title-font-size);
     line-height: var(--line-height);
     font-weight: var(--bold-weight);
-    margin: 0 0 var(--spacing-small) 0; /* Make sure to have space at the bottom */
-    padding: 0;
+    margin: 0; padding: 0;
     border: none;
 }
 
@@ -587,83 +589,6 @@ input[type="range"]::-webkit-slider-thumb {
 .hide-height { padding: 0; margin: 0; height: 0; opacity: 0; transform : translateY(-7%);}
 .hide-width { padding: 0; margin: 0;  width: 0; opacity: 0; transform : translateX(-7%);}
 
-
-/* ----------------------- Grid Layout--------------------------- */
-
-.grid-container {
-    display: grid;
-    grid-gap: var(--spacing-medium);
-    padding: 0;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-.grid-container.home-page {
-    grid-template-columns: repeat(auto-fit, minmax(var(--magic-size), 1fr));
-    /* 4 cards per row */
-    grid-gap: calc((var(--max-body-width) - 4 * var(--magic-size)) / 3.08);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* ----------------------------- Blog Cards Styling ----------------------------- */
-
-.blog-listing {
-    width: var(--max-body-width); margin: 0 auto;
-    justify-content: center; align-content: center;
-}
-
-.blog-card {
-    height: auto; width: var(--magic-size);
-    overflow: clip;padding: 0; margin: 0;
-    background-color: var(--color-primary);
-    color: var(--color-text); cursor: pointer; border: none;
-    border-radius: var(--default-radius);
-}
-
-.blog-card-details {
-    display: flex; flex-direction: column; height: calc(0.69*var(--magic-size));
-    margin: 0; padding: var(--spacing-small) var(--spacing-medium);
-    justify-content: flex-start;
-    transition: all var(--transition-default);
-    background-color: transparent;
-}
-
-.blog-card-img {
-    margin: 0 auto; padding: 0; object-fit: cover; overflow: clip;
-    width: var(--magic-size);
-    height: var(--magic-size);
-    border-top-left-radius: var(--default-radius);
-    border-top-right-radius: var(--default-radius);
-}
-
-.blog-card-label {
-    font-size: var(--regular-text-size) !important;
-    font-weight: var(--bold-weight);
-    text-transform: uppercase;
-    position: absolute;
-    left: 0; bottom: 0;
-    width: var(--magic-size); padding: var(--spacing-small);
-    text-align: center;  border: none;
-    background-color: var(--color-primary);
-    transition: opacity var(--transition-default);
-}
-
-.blog-card h3 {
-    text-transform: uppercase;
-}
-
-
-.blog-card:hover {box-shadow: var(--box-shadow); transform: scale(var(--transform-scale));}
-.blog-card:active { transform: scale(var(--active-scale)); }
-
-/* Phone Override */
-@media (max-width: 469px) {
-    .blog-card-details p {
-        display: none;
-    }
-}
-
 /* -------------------------- App Canvas Styling -------------------------- */
 .canvas-like,
 canvas {
@@ -821,31 +746,81 @@ canvas {
     }
 }
 
+/* ----------------------- Grid Layout--------------------------- */
+
+.grid-container {
+    display: grid;
+    grid-gap: var(--spacing-medium);
+    padding: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.grid-container.home-page {
+    grid-template-columns: repeat(auto-fit, minmax(var(--magic-size), 1fr));
+    /* 4 cards per row */
+    grid-gap: calc((var(--max-body-width) - 4 * var(--magic-size)) / 3.08);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ----------------------------- Blog Cards Styling ----------------------------- */
+.card {
+    height: auto; width: var(--magic-size);
+    overflow: clip;padding: 0; margin: 0;
+    background-color: var(--color-primary);
+    color: var(--color-text); cursor: pointer; border: none;
+    border-radius: var(--default-radius);
+    transition: all var(--transition-default);
+}
+
+.card-details {
+    display: flex; flex-direction: column; height: calc(0.69*var(--magic-size));
+    margin: 0; padding: var(--spacing-small) var(--spacing-medium);
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.card-img {
+    margin: 0 auto; padding: 0; object-fit: cover; overflow: clip;
+    width: var(--magic-size); height: calc(var(--magic-size)*var(--magic-inverse-ratio));
+    border-top-left-radius: var(--default-radius);
+    border-top-right-radius: var(--default-radius);
+}
+
+.card h3 {text-transform: uppercase;}
+.card:hover {box-shadow: var(--box-shadow); transform: scale(var(--transform-scale));}
+.card:active { transform: scale(var(--active-scale)); }
+
+/* Phone Override */
+@media (max-width: 469px) {
+    .card-details p {
+        display: none;
+    }
+}
+
 
 /* ----------------------------- Project Page Styling ----------------------------- */
 
 .blog-header {
-    width: var(--max-content-width);
-    height: var(--magic-size);
+    width: var(--max-content-width); height: var(--magic-size);
     padding: 0; margin: 0 auto;
     border-radius: var(--default-radius);
     display: flex; justify-content: flex-start;
     align-items: center; box-sizing: border-box;
     border: var(--border-width) solid var(--color-primary);
-    box-shadow: var(--box-shadow);
 }
 
 .blog-header-image {
-    width: var(--magic-size);
+    width: calc(var(--magic-ratio) * var(--magic-size));
     height: var(--magic-size);
     flex-shrink: 0; /* Prevent the image from shrinking */
 }
 
 .blog-header-image img {
-    width: 100%; height: 100%;
+    width: 100%; height: 100%; margin: 0;
     object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-    margin: 0;
+    border-radius: 0 var(--default-radius) var(--default-radius) 0;
 }
 
 .blog-header-contents {

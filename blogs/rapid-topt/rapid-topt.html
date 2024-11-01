@@ -6,10 +6,6 @@
 
 <!-- header -->
 <header id="title-block-header" class="blog-header">
-    <!-- cover-->
-    <div class="blog-header-image">
-        <img src="./blogs/topt/cover.png" id="cover" alt="RapidTopt">
-    </div>
     <div class="blog-header-contents">
         <!-- title-->
         <h1 id="title">Rapid TOpt</h1>
@@ -27,12 +23,16 @@
     </div>
     <!-- date -->
     <div class="tag-date" id="date">Aug 10 2020</div>
+    <!-- cover-->
+    <div class="blog-header-image">
+        <img src="./blogs/rapid-topt/cover.webp" id="cover" alt="RapidTopt">
+    </div>
 </header>
 <!-- header -->
 
 <main class="blog-main-content">
     <!-- abstract -->
-    <div class="content block reading" style="margin: var(--spacing-large) auto;">
+    <div class="content block reading">
         <p>With the advent in Additive Manufacturing (AM) technologies and Computational Sciences, design
             algorithms such as Topology Optimization (TO) have garnered the interest of academia and industry. TO
             aims to generate optimum structures by maximizing the stiffness of the structure, given a set of
@@ -60,7 +60,7 @@
                 constant
                 as
                 per best heuristics followed in practice (filter radius = 2, penalty factor p = 3). </p>
-            <img src="./blogs/topt/boundary_condition.png" alt="Boundary Condition"
+            <img src="./blogs/rapid-topt/boundary_condition.png" alt="Boundary Condition"
                  class="img-fluid">
         </section>
         <section id="details" class="level2">
@@ -81,7 +81,7 @@
                 passive elements are represented as black and white pixels respectively in the same image as the
                 volume
                 fraction.</p>
-            <img src="./blogs/topt/representation.png" alt="Representation"
+            <img src="./blogs/rapid-topt/representation.png" alt="Representation"
                  class="img-fluid">
         </section>
         <section id="output" class="level3">
@@ -89,7 +89,7 @@
             <p>We explored four different generative models to achieve a high quality rapid design agent. Out of
                 this four, TOP-GAN, a variant of pix2pix out-perform others in terms of quality and performance.
                 More details can be found in the report.</p>
-            <img src="./blogs/topt/models.png" alt="Models"
+            <img src="./blogs/rapid-topt/models.png" alt="Models"
                  class="img-fluid">
             <p>Though TOP-GAN is powerful enough to rapidly generate high quality solutions, it is unable to
                 generate fine structures. Additionally, the model outputs only one solution whereas in real-life,
