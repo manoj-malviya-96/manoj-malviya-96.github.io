@@ -521,14 +521,22 @@
         },
         {
           "date": "2024-10-25",
+          "commits": 7
+        },
+        {
+          "date": "2024-10-28",
           "commits": 1
+        },
+        {
+          "date": "2024-10-30",
+          "commits": 4
         }
       ],
       "languages": {
-        "C++": 23330930,
-        "QML": 3316857,
-        "Python": 1598211,
-        "CMake": 835370,
+        "C++": 23349717,
+        "QML": 3318825,
+        "Python": 1598799,
+        "CMake": 840853,
         "Shell": 74018,
         "C": 65254,
         "GLSL": 61107,
@@ -565,7 +573,7 @@
         }
       ],
       "languages": {
-        "C++": 181200,
+        "C++": 181280,
         "CMake": 19389,
         "C": 1095
       }
@@ -659,13 +667,21 @@
         },
         {
           "date": "2024-10-29",
+          "commits": 7
+        },
+        {
+          "date": "2024-10-30",
           "commits": 1
+        },
+        {
+          "date": "2024-10-31",
+          "commits": 3
         }
       ],
       "languages": {
-        "JavaScript": 174660,
-        "HTML": 130428,
-        "CSS": 22839
+        "JavaScript": 179463,
+        "HTML": 130892,
+        "CSS": 25443
       }
     },
     {
@@ -737,25 +753,25 @@
         }
       ],
       "languages": {
-        "C": 57755868,
-        "C++": 21736841,
-        "Python": 11456119,
+        "C": 57755870,
+        "C++": 21822550,
+        "Python": 11462447,
         "Jupyter Notebook": 6719311,
-        "QML": 6168890,
-        "Go": 1620064,
-        "JavaScript": 1524107,
-        "CMake": 1046066,
+        "QML": 6175695,
+        "Go": 1621114,
+        "JavaScript": 1524190,
+        "CMake": 1046924,
         "Assembly": 568918,
         "TypeScript": 424443,
-        "Shell": 418980,
+        "Shell": 419394,
         "HTML": 305314,
         "CSS": 126878,
         "Makefile": 46243,
-        "Dockerfile": 33818,
         "TeX": 27973,
+        "Dockerfile": 27901,
         "Cython": 25392,
         "Rust": 19552,
-        "Jinja": 18658,
+        "Jinja": 17964,
         "QMake": 5520,
         "OpenSCAD": 2764,
         "Mako": 2548,
@@ -1348,10 +1364,10 @@
         }
       ],
       "languages": {
-        "Jupyter Notebook": 1053071270,
+        "Jupyter Notebook": 1053668777,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 39791969,
+        "Python": 39888533,
         "JavaScript": 14615804,
         "C++": 6982085,
         "Mathematica": 3004790,
@@ -1390,150 +1406,6 @@
     {
       "repo": "Formlabs/SetOps",
       "daily_log": [
-        {
-          "date": "2021-10-21",
-          "commits": 4
-        },
-        {
-          "date": "2021-10-22",
-          "commits": 2
-        },
-        {
-          "date": "2021-10-26",
-          "commits": 1
-        },
-        {
-          "date": "2021-10-27",
-          "commits": 8
-        },
-        {
-          "date": "2021-10-28",
-          "commits": 4
-        },
-        {
-          "date": "2021-10-31",
-          "commits": 1
-        },
-        {
-          "date": "2021-11-02",
-          "commits": 1
-        },
-        {
-          "date": "2021-11-04",
-          "commits": 2
-        },
-        {
-          "date": "2021-11-08",
-          "commits": 2
-        },
-        {
-          "date": "2021-11-09",
-          "commits": 2
-        },
-        {
-          "date": "2021-11-10",
-          "commits": 2
-        },
-        {
-          "date": "2021-11-12",
-          "commits": 1
-        },
-        {
-          "date": "2021-11-17",
-          "commits": 1
-        },
-        {
-          "date": "2021-11-19",
-          "commits": 1
-        },
-        {
-          "date": "2021-11-22",
-          "commits": 1
-        },
-        {
-          "date": "2021-11-29",
-          "commits": 4
-        },
-        {
-          "date": "2021-11-30",
-          "commits": 1
-        },
-        {
-          "date": "2021-12-17",
-          "commits": 1
-        },
-        {
-          "date": "2022-01-31",
-          "commits": 1
-        },
-        {
-          "date": "2022-02-09",
-          "commits": 1
-        },
-        {
-          "date": "2022-04-04",
-          "commits": 2
-        },
-        {
-          "date": "2022-04-11",
-          "commits": 1
-        },
-        {
-          "date": "2022-04-12",
-          "commits": 6
-        },
-        {
-          "date": "2022-04-13",
-          "commits": 2
-        },
-        {
-          "date": "2022-04-18",
-          "commits": 2
-        },
-        {
-          "date": "2022-04-21",
-          "commits": 1
-        },
-        {
-          "date": "2022-04-22",
-          "commits": 3
-        },
-        {
-          "date": "2022-04-25",
-          "commits": 2
-        },
-        {
-          "date": "2022-04-27",
-          "commits": 1
-        },
-        {
-          "date": "2022-04-28",
-          "commits": 1
-        },
-        {
-          "date": "2022-04-29",
-          "commits": 6
-        },
-        {
-          "date": "2022-05-02",
-          "commits": 7
-        },
-        {
-          "date": "2022-05-04",
-          "commits": 2
-        },
-        {
-          "date": "2022-05-09",
-          "commits": 1
-        },
-        {
-          "date": "2022-05-10",
-          "commits": 21
-        },
-        {
-          "date": "2022-05-11",
-          "commits": 1
-        },
         {
           "date": "2022-05-12",
           "commits": 12
@@ -2048,8 +1920,8 @@
         }
       ],
       "languages": {
-        "Python": 4407307,
-        "JavaScript": 1000505,
+        "Python": 4409042,
+        "JavaScript": 1001614,
         "C": 67455,
         "HTML": 25633,
         "Jupyter Notebook": 25007,
