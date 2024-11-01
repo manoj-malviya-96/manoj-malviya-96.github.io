@@ -231,7 +231,7 @@ function initTooltip() {
 
 function initSlideShow() {
   const slides = document.querySelectorAll(".slideshow img");
-  const timeBetweenSlides_ms = 6900; // Time between slides (10s)
+  const timeBetweenSlides_ms = 4700; // Time between slides (10s)
   let index = 0;
 
   // Show the first image initially

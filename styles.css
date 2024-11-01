@@ -8,10 +8,10 @@
     --color-black: rgb(13, 13, 13);
 
     /* Color Palette */
-    --color-brand: rgb(220, 20, 60); /*#DC143C - Crimson, my boos fav*/
+    --color-brand: rgb(220, 20, 60);
+    /*Option 1 - #DC143C - rgb(220, 20, 60) Crimson, my boos fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
-
-    --phone-width: 1080px;
+    --shadow-brand: 0 5px 20px rgba(220, 20, 60, 0.47);
 
     /* Spacing */
     --spacing-tiny: 3px;
@@ -25,7 +25,7 @@
     --transition-default: 0.420s;
 
     /* Size */
-    --max-body-width: 990px;
+    --max-body-width: 1269px;
     --max-content-width: 690px;
 
     /* Radius */
@@ -61,13 +61,13 @@
     --magic-opacity: 0.69;
 
     /* App */
-    --home-control-width: 179px;
+    --home-control-width: 269px;
     --blog-card-and-header-height: 221px;
     --blog-sidebar-max-width: 269px;
     --about-entity-height: 250px;
     --spinner-size: 69px;
     --app-drawer-button-height: 100px;
-    --app-window-width: 1147px;
+    --app-window-width: 1269px;
     --app-window-height: 690px;
 }
 
@@ -226,28 +226,24 @@ section {
 }
 
 .scroll-in-view-state {
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow-brand);
 }
 
 /*------ Slide-show ------ */
 .slideshow {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
 }
 
 .slideshow img {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     transform: translateX(100%);
-    object-fit: cover;
-    transition: all var(--transition-default);
+    object-fit: cover; transition: all var(--transition-default);
 }
 
 .slideshow img.active {
-    width: 100%;
-    transform: translateX(0%);
+    width: 100%; transform: translateX(0%);
 }
 
 
@@ -420,15 +416,10 @@ section {
     background-color: transparent; color: var(--color-text);
 }
 
-.search-container .bi {
-    font-size: var(--large-icon-size);
-    cursor: pointer;
-}
-
 .search-input {
     padding: var(--spacing-small);
     border: none; outline: none;
-    width: 100%; background-color: transparent;
+    width: 100%; height: auto; background-color: transparent;
 }
 
 .search-input:focus,
@@ -613,7 +604,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .grid-container.home-page {
     grid-template-columns: repeat(auto-fit, minmax(var(--blog-card-and-header-height), 1fr));
-    grid-gap: calc((var(--max-body-width) - 4 * var(--blog-card-and-header-height)) / 3.08);
+    grid-gap: calc((var(--max-body-width) - 5 * var(--blog-card-and-header-height)) / 4.08);
     width: 100%;
     box-sizing: border-box;
 }

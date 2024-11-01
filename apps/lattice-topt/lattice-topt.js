@@ -287,14 +287,13 @@ class LatticeViewer {
       console.error("Container not found");
       return;
     }
-    this.drawer.plot(
-      this.canvasId,
-      container.clientHeight,
-      this.initMouseClickInteraction.bind(this),
-    );
-    // const plotFn = () => {
-    //   this.drawer.plot(this.canvasId, container.clientHeight);
-    // };
-    // updatePlotHandler([plotFn]);
+    const plotFn = () => {
+      this.drawer.plot(
+        this.canvasId,
+        container.clientHeight,
+        this.initMouseClickInteraction.bind(this),
+      );
+    };
+    updatePlotHandler([plotFn]);
   }
 }
