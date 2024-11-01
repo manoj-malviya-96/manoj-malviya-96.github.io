@@ -3,6 +3,9 @@ const timeOut_ms = 369; // Global Timeout
 const appWindowWidth = getSizeFromStyle("--app-window-width");
 const appWindowHeight = getSizeFromStyle("--app-window-height");
 
+const hideHeightClass = "hide-height";
+const hideWidthClass = "hide-width";
+
 function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   if (!callback) {
     console.error("Callback function not provided");

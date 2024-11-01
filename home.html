@@ -1,6 +1,5 @@
 <style>
     #aboutMe { overflow: clip;}
-    #aboutMe .content.hide-content { height: 0; transform : translateY(-7%);}
 
     #aboutEntity { display: flex; z-index: var(--z-index-overlay);}
     #aboutEntity:hover { cursor: pointer; box-shadow: var(--box-shadow);}
@@ -19,11 +18,8 @@
     }
 
     #aboutTitle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: var(--hero-font-size);
-        margin-left: var(--spacing-large);
+        display: flex; justify-content: center; align-items: center;
+        font-size: var(--title-font-size); margin-left: var(--spacing-large);
     }
 
     #githubUserReport h2 { margin: 0; }
@@ -111,6 +107,14 @@
                     <i class="bi bi-disc"></i>
                 </button>
             </div>
+            <!-- Introduction String -->
+            <p style="margin-top: var(--spacing-large); opacity: var(--magic-opacity)">
+                Hi there! I’m Manoj Malviya, a <strong>Software Engineer</strong> who loves solving tricky problems with
+                beautiful solutions. I use fancy computer tools and methods to turn these problems into real results.
+                I’m a great problem solver who always puts the user first. I’ve led many complex projects and always
+                delivered elegant solutions.
+            </p>
+
         </div>
     </div>
 
@@ -123,33 +127,22 @@
     <!-- Collapsible content starts here -->
     <div class="content hide-content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
 
-        <!-- Introduction String -->
-        <div class="content block reading" style="margin-bottom: var(--spacing-large)">
-            Hi there! I’m Manoj Malviya, a <strong>Software Engineer</strong> who loves solving tricky problems with beautiful solutions.
-            I use fancy computer tools and methods to turn these problems into real results. I’m a great problem solver
-            who always puts the user first. I’ve led many complex projects and always delivered elegant solutions.
-        </div>
-
-        <!-- Work Experience String -->
-        <h2><i class="bi bi-building"></i> Work Experience</h2>
-        <ul class="modern-list">
-            <li><strong>Software Engineer at Formlabs Kft.</strong> Leading UI framework development and
-                optimizing 3D printing workflows
-            </li>
-            <li><strong>R&D Engineer at Formlabs Inc.</strong> Developed additive manufacturing algorithms
-                to
-                boost efficiency.
-            </li>
-            <li><strong>Research Assistant at Pennsylvania State University:</strong> Conducted research in
-                computational design and additive manufacturing.
-            </li>
-        </ul>
-
         <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education </h2>
         <ul class="modern-list">
             <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
             <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
         </ul>
+
+
+<!--        &lt;!&ndash; Work Experience String &ndash;&gt;-->
+<!--        <div class="column-layout">-->
+<!--            <h2><i class="bi bi-building"></i> Work Experience</h2>-->
+<!--            <div>-->
+<!--                <h3>Software Engineer at Formlabs Kft.</h3>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
 
         <!-- Other interests -->
         <h2><i class="bi bi-palette"></i> Personal Interests</h2>

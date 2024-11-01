@@ -225,28 +225,27 @@ function createBlogCardHTML(
   title,
   description,
   categories,
-  type = "",
   date = "",
 ) {
   categories = categories.sort((a, b) => a.localeCompare(b));
 
   // Limit description to 140 characters
   const shortDescription =
-    description.length > 140
+    description.length > 69
       ? description.substring(0, 140) + "..."
       : description;
 
   return `
-      <div class="g-col-1 card" 
+      <div class="g-col-1 card blog-card" 
           data-categories="${categories.join(",")}" 
           data-title="${title.toLowerCase()}" 
           data-description="${shortDescription.toLowerCase()}"
           data-date=${parseDate(date)}>
           <a href="javascript:void(0)" class="quarto-grid-link" 
              onclick="loadBlogPage('${filePath}', event)">
-                <img src="${imagePath}" class="card-img" alt="">
-                <div class="card-label">${title}</div>
-                <div class="card-details">
+                <img src="${imagePath}" class="blog-card-img" alt="">
+                <div class="blog-card-label">${title}</div>
+                <div class="blog-card-details">
                     <h3 class="underline">${title}</h3>
                     <p>${description}</p>
                     <div class="tag-categories">
@@ -285,12 +284,6 @@ function makeBlogCard(filePath, container) {
         "No description",
       );
       const date = getElementAttribute(doc, "#date", "textContent", "No date");
-      const type = getElementAttribute(
-        doc,
-        "#card-label",
-        "textContent",
-        "No type",
-      );
       const imagePath = getElementAttribute(
         doc,
         "#cover",
@@ -308,7 +301,6 @@ function makeBlogCard(filePath, container) {
         title,
         description,
         categories,
-        type,
         date,
       );
       container.insertAdjacentHTML("beforeend", cardHTML);
@@ -474,9 +466,6 @@ function loadTableOfContents() {
   // Inject the footer HTML into the footer element
   tableOfContents.innerHTML = `
         <div class="row-layout">
-          <button class="blog-sidebar-toggle primary-button smaller with-border" id="tocToggle">
-              <i class="bi bi-chevron-left"></i>
-          </button>
           <nav id="tocListContainer" role="doc-toc"> 
               <ul class="blog-sidebar-list" id="tocList"></ul>
           </nav>
@@ -484,7 +473,6 @@ function loadTableOfContents() {
         `;
   // Call the function to dynamically generate the TOC
   generateTableOfContentsForBlogPages();
-  setupBlogToggleButton();
 }
 
 function generateTableOfContentsForBlogPages() {
@@ -507,26 +495,6 @@ function generateTableOfContentsForBlogPages() {
   if (firstLink) {
     firstLink.classList.add("active");
   }
-}
-
-function setupBlogToggleButton() {
-  // Function to initialize the theme toggle after loading the content
-  window.document
-    .getElementById("tocToggle")
-    .addEventListener("click", function () {
-      const toc = document.getElementById("tableOfContents");
-
-      // change the icon based on the footer visibility
-      const icon = this.querySelector("i");
-      const iconToHide = "bi-chevron-left";
-      const iconToShow = "bi-chevron-right";
-      if (icon.classList.contains(iconToHide)) {
-        icon.classList.replace(iconToHide, iconToShow);
-      } else {
-        icon.classList.replace(iconToShow, iconToHide);
-      }
-      toc.classList.toggle("hide-list"); // Toggle the "footer-collapsed" class
-    });
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/
