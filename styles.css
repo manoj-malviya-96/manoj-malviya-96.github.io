@@ -297,20 +297,13 @@ section {
 .modern-tooltip::after {
     content: attr(data-tooltip);
     visibility: hidden;
-    opacity: 0;
-    width: auto;
-    max-width: 369px; /* Max width for the tooltip */
+    opacity: 0; width: auto;
+    max-width: var(--magic-size); padding: var(--spacing-medium);
     white-space: nowrap; /* Prevent wrapping to the next line unless it exceeds max-width */
-    background-color: var(--color-primary);
-    color: var(--color-text);
-    text-align: left;
+    background-color: var(--color-background); color: var(--color-text);
+    text-align: left; position: absolute;  z-index: var(--z-index-overlay);
+    bottom: -139%; left: 69%; pointer-events: none;
     border-radius: var(--default-radius);
-    padding: var(--spacing-medium);
-    position: absolute;
-    bottom: -139%;
-    left: 69%;
-    pointer-events: none;
-    z-index: var(--z-index-overlay);
     transition: all var(--transition-default);
     border: var(--border-width) solid var(--color-text);
     word-wrap: break-word; /* Wrap to the next line if it exceeds max-width */
@@ -437,15 +430,17 @@ section {
 /* --------------------  Dropdown  Styling ------------------- */
 .modern-dropdown-list {
     list-style: none; position: absolute;
-    width: auto; height: auto;
-    min-width: 100px;
+    width: auto; height: auto; min-width: 100px;
     padding: var(--spacing-small); margin: var(--spacing-small) 0;
     border-radius: var(--default-radius);
-    z-index: var(--z-index-overlay);font-size: var(--regular-text-size);
-    transition: all var(--transition-default);
+    background-color: var(--color-primary); color: var(--color-text);
+    z-index: var(--z-index-overlay);
     backdrop-filter: blur(var(--more-blur-radius));
-    background-color: var(--color-primary);
-    color: var(--color-text);
+    transition: all var(--transition-default);
+}
+
+.modern-dropdown-list.grid-3-cols {
+    display: grid; grid-gap: var(--spacing-medium); grid-template-columns: repeat(3, 1fr);
 }
 
 .modern-dropdown-list.hidden {
@@ -454,10 +449,8 @@ section {
 
 .modern-dropdown-item {
     padding: var(--spacing-medium);
-    cursor: pointer;
-    border-radius: var(--default-radius);
-    height: auto;
-    width: auto;
+    cursor: pointer; border-radius: var(--default-radius);
+    height: auto; width: auto;
 }
 
 .modern-dropdown-item.selected {
