@@ -237,23 +237,20 @@ function createBlogCardHTML(
 
   return `
       <div class="g-col-1 card blog-card" 
+          onclick="loadBlogPage('${filePath}', event)"
           data-categories="${categories.join(",")}" 
           data-title="${title.toLowerCase()}" 
           data-description="${shortDescription.toLowerCase()}"
           data-date=${parseDate(date)}>
-          <a href="javascript:void(0)" class="quarto-grid-link" 
-             onclick="loadBlogPage('${filePath}', event)">
-                <img src="${imagePath}" class="blog-card-img" alt="">
-                <div class="blog-card-label">${title}</div>
+                <img src="${imagePath}" class="blog-card-img" alt="blog-card">
                 <div class="blog-card-details">
-                    <h3 class="underline">${title}</h3>
+                    <h3>${title}</h3>
                     <p>${description}</p>
                     <div class="tag-categories">
                         ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
                     <div class="tag-date">${date} </div>
                 </div>
-          </a>
       </div>
     `;
 }

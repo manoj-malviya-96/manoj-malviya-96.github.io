@@ -9,17 +9,11 @@
 
     #profile-image {
         padding: 0; margin: 0;
-        width: calc(2 * var(--about-entity-height));
-        height: var(--about-entity-height);
+        width: 369px; height: var(--magic-size);
         overflow: hidden; position: relative;
         border-bottom-left-radius: var(--default-radius);
         border-top-left-radius: var(--default-radius);
         transition: all var(--transition-default);
-    }
-
-    #aboutTitle {
-        display: flex; justify-content: center; align-items: center;
-        font-size: var(--title-font-size); margin-left: var(--spacing-large);
     }
 
     #githubUserReport h2 { margin: 0; }
@@ -35,7 +29,7 @@
     }
 
     #appList .primary-button {
-        width: var(--blog-card-and-header-height);
+        width: var(--magic-size);
         height: var(--app-drawer-button-height);
     }
 
@@ -79,7 +73,7 @@
             </div>
         </div>
         <div id="aboutNameAndSocial" class="column-layout" style="margin-left: var(--spacing-large);">
-            <span id="aboutTitle"> MANOJ MALVIYA </span>
+            <h3 id="aboutTitle" style="font-size: var(--title-font-size);"> MANOJ MALVIYA </h3>
             <!-- Side Footer -->
             <div id="socialMediaContainer">
                 <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Linkedin', event)">
@@ -126,6 +120,18 @@
 
     <!-- Collapsible content starts here -->
     <div class="content hide-content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
+
+        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-card-list"></i> My Cards</h2>
+        <div class="grid-container">
+            <div class="content-card" style="background-image: url('./assets/profile/2.png');">
+                <h3>Card Title 1</h3>
+                <p>Short description or content details.</p>
+            </div>
+            <div class="content-card" style="background-image: url('./assets/profile/3.png');">
+                <h3>Card Title 2</h3>
+                <p>Another short description or content details.</p>
+            </div>
+        </div>
 
         <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education </h2>
         <ul class="modern-list">
