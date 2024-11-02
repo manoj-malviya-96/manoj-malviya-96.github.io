@@ -19,6 +19,18 @@ function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   setTimeout(run, delay_ms);
 }
 
+async function runAsync(task) {
+  if (!task) {
+    return;
+  }
+  try {
+    await task(); // Waits for the callback promise to resolve
+  } catch (error) {
+    console.error("Error in callback:", error);
+    // Handle error if needed
+  }
+}
+
 /* ------------ Content Loading ------------ */
 function loadContentWithOverlay(
   page,
