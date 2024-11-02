@@ -264,38 +264,37 @@ function initCopySelectButton() {
   });
 }
 
-function initStylesForGridContainer() {
-  const gridContainers = document.querySelectorAll(".grid-container");
+function initStylesForGridContainer(gridContainer) {
   const maxColumns = 4;
   const maxGap = getSizeFromStyle("--spacing-very-large");
 
-  gridContainers.forEach((gridContainer) => {
-    const numOfItems = gridContainer.children.length;
-    if (numOfItems === 0) {
-      console.log(
-        gridContainer,
-        gridContainer.children.length,
-        gridContainer.children,
-      );
-      console.warn("No items in the grid container");
-      return;
-    }
-    const id = gridContainer.id;
-    const numColumns = Math.min(numOfItems, maxColumns);
-    // Assuming all items have the same width
-    const itemWidth = gridContainer.children[0].clientWidth;
-    const containerWidth = gridContainer.clientWidth;
+  const numOfItems = gridContainer.children.length;
+  if (numOfItems === 0) {
+    console.log(
+      gridContainer,
+      gridContainer.children.length,
+      gridContainer.children,
+    );
+    console.warn("No items in the grid container");
+    return;
+  }
+  const id = gridContainer.id;
+  const numColumns = Math.min(numOfItems, maxColumns);
+  // Assuming all items have the same width
+  const itemWidth = gridContainer.children[0].clientWidth;
+  const containerWidth = gridContainer.clientWidth;
 
-    const gridGap = Math.min(
+  const gridGap = Math.round(
+    Math.min(
       (containerWidth - numColumns * itemWidth) / (numColumns - 1),
       maxGap,
-    );
+    ),
+  );
 
-    console.log(
-      `Grid container: ${id} width: ${containerWidth}px, Item width: ${itemWidth}px, 
+  console.log(
+    `Grid container: ${id} width: ${containerWidth}px, Item width: ${itemWidth}px, 
         Num columns: ${numColumns}, Grid gap: ${gridGap}px`,
-    );
-    gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
-    gridContainer.style.gridGap = `${gridGap}px`;
-  });
+  );
+  gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
+  gridContainer.style.gridGap = `${gridGap}px`;
 }

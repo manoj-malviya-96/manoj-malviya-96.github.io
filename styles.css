@@ -721,8 +721,9 @@ canvas {
 .grid-container {
     width: var(--max-body-width);
     display: grid; padding: 0; margin: 0 auto;
-    grid-gap: var(--spacing-medium);
-    box-sizing: border-box; align-content: center; justify-content: center;
+    grid-gap: var(--spacing-very-large);
+    grid-template-columns: repeat(3, 1fr);
+    box-sizing: border-box; align-content: center; justify-content: flex-start;
 }
 
 .grid-3-cols {
@@ -731,7 +732,7 @@ canvas {
 
 /* ----------------------------- Cards Styling ----------------------------- */
 .card {
-    display: flex; flex-direction: column;
+    display: flex; flex-direction: column; align-content: flex-start;
     height: auto; width: var(--magic-size);
     overflow: visible; padding: 0; margin: 0;
     background-color: var(--color-primary);
@@ -754,14 +755,9 @@ canvas {
     border-top-right-radius: var(--default-radius);
 }
 
-.card.static { flex-direction: row; height: auto; width: auto; cursor: text}
-.card.static .card-img {
-    width: var(--magic-size); height: calc(0.47*var(--magic-size));
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-}
+.card.static {cursor: auto;}
 .card.static .card-details {
-    width: calc(1.5*var(--magic-size)); height: auto;
-    padding: var(--spacing-small) var(--spacing-medium);
+    width: auto; height: calc(0.47*var(--magic-size));
 }
 .card.static:hover {transform: scale(1);}
 
