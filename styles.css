@@ -213,6 +213,13 @@ section {
 }
 
 /*------ Slide-show ------ */
+.slideshow-container {
+    position: relative;
+    width: auto; height: auto;
+    overflow: clip;
+    border-radius: var(--default-radius);
+}
+
 .slideshow {
     position: relative;
     width: 100%; height: 100%;
@@ -932,6 +939,7 @@ canvas {
 /*-------------------------------- Blog Components ---------------------*/
 /* Img Fluid */
 img.img-fluid {
+    position: relative;
     display: block;
     height: auto;
     width: 100%;
