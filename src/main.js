@@ -69,6 +69,7 @@ function loadContentInMainWindow(
         }
       }
       initTooltip();
+      runWithDelay(initStylesForGridContainer, 200);
     },
   );
   handleURLinHistory(addParamsToURL({ pageName: page }), doPushToHistory);

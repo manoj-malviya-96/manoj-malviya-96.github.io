@@ -55,28 +55,6 @@ function initImageFluidHandler() {
   });
 }
 
-function toggleForAbout(keepItExpanded = false) {
-  const button = window.document.getElementById("toggleAboutBtn");
-  if (!button) {
-    return; // Button not found
-  }
-  const content = window.document.getElementById("moreDetailsAboutMe");
-
-  if (keepItExpanded && !content.classList.contains(hideHeightClass)) {
-    return; // Keep it expanded
-  }
-  content.classList.toggle(hideHeightClass);
-
-  // Toggle icon class and button text based on the state
-  if (content.classList.contains(hideHeightClass)) {
-    button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
-    button.setAttribute("data-tooltip", "show more");
-  } else {
-    button.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
-    button.setAttribute("data-tooltip", "show less");
-  }
-}
-
 function initContentObserver(contentPlaceholder) {
   // Use MutationObserver to detect content change in contentPlaceholder
   const observer = new MutationObserver((mutations) => {
@@ -283,5 +261,41 @@ function initCopySelectButton() {
           button.innerHTML = `<i class="bi bi-exclamation"></i>`;
         });
     });
+  });
+}
+
+function initStylesForGridContainer() {
+  const gridContainers = document.querySelectorAll(".grid-container");
+  const maxColumns = 4;
+  const maxGap = getSizeFromStyle("--spacing-very-large");
+
+  gridContainers.forEach((gridContainer) => {
+    const numOfItems = gridContainer.children.length;
+    if (numOfItems === 0) {
+      console.log(
+        gridContainer,
+        gridContainer.children.length,
+        gridContainer.children,
+      );
+      console.warn("No items in the grid container");
+      return;
+    }
+    const id = gridContainer.id;
+    const numColumns = Math.min(numOfItems, maxColumns);
+    // Assuming all items have the same width
+    const itemWidth = gridContainer.children[0].clientWidth;
+    const containerWidth = gridContainer.clientWidth;
+
+    const gridGap = Math.min(
+      (containerWidth - numColumns * itemWidth) / (numColumns - 1),
+      maxGap,
+    );
+
+    console.log(
+      `Grid container: ${id} width: ${containerWidth}px, Item width: ${itemWidth}px, 
+        Num columns: ${numColumns}, Grid gap: ${gridGap}px`,
+    );
+    gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
+    gridContainer.style.gridGap = `${gridGap}px`;
   });
 }

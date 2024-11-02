@@ -6,7 +6,7 @@
 		display: flex; flex-direction: row;
 		justify-content: left !important; align-content: flex-start !important;
         padding: 0 var(--spacing-medium); margin: 0;
-		z-index: var(--z-index-overlay); border: none;
+		z-index: var(--z-index-max); border: none;
 		transition: all var(--transition-default);
         background-color: transparent;
         backdrop-filter: blur(var(--blur-radius));
@@ -50,7 +50,7 @@
     <ul class="navbar-group">
         <li class="nav-item">
             <button class="primary-button smaller left-aligned"
-                    onclick="scrollElementInViewOnHome(event, 'about-me'); runWithDelay(toggleForAbout, 500, true)">
+                    onclick="scrollElementInViewOnHome(event, 'aboutMe');">
                 <i class="bi bi bi-person"></i> <!-- App icon -->
                 <span class="button-label">About</span> <!-- Hidden text -->
             </button>

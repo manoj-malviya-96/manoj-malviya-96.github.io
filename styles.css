@@ -8,11 +8,11 @@
     --color-black: rgb(13, 13, 13);
 
     /* Color Palette */
-    --color-brand: rgb(131, 81, 69); /* Tomato, my fav*/
+    --color-brand: rgb(197, 147, 127); /* Tomato, my fav*/
     /*Option 1 - #DC143C - rgb(220, 20, 60) Crimson, my boos fav*/
-    /*Option 2 - #835145FF rgb(131, 81, 69); Tomato, my fav*/
+    /*Option 2 - #C5937FFF rgb(197, 147, 127); Tomato, my fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
-    --shadow-brand: 0 5px 20px rgb(131, 81, 69, 0.47);
+    --shadow-brand: 0 5px 20px rgb(197, 147, 127, 0.47);
 
     /* Spacing */
     --spacing-tiny: 3px;
@@ -127,14 +127,10 @@ body {
 }
 
 .content {
-    margin: 0 auto;
-    padding: 0;
-    text-align: left;
+    margin: 0 auto; padding: 0; text-align: left;
     width: var(--max-body-width);
-    border-style: solid;
-    border-width: 0;
+    border: 0 solid var(--color-primary);
     border-radius: var(--default-radius);
-    border-color: var(--color-primary);
     transition: all var(--transition-default);
 }
 
@@ -197,15 +193,14 @@ a {
 
 section {
     margin: var(--spacing-large) 0;
-    padding: 0;
-    border: none;
+    border-radius: var(--default-radius);
+    padding: 0; border: none;
 }
 
 
 /* ----------------------------- Misc ----------------------------- */
 .bi {
-    font-size: var(--regular-icon-size);
-!important;
+    font-size: var(--regular-icon-size) !important;
     height: auto;
     justify-content: center;
     align-content: center;
@@ -240,19 +235,6 @@ section {
     width: 100%; transform: translateX(0%);
 }
 
-
-/* ------- Modern List -----*/
-.modern-list {
-    list-style: none;
-    padding: 0 var(--spacing-large);
-    margin-left: var(--spacing-medium);
-    border-left: var(--border-width) solid var(--color-brand);
-}
-
-.modern-list li {
-    list-style: none;
-    margin-bottom: var(--spacing-small);
-}
 
 /* ------- Loading Overlay -----*/
 .loading-overlay {
@@ -439,10 +421,6 @@ section {
     transition: all var(--transition-default);
 }
 
-.modern-dropdown-list.grid-3-cols {
-    display: grid; grid-gap: var(--spacing-medium); grid-template-columns: repeat(3, 1fr);
-}
-
 .modern-dropdown-list.hidden {
     display: none;
 }
@@ -546,8 +524,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ----------------------- Tags --------------------------- */
 .tag-date {
-    font-size: var(--regular-text-size);
-!important;
+    text-transform: uppercase;
     line-height: var(--line-height);
     position: absolute;
     right: var(--spacing-small);
@@ -742,25 +719,21 @@ canvas {
 /* ----------------------- Grid Layout--------------------------- */
 
 .grid-container {
-    display: grid;
+    width: var(--max-body-width);
+    display: grid; padding: 0; margin: 0 auto;
     grid-gap: var(--spacing-medium);
-    padding: 0;
-    margin: 0 auto;
-    box-sizing: border-box;
+    box-sizing: border-box; align-content: center; justify-content: center;
 }
 
-.grid-container.home-page {
-    grid-template-columns: repeat(auto-fit, minmax(var(--magic-size), 1fr));
-    /* 4 cards per row */
-    grid-gap: calc((var(--max-body-width) - 4 * var(--magic-size)) / 3.08);
-    width: 100%;
-    box-sizing: border-box;
+.grid-3-cols {
+    display: grid; grid-gap: var(--spacing-medium); grid-template-columns: repeat(3, 1fr);
 }
 
-/* ----------------------------- Blog Cards Styling ----------------------------- */
+/* ----------------------------- Cards Styling ----------------------------- */
 .card {
+    display: flex; flex-direction: column;
     height: auto; width: var(--magic-size);
-    overflow: clip;padding: 0; margin: 0;
+    overflow: visible; padding: 0; margin: 0;
     background-color: var(--color-primary);
     color: var(--color-text); cursor: pointer; border: none;
     border-radius: var(--default-radius);
@@ -781,16 +754,24 @@ canvas {
     border-top-right-radius: var(--default-radius);
 }
 
-.card h3 {text-transform: uppercase;}
-.card:hover {box-shadow: var(--box-shadow); transform: scale(var(--transform-scale));}
-.card:active { transform: scale(var(--active-scale)); }
-
-/* Phone Override */
-@media (max-width: 469px) {
-    .card-details p {
-        display: none;
-    }
+.card.static { flex-direction: row; height: auto; width: auto; cursor: text}
+.card.static .card-img {
+    width: var(--magic-size); height: calc(0.47*var(--magic-size));
+    border-radius: var(--default-radius) 0 0 var(--default-radius);
 }
+.card.static .card-details {
+    width: calc(1.5*var(--magic-size)); height: auto;
+    padding: var(--spacing-small) var(--spacing-medium);
+}
+.card.static:hover {transform: scale(1);}
+
+.card h3 {text-transform: uppercase;}
+.card:hover {
+    box-shadow: var(--box-shadow);
+    z-index: var(--z-index-overlay);
+    transform: scale(var(--transform-scale));
+}
+.card:active { transform: scale(var(--active-scale)); }
 
 
 /* ----------------------------- Project Page Styling ----------------------------- */

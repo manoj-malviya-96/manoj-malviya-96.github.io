@@ -1,24 +1,19 @@
 <style>
-    #aboutMe { overflow: clip;}
-
-    #aboutEntity { display: flex; z-index: var(--z-index-overlay);}
-    #aboutEntity:hover { cursor: pointer; box-shadow: var(--box-shadow);}
-
+    #aboutMe {  overflow: clip;}
     #rightControls { margin-left: auto;}
     #cardsControlsContainer .primary-button { width: auto;}
-
+    #githubUserReport h2 { margin: 0;}
     #profile-image {
-        padding: 0; margin: 0;
-        width: 69%; height: var(--magic-size);
-        overflow: hidden; position: relative;
-        border-bottom-left-radius: var(--default-radius);
-        border-top-left-radius: var(--default-radius);
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: var(--magic-size);
+        overflow: hidden;
+        position: relative;
+        border-bottom-right-radius: var(--default-radius);
+        border-top-right-radius: var(--default-radius);
         transition: all var(--transition-default);
     }
-
-    #githubUserReport h2 { margin: 0; }
-    #toggleAboutBtn { width: auto; margin: 0 auto;}
-
     #blogListings,
     #appListings {
         max-width: var(--max-body-width);
@@ -34,15 +29,11 @@
     }
 
     #socialMediaContainer {
-        display: inline-flex;
-        flex-direction: row;
-        height: auto;
+        display: inline-flex; flex-direction: row;
+        height: auto; border: none;
         padding: var(--spacing-small) var(--spacing-small);
-        z-index: var(--z-index-overlay);
         backdrop-filter: blur(var(--blur-radius));
         border-radius: var(--default-radius);
-        border: none;
-        transition: all var(--transition-default);
     }
 
     #aboutNameAndSocial {
@@ -50,7 +41,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: var(--about-entity-height);
+        height: auto;
     }
 
     #cardsControlsContainer {
@@ -65,13 +56,7 @@
 
 <div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div id="aboutEntity" class="content with-border" onclick="toggleForAbout()">
-        <div id="profile-image">
-            <div class="slideshow">
-                <img src="./assets/profile/2.png" alt="Profile Picture">
-                <img src="./assets/profile/3.png" alt="Profile Picture">
-            </div>
-        </div>
+    <div id="aboutEntity" class="content with-border row-layout">
         <div id="aboutNameAndSocial" class="column-layout" style="margin-left: var(--spacing-large);">
             <h3 id="aboutTitle" style="font-size: var(--title-font-size);"> MANOJ MALVIYA </h3>
             <!-- Side Footer -->
@@ -108,60 +93,88 @@
                 I’m a great problem solver who always puts the user first. I’ve led many complex projects and always
                 delivered elegant solutions.
             </p>
-
+        </div>
+        <div id="profile-image">
+            <div class="slideshow">
+                <img src="./assets/profile/3.png" alt="Profile Picture">
+            </div>
         </div>
     </div>
 
-    <!-- Button to expand the about section -->
-    <button id="toggleAboutBtn" class="primary-button modern-tooltip"
-            data-tooltip="show more" onclick="toggleForAbout()">
-        <i class="bi bi-chevron-compact-down"></i>
-    </button>
-
     <!-- Collapsible content starts here -->
-    <div class="content hide-content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
+    <div class="content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
 
-        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-card-list"></i> My Cards</h2>
+        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-person-workspace"></i> Career Highlights</h2>
         <div class="grid-container">
-            <div class="content-card" style="background-image: url('./assets/profile/2.png');">
-                <h3>Card Title 1</h3>
-                <p>Short description or content details.</p>
+            <div class="g-col-1 card">
+                <img src='./assets/work/formlabs.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Software Engineer</h3>
+                    <span><i class="bi bi-building"></i> Formlabs</span>
+                    <div class="tag-date">Jan 2021 - Present</div>
+                    <p></p>
+                </div>
             </div>
-            <div class="content-card" style="background-image: url('./assets/profile/3.png');">
-                <h3>Card Title 2</h3>
-                <p>Another short description or content details.</p>
+            <div class="g-col-1 card">
+                <img src='./assets/work/penn-state.webp' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Research Assistant</h3>
+                    <span><i class="bi bi-building"></i> Pennsylvania State University</span>
+                    <div class="tag-date">Aug 2018 - Dec 2020</div>
+                    <p></p>
+                </div>
             </div>
         </div>
 
-        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education </h2>
-        <ul class="modern-list">
-            <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
-            <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
-        </ul>
+
+        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education</h2>
+        <div class="grid-container" style="margin: var(--spacing-medium) 0">
+            <div class="g-col-1 card static">
+                <img src='./assets/education/penn-state.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Master's in Mechanical Engineering.</h3>
+                    <span><i class="bi bi-geo-alt"></i> Pennsylvania State University</span>
+<!--                    <p>Penn State was an exciting adventure—moving to a new country, diving into research, and learning-->
+<!--                        along the way. It pushed me out of my comfort zone, from computational design to presenting to-->
+<!--                        large groups, helping me find direction and meet inspiring people.</p>-->
+                    <div class="tag-date">Aug 2018 - Jul 2020</div>
+                </div>
+            </div>
+            <div class="g-col-1 card static">
+                <img src='./assets/education/iitj.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Bachelor's in Mechanical Engineering.</h3>
+                    <span><i class="bi bi-geo-alt"></i> Indian Institute of Technology Jodhpur</span>
+                    <div class="tag-date">Jul 2014 - Jul 2018</div>
+<!--                    <p>IIT Jodhpur was a game-changer, filled with diverse opportunities. Inspiring professors broadened-->
+<!--                        my perspective, the Technical Society fueled my passion for design, and Frame-X taught me-->
+<!--                        empathetic leadership. Organizing campus-wide events showed me the power of attention to detail.</p>-->
+                </div>
+            </div>
+        </div>
 
 
-<!--        &lt;!&ndash; Work Experience String &ndash;&gt;-->
-<!--        <div class="column-layout">-->
-<!--            <h2><i class="bi bi-building"></i> Work Experience</h2>-->
-<!--            <div>-->
-<!--                <h3>Software Engineer at Formlabs Kft.</h3>-->
-<!--            </div>-->
-<!--        </div>-->
-
+        <!--        &lt;!&ndash; Work Experience String &ndash;&gt;-->
+        <!--        <div class="column-layout">-->
+        <!--            <h2><i class="bi bi-building"></i> Work Experience</h2>-->
+        <!--            <div>-->
+        <!--                <h3>Software Engineer at Formlabs Kft.</h3>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
 
         <!-- Other interests -->
-        <h2><i class="bi bi-palette"></i> Personal Interests</h2>
-        <ul class="modern-list">
-            <li>Electronic music composer with a passion for blending digital
-                soundscapes
-                with piano influences.
-            </li>
-            <li> Traveler && photographer - Inspired by diverse cultures, stories from streets and landscapes</li>
-        </ul>
+<!--        <h2><i class="bi bi-palette"></i> Personal Interests</h2>-->
+<!--        <ul class="modern-list">-->
+<!--            <li>Electronic music composer with a passion for blending digital-->
+<!--                soundscapes-->
+<!--                with piano influences.-->
+<!--            </li>-->
+<!--            <li> Traveler && photographer - Inspired by diverse cultures, stories from streets and landscapes</li>-->
+<!--        </ul>-->
 
         <!-- GitHub Contributions -->
-        <h2><i class="bi bi-github"></i> GitHub Profile</h2>
+        <h2 class="home-page-title"><i class="bi bi-github"></i> GitHub Profile</h2>
         <a href=""> Learn More about how it works.</a>
 
         <div id="githubUserReport" class="column-layout">
@@ -210,7 +223,7 @@
 <!-------------------------- Apps Section -------------------------->
 <div id="appListings" class="content" style="margin-top: var(--spacing-huge)">
     <h2><i class="bi bi-app-indicator"></i> Apps</h2>
-    <div id="appList" class="grid-container home-page">
+    <div id="appList" class="grid-container">
         <!-- Will be dynamically added here -->
     </div>
 </div>
@@ -222,7 +235,6 @@
     <h2><i class="bi bi-blockquote-left"></i> Blogs</h2>
 
     <div id="cardsControlsContainer">
-
         <div id="leftControls" class="row-layout">
             <!-- Sort Container -->
             <div id="sortDropdown" class="modern-dropdown" style="margin-right: var(--spacing-large)">
@@ -261,7 +273,7 @@
         </div>
     </div>
 
-    <div id="blogList" class="grid-container home-page">
+    <div id="blogList" class="grid-container">
         <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>
