@@ -79,8 +79,6 @@ function loadContentInMainWindow(
   initContentObserver(contentPlaceholder);
 }
 
-/** We have three types of pages: home, apps and blogs pages. */
-// 1. Load the homepage content -> About me and blogs cards.
 function loadHomePage(
   event = null,
   doPushToHistory = true,
@@ -374,6 +372,7 @@ const sortOptions = [
   { value: "title-desc", label: "Z-A", icon: "bi bi-sort-alpha-down-alt" },
 ];
 const defaultSortOption = "date-desc";
+
 function setupSortOptions() {
   const dropdown = window.document.getElementById("sortDropdown");
   const dropdownList = document.getElementById("sortFilterList");
