@@ -536,7 +536,6 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: var(--color-text); cursor: grab;
 }
 
-
 /* ----------------------- Tags --------------------------- */
 .tag-date {
     text-transform: uppercase;
@@ -779,7 +778,6 @@ canvas {
 .card h3 {text-transform: uppercase;}
 .card:hover {
     box-shadow: var(--box-shadow);
-    z-index: var(--z-index-overlay);
     transform: scale(var(--transform-scale));
 }
 .card:active { transform: scale(var(--active-scale)); }
