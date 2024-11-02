@@ -298,3 +298,10 @@ function initStylesForGridContainer(gridContainer) {
   gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
   gridContainer.style.gridGap = `${gridGap}px`;
 }
+
+function initStylesForGridContainers() {
+  const gridContainers = document.querySelectorAll(".grid-container");
+  gridContainers.forEach((gridContainer) => {
+    initStylesForGridContainer(gridContainer);
+  });
+}

@@ -1,5 +1,4 @@
 <style>
-    #aboutMe {  overflow: clip;}
     #rightControls { margin-left: auto;}
     #cardsControlsContainer .primary-button { width: auto;}
     #githubUserReport h2 { margin: 0;}
@@ -103,7 +102,6 @@
 
     <!-- Collapsible content starts here -->
     <div class="content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
-
         <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-person-workspace"></i> Career Highlights</h2>
         <div class="grid-container" style="margin: var(--spacing-medium) 0">
             <!-- Can be automated -->
@@ -116,7 +114,8 @@
                     <p></p>
                 </div>
             </div>
-            <div class="g-col-1 card">
+            <!-- Todo Make it non static when onClick is implemented -->
+            <div class="g-col-1 card static">
                 <img src='./assets/work/formlabs.jpg' class="card-img" alt="card">
                 <div class="card-details">
                     <h3>R&D Software Engineer</h3>
@@ -125,7 +124,8 @@
                     <p></p>
                 </div>
             </div>
-            <div class="g-col-1 card">
+            <!-- Todo Make it non static when onClick is implemented -->
+            <div class="g-col-1 card static">
                 <img src='./assets/work/penn-state.webp' class="card-img" alt="card">
                 <div class="card-details">
                     <h3>Research Assistant</h3>

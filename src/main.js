@@ -68,7 +68,6 @@ function loadContentInMainWindow(
         }
       }
       initTooltip();
-      runWithDelay(initStylesForGridContainer, 200);
     },
   );
   handleURLinHistory(addParamsToURL({ pageName: page }), doPushToHistory);
@@ -212,9 +211,15 @@ function makeAppButtons() {
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
-  Promise.all(promises).catch((err) => {
-    console.error("Error loading all apps:", err);
-  });
+  Promise.all(promises)
+    .then(() => {
+      runWithDelay(() => {
+        initStylesForGridContainer(container), 100;
+      });
+    })
+    .catch((err) => {
+      console.error("Error loading all apps:", err);
+    });
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
@@ -332,6 +337,7 @@ function makeBlogCardsAndSetupControls() {
       });
       setupSkillsDropDown(allCategories);
       sortBlogCards(defaultSortOption);
+      initStylesForGridContainer(container);
     })
     .catch((err) => {
       console.error("Error loading all projects:", err);
@@ -381,7 +387,12 @@ function setupSortOptions() {
 
 // Search projects based on title or description
 function filterBlogs(searchInput = null, category = null) {
-  const cards = document.querySelectorAll(".card");
+  const blogs = document.getElementById("blogList");
+  if (!blogs) {
+    console.error("Blog container not found");
+    return;
+  }
+  const cards = blogs.querySelectorAll(".card");
 
   cards.forEach((card) => {
     let isSearchMatch = true;
