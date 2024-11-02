@@ -30,7 +30,6 @@ const blogHTMLToExtraCallbacks = {
   "./blogs/eng-dfam/eng-dfam.html": [createPlotsForEngDfam],
   "./blogs/embed-am/embed-am.html": [],
   "./blogs/build-orient/build-orient.html": [],
-  "./blogs/formlabs-ui/ui-lead.html": [],
   "./blogs/cpp-threads/cpp-threads.html": [],
   // "./blogs/this-blog/this-blog.html": [],
 };
