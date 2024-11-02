@@ -1,6 +1,6 @@
 const max_width = 600;
 
-function createPlotsForDfam() {
+function createPlotsForEngDfam() {
   const heatmap1 = () => {
     createHeatmap(
       "heatmap1",

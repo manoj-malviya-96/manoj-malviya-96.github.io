@@ -1,34 +1,18 @@
 <style>
-    #aboutMe { overflow: clip;}
-    #aboutMe .content.hide-content { height: 0; transform : translateY(-7%);}
-
-    #aboutEntity { display: flex; z-index: var(--z-index-overlay);}
-    #aboutEntity:hover { cursor: pointer; box-shadow: var(--box-shadow);}
-
     #rightControls { margin-left: auto;}
     #cardsControlsContainer .primary-button { width: auto;}
-
+    #githubUserReport h2 { margin: 0;}
     #profile-image {
-        padding: 0; margin: 0;
-        width: calc(2 * var(--about-entity-height));
-        height: var(--about-entity-height);
-        overflow: hidden; position: relative;
-        border-bottom-left-radius: var(--default-radius);
-        border-top-left-radius: var(--default-radius);
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: var(--magic-size);
+        overflow: hidden;
+        position: relative;
+        border-bottom-right-radius: var(--default-radius);
+        border-top-right-radius: var(--default-radius);
         transition: all var(--transition-default);
     }
-
-    #aboutTitle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: var(--hero-font-size);
-        margin-left: var(--spacing-large);
-    }
-
-    #githubUserReport h2 { margin: 0; }
-    #toggleAboutBtn { width: auto; margin: 0 auto;}
-
     #blogListings,
     #appListings {
         max-width: var(--max-body-width);
@@ -39,20 +23,16 @@
     }
 
     #appList .primary-button {
-        width: var(--blog-card-and-header-height);
+        width: var(--magic-size);
         height: var(--app-drawer-button-height);
     }
 
     #socialMediaContainer {
-        display: inline-flex;
-        flex-direction: row;
-        height: auto;
+        display: inline-flex; flex-direction: row;
+        height: auto; border: none;
         padding: var(--spacing-small) var(--spacing-small);
-        z-index: var(--z-index-overlay);
         backdrop-filter: blur(var(--blur-radius));
         border-radius: var(--default-radius);
-        border: none;
-        transition: all var(--transition-default);
     }
 
     #aboutNameAndSocial {
@@ -60,7 +40,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: var(--about-entity-height);
+        height: auto;
     }
 
     #cardsControlsContainer {
@@ -75,20 +55,9 @@
 
 <div class="content" id="aboutMe">
     <!-- Add padding to the container -->
-    <div id="aboutEntity" class="content with-border" onclick="toggleForAbout()">
-        <div id="profile-image">
-            <div class="slideshow">
-                <img src="./assets/profile-1.jpeg" alt="Profile Picture 1">
-                <img src="./assets/profile-2.png" alt="Profile Picture 2">
-                <img src="./assets/profile-3.png" alt="Profile Picture 3">
-                <img src="./assets/profile-4.png" alt="Profile Picture 4">
-                <img src="./assets/profile-5.jpeg" alt="Profile Picture 5">
-                <img src="./assets/profile-6.jpeg" alt="Profile Picture 6">
-                <img src="./assets/profile-7.jpeg" alt="Profile Picture 7">
-            </div>
-        </div>
+    <div id="aboutEntity" class="content with-border row-layout">
         <div id="aboutNameAndSocial" class="column-layout" style="margin-left: var(--spacing-large);">
-            <span id="aboutTitle"> MANOJ MALVIYA </span>
+            <h3 id="aboutTitle" style="font-size: var(--title-font-size);"> MANOJ MALVIYA </h3>
             <!-- Side Footer -->
             <div id="socialMediaContainer">
                 <button class="primary-button smaller left-aligned" onclick="loadSocialMediaLink('Linkedin', event)">
@@ -116,60 +85,100 @@
                     <i class="bi bi-disc"></i>
                 </button>
             </div>
+            <!-- Introduction String -->
+            <p style="margin-top: var(--spacing-large); opacity: var(--magic-opacity)">
+                Hi there! I’m Manoj Malviya, a <strong>Software Engineer</strong> who loves solving tricky problems with
+                beautiful solutions. I use fancy computer tools and methods to turn these problems into real results.
+                I’m a great problem solver who always puts the user first. I’ve led many complex projects and always
+                delivered elegant solutions.
+            </p>
+        </div>
+        <div id="profile-image">
+            <div class="slideshow">
+                <img src="./assets/profile/3.png" alt="Profile Picture">
+            </div>
         </div>
     </div>
 
-    <!-- Button to expand the about section -->
-    <button id="toggleAboutBtn" class="primary-button modern-tooltip"
-            data-tooltip="show more" onclick="toggleForAbout()">
-        <i class="bi bi-chevron-compact-down"></i>
-    </button>
-
     <!-- Collapsible content starts here -->
-    <div class="content hide-content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
-        <!-- Introduction String -->
-        <div class="content block" style="margin-bottom: var(--spacing-large)">
-            Hello! I’m Manoj Malviya, a versatile, language agnostic <strong> Software Engineer </strong> passionate
-            about solving complex
-            problems with elegant solutions and turning them
-            into tangible results using advanced computational tools and methodologies. Strong problem-solver with a
-            user-first mindset, and a track record of leading complex projects and
-            delivering elegant solutions.
+    <div class="content" id="moreDetailsAboutMe" style="margin-top: var(--spacing-large);">
+        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-person-workspace"></i> Career Highlights</h2>
+        <div class="grid-container" style="margin: var(--spacing-medium) 0">
+            <!-- Can be automated -->
+            <div class="g-col-1 card" onclick="loadBlogPage('./work/formlabs-software/formlabs-software.html', event)">
+                <img src='./work/formlabs-software/cover.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Software Engineer</h3>
+                    <span><i class="bi bi-building"></i> Formlabs</span>
+                    <div class="tag-date">Oct 2023 - Present</div>
+                    <p></p>
+                </div>
+            </div>
+            <!-- Todo Make it non static when onClick is implemented -->
+            <div class="g-col-1 card static">
+                <img src='./assets/work/formlabs.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>R&D Software Engineer</h3>
+                    <span><i class="bi bi-building"></i> Formlabs</span>
+                    <div class="tag-date">Jan 2021 - Oct 2023</div>
+                    <p></p>
+                </div>
+            </div>
+            <!-- Todo Make it non static when onClick is implemented -->
+            <div class="g-col-1 card static">
+                <img src='./assets/work/penn-state.webp' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Research Assistant</h3>
+                    <span><i class="bi bi-building"></i> Pennsylvania State University</span>
+                    <div class="tag-date">Aug 2018 - Dec 2020</div>
+                    <p></p>
+                </div>
+            </div>
         </div>
 
-        <!-- Work Experience String -->
-        <h2><i class="bi bi-building"></i> Work Experience</h2>
-        <ul class="modern-list">
-            <li><strong>Software Engineer at Formlabs Kft.</strong> Leading UI framework development and
-                optimizing 3D printing workflows
-            </li>
-            <li><strong>R&D Engineer at Formlabs Inc.</strong> Developed additive manufacturing algorithms
-                to
-                boost efficiency.
-            </li>
-            <li><strong>Research Assistant at Pennsylvania State University:</strong> Conducted research in
-                computational design and additive manufacturing.
-            </li>
-        </ul>
 
-        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education </h2>
-        <ul class="modern-list">
-            <li>M.S. in Mechanical Engineering from Pennsylvania State University</li>
-            <li>B.Tech in Mechanical Engineering from Indian Institute of Technology</li>
-        </ul>
+        <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-book-half"></i> Education</h2>
+        <div class="grid-container" style="margin: var(--spacing-medium) 0">
+            <div class="g-col-1 card static">
+                <img src='./assets/education/penn-state.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Master's in Mechanical Engineering</h3>
+                    <span><i class="bi bi-geo-alt"></i> Pennsylvania State University</span>
+                    <div class="tag-date">Aug 2018 - Jul 2020</div>
+                </div>
+            </div>
+            <div class="g-col-1 card static">
+                <img src='./assets/education/iitj.jpg' class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>Bachelor's in Mechanical Engineering</h3>
+                    <span><i class="bi bi-geo-alt"></i> Indian Institute of Technology</span>
+                    <div class="tag-date">Jul 2014 - Jul 2018</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--        &lt;!&ndash; Work Experience String &ndash;&gt;-->
+        <!--        <div class="column-layout">-->
+        <!--            <h2><i class="bi bi-building"></i> Work Experience</h2>-->
+        <!--            <div>-->
+        <!--                <h3>Software Engineer at Formlabs Kft.</h3>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
 
         <!-- Other interests -->
-        <h2><i class="bi bi-palette"></i> Personal Interests</h2>
-        <ul class="modern-list">
-            <li>Electronic music composer with a passion for blending digital
-                soundscapes
-                with piano influences.
-            </li>
-            <li> Traveler && photographer - Inspired by diverse cultures, stories from streets and landscapes</li>
-        </ul>
+<!--        <h2><i class="bi bi-palette"></i> Personal Interests</h2>-->
+<!--        <ul class="modern-list">-->
+<!--            <li>Electronic music composer with a passion for blending digital-->
+<!--                soundscapes-->
+<!--                with piano influences.-->
+<!--            </li>-->
+<!--            <li> Traveler && photographer - Inspired by diverse cultures, stories from streets and landscapes</li>-->
+<!--        </ul>-->
 
         <!-- GitHub Contributions -->
-        <h2><i class="bi bi-github"></i> GitHub Profile</h2>
+        <h2 class="home-page-title"><i class="bi bi-github"></i> GitHub Profile</h2>
         <a href=""> Learn More about how it works.</a>
 
         <div id="githubUserReport" class="column-layout">
@@ -178,7 +187,7 @@
                  style="justify-content: space-evenly; align-content: center; margin-bottom: var(--spacing-large);">
                 <!--Year Buttons-->
                 <div id="yearButtons" class="row-layout content block" style="
-                    width: 27%;
+                    width: auto;
                     padding: 0;
                     margin-left: var(--spacing-medium)">
                 </div>
@@ -218,7 +227,7 @@
 <!-------------------------- Apps Section -------------------------->
 <div id="appListings" class="content" style="margin-top: var(--spacing-huge)">
     <h2><i class="bi bi-app-indicator"></i> Apps</h2>
-    <div id="appList" class="grid-container home-page">
+    <div id="appList" class="grid-container">
         <!-- Will be dynamically added here -->
     </div>
 </div>
@@ -226,14 +235,13 @@
 
 <!-------------------------- Project Section -------------------------->
 
-<div id="blogListings" class="blog-listing content" style="margin-top: var(--spacing-huge)">
-    <h2><i class="bi bi-view-stacked"></i> Blogs</h2>
+<div id="blogListings" class="content" style="margin-top: var(--spacing-huge)">
+    <h2><i class="bi bi-blockquote-left"></i> Blogs</h2>
 
     <div id="cardsControlsContainer">
-
         <div id="leftControls" class="row-layout">
             <!-- Sort Container -->
-            <div id="sortDropdown" class="modern-dropdown" style="max-width: var(--home-control-width); margin-right: var(--spacing-large)">
+            <div id="sortDropdown" class="modern-dropdown" style="margin-right: var(--spacing-large)">
                 <button class="primary-button with-border modern-tooltip" data-tooltip="Sort blogs">
                     <i class="bi bi-sort-down-alt"></i>
                     <span class="button-label">Sort by...</span>
@@ -243,14 +251,14 @@
             </div>
 
             <!-- Skill Container -->
-            <div id="skillsFilter" class="modern-dropdown"  style="max-width: var(--home-control-width);">
+            <div id="skillsFilter" class="modern-dropdown">
                 <button class="primary-button with-border modern-tooltip"
                         data-tooltip="Filter blogs by type of skills I employed" >
                     <i class="bi bi-filter"></i>
                     <span class="button-label">Select Skills...</span>
                 </button>
-                <ul id="skillsList" class="modern-dropdown-list hidden">
-                    <li data-value="All" class="modern-dropdown-item">All</li>
+                <ul id="skillsList" class="modern-dropdown-list grid-3-cols hidden">
+                    <li data-value="All" class="modern-dropdown-item">All Skills</li>
                 </ul>
             </div>
         </div>
@@ -259,7 +267,7 @@
         <div id="rightControls" class="row-layout">
             <!-- Search Container -->
             <div class="search-container" data-tooltip="Search blogs"
-                 style="max-width: var(--home-control-width);">
+                 style="width: var(--magic-size);">
                 <button class="primary-button smaller" onclick="bringElementToFocus('search-input')">
                     <i class="bi bi-search"></i>
                 </button>
@@ -269,7 +277,7 @@
         </div>
     </div>
 
-    <div id="blogList" class="grid-container home-page">
+    <div id="blogList" class="grid-container">
         <!-- The project cards will be dynamically inserted here -->
     </div>
 </div>

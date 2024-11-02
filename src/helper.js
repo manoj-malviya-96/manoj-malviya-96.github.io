@@ -3,6 +3,9 @@ const timeOut_ms = 369; // Global Timeout
 const appWindowWidth = getSizeFromStyle("--app-window-width");
 const appWindowHeight = getSizeFromStyle("--app-window-height");
 
+const hideHeightClass = "hide-height";
+const hideWidthClass = "hide-width";
+
 function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   if (!callback) {
     console.error("Callback function not provided");
@@ -14,6 +17,18 @@ function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   }
   const run = () => callback(single_arg);
   setTimeout(run, delay_ms);
+}
+
+async function runAsync(task) {
+  if (!task) {
+    return;
+  }
+  try {
+    await task(); // Waits for the callback promise to resolve
+  } catch (error) {
+    console.error("Error in callback:", error);
+    // Handle error if needed
+  }
 }
 
 /* ------------ Content Loading ------------ */
@@ -235,7 +250,6 @@ function internal_setupDropdown(
 
   // Function to toggle the dropdown visibility
   const toggleDropdown = () => {
-    togglePrimaryButton(button);
     dropdown.classList.toggle("hidden");
   };
 
@@ -454,21 +468,16 @@ function bringElementToFocus(elementId) {
 }
 
 /* ------------ Button Utilities ------------ */
-
-function selectPrimaryButton(button) {
-  deselectAllButtons(); // Make sure only one button is selected
-  button.classList.add("selected");
-}
-
 function isPrimaryButtonSelected(button) {
   return button.classList.contains("selected");
 }
 
-function togglePrimaryButton(button) {
-  if (button.classList.contains("selected")) {
+function togglePrimaryButton(button, forceSelect = false) {
+  if (button.classList.contains("selected") && !forceSelect) {
     button.classList.remove("selected");
   } else {
-    selectPrimaryButton(button);
+    deselectAllButtons(); // Make sure only one button is selected
+    button.classList.add("selected");
   }
 }
 

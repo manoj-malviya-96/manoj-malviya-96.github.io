@@ -1,11 +1,11 @@
 /* Collection of functions to initialize the website */
 
-function initSidebar() {
-  const sidebarPlaceholder = document.getElementById("sidebarPlaceholder");
-  if (!sidebarPlaceholder) {
+function initNavbar() {
+  const placeholder = document.getElementById("navbarPlaceholder");
+  if (!placeholder) {
     console.error("Side bar Placeholder doesnt exists");
   }
-  loadContent("./sidebar.html", sidebarPlaceholder);
+  loadContent("./navbar.html", placeholder);
 }
 
 function initScrollBehavior() {
@@ -53,28 +53,6 @@ function initImageFluidHandler() {
       modal.classList.remove("show");
     }
   });
-}
-
-function toggleForAbout(keepItExpanded = false) {
-  const button = window.document.getElementById("toggleAboutBtn");
-  if (!button) {
-    return; // Button not found
-  }
-  const content = window.document.getElementById("moreDetailsAboutMe");
-
-  if (keepItExpanded && !content.classList.contains("hide-content")) {
-    return; // Keep it expanded
-  }
-  content.classList.toggle("hide-content");
-
-  // Toggle icon class and button text based on the state
-  if (content.classList.contains("hide-content")) {
-    button.innerHTML = '<i class="bi bi-chevron-compact-down"></i>';
-    button.setAttribute("data-tooltip", "show more");
-  } else {
-    button.innerHTML = '<i class="bi bi-chevron-compact-up"></i>';
-    button.setAttribute("data-tooltip", "show less");
-  }
 }
 
 function initContentObserver(contentPlaceholder) {
@@ -194,19 +172,6 @@ function initThemeChangeHandler(callback) {
   window.document.addEventListener("themeChange", callback);
 }
 
-function toggleSidebar() {
-  const sidebar = document.getElementById("sideBar");
-  const icon = document.getElementById("sidebar-toggle-icon");
-
-  sidebar.classList.toggle("collapsed");
-
-  if (sidebar.classList.contains("collapsed")) {
-    icon.className = "bi bi-layout-sidebar";
-  } else {
-    icon.className = "bi bi-layout-sidebar-inset";
-  }
-}
-
 function initGithub() {
   window.githubProfile = new GithubProfile("./data/github_user_report.json");
 }
@@ -244,7 +209,7 @@ function initTooltip() {
 
 function initSlideShow() {
   const slides = document.querySelectorAll(".slideshow img");
-  const timeBetweenSlides_ms = 6900; // Time between slides (10s)
+  const timeBetweenSlides_ms = 4700; // Time between slides (10s)
   let index = 0;
 
   // Show the first image initially
@@ -296,5 +261,47 @@ function initCopySelectButton() {
           button.innerHTML = `<i class="bi bi-exclamation"></i>`;
         });
     });
+  });
+}
+
+function initStylesForGridContainer(gridContainer) {
+  const maxColumns = 4;
+  const maxGap = getSizeFromStyle("--spacing-very-large");
+
+  const numOfItems = gridContainer.children.length;
+  if (numOfItems === 0) {
+    console.log(
+      gridContainer,
+      gridContainer.children.length,
+      gridContainer.children,
+    );
+    console.warn("No items in the grid container");
+    return;
+  }
+  const id = gridContainer.id;
+  const numColumns = Math.min(numOfItems, maxColumns);
+  // Assuming all items have the same width
+  const itemWidth = gridContainer.children[0].clientWidth;
+  const containerWidth = gridContainer.clientWidth;
+
+  const gridGap = Math.round(
+    Math.min(
+      (containerWidth - numColumns * itemWidth) / (numColumns - 1),
+      maxGap,
+    ),
+  );
+
+  console.log(
+    `Grid container: ${id} width: ${containerWidth}px, Item width: ${itemWidth}px, 
+        Num columns: ${numColumns}, Grid gap: ${gridGap}px`,
+  );
+  gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
+  gridContainer.style.gridGap = `${gridGap}px`;
+}
+
+function initStylesForGridContainers() {
+  const gridContainers = document.querySelectorAll(".grid-container");
+  gridContainers.forEach((gridContainer) => {
+    initStylesForGridContainer(gridContainer);
   });
 }

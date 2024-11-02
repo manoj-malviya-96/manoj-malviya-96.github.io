@@ -25,12 +25,11 @@ const defaultBlogCallbacks = [
 
 const blogHTMLToExtraCallbacks = {
   "./blogs/delta-design/delta-design.html": [createPlotsForDeltaDesign],
-  "./blogs/topt/rapid-topt.html": [],
+  "./blogs/rapid-topt/rapid-topt.html": [],
   "./blogs/cub-companion/cub-companion.html": [],
-  "./blogs/dfam/dfam.html": [createPlotsForDfam],
+  "./blogs/eng-dfam/eng-dfam.html": [createPlotsForEngDfam],
   "./blogs/embed-am/embed-am.html": [],
   "./blogs/build-orient/build-orient.html": [],
-  "./blogs/formlabs-ui/ui-lead.html": [],
   "./blogs/cpp-threads/cpp-threads.html": [],
   // "./blogs/this-blog/this-blog.html": [],
 };
@@ -212,9 +211,15 @@ function makeAppButtons() {
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
-  Promise.all(promises).catch((err) => {
-    console.error("Error loading all apps:", err);
-  });
+  Promise.all(promises)
+    .then(() => {
+      runWithDelay(() => {
+        initStylesForGridContainer(container), 100;
+      });
+    })
+    .catch((err) => {
+      console.error("Error loading all apps:", err);
+    });
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
@@ -225,36 +230,32 @@ function createBlogCardHTML(
   title,
   description,
   categories,
-  type = "",
   date = "",
 ) {
   categories = categories.sort((a, b) => a.localeCompare(b));
 
   // Limit description to 140 characters
   const shortDescription =
-    description.length > 140
+    description.length > 69
       ? description.substring(0, 140) + "..."
       : description;
 
   return `
       <div class="g-col-1 card" 
+          onclick="loadBlogPage('${filePath}', event)"
           data-categories="${categories.join(",")}" 
           data-title="${title.toLowerCase()}" 
           data-description="${shortDescription.toLowerCase()}"
           data-date=${parseDate(date)}>
-          <a href="javascript:void(0)" class="quarto-grid-link" 
-             onclick="loadBlogPage('${filePath}', event)">
-                <img src="${imagePath}" class="card-img" alt="">
-                <div class="card-label">${title}</div>
+                <img src="${imagePath}" class="card-img" alt="card">
                 <div class="card-details">
-                    <h3 class="underline">${title}</h3>
+                    <h3>${title}</h3>
                     <p>${description}</p>
                     <div class="tag-categories">
                         ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
                     <div class="tag-date">${date} </div>
                 </div>
-          </a>
       </div>
     `;
 }
@@ -285,12 +286,6 @@ function makeBlogCard(filePath, container) {
         "No description",
       );
       const date = getElementAttribute(doc, "#date", "textContent", "No date");
-      const type = getElementAttribute(
-        doc,
-        "#card-label",
-        "textContent",
-        "No type",
-      );
       const imagePath = getElementAttribute(
         doc,
         "#cover",
@@ -308,7 +303,6 @@ function makeBlogCard(filePath, container) {
         title,
         description,
         categories,
-        type,
         date,
       );
       container.insertAdjacentHTML("beforeend", cardHTML);
@@ -343,6 +337,7 @@ function makeBlogCardsAndSetupControls() {
       });
       setupSkillsDropDown(allCategories);
       sortBlogCards(defaultSortOption);
+      initStylesForGridContainer(container);
     })
     .catch((err) => {
       console.error("Error loading all projects:", err);
@@ -392,7 +387,12 @@ function setupSortOptions() {
 
 // Search projects based on title or description
 function filterBlogs(searchInput = null, category = null) {
-  const cards = document.querySelectorAll(".card");
+  const blogs = document.getElementById("blogList");
+  if (!blogs) {
+    console.error("Blog container not found");
+    return;
+  }
+  const cards = blogs.querySelectorAll(".card");
 
   cards.forEach((card) => {
     let isSearchMatch = true;
@@ -477,14 +477,10 @@ function loadTableOfContents() {
           <nav id="tocListContainer" role="doc-toc"> 
               <ul class="blog-sidebar-list" id="tocList"></ul>
           </nav>
-          <button class="blog-sidebar-toggle primary-button smaller with-border" id="tocToggle">
-              <i class="bi bi-chevron-right"></i>
-          </button>
         </div>
         `;
   // Call the function to dynamically generate the TOC
   generateTableOfContentsForBlogPages();
-  setupBlogToggleButton();
 }
 
 function generateTableOfContentsForBlogPages() {
@@ -507,26 +503,6 @@ function generateTableOfContentsForBlogPages() {
   if (firstLink) {
     firstLink.classList.add("active");
   }
-}
-
-function setupBlogToggleButton() {
-  // Function to initialize the theme toggle after loading the content
-  window.document
-    .getElementById("tocToggle")
-    .addEventListener("click", function () {
-      const toc = document.getElementById("tableOfContents");
-
-      // change the icon based on the footer visibility
-      const icon = this.querySelector("i");
-      const iconToHide = "bi-chevron-right";
-      const iconToShow = "bi-chevron-left";
-      if (icon.classList.contains(iconToHide)) {
-        icon.classList.replace(iconToHide, iconToShow);
-      } else {
-        icon.classList.replace(iconToShow, iconToHide);
-      }
-      toc.classList.toggle("hide-list"); // Toggle the "footer-collapsed" class
-    });
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/
