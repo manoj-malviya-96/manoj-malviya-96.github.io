@@ -952,13 +952,22 @@ table {
 }
 
 th, td {
+    width: auto; height: auto;
     padding: var(--spacing-medium) var(--spacing-medium);
     text-align: left;
 }
 
 th {
     background-color: var(--color-brand);
-    color: var(--color-white);;
+    color: var(--color-white);
+    text-align: center;
+}
+
+th:first-child {
+    border-radius: var(--default-radius) 0 0 0;
+}
+th:last-child {
+    border-radius: 0 var(--default-radius) 0 0;
 }
 
 /* Code */
