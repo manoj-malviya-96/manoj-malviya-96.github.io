@@ -129,7 +129,6 @@ body {
 .content {
     margin: 0 auto; padding: 0; text-align: left;
     width: var(--max-body-width);
-    border: 0 solid var(--color-primary);
     border-radius: var(--default-radius);
     transition: all var(--transition-default);
 }
@@ -153,11 +152,6 @@ body {
 .content.with-padding {
     padding: var(--spacing-large);
 }
-
-.content.with-border {
-    border-width: var(--border-width);
-}
-
 
 /* ----------------------------- Text Styling ----------------------------- */
 
@@ -251,21 +245,31 @@ section {
     background-color: transparent;
 }
 
+
 /* Layout Styling */
 .row-layout {
     display: flex;
     flex-direction: row;
+    column-gap: var(--spacing-medium);
     height: auto;
-    margin: auto 0;
+    justify-content: center;
+}
+
+.row-layout.more-gap {
+    column-gap: var(--spacing-very-large);
 }
 
 .column-layout {
     display: flex;
     flex-direction: column;
+    row-gap: var(--spacing-medium);
     width: auto;
-    margin: 0 auto;
+    align-content: center;
 }
 
+.column-layout.more-gap {
+    row-gap: var(--spacing-very-large);
+}
 
 /* ----------------------------- Tooltip Styling ----------------------------- */
 
@@ -305,11 +309,9 @@ section {
     height: auto; width: auto; margin: auto;
     padding: 0 var(--spacing-small);
     display: flex; justify-content: center; align-items: center;
-    border-radius: var(--default-radius);
-    border: 0 solid var(--color-primary);
+    border-radius: var(--default-radius); border: none;
     transition: all var(--transition-default);
     color: var(--color-text);
-    border-color: var(--color-primary);
 }
 
 .primary-button.left-aligned {
@@ -329,10 +331,6 @@ section {
     font-size: var(--regular-text-size);
     line-height: var(--line-height);
     margin-left: var(--spacing-small);
-}
-
-.primary-button.with-border {
-    border-width: var(--border-width);
 }
 
 .primary-button.smaller .bi {
@@ -412,7 +410,7 @@ section {
 /* --------------------  Dropdown  Styling ------------------- */
 .modern-dropdown-list {
     list-style: none; position: absolute;
-    width: auto; height: auto; min-width: 100px;
+    width: auto; height: auto; min-width: 80px;
     padding: var(--spacing-small); margin: var(--spacing-small) 0;
     border-radius: var(--default-radius);
     background-color: var(--color-primary); color: var(--color-text);
@@ -488,6 +486,15 @@ section {
 .modern-spinbox .modern-spinbox-btn-down .bi,
 .modern-spinbox .modern-spinbox-btn-up .bi {
     color: var(--color-white);
+}
+
+/* Switcher Button */
+.tab-switcher {
+    display: flex; flex-direction: row;
+    width: auto; height: fit-content;
+    margin: auto 0; padding: 0;
+    justify-content: center; align-content: center;
+    background-color: var(--color-primary); border-radius: var(--default-radius);
 }
 
 
@@ -568,6 +575,24 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 0;
     margin: 0;
 }
+
+.tag-hero {
+    display: flex; flex-direction: column;
+    text-align: center;  margin: 0;
+    width: 100%; height: 100%;
+    background-color: var(--color-primary);
+    padding: var(--spacing-medium); border-radius: var(--default-radius);
+}
+
+.tag-hero p {height: 50%; align-content: center; justify-content: center}
+.tag-hero h2 {
+    height: 50%; align-content: center; justify-content: center;
+    font-size: var(--super-title-font-size);
+    color: var(--color-brand);
+    text-transform: uppercase;
+}
+
+
 
 /* ----------------------- Animation --------------------------- */
 .hide-height { padding: 0; margin: 0; height: 0; opacity: 0; transform : translateY(-7%);}
@@ -734,9 +759,9 @@ canvas {
 
 .grid-container {
     width: var(--max-body-width);
-    display: grid; padding: 0; margin: 0 auto;
-    grid-gap: var(--spacing-very-large);
-    grid-template-columns: repeat(3, 1fr);
+    display: grid; padding: 0; margin: var(--spacing-medium) auto;
+    grid-gap: var(--spacing-small);
+    grid-template-columns: repeat(4, 1fr);
     box-sizing: border-box; align-content: center; justify-content: flex-start;
 }
 
@@ -979,6 +1004,14 @@ pre code.hljs {
 }
 
 
+
+
+
+/* ------ Modal Styling ------ */
+.add-border {
+    border: var(--border-width) solid var(--color-primary);
+    border-radius: var(--default-radius);
+}
 
 
 

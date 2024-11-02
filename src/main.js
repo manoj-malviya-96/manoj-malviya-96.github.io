@@ -172,7 +172,7 @@ function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
       if (appBrandContainer) {
         // Create a new button element
         const appButton = document.createElement("button");
-        appButton.className = "primary-button with-border";
+        appButton.className = "primary-button add-border";
 
         // Set the provided onClickFunction dynamically
         appButton.onclick = onClickFunction;
