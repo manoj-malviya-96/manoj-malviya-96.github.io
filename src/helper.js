@@ -145,9 +145,13 @@ function doScrollInViewAnimation(element, timeout_ms) {
 function scrollElementInView(elementId) {
   const element = document.getElementById(elementId);
   if (element) {
-    element.scrollIntoView({
+    const elementTop = element.getBoundingClientRect().top + window.scrollY;
+    const centerPosition = elementTop - window.innerHeight / 9;
+
+    // Smoothly scroll the page to the calculated center position
+    window.scrollTo({
+      top: centerPosition,
       behavior: "smooth",
-      block: "center", // This ensures the element scrolls into the center of the page
     });
     doScrollInViewAnimation(element, 1000);
   } else {
