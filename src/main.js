@@ -11,6 +11,7 @@ const homePageCallbacks = [
   initGithub,
   initSlideShow,
   setupSortOptions,
+  makeWorkCards,
   makeAppButtons,
   makeBlogCardsAndSetupControls,
 ];
@@ -41,6 +42,10 @@ const appHTMLToInits = {
   "./apps/mesh-morph/mesh-morph.html": [initMeshMorph],
   "./apps/lattice-topt/lattice-topt.html": [initLatticeTopt],
   "./apps/coming-soon/coming-soon.html": [],
+};
+
+const workHTMLToExtraCallbacks = {
+  "./work/formlabs-software/formlabs-software.html": [],
 };
 
 /** ---------------------------- Content Loader  ---------------------------- **/
@@ -503,6 +508,92 @@ function generateTableOfContentsForBlogPages() {
   if (firstLink) {
     firstLink.classList.add("active");
   }
+}
+
+/** ---------------------------- Work Experience  ---------------------------- **/
+function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
+  return ` 
+ <div class="g-col-1 card"
+       onclick="loadBlogPage('${pagePath}', event)">
+      <img src="${coverImg}" class="card-img" alt="card">
+      <div class="card-details">
+          <h3>${role}</h3>
+          <span><i class="bi bi-geo-fill"></i> ${company}</span>
+          <div class="tag-categories"> 
+                ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
+            </div>
+          <div class="tag-date">${date}</div>
+          <p></p>
+      </div>
+  </div>`;
+}
+
+function makeWorkCard(pagePath, container) {
+  return fetch(pagePath)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `Failed to load work experience: ${response.statusText}`,
+        );
+      }
+      return response.text();
+    })
+    .then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const role = getElementAttribute(doc, "#role", "textContent", "No role");
+      const company = getElementAttribute(
+        doc,
+        "#company",
+        "textContent",
+        "No company",
+      );
+      const date = getElementAttribute(doc, "#date", "textContent", "No date");
+      const coverImg = getElementAttribute(
+        doc,
+        "#cover",
+        "src",
+        "default-image.jpg",
+      );
+
+      const tags = Array.from(doc.querySelectorAll(".tag-category")).map(
+        (el) => el.textContent,
+      );
+
+      const cardHTML = createCardHTMLForWork(
+        pagePath,
+        coverImg,
+        role,
+        company,
+        date,
+        tags,
+      );
+      container.insertAdjacentHTML("beforeend", cardHTML);
+    })
+    .catch((err) => {
+      console.error("Error loading work experience:", err);
+    });
+}
+
+function makeWorkCards() {
+  const container = window.document.getElementById("workList");
+  if (!container) {
+    throw new Error(`Element with ID '${container}' not found.`);
+  }
+  container.innerHTML = ""; // Clear the container before adding new cards
+
+  const promises = Object.entries(workHTMLToExtraCallbacks).map(([workKey]) =>
+    makeWorkCard(workKey, container),
+  );
+
+  Promise.all(promises)
+    .then(() => {
+      initStylesForGridContainer(container);
+    })
+    .catch((err) => {
+      console.error("Error loading all work experience:", err);
+    });
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/
