@@ -228,6 +228,19 @@ function getPrimaryColorScale(numStops) {
   return result;
 }
 
+const possibleRandomColors = [
+  getPrimaryColor(),
+  `rgb(145, 75, 75)`,
+  `rgb(112, 135, 112)`,
+  `rgb(83, 105, 131)`,
+];
+
+function randomColor() {
+  const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
+  console.log(randomInt);
+  return possibleRandomColors[randomInt];
+}
+
 /* ------------ Dropdown Utilities ------------ */
 function createDropdownItem(dataValue, dataLabel, dataIcon) {
   let item = document.createElement("li");
