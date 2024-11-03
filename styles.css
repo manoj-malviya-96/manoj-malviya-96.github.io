@@ -864,7 +864,7 @@ canvas {
     display: grid;
     padding: 0;
     margin: var(--spacing-medium) auto;
-    grid-gap: var(--spacing-large);
+    grid-gap: var(--spacing-very-large);
     grid-template-columns: repeat(4, 1fr);
     box-sizing: border-box;
     align-content: center;
