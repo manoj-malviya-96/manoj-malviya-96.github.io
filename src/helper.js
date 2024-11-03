@@ -145,9 +145,13 @@ function doScrollInViewAnimation(element, timeout_ms) {
 function scrollElementInView(elementId) {
   const element = document.getElementById(elementId);
   if (element) {
-    element.scrollIntoView({
+    const elementTop = element.getBoundingClientRect().top + window.scrollY;
+    const centerPosition = elementTop - window.innerHeight / 9;
+
+    // Smoothly scroll the page to the calculated center position
+    window.scrollTo({
+      top: centerPosition,
       behavior: "smooth",
-      block: "center", // This ensures the element scrolls into the center of the page
     });
     doScrollInViewAnimation(element, 1000);
   } else {
@@ -222,6 +226,19 @@ function getPrimaryColorScale(numStops) {
     result.push([intensity, adjustColor(primaryColor, 1, intensity)]);
   }
   return result;
+}
+
+const possibleRandomColors = [
+  getPrimaryColor(),
+  `rgb(145, 75, 75)`,
+  `rgb(112, 135, 112)`,
+  `rgb(83, 105, 131)`,
+];
+
+function randomColor() {
+  const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
+  console.log(randomInt);
+  return possibleRandomColors[randomInt];
 }
 
 /* ------------ Dropdown Utilities ------------ */
@@ -440,23 +457,26 @@ function addOutsideClickHandler(button, popup) {
   });
 }
 
+const socialMediaLinks = {
+  Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
+  GitHub: "https://github.com/manoj-malviya-96",
+  Instagram: "https://www.instagram.com/manoj_malviya_/",
+  YouTube: "https://www.youtube.com/@manoj_malviya_",
+  Spotify:
+    "https://open.spotify.com/artist/2oq6u1YZ7biOF4NOPwDp8o?si=ijyL-yRWQqGWqdGIr7Irfg&utm_medium=share&utm_source=linktree&nd=1&dlsi=1234682c3e064aaf",
+  Apple: "https://music.apple.com/us/artist/manoj-malviya/1721435458",
+  SoundCloud: "https://soundcloud.com/manoj-malviya-96",
+  MixCloud: "https://www.mixcloud.com/manoj-malviya/",
+  Scholar:
+    "https://scholar.google.com/citations?user=0oMXOy0AAAAJ&hl=en&authuser=2",
+};
+
 function loadSocialMediaLink(identifier, event) {
   event.stopPropagation();
   event.preventDefault();
-  const links = {
-    Linkedin: "https://www.linkedin.com/in/manoj-malviya-44700aa4/",
-    GitHub: "https://github.com/manoj-malviya-96",
-    Instagram: "https://www.instagram.com/manoj_malviya_/",
-    YouTube: "https://www.youtube.com/@manoj_malviya_",
-    Spotify:
-      "https://open.spotify.com/artist/2oq6u1YZ7biOF4NOPwDp8o?si=ijyL-yRWQqGWqdGIr7Irfg&utm_medium=share&utm_source=linktree&nd=1&dlsi=1234682c3e064aaf",
-    Apple: "https://music.apple.com/us/artist/manoj-malviya/1721435458",
-    SoundCloud: "https://soundcloud.com/manoj-malviya-96",
-    MixCloud: "https://www.mixcloud.com/manoj-malviya/",
-  };
 
-  if (links[identifier]) {
-    window.location.href = links[identifier];
+  if (socialMediaLinks[identifier]) {
+    window.location.href = socialMediaLinks[identifier];
   } else {
     console.error("Link not found for identifier:", identifier);
   }

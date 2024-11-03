@@ -377,8 +377,7 @@ class MusicVizView {
         const px = centerX + i * barWidth;
         const nx = centerX - i * barWidth;
 
-        // this.canvasCtx.fillStyle = `${this.primaryColor}`;
-        this.canvasCtx.fillStyle = adjustColor(this.primaryColor, intensity, 1);
+        this.canvasCtx.fillStyle = adjustColor(randomColor(), intensity, 1);
 
         this.canvasCtx.fillRect(
           px,
@@ -453,9 +452,10 @@ class MusicVizView {
 
             const x = centerX + col * xSpacing + offsetX;
             const y = centerY + row * ySpacing;
+            const color = factor > 0.47 ? randomColor() : this.primaryColor;
 
             this.canvasCtx.fillStyle = adjustColor(
-              this.primaryColor,
+              color,
               intensity,
               0.75 * (1 + intensity),
             );
@@ -465,7 +465,7 @@ class MusicVizView {
             this.canvasCtx.arc(x, y, size, 0, Math.PI * 2, false);
             this.canvasCtx.shadowBlur = glow;
             this.canvasCtx.shadowColor = adjustColor(
-              this.primaryColor,
+              color,
               intensity,
               0.5 * (1 + intensity),
             );
@@ -531,7 +531,8 @@ class MusicVizView {
       this.canvasCtx.beginPath();
       this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
 
-      const drawColor = adjustColor(this.primaryColor, factor, 1 + factor);
+      const color = factor > 0.47 ? randomColor() : this.primaryColor;
+      const drawColor = adjustColor(color, factor, 1 + factor);
 
       // Add shadow for glow effect
       this.canvasCtx.shadowBlur = glow;
