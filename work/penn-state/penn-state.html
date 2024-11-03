@@ -32,38 +32,90 @@
 
 <!-- content -->
 <main class="blog-main-content">
-    <div class="content block reading">
+    <section class="content block reading">
+        <h2>Summary</h2>
         <!-- abstract -->
-        <p>
-            I've been deeply involved in developing new computational graphics algorithms that streamline design
-            processes specifically for additive manufacturing, leading to published research in top-tier mechanical
-            design journals and conferences. Additionally, I engineered data analysis tools and interactive experiments
-            using eye-tracking and probabilistic models to better understand user behavior in engineering design. My
-            work has resulted in 8 peer-reviewed publications, and I've presented at seminars, thesis defenses, and
-            international conferences. I also mentored undergraduate students, guiding them through their Honors' theses
-            and helping them grow as budding innovators.
-        </p>
-        <a href="https://support.formlabs.com/s/article/PreForm-Release-Notes?language=en_US"><i
-                class="bi bi-app-indicator"></i> PreForm </a>
-    </div>
+        <ul>
+            <li>Developed innovative 3D graphics algorithms to automate design processes for additive manufacturing,
+                contributing to published research.
+            </li>
+            <li>Engineered data analysis tools and interactive design experiments, leveraging eye-tracking technology
+                and probabilistic models to enhance user insights.
+            </li>
+            <li>Coauthored 8 peer-reviewed publications in top mechanical design journals.</li>
+            <li>Mentored undergraduate students on their Honors' theses, providing guidance on research and design
+                projects.
+            </li>
+        </ul>
+        <span>Read more about few of the projects below:</span>
+    </section>
     <!-- more -->
     <div class="content reading" style="margin-top: var(--spacing-large);">
-        <!-- intro-->
-        <section id="compute-3d" class="level1">
-            <h2>3D Printing Computational Design </h2>
-            <p>
-                Developed novel computational graphics algorithms to automate design processes for embedding in additive
-                manufacturing, resulting in published research in top mechanical design journals (Conference, Journal,
-                Blog).
-            </p>
-        </section>
-
+        <!-- eng-design-->
         <section id="eng-design" class="level1">
-            <h2>Modelling Engineering Design</h2>
-            <p>
+            <h2>Understanding Engineering Design</h2>
+            <span>
                 Engineered data analysis tools and interactive design experiments, using eye-tracking technology and
                 probabilistic models to improve user insights on engineering design processes.
-            </p>
+            </span>
+            <a href="https://asmedigitalcollection.asme.org/mechanicaldesign/article-abstract/142/12/124502/1086965/Mining-Design-Heuristics-for-Additive?redirectedFrom=fulltext">
+                Journal</a> |
+            <a href="" onclick="loadBlogPage('./blogs/eng-dfam/eng-dfam.html')">Blog |</a>
+            <a href="" onclick="loadBlogPage('./blogs/delta-design/delta-design.html')">Delta Design</a>
+
+            <div class="img-container">
+                <span class="img-label">
+                    A Surprising Discovery: 4 Cognitive State Model of Engineering Design, characterized by hidden Markov Models
+                    and probabilistic models.
+                </span>
+                <img src="./work/penn-state/hmm.png" alt="Hidden Markov Model" class="img-fluid"
+                     style="width: 50%; height: 50%">
+            </div>
+            <div class="img-container">
+                <span class="img-label">
+                    Eye-tracking technology was used to study the design process of engineers, to distinguish between
+                    novice and expert designers.
+                </span>
+                <img src="./work/penn-state/eye-tracking.png" alt="Eye Tracking" class="img-fluid">
+            </div>
+            <div class="img-container">
+                <span class="img-label">
+                    Developed a <a href="https://journals.sagepub.com/doi/full/10.1177/16094069211002418">noval algorithm</a>
+                    to analyze the inter-coder reliability of the eye-tracking data.
+                </span>
+                <img src="./work/penn-state/irr.jpeg" alt="Inter-coder Reliability" class="img-fluid">
+            </div>
+        </section>
+        <!-- compute-3d-->
+        <section id="compute-3d" class="level1">
+            <h2>Computational Design in 3D Printing</h2>
+            <span>
+                This research develops tools to automate design decisions for in-situ embedding in
+                additive manufacturing, using two approaches—Shadow Projection and Voxel Simulation—to
+                optimize orientation, design cavities, and shape converters, balancing design complexity and computational efficiency.
+                <a href="https://asmedigitalcollection.asme.org/IDETC-CIE/proceedings-abstract/IDETC-CIE2019/59186/V02AT03A031/1069733">
+                   Conference</a> |
+                <a href="https://www.google.com/url?q=https://doi.org/10.1115/1.4046889&sa=D&source=docs&ust=1730674886418232&usg=AOvVaw1FSL6nZpA0nI15OCsGMXBH">
+                    Journal</a> |
+                <a href="" onclick="loadBlogPage('./blogs/embed-am/embed-am.html')">Blog</a>
+            </span>
+            <div class="img-container">
+                <span class="img-label">
+                    Shows the design process of embedding an object during a 3D print.
+                    The object is placed in a cavity and covered with a shape converter,
+                    which provides a smooth surface for the 3D printer to print on.
+                </span>
+                <img src="./work/penn-state/embed-am.png" alt="Embed 3D" class="img-fluid"
+                     style="width: 50%; height: 50%">
+            </div>
+        </section>
+        <!-- ml-design-->
+        <section id="ml-design" class="level1">
+            <h2>Machine Learning and Engineering Design</h2>
+            <span>A Systematic Study of Deep Generative Models for Rapid Topology Optimization</span>
+            <a href="https://engrxiv.org/preprint/view/1231/">
+                PrePrint</a> |
+            <a href="" onclick="loadBlogPage('./blogs/rapid-topt/rapid-topt.html')">Blog</a>
         </section>
     </div>
 </main> <!-- /main -->

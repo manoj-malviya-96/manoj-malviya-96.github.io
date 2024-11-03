@@ -995,6 +995,7 @@ canvas {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    text-align: justify-all;
 }
 
 /* ----------------------------- Blog Sidebar Styling ----------------------------- */
@@ -1091,8 +1092,8 @@ canvas {
 .img-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;;
+    justify-content: center;
+    align-items: center;
     margin: var(--spacing-large) auto;
 }
 
