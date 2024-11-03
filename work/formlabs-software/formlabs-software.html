@@ -33,19 +33,32 @@
 
 <!-- content -->
 <main class="blog-main-content">
-    <div class="content block reading">
+    <section class="content block reading">
+        <h2>Responsibilities</h2>
         <!-- abstract -->
-        <p> As a Lead UI Developer, I was responsible for the development of a next-gen UI framework for a Desktop
-            Application. I worked closely with the design team to create a user-friendly interface that was both
-            intuitive and visually appealing.
-        </p>
-        <p style="padding-top: var(--spacing-medium)"><strong>Objective: </strong> Create a modular framework and
-            UI/UX elements, for a simpler and
-            powerful user-experience to streamline workflows.
-        </p>
-        <a href="https://support.formlabs.com/s/article/PreForm-Release-Notes?language=en_US"><i
-                class="bi bi-app-indicator"></i> PreForm </a>
-    </div>
+        <ul>
+            <li>Led end-to-end development of high-performance CAD features for PreForm: 3d printing support
+                generation,
+                auto-orientation, and part cages.
+            </li>
+            <li>Revamped core 3D printing support generation feature, creating a patent-pending algorithm that reduced
+                user burden by ~35%.
+            </li>
+            <li>Owned development of a modular UI framework with C++ and Qt, improving workflows and user experience by
+                ~27%.
+            </li>
+            <li>Developed large-scale data analysis tools using SQL, Redash, and Segment for data-driven
+                decision-making.
+            </li>
+            <li>Supported cross-functional teams through pair programming, code reviews, mentoring, and user studies;
+                managed and mentored 6 interns.
+            </li>
+            <li>Led test-driven development, established coding standards, and fixed critical bugs.</li>
+            <li>Recognized with a <strong>Performance Award</strong> as a Top 30 engineer for productivity and impact.
+            </li>
+        </ul>
+        <p>Read more about the specific achievements below.</p>
+    </section>
     <!-- more -->
     <div class="content reading" style="margin-top: var(--spacing-large);">
         <!-- intro-->
@@ -58,64 +71,86 @@
                 The goal of the project was to create a new UI framework that would make the application more
                 user-friendly and intuitive.
             </p>
-            <img src="./work/formlabs-software/before-preform.png" alt="Before-Me" class="img-fluid">
-            <table border="1">
-                <tr>
-                    <th>Before</th>
-                    <th>After</th>
-                </tr>
-                <tr>
-                    <td style="width:50%;">
-                        <ul>
-                            <li>The application was not
-                                intuitive enough, and the user had to navigate through multiple screens to perform a single
-                                task.
-                            </li>
-                            <li>In addition, visual clutter and lack of consistency in the UI elements made the application
-                                difficult to use.
-                            </li>
-                            <li>Architecture was not modular and had a lot of copy-paste code.</li>
-                        </ul>
-                    </td>
-                    <td style="width:50%;">
-                        <ul>
-                            <li>The new UI framework is modular and allows for easy customization of UI elements.</li>
-                            <li>It also has a consistent design language that makes the application easier to use.</li>
-                            <li>Architecture was modularized and made it easier to maintain and extend.</li>
-                            <li>QMl Standards were optimized and used a better QML Coding Standards and optimization</li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-            <img src="./work/formlabs-software/after-preform.png" alt="After-Me" data-label="After" class="img-fluid">
-            <p>Its better because ?</p>
-            <img src="./work/formlabs-software/after-toolbar.png" style="height: 269px; width: auto;"
-                 alt="After-Toolbar"
-                 class="img-fluid">
-            <img src="./work/formlabs-software/after-print.png" style="height: 269px; width: auto;" alt="After-Print"
-                 class="img-fluid">
+            <p style="padding-top: var(--spacing-medium)"><strong>Objective: </strong> Create a modular framework and
+                UI/UX elements, for a simpler and
+                powerful user-experience to streamline workflows.
+            </p>
+            <a href="https://support.formlabs.com/s/article/PreForm-Release-Notes?language=en_US"><i
+                    class="bi bi-app-indicator"></i> PreForm </a>
+
+            <div class="img-container">
+                <div class="img-label">
+                    <h3>Before</h3>
+                    <ul>
+                        <li>The application was not
+                            intuitive enough, and the user had to navigate through multiple screens to perform a
+                            single
+                            task.
+                        </li>
+                        <li>In addition, visual clutter and lack of consistency in the UI elements made the
+                            application
+                            difficult to use.
+                        </li>
+                        <li>Architecture was not modular and had a lot of copy-paste code.</li>
+                    </ul>
+                </div>
+                <img src="./work/formlabs-software/before-preform.png" class="img-fluid" alt="Before-Me">
+            </div>
+
+            <div class="img-container">
+                <div class="img-label">
+                    <h3>After</h3>
+                    <ul>
+                        <li>The new UI framework is modular and allows for easy customization of UI elements.</li>
+                        <li>It also has a consistent design language that makes the application easier to use.</li>
+                        <li>Architecture was modularized and made it easier to maintain and extend.</li>
+                        <li>Optimized QML code through profiling and refactoring, improving performance by 27%.</li>
+                    </ul>
+                </div>
+                <img src="./work/formlabs-software/after-preform.png" class="img-fluid" alt="After-Me">
+            </div>
         </section>
 
+        <!-- cadtools -->
+        <section id="suports" class="level1">
+            <h2>Support Innovation </h2>
+            <p>
+                Developed a <strong>patent-pending</strong> algorithm for 3D printing support generation, a critical
+                feature in PreForm
+                that automatically generates support structures for 3D models. The algorithm reduces the material-usage
+                by
+                35% by automatically generating supports that are optimized for the model and the printer. This feature
+                improves print quality, reduces print time, and minimizes material usage.
+            </p>
+
+            <div class="img-container">
+                <span class="img-label">
+                Here is a prototype of it, developed to test the mathematical model. Complexity of this
+                algorithm grew,
+                when it was used in real life application, thus requiring innovation and mathematical
+                tricks.
+                </span>
+                <img src="./work/formlabs-software/gsopt.gif" alt="GSOpt" class="img-fluid">
+            </div>
+        </section>
         <!-- toolbar -->
-        <section id="cadTools" class="level1">
-            <h2>Cad Tools</h2>
+        <section id="partCages" class="level1">
+            <h2>Cad Features</h2>
             <p>
-                Led the end-to-end development of high-performance and easy to use CAD features for a 3D
-                print-preparation software (PreForm): auto-orientation improvements, auto-supports,
-                part cages (efficient 3D packing algorithm and cage construction, all in a few sec. for more than 500
-                parts in a scene), etc.
+                Led the end-to-end development of high-performance feature called <strong>part cages</strong>, a feature
+                in PreForm, are used to efficiently pack and organize multiple small parts within a
+                single 3D print. They create a structured enclosure around the parts, ensuring they remain in place
+                during the printing process, particularly in SLS (Selective Laser Sintering) printing. This method
+                minimizes the risk of part movement or damage, improves print reliability, and makes post-processing
+                easier by keeping parts contained in a defined space.
             </p>
-            <img src="./work/formlabs-software/before-toolbar.png" style="height: 300px; width: auto;" alt="Before-Toolbar"
-                 class="img-fluid">
-            <p>
-                Handling small or delicate SLS 3D printed parts can be a real pain, requiring a lot of focus and extra
-                care. But here’s a cool trick: Part Cages! These handy devices let you batch process small parts, saving
-                you a ton of time and effort. Just shake out the powder when you’re sifting, blast it with media, and
-                then pop open the cage using a pair of pliers or a Dremel. And for those fragile parts, suspending them
-                in a Part Cage can actually reduce the damage when you clean them alongside other parts.
-            </p>
-            <img src="./work/formlabs-software/after-toolbar.png" style="height: 300px; width: auto;" alt="After-Toolbar"
-                 class="img-fluid">
+            <div class="img-container">
+                <span class="img-label">
+                 Production ready part cages feature, developed with C++ and QML, integrated with PreForm.
+                    It features an easy-to-use interface, with drag-and-drop functionality, and real-time feedback, with high performance.
+                </span>
+                <img src="./work/formlabs-software/cage.jpg" alt="Part Cages" class="img-fluid">
+            </div>
         </section>
     </div>
 </main> <!-- /main -->

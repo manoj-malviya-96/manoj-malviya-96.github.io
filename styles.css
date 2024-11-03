@@ -4,8 +4,8 @@
 /* px value at 1700px */
 :root {
     /* Black and White */
-    --color-white: rgb(230, 230, 230);
-    --color-black: rgb(13, 13, 13);
+    --color-white: rgb(247, 247, 247);
+    --color-black: rgb(7, 7, 7);
 
     /* Color Palette */
     --color-brand: rgb(197, 147, 127); /* Tomato, my fav*/
@@ -1088,13 +1088,31 @@ canvas {
 
 /*-------------------------------- Blog Components ---------------------*/
 /* Img Fluid */
-img.img-fluid {
+.img-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;;
+    margin: var(--spacing-large) auto;
+}
+
+.img-container img.img-fluid {
     position: relative;
     display: block;
     height: auto;
     width: 100%;
-    margin: var(--spacing-large) auto;
+    border: none;
+    outline: none;
+    margin-top: var(--spacing-medium);
     border-radius: var(--default-radius);
+}
+
+.img-label {
+    padding: var(--spacing-medium);
+    width: 100%;
+    border-radius: 0 var(--default-radius) var(--default-radius) 0;
+    background-color: var(--color-primary);
+    border-left: var(--border-width) solid var(--color-brand);
 }
 
 /* Table */
