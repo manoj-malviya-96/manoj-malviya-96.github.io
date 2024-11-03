@@ -46,6 +46,8 @@ const appHTMLToInits = {
 
 const workHTMLToExtraCallbacks = {
   "./work/formlabs-software/formlabs-software.html": [],
+  "./work/formlabs-rd/formlabs-rd.html": [],
+  "./work/penn-state/penn-state.html": [],
 };
 
 /** ---------------------------- Content Loader  ---------------------------- **/

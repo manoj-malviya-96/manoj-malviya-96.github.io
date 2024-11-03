@@ -38,6 +38,7 @@
     --bold-weight: 869;
     --line-height: 1.69;
 
+    --small-text-size: 11px;
     --regular-text-size: 14px;
     --title-font-size: 21px;
     --super-title-font-size: 27px;
@@ -552,8 +553,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* ----------------------- Tags --------------------------- */
 .tag-date {
+    font-size: var(--small-text-size);
     text-transform: uppercase;
-    line-height: var(--line-height);
     position: absolute;
     right: var(--spacing-small);
     bottom: var(--spacing-small);
@@ -566,7 +567,7 @@ input[type="range"]::-webkit-slider-thumb {
     margin: var(--spacing-tiny);
     width: fit-content;
     border-radius: var(--small-radius);
-    font-size: var(--regular-text-size);
+    font-size: var(--small-text-size);
     color: var(--color-text) !important;
     background-color: var(--color-primary);
 }
