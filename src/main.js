@@ -207,24 +207,17 @@ function makeAppButton(container, appHTMLPath) {
     );
 }
 
-function makeAppButtons() {
+async function makeAppButtons() {
   const container = window.document.getElementById("appList");
   container.innerHTML = ""; // Clear the container before adding new cards
   if (!container) {
     throw new Error(`Element with ID- appList not found.`);
   }
-  const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
-    makeAppButton(container, appHTML),
-  );
-  Promise.all(promises)
-    .then(() => {
-      runWithDelay(() => {
-        initStylesForGridContainer(container), 100;
-      });
-    })
-    .catch((err) => {
-      console.error("Error loading all apps:", err);
-    });
+
+  for (const [appHTML] of Object.entries(appHTMLToInits)) {
+    await makeAppButton(container, appHTML);
+  }
+  initStylesForGridContainer(container);
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
@@ -577,24 +570,18 @@ function makeWorkCard(pagePath, container) {
     });
 }
 
-function makeWorkCards() {
+async function makeWorkCards() {
   const container = window.document.getElementById("workList");
   if (!container) {
     throw new Error(`Element with ID '${container}' not found.`);
   }
   container.innerHTML = ""; // Clear the container before adding new cards
 
-  const promises = Object.entries(workHTMLToExtraCallbacks).map(([workKey]) =>
-    makeWorkCard(workKey, container),
-  );
-
-  Promise.all(promises)
-    .then(() => {
-      initStylesForGridContainer(container);
-    })
-    .catch((err) => {
-      console.error("Error loading all work experience:", err);
-    });
+  // Sequentially load each project and add it to the container
+  for (const [workKey] of Object.entries(workHTMLToExtraCallbacks)) {
+    await makeWorkCard(workKey, container);
+  }
+  initStylesForGridContainer(container);
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/
