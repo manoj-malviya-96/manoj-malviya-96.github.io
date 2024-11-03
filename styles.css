@@ -1106,7 +1106,7 @@ canvas {
     margin-top: var(--spacing-medium);
     border-radius: var(--default-radius);
 }
-
+/* TODO this can be an adder function */
 .img-label {
     padding: var(--spacing-medium);
     width: 100%;
