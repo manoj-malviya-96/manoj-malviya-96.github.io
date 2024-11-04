@@ -219,8 +219,8 @@ function makeAppButtons() {
   Promise.all(promises)
     .then(() => {
       runWithDelay(() => {
-        initStylesForGridContainer(container), 100;
-      });
+        initStylesForGridContainer(container);
+      }, 100);
     })
     .catch((err) => {
       console.error("Error loading all apps:", err);
