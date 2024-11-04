@@ -207,17 +207,24 @@ function makeAppButton(container, appHTMLPath) {
     );
 }
 
-async function makeAppButtons() {
+function makeAppButtons() {
   const container = window.document.getElementById("appList");
   container.innerHTML = ""; // Clear the container before adding new cards
   if (!container) {
     throw new Error(`Element with ID- appList not found.`);
   }
-
-  for (const [appHTML] of Object.entries(appHTMLToInits)) {
-    await makeAppButton(container, appHTML);
-  }
-  initStylesForGridContainer(container);
+  const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
+    makeAppButton(container, appHTML),
+  );
+  Promise.all(promises)
+    .then(() => {
+      runWithDelay(() => {
+        initStylesForGridContainer(container), 100;
+      });
+    })
+    .catch((err) => {
+      console.error("Error loading all apps:", err);
+    });
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
