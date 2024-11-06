@@ -17,8 +17,6 @@ class MusicVizView {
     this.isPlaying = false;
     this.selectedVisualizer = "circles";
 
-    this.primaryColor = getPrimaryColor();
-
     this.init();
   }
 
@@ -96,7 +94,7 @@ class MusicVizView {
     const backgroundColor = getContrastColor();
     if (this.isPlaying) {
       this.elements.progressBar.style.background = `linear-gradient(to right, 
-                                                            ${this.primaryColor} ${this.elements.progressBar.value}%,  
+                                                            ${brandColor} ${this.elements.progressBar.value}%,  
                                                             ${backgroundColor} ${this.elements.progressBar.value}%)`;
     } else {
       this.elements.progressBar.style.background = `${backgroundColor}`;
@@ -442,7 +440,7 @@ class MusicVizView {
             );
             const intensity =
               this.dataArray[dataIndex % this.bufferLength] / 255; // Normalize intensity
-            const factor = intensity ** 3;
+            const factor = intensity ** 2;
 
             const glow = factor * 21;
             const size = 2 * circleRadius * factor;
@@ -452,7 +450,7 @@ class MusicVizView {
 
             const x = centerX + col * xSpacing + offsetX;
             const y = centerY + row * ySpacing;
-            const color = factor > 0.47 ? randomColor() : this.primaryColor;
+            const color = factor > 0.47 ? randomColor() : brandColor;
 
             this.canvasCtx.fillStyle = adjustColor(
               color,

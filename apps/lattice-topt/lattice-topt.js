@@ -1,4 +1,3 @@
-const brandColor = getPrimaryColor();
 const maxLineWidth = 3;
 
 class LatticeMesh {

@@ -456,7 +456,7 @@ section {
     position: absolute;
     width: auto;
     height: auto;
-    min-width: 80px;
+    min-width: 120px;
     padding: var(--spacing-small);
     margin: var(--spacing-small) 0;
     border-radius: var(--default-radius);

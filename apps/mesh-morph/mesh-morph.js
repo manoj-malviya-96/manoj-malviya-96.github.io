@@ -2,12 +2,10 @@ const meshViewWidth = appWindowWidth;
 const meshViewHeight = appWindowHeight;
 const mainLightColor = 0xffffff;
 const softLightColor = 0x404040;
-const primaryColor = getPrimaryColor();
 
 class LoadedMesh {
   constructor() {
     this.geometry = null;
-    this.centroid = null;
 
     this.volume = 0;
     this.numTriangles = 0;
@@ -19,7 +17,6 @@ class LoadedMesh {
 
   load(arrayBuffer) {
     this.geometry = this._loader.parse(arrayBuffer);
-    this.centroid = this.computeAccurateCentroid(this.geometry);
     this.volume = this.computeVolume(this.geometry);
     this.numTriangles = this.geometry.index
       ? this.geometry.index.count / 3
@@ -29,21 +26,6 @@ class LoadedMesh {
 
   simplifyMesh(value = 0.5) {
     console.log("Simplifying mesh with value", value);
-  }
-
-  computeAccurateCentroid(geometry) {
-    const centroid = new THREE.Vector3();
-    const position = geometry.attributes.position;
-    const numVertices = position.count;
-
-    for (let i = 0; i < numVertices; i++) {
-      centroid.add(
-        new THREE.Vector3(position.getX(i), position.getY(i), position.getZ(i)),
-      );
-    }
-
-    centroid.divideScalar(numVertices);
-    return centroid;
   }
 
   computeVolume(geometry) {
@@ -68,7 +50,6 @@ class LoadedMesh {
       );
       volume += p1.dot(p2.cross(p3)) / 6.0;
     }
-
     return Math.abs(volume);
   }
 
@@ -82,7 +63,7 @@ class LoadedMesh {
 class MeshRenderer {
   constructor(canvas, width = meshViewWidth, height = meshViewHeight) {
     this.scene = new THREE.Scene();
-    this.material = new THREE.MeshPhongMaterial({ color: getContrastColor() });
+    this.material = new THREE.MeshPhongMaterial({ color: brandColor });
     this.loadedMesh = new LoadedMesh();
 
     this.webGLRenderer = null;
@@ -114,10 +95,10 @@ class MeshRenderer {
 
   setupCamera(width, height) {
     this.camera = new THREE.PerspectiveCamera(
-      75,
+      75, // POV
       width / height, // Aspect ratio to match your canvas
-      1,
-      1000,
+      0.01, // Clipping near place
+      1000, // Clipping far plane
     );
   }
 
@@ -151,27 +132,19 @@ class MeshRenderer {
     try {
       // Load the mesh from buffer
       this.loadedMesh.load(arrayBuffer);
-      this.renderMesh(true); // Loading first time, so center to centroid
-      // Render it with centered to centroid
+      this.renderMesh();
     } catch (error) {
       console.error("Error loading mesh", error);
     }
   }
 
-  renderMesh(centerToModelOrigin = false) {
+  renderMesh() {
     if (this.renderedMeshes.length > 0) {
       console.log("Clearing existing meshes");
       this.clearRenderedMeshes();
     }
     // Render the loaded mesh
-    this.renderLoadedMesh(
-      this.loadedMesh.geometry,
-      this.material,
-      centerToModelOrigin ? this.loadedMesh.centroid : null,
-    );
-    // Render the centroid
-    this.renderCentroid(new THREE.Vector3(0, 0, 0));
-    // Set the camera to look at the centroid
+    this.renderLoadedMesh(this.loadedMesh.geometry, this.material);
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }
@@ -193,31 +166,9 @@ class MeshRenderer {
     this.renderedMeshes.push(mesh);
   }
 
-  renderLoadedMesh(geometry, material, centroid = null) {
+  renderLoadedMesh(geometry, material) {
     const renderedMesh = new THREE.Mesh(geometry, material);
-    if (centroid) {
-      renderedMesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
-    }
-
     this.addRenderedMeshToScene(renderedMesh);
-  }
-
-  renderCentroid(centroid) {
-    const radius = 0.69;
-    const segments = 16;
-    const centroidGeometry = new THREE.SphereGeometry(
-      radius,
-      segments,
-      segments,
-    );
-
-    const centroidMaterial = new THREE.MeshBasicMaterial({
-      color: primaryColor,
-    });
-
-    const centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
-    centroidPoint.position.copy(centroid);
-    this.addRenderedMeshToScene(centroidPoint);
   }
 
   homeControls() {
@@ -242,7 +193,7 @@ class MeshRenderer {
     const distance = Math.max(fitHeightDistance, fitWidthDistance);
 
     // Update camera position to make sure the model fits
-    this.camera.position.set(center.x, center.y, center.z + distance * 1.5); // Add a little extra distance for padding
+    this.camera.position.set(center.x, center.y, center.z + 2 * distance); // Add a little extra distance for padding
     if (onlyApplyPosition) {
       return;
     }

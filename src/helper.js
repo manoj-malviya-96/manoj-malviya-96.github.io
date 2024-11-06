@@ -209,27 +209,24 @@ function getSizeFromStyle(property) {
   return Number(getStyleValue(property).replace("px", ""));
 }
 
-function getPrimaryColor() {
-  return getStyleValue("--color-brand");
-}
+const brandColor = getStyleValue("--color-brand");
 
 function getContrastColor() {
   return getStyleValue("--color-primary");
 }
 
 function getPrimaryColorScale(numStops) {
-  const primaryColor = getPrimaryColor();
   const lastColor = getContrastColor();
   let result = [[0, lastColor]];
   for (let i = 1; i <= numStops; i += 1) {
     const intensity = i / numStops;
-    result.push([intensity, adjustColor(primaryColor, 1, intensity)]);
+    result.push([intensity, adjustColor(brandColor, 1, intensity)]);
   }
   return result;
 }
 
 const possibleRandomColors = [
-  getPrimaryColor(),
+  brandColor,
   `rgb(145, 75, 75)`,
   `rgb(112, 135, 112)`,
   `rgb(83, 105, 131)`,
