@@ -270,11 +270,6 @@ function initStylesForGridContainer(gridContainer) {
 
   const numOfItems = gridContainer.children.length;
   if (numOfItems === 0) {
-    console.log(
-      gridContainer,
-      gridContainer.children.length,
-      gridContainer.children,
-    );
     console.warn("No items in the grid container");
     return;
   }
@@ -291,10 +286,6 @@ function initStylesForGridContainer(gridContainer) {
     ),
   );
 
-  console.log(
-    `Grid container: ${id} width: ${containerWidth}px, Item width: ${itemWidth}px, 
-        Num columns: ${numColumns}, Grid gap: ${gridGap}px`,
-  );
   gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
   gridContainer.style.gridGap = `${gridGap}px`;
 }
