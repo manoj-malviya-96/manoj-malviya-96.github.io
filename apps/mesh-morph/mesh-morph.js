@@ -151,26 +151,20 @@ class MeshRenderer {
     try {
       // Load the mesh from buffer
       this.loadedMesh.load(arrayBuffer);
-      this.renderMesh(true); // Loading first time, so center to centroid
+      this.renderMesh();
       // Render it with centered to centroid
     } catch (error) {
       console.error("Error loading mesh", error);
     }
   }
 
-  renderMesh(centerToModelOrigin = false) {
+  renderMesh() {
     if (this.renderedMeshes.length > 0) {
       console.log("Clearing existing meshes");
       this.clearRenderedMeshes();
     }
     // Render the loaded mesh
-    this.renderLoadedMesh(
-      this.loadedMesh.geometry,
-      this.material,
-      centerToModelOrigin ? this.loadedMesh.centroid : null,
-    );
-    // Render the centroid
-    this.renderCentroid(new THREE.Vector3(0, 0, 0));
+    this.renderLoadedMesh(this.loadedMesh.geometry, this.material);
     // Set the camera to look at the centroid
     this.controls.target.set(0, 0, 0);
     this.controls.update();
@@ -193,31 +187,9 @@ class MeshRenderer {
     this.renderedMeshes.push(mesh);
   }
 
-  renderLoadedMesh(geometry, material, centroid = null) {
+  renderLoadedMesh(geometry, material) {
     const renderedMesh = new THREE.Mesh(geometry, material);
-    if (centroid) {
-      renderedMesh.geometry.translate(-centroid.x, -centroid.y, -centroid.z); // Center the mesh
-    }
-
     this.addRenderedMeshToScene(renderedMesh);
-  }
-
-  renderCentroid(centroid) {
-    const radius = 0.69;
-    const segments = 16;
-    const centroidGeometry = new THREE.SphereGeometry(
-      radius,
-      segments,
-      segments,
-    );
-
-    const centroidMaterial = new THREE.MeshBasicMaterial({
-      color: primaryColor,
-    });
-
-    const centroidPoint = new THREE.Mesh(centroidGeometry, centroidMaterial);
-    centroidPoint.position.copy(centroid);
-    this.addRenderedMeshToScene(centroidPoint);
   }
 
   homeControls() {
@@ -242,7 +214,7 @@ class MeshRenderer {
     const distance = Math.max(fitHeightDistance, fitWidthDistance);
 
     // Update camera position to make sure the model fits
-    this.camera.position.set(center.x, center.y, center.z + distance * 1.5); // Add a little extra distance for padding
+    this.camera.position.set(center.x, center.y, center.z + distance * 3); // Add a little extra distance for padding
     if (onlyApplyPosition) {
       return;
     }
