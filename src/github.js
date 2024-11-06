@@ -105,8 +105,7 @@ class GithubProfile {
       colorscale: getPrimaryColorScale(7),
       zmin: 1, // Avoid 0 on the log scale
       zmax: Math.max(...z.flat()), // Set zmax based on the highest commit count
-      showscale: true,
-      colorbar: getColorBar("Commits"),
+      showscale: false,
       hovertemplate: "%{x}, Day %{y} | %{z} commits<extra></extra>",
       x: Array.from({ length: z[0].length }, (_, week) =>
         estimateMonthAndWeek(week),
