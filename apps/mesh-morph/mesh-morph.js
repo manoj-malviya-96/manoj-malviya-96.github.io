@@ -6,7 +6,6 @@ const softLightColor = 0x404040;
 class LoadedMesh {
   constructor() {
     this.geometry = null;
-    this.centroid = null;
 
     this.volume = 0;
     this.numTriangles = 0;
@@ -18,7 +17,6 @@ class LoadedMesh {
 
   load(arrayBuffer) {
     this.geometry = this._loader.parse(arrayBuffer);
-    this.centroid = this.computeAccurateCentroid(this.geometry);
     this.volume = this.computeVolume(this.geometry);
     this.numTriangles = this.geometry.index
       ? this.geometry.index.count / 3
@@ -28,21 +26,6 @@ class LoadedMesh {
 
   simplifyMesh(value = 0.5) {
     console.log("Simplifying mesh with value", value);
-  }
-
-  computeAccurateCentroid(geometry) {
-    const centroid = new THREE.Vector3();
-    const position = geometry.attributes.position;
-    const numVertices = position.count;
-
-    for (let i = 0; i < numVertices; i++) {
-      centroid.add(
-        new THREE.Vector3(position.getX(i), position.getY(i), position.getZ(i)),
-      );
-    }
-
-    centroid.divideScalar(numVertices);
-    return centroid;
   }
 
   computeVolume(geometry) {
@@ -67,7 +50,6 @@ class LoadedMesh {
       );
       volume += p1.dot(p2.cross(p3)) / 6.0;
     }
-
     return Math.abs(volume);
   }
 
@@ -151,7 +133,6 @@ class MeshRenderer {
       // Load the mesh from buffer
       this.loadedMesh.load(arrayBuffer);
       this.renderMesh();
-      // Render it with centered to centroid
     } catch (error) {
       console.error("Error loading mesh", error);
     }
@@ -164,7 +145,6 @@ class MeshRenderer {
     }
     // Render the loaded mesh
     this.renderLoadedMesh(this.loadedMesh.geometry, this.material);
-    // Set the camera to look at the centroid
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }
