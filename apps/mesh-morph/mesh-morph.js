@@ -214,7 +214,7 @@ class MeshRenderer {
     const distance = Math.max(fitHeightDistance, fitWidthDistance);
 
     // Update camera position to make sure the model fits
-    this.camera.position.set(center.x, center.y, center.z + distance * 3); // Add a little extra distance for padding
+    this.camera.position.set(center.x, center.y, center.z + 2 * distance); // Add a little extra distance for padding
     if (onlyApplyPosition) {
       return;
     }
