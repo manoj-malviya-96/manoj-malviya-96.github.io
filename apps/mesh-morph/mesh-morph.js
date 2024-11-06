@@ -2,7 +2,6 @@ const meshViewWidth = appWindowWidth;
 const meshViewHeight = appWindowHeight;
 const mainLightColor = 0xffffff;
 const softLightColor = 0x404040;
-const primaryColor = getPrimaryColor();
 
 class LoadedMesh {
   constructor() {
@@ -82,7 +81,7 @@ class LoadedMesh {
 class MeshRenderer {
   constructor(canvas, width = meshViewWidth, height = meshViewHeight) {
     this.scene = new THREE.Scene();
-    this.material = new THREE.MeshPhongMaterial({ color: getContrastColor() });
+    this.material = new THREE.MeshPhongMaterial({ color: brandColor });
     this.loadedMesh = new LoadedMesh();
 
     this.webGLRenderer = null;
