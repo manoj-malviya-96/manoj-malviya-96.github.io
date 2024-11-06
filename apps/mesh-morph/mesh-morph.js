@@ -113,10 +113,10 @@ class MeshRenderer {
 
   setupCamera(width, height) {
     this.camera = new THREE.PerspectiveCamera(
-      75,
+      75, // POV
       width / height, // Aspect ratio to match your canvas
-      1,
-      1000,
+      0.01, // Clipping near place
+      1000, // Clipping far plane
     );
   }
 
