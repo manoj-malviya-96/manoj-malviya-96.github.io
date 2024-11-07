@@ -71,10 +71,15 @@ class GithubProfile {
   // Render the heatmap
   renderHeatmap(year) {
     const z = this.getHeatmapData(year);
+    // Function to estimate the actual date based on the week of the year
+    const estimateDate = (week) => {
+      // Start from January 1 of the given year
+      const startDate = new Date(year, 0, 1); // January 1st of the given year
+      const estimatedDate = new Date(startDate);
+      estimatedDate.setDate(startDate.getDate() + week * 7); // Add days based on week number
 
-    // Function to estimate the month and the week within that month
-    const estimateMonthAndWeek = (week) => {
-      const months = [
+      // Format the date as "Month Day" (e.g., "Sep 20")
+      const monthNames = [
         "Jan",
         "Feb",
         "Mar",
@@ -88,13 +93,10 @@ class GithubProfile {
         "Nov",
         "Dec",
       ];
-      const estimatedMonthIndex = Math.floor(week / 4.33); // Estimate the month based on the week of the year
-      const month = months[estimatedMonthIndex] || "Unknown";
+      const month = monthNames[estimatedDate.getMonth()];
+      const day = estimatedDate.getDate();
 
-      // Calculate the week within the month (1 to 4)
-      const weekInMonth = (week % Math.floor(4.33)) + 1;
-
-      return `${month}, Week ${weekInMonth}`;
+      return `${month} ${day}`;
     };
 
     const heatmapTrace = {
@@ -106,10 +108,8 @@ class GithubProfile {
       zmin: 1, // Avoid 0 on the log scale
       zmax: Math.max(...z.flat()), // Set zmax based on the highest commit count
       showscale: false,
-      hovertemplate: "%{x}, Day %{y} | %{z} commits<extra></extra>",
-      x: Array.from({ length: z[0].length }, (_, week) =>
-        estimateMonthAndWeek(week),
-      ), // Generate x values as "Month Week"
+      hovertemplate: "%{x} - %{z} commits<extra></extra>",
+      x: Array.from({ length: z[0].length }, (_, week) => estimateDate(week)), // Generate x values as "Month Day"
     };
 
     const width = getSizeFromStyle("--max-body-width");
