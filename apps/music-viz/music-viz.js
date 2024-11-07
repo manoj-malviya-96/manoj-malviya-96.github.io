@@ -529,7 +529,7 @@ class MusicVizView {
       this.canvasCtx.beginPath();
       this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
 
-      const color = factor > 0.47 ? randomColor() : this.primaryColor;
+      const color = factor > 0.47 ? randomColor() : brandColor;
       const drawColor = adjustColor(color, factor, 1 + factor);
 
       // Add shadow for glow effect
