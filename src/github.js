@@ -71,33 +71,33 @@ class GithubProfile {
   // Render the heatmap
   renderHeatmap(year) {
     const z = this.getHeatmapData(year);
-    // Function to estimate the actual date based on the week of the year
-    const estimateDate = (week) => {
+    // January 1st of the given year
+    const startDate = new Date(year, 0, 1);
+
+    // Function to estimate the exact date based on the week and day within that week
+    const estimateExactDate = (week, day) => {
       // Start from January 1 of the given year
-      const startDate = new Date(year, 0, 1); // January 1st of the given year
-      const estimatedDate = new Date(startDate);
-      estimatedDate.setDate(startDate.getDate() + week * 7); // Add days based on week number
+      const exactDate = new Date(startDate);
 
-      // Format the date as "Month Day" (e.g., "Sep 20")
-      const monthNames = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      const month = monthNames[estimatedDate.getMonth()];
-      const day = estimatedDate.getDate();
+      // Calculate the exact day by adding days for both week and day within that week
+      exactDate.setDate(startDate.getDate() + week * 7 + day); // Adjust for week and day
+      const month = monthNames[exactDate.getMonth()];
+      const date = exactDate.getDate();
 
-      return `${month} ${day}`;
+      return `${month} ${date}`;
     };
+
+    // Generate the exact dates for each cell based on week and day
+    const customDates = [];
+    for (let day = 0; day < z.length; day++) {
+      const temp = [];
+      for (let week = 0; week < z[0].length; week++) {
+        temp.push(estimateExactDate(week, day));
+      }
+      customDates.push(temp);
+    }
+
+    console.log(z[0].length, z.length);
 
     const heatmapTrace = {
       z: z,
@@ -108,9 +108,14 @@ class GithubProfile {
       zmin: 1, // Avoid 0 on the log scale
       zmax: Math.max(...z.flat()), // Set zmax based on the highest commit count
       showscale: false,
-      hovertemplate: "%{x} - %{z} commits<extra></extra>",
-      x: Array.from({ length: z[0].length }, (_, week) => estimateDate(week)), // Generate x values as "Month Day"
+      hovertemplate: "%{z} commits on %{customdata}<extra></extra>",
+      x: Array.from({ length: z[0].length }, (_, week) => week), // x represents the week number
+      y: Array.from({ length: 7 }, (_, day) => day), // y represents the day within the week
+      customdata: customDates, // Assign customDates to customdata for each cell
     };
+
+    // Assign customDates to each cell in customdata so it can be used in the hovertemplate
+    heatmapTrace.customdata = customDates;
 
     const width = getSizeFromStyle("--max-body-width");
     const height = Math.ceil(

@@ -6,6 +6,22 @@ const appWindowHeight = getSizeFromStyle("--app-window-height");
 const hideHeightClass = "hide-height";
 const hideWidthClass = "hide-width";
 
+// Format the date as "Month Day" (e.g., "Sep 20")
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 function runWithDelay(callback, delay_ms = timeOut_ms, single_arg = null) {
   if (!callback) {
     console.error("Callback function not provided");
