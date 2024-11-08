@@ -8,11 +8,11 @@
     --color-black: rgb(7, 7, 7);
 
     /* Color Palette */
-    --color-brand: rgb(197, 147, 127); /* Tomato, my fav*/
+    --color-brand: rgb(195, 104, 73); /* Tomato, my fav*/
     /*Option 1 - #DC143C - rgb(220, 20, 60) Crimson, my boos fav*/
-    /*Option 2 - #C5937FFF rgb(197, 147, 127); Tomato, my fav*/
+    /*Option 2 - #C36849FF rgb(195, 104, 73); Tomato, my fav*/
     /* NOTE: If you change the primary color, make sure to update the calendar graph colors and logo.svg as well */
-    --shadow-brand: 0 5px 20px rgb(197, 147, 127, 0.47);
+    --shadow-brand: 0 5px 20px rgb(195, 104, 73, 0.47);
 
     /* Spacing */
     --spacing-tiny: 3px;

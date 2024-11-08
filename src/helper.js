@@ -242,11 +242,11 @@ function getPrimaryColorScale(numStops) {
 }
 
 const possibleRandomColors = [
-  `rgb(145, 75, 75)`,
-  `rgb(112, 135, 112)`,
-  `rgb(83, 105, 131)`,
-  `rgb(156, 230, 132)`,
-  `rgb(216, 216, 216)`,
+  `rgb(251, 224, 224)`,
+  `rgb(238, 253, 238)`,
+  `rgb(163, 213, 255)`,
+  `rgb(228, 24, 24)`,
+  `rgb(250, 250, 250)`,
 ];
 
 function randomColor() {
