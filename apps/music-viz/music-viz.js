@@ -361,7 +361,7 @@ class MusicVizView {
         numPointsAboveThreshold++;
       }
     }
-    return numPointsAboveThreshold > 0.5 * array.length;
+    return numPointsAboveThreshold > 0.55 * array.length;
   }
 
   drawFrequencyIntensityPlot() {
@@ -529,7 +529,7 @@ class MusicVizView {
     let totalPoints = 0; // Counter to keep track of points generated
     let isDrop = false; // Flag to check if there is a drop in audio intensity
 
-    const usualRadius = 9;
+    const usualRadius = 3;
     const maxGlow = 69; // Max glow intensity
     const padding = 27; // Padding to keep points in view
 
@@ -540,7 +540,7 @@ class MusicVizView {
 
     // Function to add a new Fibonacci point
     const addNewFibonacciPoint = (radius) => {
-      const fibRadius = fibGenerator.next() * 3; // Scale the Fibonacci radius
+      const fibRadius = fibGenerator.next() * 5; // Scale the Fibonacci radius
       const angleOffset = totalPoints * 0.5; // Angle spacing for points
 
       points.push({
