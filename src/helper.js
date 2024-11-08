@@ -242,15 +242,15 @@ function getPrimaryColorScale(numStops) {
 }
 
 const possibleRandomColors = [
-  brandColor,
   `rgb(145, 75, 75)`,
   `rgb(112, 135, 112)`,
   `rgb(83, 105, 131)`,
+  `rgb(156, 230, 132)`,
+  `rgb(216, 216, 216)`,
 ];
 
 function randomColor() {
   const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
-  console.log(randomInt);
   return possibleRandomColors[randomInt];
 }
 
