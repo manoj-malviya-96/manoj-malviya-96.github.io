@@ -493,10 +493,13 @@ class MusicVizView {
             // Adjust x position for offset in odd rows
             const offsetX = (row % 2) * (xSpacing / 2);
 
-            const x = centerX + col * xSpacing + offsetX;
-            const y = centerY + row * ySpacing;
-            const color =
-              dropLevel > 0.55 && intensity > 0.69 ? randomColor() : brandColor;
+            const x1 = centerX + col * xSpacing + offsetX;
+            const y1 = centerY + row * ySpacing;
+
+            let color = brandColor;
+            if (intensity > 0.69) {
+              color = dropLevel > 0.55 ? randomColor() : whiteColor;
+            }
 
             this.canvasCtx.fillStyle = adjustColor(
               color,
@@ -506,12 +509,12 @@ class MusicVizView {
 
             // Draw the circle with shadow for glow effect
             this.canvasCtx.beginPath();
-            this.canvasCtx.arc(x, y, size, 0, Math.PI * 2, false);
+            this.canvasCtx.arc(x1, y1, size, 0, Math.PI * 2, false);
             this.canvasCtx.shadowBlur = glow;
             this.canvasCtx.shadowColor = adjustColor(
               color,
               intensity,
-              0.5 * (1 + intensity),
+              0.3 * (1 + intensity),
             );
             this.canvasCtx.fill();
             this.canvasCtx.closePath();
@@ -573,12 +576,10 @@ class MusicVizView {
       this.canvasCtx.beginPath();
       this.canvasCtx.arc(x, y, (1 + dropLevel) * r, 0, Math.PI * 2);
 
-      const color =
-        dropLevel > 0.55 && intensity > 0.47
-          ? randomColor()
-          : intensity > 0.47
-            ? brandColor
-            : `rgba(255, 255, 255, ${intensity})`;
+      let color = brandColor;
+      if (intensity > 0.55) {
+        color = dropLevel > 0.47 ? randomColor() : whiteColor;
+      }
 
       const drawColor = adjustColor(color, factor, 1 + factor);
 

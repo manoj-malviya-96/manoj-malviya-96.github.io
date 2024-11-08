@@ -246,8 +246,10 @@ const possibleRandomColors = [
   `rgb(238, 253, 238)`,
   `rgb(163, 213, 255)`,
   `rgb(228, 24, 24)`,
-  `rgb(250, 250, 250)`,
+  `rgb(17, 77, 205)`,
 ];
+
+const whiteColor = `rgb(255, 255, 255)`; // White color
 
 function randomColor() {
   const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
