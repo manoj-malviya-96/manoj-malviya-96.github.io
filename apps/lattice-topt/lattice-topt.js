@@ -146,7 +146,7 @@ class LatticeDrawer {
         y: Array.from(this.mesh.fixedPoints).map((index) => coords[index][1]),
         mode: "markers",
         type: "scatter",
-        marker: { symbol: "x", color: brandColor, size: markerSize },
+        marker: { symbol: "x", color: "blue", size: 2 * markerSize },
         hovertemplate: hoverTemplate,
       },
       {
@@ -154,7 +154,11 @@ class LatticeDrawer {
         y: Array.from(this.mesh.forcePoints).map((index) => coords[index][1]),
         mode: "markers",
         type: "scatter",
-        marker: { symbol: "triangle-up", color: brandColor, size: markerSize },
+        marker: {
+          symbol: "triangle-up",
+          color: "red",
+          size: 2 * markerSize,
+        },
         hovertemplate: hoverTemplate,
       },
     ];
@@ -294,5 +298,100 @@ class LatticeViewer {
       );
     };
     updatePlotHandler([plotFn]);
+  }
+}
+
+class LatticeFEA {
+  constructor(mesh) {
+    this.mesh = mesh;
+    this.K = null;
+    this.U = null;
+  }
+
+  computeStiffnessMatrix() {
+    const points = this.mesh.points;
+    const n_nodes = points.length;
+    this.K = new Array(n_nodes).fill(0).map(() => new Array(n_nodes).fill(0));
+
+    this.mesh.connections.forEach(([start, end], index) => {
+      const x1 = points[start][0];
+      const y1 = points[start][1];
+      const x2 = points[end][0];
+      const y2 = points[end][1];
+
+      const length = Math.hypot(x2 - x1, y2 - y1);
+      const A = this.mesh.normThickness[index];
+
+      const k = A / length;
+      const c = (x2 - x1) * k;
+      const s = (y2 - y1) * k;
+
+      this.K[start][start] += k * c;
+      this.K[start][end] += k * s;
+      this.K[end][start] += k * s;
+      this.K[end][end] += k * c;
+    });
+  }
+
+  computeDisplacement() {
+    if (!this.K) {
+      console.error("Stiffness matrix not computed");
+      return;
+    }
+
+    this.mesh.fixedPoints.forEach((index) => {
+      this.K[index].fill(0);
+      this.K[index][index] = 1;
+    });
+
+    const F = new Array(this.mesh.points.length).fill(0);
+    this.mesh.forcePoints.forEach((index) => {
+      F[index] = 1;
+    });
+
+    try {
+      this.U = numeric.solve(this.K, F);
+    } catch (e) {
+      console.error("Matrix is singular or has no unique solution:", e);
+    }
+  }
+
+  computeStrainEnergy() {
+    if (!this.U) {
+      console.error("Displacement not computed");
+      return;
+    }
+    const U = this.U;
+    const K = this.K;
+    return numeric.dot(numeric.dot(U, K), U) / 2;
+  }
+
+  computeStrainEnergyRate() {
+    if (!this.U) {
+      console.error("Displacement not computed");
+      return;
+    }
+    const U = this.U;
+    const K = this.K;
+    const dK
+  }
+}
+
+class LatticeOptimizer {
+  constructor(initialMesh) {
+    this.initialMesh = initialMesh;
+    this.maxIterations = 100;
+  }
+
+  computeCost(mesh) {
+    const fea = new LatticeFEA(mesh);
+    fea.computeStiffnessMatrix();
+    fea.computeDisplacement();
+    return fea.computeStrainEnergy();
+  }
+
+  // Function to calculate the stiffness matrix
+  optimize() {
+    const cost = (mesh) => this.computeCost(mesh);
   }
 }
