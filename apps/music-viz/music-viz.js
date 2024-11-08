@@ -1,4 +1,5 @@
 const skipTime_s = 10; // Skip time in seconds
+const maxIntensity = 255; // Maximum intensity for audio data
 
 class MusicVizView {
   constructor() {
@@ -15,7 +16,7 @@ class MusicVizView {
     this.dataArray = null;
     this.audio = null;
     this.isPlaying = false;
-    this.selectedVisualizer = "circles";
+    this.selectedVisualizer = "spiral";
 
     this.init();
   }
@@ -94,10 +95,12 @@ class MusicVizView {
     const backgroundColor = getContrastColor();
     if (this.isPlaying) {
       this.elements.progressBar.style.background = `linear-gradient(to right, 
-                                                            ${brandColor} ${this.elements.progressBar.value}%,  
+                                                             ${brandColor} ${this.elements.progressBar.value}%,  
                                                             ${backgroundColor} ${this.elements.progressBar.value}%)`;
+      this.elements.progressBar.disabled = false;
     } else {
       this.elements.progressBar.style.background = `${backgroundColor}`;
+      this.elements.progressBar.disabled = true;
     }
   }
 
@@ -260,7 +263,7 @@ class MusicVizView {
       }
       this.elements.progressBar.value = 0;
       this.elements.timeInfo.textContent = "0:00 / 0:00";
-      this.elements.progressBar.style.background = `${this.backgroundColor}`;
+      this.elements.progressBar.style.background = "transparent";
     }
     this.isPlaying = false;
     this.updatePlayButton();
@@ -321,6 +324,9 @@ class MusicVizView {
       case "spiral":
         this.drawSpiralVisualizer();
         break;
+      case "debug":
+        this.drawFrequencyIntensityPlot();
+        break;
       default:
         this.drawBarChartVisualizer();
         break;
@@ -346,6 +352,42 @@ class MusicVizView {
     const centerX = canvasWidth / 2;
     const centerY = canvasHeight / 2;
     return { canvasWidth, canvasHeight, centerX, centerY };
+  }
+
+  computeDropLevel(array) {
+    // Assumption is during drop, every frequency completely loud.
+    const rms = Math.sqrt(
+      array.reduce((acc, val) => acc + val ** 2, 0) / array.length,
+    );
+
+    return rms / maxIntensity;
+  }
+
+  drawFrequencyIntensityPlot() {
+    const numPoints = this.bufferLength / 2;
+    const { canvasWidth, canvasHeight } = this.getCanvasCenterAndDimensions();
+    const maxIntensity = 255; // FFT data range (0 to 255)
+    const maxHeight = canvasHeight / 1.5; // Maximum height for the plot
+
+    const draw = () => {
+      this.animationFrameId = requestAnimationFrame(draw);
+      this.analyser.getByteFrequencyData(this.dataArray);
+
+      this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Loop through each frequency bin
+      for (let i = 0; i < numPoints; i++) {
+        const intensity = this.dataArray[i] / maxIntensity; // Normalized intensity
+        const freqX = (i / numPoints) * canvasWidth; // X-axis position for frequency
+        const intensityY = maxHeight * (1 - intensity); // Y-axis position for intensity
+
+        // Draw a small vertical line for each frequency point
+        this.canvasCtx.fillStyle = brandColor;
+        this.canvasCtx.fillRect(freqX, intensityY, 13, maxHeight - intensityY);
+      }
+    };
+
+    draw();
   }
 
   // Draw the visualizer on the canvas
@@ -398,7 +440,7 @@ class MusicVizView {
   }
 
   drawCircleGridVisualizer() {
-    const circleRadius = 4; // Radius of the circles
+    const circleRadius = 5; // Radius of the circles
     const spacingFactor = 10; // Factor to add spacing between circles
 
     // Calculate spacings based on hexagon geometry with additional spacing
@@ -406,6 +448,8 @@ class MusicVizView {
     const ySpacing = (circleRadius * Math.sqrt(3) * spacingFactor) / 2;
     const maxRange = 21; // Adjust as needed for coverage
     const maxDistance = maxRange * 3 + 1; // Max distance for mapping
+
+    let dropLevel = 0; // Flag to check if there is a drop in audio intensity
 
     const { canvasWidth, canvasHeight, centerX, centerY } =
       this.getCanvasCenterAndDimensions();
@@ -415,6 +459,7 @@ class MusicVizView {
       this.analyser.getByteFrequencyData(this.dataArray);
 
       this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      dropLevel = this.computeDropLevel(this.dataArray);
 
       for (let n = 0; n <= maxRange; n++) {
         for (let i = 0; i <= n; i++) {
@@ -442,30 +487,34 @@ class MusicVizView {
               this.dataArray[dataIndex % this.bufferLength] / 255; // Normalize intensity
             const factor = intensity ** 2;
 
-            const glow = factor * 21;
-            const size = 2 * circleRadius * factor;
+            const glow = 27 * dropLevel ** 2 * factor;
+            const size = circleRadius * factor * (1 + dropLevel);
 
             // Adjust x position for offset in odd rows
             const offsetX = (row % 2) * (xSpacing / 2);
 
-            const x = centerX + col * xSpacing + offsetX;
-            const y = centerY + row * ySpacing;
-            const color = factor > 0.47 ? randomColor() : brandColor;
+            const x1 = centerX + col * xSpacing + offsetX;
+            const y1 = centerY + row * ySpacing;
+
+            let color = brandColor;
+            if (intensity > 0.69) {
+              color = dropLevel > 0.55 ? randomColor() : whiteColor;
+            }
 
             this.canvasCtx.fillStyle = adjustColor(
               color,
               intensity,
-              0.75 * (1 + intensity),
+              (dropLevel + 0.5) * intensity,
             );
 
             // Draw the circle with shadow for glow effect
             this.canvasCtx.beginPath();
-            this.canvasCtx.arc(x, y, size, 0, Math.PI * 2, false);
+            this.canvasCtx.arc(x1, y1, size, 0, Math.PI * 2, false);
             this.canvasCtx.shadowBlur = glow;
             this.canvasCtx.shadowColor = adjustColor(
               color,
               intensity,
-              0.5 * (1 + intensity),
+              0.3 * (1 + intensity),
             );
             this.canvasCtx.fill();
             this.canvasCtx.closePath();
@@ -481,12 +530,12 @@ class MusicVizView {
     // Parameters for the spiral
     let angle = 0;
     let points = []; // Stores current visible points
-    let globalFactor = 1; // Global factor to dropyness
     let totalPoints = 0; // Counter to keep track of points generated
+    let dropLevel = 0; // Flag to check if there is a drop in audio intensity
 
-    const usualRadius = 9;
+    const usualRadius = 0.5;
     const maxGlow = 69; // Max glow intensity
-    const padding = 27; // Padding to keep points in view
+    const padding = 47; // Padding to keep points in view
 
     // Set the canvas dimensions and get the Fibonacci generator
     const { canvasWidth, canvasHeight, centerX, centerY } =
@@ -495,7 +544,7 @@ class MusicVizView {
 
     // Function to add a new Fibonacci point
     const addNewFibonacciPoint = (radius) => {
-      const fibRadius = fibGenerator.next() * 3; // Scale the Fibonacci radius
+      const fibRadius = fibGenerator.next() * 5; // Scale the Fibonacci radius
       const angleOffset = totalPoints * 0.5; // Angle spacing for points
 
       points.push({
@@ -523,13 +572,15 @@ class MusicVizView {
       const factor = intensity ** 3;
       const glow = factor * maxGlow;
 
-      globalFactor = Math.max(globalFactor, factor); // Update global factor
-
       // Draw a circle with a glow effect based on audio intensity
       this.canvasCtx.beginPath();
-      this.canvasCtx.arc(x, y, r, 0, Math.PI * 2);
+      this.canvasCtx.arc(x, y, (1 + dropLevel) * r, 0, Math.PI * 2);
 
-      const color = factor > 0.47 ? randomColor() : brandColor;
+      let color = brandColor;
+      if (intensity > 0.55) {
+        color = dropLevel > 0.47 ? randomColor() : whiteColor;
+      }
+
       const drawColor = adjustColor(color, factor, 1 + factor);
 
       // Add shadow for glow effect
@@ -554,6 +605,8 @@ class MusicVizView {
       this.canvasCtx.translate(centerX, centerY); // Move origin to center
       this.canvasCtx.rotate(angle); // Apply rotation
 
+      dropLevel = this.computeDropLevel(this.dataArray);
+
       // Draw and update each point
       points.forEach((point, index) => {
         drawPoint.call(this, point, index); // Draw the point with glow
@@ -567,7 +620,7 @@ class MusicVizView {
 
       // Restore canvas state and adjust angle for rotation
       this.canvasCtx.restore();
-      angle += globalFactor * 0.01; // Increment rotation angle
+      angle += (dropLevel > 0.5 ? 2 : 1) * 0.01; // Increment rotation angle
     };
 
     draw(); // Start the drawing loop

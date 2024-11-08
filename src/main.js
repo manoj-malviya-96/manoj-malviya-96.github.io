@@ -519,7 +519,7 @@ function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
       <img src="${coverImg}" class="card-img" alt="card">
       <div class="card-details">
           <h3>${role}</h3>
-          <span><i class="bi bi-geo-fill"></i> ${company}</span>
+          <span><i class="bi bi-geo-alt "></i> ${company}</span>
           <div class="tag-categories"> 
                 ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
             </div>
