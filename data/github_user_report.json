@@ -530,13 +530,25 @@
         {
           "date": "2024-10-30",
           "commits": 4
+        },
+        {
+          "date": "2024-11-05",
+          "commits": 15
+        },
+        {
+          "date": "2024-11-06",
+          "commits": 2
+        },
+        {
+          "date": "2024-11-07",
+          "commits": 4
         }
       ],
       "languages": {
-        "C++": 23349717,
-        "QML": 3318825,
-        "Python": 1598799,
-        "CMake": 840853,
+        "C++": 23421601,
+        "QML": 3326529,
+        "Python": 1598118,
+        "CMake": 840966,
         "Shell": 74018,
         "C": 65254,
         "GLSL": 61107,
@@ -573,7 +585,7 @@
         }
       ],
       "languages": {
-        "C++": 181280,
+        "C++": 181560,
         "CMake": 19389,
         "C": 1095
       }
@@ -676,12 +688,24 @@
         {
           "date": "2024-10-31",
           "commits": 3
+        },
+        {
+          "date": "2024-11-02",
+          "commits": 1
+        },
+        {
+          "date": "2024-11-03",
+          "commits": 1
+        },
+        {
+          "date": "2024-11-07",
+          "commits": 1
         }
       ],
       "languages": {
-        "JavaScript": 179463,
-        "HTML": 130892,
-        "CSS": 25443
+        "JavaScript": 180774,
+        "HTML": 132415,
+        "CSS": 27234
       }
     },
     {
@@ -754,30 +778,30 @@
       ],
       "languages": {
         "C": 57755870,
-        "C++": 21822550,
-        "Python": 11462447,
+        "C++": 21867638,
+        "Python": 11532759,
         "Jupyter Notebook": 6719311,
-        "QML": 6175695,
-        "Go": 1621114,
+        "QML": 6196787,
+        "Go": 1630778,
         "JavaScript": 1524190,
-        "CMake": 1046924,
+        "CMake": 1048211,
         "Assembly": 568918,
         "TypeScript": 424443,
-        "Shell": 419394,
+        "Shell": 419752,
         "HTML": 305314,
         "CSS": 126878,
-        "Makefile": 46243,
+        "Makefile": 47093,
+        "Dockerfile": 29384,
         "TeX": 27973,
-        "Dockerfile": 27901,
         "Cython": 25392,
         "Rust": 19552,
-        "Jinja": 17964,
+        "Jinja": 18026,
         "QMake": 5520,
+        "Gherkin": 3981,
         "OpenSCAD": 2764,
         "Mako": 2548,
         "PowerShell": 1780,
         "Stan": 1681,
-        "Gherkin": 692,
         "Batchfile": 538,
         "Smarty": 239,
         "GDB": 134
@@ -1367,16 +1391,16 @@
         "Jupyter Notebook": 1053668777,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 39888533,
+        "Python": 39965912,
         "JavaScript": 14615804,
-        "C++": 6982085,
+        "C++": 6982898,
         "Mathematica": 3004790,
         "Makefile": 2783521,
         "OpenSCAD": 492905,
-        "Shell": 374013,
+        "Shell": 376044,
         "TeX": 316829,
         "Rich Text Format": 202215,
-        "CMake": 175393,
+        "CMake": 175773,
         "Assembly": 123361,
         "Go": 105773,
         "CSS": 86102,
@@ -1920,8 +1944,8 @@
         }
       ],
       "languages": {
-        "Python": 4409042,
-        "JavaScript": 1001614,
+        "Python": 4412227,
+        "JavaScript": 1004213,
         "C": 67455,
         "HTML": 25633,
         "Jupyter Notebook": 25007,
