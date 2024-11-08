@@ -94,10 +94,12 @@ class MusicVizView {
     const backgroundColor = getContrastColor();
     if (this.isPlaying) {
       this.elements.progressBar.style.background = `linear-gradient(to right, 
-                                                            ${brandColor} ${this.elements.progressBar.value}%,  
+                                                             ${brandColor} ${this.elements.progressBar.value}%,  
                                                             ${backgroundColor} ${this.elements.progressBar.value}%)`;
+      this.elements.progressBar.disabled = false;
     } else {
       this.elements.progressBar.style.background = `${backgroundColor}`;
+      this.elements.progressBar.disabled = true;
     }
   }
 

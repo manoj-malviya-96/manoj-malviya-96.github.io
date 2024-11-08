@@ -579,9 +579,13 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: var(--spacing-medium);
-    height: var(--spacing-medium);
+    height: var(--spacing-large);
     background: var(--color-brand);
     cursor: pointer;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    visibility: hidden;
 }
 
 /* --------------------  Scrollbar Styling ------------------- */
