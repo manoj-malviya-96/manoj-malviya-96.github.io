@@ -1,4 +1,5 @@
 const skipTime_s = 10; // Skip time in seconds
+const maxIntensity = 255; // Maximum intensity for audio data
 
 class MusicVizView {
   constructor() {
@@ -15,7 +16,7 @@ class MusicVizView {
     this.dataArray = null;
     this.audio = null;
     this.isPlaying = false;
-    this.selectedVisualizer = "circles";
+    this.selectedVisualizer = "spiral";
 
     this.init();
   }
@@ -353,15 +354,13 @@ class MusicVizView {
     return { canvasWidth, canvasHeight, centerX, centerY };
   }
 
-  computeIsDrop(array) {
-    let numPointsAboveThreshold = 0;
-    const threshold = array[0];
-    for (let i = 0; i < array.length; i++) {
-      if (array[i] > threshold / 2) {
-        numPointsAboveThreshold++;
-      }
-    }
-    return numPointsAboveThreshold > 0.55 * array.length;
+  computeDropLevel(array) {
+    // Assumption is during drop, every frequency completely loud.
+    const rms = Math.sqrt(
+      array.reduce((acc, val) => acc + val ** 2, 0) / array.length,
+    );
+
+    return rms / maxIntensity;
   }
 
   drawFrequencyIntensityPlot() {
@@ -441,7 +440,7 @@ class MusicVizView {
   }
 
   drawCircleGridVisualizer() {
-    const circleRadius = 4; // Radius of the circles
+    const circleRadius = 5; // Radius of the circles
     const spacingFactor = 10; // Factor to add spacing between circles
 
     // Calculate spacings based on hexagon geometry with additional spacing
@@ -449,7 +448,8 @@ class MusicVizView {
     const ySpacing = (circleRadius * Math.sqrt(3) * spacingFactor) / 2;
     const maxRange = 21; // Adjust as needed for coverage
     const maxDistance = maxRange * 3 + 1; // Max distance for mapping
-    let isDrop = false; // Flag to check if there is a drop in audio intensity
+
+    let dropLevel = 0; // Flag to check if there is a drop in audio intensity
 
     const { canvasWidth, canvasHeight, centerX, centerY } =
       this.getCanvasCenterAndDimensions();
@@ -459,7 +459,7 @@ class MusicVizView {
       this.analyser.getByteFrequencyData(this.dataArray);
 
       this.canvasCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-      isDrop = this.computeIsDrop(this.dataArray);
+      dropLevel = this.computeDropLevel(this.dataArray);
 
       for (let n = 0; n <= maxRange; n++) {
         for (let i = 0; i <= n; i++) {
@@ -487,20 +487,21 @@ class MusicVizView {
               this.dataArray[dataIndex % this.bufferLength] / 255; // Normalize intensity
             const factor = intensity ** 2;
 
-            const glow = (isDrop ? 27 : 9) * factor;
-            const size = 2 * circleRadius * factor;
+            const glow = 27 * dropLevel ** 2 * factor;
+            const size = circleRadius * factor * (1 + dropLevel);
 
             // Adjust x position for offset in odd rows
             const offsetX = (row % 2) * (xSpacing / 2);
 
             const x = centerX + col * xSpacing + offsetX;
             const y = centerY + row * ySpacing;
-            const color = isDrop ? randomColor() : brandColor;
+            const color =
+              dropLevel > 0.55 && intensity > 0.69 ? randomColor() : brandColor;
 
             this.canvasCtx.fillStyle = adjustColor(
               color,
               intensity,
-              0.75 * (1 + intensity),
+              (dropLevel + 0.5) * intensity,
             );
 
             // Draw the circle with shadow for glow effect
@@ -527,11 +528,11 @@ class MusicVizView {
     let angle = 0;
     let points = []; // Stores current visible points
     let totalPoints = 0; // Counter to keep track of points generated
-    let isDrop = false; // Flag to check if there is a drop in audio intensity
+    let dropLevel = 0; // Flag to check if there is a drop in audio intensity
 
-    const usualRadius = 3;
+    const usualRadius = 0.5;
     const maxGlow = 69; // Max glow intensity
-    const padding = 27; // Padding to keep points in view
+    const padding = 47; // Padding to keep points in view
 
     // Set the canvas dimensions and get the Fibonacci generator
     const { canvasWidth, canvasHeight, centerX, centerY } =
@@ -570,9 +571,15 @@ class MusicVizView {
 
       // Draw a circle with a glow effect based on audio intensity
       this.canvasCtx.beginPath();
-      this.canvasCtx.arc(x, y, isDrop ? 1.69 * r : r, 0, Math.PI * 2);
+      this.canvasCtx.arc(x, y, (1 + dropLevel) * r, 0, Math.PI * 2);
 
-      const color = isDrop ? randomColor() : brandColor;
+      const color =
+        dropLevel > 0.55 && intensity > 0.47
+          ? randomColor()
+          : intensity > 0.47
+            ? brandColor
+            : `rgba(255, 255, 255, ${intensity})`;
+
       const drawColor = adjustColor(color, factor, 1 + factor);
 
       // Add shadow for glow effect
@@ -597,7 +604,7 @@ class MusicVizView {
       this.canvasCtx.translate(centerX, centerY); // Move origin to center
       this.canvasCtx.rotate(angle); // Apply rotation
 
-      isDrop = this.computeIsDrop(this.dataArray);
+      dropLevel = this.computeDropLevel(this.dataArray);
 
       // Draw and update each point
       points.forEach((point, index) => {
@@ -612,7 +619,7 @@ class MusicVizView {
 
       // Restore canvas state and adjust angle for rotation
       this.canvasCtx.restore();
-      angle += (isDrop ? 2 : 1) * 0.01; // Increment rotation angle
+      angle += (dropLevel > 0.5 ? 2 : 1) * 0.01; // Increment rotation angle
     };
 
     draw(); // Start the drawing loop
