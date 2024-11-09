@@ -525,7 +525,7 @@ class LatticeViewer {
     this.forceNodeBtn = document.getElementById("selectForceButton");
     this.feaBtn = document.getElementById("computeFEAButton");
     this.loadingModal = document.getElementById("loadingModal");
-    this.infoTable = document.getElementById("infoTable");
+    this.infoText = document.getElementById("infoText");
 
     this.latticeType = "cross";
     setupAllSpinBoxsWithOneCallback(this.onSpinboxChange.bind(this));
@@ -629,7 +629,6 @@ class LatticeViewer {
       this.latticeType,
     );
     this.FEA = null;
-    toggleElementVisibility(this.infoTable, "hide");
   }
 
   renderMeshAndTable() {
@@ -656,20 +655,20 @@ class LatticeViewer {
   }
 
   updateTable() {
-    this.infoTable.innerHTML = ""; // Clear the table
+    this.infoText.innerHTML = ""; // Clear the table
 
     if (!this.FEA) {
+      this.infoText.textContent = "FEA not computed";
       return;
     }
 
-    toggleElementVisibility(this.infoTable, "show");
     const tableResult = {
       "Total Thickness": this.FEA.totalVolume,
       "Strain Energy": this.FEA.strainEnergy,
     };
 
     for (const [key, value] of Object.entries(tableResult)) {
-      addKeyValueToTable(this.infoTable, key, value.toFixed(2));
+      this.infoText.innerHTML += `<b>${key}:</b> ${value.toFixed(2)}<br>`;
     }
   }
 }

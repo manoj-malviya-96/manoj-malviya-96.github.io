@@ -5,15 +5,22 @@
         transform: translateY(-169%) translateX(-25%);
     }
 
+    #latticeControls {
+        width: var(--app-window-width);
+    }
+
     #latticeControls .app-controller-row-group {
+        justify-content: space-between;
+        align-content: center;
         padding-right : var(--spacing-medium);
         border-right: var(--border-width) solid var(--color-primary);
     }
 
-    #infoTable {
-        width: 169px;
-        height: 100%;
+    #latticeControls .app-controller-row-group:last-child {
+        border-right: none;
+        padding-right: 0;
     }
+
 </style>
 
 <!-- Icon and App Name in  layout -->
@@ -33,14 +40,14 @@
         <div class="spinner-border loading-spinner"></div>
     </div>
 
-    <div class="app-controller-container">
+    <div class="app-controller-container" id="latticeControls">
         <!-- App Header -->
-        <div class="app-controller" id="latticeControls">
+        <div class="app-controller">
             <!-- options for lattice generation -->
             <div id="controls" class="app-controller-row">
                 <div class="app-controller-row-group">
                     <div class="modern-spinbox app-controller-row-item">
-                        <label for="cellSize">Cell Size (mm)</label>
+                        <label for="cellSize">Cell Size</label>
                         <div class="modern-spinbox-container">
                             <button class="primary-button smaller modern-spinbox-btn-up">
                                 <i class="bi bi-chevron-compact-up"></i>
@@ -54,7 +61,7 @@
                     </div>
 
                     <div class="modern-spinbox app-controller-row-item">
-                        <label for="meshWidth">Width (mm)</label>
+                        <label for="meshWidth">Width</label>
                         <div class="modern-spinbox-container">
                             <button class="primary-button smaller modern-spinbox-btn-up">
                                 <i class="bi bi-chevron-compact-up"></i>
@@ -68,7 +75,7 @@
                     </div>
 
                     <div class="modern-spinbox app-controller-row-item">
-                        <label for="meshHeight">Height (mm)</label>
+                        <label for="meshHeight">Height</label>
                         <div class="modern-spinbox-container">
                             <button class="primary-button smaller modern-spinbox-btn-up">
                                 <i class="bi bi-chevron-compact-up"></i>
@@ -104,10 +111,14 @@
                         <i class="bi bi-arrow-clockwise"></i>
                         <span class="button-label">Compute</span>
                     </button>
+                </div>
+
+                <!-- Info Table -->
+                <div class="app-controller-row-group">
                     <div class="app-controller-row-item">
-                        <table id="infoTable">
+                        <p id="infoText">
                             <!-- dynamically will be added -->
-                        </table>
+                        </p>
                     </div>
                 </div>
             </div>
