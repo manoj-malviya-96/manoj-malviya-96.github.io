@@ -577,7 +577,7 @@ section {
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    height: var(--spacing-medium);
+    height: var(--spacing-small);
     outline: none;
     cursor: pointer;
     color: var(--color-brand);
@@ -588,8 +588,8 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: var(--spacing-medium);
-    height: var(--spacing-large);
+    width: var(--spacing-small);
+    height: var(--spacing-medium);
     background: var(--color-brand);
     cursor: pointer;
 }
@@ -1132,7 +1132,7 @@ table {
     height: auto;
     border: none;
     border-radius: var(--default-radius);
-    margin: var(--spacing-large) 0;
+    margin: var(--spacing-medium) 0;
     font-size: var(--regular-text-size);
     background-color: var(--color-primary);
     color: var(--color-text);
@@ -1141,7 +1141,7 @@ table {
 th, td {
     width: auto;
     height: auto;
-    padding: var(--spacing-medium) var(--spacing-medium);
+    padding: var(--spacing-small) var(--spacing-small);
     text-align: left;
 }
 
