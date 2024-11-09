@@ -151,11 +151,30 @@ function createHeatmapFromTrace(
     console.error("Invalid trace data for heatmap");
   }
   const showTickLabels = !minimalisticView;
-  Plotly.newPlot(
+  plotlyPlot(
     containerId,
     [data],
     createLayout(width, height, title, xTitle, yTitle, showTickLabels),
   );
+}
+
+function plotlyPlot(containerId, data, layout, callback = null) {
+  if (!containerId || !data || !layout) {
+    console.error("Invalid input for plotlyPlot");
+    return;
+  }
+  if (window.document.getElementById(containerId) === null) {
+    console.error(`Container with id ${containerId} not found`);
+    return;
+  }
+
+  if (!Plotly) {
+    console.error("Plotly not initialized");
+    return;
+  }
+  Plotly.newPlot(containerId, data, layout, { displaylogo: false }).then(() => {
+    callback?.();
+  });
 }
 
 class PlotHandler {

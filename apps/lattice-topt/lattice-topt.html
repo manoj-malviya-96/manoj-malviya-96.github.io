@@ -4,13 +4,35 @@
         width: auto;
         transform: translateY(-169%) translateX(-25%);
     }
+
+    #latticeControls {
+        width: var(--app-window-width);
+    }
+
+    #latticeControls .app-controller-row-group {
+        justify-content: space-between;
+        align-content: center;
+        padding-right : var(--spacing-medium);
+        border-right: var(--border-width) solid var(--color-primary);
+    }
+
+    #latticeControls .app-controller-row-group:last-child {
+        border-right: none;
+        padding-right: 0;
+    }
+
+    #infoText {
+        width: 200px;
+        text-align: center;
+    }
+
 </style>
 
 <!-- Icon and App Name in  layout -->
 <div class="app-brand-container">
     <div class="app-brand-logo">
         <i class="bi bi-grid-3x3-gap" id="appIcon"></i>
-        <h2 class="app-name" id="appName">Lopt</h2>
+        <h2 class="app-name" id="appName">TruX</h2>
     </div>
     <p class="app-description" id="appDescription"> Generate and optimize lattices </p>
 </div>
@@ -19,23 +41,24 @@
     <!-- Visualizer section -->
     <div id="meshPlot" class="canvas-like"></div>
 
-    <div class="app-controller-container">
+    <div id="loadingModal" class="loading-overlay hidden">
+        <div class="spinner-border loading-spinner"></div>
+    </div>
+
+    <div class="app-controller-container" id="latticeControls">
         <!-- App Header -->
-        <div class="app-controller">
-            <div class="progress-area app-controller-row hidden">
-                <input type="range" id="progressBar" min="0" max="100" value="0">
-            </div>
+        <div class="app-controller add-border">
             <!-- options for lattice generation -->
             <div id="controls" class="app-controller-row">
                 <div class="app-controller-row-group">
                     <div class="modern-spinbox app-controller-row-item">
-                        <label for="cellSize">Cell Size (mm)</label>
+                        <label for="cellSize">Cell Size</label>
                         <div class="modern-spinbox-container">
                             <button class="primary-button smaller modern-spinbox-btn-up">
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="cellSize" class="modern-spinbox-input"
-                                   value="10" max="100" min="10" step="5">
+                                   value="5" max="20" min="5" step="5">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -43,13 +66,13 @@
                     </div>
 
                     <div class="modern-spinbox app-controller-row-item">
-                        <label for="meshWidth">Width (mm)</label>
+                        <label for="meshWidth">Width</label>
                         <div class="modern-spinbox-container">
                             <button class="primary-button smaller modern-spinbox-btn-up">
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshWidth" class="modern-spinbox-input"
-                                   value="100" max="500" min="10" step="10">
+                                   value="50" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -57,37 +80,64 @@
                     </div>
 
                     <div class="modern-spinbox app-controller-row-item">
-                        <label for="meshHeight">Height (mm)</label>
+                        <label for="meshHeight">Height</label>
                         <div class="modern-spinbox-container">
                             <button class="primary-button smaller modern-spinbox-btn-up">
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshHeight" class="modern-spinbox-input"
-                                   value="100" max="500" min="10" step="10">
+                                   value="20" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
                         </div>
                     </div>
-                </div>
-
-                <div class="app-controller-row-group">
 
                     <button id="selectFixedButton" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="Select Fixed Points"><i class="bi bi-arrow-down-square"></i></button>
+                            data-tooltip="Select Fixed Points"><i class="bi bi-x-circle"></i>
+                            <span class="button-label">Fix</span>
+                    </button>
 
                     <button id="selectForceButton" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="Select Force Points"><i class="bi bi-arrow-up"></i></button>
+                            data-tooltip="Select Force Points"><i class="bi bi-arrow-up-circle"></i>
+                            <span class="button-label">Load</span>
+                    </button>
 
                     <div id="latticeTypeDropdown" class="modern-dropdown app-controller-row-item">
                         <button class="primary-button modern-tooltip"
                                 data-tooltip="Select Lattice Type">
                             <i class="bi bi-gear"></i>
+                            <span class="button-label">Type</span>
                         </button>
                         <ul class="modern-dropdown-list hidden">
-                            <li data-value="square" class="modern-dropdown-item selected">Square</li>
+                            <li data-value="cross" class="modern-dropdown-item selected">Square</li>
                             <li data-value="checkerboard" class="modern-dropdown-item">Checkerboard</li>
                         </ul>
+                    </div>
+                </div>
+
+                <div class="app-controller-row-group">
+                    <button id="computeFEAButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Compute FEA">
+                        <i class="bi bi-triangle"></i>
+                        <span class="button-label">Analyze</span>
+                    </button>
+                    <button id="optButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Optimize Structure">
+                        <i class="bi bi-tools"></i>
+                        <span class="button-label">Optimize</span>
+                    </button>
+                    <button id="resetButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Reset Scene">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </button>
+                </div>
+                <!-- Info Table -->
+                <div class="app-controller-row-group">
+                    <div class="app-controller-row-item">
+                        <p id="infoText">
+                            <!-- dynamically will be added -->
+                        </p>
                     </div>
                 </div>
             </div>

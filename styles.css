@@ -313,8 +313,8 @@ section {
     text-align: left;
     position: absolute;
     z-index: var(--z-index-overlay);
-    bottom: -139%;
-    left: 69%;
+    top: 100%;
+    left: 33%;
     pointer-events: none;
     border-radius: var(--default-radius);
     transition: all var(--transition-default);
@@ -384,8 +384,18 @@ section {
 .primary-button:hover .bi,
 .primary-button:hover .button-label {
     cursor: pointer;
-    color: var(--color-brand);
-!important;
+    color: var(--color-brand) !important;;
+}
+
+.primary-button:disabled {
+    box-shadow: none;
+    transform: scale(1);
+}
+
+.primary-button:disabled .button-label,
+.primary-button:disabled .bi {
+    cursor: not-allowed;
+    color: var(--color-text) !important;
 }
 
 .primary-button.selected {
@@ -393,8 +403,14 @@ section {
     background-color: var(--color-brand);
 }
 
-.primary-button.selected:hover .bi {
-    color: var(--color-white);
+
+.primary-button.selected:hover {
+    box-shadow: var(--shadow-brand);
+}
+
+.primary-button.selected:hover .bi,
+.primary-button.selected:hover .button-label {
+    color: var(--color-white) !important;
 }
 
 
@@ -567,7 +583,7 @@ section {
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    height: var(--spacing-medium);
+    height: var(--spacing-small);
     outline: none;
     cursor: pointer;
     color: var(--color-brand);
@@ -578,8 +594,8 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: var(--spacing-medium);
-    height: var(--spacing-large);
+    width: var(--spacing-small);
+    height: var(--spacing-medium);
     background: var(--color-brand);
     cursor: pointer;
 }
@@ -790,10 +806,6 @@ canvas {
     margin-right: var(--spacing-medium);
 }
 
-.app-controller-row-group:last-child {
-    border-right: none;
-}
-
 .app-controller-row-item {
     margin-right: var(--spacing-medium);
 }
@@ -804,7 +816,7 @@ canvas {
 
 .app-brand-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     height: auto;
@@ -832,7 +844,7 @@ canvas {
 .app-brand-logo .app-name {
     color: var(--color-brand) !important;
     padding: 0;
-    margin: 0 var(--spacing-small);
+    margin-left : var(--spacing-small);
     text-transform: uppercase;
     text-align: center;
     align-content: center;
@@ -841,9 +853,10 @@ canvas {
 .app-brand-container .app-description {
     text-align: center;
     width: auto;
-    padding: 0;
-    margin: 0 var(--spacing-tiny);
+    margin-left : var(--spacing-medium);
     font-size: var(--regular-text-size);
+    padding-left : var(--spacing-medium);
+    border-left: var(--border-width) solid var(--color-primary);
 }
 
 .app-popup-container {
@@ -1126,7 +1139,7 @@ table {
     height: auto;
     border: none;
     border-radius: var(--default-radius);
-    margin: var(--spacing-large) 0;
+    margin: var(--spacing-medium) 0;
     font-size: var(--regular-text-size);
     background-color: var(--color-primary);
     color: var(--color-text);
@@ -1135,7 +1148,7 @@ table {
 th, td {
     width: auto;
     height: auto;
-    padding: var(--spacing-medium) var(--spacing-medium);
+    padding: var(--spacing-small) var(--spacing-small);
     text-align: left;
 }
 
