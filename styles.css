@@ -313,8 +313,8 @@ section {
     text-align: left;
     position: absolute;
     z-index: var(--z-index-overlay);
-    bottom: -139%;
-    left: 69%;
+    top: 100%;
+    left: 33%;
     pointer-events: none;
     border-radius: var(--default-radius);
     transition: all var(--transition-default);
@@ -816,7 +816,7 @@ canvas {
 
 .app-brand-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     height: auto;
@@ -844,7 +844,7 @@ canvas {
 .app-brand-logo .app-name {
     color: var(--color-brand) !important;
     padding: 0;
-    margin: 0 var(--spacing-small);
+    margin-left : var(--spacing-small);
     text-transform: uppercase;
     text-align: center;
     align-content: center;
@@ -853,9 +853,10 @@ canvas {
 .app-brand-container .app-description {
     text-align: center;
     width: auto;
-    padding: 0;
-    margin: 0 var(--spacing-tiny);
+    margin-left : var(--spacing-medium);
     font-size: var(--regular-text-size);
+    padding-left : var(--spacing-medium);
+    border-left: var(--border-width) solid var(--color-primary);
 }
 
 .app-popup-container {

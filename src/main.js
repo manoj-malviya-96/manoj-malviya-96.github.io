@@ -74,7 +74,7 @@ function loadContentInMainWindow(
           runWithDelay(callback, 5); // Add a delay to ensure the content is loaded before calling the callback
         }
       }
-      initTooltip();
+      runWithDelay(initTooltip, 500);
     },
   );
   handleURLinHistory(addParamsToURL({ pageName: page }), doPushToHistory);
@@ -183,8 +183,17 @@ function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
         appButton.onclick = onClickFunction;
 
         // Clone the app-brand-container and append it to the button
-        const clonedAppBrand = appBrandContainer.cloneNode(true);
-        appButton.appendChild(clonedAppBrand);
+        const appIcon = appBrandContainer
+          .querySelector(".app-brand-logo")
+          .cloneNode(true);
+
+        appButton.appendChild(appIcon);
+
+        appButton.setAttribute(
+          "data-tooltip",
+          appBrandContainer.querySelector(".app-description").textContent,
+        );
+        appButton.classList.add("modern-tooltip");
 
         return appButton; // Return the created button
       } else {
