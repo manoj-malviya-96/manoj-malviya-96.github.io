@@ -151,6 +151,16 @@ class LatticeMesh {
       this.forcePoints.add(closestNode);
     }
   }
+
+  computeDisplacedPoints(displacements, ndof_per_node = 2, scale = 0.01) {
+    return this.points.map(([x, y], index) => {
+      const start_dof = index * ndof_per_node;
+      return [
+        x + scale * displacements[start_dof],
+        y + scale * displacements[start_dof + 1],
+      ];
+    });
+  }
 }
 
 class LatticeFEA {
@@ -365,9 +375,7 @@ class LatticeFEA {
 // }
 
 class LatticePlot {
-  constructor(mesh) {
-    this.mesh = mesh;
-  }
+  constructor() {}
 
   getLineTrace(coords, start, end, lineWidth, color) {
     return {
@@ -391,18 +399,21 @@ class LatticePlot {
     };
   }
 
-  plot(container, heightMargin = 0, stresses = [], callback = null) {
-    const coords = this.mesh.points;
-    const connections = this.mesh.connections;
-    const normThickness = this.mesh.normThickness;
+  plot(container, mesh, FEA = null, heightMargin = 0, callback = null) {
+    const coords = FEA
+      ? mesh.computeDisplacedPoints(FEA.displacements, FEA.ndof_per_node)
+      : mesh.points;
+    const connections = mesh.connections;
+    const normThickness = mesh.normThickness;
+
     const maxLineWidth = 5;
     const data = [];
     const markerSize = 7;
     const hoverTemplate = "(%{x}, %{y}) <extra></extra>";
 
     const neutralColor = getContrastColor();
-    const maxStress = stresses.length > 0 ? Math.max(...stresses) : 1;
-    const minStress = stresses.length > 0 ? Math.min(...stresses) : 0;
+    const maxStress = FEA ? Math.max(...FEA.stresses) : 1;
+    const minStress = FEA ? Math.min(...FEA.stresses) : 0;
     const normalizeStress = (value) =>
       (value - minStress) / (maxStress - minStress);
 
@@ -410,15 +421,14 @@ class LatticePlot {
     connections.forEach(([start, end], index) => {
       const lineWidth =
         maxLineWidth * normThickness[index % normThickness.length];
-      const color =
-        stresses.length > 0
-          ? getContinuousScaleColor(
-              normalizeStress(stresses[index]),
-              stressTopColor,
-              stressBottomColor,
-              neutralColor,
-            )
-          : neutralColor;
+      const color = FEA
+        ? getContinuousScaleColor(
+            normalizeStress(FEA.stresses[index]),
+            stressTopColor,
+            stressBottomColor,
+            neutralColor,
+          )
+        : neutralColor;
       data.push(this.getLineTrace(coords, start, end, lineWidth, color));
     });
 
@@ -434,7 +444,7 @@ class LatticePlot {
     );
 
     // Fixed points markers
-    const fixedPointsCoords = Array.from(this.mesh.fixedPoints).map(
+    const fixedPointsCoords = Array.from(mesh.fixedPoints).map(
       (index) => coords[index],
     );
     data.push(
@@ -448,7 +458,7 @@ class LatticePlot {
     );
 
     // Force points markers
-    const forcePointsCoords = Array.from(this.mesh.forcePoints).map(
+    const forcePointsCoords = Array.from(mesh.forcePoints).map(
       (index) => coords[index],
     );
     data.push(
@@ -461,7 +471,7 @@ class LatticePlot {
       ),
     );
 
-    if (stresses.length > 0) {
+    if (FEA) {
       // Add a dummy trace for the color scale
       data.push({
         x: [null],
@@ -477,16 +487,16 @@ class LatticePlot {
           cmax: maxStress,
           colorbar: {
             title: "Stress",
-            thickness: 15,
+            thickness: 21,
             len: 0.5,
-            x: 1.0, // Position outside the main plot
+            x: 0.95, // Position outside the main plot
           },
         },
         showscale: true,
       });
     }
 
-    const aspectRatio = this.mesh.meshWidth / this.mesh.meshHeight;
+    const aspectRatio = mesh.meshWidth / mesh.meshHeight;
     const height = appWindowHeight - heightMargin;
     const layout = createLayout(
       "",
@@ -544,13 +554,15 @@ class LatticeViewer {
       }
     });
 
-    this.tableResult = {};
+    this.FEA = null;
     this.feaBtn.addEventListener("click", async () => {
       await this.computeFEA();
     });
 
+    this.plotter = new LatticePlot();
+
     // Generate initial mesh
-    this.updateMesh();
+    this.resetMesh();
     this.mesh.addCantileverCase();
     this.renderMeshAndTable();
   }
@@ -558,25 +570,20 @@ class LatticeViewer {
   async computeFEA() {
     toggleElementVisibility(this.loadingModal, "show");
 
-    const FEA = new LatticeFEA(this.mesh);
-    await FEA.compute();
-
-    this.tableResult = {
-      "Total Thickness": FEA.totalVolume,
-      "Strain Energy": FEA.strainEnergy,
-    };
-    this.renderMeshAndTable(FEA.stresses);
+    this.FEA = new LatticeFEA(this.mesh);
+    await this.FEA.compute();
+    this.renderMeshAndTable();
     toggleElementVisibility(this.loadingModal, "hide");
   }
 
   onLatticeTypeChanged(newValue) {
     this.latticeType = newValue;
-    this.updateMesh();
+    this.resetMesh();
     this.renderMeshAndTable();
   }
 
   onSpinboxChange() {
-    this.updateMesh();
+    this.resetMesh();
     this.renderMeshAndTable();
   }
 
@@ -608,7 +615,7 @@ class LatticeViewer {
     });
   }
 
-  updateMesh() {
+  resetMesh() {
     // Get input values
     const cellSize = parseFloat(this.cellSizeInput.value);
     const meshWidth = parseFloat(this.meshWidthInput.value);
@@ -621,10 +628,10 @@ class LatticeViewer {
       meshHeight,
       this.latticeType,
     );
-    this.drawer = new LatticePlot(this.mesh);
+    this.FEA = null;
   }
 
-  renderMeshAndTable(feaStress = []) {
+  renderMeshAndTable() {
     const container = window.document.querySelector(
       ".app-controller-container",
     );
@@ -633,10 +640,11 @@ class LatticeViewer {
       return;
     }
     const plotFn = () => {
-      this.drawer.plot(
+      this.plotter.plot(
         this.canvasId,
+        this.mesh,
+        this.FEA,
         container.clientHeight,
-        feaStress,
         this.initMouseClickInteraction.bind(this),
       );
     };
@@ -649,7 +657,16 @@ class LatticeViewer {
   updateTable() {
     this.infoTable.innerHTML = ""; // Clear the table
 
-    for (const [key, value] of Object.entries(this.tableResult)) {
+    if (!this.FEA) {
+      return;
+    }
+
+    const tableResult = {
+      "Total Thickness": this.FEA.totalVolume,
+      "Strain Energy": this.FEA.strainEnergy,
+    };
+
+    for (const [key, value] of Object.entries(tableResult)) {
       addKeyValueToTable(this.infoTable, key, value.toFixed(2));
     }
   }
