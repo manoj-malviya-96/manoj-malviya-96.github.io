@@ -1,4 +1,4 @@
-const maxLineWidth = 3;
+const maxLineWidth = 7;
 const MouseMode = {
   Normal: 0,
   Fix: 1,
@@ -9,6 +9,8 @@ const stressTopColor = `rgb(189, 92, 92)`;
 const stressBottomColor = `rgb(46, 108, 189)`;
 const fixedNodeColor = `rgb(188, 232, 140)`;
 const forceNodeColor = `rgb(128, 9, 255)`;
+
+const minNormalizedThickness = 0.099;
 
 class LatticeMesh {
   constructor(cellSize, meshWidth, meshHeight, latticeType) {
@@ -164,31 +166,31 @@ class LatticeMesh {
 }
 
 class LatticeFEA {
-  constructor(mesh) {
+  constructor(mesh, E = 1) {
     this.mesh = mesh;
-    this.ndof_per_node = 2; // 2 DOF per node: x and y (no rotation)
-    this.ndof = this.mesh.points.length * this.ndof_per_node; // Total degrees of freedom
+    this.E = E;
+    this.ndof_per_node = 2;
+    this.ndof = this.mesh.points.length * this.ndof_per_node;
 
-    // Initialize global stiffness matrix K as an ndof x ndof 2D array
     this.stiffnessMatrix = null;
     this.displacements = null;
     this.stresses = null;
+    this.strainEnergy = null;
+    this.derivative_strainEnergy = null;
+    this.totalVolume = null;
   }
 
-  computeStiffnessMatrix() {
-    // Initialize global stiffness matrix with zeros
+  compute() {
+    // Step 1: Compute global stiffness matrix
     const K = Array.from({ length: this.ndof }, () => Array(this.ndof).fill(0));
 
     this.mesh.connections.forEach(([start, end], index) => {
       const length = this.mesh.lengths[index];
       const A = this.mesh.normThickness[index];
-      const k = A / length;
+      const k = (this.E * A) / length;
 
-      // Calculate direction cosines
-      const c = this.mesh.directionCosines[index][0];
-      const s = this.mesh.directionCosines[index][1];
+      const [c, s] = this.mesh.directionCosines[index];
 
-      // Local stiffness matrix for a 2D beam with 2 DOF per node (no rotation)
       const ke = [
         [c * c * k, c * s * k, -c * c * k, -c * s * k],
         [c * s * k, s * s * k, -c * s * k, -s * s * k],
@@ -196,7 +198,6 @@ class LatticeFEA {
         [-c * s * k, -s * s * k, c * s * k, s * s * k],
       ];
 
-      // Map local stiffness matrix into global stiffness matrix
       const start_dof = start * this.ndof_per_node;
       const end_dof = end * this.ndof_per_node;
 
@@ -209,18 +210,8 @@ class LatticeFEA {
         }
       }
     });
-    this.stiffnessMatrix = K;
-  }
 
-  computeDisplacement() {
-    if (!this.stiffnessMatrix) {
-      console.error("Stiffness matrix not computed");
-      return;
-    }
-
-    const K = this.stiffnessMatrix;
-
-    // Apply boundary conditions (fixed points)
+    // Step 2: Apply boundary conditions and compute displacements
     this.mesh.fixedPoints.forEach((index) => {
       const start_dof = index * this.ndof_per_node;
       for (let i = 0; i < this.ndof_per_node; i++) {
@@ -229,150 +220,155 @@ class LatticeFEA {
       }
     });
 
-    // Initialize force vector
-    const F = new Array(this.mesh.points.length * this.ndof_per_node).fill(0);
+    const F = new Array(this.ndof).fill(0);
     this.mesh.forcePoints.forEach((index) => {
-      F[index * this.ndof_per_node + 1] = 1; // Applying force in x direction as an example
+      F[index * this.ndof_per_node + 1] = 1; // Example: apply force in y direction
     });
 
-    // Solve for displacements
+    let U = null;
     try {
-      this.displacements = numeric.solve(K, F);
+      U = numeric.solve(K, F);
     } catch (e) {
-      console.error("Matrix is singular or has no unique solution:", e);
+      console.error("Error solving for displacements:", e);
+      return;
     }
-  }
+    this.displacements = U;
 
-  computeStress() {
-    const U = this.displacements;
+    // Step 3: Compute stresses in each element
     const A = this.mesh.normThickness;
-    const result = new Array(this.mesh.connections.length).fill(0);
-
-    // Initialize stress array
-    //! F = K * U. Stress = A * (U2 - U1) / L
-    for (let i = 0; i < this.mesh.connections.length; i++) {
+    this.stresses = this.mesh.connections.map(([start, end], i) => {
+      if (A[i] <= 0) {
+        return 0;
+      }
       const length = this.mesh.lengths[i];
-      const c = this.mesh.directionCosines[i][0];
-      const s = this.mesh.directionCosines[i][1];
-
-      const [start, end] = this.mesh.connections[i];
       const start_dof = start * this.ndof_per_node;
       const end_dof = end * this.ndof_per_node;
 
       const u1 = [U[start_dof], U[start_dof + 1]];
       const u2 = [U[end_dof], U[end_dof + 1]];
-      const stress =
-        (A[i] * (c * (u2[0] - u1[0]) + s * (u2[1] - u1[1]))) / length;
 
-      result[i] = stress.toFixed(2);
-    }
+      const deltaU = u2.map((val, idx) => val - u1[idx]);
+      const axialForce =
+        deltaU[0] * this.mesh.directionCosines[i][0] +
+        deltaU[1] * this.mesh.directionCosines[i][1];
 
-    this.stresses = result;
-  }
+      return (this.E * axialForce) / (A[i] * length);
+    });
 
-  computeStrainEnergy() {
-    if (!this.displacements) {
-      console.error("Displacement not computed");
-      return;
-    }
-    const U = this.displacements;
-    const K = this.stiffnessMatrix;
+    // Step 4: Compute strain energy
     this.strainEnergy = numeric.dot(numeric.dot(U, K), U) / 2;
-  }
 
-  computeTotalVolume() {
-    this.totalVolume = this.mesh.normThickness.reduce(
-      (acc, val) => acc + val,
+    // Step 5: Compute derivative of strain energy with respect to area
+    this.derivative_strainEnergy = this.mesh.connections.map((_, i) => {
+      const F_i = this.stresses[i] * A[i] * this.mesh.lengths[i];
+      return (-1 * F_i ** 2) / (2 * this.E * this.mesh.lengths[i]);
+    });
+
+    // Step 6: Compute total volume
+    this.totalVolume = A.reduce(
+      (acc, val, i) => acc + val * this.mesh.lengths[i],
       0,
     );
   }
-
-  compute() {
-    this.computeStiffnessMatrix();
-    this.computeDisplacement();
-    this.computeStrainEnergy();
-    this.computeTotalVolume();
-    this.computeStress();
-  }
 }
 
-//
-// class LatticeOptimizer {
-//   constructor(initialMesh) {
-//     this.initialMesh = initialMesh;
-//     this.currentMesh = { ...initialMesh };
-//     this.currentLambda = 1; // Initial Lagrange multiplier
-//     this.maxIterations = 100; // Maximum number of iterations
-//     this.learningRate = 0.01; // Learning rate for the optimization
-//     this.lambda = 1;
-//   }
-//
-//   computeCost() {
-//     const fea = new LatticeFEA(this.currentMesh);
-//     fea.computeStiffnessMatrix();
-//     fea.computeDisplacement();
-//     return fea.computeStrainEnergy();
-//   }
-//
-//   computeConstraint() {
-//     return (
-//       this.currentMesh.normThickness.reduce((acc, val) => acc + val, 0) - 0.3
-//     );
-//   }
-//
-//   // Numerical gradient computation
-//   computeGradient() {
-//     const grad = [];
-//     const delta = 1e-6; // Small perturbation for numerical gradient
-//     const baseCost = this.computeCost(this.currentMesh);
-//
-//     this.currentMesh.normThickness.forEach((thickness, i) => {
-//       this.currentMesh.normThickness[i] += delta; // Perturb thickness
-//       const newCost = this.computeCost(this.currentMesh);
-//       grad[i] = (newCost - baseCost) / delta; // Compute gradient
-//       this.currentMesh.normThickness[i] -= delta; // Reset thickness
-//     });
-//
-//     return grad;
-//   }
-//
-//   async optimize(progressCallback = null) {
-//     for (let iteration = 0; iteration < this.maxIterations; iteration++) {
-//       const grad = this.computeGradient();
-//       const constraint = this.computeConstraint();
-//
-//       // Update thicknesses with gradient descent and constraint handling
-//       this.currentMesh.normThickness = this.currentMesh.normThickness.map(
-//         (thickness, i) => {
-//           return (
-//             thickness -
-//             this.learningRate * (grad[i] + this.currentLambda * constraint)
-//           );
-//         },
-//       );
-//
-//       // Update Lagrange multiplier for constraint satisfaction
-//       this.currentLambda += this.learningRate * constraint;
-//
-//       // Update the progress bar using the callback
-//       if (progressCallback) progressCallback(iteration / this.maxIterations);
-//
-//       // Check convergence (when gradient and constraint are near zero)
-//       if (
-//         Math.abs(constraint) < 1e-4 &&
-//         grad.every((g) => Math.abs(g) < 1e-4)
-//       ) {
-//         console.log("Convergence achieved at iteration", iteration);
-//         break;
-//       }
-//     }
-//
-//     console.log(
-//       "Optimization complete. Final thickness values:",
-//       this.currentMesh.normThickness,
-//     );
-//   }
-// }
+class LatticeOptimizer {
+  constructor(initialMesh, numIterations = 200, targetFraction = 0.4) {
+    this.currentMesh = initialMesh;
+    this.numIterations = numIterations;
+    this.targetFraction = targetFraction;
+
+    const fea = new LatticeFEA(initialMesh);
+    fea.compute();
+    this.startObj = fea.strainEnergy;
+    this.startVolume = fea.totalVolume;
+
+    this.success = true;
+  }
+
+  computeLambda(X, dc, lengths) {
+    // Bisection parameters
+    let l1 = 1e-24;
+    let l2 = 1e24;
+    const tolerance = 1e-4;
+    let X_temp = X;
+    const targetVolume = this.startVolume * this.targetFraction;
+
+    let lmid = (l1 + l2) / 2;
+
+    while (l2 - l1 > tolerance) {
+      lmid = 0.5 * (l2 + l1);
+
+      // Calculate potential `X_new` based on current `lmid`
+      X_temp = X.map((x, index) => {
+        const d = Math.sqrt((-1 * dc[index]) / lmid);
+        const xn = x * d;
+        return Math.max(Math.min(1, xn), minNormalizedThickness);
+      });
+
+      // Calculate volume of `X_temp`
+      const currentVolume = X_temp.reduce(
+        (sum, xi, i) => sum + xi * lengths[i],
+        0,
+      );
+
+      // Adjust `l1` and `l2` based on volume constraint
+      if (currentVolume >= targetVolume) {
+        l1 = lmid; // Increase `lmid` to reduce volume
+      } else {
+        l2 = lmid; // Decrease `lmid` to increase volume
+      }
+    }
+    return X_temp; // Return the lambda that satisfies the volume constraint
+  }
+
+  iterate() {
+    const mesh = this.currentMesh;
+
+    const X = mesh.normThickness;
+
+    const FEA = new LatticeFEA(mesh);
+    FEA.compute();
+
+    const obj = FEA.strainEnergy / this.startObj;
+    if (isNaN(obj)) {
+      this.success = false;
+      return;
+    }
+
+    const penn = Math.pow(obj, 2); // Penalty term
+    const dObj_dX = FEA.derivative_strainEnergy.map((dc) => penn * dc);
+
+    this.currentMesh.normThickness = this.computeLambda(
+      X,
+      dObj_dX,
+      mesh.lengths,
+    );
+
+    // Check if all elements are at the minimum thickness
+    if (
+      this.currentMesh.normThickness.every(
+        (val) => val <= minNormalizedThickness,
+      )
+    ) {
+      console.error("All elements are at minimum thickness");
+      this.success = false;
+    }
+  }
+
+  async optimize() {
+    for (let i = 0; i < this.numIterations; i++) {
+      await this.iterate();
+
+      if (!this.success) {
+        console.error("Iteration failed");
+        return;
+      }
+    }
+    console.log(this.currentMesh.normThickness);
+    this.success = true;
+  }
+}
 
 class LatticePlot {
   constructor() {}
@@ -406,7 +402,6 @@ class LatticePlot {
     const connections = mesh.connections;
     const normThickness = mesh.normThickness;
 
-    const maxLineWidth = 5;
     const data = [];
     const markerSize = 7;
     const hoverTemplate = "(%{x}, %{y}) <extra></extra>";
@@ -419,8 +414,12 @@ class LatticePlot {
 
     // Add lines with stress-based colors if available
     connections.forEach(([start, end], index) => {
-      const lineWidth =
-        maxLineWidth * normThickness[index % normThickness.length];
+      const th =
+        normThickness[index] <= minNormalizedThickness
+          ? 0
+          : normThickness[index];
+      const lineWidth = maxLineWidth * th;
+
       const color = FEA
         ? getContinuousScaleColor(
             normalizeStress(FEA.stresses[index]),
@@ -464,7 +463,7 @@ class LatticePlot {
     data.push(
       this.getMarkersTrace(
         forcePointsCoords,
-        "arrow-up",
+        "arrow-wide",
         forceNodeColor,
         2 * markerSize,
         hoverTemplate,
@@ -472,6 +471,8 @@ class LatticePlot {
     );
 
     if (FEA) {
+      console.log(maxStress, minStress, (maxStress + minStress) / 2);
+      console.log(FEA.stresses);
       // Add a dummy trace for the color scale
       data.push({
         x: [null],
@@ -517,6 +518,8 @@ class LatticePlot {
 class LatticeViewer {
   constructor() {
     this.canvasId = "meshPlot";
+    this.FEA = null;
+    this.plotter = new LatticePlot();
 
     this.cellSizeInput = document.getElementById("cellSize");
     this.meshWidthInput = document.getElementById("meshWidth");
@@ -524,6 +527,8 @@ class LatticeViewer {
     this.fixedNodeBtn = document.getElementById("selectFixedButton");
     this.forceNodeBtn = document.getElementById("selectForceButton");
     this.feaBtn = document.getElementById("computeFEAButton");
+    this.resetBtn = document.getElementById("resetButton");
+    this.optimizeBtn = document.getElementById("optButton");
     this.loadingModal = document.getElementById("loadingModal");
     this.infoText = document.getElementById("infoText");
 
@@ -554,12 +559,18 @@ class LatticeViewer {
       }
     });
 
-    this.FEA = null;
     this.feaBtn.addEventListener("click", async () => {
       await this.computeFEA();
     });
 
-    this.plotter = new LatticePlot();
+    this.optimizeBtn.addEventListener("click", async () => {
+      await this.optimize();
+    });
+
+    this.resetBtn.addEventListener("click", () => {
+      this.resetMesh();
+      this.renderMeshAndTable();
+    });
 
     // Generate initial mesh
     this.resetMesh();
@@ -573,6 +584,22 @@ class LatticeViewer {
     this.FEA = new LatticeFEA(this.mesh);
     await this.FEA.compute();
     this.renderMeshAndTable();
+    toggleElementVisibility(this.loadingModal, "hide");
+  }
+
+  async optimize() {
+    toggleElementVisibility(this.loadingModal, "show");
+    this.FEA = null;
+
+    const optimizer = new LatticeOptimizer(this.mesh);
+    await optimizer.optimize();
+
+    if (!optimizer.success) {
+      this.infoText.textContent = "Optimization failed";
+    } else {
+      this.mesh = optimizer.currentMesh;
+      this.renderMeshAndTable();
+    }
     toggleElementVisibility(this.loadingModal, "hide");
   }
 
@@ -652,6 +679,7 @@ class LatticeViewer {
 
     this.updateTable();
     this.feaBtn.disabled = !this.mesh.readyForOptimize();
+    this.optimizeBtn.disabled = this.feaBtn.disabled;
   }
 
   updateTable() {

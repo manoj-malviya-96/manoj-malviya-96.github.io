@@ -67,7 +67,7 @@
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshWidth" class="modern-spinbox-input"
-                                   value="40" max="500" min="10" step="10">
+                                   value="50" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -87,14 +87,12 @@
                             </button>
                         </div>
                     </div>
-                </div>
 
-                <div class="app-controller-row-group">
                     <button id="selectFixedButton" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="Select Fixed Points"><i class="bi bi-arrow-down-square"></i></button>
+                            data-tooltip="Select Fixed Points"><i class="bi bi-x-circle"></i></button>
 
                     <button id="selectForceButton" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="Select Force Points"><i class="bi bi-arrow-up"></i></button>
+                            data-tooltip="Select Force Points"><i class="bi bi-arrow-up-circle"></i></button>
 
                     <div id="latticeTypeDropdown" class="modern-dropdown app-controller-row-item">
                         <button class="primary-button modern-tooltip"
@@ -106,13 +104,24 @@
                             <li data-value="checkerboard" class="modern-dropdown-item">Checkerboard</li>
                         </ul>
                     </div>
-                    <button id="computeFEAButton" class="primary-button add-background modern-tooltip app-controller-row-item"
-                            data-tooltip="Compute FEA">
-                        <i class="bi bi-arrow-clockwise"></i>
-                        <span class="button-label">Compute</span>
-                    </button>
                 </div>
 
+                <div class="app-controller-row-group">
+                    <button id="computeFEAButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Compute FEA">
+                        <i class="bi bi-triangle"></i>
+                        <span class="button-label">FEA</span>
+                    </button>
+                    <button id="optButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Optimize Structure">
+                        <i class="bi bi-tools"></i>
+                        <span class="button-label">Optimize</span>
+                    </button>
+                    <button id="resetButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Reset Scene">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </button>
+                </div>
                 <!-- Info Table -->
                 <div class="app-controller-row-group">
                     <div class="app-controller-row-item">
