@@ -502,9 +502,7 @@ class LatticePlot {
       false,
     );
 
-    Plotly.newPlot(container, data, layout).then(() => {
-      callback?.();
-    });
+    plotlyPlot(container, data, layout, callback);
   }
 }
 
