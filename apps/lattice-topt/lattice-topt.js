@@ -701,8 +701,8 @@ class LatticeViewer {
     }
 
     const tableResult = {
-      "Total Thickness": this.FEA.totalVolume,
-      "Strain Energy": this.FEA.strainEnergy,
+      Volume: this.FEA.totalVolume,
+      "Strain-Energy": this.FEA.strainEnergy,
     };
 
     for (const [key, value] of Object.entries(tableResult)) {
