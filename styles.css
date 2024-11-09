@@ -403,8 +403,14 @@ section {
     background-color: var(--color-brand);
 }
 
-.primary-button.selected:hover .bi {
-    color: var(--color-white);
+
+.primary-button.selected:hover {
+    box-shadow: var(--shadow-brand);
+}
+
+.primary-button.selected:hover .bi,
+.primary-button.selected:hover .button-label {
+    color: var(--color-white) !important;
 }
 
 

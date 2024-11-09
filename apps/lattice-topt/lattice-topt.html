@@ -21,6 +21,11 @@
         padding-right: 0;
     }
 
+    #infoText {
+        width: 200px;
+        text-align: center;
+    }
+
 </style>
 
 <!-- Icon and App Name in  layout -->
@@ -42,7 +47,7 @@
 
     <div class="app-controller-container" id="latticeControls">
         <!-- App Header -->
-        <div class="app-controller">
+        <div class="app-controller add-border">
             <!-- options for lattice generation -->
             <div id="controls" class="app-controller-row">
                 <div class="app-controller-row-group">
@@ -89,15 +94,20 @@
                     </div>
 
                     <button id="selectFixedButton" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="Select Fixed Points"><i class="bi bi-x-circle"></i></button>
+                            data-tooltip="Select Fixed Points"><i class="bi bi-x-circle"></i>
+                            <span class="button-label">Fix</span>
+                    </button>
 
                     <button id="selectForceButton" class="primary-button modern-tooltip app-controller-row-item"
-                            data-tooltip="Select Force Points"><i class="bi bi-arrow-up-circle"></i></button>
+                            data-tooltip="Select Force Points"><i class="bi bi-arrow-up-circle"></i>
+                            <span class="button-label">Load</span>
+                    </button>
 
                     <div id="latticeTypeDropdown" class="modern-dropdown app-controller-row-item">
                         <button class="primary-button modern-tooltip"
                                 data-tooltip="Select Lattice Type">
                             <i class="bi bi-gear"></i>
+                            <span class="button-label">Type</span>
                         </button>
                         <ul class="modern-dropdown-list hidden">
                             <li data-value="cross" class="modern-dropdown-item selected">Square</li>
@@ -110,7 +120,7 @@
                     <button id="computeFEAButton" class="primary-button add-background modern-tooltip app-controller-row-item"
                             data-tooltip="Compute FEA">
                         <i class="bi bi-triangle"></i>
-                        <span class="button-label">FEA</span>
+                        <span class="button-label">Analyze</span>
                     </button>
                     <button id="optButton" class="primary-button add-background modern-tooltip app-controller-row-item"
                             data-tooltip="Optimize Structure">
