@@ -376,16 +376,17 @@ section {
 }
 
 .primary-button:hover {
+    cursor: pointer;
     box-shadow: var(--box-shadow);
 }
 
 .primary-button:active {
+    cursor: pointer;
     transform: scale(var(--active-scale));
 }
 
 .primary-button:hover .bi,
 .primary-button:hover .button-label {
-    cursor: pointer;
     color: var(--color-brand) !important;;
 }
 
