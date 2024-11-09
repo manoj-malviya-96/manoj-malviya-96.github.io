@@ -16,6 +16,15 @@ class LatticeMesh {
     this.generateMeshData();
   }
 
+  readyForOptimize() {
+    return (
+      this.fixedPoints.size > 0 &&
+      this.forcePoints.size > 0 &&
+      this.points.length > 0 &&
+      this.connections.length > 0
+    );
+  }
+
   generateMeshData() {
     const n_nodes_x = Math.floor(this.meshWidth / this.cellSize);
     const n_nodes_z = Math.floor(this.meshHeight / this.cellSize);
@@ -184,6 +193,178 @@ const MouseMode = {
   Force: 2,
 };
 
+class LatticeFEA {
+  constructor(mesh) {
+    this.mesh = mesh;
+    this.ndof_per_node = 3; // 3 DOF per node: x, y, and rotation
+    // Initialize K as an ndof x ndof 2D array
+    this.ndof = this.mesh.points.length * this.ndof_per_node; // 3 DOF per node: x, y, and rotation
+    this.K = Array.from({ length: this.ndof }, () => Array(this.ndof).fill(0));
+    this.U = new Array(this.ndof).fill(0);
+  }
+
+  computeStiffnessMatrix() {
+    const points = this.mesh.points;
+
+    // Initialize global stiffness matrix with zeros
+    this.K = Array.from({ length: this.ndof }, () => Array(this.ndof).fill(0));
+
+    this.mesh.connections.forEach(([start, end], index) => {
+      const x1 = points[start][0];
+      const y1 = points[start][1];
+      const x2 = points[end][0];
+      const y2 = points[end][1];
+
+      const length = Math.hypot(x2 - x1, y2 - y1);
+      const A = this.mesh.normThickness[index];
+      const k = A / length;
+
+      // Calculate direction cosines
+      const c = (x2 - x1) / length;
+      const s = (y2 - y1) / length;
+
+      // Local stiffness matrix for a 2D beam with 3 DOF per node
+      const ke = [
+        [c * c * k, c * s * k, 0, -c * c * k, -c * s * k, 0],
+        [c * s * k, s * s * k, 0, -c * s * k, -s * s * k, 0],
+        [0, 0, 0, 0, 0, 0], // Placeholder for rotational DOF (simplified)
+        [-c * c * k, -c * s * k, 0, c * c * k, c * s * k, 0],
+        [-c * s * k, -s * s * k, 0, c * s * k, s * s * k, 0],
+        [0, 0, 0, 0, 0, 0], // Placeholder for rotational DOF (simplified)
+      ];
+
+      // Map local stiffness matrix into global stiffness matrix
+      const start_dof = start * this.ndof_per_node;
+      const end_dof = end * this.ndof_per_node;
+
+      for (let i = 0; i < this.ndof_per_node; i++) {
+        for (let j = 0; j < this.ndof_per_node; j++) {
+          this.K[start_dof + i][start_dof + j] += ke[i][j];
+          this.K[start_dof + i][end_dof + j] += ke[i][j + 3];
+          this.K[end_dof + i][start_dof + j] += ke[i + 3][j];
+          this.K[end_dof + i][end_dof + j] += ke[i + 3][j + 3];
+        }
+      }
+    });
+  }
+
+  computeDisplacement() {
+    if (!this.K) {
+      console.error("Stiffness matrix not computed");
+      return;
+    }
+
+    // Apply boundary conditions (fixed points)
+    this.mesh.fixedPoints.forEach((index) => {
+      const start_dof = index * this.ndof_per_node;
+      for (let i = 0; i < this.ndof_per_node; i++) {
+        this.K[start_dof + i].fill(0);
+        this.K[start_dof + i][start_dof + i] = 1;
+      }
+    });
+
+    // Initialize force vector
+    const F = new Array(this.mesh.points.length * this.ndof_per_beam).fill(0);
+    this.mesh.forcePoints.forEach((index) => {
+      F[index * this.ndof_per_node] = 1; // Applying force in x direction as an example
+    });
+
+    // Solve for displacements
+    try {
+      this.U = numeric.solve(this.K, F);
+    } catch (e) {
+      console.error("Matrix is singular or has no unique solution:", e);
+    }
+  }
+
+  computeStrainEnergy() {
+    if (!this.U) {
+      console.error("Displacement not computed");
+      return;
+    }
+    const U = this.U;
+    const K = this.K;
+    return numeric.dot(numeric.dot(U, K), U) / 2;
+  }
+}
+
+class LatticeOptimizer {
+  constructor(initialMesh) {
+    this.initialMesh = initialMesh;
+    this.currentMesh = { ...initialMesh };
+    this.currentLambda = 1; // Initial Lagrange multiplier
+    this.maxIterations = 100; // Maximum number of iterations
+    this.learningRate = 0.01; // Learning rate for the optimization
+    this.lambda = 1;
+  }
+
+  computeCost() {
+    const fea = new LatticeFEA(this.currentMesh);
+    fea.computeStiffnessMatrix();
+    fea.computeDisplacement();
+    return fea.computeStrainEnergy();
+  }
+
+  computeConstraint() {
+    return (
+      this.currentMesh.normThickness.reduce((acc, val) => acc + val, 0) - 0.3
+    );
+  }
+
+  // Numerical gradient computation
+  computeGradient() {
+    const grad = [];
+    const delta = 1e-6; // Small perturbation for numerical gradient
+    const baseCost = this.computeCost(this.currentMesh);
+
+    this.currentMesh.normThickness.forEach((thickness, i) => {
+      this.currentMesh.normThickness[i] += delta; // Perturb thickness
+      const newCost = this.computeCost(this.currentMesh);
+      grad[i] = (newCost - baseCost) / delta; // Compute gradient
+      this.currentMesh.normThickness[i] -= delta; // Reset thickness
+    });
+
+    return grad;
+  }
+
+  async optimize(progressCallback = null) {
+    for (let iteration = 0; iteration < this.maxIterations; iteration++) {
+      const grad = this.computeGradient();
+      const constraint = this.computeConstraint();
+
+      // Update thicknesses with gradient descent and constraint handling
+      this.currentMesh.normThickness = this.currentMesh.normThickness.map(
+        (thickness, i) => {
+          return (
+            thickness -
+            this.learningRate * (grad[i] + this.currentLambda * constraint)
+          );
+        },
+      );
+
+      // Update Lagrange multiplier for constraint satisfaction
+      this.currentLambda += this.learningRate * constraint;
+
+      // Update the progress bar using the callback
+      if (progressCallback) progressCallback(iteration / this.maxIterations);
+
+      // Check convergence (when gradient and constraint are near zero)
+      if (
+        Math.abs(constraint) < 1e-4 &&
+        grad.every((g) => Math.abs(g) < 1e-4)
+      ) {
+        console.log("Convergence achieved at iteration", iteration);
+        break;
+      }
+    }
+
+    console.log(
+      "Optimization complete. Final thickness values:",
+      this.currentMesh.normThickness,
+    );
+  }
+}
+
 // Viewer Class to handle HTML interactions and manage Mesh and Drawer
 class LatticeViewer {
   constructor() {
@@ -194,6 +375,9 @@ class LatticeViewer {
     this.meshHeightInput = document.getElementById("meshHeight");
     this.fixedNodeBtn = document.getElementById("selectFixedButton");
     this.forceNodeBtn = document.getElementById("selectForceButton");
+    this.optimizeBtn = document.getElementById("optimizeButton");
+    this.progressBar = document.getElementById("progressBar");
+    this.infoTable = document.getElementById("infoTable");
 
     this.latticeType = "square";
     setupAllSpinBoxsWithOneCallback(this.onSpinboxChange.bind(this));
@@ -222,9 +406,30 @@ class LatticeViewer {
       }
     });
 
+    this.optimizeBtn.addEventListener("click", async () => {
+      await this.optimize();
+    });
+
     // Generate initial mesh
     this.updateMesh();
     this.visualizeMesh();
+  }
+
+  async optimize() {
+    this.progressBar.classList.remove("hidden");
+
+    const optimizer = new LatticeOptimizer(this.mesh);
+
+    // Update the progress bar during optimization
+    const updateProgress = (progress) => {
+      this.progressBar.value = progress * 100;
+    };
+
+    await optimizer.optimize(updateProgress);
+    this.mesh.normThickness = optimizer.currentMesh.normThickness;
+    this.visualizeMesh();
+
+    this.progressBar.classList.add("hidden");
   }
 
   onLatticeTypeChanged(newValue) {
@@ -298,100 +503,14 @@ class LatticeViewer {
       );
     };
     updatePlotHandler([plotFn]);
-  }
-}
 
-class LatticeFEA {
-  constructor(mesh) {
-    this.mesh = mesh;
-    this.K = null;
-    this.U = null;
+    this.updateTable();
+    this.optimizeBtn.disabled = !this.mesh.readyForOptimize();
   }
 
-  computeStiffnessMatrix() {
-    const points = this.mesh.points;
-    const n_nodes = points.length;
-    this.K = new Array(n_nodes).fill(0).map(() => new Array(n_nodes).fill(0));
-
-    this.mesh.connections.forEach(([start, end], index) => {
-      const x1 = points[start][0];
-      const y1 = points[start][1];
-      const x2 = points[end][0];
-      const y2 = points[end][1];
-
-      const length = Math.hypot(x2 - x1, y2 - y1);
-      const A = this.mesh.normThickness[index];
-
-      const k = A / length;
-      const c = (x2 - x1) * k;
-      const s = (y2 - y1) * k;
-
-      this.K[start][start] += k * c;
-      this.K[start][end] += k * s;
-      this.K[end][start] += k * s;
-      this.K[end][end] += k * c;
-    });
-  }
-
-  computeDisplacement() {
-    if (!this.K) {
-      console.error("Stiffness matrix not computed");
-      return;
-    }
-
-    this.mesh.fixedPoints.forEach((index) => {
-      this.K[index].fill(0);
-      this.K[index][index] = 1;
-    });
-
-    const F = new Array(this.mesh.points.length).fill(0);
-    this.mesh.forcePoints.forEach((index) => {
-      F[index] = 1;
-    });
-
-    try {
-      this.U = numeric.solve(this.K, F);
-    } catch (e) {
-      console.error("Matrix is singular or has no unique solution:", e);
-    }
-  }
-
-  computeStrainEnergy() {
-    if (!this.U) {
-      console.error("Displacement not computed");
-      return;
-    }
-    const U = this.U;
-    const K = this.K;
-    return numeric.dot(numeric.dot(U, K), U) / 2;
-  }
-
-  computeStrainEnergyRate() {
-    if (!this.U) {
-      console.error("Displacement not computed");
-      return;
-    }
-    const U = this.U;
-    const K = this.K;
-    const dK
-  }
-}
-
-class LatticeOptimizer {
-  constructor(initialMesh) {
-    this.initialMesh = initialMesh;
-    this.maxIterations = 100;
-  }
-
-  computeCost(mesh) {
-    const fea = new LatticeFEA(mesh);
-    fea.computeStiffnessMatrix();
-    fea.computeDisplacement();
-    return fea.computeStrainEnergy();
-  }
-
-  // Function to calculate the stiffness matrix
-  optimize() {
-    const cost = (mesh) => this.computeCost(mesh);
+  updateTable() {
+    this.infoTable.innerHTML = ""; // Clear the table
+    addKeyValueToTable(this.infoTable, "Total Thickness", 0.3);
+    addKeyValueToTable(this.infoTable, "Total Strain Energy", 0);
   }
 }

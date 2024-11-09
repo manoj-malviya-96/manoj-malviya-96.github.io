@@ -800,10 +800,6 @@ canvas {
     margin-right: var(--spacing-medium);
 }
 
-.app-controller-row-group:last-child {
-    border-right: none;
-}
-
 .app-controller-row-item {
     margin-right: var(--spacing-medium);
 }

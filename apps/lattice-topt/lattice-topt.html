@@ -72,7 +72,6 @@
                 </div>
 
                 <div class="app-controller-row-group">
-
                     <button id="selectFixedButton" class="primary-button modern-tooltip app-controller-row-item"
                             data-tooltip="Select Fixed Points"><i class="bi bi-arrow-down-square"></i></button>
 
@@ -89,7 +88,21 @@
                             <li data-value="checkerboard" class="modern-dropdown-item">Checkerboard</li>
                         </ul>
                     </div>
+                    <button id="optimizeButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Optimize Lattice Structure">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            <span class="button-label">Optimize </span>
+                    </button>
                 </div>
+
+                <div class="app-controller-row-group" style="margin-left: var(--spacing-large);">
+                    <div class="app-controller-row-item">
+                        <table id="infoTable">
+                            <!-- dynamically will be added -->
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
