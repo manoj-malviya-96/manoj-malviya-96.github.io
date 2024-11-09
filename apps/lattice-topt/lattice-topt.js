@@ -69,9 +69,6 @@ class LatticeMesh {
         const n4 = n3 + 1;
 
         if (this.latticeType === "cross") {
-          this.addConnection(n1, n3);
-          this.addConnection(n2, n4);
-          this.addConnection(n3, n4);
           this.addConnection(n1, n4);
           this.addConnection(n2, n3);
         } else if (this.latticeType === "checkerboard") {
@@ -80,10 +77,11 @@ class LatticeMesh {
           } else {
             this.addConnection(n2, n3); // Opposite-diagonal line
           }
-          this.addConnection(n1, n3);
-          this.addConnection(n2, n4);
-          this.addConnection(n3, n4);
         }
+        this.addConnection(n1, n3);
+        this.addConnection(n1, n2);
+        this.addConnection(n2, n4);
+        this.addConnection(n3, n4);
       }
     }
   }
