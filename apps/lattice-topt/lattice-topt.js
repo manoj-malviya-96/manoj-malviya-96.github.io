@@ -629,6 +629,7 @@ class LatticeViewer {
       this.latticeType,
     );
     this.FEA = null;
+    toggleElementVisibility(this.infoTable, "hide");
   }
 
   renderMeshAndTable() {
@@ -661,6 +662,7 @@ class LatticeViewer {
       return;
     }
 
+    toggleElementVisibility(this.infoTable, "show");
     const tableResult = {
       "Total Thickness": this.FEA.totalVolume,
       "Strain Energy": this.FEA.strainEnergy,

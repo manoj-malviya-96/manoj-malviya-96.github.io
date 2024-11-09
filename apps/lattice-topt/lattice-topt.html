@@ -4,6 +4,16 @@
         width: auto;
         transform: translateY(-169%) translateX(-25%);
     }
+
+    #latticeControls .app-controller-row-group {
+        padding-right : var(--spacing-medium);
+        border-right: var(--border-width) solid var(--color-primary);
+    }
+
+    #infoTable {
+        width: 169px;
+        height: 100%;
+    }
 </style>
 
 <!-- Icon and App Name in  layout -->
@@ -25,7 +35,7 @@
 
     <div class="app-controller-container">
         <!-- App Header -->
-        <div class="app-controller">
+        <div class="app-controller" id="latticeControls">
             <!-- options for lattice generation -->
             <div id="controls" class="app-controller-row">
                 <div class="app-controller-row-group">
@@ -36,7 +46,7 @@
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="cellSize" class="modern-spinbox-input"
-                                   value="10" max="100" min="10" step="5">
+                                   value="5" max="20" min="5" step="5">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -50,7 +60,7 @@
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshWidth" class="modern-spinbox-input"
-                                   value="10" max="500" min="10" step="10">
+                                   value="40" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -64,7 +74,7 @@
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshHeight" class="modern-spinbox-input"
-                                   value="10" max="500" min="10" step="10">
+                                   value="20" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -91,19 +101,15 @@
                     </div>
                     <button id="computeFEAButton" class="primary-button add-background modern-tooltip app-controller-row-item"
                             data-tooltip="Compute FEA">
-                            <i class="bi bi-arrow-clockwise"></i>
-                            <span class="button-label">Compute</span>
+                        <i class="bi bi-arrow-clockwise"></i>
+                        <span class="button-label">Compute</span>
                     </button>
-                </div>
-
-                <div class="app-controller-row-group" style="margin-left: var(--spacing-large);">
                     <div class="app-controller-row-item">
                         <table id="infoTable">
                             <!-- dynamically will be added -->
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
