@@ -255,6 +255,57 @@ function randomColor() {
   const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
   return possibleRandomColors[randomInt];
 }
+function getContinuousScaleColor(value, topColor, bottomColor, midColor) {
+  const posColor = parseColor(topColor); // Green for positive
+  const negColor = parseColor(bottomColor); // Red for negative
+  const neutralColor = parseColor(midColor); // Neutral color
+
+  // Clamp value between 0 and 1
+  const clampedValue = Math.min(Math.max(value, 0), 1);
+
+  // Determine interpolation factor `t` based on value position
+  const t =
+    clampedValue < 0.5 ? clampedValue / 0.5 : (clampedValue - 0.5) / 0.5;
+
+  // Select the appropriate colors for interpolation
+  const startColor = clampedValue < 0.5 ? negColor : neutralColor;
+  const endColor = clampedValue < 0.5 ? neutralColor : posColor;
+
+  // Interpolate between startColor and endColor
+  const r = startColor.r + t * (endColor.r - startColor.r);
+  const g = startColor.g + t * (endColor.g - startColor.g);
+  const b = startColor.b + t * (endColor.b - startColor.b);
+  const a = startColor.a + t * (endColor.a - startColor.a);
+
+  // Return interpolated color as rgba string
+  return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${a.toFixed(2)})`;
+}
+
+// Helper function to parse color string (e.g., rgba(255, 255, 255, 0.5) or hex) into {r, g, b, a}
+function parseColor(color) {
+  const rgbaMatch = color.match(/rgba?\((\d+), (\d+), (\d+),?\s?(\d?.?\d+)?\)/);
+  if (rgbaMatch) {
+    return {
+      r: parseInt(rgbaMatch[1], 10),
+      g: parseInt(rgbaMatch[2], 10),
+      b: parseInt(rgbaMatch[3], 10),
+      a: rgbaMatch[4] ? parseFloat(rgbaMatch[4]) : 1, // Default alpha to 1 if not provided
+    };
+  }
+
+  // If color is in hex, parse it to RGB (ignores alpha for simplicity)
+  const hexMatch = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+  if (hexMatch) {
+    return {
+      r: parseInt(hexMatch[1], 16),
+      g: parseInt(hexMatch[2], 16),
+      b: parseInt(hexMatch[3], 16),
+      a: 1, // Default alpha to 1
+    };
+  }
+
+  throw new Error("Invalid color format");
+}
 
 /* ------------ Dropdown Utilities ------------ */
 function createDropdownItem(dataValue, dataLabel, dataIcon) {

@@ -19,12 +19,13 @@
     <!-- Visualizer section -->
     <div id="meshPlot" class="canvas-like"></div>
 
+    <div id="loadingModal" class="loading-overlay hidden">
+        <div class="spinner-border loading-spinner"></div>
+    </div>
+
     <div class="app-controller-container">
         <!-- App Header -->
         <div class="app-controller">
-            <div class="progress-area app-controller-row hidden">
-                <input type="range" id="progressBar" min="0" max="100" value="0">
-            </div>
             <!-- options for lattice generation -->
             <div id="controls" class="app-controller-row">
                 <div class="app-controller-row-group">
@@ -49,7 +50,7 @@
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshWidth" class="modern-spinbox-input"
-                                   value="100" max="500" min="10" step="10">
+                                   value="10" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -63,7 +64,7 @@
                                 <i class="bi bi-chevron-compact-up"></i>
                             </button>
                             <input type="text" id="meshHeight" class="modern-spinbox-input"
-                                   value="100" max="500" min="10" step="10">
+                                   value="10" max="500" min="10" step="10">
                             <button class="primary-button smaller modern-spinbox-btn-down">
                                 <i class="bi bi-chevron-compact-down"></i>
                             </button>
@@ -84,14 +85,14 @@
                             <i class="bi bi-gear"></i>
                         </button>
                         <ul class="modern-dropdown-list hidden">
-                            <li data-value="square" class="modern-dropdown-item selected">Square</li>
+                            <li data-value="cross" class="modern-dropdown-item selected">Square</li>
                             <li data-value="checkerboard" class="modern-dropdown-item">Checkerboard</li>
                         </ul>
                     </div>
-                    <button id="optimizeButton" class="primary-button add-background modern-tooltip app-controller-row-item"
-                            data-tooltip="Optimize Lattice Structure">
+                    <button id="computeFEAButton" class="primary-button add-background modern-tooltip app-controller-row-item"
+                            data-tooltip="Compute FEA">
                             <i class="bi bi-arrow-clockwise"></i>
-                            <span class="button-label">Optimize </span>
+                            <span class="button-label">Compute</span>
                     </button>
                 </div>
 
