@@ -277,6 +277,7 @@ class LatticeOptimizer {
     this.currentMesh = initialMesh;
     this.numIterations = numIterations;
     this.targetFraction = targetFraction;
+    this.initialMesh = initialMesh;
 
     const fea = new LatticeFEA(initialMesh);
     fea.compute();
@@ -324,7 +325,6 @@ class LatticeOptimizer {
 
   iterate() {
     const mesh = this.currentMesh;
-
     const X = mesh.normThickness;
 
     const FEA = new LatticeFEA(mesh);
@@ -339,21 +339,16 @@ class LatticeOptimizer {
     const penn = Math.pow(obj, 2); // Penalty term
     const dObj_dX = FEA.derivative_strainEnergy.map((dc) => penn * dc);
 
-    this.currentMesh.normThickness = this.computeLambda(
-      X,
-      dObj_dX,
-      mesh.lengths,
-    );
+    const newThickness = this.computeLambda(X, dObj_dX, mesh.lengths);
 
     // Check if all elements are at the minimum thickness
-    if (
-      this.currentMesh.normThickness.every(
-        (val) => val <= minNormalizedThickness,
-      )
-    ) {
+    if (newThickness.every((val) => val <= minNormalizedThickness)) {
       console.error("All elements are at minimum thickness");
       this.success = false;
+      return;
     }
+
+    this.currentMesh.normThickness = newThickness;
   }
 
   async optimize() {
@@ -365,7 +360,6 @@ class LatticeOptimizer {
         return;
       }
     }
-    console.log(this.currentMesh.normThickness);
     this.success = true;
   }
 }
@@ -590,7 +584,6 @@ class LatticeViewer {
   async optimize() {
     toggleElementVisibility(this.loadingModal, "show");
     this.FEA = null;
-
     const optimizer = new LatticeOptimizer(this.mesh);
     await optimizer.optimize();
 
