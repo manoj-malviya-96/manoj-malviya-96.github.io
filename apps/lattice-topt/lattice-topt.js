@@ -571,7 +571,7 @@ class LatticeViewer {
   }
 
   async computeFEA() {
-    toggleElementVisibility(this.loadingModal, "show");
+    toggleElementVisibility(this.loadingModal, elementState.SHOW);
 
     if (this.FEA) {
       this.deactivateFEAMode();
@@ -580,7 +580,7 @@ class LatticeViewer {
     }
 
     this.renderMeshAndTable();
-    toggleElementVisibility(this.loadingModal, "hide");
+    toggleElementVisibility(this.loadingModal, elementState.HIDE);
   }
 
   async activeFEAMode() {
@@ -595,7 +595,7 @@ class LatticeViewer {
   }
 
   async optimize() {
-    toggleElementVisibility(this.loadingModal, "show");
+    toggleElementVisibility(this.loadingModal, elementState.SHOW);
 
     if (this.FEA) {
       this.deactivateFEAMode();
@@ -610,7 +610,10 @@ class LatticeViewer {
       this.mesh = optimizer.currentMesh;
       this.renderMeshAndTable();
     }
-    runWithDelay(() => toggleElementVisibility(this.loadingModal, "hide"), 500);
+    runWithDelay(
+      () => toggleElementVisibility(this.loadingModal, elementState.HIDE),
+      500,
+    );
   }
 
   onLatticeTypeChanged(newValue) {

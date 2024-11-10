@@ -153,6 +153,7 @@ body {
     font-size: var(--regular-text-size);
     width: var(--max-content-width);
     line-height: var(--line-height);
+    text-align: justify;
 }
 
 .content.with-padding {
@@ -183,8 +184,8 @@ h3 {
 p {
     font-weight: var(--regular-weight);
     font-size: var(--regular-text-size);
-    margin: 0;
     text-align: justify-all;
+    opacity: 0.79;
 }
 
 a {
@@ -197,6 +198,13 @@ section {
     border-radius: var(--default-radius);
     padding: 0;
     border: none;
+}
+
+section h2 {
+    margin: var(--spacing-large) 0 var(--spacing-medium) 0;
+}
+section h3 {
+    margin: var(--spacing-medium) 0 var(--spacing-small) 0;
 }
 
 
@@ -1021,8 +1029,8 @@ canvas {
 /* ----------------------------- Blog Sidebar Styling ----------------------------- */
 .blog-sidebar {
     position: fixed;
-    left: var(--spacing-medium);
-    top: calc(var(--spacing-very-large) + var(--magic-size) + var(--spacing-very-large));
+    right: var(--spacing-medium);
+    bottom: var(--spacing-medium);
     padding: var(--spacing-small);
     margin: 0 auto;
     height: auto;
@@ -1099,6 +1107,7 @@ canvas {
     padding: 0;
     max-width: 95%;
     max-height: 95%;
+    cursor: zoom-out;
     transition: all var(--transition-default);
 }
 
@@ -1124,7 +1133,8 @@ canvas {
     width: 100%;
     border: none;
     outline: none;
-    margin-top: var(--spacing-medium);
+    cursor: zoom-in;
+    margin: var(--spacing-large) 0 ;
     border-radius: var(--default-radius);
 }
 /* TODO this can be an adder function */
@@ -1221,7 +1231,6 @@ pre code.hljs {
 .add-background {
     background-color: var(--color-primary);
 }
-
 
 
 

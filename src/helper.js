@@ -54,12 +54,19 @@ function loadContentWithOverlay(
   overlay = null,
   callback = null,
 ) {
-  const toggleDisplay = (element, displayStyle) => {
-    if (element) element.style.display = displayStyle;
+  const toggleOverlay = (showOverlay = false) => {
+    if (overlay) {
+      toggleElementVisibility(
+        overlay,
+        showOverlay ? elementState.SHOW : elementState.HIDE,
+      );
+    }
+    toggleElementVisibility(
+      placeholder,
+      showOverlay ? elementState.HIDE : elementState.SHOW,
+    );
   };
-
-  toggleDisplay(overlay, "flex");
-  toggleDisplay(placeholder, "none");
+  toggleOverlay(true);
 
   fetch(page)
     .then((response) =>
@@ -68,17 +75,15 @@ function loadContentWithOverlay(
     .then((data) => {
       placeholder.innerHTML = data;
       runWithDelay(() => {
-        toggleDisplay(overlay, "none");
-        toggleDisplay(placeholder, "block");
+        toggleOverlay(false);
         callback?.(); // Call the callback if provided
       });
     })
     .catch((error) => {
       console.error("Error loading content:", error);
-      toggleDisplay(overlay, "none");
       placeholder.innerHTML =
         "<p>Error loading content. Please try again later.</p>";
-      toggleDisplay(placeholder, "block");
+      toggleOverlay(false);
     });
 }
 
@@ -255,6 +260,7 @@ function randomColor() {
   const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
   return possibleRandomColors[randomInt];
 }
+
 function getContinuousScaleColor(value, topColor, bottomColor, midColor) {
   const posColor = parseColor(topColor); // Green for positive
   const negColor = parseColor(bottomColor); // Red for negative
@@ -490,23 +496,6 @@ function loadPDF(url, placeholder, overlay) {
   };
 }
 
-function toggleElementVisibility(element, showOrHide = "") {
-  if (!element) {
-    console.error("Element not found");
-  }
-  const doCheck = showOrHide === "show" || showOrHide === "hide";
-  const isHidden = element.classList.contains("hidden");
-  // Check if the modal is already in the desired state
-  if (
-    doCheck &&
-    ((isHidden && showOrHide === "hide") ||
-      (!isHidden && showOrHide === "show"))
-  ) {
-    return;
-  }
-  element.classList.toggle("hidden");
-}
-
 function addKeyValueToTable(table, key, value) {
   const row = table.insertRow();
   const cell1 = row.insertCell(0);
@@ -598,4 +587,43 @@ function runALoopTask(task_func, args, progressBar) {
     updateProgress(index);
   });
   return result;
+}
+
+const elementState = Object.freeze({
+  SHOW: 0,
+  HIDE: 1,
+  TOGGLE: 2,
+});
+const transitionDefault_ms = 1000 * getSizeFromStyle("--transition-default");
+
+function toggleElementVisibility(element, state = elementState.TOGGLE) {
+  if (!element) {
+    console.error("Element not found");
+  }
+
+  const isAlreadyHidden = element.classList.contains("hidden");
+  if (state === elementState.SHOW && !isAlreadyHidden) {
+    return; // No need to show if already visible
+  }
+  if (state === elementState.HIDE && isAlreadyHidden) {
+    return; // No need to hide if already hidden
+  }
+
+  const displayToggle = () => {
+    switch (state) {
+      case elementState.SHOW:
+        element.classList.remove("hidden");
+        break;
+      case elementState.HIDE:
+        element.classList.add("hidden");
+        break;
+      case elementState.TOGGLE:
+        element.classList.toggle("hidden");
+        break;
+      default:
+        console.error("Invalid element visibility option");
+    }
+  };
+
+  displayToggle();
 }
