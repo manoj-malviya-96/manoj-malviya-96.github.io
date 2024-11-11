@@ -327,12 +327,12 @@ class MeshView {
     this.saveFile();
   }
 
-  toggleLoadingDisplay(showOrHide = "show") {
-    toggleElementVisibility(this.elements.loadingModal, showOrHide);
+  toggleLoadingDisplay(state = elementState.TOGGLE) {
+    toggleElementVisibility(this.elements.loadingModal, state);
   }
 
-  toggleFullScreenDropZone(showOrHide = "show") {
-    toggleElementVisibility(this.elements.fileDropZone, showOrHide);
+  toggleFullScreenDropZone(state) {
+    toggleElementVisibility(this.elements.fileDropZone, state);
   }
 
   toggleFullScreenActive(makeItActive = false) {
@@ -352,14 +352,14 @@ class MeshView {
     this.fileName = file.name; // Update the file name
 
     this.toggleFullScreenActive(false);
-    this.toggleFullScreenDropZone("hide");
-    this.toggleLoadingDisplay("show");
+    this.toggleFullScreenDropZone(elementState.HIDE);
+    this.toggleLoadingDisplay(elementState.SHOW);
 
     runWithDelay(() => {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.loadMesh(e.target.result);
-        this.toggleLoadingDisplay("hide");
+        this.toggleLoadingDisplay(elementState.HIDE);
         this.updateTable();
       };
       reader.readAsArrayBuffer(file);
@@ -477,14 +477,14 @@ class MeshView {
     this.elements.simplifyValue.innerHTML = value.toString();
 
     this.renderer.clearRenderedMeshes();
-    this.toggleLoadingDisplay("show");
+    this.toggleLoadingDisplay(elementState.SHOW);
 
     this.renderer.loadedMesh.simplifyMesh(value);
 
     runWithDelay(() => {
       this.renderer.renderMesh();
       this.updateTable();
-      this.toggleLoadingDisplay("hide");
+      this.toggleLoadingDisplay(elementState.HIDE);
     });
   }
 

@@ -1,5 +1,4 @@
-const max_width = 600;
-
+const blog_plot_max_width = 600;
 function createPlotsForEngDfam() {
   const heatmap1 = () => {
     createHeatmap(
@@ -12,7 +11,7 @@ function createPlotsForEngDfam() {
         [0.23, 0, 0.53, 0.23],
         [0.08, 0.17, 0.67, 0.08],
       ],
-      max_width,
+      blog_plot_max_width,
       "Analysis of the design process in Dfam",
       "Design Step",
       "States",
@@ -29,7 +28,7 @@ function createPlotsForEngDfam() {
         [0, 0.03, 0, 0.92],
         [0.01, 0.02, 0.65, 0.32],
       ],
-      max_width,
+      blog_plot_max_width,
       "Transition Probabilities in Dfam",
       "From State",
       "To State",
@@ -60,7 +59,7 @@ function createPlotsForDeltaDesign() {
         [0.0, 0.95, 0.0, 0.01, 0.0, 0.01, 0.79, 0.01, 0.02], // S3
         [0.65, 0.0, 0.05, 0.0, 0.01, 0.1, 0.84, 0.0, 0.89], // S4
       ],
-      max_width,
+      blog_plot_max_width,
       "Analysis of the design process in Delta Design",
       "Design Step",
       "States",
@@ -77,7 +76,7 @@ function createPlotsForDeltaDesign() {
         [0.04, 0.01, 0.84, 0.02], // S3 -> S1, S2, S3, S4
         [0.01, 0.0, 0.01, 0.89], // S4 -> S1, S2, S3, S4
       ],
-      max_width,
+      blog_plot_max_width,
       "Transition Probabilities in Delta Design",
       "From State",
       "To State",
