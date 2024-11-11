@@ -287,7 +287,6 @@ class LatticeOptimizer {
     this.currentMesh = initialMesh;
     this.numIterations = numIterations;
     this.targetFraction = targetFraction;
-    this.initialMesh = initialMesh;
 
     const fea = new LatticeFEA(initialMesh);
     fea.compute();
@@ -295,6 +294,7 @@ class LatticeOptimizer {
     this.startVolume = fea.totalVolume;
 
     this.success = true;
+    this.message = "";
   }
 
   computeLambda(X, dc, lengths) {
@@ -343,6 +343,8 @@ class LatticeOptimizer {
     const obj = FEA.strainEnergy / this.startObj;
     if (isNaN(obj)) {
       this.success = false;
+      this.message =
+        "FEA computation failed, optimization leads to NaN displacements";
       return;
     }
 
@@ -353,12 +355,18 @@ class LatticeOptimizer {
 
     // Check if all elements are at the minimum thickness
     if (newThickness.every((val) => val <= minNormalizedThickness)) {
-      console.error("All elements are at minimum thickness");
       this.success = false;
+      this.message =
+        "Cant optimize more, all elements are at minimum thickness";
       return;
     }
 
     this.currentMesh.normThickness = newThickness;
+    const messageJSON = {
+      Volume: FEA.totalVolume,
+      "Strain-Energy": FEA.strainEnergy,
+    };
+    this.message = JSONToTableString(messageJSON);
   }
 
   async optimize() {
@@ -580,7 +588,7 @@ class LatticeViewer {
     });
 
     this.optimizeBtn.addEventListener("click", async () => {
-      await this.optimize();
+      await this.optimizeLattice();
     });
 
     this.resetBtn.addEventListener("click", () => {
@@ -618,28 +626,27 @@ class LatticeViewer {
     this.feaBtn.classList.remove("selected");
   }
 
-  async optimize() {
+  optimizeLattice() {
     toggleElementVisibility(this.loadingModal, elementState.SHOW);
 
-    const optimizeFunc = async () => {
+    setTimeout(async () => {
       if (this.FEA) {
         this.deactivateFEAMode();
       }
-
       const optimizer = new LatticeOptimizer(this.mesh);
       await optimizer.optimize();
 
-      if (!optimizer.success) {
-        this.infoText.textContent = "Optimization failed";
-      } else {
+      if (optimizer.success) {
         this.mesh = optimizer.currentMesh;
         this.renderMeshAndTable();
       }
-    };
-    await optimizeFunc();
+      this.infoText.innerHTML = optimizer.message;
+      console.log(optimizer.message);
+    }, 300); // Timer to show loading modal
+
     runWithDelay(
       () => toggleElementVisibility(this.loadingModal, elementState.HIDE),
-      500,
+      300, // Timer to hide loading modal
     );
   }
 
@@ -734,9 +741,14 @@ class LatticeViewer {
       Volume: this.FEA.totalVolume,
       "Strain-Energy": this.FEA.strainEnergy,
     };
-
-    for (const [key, value] of Object.entries(tableResult)) {
-      this.infoText.innerHTML += `<b>${key}:</b> ${value.toFixed(2)}<br>`;
-    }
+    this.infoText.innerHTML = JSONToTableString(tableResult);
   }
+}
+
+function JSONToTableString(data) {
+  let result = "";
+  for (const [key, value] of Object.entries(data)) {
+    result += `<b>${key}:</b> ${value.toFixed(2)}<br>`;
+  }
+  return result;
 }
