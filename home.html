@@ -56,7 +56,7 @@
 <main class="content column-layout more-gap">
     <!-------------------------- About Section -------------------------->
     <div class="content" id="aboutMe"> <!-- Only here for navbar to work -->
-        <section id="aboutEntity" class="content add-border row-layout">
+        <div id="aboutEntity" class="content add-border row-layout">
             <div id="aboutNameAndSocial" class="column-layout" style="margin-left: var(--spacing-large);">
                 <h2 id="aboutTitle"> MANOJ MALVIYA </h2>
                 <!-- Side Footer -->
@@ -113,17 +113,17 @@
                     <img src="./assets/profile/3.png" alt="Profile Picture">
                 </div>
             </div>
-        </section>
+        </div>
 
 
-        <section>
+        <div>
             <!-- Work experience -->
             <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-person-workspace"></i> Career Highlights</h2>
             <div id="workList" class="grid-container" style="margin: var(--spacing-medium) 0"></div>
-        </section>
+        </div>
 
         <!--- Education -->
-<!--        <section>-->
+<!--        <div>-->
 <!--            &lt;!&ndash; Education String &ndash;&gt;-->
 <!--            <h2 style="margin-top: var(&#45;&#45;spacing-large);"><i class="bi bi-book-half"></i> Education</h2>-->
 <!--            <div class="grid-container" style="margin: var(&#45;&#45;spacing-medium) 0">-->
@@ -144,9 +144,9 @@
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-<!--        </section>-->
+<!--        </div>-->
 
-        <section id="githubUserReport" class="column-layout">
+        <div id="githubUserReport" class="column-layout">
             <!-- GitHub Contributions -->
             <h2><i class="bi bi-github"></i> GitHub Profile</h2>
             <div class="row-layout">
@@ -165,20 +165,20 @@
                 <div id="yearButtons" class="tab-switcher" style="margin-left: auto;"></div>
             </div>
             <div id="githubHeatMap" class="plot"></div>
-        </section>
+        </div>
         <!-- End of About Section -->
     </div>
 
     <!-------------------------- Apps Section -------------------------->
-    <section id="appListings" class="content">
+    <div id="appListings" class="content">
         <h2><i class="bi bi-app-indicator"></i> Apps</h2>
         <div id="appList" class="grid-container">
             <!-- Will be dynamically added here -->
         </div>
-    </section>
+    </div>
 
     <!-------------------------- Project Section -------------------------->
-    <section id="blogListings" class="content">
+    <div id="blogListings" class="content">
         <h2><i class="bi bi-blockquote-left"></i> Blogs</h2>
 
         <div id="cardsControlsContainer">
@@ -223,5 +223,5 @@
         <div id="blogList" class="grid-container">
             <!-- The project cards will be dynamically inserted here -->
         </div>
-    </section>
+    </div>
 </main>
