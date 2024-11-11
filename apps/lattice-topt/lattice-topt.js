@@ -24,7 +24,8 @@ class LatticeMesh {
     this.normThickness = [];
 
     this.fixedPoints = new Set();
-    this.forcePoints = new Set();
+    this.forcePoints_X = new Set();
+    this.forcePoints_Y = new Set();
 
     this.generateMeshData();
     this.computeLengthAndDirectionCosines();
@@ -39,13 +40,13 @@ class LatticeMesh {
     }
 
     // Add Right and bottom most corner as force points
-    this.forcePoints.add(n_nodes_x);
+    this.forcePoints_Y.add(n_nodes_x);
   }
 
   readyForOptimize() {
     return (
       this.fixedPoints.size > 0 &&
-      this.forcePoints.size > 0 &&
+      (this.forcePoints_X.size > 0 || this.forcePoints_Y.size > 0) &&
       this.points.length > 0 &&
       this.connections.length > 0
     );
@@ -147,10 +148,17 @@ class LatticeMesh {
       console.error("No closest node found");
       return;
     }
-    if (this.forcePoints.has(closestNode)) {
-      this.forcePoints.delete(closestNode);
+    // Sequence matters. First click is X-Force, Second click is Y-Force, Third is Both, Fourth is None
+    if (this.forcePoints_X.has(closestNode)) {
+      // If X-Force is already applied, then toggle to Y-Force
+      if (this.forcePoints_Y.has(closestNode)) {
+        this.forcePoints_Y.delete(closestNode);
+      } else {
+        this.forcePoints_Y.add(closestNode);
+      }
+      this.forcePoints_X.delete(closestNode);
     } else {
-      this.forcePoints.add(closestNode);
+      this.forcePoints_X.add(closestNode);
     }
   }
 
@@ -172,7 +180,6 @@ class LatticeFEA {
     this.ndof_per_node = 2;
     this.ndof = this.mesh.points.length * this.ndof_per_node;
 
-    this.stiffnessMatrix = null;
     this.displacements = null;
     this.stresses = null;
     this.strainEnergy = null;
@@ -221,8 +228,11 @@ class LatticeFEA {
     });
 
     const F = new Array(this.ndof).fill(0);
-    this.mesh.forcePoints.forEach((index) => {
+    this.mesh.forcePoints_Y.forEach((index) => {
       F[index * this.ndof_per_node + 1] = 1; // Example: apply force in y direction
+    });
+    this.mesh.forcePoints_X.forEach((index) => {
+      F[index * this.ndof_per_node] = 1; // Example: apply force in y direction
     });
 
     let U = null;
@@ -451,13 +461,27 @@ class LatticePlot {
     );
 
     // Force points markers
-    const forcePointsCoords = Array.from(mesh.forcePoints).map(
+    const forcePointsXCoords = Array.from(mesh.forcePoints_X).map(
       (index) => coords[index],
     );
     data.push(
       this.getMarkersTrace(
-        forcePointsCoords,
-        "arrow-wide",
+        forcePointsXCoords,
+        "arrow-right",
+        forceNodeColor,
+        2 * markerSize,
+        hoverTemplate,
+      ),
+    );
+
+    // Force points markers
+    const forcePointsYCoords = Array.from(mesh.forcePoints_Y).map(
+      (index) => coords[index],
+    );
+    data.push(
+      this.getMarkersTrace(
+        forcePointsYCoords,
+        "arrow-up",
         forceNodeColor,
         2 * markerSize,
         hoverTemplate,
@@ -597,19 +621,22 @@ class LatticeViewer {
   async optimize() {
     toggleElementVisibility(this.loadingModal, elementState.SHOW);
 
-    if (this.FEA) {
-      this.deactivateFEAMode();
-    }
+    const optimizeFunc = async () => {
+      if (this.FEA) {
+        this.deactivateFEAMode();
+      }
 
-    const optimizer = new LatticeOptimizer(this.mesh);
-    await optimizer.optimize();
+      const optimizer = new LatticeOptimizer(this.mesh);
+      await optimizer.optimize();
 
-    if (!optimizer.success) {
-      this.infoText.textContent = "Optimization failed";
-    } else {
-      this.mesh = optimizer.currentMesh;
-      this.renderMeshAndTable();
-    }
+      if (!optimizer.success) {
+        this.infoText.textContent = "Optimization failed";
+      } else {
+        this.mesh = optimizer.currentMesh;
+        this.renderMeshAndTable();
+      }
+    };
+    await optimizeFunc();
     runWithDelay(
       () => toggleElementVisibility(this.loadingModal, elementState.HIDE),
       500,
