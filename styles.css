@@ -184,6 +184,7 @@ h3 {
 p {
     font-weight: var(--regular-weight);
     font-size: var(--regular-text-size);
+    margin: 0;
     text-align: justify-all;
     opacity: 0.79;
 }
