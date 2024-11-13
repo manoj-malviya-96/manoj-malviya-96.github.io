@@ -533,7 +533,6 @@ function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
                 ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
             </div>
           <div class="tag-date">${date}</div>
-          <p></p>
       </div>
   </div>`;
 }

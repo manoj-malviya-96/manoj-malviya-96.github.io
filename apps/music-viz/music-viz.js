@@ -615,8 +615,6 @@ class MusicVizView {
 
       dropLevel = this.computeDropLevel(this.dataArray);
 
-      drawPoint({ x: 0, y: 0, r: 7 }, 0, 0.69); // Draw the center point
-
       // Draw and update each point
       points.forEach((point, index) => {
         drawPoint.call(this, point, index); // Draw the point with glow

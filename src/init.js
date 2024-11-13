@@ -273,11 +273,12 @@ function initStylesForGridContainer(gridContainer) {
     console.warn("No items in the grid container");
     return;
   }
-  const id = gridContainer.id;
-  const numColumns = Math.min(numOfItems, maxColumns);
   // Assuming all items have the same width
   const itemWidth = gridContainer.children[0].clientWidth;
   const containerWidth = gridContainer.clientWidth;
+
+  const maybeNumOfCols = Math.floor(containerWidth / itemWidth);
+  const numColumns = Math.min(numOfItems, maxColumns, maybeNumOfCols);
 
   const gridGap = Math.round(
     Math.min(

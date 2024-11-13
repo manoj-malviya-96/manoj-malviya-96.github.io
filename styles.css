@@ -89,9 +89,10 @@
 /* Phone Override */
 @media (max-width: 469px) {
     :root {
-        --max-body-width: 295px;
+        --max-body-width: 300px;
         --max-content-width: 290px;
 
+        --small-text-size: 8px;
         --regular-text-size: 8px;
         --title-font-size: 14px;
         --super-title-font-size: 18px;
@@ -107,11 +108,11 @@
         --spacing-very-large: 27px;
         --spacing-huge: 48px;
 
-        --magic-size: 77px;
+        --magic-size: 111px;
         --spinner-size: 27px;
         --app-drawer-button-height: 27px;
         --app-window-width: 290px;
-        --app-window-height: 570px;
+        --app-window-height: 790px;
     }
 }
 
@@ -281,7 +282,7 @@ section h3 {
 .row-layout {
     display: flex;
     flex-direction: row;
-    column-gap: var(--spacing-medium);
+    column-gap: var(--spacing-small);
     height: auto;
     justify-content: center;
 }
@@ -428,7 +429,9 @@ section h3 {
 
 /* Phone Override */
 @media (max-width: 469px) {
-    .primary-button .button-label {
+    .primary-button .button-label,
+    .primary-button span,
+    .primary-button p {
         display: none;
     }
 }
@@ -470,7 +473,6 @@ section h3 {
         padding: 0;
         margin: 0;
     }
-
     .search-input:focus {
         width: var(--magic-size);
         opacity: 1;
@@ -767,6 +769,15 @@ canvas {
     color: var(--color-white); /* Making sure window is always dark */
 }
 
+
+@media (max-width: 469px) {
+    .app-window {
+        margin: 0 auto;
+        padding: 0;
+    }
+}
+
+
 /* -------------------------- App Controller Styling -------------------------- */
 
 .app-controller-container {
@@ -978,6 +989,20 @@ canvas {
     transform: scale(1);
 }
 
+@media (max-width: 469px) {
+    .grid-container {
+        justify-content: center;
+    }
+    .card {
+        height: auto;
+    }
+    .card-details .tag-categories,
+    .card-details .span,
+    .card-details .tag-date{
+        visibility: hidden;
+    }
+}
+
 
 /* ----------------------------- Project Page Styling ----------------------------- */
 
@@ -1000,12 +1025,30 @@ canvas {
     flex-shrink: 0; /* Prevent the image from shrinking */
 }
 
+
 .blog-header-image img {
     width: 100%;
     height: 100%;
     margin: 0;
     object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
     border-radius: 0 var(--default-radius) var(--default-radius) 0;
+}
+
+@media (max-width: 469px) {
+    .blog-header {
+        flex-direction: column;
+        row-gap: var(--spacing-medium);
+        height: auto;
+    }
+
+    .blog-header-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .blog-header-image img {
+        border-radius: 0 0 var(--default-radius) var(--default-radius);
+    }
 }
 
 .blog-header-contents {
