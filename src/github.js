@@ -97,8 +97,6 @@ class GithubProfile {
       customDates.push(temp);
     }
 
-    console.log(z[0].length, z.length);
-
     const heatmapTrace = {
       z: z,
       type: "heatmap",

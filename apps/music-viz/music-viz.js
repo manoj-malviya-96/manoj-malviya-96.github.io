@@ -446,7 +446,7 @@ class MusicVizView {
     // Calculate spacings based on hexagon geometry with additional spacing
     const xSpacing = circleRadius * 1.5 * spacingFactor;
     const ySpacing = (circleRadius * Math.sqrt(3) * spacingFactor) / 2;
-    const maxRange = 21; // Adjust as needed for coverage
+    const maxRange = 27; // Adjust as needed for coverage
     const maxDistance = maxRange * 3 + 1; // Max distance for mapping
 
     let dropLevel = 0; // Flag to check if there is a drop in audio intensity
@@ -485,10 +485,14 @@ class MusicVizView {
             );
             const intensity =
               this.dataArray[dataIndex % this.bufferLength] / 255; // Normalize intensity
-            const factor = intensity ** 2;
+            const factor = intensity ** 8;
 
             const glow = 27 * dropLevel ** 2 * factor;
-            const size = circleRadius * factor * (1 + dropLevel);
+            let size = circleRadius * factor * (1 + dropLevel);
+
+            if (distanceFromCenter === 0) {
+              size *= 3;
+            }
 
             // Adjust x position for offset in odd rows
             const offsetX = (row % 2) * (xSpacing / 2);
@@ -563,7 +567,7 @@ class MusicVizView {
     }
 
     // Function to draw each point
-    const drawPoint = (point, index) => {
+    const drawPoint = (point, index, minOpacity = 0.0) => {
       const { x, y, r } = point;
 
       // Get the intensity from audio data
@@ -577,11 +581,15 @@ class MusicVizView {
       this.canvasCtx.arc(x, y, (1 + dropLevel) * r, 0, Math.PI * 2);
 
       let color = brandColor;
-      if (intensity > 0.55) {
+      if (factor > 0.55) {
         color = dropLevel > 0.47 ? randomColor() : whiteColor;
       }
 
-      const drawColor = adjustColor(color, factor, 1 + factor);
+      const drawColor = adjustColor(
+        color,
+        minOpacity + factor,
+        1 + factor ** 2 + minOpacity,
+      );
 
       // Add shadow for glow effect
       this.canvasCtx.shadowBlur = glow;
@@ -614,7 +622,7 @@ class MusicVizView {
       });
 
       // Remove points that are out of view
-      points = points.filter((point) => point.r < canvasWidth * 1.5);
+      points = points.filter((point) => point.r < canvasWidth * 2);
       addNewFibonacciPoint(usualRadius); // Add a new point
       totalPoints++;
 
