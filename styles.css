@@ -644,16 +644,13 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 .tag-date {
     font-size: var(--small-text-size);
     text-transform: uppercase;
-    position: absolute;
-    right: var(--spacing-small);
-    bottom: var(--spacing-small);
     color: var(--color-text);
     opacity: var(--magic-opacity);
 }
 
 .tag-category {
     padding: var(--spacing-tiny);
-    margin: var(--spacing-tiny);
+    margin-right: var(--spacing-tiny);
     width: fit-content;
     border-radius: var(--small-radius);
     font-size: var(--small-text-size);
@@ -938,7 +935,7 @@ canvas {
 .card-details {
     display: flex;
     flex-direction: column;
-    height: calc(0.69 * var(--magic-size));
+    height: calc(var(--magic-size) * var(--magic-size));
     margin: 0;
     padding: var(--spacing-small) var(--spacing-medium);
     justify-content: flex-start;

@@ -264,11 +264,11 @@ function createBlogCardHTML(
                 <img src="${imagePath}" class="card-img" alt="card">
                 <div class="card-details">
                     <h3>${title}</h3>
+                    <p class="tag-date">${date} </p>
                     <p>${description}</p>
                     <div class="tag-categories">
                         ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
-                    <div class="tag-date">${date} </div>
                 </div>
       </div>
     `;
@@ -529,10 +529,10 @@ function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
       <div class="card-details">
           <h3>${role}</h3>
           <span><i class="bi bi-geo-alt "></i> ${company}</span>
+          <p class="tag-date">${date}</p>
           <div class="tag-categories"> 
                 ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
             </div>
-          <div class="tag-date">${date}</div>
       </div>
   </div>`;
 }
