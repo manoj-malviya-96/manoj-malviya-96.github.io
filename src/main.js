@@ -225,54 +225,12 @@ function makeAppButtons() {
   const promises = Object.entries(appHTMLToInits).map(([appHTML]) =>
     makeAppButton(container, appHTML),
   );
-  Promise.all(promises)
-    .then(() => {
-      runWithDelay(() => {
-        initStylesForGridContainer(container);
-      }, 100);
-    })
-    .catch((err) => {
-      console.error("Error loading all apps:", err);
-    });
+  Promise.all(promises).catch((err) => {
+    console.error("Error loading all apps:", err);
+  });
 }
 
 /** ---------------------------- Blog Cards  ---------------------------- **/
-
-function createBlogCardHTML(
-  filePath,
-  imagePath,
-  title,
-  description,
-  categories,
-  date = "",
-) {
-  categories = categories.sort((a, b) => a.localeCompare(b));
-
-  // Limit description to 140 characters
-  const shortDescription =
-    description.length > 69
-      ? description.substring(0, 140) + "..."
-      : description;
-
-  return `
-      <div class="g-col-1 card" 
-          onclick="loadBlogPage('${filePath}', event)"
-          data-categories="${categories.join(",")}" 
-          data-title="${title.toLowerCase()}" 
-          data-description="${shortDescription.toLowerCase()}"
-          data-date=${parseDate(date)}>
-                <img src="${imagePath}" class="card-img" alt="card">
-                <div class="card-details">
-                    <h3>${title}</h3>
-                    <p class="tag-date">${date} </p>
-                    <p>${description}</p>
-                    <div class="tag-categories">
-                        ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
-                    </div>
-                </div>
-      </div>
-    `;
-}
 
 function makeBlogCard(filePath, container) {
   return fetch(filePath)
@@ -351,7 +309,6 @@ function makeBlogCardsAndSetupControls() {
       });
       setupSkillsDropDown(allCategories);
       sortBlogCards(defaultSortOption);
-      initStylesForGridContainer(container);
     })
     .catch((err) => {
       console.error("Error loading all projects:", err);
@@ -521,21 +478,6 @@ function generateTableOfContentsForBlogPages() {
 }
 
 /** ---------------------------- Work Experience  ---------------------------- **/
-function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
-  return ` 
- <div class="g-col-1 card"
-       onclick="loadBlogPage('${pagePath}', event)">
-      <img src="${coverImg}" class="card-img" alt="card">
-      <div class="card-details">
-          <h3>${role}</h3>
-          <span><i class="bi bi-geo-alt "></i> ${company}</span>
-          <p class="tag-date">${date}</p>
-          <div class="tag-categories"> 
-                ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
-            </div>
-      </div>
-  </div>`;
-}
 
 function makeWorkCard(pagePath, container) {
   return fetch(pagePath)
@@ -596,7 +538,7 @@ async function makeWorkCards() {
   for (const [workKey] of Object.entries(workHTMLToExtraCallbacks)) {
     await makeWorkCard(workKey, container);
   }
-  initStylesForGridContainer(container);
+  addEducationCards(container);
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/
