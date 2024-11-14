@@ -7,6 +7,11 @@
         width: auto;
     }
 
+    #githubUserReport {
+        justify-content: center;
+        align-content: center;
+    }
+
     #githubUserReport h2 {
         margin: 0;
     }
@@ -35,15 +40,14 @@
 
     #blogListings,
     #appListings {
-        max-width: var(--max-body-width);
-        width: auto;
+        width: var(--max-body-width);
         height: auto;
-        align-content: center;
+        align-content: flex-start;
         margin: 0 auto;
     }
 
     #appList .primary-button {
-        width: var(--magic-size);
+        width: var(--app-drawer-button-height);
         height: var(--app-drawer-button-height);
     }
 
@@ -126,64 +130,40 @@
         </div>
 
 
-        <div>
+        <div class="content">
             <!-- Work experience -->
             <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-person-workspace"></i> Career Highlights</h2>
             <div id="workList" class="grid-container" style="margin: var(--spacing-medium) 0"></div>
-        </div>
-
-        <!--- Education -->
-<!--        <div>-->
-<!--            &lt;!&ndash; Education String &ndash;&gt;-->
-<!--            <h2 style="margin-top: var(&#45;&#45;spacing-large);"><i class="bi bi-book-half"></i> Education</h2>-->
-<!--            <div class="grid-container" style="margin: var(&#45;&#45;spacing-medium) 0">-->
-<!--                <div class="g-col-1 card static">-->
-<!--                    <img src='./assets/education/penn-state.jpg' class="card-img" alt="card">-->
-<!--                    <div class="card-details">-->
-<!--                        <h3>Master's in Mechanical Engineering</h3>-->
-<!--                        <span><i class="bi bi-geo-alt"></i> Pennsylvania State University</span>-->
-<!--                        <div class="tag-date">Aug 2018 - Jul 2020</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="g-col-1 card static">-->
-<!--                    <img src='./assets/education/iitj.jpg' class="card-img" alt="card">-->
-<!--                    <div class="card-details">-->
-<!--                        <h3>Bachelor's in Mechanical Engineering</h3>-->
-<!--                        <span><i class="bi bi-geo-alt"></i> Indian Institute of Technology</span>-->
-<!--                        <div class="tag-date">Jul 2014 - Jul 2018</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-        <div id="githubUserReport" class="column-layout">
-            <!-- GitHub Contributions -->
-            <h2><i class="bi bi-github"></i> GitHub Profile</h2>
-            <div class="row-layout">
-                <!--Results Bar-->
-                <div class="row-layout">
-                    <div class="tag-hero">
-                        <p> Total Commits</p>
-                        <h2 id="totalCommits">0 </h2>
-                    </div>
-                    <div class="tag-hero">
-                        <p>Longest Streak </p>
-                        <h2 id="longestStreak">0</h2>
-                    </div>
-                </div>
-                <!--Year Buttons-->
-                <div id="yearButtons" class="tab-switcher" style="margin-left: auto;"></div>
-            </div>
-            <div id="githubHeatMap" class="plot"></div>
         </div>
         <!-- End of About Section -->
     </div>
 
     <!-------------------------- Apps Section -------------------------->
-    <div id="appListings" class="content">
-        <h2><i class="bi bi-app-indicator"></i> Apps</h2>
-        <div id="appList" class="grid-container">
-            <!-- Will be dynamically added here -->
+    <div id="appListings" class="content column-layout">
+        <h2><i class="bi bi-app-indicator"></i>Apps</h2>
+        <div class="row-layout">
+            <div id="appList" class="grid-container" style="width: 50%;">
+                <!-- Will be dynamically added here -->
+            </div>
+            <div id="githubUserReport" class="column-layout" style="margin-left: auto;">
+                <!-- GitHub Contributions -->
+                <div class="column-layout">
+                    <!--Year Buttons-->
+                    <div id="yearButtons" class="tab-switcher"></div>
+                    <!--Results Bar-->
+                    <div class="row-layout">
+                        <div class="tag-hero">
+                            <p> Total Commits</p>
+                            <h2 id="totalCommits">0 </h2>
+                        </div>
+                        <div class="tag-hero">
+                            <p>Longest Streak </p>
+                            <h2 id="longestStreak">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div id="githubHeatMap" class="plot"></div>
+            </div>
         </div>
     </div>
 

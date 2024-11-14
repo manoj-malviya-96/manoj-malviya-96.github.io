@@ -263,37 +263,3 @@ function initCopySelectButton() {
     });
   });
 }
-
-function initStylesForGridContainer(gridContainer) {
-  const maxColumns = 4;
-  const maxGap = getSizeFromStyle("--spacing-very-large");
-
-  const numOfItems = gridContainer.children.length;
-  if (numOfItems === 0) {
-    console.warn("No items in the grid container");
-    return;
-  }
-  // Assuming all items have the same width
-  const itemWidth = gridContainer.children[0].clientWidth;
-  const containerWidth = gridContainer.clientWidth;
-
-  const maybeNumOfCols = Math.floor(containerWidth / itemWidth);
-  const numColumns = Math.min(numOfItems, maxColumns, maybeNumOfCols);
-
-  const gridGap = Math.round(
-    Math.min(
-      (containerWidth - numColumns * itemWidth) / (numColumns - 1),
-      maxGap,
-    ),
-  );
-
-  gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
-  gridContainer.style.gridGap = `${gridGap}px`;
-}
-
-function initStylesForGridContainers() {
-  const gridContainers = document.querySelectorAll(".grid-container");
-  gridContainers.forEach((gridContainer) => {
-    initStylesForGridContainer(gridContainer);
-  });
-}

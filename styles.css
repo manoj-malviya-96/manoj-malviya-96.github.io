@@ -26,7 +26,7 @@
     --transition-default: 0.420s;
 
     /* Size */
-    --max-body-width: 1269px;
+    --max-body-width: 1147px;
     --max-content-width: 690px;
 
     /* Radius */
@@ -54,7 +54,7 @@
     /* Z-Index */
     --z-index-overlay: 1;
     --z-index-max: 2;
-    --transform-scale: 1.069;
+    --transform-scale: 1.0069;
     --active-scale: 0.869;
     --blur-radius: 9px;
     --more-blur-radius: 27px;
@@ -67,7 +67,7 @@
 
     /* App */
     --spinner-size: 69px;
-    --app-drawer-button-height: 100px;
+    --app-drawer-button-height: 121px;
     --app-window-width: 1269px;
     --app-window-height: 690px;
 }
@@ -129,6 +129,7 @@ body {
     color: var(--color-text);
     line-height: var(--line-height);
     font-size: var(--regular-text-size);
+    box-sizing: border-box;
 }
 
 .content {
@@ -574,7 +575,7 @@ section h3 {
     flex-direction: row;
     width: auto;
     height: fit-content;
-    margin: auto 0;
+    margin: 0;
     padding: 0;
     justify-content: center;
     align-content: center;
@@ -897,15 +898,10 @@ canvas {
 /* ----------------------- Grid Layout--------------------------- */
 
 .grid-container {
-    width: var(--max-body-width);
+    width: 100%;
     display: grid;
-    padding: 0;
-    margin: var(--spacing-medium) auto;
-    grid-gap: var(--spacing-very-large);
-    grid-template-columns: repeat(4, 1fr);
-    box-sizing: border-box;
-    align-content: center;
-    justify-content: flex-start;
+    grid-gap: var(--spacing-medium);
+    grid-template-columns: repeat(auto-fit, minmax(var(--magic-size), 1fr));
 }
 
 .grid-3-cols {
@@ -915,12 +911,12 @@ canvas {
 }
 
 /* ----------------------------- Cards Styling ----------------------------- */
-.card {
+.card  {
     display: flex;
     flex-direction: column;
     align-content: flex-start;
     height: auto;
-    width: var(--magic-size);
+    width: auto;
     overflow: visible;
     padding: 0;
     margin: 0;
@@ -932,7 +928,8 @@ canvas {
     transition: all var(--transition-default);
 }
 
-.card-details {
+
+.card .card-details {
     display: flex;
     flex-direction: column;
     height: calc(var(--magic-size) * var(--magic-size));
@@ -942,7 +939,7 @@ canvas {
     background-color: transparent;
 }
 
-.card-img {
+.card .card-img {
     margin: 0 auto;
     padding: 0;
     object-fit: cover;
@@ -953,49 +950,36 @@ canvas {
     border-top-right-radius: var(--default-radius);
 }
 
-.card h3 {
+.card.large {
+    height: auto;
+    width: var(--magic-size);
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+.card  h3 {
     text-transform: uppercase;
 }
 
-.card:hover {
+.card.large:hover {
     box-shadow: var(--box-shadow);
     transform: scale(var(--transform-scale));
 }
 
-.card:active {
+.card.large:active {
     transform: scale(var(--active-scale));
-}
-
-.card.static {
-    cursor: auto;
-    flex-direction: row;
-    width: calc(2 * var(--magic-size));
-}
-
-.card.static .card-details {
-    width: auto;
-    height: calc(0.47 * var(--magic-size));
-}
-
-.card.static .card-img {
-    height: calc(0.47 * var(--magic-size));
-    border-radius: var(--default-radius) 0 0 var(--default-radius);
-}
-
-.card.static:hover {
-    transform: scale(1);
 }
 
 @media (max-width: 469px) {
     .grid-container {
         justify-content: center;
     }
-    .card {
+    .card.large {
         height: auto;
     }
-    .card-details .tag-categories,
-    .card-details .span,
-    .card-details .tag-date{
+    .card.large .card-details .tag-categories,
+    .card.large .card-details .span,
+    .card.large .card-details .tag-date{
         visibility: hidden;
     }
 }

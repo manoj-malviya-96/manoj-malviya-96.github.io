@@ -627,3 +627,77 @@ function toggleElementVisibility(element, state = elementState.TOGGLE) {
 
   displayToggle();
 }
+
+function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
+  return ` 
+ <div class="g-col-1 card large"
+       onclick="loadBlogPage('${pagePath}', event)">
+      <img src="${coverImg}" class="card-img" alt="card">
+      <div class="card-details">
+          <h3>${role}</h3>
+          <span><i class="bi bi-geo-alt "></i> ${company}</span>
+          <p class="tag-date">${date}</p>
+          <div class="tag-categories" style="margin-top: var(--spacing-medium);"> 
+                ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
+            </div>
+      </div>
+  </div>`;
+}
+
+function createBlogCardHTML(
+  filePath,
+  imagePath,
+  title,
+  description,
+  categories,
+  date = "",
+) {
+  categories = categories.sort((a, b) => a.localeCompare(b));
+
+  // Limit description to 140 characters
+  const shortDescription =
+    description.length > 69
+      ? description.substring(0, 140) + "..."
+      : description;
+
+  return `
+      <div class="g-col-1 card large" 
+          onclick="loadBlogPage('${filePath}', event)"
+          data-categories="${categories.join(",")}" 
+          data-title="${title.toLowerCase()}" 
+          data-description="${shortDescription.toLowerCase()}"
+          data-date=${parseDate(date)}>
+                <img src="${imagePath}" class="card-img" alt="card">
+                <div class="card-details">
+                    <h3>${title}</h3>
+                    <p class="tag-date">${date} </p>
+                    <p>${description}</p>
+                    <div class="tag-categories">
+                        ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
+                    </div>
+                </div>
+      </div>
+    `;
+}
+
+function addEducationCards(container) {
+  if (!container) {
+    console.error("no card given");
+  }
+  const cardHTML = `                
+                <div class="g-col-1 card">
+                    <div class="card-details">
+                        <h3>Master's in Mechanical Engineering</h3>
+                        <span><i class="bi bi-geo-alt"></i> Pennsylvania State University</span>
+                        <div class="tag-date">Aug 2018 - Jul 2020</div>
+                    </div>
+                </div>
+                <div class="g-col-1 card">
+                    <div class="card-details">
+                        <h3>Bachelor's in Mechanical Engineering</h3>
+                        <span><i class="bi bi-geo-alt"></i> Indian Institute of Technology</span>
+                        <div class="tag-date">Jul 2014 - Jul 2018</div>
+                    </div>
+                </div>`;
+  container.insertAdjacentHTML("beforeend", cardHTML);
+}
