@@ -36,7 +36,7 @@
     /* Font */
     --regular-weight: 469;
     --bold-weight: 869;
-    --line-height: 1.69;
+    --line-height: 1.47;
 
     --small-text-size: 11px;
     --regular-text-size: 14px;
@@ -650,7 +650,7 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 
 .tag-category {
     padding: var(--spacing-tiny);
-    margin-right: var(--spacing-tiny);
+    margin: 0 var(--spacing-tiny) var(--spacing-tiny)  0 ;
     width: fit-content;
     border-radius: var(--small-radius);
     font-size: var(--small-text-size);
