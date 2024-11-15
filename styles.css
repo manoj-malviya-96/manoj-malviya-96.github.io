@@ -54,7 +54,7 @@
     /* Z-Index */
     --z-index-overlay: 1;
     --z-index-max: 2;
-    --transform-scale: 1.0069;
+    --transform-scale: 1.069;
     --active-scale: 0.869;
     --blur-radius: 9px;
     --more-blur-radius: 27px;
@@ -928,7 +928,7 @@ canvas {
     background-color: transparent;
     cursor: pointer;
     border-radius: var(--default-radius);
-    border: var(--border-width) solid var(--color-primary);
+    border: none;
     transition: all var(--transition-default);
 }
 
@@ -993,7 +993,8 @@ canvas {
 
 .card.dark .card-location {
     position: absolute;
-    bottom: var(--spacing-medium); left: var(--spacing-medium);
+    font-size: var(--small-text-size);
+    bottom: var(--spacing-small); right: var(--spacing-medium);
 }
 .card.dark .card-desc {
     margin-top: auto;
