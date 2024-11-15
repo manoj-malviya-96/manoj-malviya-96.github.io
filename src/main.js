@@ -177,7 +177,7 @@ function createAppButtonFromHTML(appHtmlPath, onClickFunction) {
       if (appBrandContainer) {
         // Create a new button element
         const appButton = document.createElement("button");
-        appButton.className = "primary-button add-background";
+        appButton.className = "primary-button";
 
         // Set the provided onClickFunction dynamically
         appButton.onclick = onClickFunction;

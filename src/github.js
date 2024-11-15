@@ -115,7 +115,7 @@ class GithubProfile {
     // Assign customDates to each cell in customdata so it can be used in the hovertemplate
     heatmapTrace.customdata = customDates;
 
-    const width = getSizeFromStyle("--max-body-width");
+    const width = getSizeFromStyle("--max-body-width") * 0.73;
     const height = Math.ceil(
       width * getHackyHeightMultiplier(z[0].length, z.length),
     );

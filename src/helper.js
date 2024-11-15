@@ -632,7 +632,6 @@ function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
   return ` 
  <div class="g-col-1 card large"
        onclick="loadBlogPage('${pagePath}', event)">
-      <img src="${coverImg}" class="card-img" alt="card">
       <div class="card-details">
           <h3>${role}</h3>
           <span><i class="bi bi-geo-alt "></i> ${company}</span>
@@ -641,6 +640,7 @@ function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
                 ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
             </div>
       </div>
+      <img src="${coverImg}" class="card-img" alt="card">
   </div>`;
 }
 
@@ -667,7 +667,6 @@ function createBlogCardHTML(
           data-title="${title.toLowerCase()}" 
           data-description="${shortDescription.toLowerCase()}"
           data-date=${parseDate(date)}>
-                <img src="${imagePath}" class="card-img" alt="card">
                 <div class="card-details">
                     <h3>${title}</h3>
                     <p class="tag-date">${date} </p>
@@ -676,6 +675,7 @@ function createBlogCardHTML(
                         ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
                     </div>
                 </div>
+                <img src="${imagePath}" class="card-img" alt="card">
       </div>
     `;
 }
