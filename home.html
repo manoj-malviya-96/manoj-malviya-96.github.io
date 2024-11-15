@@ -8,8 +8,7 @@
     }
 
     #githubUserReport {
-        justify-content: center;
-        align-content: center;
+        width: 73%;
     }
 
     #githubUserReport h2 {
@@ -39,16 +38,11 @@
     }
 
     #blogListings,
-    #appListings {
+    #appAndGithub {
         width: var(--max-body-width);
         height: auto;
         align-content: flex-start;
         margin: 0 auto;
-    }
-
-    #appList .primary-button {
-        width: var(--app-drawer-button-height);
-        height: var(--app-drawer-button-height);
     }
 
     #aboutNameAndSocial {
@@ -128,48 +122,40 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="content">
-            <!-- Work experience -->
-            <h2 style="margin-top: var(--spacing-large);"><i class="bi bi-person-workspace"></i> Career Highlights</h2>
-            <div id="workList" class="grid-container" style="margin: var(--spacing-medium) 0"></div>
-        </div>
+        <!-- About my career -->
+        <div id="workList" class="grid-container" style="margin: var(--spacing-medium) 0"></div>
         <!-- End of About Section -->
     </div>
 
     <!-------------------------- Apps Section -------------------------->
-    <div id="appListings" class="content column-layout">
-        <h2><i class="bi bi-app-indicator"></i>Apps</h2>
-        <div class="row-layout">
-            <div id="appList" class="grid-container" style="width: 50%;">
-                <!-- Will be dynamically added here -->
-            </div>
-            <div id="githubUserReport" class="column-layout" style="margin-left: auto;">
-                <!-- GitHub Contributions -->
-                <div class="column-layout">
-                    <!--Year Buttons-->
-                    <div id="yearButtons" class="tab-switcher"></div>
-                    <!--Results Bar-->
-                    <div class="row-layout">
-                        <div class="tag-hero">
-                            <p> Total Commits</p>
-                            <h2 id="totalCommits">0 </h2>
-                        </div>
-                        <div class="tag-hero">
-                            <p>Longest Streak </p>
-                            <h2 id="longestStreak">0</h2>
-                        </div>
+    <div id="appAndGithub" class="content row-layout">
+        <div id="appList" class="grid-container" style="width: 37%;
+                grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));">
+            <!-- Will be dynamically added here -->
+        </div>
+        <div id="githubUserReport" class="column-layout" style="margin-left: auto;">
+            <!-- GitHub Contributions -->
+            <div class="row-layout">
+                <!--Year Buttons-->
+                <div id="yearButtons" class="tab-switcher"></div>
+                <!--Results Bar-->
+                <div class="row-layout">
+                    <div class="tag-hero">
+                        <p> Total Commits</p>
+                        <h2 id="totalCommits">0 </h2>
+                    </div>
+                    <div class="tag-hero">
+                        <p>Longest Streak </p>
+                        <h2 id="longestStreak">0</h2>
                     </div>
                 </div>
-                <div id="githubHeatMap" class="plot"></div>
             </div>
+            <div id="githubHeatMap" class="plot"></div>
         </div>
     </div>
 
     <!-------------------------- Project Section -------------------------->
     <div id="blogListings" class="content">
-        <h2><i class="bi bi-blockquote-left"></i> Blogs</h2>
 
         <div id="cardsControlsContainer">
             <div id="leftControls" class="row-layout">
