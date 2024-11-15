@@ -38,7 +38,7 @@
     --bold-weight: 869;
     --line-height: 1.47;
 
-    --small-text-size: 12px;
+    --small-text-size: 13px;
     --regular-text-size: 16px;
     --title-font-size: 24px;
     --header-font-size: 37x;
@@ -185,6 +185,7 @@ h3 {
 }
 
 p {
+    color: var(--color-text);
     font-weight: var(--regular-weight);
     font-size: var(--regular-text-size);
     margin: 0;
@@ -645,7 +646,7 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 .tag-date {
     font-size: var(--small-text-size);
     text-transform: uppercase;
-    color: var(--color-white);
+    color: var(--color-text);
     opacity: var(--magic-opacity);
 }
 
@@ -655,9 +656,9 @@ input[type="range"]:disabled::-webkit-slider-thumb {
     width: fit-content;
     border-radius: var(--small-radius);
     font-size: var(--small-text-size);
-    color: var(--color-white) !important;
+    color: var(--color-text) !important;
     background-color: var(--color-primary);
-    text-transform: uppercase;
+    backdrop-filter: blur(var(--blur-radius)) brightness(var(--bright));
 }
 
 .tag-categories {
@@ -902,9 +903,12 @@ canvas {
 .grid-container {
     width: 100%;
     display: grid;
-    padding: var(--spacing-medium);
     grid-gap: var(--spacing-large);
-    grid-template-columns: repeat(auto-fit, minmax(var(--magic-size), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--magic-size), 1fr));
+    align-content: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: var(--spacing-medium) var(--spacing-large);
 }
 
 .grid-3-cols {
@@ -913,10 +917,10 @@ canvas {
     grid-template-columns: repeat(3, 1fr);
 }
 
-/* ----------------------------- Cards Styling ----------------------------- */
+/* ----------------------------- Dark - Cards Styling ----------------------------- */
 .card  {
     display: block;
-    height: var(--magic-size);
+    height: auto;
     width: var(--magic-size);
     overflow: clip;
     padding: 0;
@@ -931,6 +935,7 @@ canvas {
 .card .card-details {
     display: flex;
     flex-direction: column;
+    row-gap: var(--spacing-small);
     margin: 0;
     height: auto;
     width: 100%;
@@ -939,11 +944,17 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index : var(--z-index-overlay);
     background-color: transparent;
 }
 
-.card .card-img {
+.card.dark {
+    height: calc(var(--magic-ratio)*var(--magic-size));
+    width: var(--magic-size);
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+.card.dark .card-img {
     margin: 0 auto;
     padding: 0;
     object-fit: cover;
@@ -953,55 +964,53 @@ canvas {
     border-radius: var(--default-radius);
 }
 
-.card.large {
-    height: calc(var(--magic-ratio)*var(--magic-size));
-    width: var(--magic-size);
-    grid-column: span 1;
-    grid-row: span 2;
-}
-
-.card.large .card-details {
+.card.dark .card-details {
     height: 100%;
-    backdrop-filter: brightness(0.47);
-    border-radius: var(--default-radius) var(--default-radius) 0 0;
+    backdrop-filter: brightness(0.69);
+    border-radius: var(--default-radius);
 }
 
 .card  h3 {
     text-transform: uppercase;
 }
 
-.card.large:hover {
+.card.dark:hover {
     box-shadow: var(--box-shadow);
     transform: scale(var(--transform-scale));
 }
 
-.card.large:active {
+.card.dark:active {
     transform: scale(var(--active-scale));
 }
 
-.card.large span,
-.card.large p,
-.card.large h3 {
-    color: var(--color-white);
+.card.dark span,
+.card.dark p,
+.card.dark h3,
+.card.dark .tag-category,
+.card.dark .tag-date {
+    color: var(--color-white) !important;
 }
 
-.card.large .tag-categories {
+.card.dark .card-location {
     position: absolute;
-    bottom: 0; left: 0;
-    width: 100%;
-    padding: var(--spacing-medium);
+    bottom: var(--spacing-medium); left: var(--spacing-medium);
 }
+.card.dark .card-desc {
+    margin-top: auto;
+    font-size: var(--small-text-size);
+}
+
 
 @media (max-width: 469px) {
     .grid-container {
         justify-content: center;
     }
-    .card.large {
+    .card.dark {
         height: auto;
     }
-    .card.large .card-details .tag-categories,
-    .card.large .card-details .span,
-    .card.large .card-details .tag-date{
+    .card.dark .card-details .tag-categories,
+    .card.dark .card-details .span,
+    .card.dark .card-details .tag-date{
         visibility: hidden;
     }
 }
@@ -1010,31 +1019,22 @@ canvas {
 /* ----------------------------- Project Page Styling ----------------------------- */
 
 .blog-header {
+    display: flex;
+    flex-direction: row-reverse;
     width: var(--max-content-width);
     height: var(--magic-size);
     padding: 0;
     margin: 0 auto;
-    border-radius: var(--default-radius);
-    display: block;
     align-items: center;
     box-sizing: border-box;
-    border: var(--border-width) solid var(--color-primary);
-}
-
-.blog-header-image {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: auto;
-    height: auto;
-    overflow: clip;
 }
 
 .blog-header-image img {
     margin-left: auto;
-    width: 100%;
+    object-fit: cover;
+    width: calc(var(--magic-ratio)*var(--magic-size));
     height: var(--magic-size);
-    transform: rotate(90deg);
+    border-radius: var(--default-radius);
 }
 
 .blog-header-contents {
@@ -1047,6 +1047,7 @@ canvas {
     height: 100%;
     max-height: var(--magic-size);
     margin: 0 var(--spacing-large);
+    border-radius: var(--default-radius);
 }
 
 .blog-main-content {

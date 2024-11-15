@@ -628,17 +628,14 @@ function toggleElementVisibility(element, state = elementState.TOGGLE) {
   displayToggle();
 }
 
-function createCardHTMLForWork(pagePath, coverImg, role, company, date, tags) {
+function createCardHTMLForWork(pagePath, coverImg, role, company, date) {
   return ` 
- <div class="g-col-1 card large"
+ <div class="g-col-1 card dark"
        onclick="loadBlogPage('${pagePath}', event)">
       <div class="card-details">
           <h3>${role}</h3>
-          <span><i class="bi bi-geo-alt "></i> ${company}</span>
           <p class="tag-date">${date}</p>
-          <div class="tag-categories" style="margin-top: var(--spacing-medium);"> 
-                ${tags.map((tag) => `<div class="tag-category">${tag}</div>`).join("")}
-            </div>
+          <span class="card-location"><i class="bi bi-geo-alt "></i> ${company}</span>
       </div>
       <img src="${coverImg}" class="card-img" alt="card">
   </div>`;
@@ -652,8 +649,6 @@ function createBlogCardHTML(
   categories,
   date = "",
 ) {
-  categories = categories.sort((a, b) => a.localeCompare(b));
-
   // Limit description to 140 characters
   const shortDescription =
     description.length > 69
@@ -661,7 +656,7 @@ function createBlogCardHTML(
       : description;
 
   return `
-      <div class="g-col-1 card large" 
+      <div class="g-col-1 card dark" 
           onclick="loadBlogPage('${filePath}', event)"
           data-categories="${categories.join(",")}" 
           data-title="${title.toLowerCase()}" 
@@ -670,10 +665,7 @@ function createBlogCardHTML(
                 <div class="card-details">
                     <h3>${title}</h3>
                     <p class="tag-date">${date} </p>
-                    <p>${description}</p>
-                    <div class="tag-categories">
-                        ${categories.map((cat) => `<div class="tag-category">${cat}</div>`).join("")}
-                    </div>
+                    <p class="card-desc">${description}</p>
                 </div>
                 <img src="${imagePath}" class="card-img" alt="card">
       </div>
@@ -688,16 +680,42 @@ function addEducationCards(container) {
                 <div class="g-col-1 card">
                     <div class="card-details">
                         <h3>Master's in Mechanical Engineering</h3>
-                        <span><i class="bi bi-geo-alt"></i> Pennsylvania State University</span>
+                        <p><i class="bi bi-geo-alt"></i> Pennsylvania State University</p>
                         <div class="tag-date">Aug 2018 - Jul 2020</div>
                     </div>
                 </div>
                 <div class="g-col-1 card">
                     <div class="card-details">
                         <h3>Bachelor's in Mechanical Engineering</h3>
-                        <span><i class="bi bi-geo-alt"></i> Indian Institute of Technology</span>
-                        <div class="tag-date">Jul 2014 - Jul 2018</div>
+                        <p><i class="bi bi-geo-alt"></i> Indian Institute of Technology</p>
+                        <p class="tag-date">Jul 2014 - Jul 2018</p>
                     </div>
                 </div>`;
   container.insertAdjacentHTML("beforeend", cardHTML);
+}
+
+function setupGridSize(gridContainer, maxColumns = 4) {
+  const maxGap = getSizeFromStyle("--spacing-very-large");
+
+  const numOfItems = gridContainer.children.length;
+  if (numOfItems === 0) {
+    console.warn("No items in the grid container");
+    return;
+  }
+  // Assuming all items have the same width
+  const itemWidth = gridContainer.children[0].clientWidth;
+  const containerWidth = gridContainer.clientWidth;
+
+  const maybeNumOfCols = Math.floor(containerWidth / itemWidth);
+  const numColumns = Math.min(numOfItems, maxColumns, maybeNumOfCols);
+
+  const gridGap = Math.round(
+    Math.min(
+      (containerWidth - numColumns * itemWidth) / (numColumns - 1),
+      maxGap,
+    ),
+  );
+
+  gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, ${itemWidth}px)`;
+  gridContainer.style.gridGap = `${gridGap}px`;
 }

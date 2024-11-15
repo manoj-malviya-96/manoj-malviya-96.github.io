@@ -507,18 +507,12 @@ function makeWorkCard(pagePath, container) {
         "src",
         "default-image.jpg",
       );
-
-      const tags = Array.from(doc.querySelectorAll(".tag-category")).map(
-        (el) => el.textContent,
-      );
-
       const cardHTML = createCardHTMLForWork(
         pagePath,
         coverImg,
         role,
         company,
         date,
-        tags,
       );
       container.insertAdjacentHTML("beforeend", cardHTML);
     })
