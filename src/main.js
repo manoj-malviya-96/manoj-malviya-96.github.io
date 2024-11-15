@@ -309,6 +309,7 @@ function makeBlogCardsAndSetupControls() {
       });
       setupSkillsDropDown(allCategories);
       sortBlogCards(defaultSortOption);
+      setupGridSize(container);
     })
     .catch((err) => {
       console.error("Error loading all projects:", err);
@@ -533,6 +534,7 @@ async function makeWorkCards() {
     await makeWorkCard(workKey, container);
   }
   addEducationCards(container);
+  setupGridSize(container);
 }
 
 /** ---------------------------- Misc Functions  ---------------------------- **/

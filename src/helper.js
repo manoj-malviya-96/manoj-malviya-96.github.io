@@ -677,14 +677,14 @@ function addEducationCards(container) {
     console.error("no card given");
   }
   const cardHTML = `                
-                <div class="g-col-1 card">
+                <div class="g-col-1 card add-background">
                     <div class="card-details">
                         <h3>Master's in Mechanical Engineering</h3>
                         <p><i class="bi bi-geo-alt"></i> Pennsylvania State University</p>
                         <div class="tag-date">Aug 2018 - Jul 2020</div>
                     </div>
                 </div>
-                <div class="g-col-1 card">
+                <div class="g-col-1 card add-background">
                     <div class="card-details">
                         <h3>Bachelor's in Mechanical Engineering</h3>
                         <p><i class="bi bi-geo-alt"></i> Indian Institute of Technology</p>
