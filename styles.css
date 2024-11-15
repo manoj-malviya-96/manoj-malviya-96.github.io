@@ -905,10 +905,8 @@ canvas {
     display: grid;
     grid-gap: var(--spacing-large);
     grid-template-columns: repeat(auto-fill, minmax(var(--magic-size), 1fr));
-    align-content: center;
-    justify-content: center;
-    margin: 0 auto;
-    padding: var(--spacing-medium) var(--spacing-large);
+    align-content: flex-start;
+    justify-content: flex-start;
 }
 
 .grid-3-cols {
