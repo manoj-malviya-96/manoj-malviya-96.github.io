@@ -4,8 +4,8 @@
 /* px value at 1700px */
 :root {
     /* Black and White */
-    --color-white: rgb(247, 247, 247);
-    --color-black: rgb(7, 7, 7);
+    --color-light: rgb(247, 247, 247);
+    --color-dark: rgb(7, 7, 7);
 
     /* Color Palette */
     --color-brand: rgb(165, 99, 94); /* Tomato, my fav*/
@@ -73,7 +73,7 @@
 }
 
 .light-mode {
-    --color-background: var(--color-white);
+    --color-background: var(--color-light);
     --color-primary: rgba(201, 201, 201, 0.47);
     --color-text: rgb(23, 23, 23);
     --box-shadow: 0 1px 5px rgba(0, 0, 0, 0.11);
@@ -81,7 +81,7 @@
 }
 
 .dark-mode {
-    --color-background: var(--color-black);
+    --color-background: var(--color-dark);
     --color-primary: rgba(58, 58, 58, 0.47);
     --color-text: rgb(211, 211, 211);
     --box-shadow: 0 1px 5px rgba(255, 255, 255, 0.11);
@@ -177,9 +177,12 @@ h1, h2, h3 {
 
 h1 {
     text-transform: uppercase;
-    font-size: 27px;
+    font-size: 47px;
 }
 
+h2 {
+    font-size: var(--header-font-size);
+}
 h3 {
     font-size: var(--regular-text-size);
 }
@@ -204,11 +207,29 @@ section {
     border: none;
 }
 
+section h1 {
+    margin: var(--spacing-medium) 0 var(--spacing-very-large) 0;
+}
+
 section h2 {
-    margin: var(--spacing-large) 0 var(--spacing-medium) 0;
+    margin: var(--spacing-medium) 0 var(--spacing-medium) 0;
 }
 section h3 {
     margin: var(--spacing-medium) 0 var(--spacing-small) 0;
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 87vh;
+    border: 1px solid var(--color-primary);
+}
+
+strong {
+    font-weight: var(--bold-weight);
+    color: var(--color-brand);
 }
 
 
@@ -303,6 +324,18 @@ section h3 {
 
 .column-layout.more-gap {
     row-gap: var(--spacing-very-large);
+}
+
+.fit-content {
+    width: fit-content;
+    height: fit-content;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 /* ----------------------------- Tooltip Styling ----------------------------- */
@@ -414,7 +447,7 @@ section h3 {
 }
 
 .primary-button.selected {
-    color: var(--color-white);
+    color: var(--color-light);
     background-color: var(--color-brand);
 }
 
@@ -425,7 +458,7 @@ section h3 {
 
 .primary-button.selected:hover .bi,
 .primary-button.selected:hover .button-label {
-    color: var(--color-white) !important;
+    color: var(--color-light) !important;
 }
 
 
@@ -513,7 +546,7 @@ section h3 {
 
 .modern-dropdown-item.selected {
     background-color: var(--color-brand); /* Use your primary color here */
-    color: var(--color-white);
+    color: var(--color-light);
 }
 
 /* Phone Override */
@@ -550,8 +583,8 @@ section h3 {
 }
 
 .modern-spinbox input {
-    background-color: var(--color-black);
-    color: var(--color-white);
+    background-color: var(--color-dark);
+    color: var(--color-light);
     border-radius: var(--default-radius);
     text-align: center;
     width: auto;
@@ -567,7 +600,7 @@ section h3 {
 
 .modern-spinbox .modern-spinbox-btn-down .bi,
 .modern-spinbox .modern-spinbox-btn-up .bi {
-    color: var(--color-white);
+    color: var(--color-light);
 }
 
 /* Switcher Button */
@@ -725,7 +758,7 @@ canvas {
     width: var(--app-window-width);
     height: var(--app-window-height);
     padding: var(--border-width); /* Prevents the border from cutting off the canvas */
-    background-color: var(--color-black);
+    background-color: var(--color-dark);
     overflow: clip;
     justify-items: center;
     align-items: center;
@@ -766,7 +799,7 @@ canvas {
 
 .app-window .primary-button,
 .app-window p {
-    color: var(--color-white); /* Making sure window is always dark */
+    color: var(--color-light); /* Making sure window is always dark */
 }
 
 
@@ -807,7 +840,7 @@ canvas {
     padding: 0 var(--spacing-medium);
     backdrop-filter: blur(var(--more-blur-radius));
     transition: all var(--transition-default);
-    color: var(--color-white);
+    color: var(--color-light);
     border-radius: var(--default-radius);
 }
 
@@ -986,7 +1019,7 @@ canvas {
 .card.dark h3,
 .card.dark .tag-category,
 .card.dark .tag-date {
-    color: var(--color-white) !important;
+    color: var(--color-light) !important;
 }
 
 .card.dark .card-location {
@@ -1214,7 +1247,7 @@ th, td {
 
 th {
     background-color: var(--color-brand);
-    color: var(--color-white);
+    color: var(--color-light);
     text-align: center;
 }
 

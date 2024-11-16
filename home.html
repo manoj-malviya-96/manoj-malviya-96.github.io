@@ -14,37 +14,6 @@
     #githubUserReport h2 {
         margin: 0;
     }
-
-    #profileImage {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: var(--magic-size);
-        overflow: hidden;
-        position: relative;
-        border-bottom-right-radius: var(--default-radius);
-        border-top-right-radius: var(--default-radius);
-        transition: all var(--transition-default);
-    }
-
-    @media (max-width: 469px) {
-        #profileImage {
-            width: var(--magic-size);
-            height: auto;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: var(--default-radius);
-            border-bottom-left-radius: var(--default-radius);
-        }
-    }
-
-    #blogListings,
-    #appAndGithub {
-        width: var(--max-body-width);
-        height: auto;
-        align-content: flex-start;
-        margin: 0 auto;
-    }
-
     #aboutNameAndSocial {
         display: flex;
         justify-content: center;
@@ -59,104 +28,116 @@
         margin: var(--spacing-medium) auto var(--spacing-large) auto;
     }
 
+    #aboutMe {
+        background-image: url("assets/profile/main.jpg");
+        background-size: cover; /* Ensures the image covers the entire element */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-position: center; /* Centers the image within the element */
+    }
+
 </style>
 
 <main class="content column-layout more-gap">
+
     <!-------------------------- About Section -------------------------->
-    <div class="content" id="aboutMe"> <!-- Only here for navbar to work -->
-        <div id="aboutEntity" class="content row-layout">
-            <div id="aboutNameAndSocial" class="column-layout" style="margin-left: var(--spacing-large);">
-                <h2 id="aboutTitle"> MANOJ MALVIYA </h2>
-                <!-- Side Footer -->
-                <div class="row-layout">
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('Linkedin', event)">
-                        <i class="bi bi-linkedin"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('GitHub', event)">
-                        <i class="bi bi-github"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('Scholar', event)">
-                        <i class="bi bi-google"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('Instagram', event)">
-                        <i class="bi bi-instagram"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('Spotify', event)">
-                        <i class="bi bi-spotify"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('Youtube', event)">
-                        <i class="bi bi-youtube"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('Apple', event)">
-                        <i class="bi bi-apple"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('SoundCloud', event)">
-                        <i class="bi bi-soundwave"></i>
-                    </button>
-                    <button class="primary-button smaller left-aligned"
-                            onclick="loadSocialMediaLink('MixCloud', event)">
-                        <i class="bi bi-disc"></i>
-                    </button>
-                </div>
-                <!-- Introduction String -->
-                <p>
-                    Hi there! I’m Manoj Malviya, a <strong>Software Engineer</strong> who loves solving tricky problems
-                    with
-                    beautiful solutions. I use fancy computer tools and methods to turn these problems into real
-                    results.
-                    I’m a great problem solver who always puts the user first. I’ve led many complex projects and always
-                    delivered elegant solutions.
-                </p>
-            </div>
-            <div id="profileImage">
-                <div class="slideshow">
-                    <img src="./assets/profile/3.png" alt="Profile Picture">
-                </div>
-            </div>
+    <section class="content homepage" id="aboutMe"> <!-- Only here for navbar to work -->
+        <p> MANOJ MALVIYA </p>
+        <!-- Introduction String -->
+        <h1>
+            solving problems with <strong>code</strong> and <strong>design</strong>
+        </h1>
+        <!-- Side Footer -->
+        <div class="row-layout fit-content add-border">
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('Linkedin', event)">
+                <i class="bi bi-linkedin"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('GitHub', event)">
+                <i class="bi bi-github"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('Scholar', event)">
+                <i class="bi bi-google"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('Instagram', event)">
+                <i class="bi bi-instagram"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('Spotify', event)">
+                <i class="bi bi-spotify"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('Youtube', event)">
+                <i class="bi bi-youtube"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('Apple', event)">
+                <i class="bi bi-apple"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('SoundCloud', event)">
+                <i class="bi bi-soundwave"></i>
+            </button>
+            <button class="primary-button smaller left-aligned"
+                    onclick="loadSocialMediaLink('MixCloud', event)">
+                <i class="bi bi-disc"></i>
+            </button>
         </div>
+        <!-- End of About Section -->
+    </section>
+
+
+    <!-------------------------- Work Experience Section -------------------------->
+    <section class="content homepage" id="workExperience">
+        <p> Career </p>
+        <h1>
+            solving problems with <strong>code</strong> and <strong>design</strong>
+        </h1>
         <!-- About my career -->
         <div id="workList" class="grid-container" style="margin: var(--spacing-very-large) 0"></div>
-        <!-- End of About Section -->
-    </div>
+    </section>
 
     <!-------------------------- Apps Section -------------------------->
-    <div id="appAndGithub" class="content row-layout add-border">
-        <div id="appList" class="grid-container" style="width: 37%;
+    <section id="appAndGithub" class="content homepage">
+        <p> Tools </p>
+        <h1>
+            solving problems with <strong>code</strong> and <strong>design</strong>
+        </h1>
+        <div class="row-layout">
+            <div id="appList" class="grid-container" style="width: 37%;
                 grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));">
-            <!-- Will be dynamically added here -->
-        </div>
-        <div id="githubUserReport" class="column-layout" style="margin-left: auto;">
-            <!-- GitHub Contributions -->
-            <div class="row-layout">
-                <!--Year Buttons-->
-                <div id="yearButtons" class="tab-switcher"></div>
-                <!--Results Bar-->
+                <!-- Will be dynamically added here -->
+            </div>
+            <div id="githubUserReport" class="column-layout" style="margin-left: auto;">
+                <!-- GitHub Contributions -->
                 <div class="row-layout">
-                    <div class="tag-hero">
-                        <p> Total Commits</p>
-                        <h2 id="totalCommits">0 </h2>
-                    </div>
-                    <div class="tag-hero">
-                        <p>Longest Streak </p>
-                        <h2 id="longestStreak">0</h2>
+                    <!--Year Buttons-->
+                    <div id="yearButtons" class="tab-switcher"></div>
+                    <!--Results Bar-->
+                    <div class="row-layout">
+                        <div class="tag-hero">
+                            <p> Total Commits</p>
+                            <h2 id="totalCommits">0 </h2>
+                        </div>
+                        <div class="tag-hero">
+                            <p>Longest Streak </p>
+                            <h2 id="longestStreak">0</h2>
+                        </div>
                     </div>
                 </div>
+                <div id="githubHeatMap" class="plot"></div>
             </div>
-            <div id="githubHeatMap" class="plot"></div>
         </div>
-    </div>
+    </section>
 
     <!-------------------------- Project Section -------------------------->
-    <div id="blogListings" class="content">
-
+    <section id="blogListings" class="content homepage">
+        <p> Blogs </p>
+        <h1>
+            solving problems with <strong>code</strong> and <strong>design</strong>
+        </h1>
         <div id="cardsControlsContainer">
             <div id="leftControls" class="row-layout">
                 <!-- Sort Container -->
@@ -199,5 +180,5 @@
         <div id="blogList" class="grid-container">
             <!-- The project cards will be dynamically inserted here -->
         </div>
-    </div>
+    </section>
 </main>
