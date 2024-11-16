@@ -30,9 +30,17 @@
 
     #aboutMe {
         background-image: url("assets/profile/main.jpg");
-        background-size: cover; /* Ensures the image covers the entire element */
-        background-repeat: no-repeat; /* Prevents the image from repeating */
-        background-position: center; /* Centers the image within the element */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    #aboutMe p,
+    #aboutMe h1,
+    #aboutMe .bi {
+        max-width: 420px;
+        color: var(--color-dark);
     }
 
 </style>
@@ -47,7 +55,7 @@
             solving problems with <strong>code</strong> and <strong>design</strong>
         </h1>
         <!-- Side Footer -->
-        <div class="row-layout fit-content add-border">
+        <div class="row-layout fit-content" style>
             <button class="primary-button smaller left-aligned"
                     onclick="loadSocialMediaLink('Linkedin', event)">
                 <i class="bi bi-linkedin"></i>

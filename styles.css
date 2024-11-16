@@ -26,8 +26,8 @@
     --transition-default: 0.420s;
 
     /* Size */
-    --max-body-width: 1269px;
-    --max-content-width: 690px;
+    --max-body-width: 91vw;
+    --max-content-width: 69vw;
 
     /* Radius */
     --default-radius: 6px;
@@ -87,36 +87,6 @@
     --box-shadow: 0 1px 5px rgba(255, 255, 255, 0.11);
     --bright: 0.69;
 }
-
-/* Phone Override */
-@media (max-width: 469px) {
-    :root {
-        --max-body-width: 300px;
-        --max-content-width: 290px;
-
-        --small-text-size: 8px;
-        --regular-text-size: 8px;
-        --title-font-size: 14px;
-        --hero-font-size: 21px;
-
-        --regular-icon-size: 10px;
-        --large-icon-size: 14px;
-
-        --spacing-tiny: 1px;
-        --spacing-small: 3px;
-        --spacing-medium: 6px;
-        --spacing-large: 12px;
-        --spacing-very-large: 27px;
-        --spacing-huge: 48px;
-
-        --magic-size: 111px;
-        --spinner-size: 27px;
-        --app-drawer-button-height: 27px;
-        --app-window-width: 290px;
-        --app-window-height: 790px;
-    }
-}
-
 
 /* ----------------------------- Body Styling ----------------------------- */
 body {
@@ -224,7 +194,7 @@ section h3 {
     justify-content: center;
     align-items: center;
     height: 87vh;
-    border: 1px solid var(--color-primary);
+    padding: var(--spacing-large);
 }
 
 strong {
@@ -658,6 +628,7 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 ::-webkit-scrollbar {
     width: var(--spacing-medium);
     height: var(--spacing-medium);
+    z-index: var(--z-index-overlay);
 }
 
 ::-webkit-scrollbar-track {
@@ -671,7 +642,7 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-text);
+    background-color: var(--color-brand);
     cursor: grab;
 }
 
