@@ -8,28 +8,34 @@ const availableThemes = [
 ];
 
 const ThemeManager = () => {
-    const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
+    // Retrieve the saved theme name from localStorage or default to the first theme
+    const [currentTheme, setCurrentTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('themeName');
+        return savedTheme || availableThemes[0].name;
+    });
 
     // Set the theme on mount and whenever the theme changes
     useEffect(() => {
-        const currentTheme = availableThemes[currentThemeIndex].name;
         document.documentElement.setAttribute('data-theme', currentTheme);
-    }, [currentThemeIndex]);
+        localStorage.setItem('themeName', currentTheme); // Save the theme name to localStorage
+    }, [currentTheme]);
 
     // Cycle through themes
     const cycleTheme = () => {
-        setCurrentThemeIndex((prevIndex) => (prevIndex + 1) % availableThemes.length);
+        const currentIndex = availableThemes.findIndex((theme) => theme.name === currentTheme);
+        const nextIndex = (currentIndex + 1) % availableThemes.length;
+        setCurrentTheme(availableThemes[nextIndex].name);
     };
 
-    const currentTheme = availableThemes[currentThemeIndex];
+    const currentThemeDetails = availableThemes.find((theme) => theme.name === currentTheme);
 
     return (
         <button
             className="btn btn-primary flex items-center gap-2 px-4 py-2 rounded-full"
             onClick={cycleTheme}
         >
-            <i className={`${currentTheme.icon} text-lg`}></i>
-            <span>{currentTheme.name.charAt(0).toUpperCase() + currentTheme.name.slice(1)}</span>
+            <i className={`${currentThemeDetails.icon} text-lg`}></i>
+            <span>{currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}</span>
         </button>
     );
 };
