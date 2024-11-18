@@ -17,9 +17,9 @@ const TabBar = ({ tabs, onTabChange }) => {
                     onClick={() => handleTabClick(tab)}
                 >
                     <i className={`${tab.icon} mr-2`}></i>
-                    {tab.label}
+                    <span className="hidden sm:inline">{tab.label}</span>
                 </a>
-            ))}
+                ))}
         </div>
     );
 };

@@ -4,9 +4,9 @@ import ThemeManager from "./theme";
 
 const Navbar = () => {
     const tabs = [
-        { name: 'home', label: 'Home', icon: 'fa fa-home' },
-        { name: 'apps', label: 'Apps', icon: 'fa fa-th' },
-        { name: 'blogs', label: 'Blogs', icon: 'fa fa-book' },
+        {name: 'home', label: 'Home', icon: 'fa fa-home'},
+        {name: 'apps', label: 'Apps', icon: 'fa fa-th'},
+        {name: 'blogs', label: 'Blogs', icon: 'fa fa-book'},
     ];
 
     const handleTabChange = (tabName) => {
@@ -27,16 +27,19 @@ const Navbar = () => {
 
     return (
         <div
-            className="navbar bg-base-100 bg-opacity-10 backdrop-blur-md px-4"
+            className="navbar bg-base-100 bg-opacity-50 backdrop-blur-md px-4 fixed top-0 left-0 w-full z-50"
+            style={{
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
+            }}
         >
             {/* Left: TabBar */}
             <div className="flex-1">
-                <TabBar tabs={tabs} onTabChange={handleTabChange} />
+                <TabBar tabs={tabs} onTabChange={handleTabChange}/>
             </div>
 
             {/* Right: Theme Manager */}
             <div className="flex-none">
-                <ThemeManager />
+                <ThemeManager/>
             </div>
         </div>
     );

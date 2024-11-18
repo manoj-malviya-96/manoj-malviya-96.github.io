@@ -35,7 +35,7 @@ const ThemeManager = () => {
             onClick={cycleTheme}
         >
             <i className={`${currentThemeDetails.icon} text-lg`}></i>
-            <span>{currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}</span>
+            <span className="hidden sm:inline">{currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}</span>
         </button>
     );
 };
