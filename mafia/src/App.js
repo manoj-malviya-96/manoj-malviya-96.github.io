@@ -1,5 +1,5 @@
 import React from 'react';
-import PrimaryButton from "./widgets/button";
+import PrimaryButton from "./base/button";
 import { FaArrowRight } from 'react-icons/fa';
 import ThemeManager from "./elements/theme";
 import Navbar from "./elements/navbar"; // Example icon from react-icons

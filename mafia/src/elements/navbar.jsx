@@ -1,5 +1,5 @@
 import React from 'react';
-import TabBar from "../widgets/tabs";
+import TabBar from "../base/tabs";
 import ThemeManager from "./theme";
 
 const Navbar = () => {
