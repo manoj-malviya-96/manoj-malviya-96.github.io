@@ -558,28 +558,16 @@
         {
           "date": "2024-11-14",
           "commits": 1
-        },
-        {
-          "date": "2024-11-18",
-          "commits": 5
-        },
-        {
-          "date": "2024-11-19",
-          "commits": 4
-        },
-        {
-          "date": "2024-11-20",
-          "commits": 1
         }
       ],
       "languages": {
-        "C++": 23612162,
-        "QML": 3314892,
-        "Python": 1611240,
-        "CMake": 845649,
-        "Shell": 73587,
+        "C++": 23497923,
+        "QML": 3311148,
+        "Python": 1600165,
+        "CMake": 843488,
+        "Shell": 74018,
         "C": 65254,
-        "Gherkin": 61630,
+        "Gherkin": 61291,
         "GLSL": 61107,
         "Rich Text Format": 56322,
         "Batchfile": 40158,
@@ -613,7 +601,7 @@
         }
       ],
       "languages": {
-        "C++": 182900,
+        "C++": 181560,
         "CMake": 19389,
         "C": 1095
       }
@@ -821,17 +809,17 @@
         }
       ],
       "languages": {
-        "C": 57811502,
-        "C++": 21990339,
-        "Python": 11540571,
+        "C": 57810958,
+        "C++": 21929157,
+        "Python": 11535586,
         "Jupyter Notebook": 6719311,
-        "QML": 6222599,
+        "QML": 6222440,
         "Go": 1630778,
         "JavaScript": 1524190,
-        "CMake": 1054040,
+        "CMake": 1050434,
         "Assembly": 568918,
         "TypeScript": 424443,
-        "Shell": 421161,
+        "Shell": 421634,
         "HTML": 305314,
         "CSS": 126878,
         "Makefile": 47093,
@@ -839,9 +827,9 @@
         "TeX": 27973,
         "Cython": 25392,
         "Rust": 19552,
-        "Jinja": 18942,
+        "Jinja": 18026,
         "QMake": 5520,
-        "Gherkin": 4049,
+        "Gherkin": 4015,
         "OpenSCAD": 2764,
         "Mako": 2548,
         "PowerShell": 1780,
@@ -1435,13 +1423,13 @@
         "Jupyter Notebook": 1056309916,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 40036049,
+        "Python": 39966885,
         "JavaScript": 14615804,
         "C++": 6982898,
         "Mathematica": 3004790,
         "Makefile": 2783521,
         "OpenSCAD": 492905,
-        "Shell": 377700,
+        "Shell": 376044,
         "TeX": 316829,
         "Rich Text Format": 202215,
         "CMake": 175773,
@@ -1988,8 +1976,8 @@
         }
       ],
       "languages": {
-        "Python": 4419377,
-        "JavaScript": 1012680,
+        "Python": 4412227,
+        "JavaScript": 1005352,
         "C": 67455,
         "HTML": 25633,
         "Jupyter Notebook": 25007,
