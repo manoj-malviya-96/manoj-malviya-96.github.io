@@ -1,5 +1,6 @@
 import React from 'react';
 import mainPng from '../assets/main.png';
+import PrimaryButton from "../base/button";
 
 const IntroPage = () => {
     return (
@@ -14,9 +15,7 @@ const IntroPage = () => {
                 <p className="text-lg text-gray-200 mb-6">
                     This is the introduction to your amazing website. Add a catchy tagline or a short description here!
                 </p>
-                <button className="btn btn-primary px-6 py-3 rounded-full">
-                    Get Started
-                </button>
+                <PrimaryButton label="Get Started" href="/apps"/>
             </div>
         </div>
     );
