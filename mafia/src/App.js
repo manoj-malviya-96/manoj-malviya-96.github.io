@@ -1,6 +1,8 @@
 import React from 'react';
 import PrimaryButton from "./base/button";
-import { FaArrowRight } from 'react-icons/fa'; // Example icon from react-icons
+import { FaArrowRight } from 'react-icons/fa';
+import ThemeManager from "./widgets/theme";
+import Navbar from "./widgets/navbar"; // Example icon from react-icons
 
 const App = () => {
     const handleClick = () => {
@@ -9,11 +11,7 @@ const App = () => {
 
     return (
         <div className="p-4">
-            <PrimaryButton
-                icon={<FaArrowRight />}
-                label="Get Started"
-                onClick={handleClick}
-            />
+            <Navbar />
         </div>
     );
 };
