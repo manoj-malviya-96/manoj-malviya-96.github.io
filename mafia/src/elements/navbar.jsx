@@ -27,10 +27,7 @@ const Navbar = () => {
 
     return (
         <div
-            className="navbar bg-base-100 bg-opacity-50 backdrop-blur-md px-4 fixed top-0 left-0 w-full z-50"
-            style={{
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
-            }}
+            className="navbar bg-base-100 bg-opacity-50 backdrop-blur-md px-4 fixed top-0 left-0 w-full z-1"
         >
             {/* Left: TabBar */}
             <div className="flex-1">
