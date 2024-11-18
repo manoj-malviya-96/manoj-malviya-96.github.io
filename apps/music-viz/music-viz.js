@@ -665,7 +665,7 @@ class MusicVizView {
   // Extract metadata from the uploaded file
   extractMetadata(file) {
     if (!jsmediatags) {
-      console.error("jsmediatags widgets not loaded");
+      console.error("jsmediatags elements not loaded");
       return;
     }
     jsmediatags.read(file, {

@@ -1,6 +1,6 @@
 import React from 'react';
 import ThemeManager from "./theme";
-import TabBar from "../base/tabs";
+import TabBar from "../widgets/tabs";
 
 const Navbar = () => {
     const tabs = [

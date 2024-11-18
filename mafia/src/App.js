@@ -1,8 +1,8 @@
 import React from 'react';
-import PrimaryButton from "./base/button";
+import PrimaryButton from "./widgets/button";
 import { FaArrowRight } from 'react-icons/fa';
-import ThemeManager from "./widgets/theme";
-import Navbar from "./widgets/navbar"; // Example icon from react-icons
+import ThemeManager from "./elements/theme";
+import Navbar from "./elements/navbar"; // Example icon from react-icons
 
 const App = () => {
     const handleClick = () => {

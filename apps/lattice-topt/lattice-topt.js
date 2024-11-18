@@ -538,7 +538,7 @@ class LatticePlot {
   }
 }
 
-// Viewer Class to handle HTML interactions and widgets Mesh and Drawer
+// Viewer Class to handle HTML interactions and elements Mesh and Drawer
 class LatticeViewer {
   constructor() {
     this.canvasId = "meshPlot";
