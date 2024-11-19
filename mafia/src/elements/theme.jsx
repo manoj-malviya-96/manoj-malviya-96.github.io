@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import PrimaryButton from "../base/button";
 
 const availableThemes = [
-    { name: 'lofi', icon: 'fa fa-music' },
-    { name: 'black', icon: 'fa fa-moon' },
-    { name: 'halloween', icon: 'fa fa-ghost' },
-    { name: 'retro', icon: 'fa fa-gamepad' },
+    {name: 'lofi', icon: 'fa fa-music'},
+    {name: 'black', icon: 'fa fa-moon'},
+    {name: 'halloween', icon: 'fa fa-ghost'},
+    {name: 'retro', icon: 'fa fa-gamepad'},
 ];
 
 const ThemeManager = () => {
     // Retrieve the saved theme name from localStorage or default to the first theme
     const [currentTheme, setCurrentTheme] = useState(() => {
         const savedTheme = localStorage.getItem('themeName');
-        return savedTheme || availableThemes[0].name;
+        if (savedTheme && availableThemes.some((theme) => theme.name === savedTheme)) {
+            return savedTheme;
+        }
+        return availableThemes[0].name;
     });
 
     // Set the theme on mount and whenever the theme changes
