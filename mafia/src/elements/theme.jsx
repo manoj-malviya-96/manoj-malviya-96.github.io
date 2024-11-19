@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PrimaryButton from "../base/button";
 
 const availableThemes = [
     { name: 'lofi', icon: 'fa fa-music' },
@@ -30,13 +31,12 @@ const ThemeManager = () => {
     const currentThemeDetails = availableThemes.find((theme) => theme.name === currentTheme);
 
     return (
-        <button
-            className="btn btn-primary flex items-center gap-2 px-4 py-2 rounded-full"
+        <PrimaryButton
+            icon={currentThemeDetails.icon}
+            label={currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}
             onClick={cycleTheme}
         >
-            <i className={`${currentThemeDetails.icon} text-lg`}></i>
-            <span className="hidden sm:inline">{currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}</span>
-        </button>
+        </PrimaryButton>
     );
 };
 
