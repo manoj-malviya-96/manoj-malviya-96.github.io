@@ -3,7 +3,7 @@ import React from 'react';
 const Card = ({ image, title, date, description, width = '240px', height = '160px', onClick }) => {
     return (
         <div
-            className="card shadow-md rounded-lg transition-all duration-300 cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden"
+            className="card shadow-md border-primary border-2 rounded-lg transition-all duration-300 cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden"
             style={{ width, height }}
             onClick={onClick}
         >
