@@ -1,5 +1,4 @@
 import React from 'react';
-import {Element} from 'react-scroll';
 import Timeline from "../base/timeline";
 import FullScreenPage from "../base/page";
 
@@ -28,7 +27,12 @@ const timelineData = [
     {
         title: 'Started My Journey',
         date: '2015',
-        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
+        link: '/journey/2015',
+        icon: 'fa fa-check-circle', // Font Awesome icon
+    },
+    {
+        title: 'Started My Journey',
+        date: '2015',
         link: '/journey/2015',
         icon: 'fa fa-check-circle', // Font Awesome icon
     },

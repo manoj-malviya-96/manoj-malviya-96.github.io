@@ -11,8 +11,8 @@ const TabBar = ({ tabs }) => {
                     to={tab.name} // Matches the section's `name`
                     spy={true} // Monitors scroll and sets active class
                     smooth={true} // Smooth scrolling
-                    offset={-50} // Adjust for navbar height if needed
-                    duration={500} // Scrolling duration in ms
+                    offset={0} // Adjust for navbar height if needed
+                    duration={300} // Scrolling duration in ms
                     className="tab tab-bordered"
                     activeClass="tab-active"
                 >
