@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({ image, title, date, description, width = '300px', height = '200px', onClick }) => {
+const Card = ({ image, title, date, description, width = '240px', height = '160px', onClick }) => {
     return (
         <div
             className="card shadow-md border-2 border-primary rounded-lg transition-all duration-300 cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden"

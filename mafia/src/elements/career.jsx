@@ -1,6 +1,7 @@
 import React from 'react';
-import { Element } from 'react-scroll';
+import {Element} from 'react-scroll';
 import Timeline from "../base/timeline";
+import FullScreenPage from "../base/page";
 
 const timelineData = [
     {
@@ -35,10 +36,13 @@ const timelineData = [
 
 const CareerPage = () => {
     return (
-        <Element className="p-24" name="career">
-            <h2 className="text-3xl font-bold text-center">My Career Journey</h2>
-            <Timeline items={timelineData}/>
-        </Element>
+        <FullScreenPage
+            name="career"
+            title="My Career Journey"
+            children={
+                <Timeline items={timelineData}/>
+            }
+        />
     );
 };
 
