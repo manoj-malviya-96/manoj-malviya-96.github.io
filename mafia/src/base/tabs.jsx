@@ -1,4 +1,4 @@
-import { Link, Element } from 'react-scroll';
+import { Link } from 'react-scroll';
 
 //! Scroll to the section when a tab is clicked.
 const TabBar = ({ tabs }) => {
