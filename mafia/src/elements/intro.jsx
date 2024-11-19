@@ -6,11 +6,11 @@ import FullScreenPage from "../base/page";
 
 const IntroOverlay = () => {
     return (
-        <div className="max-w-lg text-left bg-black/50 p-4">
-            <p className="text-lg mb-4">
+        <div className="max-w-lg text-left p-4">
+            <p className="text-lg text-black-50 mb-4">
                 Manoj Malviya
             </p>
-            <h1 className="text-4xl font-bold mb-4"> Software Developer </h1>
+            <h1 className="text-4xl font-bold mb-4 text-black"> Software Developer </h1>
             <PrimaryButton label="Get Started" href="/apps"/>
         </div>
     )
@@ -24,6 +24,7 @@ const IntroPage = () => {
             children={
                 <IntroOverlay/>
             }
+            childrenAlignment='items-center'
         />
     );
 };

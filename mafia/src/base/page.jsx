@@ -1,13 +1,17 @@
 import { Element } from 'react-scroll';
 
-const FullScreenPage = ({ name, title, children, backgroundImage }) => {
+const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundImage }) => {
     if (!name) {
         throw new Error("The 'name' prop is required for FullScreenPage.");
     }
 
+    const alignmentClasses = childrenAlignment
+        ? `flex ${childrenAlignment}`
+        : 'flex justify-center items-center';
+
     return (
         <Element
-            className={`h-screen w-screen flex flex-col items-center justify-center`}
+            className="h-screen w-screen flex flex-col"
             name={name}
             style={{
                 backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
@@ -24,7 +28,7 @@ const FullScreenPage = ({ name, title, children, backgroundImage }) => {
             )}
             {/* Children */}
             {children && (
-                <div className="w-full p-4 flex justify-center items-center">
+                <div className={`w-full h-full p-4 ${alignmentClasses}`}>
                     {children}
                 </div>
             )}
