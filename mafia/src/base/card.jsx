@@ -1,22 +1,30 @@
 import React from 'react';
 
-const Card = ({ image, title, date, onClick }) => {
+const Card = ({ image, title, date, description, width = '300px', height = '200px', onClick }) => {
     return (
         <div
-            className="card bg-base-100 shadow-md border-2 border-primary rounded-lg hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col md:flex-row"
+            className="card shadow-md border-2 border-primary rounded-lg transition-all duration-300 cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden"
+            style={{ width, height }}
             onClick={onClick}
         >
-            <figure className="rounded-t-lg md:rounded-l-lg md:rounded-tr-none">
-                <img src={image} alt={title} className="w-full h-48 object-cover" />
-            </figure>
-            <div className="card-body">
-                <h2 className="card-title">{title}</h2>
-                <p>{date}</p>
+            {/* Background Image */}
+            <div
+                className="w-full h-full bg-cover bg-center"
+                style={{ backgroundImage: `url(${image})` }}
+            >
+                {/* Overlay */}
+                <div className="w-full h-full bg-black bg-opacity-40 flex flex-col justify-end p-4">
+                    <h2 className="text-white text-lg font-bold">{title}</h2>
+                    <p className="text-sm text-gray-300">{date}</p>
+                    {description && (
+                        <p className="text-sm text-gray-300 mt-2 line-clamp-2">
+                            {description}
+                        </p>
+                    )}
+                </div>
             </div>
         </div>
     );
 };
 
 export default Card;
-
-

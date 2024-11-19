@@ -5,7 +5,7 @@ import CareerPage from "./elements/career"; // Example icon from react-icons
 
 const App = () => {
     return (
-        <div className="p-4">
+        <div>
             <Navbar />
             <IntroPage />
             <CareerPage />
