@@ -1,10 +1,12 @@
 import React from 'react';
 import mainPng from '../assets/main.png';
 import PrimaryButton from "../base/button";
+import { Element } from 'react-scroll';
 
 const IntroPage = () => {
     return (
-        <div
+        <Element
+            name="intro"
             className="h-screen w-screen bg-cover bg-center flex items-center"
             style={{
                 backgroundImage: `url(${mainPng})`,
@@ -17,7 +19,7 @@ const IntroPage = () => {
                 </p>
                 <PrimaryButton label="Get Started" href="/apps"/>
             </div>
-        </div>
+        </Element>
     );
 };
 

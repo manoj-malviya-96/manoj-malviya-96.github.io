@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import { Link } from 'react-scroll';
 
-const TabBar = ({ tabs, onTabChange }) => {
-    const [activeTab, setActiveTab] = useState(tabs[0].name); // Default to the first tab
-
-    const handleTabClick = (tab) => {
-        setActiveTab(tab.name);
-        onTabChange(tab.name); // Notify the parent about the tab change
-    };
-
+//! Scroll to the section when a tab is clicked
+const TabBar = ({ tabs }) => {
     return (
         <div className="tabs tabs-bordered">
             {tabs.map((tab) => (
-                <a
+                <Link
                     key={tab.name}
-                    className={`tab tab-bordered ${activeTab === tab.name ? 'tab-active' : ''}`}
-                    onClick={() => handleTabClick(tab)}
+                    to={tab.name} // Matches the section's `name`
+                    spy={true} // Monitors scroll and sets active class
+                    smooth={true} // Smooth scrolling
+                    offset={-50} // Adjust for navbar height if needed
+                    duration={500} // Scrolling duration in ms
+                    className="tab tab-bordered"
+                    activeClass="tab-active"
                 >
                     <i className={`${tab.icon} mr-2`}></i>
                     <span className="hidden sm:inline">{tab.label}</span>
-                </a>
-                ))}
+                </Link>
+            ))}
         </div>
     );
 };
 
 export default TabBar;
+
