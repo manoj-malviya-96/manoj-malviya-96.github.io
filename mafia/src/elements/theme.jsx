@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const availableThemes = [
     { name: 'lofi', icon: 'fa fa-music' },
     { name: 'black', icon: 'fa fa-moon' },
-    { name: 'emerald', icon: 'fa fa-leaf' },
+    { name: 'halloween', icon: 'fa fa-ghost' },
     { name: 'retro', icon: 'fa fa-gamepad' },
 ];
 
