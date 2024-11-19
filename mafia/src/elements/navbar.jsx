@@ -12,7 +12,7 @@ const Navbar = () => {
 
     return (
         <div
-            className="navbar bg-base-100 bg-opacity-50 backdrop-blur-md fixed top-0 left-0 w-screen z-2 overflow-x-hidden"
+            className="navbar bg-base-100 bg-opacity-50 backdrop-blur-md fixed top-0 left-0 w-screen z-20 overflow-x-hidden"
         >
             {/* Left: TabBar */}
             <div className="flex-1 overflow-x-auto">
