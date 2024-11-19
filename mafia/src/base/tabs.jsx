@@ -1,7 +1,8 @@
-import { Link } from 'react-scroll';
+import { Link, Element } from 'react-scroll';
 
-//! Scroll to the section when a tab is clicked
+//! Scroll to the section when a tab is clicked.
 const TabBar = ({ tabs }) => {
+    {/* Should be a list of objects with `name`, `label`, and `icon` and window should have ElementType with name=name*/}
     return (
         <div className="tabs tabs-bordered">
             {tabs.map((tab) => (
