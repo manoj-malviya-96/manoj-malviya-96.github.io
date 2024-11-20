@@ -4,7 +4,7 @@ import FullScreenPage from "../base/page";
 
 const blogs = [
     {
-        title: 'Exploring React',
+        title: 'Large',
         date: 'Jan 15, 2024',
         description: 'Learn the basics of React and how to build scalable apps.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
@@ -12,7 +12,7 @@ const blogs = [
         size: 'large',
     },
     {
-        title: 'JavaScript Best Practices',
+        title: 'Medium',
         date: 'Feb 10, 2024',
         description: 'Discover the best practices to write clean JavaScript code.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
@@ -20,7 +20,7 @@ const blogs = [
         size: 'medium',
     },
     {
-        title: 'CSS Grid vs Flexbox',
+        title: 'Small',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
@@ -28,7 +28,7 @@ const blogs = [
         size: 'small',
     },
     {
-        title: 'CSS Grid vs Flexbox',
+        title: 'Medium',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
@@ -36,7 +36,7 @@ const blogs = [
         size: 'medium',
     },
     {
-        title: 'CSS Grid vs Flexbox',
+        title: 'Small',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
@@ -44,7 +44,7 @@ const blogs = [
         size: 'small',
     },
     {
-        title: 'CSS Grid vs Flexbox',
+        title: 'Small',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
