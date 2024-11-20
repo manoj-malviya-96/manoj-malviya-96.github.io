@@ -1,33 +1,28 @@
 import React from 'react';
 
-const Card = ({ image, title, date, description, width = '160px', height = '160px', onClick }) => {
-    return (
-        <div
-            className="card shadow-md
+const Card = ({image, title, date, description, onClick}) => {
+    return (<div
+        className="card shadow-md
                         border-primary border-2 rounded-lg transition-all duration-300
                         cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden
                         sm:card-compact"
-            style={{ width, height }}
-            onClick={onClick}
+        onClick={onClick}
+    >
+        {/* Background Image */}
+        <div
+            className="w-full h-full bg-cover bg-center"
+            style={{backgroundImage: `url(${image})`}}
         >
-            {/* Background Image */}
-            <div
-                className="w-full h-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${image})` }}
-            >
-                {/* Overlay */}
-                <div className="w-full h-full bg-black bg-opacity-40 flex flex-col justify-end p-4">
-                    <h2 className="text-white text-lg font-bold">{title}</h2>
-                    <p className="text-sm text-gray-300">{date}</p>
-                    {description && (
-                        <p className="text-sm text-gray-300 mt-2 line-clamp-2">
-                            {description}
-                        </p>
-                    )}
-                </div>
+            {/* Overlay */}
+            <div className="w-full h-full bg-black bg-opacity-40 flex flex-col justify-end p-4">
+                <h2 className="text-white text-lg font-bold">{title}</h2>
+                <p className="text-sm text-gray-300">{date}</p>
+                {description && (<p className="text-sm text-gray-300 mt-2 line-clamp-2">
+                    {description}
+                </p>)}
             </div>
         </div>
-    );
+    </div>);
 };
 
 export default Card;
