@@ -1,13 +1,13 @@
 import React from 'react';
-import Navbar from "./elements/navbar";
-import IntroPage from "./elements/intro";
-import CareerPage from "./elements/career";
-import BlogPage from "./elements/blogs";
+import NavBar from "./elements/nav-bar";
+import IntroPage from "./elements/intro-page";
+import CareerPage from "./elements/career-page";
+import BlogPage from "./elements/blog-page";
 
 const App = () => {
     return (
         <div className='flex-row gap-4'>
-            <Navbar />
+            <NavBar />
             <IntroPage />
             <CareerPage />
             <BlogPage />

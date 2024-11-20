@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import TabBar from "../base/tabs-bar";
-import ThemeManager from "./theme";
+import ThemeManager from "./theme-manager";
 
-const Navbar = () => {
+const NavBar = () => {
     const tabs = [
         { name: 'intro', label: 'Home', icon: 'fa fa-home' },
         { name: 'career', label: 'Career', icon: 'fa fa-briefcase' },
@@ -26,4 +26,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default NavBar;

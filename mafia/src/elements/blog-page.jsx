@@ -2,7 +2,7 @@ import BentoBox from "../base/bento-box";
 import FullScreenPage from "../base/full-page";
 
 
-const blogs = [
+const blogPage = [
     {
         title: 'Large',
         date: 'Jan 15, 2024',
@@ -58,7 +58,7 @@ const BlogPage = () => {
         <FullScreenPage
             title="Blogs"
             name="blogs"
-            children={<BentoBox items={blogs}/>}
+            children={<BentoBox items={blogPage}/>}
         />
     );
 };
