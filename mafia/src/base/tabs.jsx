@@ -1,28 +1,37 @@
-import { Link } from 'react-scroll';
+import {Link} from 'react-scroll';
+import ScrollableLink from "./link";
 
-//! Scroll to the section when a tab is clicked.
-const TabBar = ({ tabs }) => {
-    {/* Should be a list of objects with `name`, `label`, and `icon` and window should have ElementType with name=name*/}
+const TabElement = ({label, icon}) => {
     return (
-        <div className="tabs tabs-bordered">
-            {tabs.map((tab) => (
-                <Link
-                    key={tab.name}
-                    to={tab.name} // Matches the section's `name`
-                    spy={true} // Monitors scroll and sets active class
-                    smooth={true} // Smooth scrolling
-                    offset={0} // Adjust for navbar height if needed
-                    duration={300} // Scrolling duration in ms
-                    className="tab tab-bordered"
-                    activeClass="tab-active"
-                >
-                    <i className={`${tab.icon} mr-2`}></i>
-                    <span className="hidden sm:inline">{tab.label}</span>
-                </Link>
-            ))}
+        <div>
+            <i className={`${icon} mr-2`}></i>
+            <span className="hidden sm:inline">{label}</span>
         </div>
     );
 };
 
+
+//! Scroll to the section when a tab is clicked.
+const TabBar = ({tabs}) => {
+    {/* Should be a list of objects with `name`, `label`, and `icon` and window should have ElementType with name=name*/
+    }
+    return (
+        <div className="tabs tabs-bordered">
+            {tabs.map((tab) => (
+                <ScrollableLink
+                    elementName={tab.name}
+                    className="tab tab-bordered"
+                    activeClassName="tab-active"
+                    children={
+                        <TabElement
+                            label={tab.label}
+                            icon={tab.icon}
+                        />
+                    }
+                />
+            ))}
+        </div>
+    );
+};
 export default TabBar;
 
