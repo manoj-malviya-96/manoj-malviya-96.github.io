@@ -3,7 +3,7 @@ import ScrollableLink from "./scrollable-link";
 
 const TabElement = ({label, icon}) => {
     return (
-        <div>
+        <div className="active:scale-95 cursor-pointer">
             <i className={`${icon} mr-2`}></i>
             <span className="hidden sm:inline">{label}</span>
         </div>
@@ -20,7 +20,7 @@ const TabBar = ({tabs}) => {
             {tabs.map((tab) => (
                 <ScrollableLink
                     elementName={tab.name}
-                    className="tab tab-bordered"
+                    className="tab"
                     activeClassName="tab-active"
                     children={
                         <TabElement

@@ -6,8 +6,8 @@ const NavBar = () => {
     const tabs = [
         {name: 'intro', label: 'Home', icon: 'fa fa-home'},
         {name: 'career', label: 'Career', icon: 'fa fa-briefcase'},
-        {name: 'apps', label: 'Apps', icon: 'fa fa-th'},
-        {name: 'blogs', label: 'Blogs', icon: 'fa fa-book'},
+        {name: 'tools', label: 'Tools', icon: 'bi bi-app-indicator'},
+        {name: 'blog', label: 'Blog', icon: 'fa fa-book'},
     ];
 
     return (

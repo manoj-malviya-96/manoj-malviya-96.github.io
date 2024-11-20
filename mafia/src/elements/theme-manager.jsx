@@ -4,7 +4,7 @@ import PrimaryButton from "../base/primary-button";
 const availableThemes = [
     {name: 'lofi', icon: 'fa fa-music'},
     {name: 'black', icon: 'fa fa-moon'},
-    {name: 'halloween', icon: 'fa fa-ghost'},
+    {name: 'nord', icon: 'fa fa-snowflake'},
     {name: 'retro', icon: 'fa fa-gamepad'},
 ];
 

@@ -56,8 +56,8 @@ const blogPage = [
 const BlogPage = () => {
     return (
         <FullScreenPage
-            title="Blogs"
-            name="blogs"
+            title="Blog"
+            name="blog"
             children={<BentoBox items={blogPage}/>}
         />
     );
