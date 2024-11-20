@@ -22,7 +22,7 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
         >
             {/* Title */}
             {title && (
-                <h2 className="text-3xl font-bold text-center mb-8 mt-8">
+                <h2 className="text-3xl font-bold text-center mb-4">
                     {title}
                 </h2>
             )}
