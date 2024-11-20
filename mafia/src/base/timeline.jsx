@@ -10,8 +10,6 @@ const Timeline = ({ items }) => {
                 const forDate = index % 2 ? 'timeline-end' : 'timeline-start';
                 const forContent = index % 2 ? 'timeline-start' : 'timeline-end';
 
-                console.log(forDate, forContent);
-
                 return (<li key={item.id || index}>
                     {/* Line Connector */}
                     {index > 0 && (
@@ -27,7 +25,7 @@ const Timeline = ({ items }) => {
                     </div>
 
                     {/* Content */}
-                    <div className={`${forContent} mb-8 mr-8 md:mt-8`}>
+                    <div className={`${forContent} mb-2 mr-2 md:mt-2`}>
                         <Card
                             image={item.image}
                             title={item.title}
