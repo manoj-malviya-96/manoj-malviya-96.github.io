@@ -27,7 +27,7 @@ const BentoBox = ({ items, itemHeight = 150 }) => {
                             image={card.image}
                             title={card.title}
                             date={card.date}
-                            description={card.description}
+                            description={card.size !== "small" ? card.description : null}
                             onClick={card.onClick}
                         />
                     </div>

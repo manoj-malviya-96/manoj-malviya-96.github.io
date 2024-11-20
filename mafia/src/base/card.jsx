@@ -17,7 +17,7 @@ const Card = ({image, title, date, description, onClick}) => {
             <div className="w-full h-full bg-black bg-opacity-40 flex flex-col justify-end p-4">
                 <h2 className="text-white text-lg font-bold">{title}</h2>
                 <p className="text-sm text-gray-300">{date}</p>
-                {description && (<p className="text-sm text-gray-300 mt-2 line-clamp-2">
+                {description && (<p className="hidden sm:inline text-sm text-gray-300 mt-2 line-clamp-2">
                     {description}
                 </p>)}
             </div>
