@@ -4,23 +4,24 @@ import ThemeManager from "./theme-manager";
 
 const NavBar = () => {
     const tabs = [
-        { name: 'intro', label: 'Home', icon: 'fa fa-home' },
-        { name: 'career', label: 'Career', icon: 'fa fa-briefcase' },
-        { name: 'apps', label: 'Apps', icon: 'fa fa-th' },
-        { name: 'blogs', label: 'Blogs', icon: 'fa fa-book' },
+        {name: 'intro', label: 'Home', icon: 'fa fa-home'},
+        {name: 'career', label: 'Career', icon: 'fa fa-briefcase'},
+        {name: 'apps', label: 'Apps', icon: 'fa fa-th'},
+        {name: 'blogs', label: 'Blogs', icon: 'fa fa-book'},
     ];
 
     return (
         <div
-            className="navbar bg-base-100 bg-opacity-75 backdrop-blur-md fixed top-0 left-0 w-screen z-20 overflow-x-hidden"
+            className="navbar bg-base-100 bg-opacity-75 backdrop-blur-md fixed top-0 left-1/2 transform -translate-x-1/2
+                mt-4 h-fit w-3/4 z-20 rounded-lg overflow-x-hidden"
         >
             {/* Left: TabBar */}
             <div className="flex-1 overflow-x-auto">
-                <TabBar tabs={tabs} />
+                <TabBar tabs={tabs}/>
             </div>
             {/* Right: Theme Manager */}
             <div className="flex-none">
-                <ThemeManager />
+                <ThemeManager/>
             </div>
         </div>
     );
