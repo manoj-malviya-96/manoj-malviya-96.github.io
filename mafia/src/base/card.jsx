@@ -5,7 +5,7 @@ const Card = ({image, title, date, description, onClick}) => {
         className="card shadow-md h-full w-full z-0 hover:z-10
                         border-primary border-2 rounded-lg transition-all duration-300
                         cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden
-                        sm:card-compact"
+                        sm:card-compact active:scale-95"
         onClick={onClick}
     >
         {/* Background Image */}
