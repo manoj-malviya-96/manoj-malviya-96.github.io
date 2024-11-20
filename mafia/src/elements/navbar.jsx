@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import TabBar from "../base/tabs";
+import TabBar from "../base/tabs-bar";
 import ThemeManager from "./theme";
 
 const Navbar = () => {

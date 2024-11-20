@@ -1,8 +1,8 @@
 import React from 'react';
 import profilePicture from '../assets/main.jpg';
-import PrimaryButton from "../base/button";
+import PrimaryButton from "../base/primary-button";
 import { Element } from 'react-scroll';
-import FullScreenPage from "../base/page";
+import FullScreenPage from "../base/full-page";
 
 const IntroOverlay = () => {
     return (

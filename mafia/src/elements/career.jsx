@@ -1,6 +1,6 @@
 import React from 'react';
 import Timeline from "../base/timeline";
-import FullScreenPage from "../base/page";
+import FullScreenPage from "../base/full-page";
 
 const timelineData = [
     {

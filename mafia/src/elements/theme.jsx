@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import PrimaryButton from "../base/button";
+import PrimaryButton from "../base/primary-button";
 
 const availableThemes = [
     {name: 'lofi', icon: 'fa fa-music'},

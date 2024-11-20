@@ -1,5 +1,5 @@
 import {Link} from 'react-scroll';
-import ScrollableLink from "./link";
+import ScrollableLink from "./scrollable-link";
 
 const TabElement = ({label, icon}) => {
     return (

@@ -1,5 +1,5 @@
-import BentoBox from "../base/bentobox";
-import FullScreenPage from "../base/page";
+import BentoBox from "../base/bento-box";
+import FullScreenPage from "../base/full-page";
 
 
 const blogs = [
