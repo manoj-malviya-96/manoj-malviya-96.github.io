@@ -4,64 +4,52 @@ import FullScreenPage from "../base/page";
 
 const blogs = [
     {
-        id: 1,
         title: 'Exploring React',
         date: 'Jan 15, 2024',
         description: 'Learn the basics of React and how to build scalable apps.',
-        image: 'https://via.placeholder.com/300',
+        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
         link: '/blog/exploring-react',
-        width: '300px',
-        height: '300px',
+        size: 'large',
     },
     {
-        id: 2,
         title: 'JavaScript Best Practices',
         date: 'Feb 10, 2024',
         description: 'Discover the best practices to write clean JavaScript code.',
-        image: 'https://via.placeholder.com/300',
+        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
         link: '/blog/javascript-best-practices',
-        width: '160px',
-        height: '160px',
+        size: 'medium',
     },
     {
-        id: 3,
         title: 'CSS Grid vs Flexbox',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
-        image: 'https://via.placeholder.com/300',
+        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
         link: '/blog/css-grid-vs-flexbox',
-        width: '200px',
-        height: '200px',
+        size: 'small',
     },
     {
-        id: 4,
         title: 'CSS Grid vs Flexbox',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
-        image: 'https://via.placeholder.com/300',
+        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
         link: '/blog/css-grid-vs-flexbox',
-        width: '400px',
-        height: '300px',
+        size: 'medium',
     },
     {
-        id: 5,
         title: 'CSS Grid vs Flexbox',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
-        image: 'https://via.placeholder.com/300',
+        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
         link: '/blog/css-grid-vs-flexbox',
-        width: '100px',
-        height: '100px',
+        size: 'small',
     },
     {
-        id: 6,
         title: 'CSS Grid vs Flexbox',
         date: 'Mar 5, 2024',
         description: 'Understand when to use CSS Grid and Flexbox in your layouts.',
-        image: 'https://via.placeholder.com/300',
+        image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
         link: '/blog/css-grid-vs-flexbox',
-        width: '100px',
-        height: '100px',
+        size: 'small',
     },
 ];
 
@@ -70,7 +58,7 @@ const BlogPage = () => {
         <FullScreenPage
             title="Blogs"
             name="blogs"
-            children={<BentoBox blogs={blogs}/>}
+            children={<BentoBox items={blogs}/>}
         />
     );
 };

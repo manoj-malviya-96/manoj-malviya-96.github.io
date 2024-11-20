@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = ({image, title, date, description, onClick}) => {
     return (<div
-        className="card shadow-md
+        className="card shadow-md h-full w-full
                         border-primary border-2 rounded-lg transition-all duration-300
                         cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden
                         sm:card-compact"

@@ -1,25 +1,82 @@
-import React from 'react';
-import Card from './card'; // Import the existing Card component
+import React from "react";
+import Card from "./card";
 
-const BentoBox = ({ blogs, maxWidth = '192px' }) => {
+const generateGrid = (items, cols = 4) => {
+    const grid = [];
+    const positions = new Array(cols).fill(0); // Tracks the height of each column
+
+    items.forEach((item) => {
+        const size = item.size || "small";
+
+        // Determine the card's dimensions
+        let width = 1, height = 1;
+        if (size === "medium") {
+            width = 2;
+            height = 1;
+        } else if (size === "large") {
+            width = 4;
+            height = 2;
+        }
+
+        // Find the best position for the card
+        let colStart = 0;
+        let minHeight = Math.max(...positions);
+        for (let i = 0; i <= cols - width; i++) {
+            const colHeight = Math.max(...positions.slice(i, i + width));
+            if (colHeight < minHeight) {
+                colStart = i;
+                minHeight = colHeight;
+            }
+        }
+
+        // Update the grid layout
+        for (let i = colStart; i < colStart + width; i++) {
+            positions[i] = minHeight + height;
+        }
+
+        // Push card's final position
+        grid.push({...item, colStart, rowStart: minHeight});
+    });
+
+    return grid;
+};
+
+const BentoBox = ({ items, itemHeight = 150 }) => {
+    const grid = generateGrid(items, 8); // Assume 8 columns max
+
     return (
-        <div className="flex gap-4">
-            {[
-                [24, 32, 32, 16, 16],
-                [32, 40, 56],
-                [64, 32, 32],
-            ].map((card, index) => (
-                <div className="flex-1" key={index}>
-                    {card.map((height, index) => (
-                        <div
-                            className={`mb-4 h-${height} rounded-xl border-2 border-slate-400/10 bg-neutral-100 p-4 dark:bg-neutral-900`}
-                            key={index}
-                        ></div>
-                    ))}
-                </div>
-            ))}
+        <div
+            className="grid gap-4 h-fit w-4/5 mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+            style={{ gridAutoRows: `${itemHeight}px` }} // Base row height
+        >
+            {grid.map((card, index) => {
+                const colSpan =
+                    card.size === "large"
+                        ? "col-span-4"
+                        : card.size === "medium"
+                            ? "col-span-2"
+                            : "col-span-1";
+                const rowSpan = card.size === "large" ? "row-span-2" : "row-span-1";
+
+                return (
+                    <div
+                        key={index}
+                        className={`${colSpan} ${rowSpan} rounded-lg shadow-sm`}
+                    >
+                        <Card
+                            image={card.image}
+                            title={card.title}
+                            date={card.date}
+                            description={card.description}
+                            onClick={card.onClick}
+                        />
+                    </div>
+                );
+            })}
         </div>
     );
 };
 
 export default BentoBox;
+
+

@@ -13,13 +13,13 @@ const Timeline = ({ items }) => {
                 return (<li key={item.id || index}>
                     {/* Line Connector */}
                     {index > 0 && (
-                        <hr className="timeline-middle"/>
+                        <hr className="timeline-middle text-accent"/>
                     )}
 
                     {/* Icon */}
                     <div className="timeline-middle">
                         <i
-                            className={`${item.icon} text-3xl`}
+                            className={`${item.icon} text-3xl text-primary`}
                             aria-hidden="true"
                         ></i>
                     </div>
@@ -38,7 +38,7 @@ const Timeline = ({ items }) => {
 
                     {/* Line Connector */}
                     {index < items.length - 1 && (
-                        <hr className="timeline-middle"/>
+                        <hr className="timeline-middle text-accent"/>
                     )}
 
                 </li>
