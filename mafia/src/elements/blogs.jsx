@@ -1,8 +1,6 @@
 import BentoBox from "../base/bento-box";
 import FullScreenPage from "../base/full-page";
 import {useNavigate} from "react-router-dom";
-import AbstractRouter from "../base/router";
-import routes from "./routes";
 
 
 const blogs = [
@@ -38,11 +36,6 @@ const blogs = [
 const BlogListing = () => {
     const navigate = useNavigate();
 
-    // Update only the blog-specific route
-    const blogRoutes = routes.map((route) =>
-        route.path === "/blog/:blogId" ? { ...route, props: { blogs } } : route
-    );
-
     const handleCardClick = (card) => {
         navigate(card.link);
     };
@@ -54,8 +47,6 @@ const BlogListing = () => {
                 name="blog"
                 children={<BentoBox items={blogs} onClick={handleCardClick}/>}
             />
-            {/* Router for Blog Pages */}
-            <Router routes={blogRoutes}/>
         </div>
     );
 };

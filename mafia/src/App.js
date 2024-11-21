@@ -1,12 +1,13 @@
 import React from 'react';
-import HomePage from "./elements/home";
 import NavBar from "./elements/navbar";
+import AbstractRouter from "./base/router";
+import routes from "./elements/routes";
 
 const App = () => {
     return (
         <div className='flex-row gap-4'>
             <NavBar/>
-            <HomePage/>
+            <AbstractRouter routes={routes}/>
         </div>
     );
 };

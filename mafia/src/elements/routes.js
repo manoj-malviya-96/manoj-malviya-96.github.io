@@ -6,10 +6,10 @@ const routes = [
         path: "/",
         element: Home,
     },
-    {
-        path: "/blog/:blogId",
-        element: BlogConstructor,
-    },
+    // {
+    //     path: "/blog/template",
+    //     element: BlogConstructor,
+    // },
     // {
     //     path: "/apps/:appId",
     //     element: AppP,
