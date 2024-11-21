@@ -5,7 +5,7 @@ const BentoBox = ({ items, itemHeight = 150 }) => {
 
     return (
         <div
-            className="grid gap-4 h-fit w-4/5 mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+            className="grid gap-4 h-fit mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
             style={{ gridAutoRows: `${itemHeight}px` }} // Base row height
         >
             {items.map((card, index) => {

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import TabBar from "../base/tabs-bar";
 import ThemeManager from "./theme-manager";
 

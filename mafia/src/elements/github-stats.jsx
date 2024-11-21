@@ -1,0 +1,106 @@
+import React, { useState, useEffect } from "react";
+
+import dataJSON from "../data/github_user_report.json";
+import HeatmapPlot from "../base/heatmap-plot";
+import CirclePlot from "../base/heatmap-plot";
+
+const GithubHeatmap = () => {
+    const [data, setData] = useState({});
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const [totalCommits, setTotalCommits] = useState(0);
+    const [longestStreak, setLongestStreak] = useState(0);
+
+    useEffect(() => {
+        const processedData = processData(dataJSON);
+        setData(processedData);
+        if (processedData[currentYear]) {
+            updateStats(processedData[currentYear]);
+        }
+    }, [dataJSON]);
+
+    const processData = (rawData) => {
+        const formattedData = {};
+        rawData.repositories.forEach((repo) => {
+            repo.daily_log.forEach(({ date, commits }) => {
+                const year = new Date(date).getFullYear();
+                if (!formattedData[year]) formattedData[year] = {};
+                formattedData[year][date] = (formattedData[year][date] || 0) + commits;
+            });
+        });
+        return formattedData;
+    };
+
+    const updateStats = (yearData) => {
+        const dates = Object.keys(yearData);
+        setTotalCommits(dates.reduce((sum, date) => sum + yearData[date], 0));
+        let longest = 0,
+            current = 0;
+        dates
+            .sort((a, b) => new Date(a) - new Date(b))
+            .forEach((date, i, arr) => {
+                if (i > 0 && new Date(date) - new Date(arr[i - 1]) === 86400000) {
+                    current++;
+                } else {
+                    longest = Math.max(longest, current);
+                    current = 1;
+                }
+            });
+        setLongestStreak(Math.max(longest, current));
+    };
+    const renderPlot = (year) => {
+        const yearData = data[year] || {};
+        const dailyData = Array(365).fill(0);
+
+        // Map commits to each day of the year
+        Object.keys(yearData).forEach((date) => {
+            const dayOfYear = Math.floor(
+                (new Date(date) - new Date(new Date(date).getFullYear(), 0, 0)) / (24 * 60 * 60 * 1000)
+            );
+            dailyData[dayOfYear] += yearData[date];
+        });
+
+        return (
+            <CirclePlot
+                dailyData={dailyData} // Actual daily commit data for the year
+                year={year}
+                radialTitle="Commits"
+                angularTitle="Days of the Year"
+                colorScale="Blues"
+                showScale={true}
+                markerSize={10}
+            />
+        );
+    };
+
+    return (
+        <div className="p-4">
+            <h2 className="text-lg font-bold">GitHub Profile</h2>
+            <div className="flex space-x-4">
+                <div className="stats shadow">
+                    <div className="stat">
+                        <div className="stat-title">Total Commits</div>
+                        <div className="stat-value">{totalCommits}</div>
+                    </div>
+                    <div className="stat">
+                        <div className="stat-title">Longest Streak</div>
+                        <div className="stat-value">{longestStreak}</div>
+                    </div>
+                </div>
+                <div className='hidden sm:inline'>
+                    {Object.keys(data).map((year) => (
+                        <button
+                            key={year}
+                            className={`btn ${currentYear === Number(year) ? "btn-primary" : ""}`}
+                            onClick={() => setCurrentYear(Number(year))}
+                        >
+                            {year}
+                        </button>
+                    ))}
+                </div>
+            </div>
+            <div>{data[currentYear] && renderPlot(currentYear)}</div>
+        </div>
+    );
+};
+
+export default GithubHeatmap;
