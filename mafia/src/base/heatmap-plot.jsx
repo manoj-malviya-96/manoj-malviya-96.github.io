@@ -64,6 +64,7 @@ const CirclePlot = ({
                 paper_bgcolor: "rgba(0,0,0,0)", // Transparent background
                 plot_bgcolor: "rgba(0,0,0,0)", // Transparent background
                 autosize: true,
+                margin: { t: 0, l: 0, r: 0, b: 0 },
             }}
             style={{ width: "100%", height: "100%" }}
         />

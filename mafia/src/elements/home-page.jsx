@@ -5,6 +5,7 @@ import IntroPage from "./intro-page";
 import CareerPage from "./career-page";
 import BlogPage from "./blog-page";
 import ToolsPage from "./tools-page";
+import BlogContent from "../base/blog-content";
 
 const HomePage = () => {
     return (
@@ -13,6 +14,7 @@ const HomePage = () => {
             <CareerPage/>
             <ToolsPage/>
             <BlogPage/>
+            <BlogContent/>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import FullScreenPage from "../base/full-page";
 
 const blogPage = [
     {
-        title: 'Large',
+        title: 'Cpp MultiThreading',
         date: 'Jan 15, 2024',
         description: 'Learn the basics of React and how to build scalable apps.',
         image: 'https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp',
