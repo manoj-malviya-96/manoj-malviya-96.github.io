@@ -1,9 +1,6 @@
 import React from "react";
 import Plot from "react-plotly.js";
-
-const getDaisyUIColor = (variable) => {
-    return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
-};
+import {getPrimaryColorForDaisy} from "./helper";
 
 const CirclePlot = ({
                         dailyData,
@@ -18,8 +15,8 @@ const CirclePlot = ({
     const radii = dailyData;
 
     // Dynamic color variables
-    const primaryColor = getDaisyUIColor("--tw-prose-headings") || "#f63b4b"; // Fallback to blue
-    const textColor = getDaisyUIColor("--tw-prose-body") || "#374151"; // Fallback to gray
+    const primaryColor = getPrimaryColorForDaisy() || "#f63b4b"; // Fallback to blue
+    const textColor = getPrimaryColorForDaisy() || "#ffffff"; // Fallback to gray
 
     return (
         <Plot

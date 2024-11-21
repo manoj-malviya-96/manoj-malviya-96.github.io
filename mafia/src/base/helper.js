@@ -1,4 +1,8 @@
+import { oklch, formatRgb } from "culori";
+
+
 /* ------------ Helper functions ------------ */
+
 export function runWithDelay(callback, delay_ms = 300, single_arg = null) {
     if (!callback) {
         console.error("Callback function not provided");
@@ -197,4 +201,11 @@ export function getScaleColor(brandColor, lastColor, numStops) {
         result.push([intensity, adjustColor(brandColor, 1, intensity)]);
     }
     return result;
+}
+
+export function getPrimaryColorForDaisy() {
+    // Fetch the DaisyUI primary color variable
+    const res= getStyleValue('--p');
+    console.error(res);
+    return res;
 }

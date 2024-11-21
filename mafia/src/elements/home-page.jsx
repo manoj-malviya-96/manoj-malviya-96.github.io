@@ -9,7 +9,6 @@ import ToolsPage from "./tools-page";
 const HomePage = () => {
     return (
         <div className='flex-row gap-4'>
-            <NavBar/>
             <IntroPage/>
             <CareerPage/>
             <ToolsPage/>
