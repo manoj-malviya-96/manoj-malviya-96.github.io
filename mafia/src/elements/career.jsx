@@ -43,7 +43,7 @@ const timelineData = [
     },
 ];
 
-const CareerPage = () => {
+const Career = () => {
     return (
         <FullScreenPage
             name="career"
@@ -55,4 +55,4 @@ const CareerPage = () => {
     );
 };
 
-export default CareerPage;
+export default Career;

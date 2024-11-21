@@ -1,8 +1,8 @@
 import React from 'react';
 import TabBar from "../base/tabs-bar";
-import ThemeManager from "./theme-manager";
+import ThemeButton from "./theme";
 
-const NavBar = () => {
+const Navbar = () => {
     const tabs = [
         {name: 'intro', label: 'Home', icon: 'fa fa-home'},
         {name: 'career', label: 'Career', icon: 'fa fa-briefcase'},
@@ -21,10 +21,10 @@ const NavBar = () => {
             </div>
             {/* Right: Theme Manager */}
             <div className="flex-none">
-                <ThemeManager/>
+                <ThemeButton/>
             </div>
         </div>
     );
 };
 
-export default NavBar;
+export default Navbar;

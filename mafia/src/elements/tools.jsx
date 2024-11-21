@@ -1,7 +1,7 @@
 import React from 'react';
 import FullScreenPage from "../base/full-page";
 import PrimaryButton from "../base/primary-button";
-import GithubHeatmap from "./github-stats";
+import GithubHeatmap from "./github";
 
 
 const tools = {
@@ -40,7 +40,7 @@ const AppDrawer = () => {
 };
 
 
-const ToolsPage = () => {
+const Tools = () => {
     return (
         <FullScreenPage
             name="tools"
@@ -61,6 +61,6 @@ const ToolsPage = () => {
     );
 }
 
-export default ToolsPage;
+export default Tools;
 
 

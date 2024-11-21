@@ -15,7 +15,7 @@ const IntroOverlay = () => {
     )
 }
 
-const IntroPage = () => {
+const Intro = () => {
     return (
         <FullScreenPage
             name="intro"
@@ -28,4 +28,4 @@ const IntroPage = () => {
     );
 };
 
-export default IntroPage;
+export default Intro;

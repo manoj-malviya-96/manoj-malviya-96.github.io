@@ -1,12 +1,12 @@
 import React from "react";
 import Card from "./card";
 
-const BentoBox = ({ items, itemHeight = 150 }) => {
+const BentoBox = ({items, onClick, itemHeight = 150}) => {
 
     return (
         <div
-            className="grid gap-4 h-fit mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
-            style={{ gridAutoRows: `${itemHeight}px` }} // Base row height
+            className="grid gap-4 h-fit w-full mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+            style={{gridAutoRows: `${itemHeight}px`}} // Base row height
         >
             {items.map((card, index) => {
                 // Dynamically adjust col-span based on available columns
@@ -28,7 +28,7 @@ const BentoBox = ({ items, itemHeight = 150 }) => {
                             title={card.title}
                             date={card.date}
                             description={card.size !== "small" ? card.description : null}
-                            onClick={card.onClick}
+                            onClick={() => onClick(card)}
                         />
                     </div>
                 );

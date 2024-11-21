@@ -8,7 +8,7 @@ const availableThemes = [
     {name: 'retro', icon: 'fa fa-gamepad'},
 ];
 
-const ThemeManager = () => {
+const ThemeButton = () => {
     // Retrieve the saved theme name from localStorage or default to the first theme
     const [currentTheme, setCurrentTheme] = useState(() => {
         const savedTheme = localStorage.getItem('themeName');
@@ -43,4 +43,4 @@ const ThemeManager = () => {
     );
 };
 
-export default ThemeManager;
+export default ThemeButton;

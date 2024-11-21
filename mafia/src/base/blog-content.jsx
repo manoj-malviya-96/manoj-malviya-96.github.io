@@ -27,7 +27,7 @@ const BlogHeader = ({title, description, date, tags, coverImage}) => {
     );
 };
 
-const BlogContent = () => {
+const BlogContent = ({item}) => {
     return (
         <BlogHeader
             title="Understanding Multi-Threading"
