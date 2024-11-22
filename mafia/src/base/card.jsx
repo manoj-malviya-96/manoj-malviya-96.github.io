@@ -10,13 +10,12 @@ const Card = ({image, title, date, description, onClick}) => {
     >
         {/* Background Image */}
         <div
-            className="w-full h-full bg-cover bg-center"
+            className="w-full h-full border-none"
             style={
                 {
                     backgroundImage: `url(${image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backdropFilter: 'brightness(0.69)'
                 }
             }
         >

@@ -12,8 +12,9 @@ export const makeBlogRouters = () => {
             return (<BlogConstructor item={blog}/>);
         }
         return {
-            path: blog.path(),
+            path: blog.path,
             component: blogComponent
         };
     });
 };
+

@@ -1,8 +1,11 @@
 import {SizeOptions} from "../utils/enums";
-import {BentoBoxItem} from "../utils/types";
+import {createBentoBoxItem, createTabItem, makeStruct, rangesTo} from "../utils/types";
 
-class BaseBlog {
-    constructor({id, title, description, summary, date, tags, cover, size= SizeOptions.Medium}) {
+export class BaseBlog {
+    constructor({
+                    id, title, description, summary, date, tags, cover, sections,
+                    card_size = SizeOptions.Medium
+                }) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -10,28 +13,48 @@ class BaseBlog {
         this.date = date;
         this.tags = tags;
         this.cover = cover;
-        this.size = size
+        this.card_size = card_size
+        this.sections = sections
+        this.path = '/blogs/' + this.id;
     }
 
     bentobox() {
-        return new BentoBoxItem(
-            this.title,
-            this.description,
-            this.date,
-            this.tags,
-            this.cover,
-            this.size,
-            this.path()
+        return createBentoBoxItem(
+            {
+                title: this.title,
+                description: this.description,
+                date: this.date,
+                tags: this.tags,
+                cover: this.cover,
+                size: this.card_size,
+                onClickArg: this.path
+            }
         )
     }
 
-    path() {
-        return '/blogs/' + this.id;
+    tabs() {
+        return rangesTo(this.sections, (section) => createTabItem({
+            name: section.name,
+            label: section.title,
+            icon: section.icon
+        }));
     }
 
-    content() {
-        throw new Error("Abstract method 'content()' must be implemented by subclasses.");
-    }
+
 }
 
-export default BaseBlog;
+export function makeBlogImage({source, label}) {
+    return makeStruct({source, label}, 'BlogImage');
+}
+
+export function makeBlogCode({language, code}) {
+    return makeStruct({language, code}, 'BlogCode');
+}
+
+export function makeBlogPlot({plot}) {
+    return makeStruct({plot}, 'BlogPlot');
+}
+
+export function makeBlogSectionContent({name, icon, title, paragraph, media}) {
+    return makeStruct({name, icon, title, paragraph, media}, 'BlogSectionContent');
+}

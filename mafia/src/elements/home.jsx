@@ -3,30 +3,15 @@ import Intro from "./intro";
 import Career from "./career";
 import BlogListing from "./blogs";
 import Tools from "./tools";
-import TabBar from "../base/tabs-bar";
+import TabBar from "../base/tab-bar";
+import {createTabItem} from "../utils/types";
 
 const Home = () => {
     const tabs = [
-        {
-            name: 'intro',
-            label: 'Intro',
-            icon: 'fas fa-signature',
-        },
-        {
-            name: 'career',
-            label: 'Career',
-            icon: 'fas fa-briefcase',
-        },
-        {
-            name: 'tools',
-            label: 'Tools',
-            icon: 'fas fa-tools',
-        },
-        {
-            name: 'blog',
-            label: 'Blog',
-            icon: 'fas fa-blog',
-        },
+        createTabItem({name: 'intro', label: 'Intro', icon: 'fas fa-info-circle'}),
+        createTabItem({name: 'career', label: 'Career', icon: 'fas fa-briefcase'}),
+        createTabItem({name: 'tools', label: 'Tools', icon: 'fas fa-tools'}),
+        createTabItem({name: 'blog', label: 'Blog', icon: 'fas fa-blog'}),
     ]
     return (
         <div className='flex-row w-fit h-fit'>

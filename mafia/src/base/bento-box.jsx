@@ -1,19 +1,16 @@
 import React from "react";
 import Card from "./card";
 import {SizeOptions} from "../utils/enums";
-import {BentoBoxItem} from "../utils/types";
+import {validateStructType} from "../utils/types";
 
 const BentoBox = ({items, onClick, itemHeight = 150}) => {
-
+    items.forEach((item) => validateStructType(item, "BentoBoxItem"));
     return (
         <div
             className="grid gap-4 h-fit w-full mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
             style={{gridAutoRows: `${itemHeight}px`}} // Base row height
         >
             {items.map((card, index) => {
-                if (!(card instanceof BentoBoxItem)){
-                    throw 'Invalid Type for bentobox';
-                }
                 // Dynamically adjust col-span based on available columns
                 const colSpan =
                     card.size === SizeOptions.Large
@@ -26,7 +23,7 @@ const BentoBox = ({items, onClick, itemHeight = 150}) => {
                 return (
                     <div
                         key={index}
-                        className={`${colSpan} ${rowSpan} rounded-lg shadow-sm`}
+                        className={`${colSpan} ${rowSpan} bg-transparent`}
                     >
                         <Card
                             image={card.cover}
