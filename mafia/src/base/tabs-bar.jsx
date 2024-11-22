@@ -15,7 +15,7 @@ const TabBar = ({tabs}) => {
     {/* Should be a list of objects with `name`, `label`, and `icon` and window should have ElementType with name=name*/
     }
     return (
-        <div className="tabs tabs-bordered">
+        <div className="tabs tabs-bordered px-3">
             {tabs.map((tab) => (
                 <ScrollableLink
                     elementName={tab.name}

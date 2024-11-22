@@ -5,7 +5,7 @@ import routes from "./elements/routes";
 
 const App = () => {
     return (
-        <div className='flex-row gap-4'>
+        <div className='flex-row'>
             <NavBar/>
             <AbstractRouter routes={routes}/>
         </div>
