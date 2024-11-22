@@ -6,7 +6,7 @@ import BlogContent from "../base/blog-content";
 const BlogTemplate = () => {
     return (
         <div>
-            <BlogContent/>
+            <BlogContent item={item}/>
         </div>
     );
 };
