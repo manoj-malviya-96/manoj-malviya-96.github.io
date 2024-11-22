@@ -10,7 +10,7 @@ class CppThreads extends BaseBlog {
             description: 'Dive deep into concurrency',
             date: 'November 21, 2024',
             tags: ['C++', 'Concurrency', 'Threads'],
-            cover: {Cover},
+            cover: Cover,
             size: SizeOptions.Large
         })
     }

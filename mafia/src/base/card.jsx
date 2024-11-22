@@ -11,7 +11,14 @@ const Card = ({image, title, date, description, onClick}) => {
         {/* Background Image */}
         <div
             className="w-full h-full bg-cover bg-center"
-            style={{backgroundImage: `url(${image})`}}
+            style={
+                {
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backdropFilter: 'brightness(0.69)'
+                }
+            }
         >
             {/* Overlay */}
             <div className="w-full h-full bg-black bg-opacity-40 flex flex-col justify-end p-4">
