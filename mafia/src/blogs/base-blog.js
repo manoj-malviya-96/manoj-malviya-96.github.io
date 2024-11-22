@@ -2,10 +2,11 @@ import {SizeOptions} from "../utils/enums";
 import {BentoBoxItem} from "../utils/types";
 
 class BaseBlog {
-    constructor({id, title, description, date, tags, cover, size= SizeOptions.Medium}) {
+    constructor({id, title, description, summary, date, tags, cover, size= SizeOptions.Medium}) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.summary = summary
         this.date = date;
         this.tags = tags;
         this.cover = cover;

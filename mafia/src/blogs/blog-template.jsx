@@ -1,12 +1,12 @@
 
 import React from "react";
-import BlogContent from "./blog-content";
+import BlogConstructor from "./blog-constructor";
 
 
 const BlogTemplate = () => {
     return (
         <div>
-            <BlogContent/>
+            <BlogConstructor/>
         </div>
     );
 };

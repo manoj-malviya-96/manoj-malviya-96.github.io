@@ -1,5 +1,5 @@
 import cppThreads from "./cpp-threads";
-import BlogContent from "./blog-content";
+import BlogConstructor from "./blog-constructor";
 import {rangesTo} from "../utils/types";
 
 export const blogs = [
@@ -9,7 +9,7 @@ export const blogs = [
 export const makeBlogRouters = () => {
     return rangesTo(blogs, (blog) => {
         const blogComponent = () => {
-            return (<BlogContent item={blog}/>);
+            return (<BlogConstructor item={blog}/>);
         }
         return {
             path: blog.path(),

@@ -11,7 +11,10 @@ class CppThreads extends BaseBlog {
             date: 'November 21, 2024',
             tags: ['C++', 'Concurrency', 'Threads'],
             cover: Cover,
-            size: SizeOptions.Large
+            size: SizeOptions.Large,
+            summary: 'Multi-threading is one of those things in programming that sounds easy in theory, but once you dive in, you quickly realize it’s a whole different beast. I remember when I started working on a project where I needed to speed up some operations, and multi-threading seemed like the perfect solution. Spoiler alert: it wasn’t as straightforward as just launching a few threads.\n' +
+                '\n' +
+                'In this post, I’ll walk you through what I learned while navigating the world of multi-threading in C++. I’ll cover some essentials like mutexes, lock guards, unique locks, and atomic variables and share a real-world example that helped me wrap my head around these concepts—managing an inventory map in a multi-threaded environment.'
         })
     }
 
