@@ -10,7 +10,7 @@ const Navbar = () => {
         >
             <PrimaryButton
                 label="Home"
-                icon="fas fa-home"
+                icon="fa-solid fa-house-chimney-window"
                 onClick={() => {
                     window.location.href = "/";
                 }}

@@ -10,7 +10,7 @@ const Home = () => {
         {
             name: 'intro',
             label: 'Intro',
-            icon: 'fas fa-home',
+            icon: 'fas fa-signature',
         },
         {
             name: 'career',
@@ -34,6 +34,7 @@ const Home = () => {
             <Career/>
             <Tools/>
             <BlogListing/>
+            {/*match the top margin of the navbar*/}
             <div className='flex-column bg-base-100 bg-opacity-50 backdrop-blur-md m-4
                             rounded-2xl fixed top-0 w-fit h-fit z-20'>
                 <TabBar tabs={tabs}/>
