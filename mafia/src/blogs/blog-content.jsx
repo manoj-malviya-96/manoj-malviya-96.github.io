@@ -30,11 +30,11 @@ const BlogHeader = ({title, description, date, tags, coverImage}) => {
 const BlogContent = ({item}) => {
     return (
         <BlogHeader
-            title="Understanding Multi-Threading"
-            description="Dive deep into concurrency and race conditions in C++."
-            date="November 21, 2024"
-            tags={["C++", "Concurrency", "Threads"]}
-            coverImage= {TemplateCover}
+            title= {item.title}
+            description= {item.description}
+            date= {item.date}
+            tags= {item.tags}
+            coverImage= {item.cover}
         />
     )
 }

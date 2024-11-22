@@ -1,6 +1,6 @@
 import React from "react";
 import Plot from "react-plotly.js";
-import {getPrimaryColorForDaisy} from "./helper";
+import {getPrimaryColorForDaisy} from "../utils/color";
 
 const CirclePlot = ({
                         dailyData,

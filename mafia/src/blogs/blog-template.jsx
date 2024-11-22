@@ -1,12 +1,12 @@
 
 import React from "react";
-import BlogContent from "../base/blog-content";
+import BlogContent from "./blog-content";
 
 
 const BlogTemplate = () => {
     return (
         <div>
-            <BlogContent item={item}/>
+            <BlogContent/>
         </div>
     );
 };

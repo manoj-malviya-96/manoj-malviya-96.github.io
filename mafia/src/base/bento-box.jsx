@@ -1,5 +1,7 @@
 import React from "react";
 import Card from "./card";
+import {SizeOptions} from "../utils/enums";
+import {BentoBoxItem} from "../utils/types";
 
 const BentoBox = ({items, onClick, itemHeight = 150}) => {
 
@@ -11,12 +13,14 @@ const BentoBox = ({items, onClick, itemHeight = 150}) => {
             {items.map((card, index) => {
                 // Dynamically adjust col-span based on available columns
                 const colSpan =
-                    card.size === "large"
+                    card.size === SizeOptions.Large
                         ? "lg:col-span-4 md:col-span-3 sm:col-span-2 col-span-1"
-                        : card.size === "medium"
+                        : card.size === SizeOptions.Medium
                             ? "lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-1"
                             : "col-span-1";
-                const rowSpan = card.size === "large" ? "row-span-2" : "row-span-1";
+                const rowSpan = card.size === SizeOptions.Large ? "row-span-2" : "row-span-1";
+
+                console.error(card.onClickArg);
 
                 return (
                     <div
@@ -24,11 +28,11 @@ const BentoBox = ({items, onClick, itemHeight = 150}) => {
                         className={`${colSpan} ${rowSpan} rounded-lg shadow-sm`}
                     >
                         <Card
-                            image={card.image}
+                            image={card.cover}
                             title={card.title}
                             date={card.date}
                             description={card.size !== "small" ? card.description : null}
-                            onClick={() => onClick(card)}
+                            onClick={() => onClick(card.onClickArg)}
                         />
                     </div>
                 );

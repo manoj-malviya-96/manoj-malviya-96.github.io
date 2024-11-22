@@ -205,7 +205,5 @@ export function getScaleColor(brandColor, lastColor, numStops) {
 
 export function getPrimaryColorForDaisy() {
     // Fetch the DaisyUI primary color variable
-    const res= getStyleValue('--p');
-    console.error(res);
-    return res;
+    return getStyleValue('--p');
 }

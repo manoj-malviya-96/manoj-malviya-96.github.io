@@ -1,21 +1,14 @@
-import BlogConstructor from "../blogs/blog-template";
 import Home from "./home";
-import BlogTemplate from "../blogs/blog-template";
+import {makeBlogRouters} from "../blogs/blog-registry";
+
 
 const routes = [
     {
         path: "/",
         component: Home,
-    },
-    {
-        path: "/blog/template",
-        component: BlogTemplate,
-    },
-    // {
-    //     path: "/apps/:appId",
-    //     element: AppP,
-    // }
+    }
 ];
+routes.push(...makeBlogRouters())
 
 export default routes;
 

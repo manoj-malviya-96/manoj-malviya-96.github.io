@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const AbstractRouter = ({ routes }) => {
+const RouterConstructor = ({ routes }) => {
     return (
         <Router>
             <Routes>
@@ -13,4 +13,4 @@ const AbstractRouter = ({ routes }) => {
     );
 };
 
-export default AbstractRouter;
+export default RouterConstructor;
