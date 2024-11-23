@@ -50,7 +50,7 @@ const BlogSection = ({section}) => {
             name="intro"
             title={section.title}
             children={
-                <section className='flex flex-col md:flex-row w-full h-fit gap-4 mt-8'>
+                <section className='flex flex-col md:flex-row w-full h-fit gap-8 mt-8'>
                     <p className='text-lg w-1/2'>{section.paragraph}</p>
                     {section.media.typeKey === 'BlogImage' &&
                         <img src={section.media.source} alt={section.media.label}
@@ -58,7 +58,7 @@ const BlogSection = ({section}) => {
                     }
                     {section.media.typeKey === 'BlogCode' && (
                         <CodeBlock language={section.media.language} code={section.media.code}
-                                   className='w-1/2 bg-transparent'/>
+                                   className='w-1/2'/>
                     )}
 
                     {section.media.typeKey === 'BlogPlot' &&

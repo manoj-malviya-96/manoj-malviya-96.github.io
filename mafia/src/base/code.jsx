@@ -36,18 +36,18 @@ const CodeBlock = ({ code, language, className }) => {
     };
 
     return (
-        <div className={`relative bg-transparent ${className}`}>
+        <div className={`relative ${className}`}>
             {/* Copy Button */}
             <PrimaryButton
                 isLoading={isCopying}
                 icon={copySuccess ? 'fas fa-check' : 'fas fa-copy'}
                 label={copySuccess ? 'Copied!' : 'Copy'}
                 onClick={handleCopy}
-                className="absolute top-2 right-2 text-sm bg-primary text-white rounded-md hover:bg-primary-focus"
+                className="absolute top-2 right-2"
             />
 
             {/* Code Block */}
-            <SyntaxHighlighter language={language} style={codeStyle}>
+            <SyntaxHighlighter language={language} style={codeStyle} className="rounded-lg">
                 {code}
             </SyntaxHighlighter>
         </div>
