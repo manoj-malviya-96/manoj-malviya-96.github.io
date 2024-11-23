@@ -28,7 +28,7 @@ const BlogHeader = ({title, summary, date, tags, coverImage}) => {
                                 ))}
                             </div>
                         </div>
-                        <img className='w-1/2 rounded-lg' src={coverImage} alt="Cover"></img>
+                        <img className='w-fit md:w-1/2 rounded-lg' src={coverImage} alt="Cover"></img>
                     </div>
                 }
             />
@@ -51,18 +51,18 @@ const BlogSection = ({section}) => {
             title={section.title}
             children={
                 <section className='flex flex-col md:flex-row w-full h-fit gap-8 mt-8'>
-                    <p className='text-lg w-1/2'>{section.paragraph}</p>
+                    <p className='text-lg w-fit md:w-1/2'>{section.paragraph}</p>
                     {section.media.typeKey === 'BlogImage' &&
                         <img src={section.media.source} alt={section.media.label}
                              className='w-1/2 rounded-lg justify-end'/>
                     }
                     {section.media.typeKey === 'BlogCode' && (
                         <CodeBlock language={section.media.language} code={section.media.code}
-                                   className='w-1/2'/>
+                                   className='w-fit md:w-1/2'/>
                     )}
 
                     {section.media.typeKey === 'BlogPlot' &&
-                        <section className='w-1/2 bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
+                        <section className='w-fit md:w-1/2 bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
                     }
                 </section>
             }

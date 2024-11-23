@@ -1,5 +1,4 @@
 import React from 'react';
-import TabBar from "../base/tab-bar";
 import ThemeButton from "./theme";
 import PrimaryButton from "../base/primary-button";
 

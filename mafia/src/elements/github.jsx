@@ -73,7 +73,7 @@ const GithubHeatmap = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen">
             <h2 className="text-lg font-bold">GitHub Profile</h2>
             <div className="flex space-x-4">
                 <div className="stats shadow">
