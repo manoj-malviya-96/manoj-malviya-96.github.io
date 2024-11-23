@@ -29,11 +29,11 @@ class CppThreads extends BaseBlog {
                             '“How hard can this be?”—but as I quickly found out, threads can get ' +
                             'pretty wild if you dont manage them carefully.',
                         media: makeBlogCode({
-                            language: 'cpp', code: '#include &lt;iostream&gt;\n' +
-                                '#include &lt;thread&gt;\n' +
+                            language: 'cpp', code: '#include iostream;\n' +
+                                '#include thread;\n' +
                                 '\n' +
                                 'void print_message() {\n' +
-                                '    std::cout &lt;&lt; "Hello from a thread!" &lt;&lt; std::endl;\n' +
+                                '    std::cout: "Hello from a thread!" &lt;&lt; std::endl;\n' +
                                 '}\n' +
                                 '\n' +
                                 'int main() {\n' +
