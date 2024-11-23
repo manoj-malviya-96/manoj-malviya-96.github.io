@@ -1,7 +1,7 @@
 import React from 'react';
 import TemplateCover from '../assets/main.jpg';
 import FullScreenPage from "../base/full-page";
-import {BaseBlog, BlogSectionContent} from "./base-blog";
+import {BaseBlog} from "./base-blog";
 import {validateClassType, validateStructType} from "../utils/types";
 import TabBar from "../base/tab-bar";
 import CodeBlock from "../base/code";

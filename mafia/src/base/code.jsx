@@ -7,6 +7,8 @@ import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import matlab from 'react-syntax-highlighter/dist/esm/languages/hljs/matlab';
 import qml from 'react-syntax-highlighter/dist/esm/languages/hljs/qml';
+import PrimaryButton from "./primary-button";
+import {useState} from "react";
 
 // Register languages
 SyntaxHighlighter.registerLanguage('cpp', cpp);
@@ -15,12 +17,41 @@ SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('matlab', matlab);
 SyntaxHighlighter.registerLanguage('qml', qml);
 
-// Reusable CodeBlock Component
-const CodeBlock = ({code, language}) => (
-    <div className="overflow-x-auto">
-        <SyntaxHighlighter language={language} style={codeStyle} className="rounded-lg bg-base-300 p-4">
-            {code}
-        </SyntaxHighlighter>
-    </div>
-);
+
+
+const CodeBlock = ({ code, language, className }) => {
+    const [copySuccess, setCopySuccess] = useState(false);
+    const [isCopying, setCopying] = useState(false);
+
+    const handleCopy = async () => {
+        try {
+            setCopying(true);
+            await navigator.clipboard.writeText(code);
+            setCopying(false);
+            setCopySuccess(true);
+            setTimeout(() => setCopySuccess(false), 1000); // Reset after 1 seconds
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    };
+
+    return (
+        <div className={`relative bg-transparent ${className}`}>
+            {/* Copy Button */}
+            <PrimaryButton
+                isLoading={isCopying}
+                icon={copySuccess ? 'fas fa-check' : 'fas fa-copy'}
+                label={copySuccess ? 'Copied!' : 'Copy'}
+                onClick={handleCopy}
+                className="absolute top-2 right-2 text-sm bg-primary text-white rounded-md hover:bg-primary-focus"
+            />
+
+            {/* Code Block */}
+            <SyntaxHighlighter language={language} style={codeStyle}>
+                {code}
+            </SyntaxHighlighter>
+        </div>
+    );
+};
+
 export default CodeBlock;
