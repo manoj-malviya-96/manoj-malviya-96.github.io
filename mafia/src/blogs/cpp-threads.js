@@ -1,4 +1,4 @@
-import {BaseBlog, makeBlogImage, makeBlogSectionContent} from "./base-blog";
+import {BaseBlog, makeBlogCode, makeBlogImage, makeBlogSectionContent} from "./base-blog";
 import Cover from "./cpp-threads.webp"
 import {SizeOptions} from "../utils/enums";
 
@@ -21,8 +21,26 @@ class CppThreads extends BaseBlog {
                         name: 'intro',
                         icon: 'fa fa-info-circle',
                         title: 'Introduction',
-                        paragraph: 'Something Something on the way',
-                        media: makeBlogImage({source: Cover, label: 'Cover'}),
+                        paragraph: 'When I first started exploring C++ threads, ' +
+                            'it was like stepping into an entirely new territory. ' +
+                            'C++ has built-in support for multi-threading via the thread library. ' +
+                            'The basic idea is that a thread runs a separate flow of execution, ' +
+                            'allowing you to do multiple things at once. At first, I thought, ' +
+                            '“How hard can this be?”—but as I quickly found out, threads can get ' +
+                            'pretty wild if you dont manage them carefully.',
+                        media: makeBlogCode({
+                            language: 'cpp', code: '#include &lt;iostream&gt;\n' +
+                                '#include &lt;thread&gt;\n' +
+                                '\n' +
+                                'void print_message() {\n' +
+                                '    std::cout &lt;&lt; "Hello from a thread!" &lt;&lt; std::endl;\n' +
+                                '}\n' +
+                                '\n' +
+                                'int main() {\n' +
+                                '    std::thread t(print_message); // Create a thread to run print_message\n' +
+                                '    t.join(); // Wait for the thread to finish\n' +
+                                '    return 0;'
+                        }),
                     })
             ]
         })

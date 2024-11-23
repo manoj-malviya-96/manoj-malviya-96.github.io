@@ -4,6 +4,7 @@ import FullScreenPage from "../base/full-page";
 import {BaseBlog, BlogSectionContent} from "./base-blog";
 import {validateClassType, validateStructType} from "../utils/types";
 import TabBar from "../base/tab-bar";
+import CodeBlock from "../base/code";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {
@@ -49,9 +50,19 @@ const BlogSection = ({section}) => {
             name="intro"
             title={section.title}
             children={
-                <section className='grid-cols-1 md:grid-cols-2 w-full h-full'>
-                    <p className='text-lg'>{section.paragraph}</p>
-                    <img src={section.media.source} alt={section.media.label} className='w-1/2 rounded-lg'/>
+                <section className='flex flex-col md:flex-row w-full h-fit gap-4 mt-8'>
+                    <p className='text-lg w-1/2'>{section.paragraph}</p>
+                    {section.media.typeKey === 'BlogImage' &&
+                        <img src={section.media.source} alt={section.media.label}
+                             className='w-1/2 rounded-lg justify-end'/>
+                    }
+                    {section.media.typeKey === 'BlogCode' && (
+                        <CodeBlock language={section.media.language} code={section.media.code} className='w-1/2 bg-transparent'/>
+                    )}
+
+                    {section.media.typeKey === 'BlogPlot' &&
+                        <section className='w-1/2 bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
+                    }
                 </section>
             }
         />
@@ -73,9 +84,9 @@ const BlogConstructor = ({item}) => {
             {item.sections.map((sec) => {
                 console.log(sec);
                 return (<BlogSection section={sec}/>);
-                })
+            })
             }
-            {/*match the top margin of the navbar*/}
+            {/*Todo can this be included in a separate module ?? */}
             <div className='flex-column bg-base-100 bg-opacity-50 backdrop-blur-md m-4
                             rounded-2xl fixed top-0 w-fit h-fit z-20'>
                 <TabBar tabs={item.tabs()}/>
