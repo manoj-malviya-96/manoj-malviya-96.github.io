@@ -83,7 +83,6 @@ const BlogConstructor = ({item}) => {
                 coverImage={item.cover}
             />
             {item.sections.map((sec) => {
-                console.log(sec);
                 return (<BlogSection section={sec}/>);
             })
             }

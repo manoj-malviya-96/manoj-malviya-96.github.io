@@ -20,7 +20,7 @@ class CppThreads extends BaseBlog {
                     {
                         name: 'intro',
                         icon: 'fa fa-info-circle',
-                        title: 'Introduction',
+                        title: 'Tutorial',
                         paragraph: 'When I first started exploring C++ threads, ' +
                             'it was like stepping into an entirely new territory. ' +
                             'C++ has built-in support for multi-threading via the thread library. ' +
