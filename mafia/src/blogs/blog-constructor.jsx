@@ -57,7 +57,8 @@ const BlogSection = ({section}) => {
                              className='w-1/2 rounded-lg justify-end'/>
                     }
                     {section.media.typeKey === 'BlogCode' && (
-                        <CodeBlock language={section.media.language} code={section.media.code} className='w-1/2 bg-transparent'/>
+                        <CodeBlock language={section.media.language} code={section.media.code}
+                                   className='w-1/2 bg-transparent'/>
                     )}
 
                     {section.media.typeKey === 'BlogPlot' &&
