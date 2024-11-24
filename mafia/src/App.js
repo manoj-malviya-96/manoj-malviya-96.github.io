@@ -8,9 +8,7 @@ const App = () => {
     return (
         <div className='flex-row'>
             <NavBar/>
-            <AnimatePresence mode="wait">
-                <RouterConstructor routes={routes}/>
-            </AnimatePresence>
+            <RouterConstructor routes={routes}/>
         </div>
     );
 };
