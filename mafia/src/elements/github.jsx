@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import dataJSON from "../data/github_user_report.json";
 import HeatmapPlot from "../base/heatmap-plot";
 import CirclePlot from "../base/heatmap-plot";
+import {fromTxtMonth, toTxtMonth} from "../utils/date";
 
 const GithubHeatmap = () => {
     const [data, setData] = useState({});
@@ -61,13 +62,12 @@ const GithubHeatmap = () => {
 
         return (
             <CirclePlot
-                dailyData={dailyData} // Actual daily commit data for the year
-                year={year}
-                radialTitle="Commits"
+                data={dailyData} // Actual daily commit data for the year
+                radialTitle=""
                 angularTitle="Days of the Year"
-                colorScale="Blues"
                 showScale={true}
                 markerSize={10}
+                toTickLabels={(x) => (toTxtMonth(Math.floor(x / 30)))}
             />
         );
     };

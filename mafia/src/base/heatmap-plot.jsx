@@ -3,20 +3,23 @@ import Plot from "react-plotly.js";
 import {getPrimaryColorForDaisy} from "../utils/color";
 
 const CirclePlot = ({
-                        dailyData,
-                        year,
+                        data,
                         title = "",
                         radialTitle = "",
                         angularTitle = "",
                         markerSize = 10,
+                        toTickLabels = (x) => x,
                     }) => {
     // Map days to angles (0° to 360°)
-    const angles = dailyData.map((_, i) => (i / dailyData.length) * 360);
-    const radii = dailyData;
+    const angles = data.map((_, i) => (i / data.length) * 360);
+    const radii = data;
 
     // Dynamic color variables
     const primaryColor = getPrimaryColorForDaisy() || "#f63b4b"; // Fallback to blue
     const textColor = getPrimaryColorForDaisy() || "#ffffff"; // Fallback to gray
+
+    const tickQs = [0, 45, 90, 135, 180, 225, 270, 315];
+    const tickText = tickQs.map((q) => toTickLabels(q));
 
     return (
         <Plot
@@ -46,18 +49,17 @@ const CirclePlot = ({
                 polar: {
                     bgcolor: "rgba(0,0,0,0)", // Transparent inside the circle
                     radialaxis: {
-                        title: { text: radialTitle, font: { size: 16, color: textColor } },
-                        tickfont: { size: 14, color: textColor }, // Bigger tick font
-                        showgrid: true,
-                        gridcolor: primaryColor,
-                        gridwidth: 1,
+                        title: { text: radialTitle, font: { size: 16, color: 'white' } },
+                        tickfont: { size: 14, color: 'white' }, // Bigger tick font
+                        showgrid: false,
                     },
                     angularaxis: {
-                        title: { text: angularTitle, font: { size: 16, color: textColor } },
-                        tickfont: { size: 14, color: textColor }, // Bigger tick font
+                        title: { text: angularTitle, font: { size: 16, color: 'white' } },
+                        tickfont: { size: 10, color: 'white' }, // Bigger tick font
+                        showgrid: false,
                         tickmode: "array",
-                        tickvals: [0, 90, 180, 270], // Quadrants
-                        ticktext: ["Jan", "Apr", "Jul", "Oct"],
+                        tickvals: tickQs,
+                        ticktext: tickText,
                     },
                 },
                 hovermode: "closest",
