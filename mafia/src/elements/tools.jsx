@@ -1,7 +1,7 @@
 import React from 'react';
 import FullScreenPage from "../base/full-page";
 import PrimaryButton from "../base/primary-button";
-import GithubHeatmap from "./github";
+import GithubHeatmap from "../tools/github";
 
 
 const tools = {
