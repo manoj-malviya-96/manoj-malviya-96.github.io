@@ -14,7 +14,7 @@ const SlidingAnimation = ({ children }) => {
             animate="animate"
             exit="exit"
             variants={slidingVariants}
-            transition={{ type: "tween", duration: 0.3 }}
+            transition={{duration: 0.3 }}
         >
             {children}
         </motion.div>
