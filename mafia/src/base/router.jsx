@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { AnimatePresence } from "framer-motion";
 import SlidingAnimation from "./sliding-animation";
 
-const MakeRoutes = ({ routes }) => {
+const MakeRoutesWithAnimation = ({ routes }) => {
     const location = useLocation(); // Track the current route
 
     return (
@@ -28,7 +28,7 @@ const MakeRoutes = ({ routes }) => {
 const RouterConstructor = ({ routes }) => {
     return (
         <Router>
-            <MakeRoutes routes={routes} />
+            <MakeRoutesWithAnimation routes={routes} />
         </Router>
     );
 }
