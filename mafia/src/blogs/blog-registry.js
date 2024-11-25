@@ -2,12 +2,12 @@ import cppThreads from "./cpp-threads";
 import BlogConstructor from "./blog-constructor";
 import {createRouterItem, rangesTo} from "../utils/types";
 
-export const blogs = [
+export const registeredBlogs = [
     cppThreads
 ]
 
 export const makeBlogRouters = () => {
-    return rangesTo(blogs, (blog) => {
+    return rangesTo(registeredBlogs, (blog) => {
         const blogComponent = () => {
             return (<BlogConstructor item={blog}/>);
         }

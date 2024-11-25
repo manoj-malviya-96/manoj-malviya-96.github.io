@@ -16,12 +16,12 @@ class MuvizInfo extends ToolInfo {
 }
 
 
-export const tools = [
+export const registeredTools = [
     MuvizInfo,
 ]
 
 export const makeToolRouter = () => {
-    return rangesTo(tools, (info) => {
+    return rangesTo(registeredTools, (info) => {
         console.log(info);
         const component = info.component;
         console.log(component);

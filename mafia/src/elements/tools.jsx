@@ -3,38 +3,21 @@ import FullScreenPage from "../base/full-page";
 import PrimaryButton from "../base/primary-button";
 import GithubHeatmap from "../tools/github";
 import {useNavigate} from "react-router-dom";
+import {registeredTools} from "../tools/tool-registry";
 
-
-const tools = {
-    Vibe: {
-        description: "A music app that plays music",
-        link: "/tools/muviz",
-        icon: "fa fa-music"
-    },
-    Mesha: {
-        description: "A chat app that sends messages",
-        link: "/mesha",
-        icon: "fa fa-comment"
-    },
-    Lattice: {
-        description: "A chat app that sends messages",
-        link: "/lattice",
-        icon: "fa fa-apple"
-    }
-};
 
 const AppDrawer = () => {
     const navigate = useNavigate();
     return (
         <div className='grid grid-cols-2 gap-4'>
-            {Object.keys(tools).map((toolName) => {
-                const tool = tools[toolName];
+            {Object.keys(registeredTools).map((toolName) => {
+                const tool = registeredTools[toolName];
                 return (
                     <PrimaryButton
                         icon={tool.icon}
                         label={toolName}
                         isLarge={true}
-                        onClick={navigate.bind(null, tool.link)}
+                        onClick={navigate.bind(null, tool.path)}
                     />
                 );
             })}
