@@ -29,12 +29,12 @@ const IntroOverlay = () => {
         })
     });
     return (
-        <div className="max-w-lg text-left p-0">
-            <p className="text-lg text-primary mb-4">
+        <div className="w-1/4 md:w-1/4 text-left">
+            <p className="text-lg text-primary mb-4 px-4">
                 Manoj Malviya
             </p>
-            <h1 className="text-4xl font-bold mb-4 text-black">solving problems with code and design </h1>
-            <GridButtons items={socialMediaItems} className={'text-black w-1/4'}/>
+            <h1 className="text-4xl font-bold mb-4 px-4 text-black">software engineer</h1>
+            <GridButtons items={socialMediaItems} className={'text-black'}/>
         </div>
     )
 }
@@ -47,7 +47,7 @@ const Intro = () => {
             children={
                 <IntroOverlay/>
             }
-            childrenAlignment='items-center'
+            childrenAlignment='items-center justify-flex-start'
         />
     );
 };

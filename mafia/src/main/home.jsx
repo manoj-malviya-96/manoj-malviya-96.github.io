@@ -11,8 +11,8 @@ const Home = () => {
     const tabs = [
         createTabItem({name: 'intro', label: 'Intro', icon: 'fas fa-info-circle'}),
         createTabItem({name: 'tools', label: 'Tools', icon: 'fas fa-tools'}),
-        createTabItem({name: 'blog', label: 'Blog', icon: 'fas fa-blog'}),
-        createTabItem({name: 'career', label: 'About Me', icon: 'fas fa-person'}),
+        createTabItem({name: 'blog', label: 'Blog', icon: 'fas fa-bars-staggered'}),
+        createTabItem({name: 'career', label: 'About Me', icon: 'fas fa-person-through-window'}),
     ]
     return (
         <div className='flex-row w-fit h-fit'>

@@ -28,7 +28,7 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
             )}
             {/* Children */}
             {children && (
-                <div className={`w-3/4 h-fit ${alignmentClasses}`}>
+                <div className={`w-4/5 h-fit ${alignmentClasses}`}>
                     {children}
                 </div>
             )}
