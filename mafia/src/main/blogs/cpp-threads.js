@@ -8,7 +8,7 @@ class CppThreads extends BlogInfo {
             {
                 name: 'example',
                 icon: 'fa fa-info-circle',
-                title: 'example',
+                title: 'Simple Example',
                 paragraph: (`<p>When I first started exploring C++ threads, it was like stepping into an entirely new territory. C++ has
                 built-in support for multi-threading via the <code>&lt;thread&gt;</code> library.
                 The basic idea is that
@@ -33,7 +33,7 @@ class CppThreads extends BlogInfo {
         const raceConditions = makeBlogSectionContent({
             name: 'race-conditions',
             icon: 'fa fa-person-running',
-            title: 'race-conditions',
+            title: 'Race conditions',
             paragraph: (`<p>One of the first things I ran into was a <strong>race condition</strong>. It’s like having multiple
                 people trying to update the same Excel file simultaneously—everyone thinks they're editing the latest
                 version, but chaos ensues. Let me paint a picture: I had a shared <strong>inventory map</strong> that

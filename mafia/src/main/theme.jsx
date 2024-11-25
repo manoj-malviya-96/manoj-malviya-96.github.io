@@ -2,10 +2,9 @@ import React, {useState, useEffect} from 'react';
 import PrimaryButton from "../base/primary-button";
 
 const availableThemes = [
-    {name: 'lofi', icon: 'fa fa-music'},
-    {name: 'black', icon: 'fa fa-moon'},
-    {name: 'nord', icon: 'fa fa-snowflake'},
-    {name: 'retro', icon: 'fa fa-gamepad'},
+    {name: 'black', icon: 'fa fa-square'},
+    {name: 'business', icon: 'fa fa-moon'},
+    {name: 'pastel', icon: 'fa fa-dragon'},
 ];
 
 const ThemeButton = () => {

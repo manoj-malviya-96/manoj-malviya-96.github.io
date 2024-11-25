@@ -50,8 +50,9 @@ const BlogSection = ({section}) => {
             name= {section.name}
             title={section.title}
             children={
-                <section className='flex flex-col md:flex-row w-full h-fit gap-8 mt-8'>
-                    <div className='text-lg md:w-1/2' dangerouslySetInnerHTML={{__html: section.paragraph}}/>
+                <section className='flex flex-col justify-center align-center
+                                    md:flex-row w-full h-fit gap-8 mt-4'>
+                    <div className='text-lg md:w-1/2 m-auto align-center' dangerouslySetInnerHTML={{__html: section.paragraph}}/>
                     {section.media.typeKey === 'BlogImage' &&
                         <img src={section.media.source} alt={section.media.label}
                              className='w-1/2 rounded-lg justify-end'/>
