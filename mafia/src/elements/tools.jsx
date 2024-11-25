@@ -2,12 +2,13 @@ import React from 'react';
 import FullScreenPage from "../base/full-page";
 import PrimaryButton from "../base/primary-button";
 import GithubHeatmap from "../tools/github";
+import {useNavigate} from "react-router-dom";
 
 
 const tools = {
     Vibe: {
         description: "A music app that plays music",
-        link: "/music",
+        link: "/tools/muviz",
         icon: "fa fa-music"
     },
     Mesha: {
@@ -23,6 +24,7 @@ const tools = {
 };
 
 const AppDrawer = () => {
+    const navigate = useNavigate();
     return (
         <div className='grid grid-cols-2 gap-4'>
             {Object.keys(tools).map((toolName) => {
@@ -32,6 +34,7 @@ const AppDrawer = () => {
                         icon={tool.icon}
                         label={toolName}
                         isLarge={true}
+                        onClick={navigate.bind(null, tool.link)}
                     />
                 );
             })}

@@ -1,4 +1,4 @@
-import {BaseBlog, makeBlogCode, makeBlogImage, makeBlogSectionContent} from "./base-blog";
+import {BaseBlog, makeBlogCode, makeBlogSectionContent} from "./base-blog";
 import Cover from "./cpp-threads.webp"
 import {SizeOptions} from "../utils/enums";
 

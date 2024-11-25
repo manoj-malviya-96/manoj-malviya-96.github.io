@@ -2,7 +2,6 @@ import { Link } from 'react-scroll';
 
 //! Scroll to the section when a tab is clicked.
 const ScrollableLink = ({elementName, className, activeClassName, children}) => {
-    {/* Should be a list of objects with `name`, `label`, and `icon` and window should have ElementType with name=name*/}
     return (
         <Link
             key={elementName}

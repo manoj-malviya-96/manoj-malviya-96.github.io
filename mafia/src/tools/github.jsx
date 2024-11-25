@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import dataJSON from "../data/github_user_report.json";
-import HeatmapPlot from "../base/heatmap-plot";
 import CirclePlot from "../base/heatmap-plot";
-import {fromTxtMonth, toTxtMonth} from "../utils/date";
+import {toTxtMonth} from "../utils/date";
 
 const GithubHeatmap = () => {
     const [data, setData] = useState({});
@@ -17,7 +16,7 @@ const GithubHeatmap = () => {
         if (processedData[currentYear]) {
             updateStats(processedData[currentYear]);
         }
-    }, [dataJSON]);
+    }, [currentYear]);
 
     const processData = (rawData) => {
         const formattedData = {};

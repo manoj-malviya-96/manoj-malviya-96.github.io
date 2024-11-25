@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from "./elements/navbar";
 import RouterConstructor from "./base/router";
 import routes from "./elements/routes";
-import {AnimatePresence} from "framer-motion";
 
 const App = () => {
     return (

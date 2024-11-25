@@ -1,6 +1,6 @@
 import cppThreads from "./cpp-threads";
 import BlogConstructor from "./blog-constructor";
-import {rangesTo} from "../utils/types";
+import {createRouterItem, rangesTo} from "../utils/types";
 
 export const blogs = [
     cppThreads
@@ -11,10 +11,10 @@ export const makeBlogRouters = () => {
         const blogComponent = () => {
             return (<BlogConstructor item={blog}/>);
         }
-        return {
+        return createRouterItem({
             path: blog.path,
             component: blogComponent
-        };
+        });
     });
 };
 

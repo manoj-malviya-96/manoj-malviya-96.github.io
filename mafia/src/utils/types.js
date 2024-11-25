@@ -37,3 +37,8 @@ export function createBentoBoxItem({title, description, date, tags, cover, size,
 export function createTabItem({name, label, icon}) {
     return makeStruct({name, label, icon}, 'TabItem');
 }
+
+
+export function createRouterItem({path, component}){
+    return makeStruct({path, component}, 'RouterItem');
+}
