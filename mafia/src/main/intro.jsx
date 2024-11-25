@@ -33,7 +33,7 @@ const IntroOverlay = () => {
             <p className="text-lg text-primary mb-4 px-4">
                 Manoj Malviya
             </p>
-            <h1 className="text-4xl font-bold mb-4 px-4 text-black">software engineer</h1>
+            <h1 className="text-4xl font-bold mb-4 px-4 text-black">SOFTWARE ENGINEER</h1>
             <GridButtons items={socialMediaItems} className={'text-black'}/>
         </div>
     )
