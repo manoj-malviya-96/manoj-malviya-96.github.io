@@ -29,5 +29,7 @@ class Muviz extends ToolInfo {
     }
 }
 
+// We keep everything private and only expose the instance.
+
 const muvizInstance = new Muviz;
 export default muvizInstance;
