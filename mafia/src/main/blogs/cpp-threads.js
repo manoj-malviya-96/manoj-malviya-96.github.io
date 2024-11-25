@@ -1,8 +1,8 @@
-import {BaseBlog, makeBlogCode, makeBlogSectionContent} from "./base-blog";
+import {BlogInfo, makeBlogCode, makeBlogSectionContent} from "./blog-info";
 import Cover from "./cpp-threads.webp"
 import {SizeOptions} from "../../utils/enums";
 
-class CppThreads extends BaseBlog {
+class CppThreads extends BlogInfo {
     constructor() {
         super({
             id: 'cpp-threads',

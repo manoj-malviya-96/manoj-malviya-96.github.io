@@ -1,7 +1,7 @@
 import React from 'react';
 import TemplateCover from '../assets/main.jpg';
 import FullScreenPage from "../../base/full-page";
-import {BaseBlog} from "./base-blog";
+import {BlogInfo} from "./blog-info";
 import {validateClassType, validateStructType} from "../../utils/types";
 import TabBar from "../../base/tab-bar";
 import CodeBlock from "../../base/code";
@@ -72,7 +72,7 @@ const BlogSection = ({section}) => {
 
 
 const BlogConstructor = ({item}) => {
-    validateClassType(item, BaseBlog);
+    validateClassType(item, BlogInfo);
     return (
         <div className='flex-row w-full h-fit'>
             <BlogHeader

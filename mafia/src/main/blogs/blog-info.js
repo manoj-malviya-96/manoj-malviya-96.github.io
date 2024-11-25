@@ -1,7 +1,7 @@
 import {SizeOptions} from "../../utils/enums";
 import {createBentoBoxItem, createTabItem, makeStruct, rangesTo} from "../../utils/types";
 
-export class BaseBlog {
+export class BlogInfo {
     constructor({
                     id, title, description, summary, date, tags, cover, sections,
                     card_size = SizeOptions.Medium
