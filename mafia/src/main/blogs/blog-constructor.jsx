@@ -5,6 +5,7 @@ import {BlogInfo} from "./blog-info";
 import {validateClassType, validateStructType} from "../../utils/types";
 import TabBar from "../../base/tab-bar";
 import CodeBlock from "../../base/code";
+import TabBarOnTop from "../tab-bar-on-top";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {
@@ -86,11 +87,7 @@ const BlogConstructor = ({item}) => {
                 return (<BlogSection section={sec}/>);
             })
             }
-            {/*Todo can this be included in a separate module ?? */}
-            <div className='flex-column bg-base-100 bg-opacity-50 backdrop-blur-md m-4
-                            rounded-2xl fixed top-0 w-fit h-fit z-20'>
-                <TabBar tabs={item.tabs()}/>
-            </div>
+            <TabBarOnTop tabs={item.tabs()}/>
         </div>
     )
 }

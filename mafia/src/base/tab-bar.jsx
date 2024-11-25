@@ -1,5 +1,5 @@
 import ScrollableLink from "./scrollable-link";
-import {validateStructType} from "../utils/types";
+import {validateStructTypeForList} from "../utils/types";
 
 const TabElement = ({label, icon}) => {
     return (
@@ -12,12 +12,13 @@ const TabElement = ({label, icon}) => {
 
 
 //! Scroll to the section when a tab is clicked.
-const TabBar = ({tabs}) => {
-    tabs.forEach((tab)=>validateStructType(tab, 'TabItem'));
+const TabBar = ({tabs, className=''}) => {
+    validateStructTypeForList(tabs, 'TabItem');
     return (
-        <div className="tabs tabs-bordered px-3">
-            {tabs.map((tab) => (
+        <div className={`tabs tabs-bordered px-3 ${className}`}>
+            {tabs.map((tab, index) => (
                 <ScrollableLink
+                    key={index}
                     elementName={tab.name}
                     className="tab"
                     activeClassName="tab-active"

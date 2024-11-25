@@ -4,19 +4,20 @@ import PrimaryButton from "../base/primary-button";
 import GithubHeatmap from "./tools/github";
 import {useNavigate} from "react-router-dom";
 import {registeredTools} from "./tools/tool-registry";
+import {ButtonOptions} from "../utils/enums";
 
 
 const ToolListings = () => {
     const navigate = useNavigate();
     return (
         <div className='grid grid-cols-2 gap-4'>
-            {registeredTools.map((info) => {
-                console.log(info.path);
+            {registeredTools.map((info, index) => {
                 return (
                     <PrimaryButton
+                        key={index}
                         icon={info.icon}
                         label={info.name}
-                        isLarge={true}
+                        size={ButtonOptions.Size.Large}
                         onClick={navigate.bind(null, info.path)}
                     />
                 );

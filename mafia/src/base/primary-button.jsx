@@ -1,23 +1,29 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { motion } from "motion/react"
+import {ButtonOptions} from "../utils/enums";
 
 const PrimaryButton = ({
                            icon,
                            label,
                            onClick,
-                           isLarge = false,
+                           size = ButtonOptions.Size.Small,
+                           state = ButtonOptions.State.None,
+                           style = ButtonOptions.Style.Filled,
+                           behavior = ButtonOptions.Behavior.Default,
                            isLoading = false,
                            className = '',
                        }) => {
-    const sizeClass = isLarge ? 'btn-lg' : 'btn-sm';
-
+    console.log(onClick);
     return (
-        <button
-            className={`btn btn-primary ${sizeClass} items-center gap-2 rounded-full px-4 py-1 ${className}`}
+        <motion.button
+            className={`btn ${size} ${state} ${style} ${behavior} rounded-full  items-center px-4 py-1 gap-2 ${className}`}
             onClick={onClick}
-            disabled={isLoading} // Disable while loading
+            disabled={isLoading || state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
         >
             {/* Loading Spinner */}
             {isLoading && <span className="loading loading-spinner"></span>}
@@ -29,7 +35,7 @@ const PrimaryButton = ({
             {label && !isLoading && (
                 <span className={icon ? 'hidden sm:inline' : ''}>{label}</span>
             )}
-        </button>
+        </motion.button>
     );
 };
 

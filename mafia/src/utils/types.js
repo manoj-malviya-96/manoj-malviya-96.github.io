@@ -1,3 +1,5 @@
+import {ButtonOptions} from "./enums";
+
 export function rangesTo(range, toFunc) {
     const result = [];
     for (let i = 0; i < range.length; i++) {
@@ -22,6 +24,10 @@ export function validateStructType(struct, typeKey) {
     }
 }
 
+export function validateStructTypeForList(listOfStruct, typeKey) {
+    listOfStruct.forEach((struct) => validateStructType(struct, typeKey));
+}
+
 export function validateClassType(instance, classType) {
     if (!(instance instanceof classType)) {
         throw new Error(`Expected ${classType} but got ${instance.constructor}`);
@@ -39,6 +45,17 @@ export function createTabItem({name, label, icon}) {
 }
 
 
-export function createRouterItem({path, component}){
+export function createRouterItem({path, component}) {
     return makeStruct({path, component}, 'RouterItem');
+}
+
+
+export function createGridButtonItem({
+                                         label, icon, onClickFunc, size = ButtonOptions.Size.Small,
+                                         state = ButtonOptions.State.None,
+                                         style = ButtonOptions.Style.Filled,
+                                         behavior = ButtonOptions.Behavior.Default,
+                                         isLoading = false,
+                                     }) {
+    return makeStruct({label, icon, onClickFunc, size, state, style, behavior, isLoading}, 'GridButtonItem');
 }

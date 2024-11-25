@@ -3,8 +3,9 @@ import Intro from "./intro";
 import Career from "./career";
 import BlogListing from "./blogs";
 import Tools from "./tools";
-import TabBar from "../base/tab-bar";
 import {createTabItem} from "../utils/types";
+import TabBarOnTop from "./tab-bar-on-top";
+
 
 const Home = () => {
     const tabs = [
@@ -19,11 +20,7 @@ const Home = () => {
             <Tools/>
             <BlogListing/>
             <Career/>
-            {/*match the top margin of the navbar*/}
-            <div className='flex-column bg-base-100 bg-opacity-50 backdrop-blur-md m-4
-                            rounded-2xl fixed top-0 w-fit h-fit z-20'>
-                <TabBar tabs={tabs}/>
-            </div>
+            <TabBarOnTop tabs={tabs}/>
         </div>
     )
 }

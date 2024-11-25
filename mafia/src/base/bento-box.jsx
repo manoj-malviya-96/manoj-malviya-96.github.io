@@ -1,10 +1,10 @@
 import React from "react";
 import Card from "./card";
 import {SizeOptions} from "../utils/enums";
-import {validateStructType} from "../utils/types";
+import {validateStructTypeForList} from "../utils/types";
 
 const BentoBox = ({items, onClick, itemHeight = 150}) => {
-    items.forEach((item) => validateStructType(item, "BentoBoxItem"));
+    validateStructTypeForList(items, 'BentoBoxItem');
     return (
         <div
             className="grid gap-4 h-fit w-full mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"

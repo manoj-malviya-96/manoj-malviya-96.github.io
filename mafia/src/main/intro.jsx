@@ -1,16 +1,40 @@
 import React from 'react';
 import profilePicture from './assets/main.jpg';
-import PrimaryButton from "../base/primary-button";
 import FullScreenPage from "../base/full-page";
+import GridButtons from "../base/grid-buttons";
+import {createGridButtonItem, rangesTo} from "../utils/types";
+import {openLink} from "../utils/links";
+import {ButtonOptions} from "../utils/enums";
+
+
+const socialMediaLinkAndIconPairs = [
+    ['bi bi-linkedin', 'https://www.linkedin.com/in/manoj-malviya-44700aa4/'],
+    ['bi bi-github', 'https://github.com/manoj-malviya-96'],
+    ['bi bi-google', 'https://scholar.google.com/citations?user=0oMXOy0AAAAJ&hl=en&authuser=2'],
+    ['bi bi-instagram', 'https://www.instagram.com/manoj_malviya_/'],
+    ['bi bi-youtube', 'https://www.youtube.com/@manoj_malviya'],
+    ['bi bi-spotify', 'https://open.spotify.com/artist/2oq6u1YZ7biOF4NOPwDp8o?si=ijyL-yRWQqGWqdGIr7Irfg&utm_medium=share&utm_source=linktree&nd=1&dlsi=1234682c3e064aaf'],
+    ['bi bi-apple', 'https://music.apple.com/us/artist/manoj-malviya/1721435458'],
+    ['bi bi-soundcloud','https://soundcloud.com/manoj-malviya-96']
+];
 
 const IntroOverlay = () => {
+    const socialMediaItems = rangesTo(socialMediaLinkAndIconPairs, ([icon, link])=>{
+        return createGridButtonItem({
+            label: '',
+            icon: icon,
+            size: ButtonOptions.Size.Square,
+            style: ButtonOptions.Style.Ghost,
+            onClickFunc: ()=>openLink(link),
+        })
+    });
     return (
-        <div className="max-w-lg text-left p-4">
+        <div className="max-w-lg text-left p-0">
             <p className="text-lg text-primary mb-4">
                 Manoj Malviya
             </p>
-            <h1 className="text-4xl font-bold mb-4 text-black"> Software Developer </h1>
-            <PrimaryButton label="Get Started" href="/apps"/>
+            <h1 className="text-4xl font-bold mb-4 text-black">solving problems with code and design </h1>
+            <GridButtons items={socialMediaItems} className={'text-black w-1/4'}/>
         </div>
     )
 }
