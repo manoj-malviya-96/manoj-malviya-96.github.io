@@ -1,10 +1,10 @@
 import React from 'react';
 import TemplateCover from '../assets/main.jpg';
-import FullScreenPage from "../base/full-page";
+import FullScreenPage from "../../base/full-page";
 import {BaseBlog} from "./base-blog";
-import {validateClassType, validateStructType} from "../utils/types";
-import TabBar from "../base/tab-bar";
-import CodeBlock from "../base/code";
+import {validateClassType, validateStructType} from "../../utils/types";
+import TabBar from "../../base/tab-bar";
+import CodeBlock from "../../base/code";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {

@@ -21,7 +21,7 @@ class MusicVizView {
     this.init();
   }
 
-  // Get all the required DOM elements
+  // Get all the required DOM main
   getDomElements() {
     return {
       appWindow: window.document.querySelector(".app-window"),
@@ -665,7 +665,7 @@ class MusicVizView {
   // Extract metadata from the uploaded file
   extractMetadata(file) {
     if (!jsmediatags) {
-      console.error("jsmediatags elements not loaded");
+      console.error("jsmediatags main not loaded");
       return;
     }
     jsmediatags.read(file, {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import dataJSON from "../data/github_user_report.json";
-import CirclePlot from "../base/heatmap-plot";
-import {toTxtMonth} from "../utils/date";
+import CirclePlot from "../../base/heatmap-plot";
+import {toTxtMonth} from "../../utils/date";
 
 const GithubHeatmap = () => {
     const [data, setData] = useState({});

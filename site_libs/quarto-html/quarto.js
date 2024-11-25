@@ -6,7 +6,7 @@ const sectionChanged = new CustomEvent("quarto-sectionChanged", {
 });
 
 const layoutMarginEls = () => {
-  // Find any conflicting margin elements and add margins to the
+  // Find any conflicting margin main and add margins to the
   // top to prevent overlap
   const marginChildren = window.document.querySelectorAll(
     ".column-margin.column-container > *, .margin-caption, .aside"
@@ -32,7 +32,7 @@ const layoutMarginEls = () => {
 };
 
 window.document.addEventListener("DOMContentLoaded", function (_event) {
-  // Recompute the position of margin elements anytime the body size changes
+  // Recompute the position of margin main anytime the body size changes
   if (window.ResizeObserver) {
     const resizeObserver = new window.ResizeObserver(
       throttle(() => {
@@ -544,7 +544,7 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
     '[class^="column-"], [class*=" column-"], aside, [class*="margin-caption"], [class*=" margin-caption"], [class*="margin-ref"], [class*=" margin-ref"]'
   );
 
-  // Filter all the possibly conflicting elements into ones
+  // Filter all the possibly conflicting main into ones
   // the do conflict on the left or ride side
   const arrConflictingEls = Array.from(conflictingEls);
   const leftSideConflictEls = arrConflictingEls.filter((el) => {

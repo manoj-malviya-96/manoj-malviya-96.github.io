@@ -39,7 +39,7 @@ window["quarto-listing-loaded"] = () => {
     renderVisibleProgressiveImages(list);
 
     // Whenever the list is updated, we also need to
-    // attach handlers to the new pagination elements
+    // attach handlers to the new pagination main
     // and refresh any newly visible items.
     list.on("updated", function () {
       renderVisibleProgressiveImages(list);

@@ -1,6 +1,6 @@
 import cppThreadsInstance from "./cpp-threads";
 import BlogConstructor from "./blog-constructor";
-import {createRouterItem, rangesTo} from "../utils/types";
+import {createRouterItem, rangesTo} from "../../utils/types";
 
 export const registeredBlogs = [
     cppThreadsInstance

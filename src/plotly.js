@@ -93,7 +93,7 @@ function getColorBar(text) {
 function getHackyHeightMultiplier(xLength, yLength) {
   let result = yLength / xLength;
   if (result < 1.0 && result > 0.3) {
-    result = Math.min(1.0, result + 0.2); // Accounting for other elements
+    result = Math.min(1.0, result + 0.2); // Accounting for other main
   }
   return result;
 }

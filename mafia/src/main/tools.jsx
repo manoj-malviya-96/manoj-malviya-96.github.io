@@ -1,9 +1,9 @@
 import React from 'react';
 import FullScreenPage from "../base/full-page";
 import PrimaryButton from "../base/primary-button";
-import GithubHeatmap from "../tools/github";
+import GithubHeatmap from "./tools/github";
 import {useNavigate} from "react-router-dom";
-import {registeredTools} from "../tools/tool-registry";
+import {registeredTools} from "./tools/tool-registry";
 
 
 const ToolListings = () => {

@@ -353,11 +353,11 @@ class LatticeOptimizer {
 
     const newThickness = this.computeLambda(X, dObj_dX, mesh.lengths);
 
-    // Check if all elements are at the minimum thickness
+    // Check if all main are at the minimum thickness
     if (newThickness.every((val) => val <= minNormalizedThickness)) {
       this.success = false;
       this.message =
-        "Cant optimize more, all elements are at minimum thickness";
+        "Cant optimize more, all main are at minimum thickness";
       return;
     }
 
@@ -538,7 +538,7 @@ class LatticePlot {
   }
 }
 
-// Viewer Class to handle HTML interactions and elements Mesh and Drawer
+// Viewer Class to handle HTML interactions and main Mesh and Drawer
 class LatticeViewer {
   constructor() {
     this.canvasId = "meshPlot";

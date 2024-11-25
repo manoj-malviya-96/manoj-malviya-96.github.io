@@ -447,15 +447,15 @@ class MeshView {
     );
     addOutsideClickHandler(this.elements.infoBtn, this.elements.infoModal);
 
-    // this.elements.simplifyBtn.addEventListener(
+    // this.main.simplifyBtn.addEventListener(
     //   "click",
     //   this.toggleSimplifyModal.bind(this),
     // );
     // addOutsideClickHandler(
-    //   this.elements.simplifyBtn,
-    //   this.elements.simplifyModal,
+    //   this.main.simplifyBtn,
+    //   this.main.simplifyModal,
     // );
-    // this.elements.simplifySlider.addEventListener(
+    // this.main.simplifySlider.addEventListener(
     //   "input",
     //   this.handleSimplify.bind(this),
     // );
@@ -567,6 +567,6 @@ class MeshView {
   }
 
   // toggleSimplifyModal() {
-  //   toggleElementVisibility(this.elements.simplifyModal);
+  //   toggleElementVisibility(this.main.simplifyModal);
   // }
 }

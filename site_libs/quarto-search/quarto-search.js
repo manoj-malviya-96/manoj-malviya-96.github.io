@@ -1102,7 +1102,7 @@ function highlight(term, el) {
   const termRegex = new RegExp(term, "ig");
   const childNodes = el.childNodes;
 
-  // walk back to front avoid mutating elements in front of us
+  // walk back to front avoid mutating main in front of us
   for (let i = childNodes.length - 1; i >= 0; i--) {
     const node = childNodes[i];
 
@@ -1141,7 +1141,7 @@ function highlight(term, el) {
         el.replaceChild(markFragment, node);
       }
     } else if (node.nodeType === Node.ELEMENT_NODE) {
-      // recurse through elements
+      // recurse through main
       highlight(term, node);
     }
   }

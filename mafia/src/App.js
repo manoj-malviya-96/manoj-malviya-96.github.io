@@ -1,13 +1,13 @@
 import React from 'react';
-import NavBar from "./elements/navbar";
+import NavBar from "./main/navbar";
 import RouterConstructor from "./base/router";
-import routes from "./elements/routes";
+import constructedRoutes from "./main/routes";
 
 const App = () => {
     return (
         <div className='flex-row'>
             <NavBar/>
-            <RouterConstructor routes={routes}/>
+            <RouterConstructor routes={constructedRoutes}/>
         </div>
     );
 };

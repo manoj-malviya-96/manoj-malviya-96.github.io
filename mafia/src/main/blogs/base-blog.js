@@ -1,5 +1,5 @@
-import {SizeOptions} from "../utils/enums";
-import {createBentoBoxItem, createTabItem, makeStruct, rangesTo} from "../utils/types";
+import {SizeOptions} from "../../utils/enums";
+import {createBentoBoxItem, createTabItem, makeStruct, rangesTo} from "../../utils/types";
 
 export class BaseBlog {
     constructor({

@@ -1,5 +1,5 @@
 import React from 'react';
-import profilePicture from '../assets/main.jpg';
+import profilePicture from './assets/main.jpg';
 import PrimaryButton from "../base/primary-button";
 import FullScreenPage from "../base/full-page";
 

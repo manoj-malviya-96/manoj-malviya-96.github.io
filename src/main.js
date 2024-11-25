@@ -322,7 +322,7 @@ function setupSkillsDropDown(allCategories) {
   const dropdown = window.document.getElementById("skillsFilter");
 
   if (!dropdownList || !dropdown) {
-    console.error("Dropdown elements not found" + dropdownList + dropdown);
+    console.error("Dropdown main not found" + dropdownList + dropdown);
     return;
   }
 
@@ -347,7 +347,7 @@ function setupSortOptions() {
   const dropdownList = document.getElementById("sortFilterList");
 
   if (!dropdownList || !dropdown) {
-    console.error("Dropdown elements not found" + dropdownList + dropdown);
+    console.error("Dropdown main not found" + dropdownList + dropdown);
     return;
   }
   sortOptions.forEach((option) => {

@@ -333,7 +333,7 @@ function internal_setupDropdown(
   icon = null,
 ) {
   if (!dropdown || !button) {
-    console.error("Dropdown elements not found");
+    console.error("Dropdown main not found");
     return;
   }
 

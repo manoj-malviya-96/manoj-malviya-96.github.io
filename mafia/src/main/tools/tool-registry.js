@@ -1,4 +1,4 @@
-import {createRouterItem, rangesTo} from "../utils/types";
+import {createRouterItem, rangesTo} from "../../utils/types";
 import muvizInstance from "./muviz";
 
 

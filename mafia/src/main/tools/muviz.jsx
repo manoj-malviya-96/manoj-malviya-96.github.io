@@ -1,5 +1,5 @@
 import React from 'react';
-import FullScreenPage from "../base/full-page";
+import FullScreenPage from "../../base/full-page";
 import ToolInfo from "./tool-info";
 
 const MuvizView = () => {
