@@ -15,7 +15,6 @@ const PrimaryButton = ({
                            isLoading = false,
                            className = '',
                        }) => {
-    console.log(onClick);
     return (
         <motion.button
             className={`btn ${size} ${state} ${style} ${behavior} rounded-full  items-center px-4 py-1 gap-2 ${className}`}

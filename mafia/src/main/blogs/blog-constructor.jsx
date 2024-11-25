@@ -45,14 +45,13 @@ const BlogHeader = ({title, summary, date, tags, coverImage}) => {
 //
 const BlogSection = ({section}) => {
     validateStructType(section, 'BlogSectionContent');
-    console.log(section.paragraph);
     return (
         <FullScreenPage
-            name="intro"
+            name= {section.name}
             title={section.title}
             children={
                 <section className='flex flex-col md:flex-row w-full h-fit gap-8 mt-8'>
-                    <p className='text-lg w-100 md:w-1/2'>{section.paragraph}</p>
+                    <div className='text-lg md:w-1/2' dangerouslySetInnerHTML={{__html: section.paragraph}}/>
                     {section.media.typeKey === 'BlogImage' &&
                         <img src={section.media.source} alt={section.media.label}
                              className='w-1/2 rounded-lg justify-end'/>
@@ -83,8 +82,8 @@ const BlogConstructor = ({item}) => {
                 tags={item.tags}
                 coverImage={item.cover}
             />
-            {item.sections.map((sec) => {
-                return (<BlogSection section={sec}/>);
+            {item.sections.map((sec, index) => {
+                return (<BlogSection key={index} section={sec}/>);
             })
             }
             <TabBarOnTop tabs={item.tabs()}/>
