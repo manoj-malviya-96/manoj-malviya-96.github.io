@@ -1,5 +1,6 @@
 import React from 'react';
 import FullScreenPage from "../base/full-page";
+import ToolInfo from "./tool-info";
 
 const MuvizView = () => {
     return (
@@ -16,4 +17,17 @@ const MuvizView = () => {
     );
 }
 
-export default MuvizView;
+class Muviz extends ToolInfo {
+    constructor() {
+        super({
+            id: 'muviz',
+            name: 'muviz',
+            description: 'music + stunning visuals',
+            iconPng: 'fa fa-hooli',
+            componentConstructor: () => (<MuvizView/>)
+        });
+    }
+}
+
+const muvizInstance = new Muviz;
+export default muvizInstance;

@@ -1,31 +1,15 @@
 import {createRouterItem, rangesTo} from "../utils/types";
-import ToolInfo from "./tool-info";
-import MuvizView from "./muviz-view";
+import muvizInstance from "./muviz";
 
-
-class MuvizInfo extends ToolInfo {
-    constructor() {
-        super({
-            id: 'muviz',
-            name: 'muviz',
-            description: 'music + stunning visuals',
-            iconPng: '',
-            componentConstructor: () => (<MuvizView/>)
-        });
-    }
-}
 
 
 export const registeredTools = [
-    MuvizInfo,
+    muvizInstance
 ]
 
 export const makeToolRouter = () => {
     return rangesTo(registeredTools, (info) => {
-        console.log(info);
-        const component = info.component;
-        console.log(component);
-        return createRouterItem({path: info.path, component: component})
+        return createRouterItem({path: info.path, component: info.component})
     });
 };
 

@@ -47,5 +47,5 @@ class CppThreads extends BaseBlog {
     }
 }
 
-const cppThreads = new CppThreads();
-export default cppThreads;
+const cppThreadsInstance = new CppThreads();
+export default cppThreadsInstance;

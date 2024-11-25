@@ -1,9 +1,9 @@
-import cppThreads from "./cpp-threads";
+import cppThreadsInstance from "./cpp-threads";
 import BlogConstructor from "./blog-constructor";
 import {createRouterItem, rangesTo} from "../utils/types";
 
 export const registeredBlogs = [
-    cppThreads
+    cppThreadsInstance
 ]
 
 export const makeBlogRouters = () => {
