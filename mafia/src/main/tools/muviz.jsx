@@ -21,7 +21,7 @@ class Muviz extends ToolInfo {
             id: 'muviz',
             name: 'muviz',
             description: 'music + stunning visuals',
-            iconPng: 'fa fa-hooli',
+            iconPng: 'fa fa-wave-square',
             componentConstructor: () => (<MuvizView/>)
         });
     }
