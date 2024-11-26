@@ -16,6 +16,7 @@ const PrimaryButton = ({
                            className = '',
                        }) => {
     const padAndGap= size !== ButtonOptions.Size.Square ? 'px-4 py-1 gap-2' : ''
+    const isIconSVG = icon && icon.endsWith('.svg');
     return (
         <motion.button
             className={`btn ${size} ${state} ${style} ${behavior} rounded-full items-center ${padAndGap} ${className}`}
@@ -29,7 +30,10 @@ const PrimaryButton = ({
             {isLoading && <span className="loading loading-spinner"></span>}
 
             {/* Icon */}
-            {icon && !isLoading && <i className={icon}></i>}
+            {icon && !isLoading && isIconSVG && <img src={icon} alt="icon"></img>}
+
+            {/* Icon */}
+            {icon && !isLoading && !isIconSVG && <i className={icon}></i>}
 
             {/* Label */}
             {label && !isLoading && (

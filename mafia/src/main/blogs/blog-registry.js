@@ -18,3 +18,10 @@ export const makeBlogRouters = () => {
     });
 };
 
+
+
+export const registeredCareerPositions = [
+
+]
+
+

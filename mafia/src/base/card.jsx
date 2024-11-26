@@ -1,11 +1,15 @@
 import React from 'react';
+import {motion} from 'motion/react'
 
 const Card = ({image, title, date, description, onClick}) => {
-    return (<div
+    return (<motion.div
         className="card shadow-md h-full w-full z-0 hover:z-10
-                        border-primary border-2 rounded-lg transition-all duration-300
-                        cursor-pointer hover:shadow-xl hover:scale-105 overflow-hidden
-                        sm:card-compact active:scale-95"
+                        rounded-lg transition-all duration-300 active:scale-95
+                        cursor-pointer overflow-hidden sm:card-compact"
+        initial={{scale: 0.5}}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        whileInView={{ scale: 1.0}}
         onClick={onClick}
     >
         {/* Background Image */}
@@ -28,7 +32,7 @@ const Card = ({image, title, date, description, onClick}) => {
                 </p>)}
             </div>
         </div>
-    </div>);
+    </motion.div>);
 };
 
 export default Card;

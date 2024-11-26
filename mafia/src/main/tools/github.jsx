@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import dataJSON from "../data/github_user_report.json";
 import CirclePlot from "../../base/heatmap-plot";
 import {toTxtMonth} from "../../utils/date";
+import PrimaryButton from "../../base/primary-button";
+import {ButtonOptions} from "../../utils/enums";
 
 const GithubHeatmap = () => {
     const [data, setData] = useState({});
@@ -74,7 +76,7 @@ const GithubHeatmap = () => {
     return (
         <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen">
             <h2 className="text-lg font-bold">GitHub Profile</h2>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mb-4">
                 <div className="stats shadow">
                     <div className="stat">
                         <div className="stat-title">Total Commits</div>
@@ -85,15 +87,15 @@ const GithubHeatmap = () => {
                         <div className="stat-value">{longestStreak}</div>
                     </div>
                 </div>
-                <div className='hidden sm:inline'>
+                <div className='flex flex-col sm:inline gap-4'>
                     {Object.keys(data).map((year) => (
-                        <button
+                        <PrimaryButton
                             key={year}
+                            label={year}
+                            behavior={ButtonOptions.Behavior.Checkable}
                             className={`btn ${currentYear === Number(year) ? "btn-primary" : ""}`}
                             onClick={() => setCurrentYear(Number(year))}
-                        >
-                            {year}
-                        </button>
+                        />
                     ))}
                 </div>
             </div>

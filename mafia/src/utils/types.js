@@ -59,3 +59,7 @@ export function createGridButtonItem({
                                      }) {
     return makeStruct({label, icon, onClickFunc, size, state, style, behavior, isLoading}, 'GridButtonItem');
 }
+
+export function createTimeLineItem({id, title, date, image, link, icon}) {
+    return makeStruct({id, title, date, image, link, icon}, 'TimeLineItem');
+}
