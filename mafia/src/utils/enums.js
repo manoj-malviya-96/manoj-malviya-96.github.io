@@ -7,6 +7,11 @@ export const SizeOptions = Object.freeze({
 
 
 export const ButtonOptions = Object.freeze({
+    Round: {
+        None: '',
+        Full: 'rounded-full',
+        Medium: 'rounded-md',
+    },
     Size: {
         Small: 'btn-sm',
         Medium: 'btn-md',
