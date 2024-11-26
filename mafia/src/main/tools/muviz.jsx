@@ -1,6 +1,22 @@
 import React from 'react';
 import FullScreenPage from "../../base/full-page";
 import ToolInfo from "./tool-info";
+import useAudio from "../../utils/audio";
+import PrimaryButton from "../../base/primary-button";
+
+
+const MuvizHUD = ({src}) => {
+    const { isPlaying, togglePlayPause } = useAudio(src);
+    return (
+        <div className="flex flex-col items-center justify-center p-6 rounded-lg shadow-md">
+            <PrimaryButton
+                icon={isPlaying ? 'fa fa-pause' : 'fa fa-play'}
+                label={isPlaying ? 'Pause' : 'Play'}
+                onClick={togglePlayPause}>
+            </PrimaryButton>
+        </div>
+    );
+}
 
 const MuvizView = () => {
     return (
@@ -8,8 +24,7 @@ const MuvizView = () => {
             name="muviz"
             title="Muviz"
             children={
-                <div className="flex flex-col items-center justify-center h-full">
-                </div>
+                <MuvizHUD src='./sample-music/calling.mp3'/>
             }
         />
     );

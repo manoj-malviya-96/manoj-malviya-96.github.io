@@ -15,14 +15,15 @@ const PrimaryButton = ({
                            isLoading = false,
                            className = '',
                        }) => {
+    const padAndGap= size !== ButtonOptions.Size.Square ? 'px-4 py-1 gap-2' : ''
     return (
         <motion.button
-            className={`btn ${size} ${state} ${style} ${behavior} rounded-full  items-center px-4 py-1 gap-2 ${className}`}
+            className={`btn ${size} ${state} ${style} ${behavior} rounded-full items-center ${padAndGap} ${className}`}
             onClick={onClick}
             disabled={isLoading || state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
         >
             {/* Loading Spinner */}
             {isLoading && <span className="loading loading-spinner"></span>}

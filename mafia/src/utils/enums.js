@@ -11,7 +11,7 @@ export const ButtonOptions = Object.freeze({
         Small: 'btn-sm',
         Medium: 'btn-md',
         Large: 'btn-lg',
-        Square: 'btn-square',
+        Square: 'btn-square btn-lg',
         Wide: 'btn-wide',
     },
     State: {
