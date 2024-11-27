@@ -55,9 +55,8 @@ export function createGridButtonItem({
                                          state = ButtonOptions.State.None,
                                          style = ButtonOptions.Style.Filled,
                                          behavior = ButtonOptions.Behavior.Default,
-                                         isLoading = false,
                                      }) {
-    return makeStruct({label, icon, onClickFunc, size, state, style, behavior, isLoading}, 'GridButtonItem');
+    return makeStruct({label, icon, onClickFunc, size, state, style, behavior}, 'GridButtonItem');
 }
 
 export function createTimeLineItem({id, title, date, image, link, icon}) {

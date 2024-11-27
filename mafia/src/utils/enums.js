@@ -29,12 +29,13 @@ export const ButtonOptions = Object.freeze({
     },
     Style: {
         Outlined: 'btn-outline',
-        Filled: 'btn-primary', // Default filled style
+        Secondary: 'btn-secondary',
+        Primary: 'btn-primary', // Default filled style
         Ghost: 'btn-ghost',
     },
     Behavior: {
-        Default: '',
-        Loading: '',
-        Checkable: 'btn-checkable',
+        Default: 0,
+        Loading: 1,
+        Checkable: 2,
     },
 });

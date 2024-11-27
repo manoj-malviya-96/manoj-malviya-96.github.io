@@ -4,11 +4,10 @@ import {validateStructTypeForList} from "../utils/types";
 import {ButtonOptions} from "../utils/enums";
 
 const GridButtons = ({items, className}) => {
-    console.log(items);
     validateStructTypeForList(items, 'GridButtonItem');
 
     return (
-        <div className="w-fit h-fit grid grid-cols-4 md:grid-cols-8">
+        <div className="w-fit h-fit grid grid-cols-4 md:grid-cols-8 gap-4">
             {items.map((item, index) => (
                 <PrimaryButton
                     key={index}

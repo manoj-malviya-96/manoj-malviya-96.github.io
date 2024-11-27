@@ -15,7 +15,7 @@ const socialMediaLinkAndIconPairs = [
     ['bi bi-youtube', 'https://www.youtube.com/@manoj_malviya'],
     ['bi bi-spotify', 'https://open.spotify.com/artist/2oq6u1YZ7biOF4NOPwDp8o?si=ijyL-yRWQqGWqdGIr7Irfg&utm_medium=share&utm_source=linktree&nd=1&dlsi=1234682c3e064aaf'],
     ['bi bi-apple', 'https://music.apple.com/us/artist/manoj-malviya/1721435458'],
-    ['bi bi-soundcloud','https://soundcloud.com/manoj-malviya-96']
+    ['fa-brands fa-soundcloud','https://soundcloud.com/manoj-malviya-96']
 ];
 
 const IntroOverlay = () => {

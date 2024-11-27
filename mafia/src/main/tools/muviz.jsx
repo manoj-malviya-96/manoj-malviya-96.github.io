@@ -3,6 +3,7 @@ import FullScreenPage from "../../base/full-page";
 import ToolInfo from "./tool-info";
 import useAudio from "../../utils/audio";
 import PrimaryButton from "../../base/primary-button";
+import Logo from './muviz.svg';
 
 
 const MuvizHUD = ({src}) => {
@@ -36,7 +37,7 @@ class Muviz extends ToolInfo {
             id: 'muviz',
             name: 'muviz',
             description: 'music + stunning visuals',
-            iconPng: 'fa fa-wave-square',
+            iconPng: Logo,
             componentConstructor: () => (<MuvizView/>)
         });
     }

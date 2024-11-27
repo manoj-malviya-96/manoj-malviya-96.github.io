@@ -9,6 +9,7 @@ import matlab from 'react-syntax-highlighter/dist/esm/languages/hljs/matlab';
 import qml from 'react-syntax-highlighter/dist/esm/languages/hljs/qml';
 import PrimaryButton from "./primary-button";
 import {useState} from "react";
+import {ButtonOptions} from "../utils/enums";
 
 // Register languages
 SyntaxHighlighter.registerLanguage('cpp', cpp);
@@ -39,7 +40,7 @@ const CodeBlock = ({ code, language, className }) => {
         <div className={`relative ${className}`}>
             {/* Copy Button */}
             <PrimaryButton
-                isLoading={isCopying}
+                behavior={isCopying ? ButtonOptions.Behavior.Loading : ButtonOptions.Behavior.Default}
                 icon={copySuccess ? 'fas fa-check' : 'fas fa-copy'}
                 label={copySuccess ? 'Copied!' : 'Copy'}
                 onClick={handleCopy}
