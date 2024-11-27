@@ -13,30 +13,32 @@ const PrimaryButton = ({
                            style = ButtonOptions.Style.Primary,
                            behavior = ButtonOptions.Behavior.Default,
                            roundness = ButtonOptions.Round.Full,
-                           isLoading = false,
+                            hideWhenSmallDevice = true,
                            className = '',
                        }) => {
 
     const padAndGap = size !== ButtonOptions.Size.Square ? 'px-4 py-1 gap-2' : ''
+    const isStaticIcon = icon && icon.endsWith('.svg');
 
     return (
         <motion.button
-            className={`btn ${size} ${state} ${style} ${behavior} ${roundness} items-center ${padAndGap} ${className}`}
+            className={`btn h-fit ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}`}
             onClick={onClick}
-            disabled={isLoading || state === ButtonOptions.State.Disabled} // Disable while loading
+            disabled={state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
             whileHover={{scale: 1.1}}
             whileTap={{scale: 0.9}}
         >
-            {/* Loading Spinner */}
-            {isLoading && <span className="loading loading-spinner"></span>}
 
             {/* Icon */}
-            {icon && !isLoading && <i className={icon}></i>}
+            {!isStaticIcon && icon && <i className={icon}></i>}
+
+            {/* Dynamic Icon */}
+            {isStaticIcon && icon && <img src={icon} alt={label}/>}
 
             {/* Label */}
-            {label && !isLoading && (
-                <span className={icon ? 'hidden sm:inline' : ''}>{label}</span>
+            {label && (
+                <span className={icon && hideWhenSmallDevice ? 'hidden sm:inline' : ''}>{label}</span>
             )}
         </motion.button>
     );

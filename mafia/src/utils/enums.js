@@ -5,12 +5,12 @@ export const SizeOptions = Object.freeze({
     Large: 2,
 });
 
-
 export const ButtonOptions = Object.freeze({
     Round: {
         None: '',
         Full: 'rounded-full',
         Medium: 'rounded-md',
+        Small: 'rounded-sm', // Add small roundness for more flexibility
     },
     Size: {
         Small: 'btn-sm',
@@ -30,8 +30,8 @@ export const ButtonOptions = Object.freeze({
     Style: {
         Outlined: 'btn-outline',
         Secondary: 'btn-secondary',
-        Primary: 'btn-primary', // Default filled style
-        Ghost: 'btn-ghost',
+        Primary: 'btn-primary',
+        Ghost: 'btn-ghost border-2 border-transparent hover:border-current', // Ghost button improvement
     },
     Behavior: {
         Default: 0,
@@ -39,3 +39,4 @@ export const ButtonOptions = Object.freeze({
         Checkable: 2,
     },
 });
+

@@ -17,7 +17,10 @@ const ToolListings = () => {
                         key={index}
                         icon={info.icon}
                         label={info.name}
+                        size={ButtonOptions.Size.Large}
+                        style={ButtonOptions.Style.Ghost}
                         roundness={ButtonOptions.Round.Medium}
+                        hideWhenSmallDevice={false}
                         onClick={navigate.bind(null, info.path)}
                     />
                 );

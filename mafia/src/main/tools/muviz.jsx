@@ -35,7 +35,7 @@ class Muviz extends ToolInfo {
     constructor() {
         super({
             id: 'muviz',
-            name: 'muviz',
+            name: 'Muviz',
             description: 'music + stunning visuals',
             iconPng: Logo,
             componentConstructor: () => (<MuvizView/>)
