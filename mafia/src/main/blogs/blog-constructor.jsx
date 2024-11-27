@@ -47,23 +47,24 @@ const BlogSection = ({section}) => {
     validateStructType(section, 'BlogSectionContent');
     return (
         <FullScreenPage
-            name= {section.name}
+            name={section.name}
             title={section.title}
             children={
-                <section className='flex flex-col justify-center align-center
-                                    md:flex-row w-full h-fit gap-8 mt-4'>
-                    <div className='text-lg md:w-1/2 m-auto align-center' dangerouslySetInnerHTML={{__html: section.paragraph}}/>
+                <section className='flex flex-col justify-center align-center w-full h-fit gap-8 mt-4'>
+                    <div className='text-lg w-fit md:w-1/2 m-auto align-center'
+                         dangerouslySetInnerHTML={{__html: section.paragraph}}/>
                     {section.media.typeKey === 'BlogImage' &&
                         <img src={section.media.source} alt={section.media.label}
-                             className='w-1/2 rounded-lg justify-end'/>
+                             className='w-fit justify-center m-auto align-center rounded-lg'/>
                     }
                     {section.media.typeKey === 'BlogCode' && (
                         <CodeBlock language={section.media.language} code={section.media.code}
-                                   className='w-100 md:w-1/2'/>
+                                   className='w-fit justify-center m-auto align-center'/>
                     )}
 
                     {section.media.typeKey === 'BlogPlot' &&
-                        <section className='w-100 md:w-1/2 bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
+                        <section
+                            className='w-fit justify-center m-auto align-center bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
                     }
                 </section>
             }
