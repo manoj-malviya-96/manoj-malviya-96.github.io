@@ -10,7 +10,7 @@ const PrimaryButton = ({
                            onClick,
                            size = ButtonOptions.Size.Small,
                            state = ButtonOptions.State.None,
-                           style = ButtonOptions.Style.Filled,
+                           style = ButtonOptions.Style.Primary,
                            behavior = ButtonOptions.Behavior.Default,
                            roundness = ButtonOptions.Round.Full,
                            isLoading = false,

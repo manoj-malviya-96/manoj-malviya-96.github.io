@@ -53,19 +53,20 @@ const BlogSection = ({section}) => {
                 <section className='flex flex-col justify-center align-center w-full h-fit gap-8 mt-4'>
                     <div className='text-lg w-fit md:w-1/2 m-auto align-center'
                          dangerouslySetInnerHTML={{__html: section.paragraph}}/>
+                    <div className= 'w-full md:w-fit justify-center m-auto align-center'>
                     {section.media.typeKey === 'BlogImage' &&
                         <img src={section.media.source} alt={section.media.label}
-                             className='w-fit justify-center m-auto align-center rounded-lg'/>
+                             className='rounded-lg'/>
                     }
                     {section.media.typeKey === 'BlogCode' && (
-                        <CodeBlock language={section.media.language} code={section.media.code}
-                                   className='w-fit justify-center m-auto align-center'/>
+                        <CodeBlock language={section.media.language} code={section.media.code}/>
                     )}
 
                     {section.media.typeKey === 'BlogPlot' &&
                         <section
-                            className='w-fit justify-center m-auto align-center bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
+                            className='bg-base-300 p-4 rounded-lg'>{section.media.plot}</section>
                     }
+                    </div>
                 </section>
             }
         />
