@@ -5,7 +5,6 @@ import GridButtons from "../base/grid-buttons";
 import {createGridButtonItem, rangesTo} from "../utils/types";
 import {openLink} from "../utils/links";
 import {ButtonOptions} from "../utils/enums";
-import OpenLinkButton from "../base/open-link-button";
 
 
 const socialMediaLinkAndIconPairs = [
@@ -35,7 +34,6 @@ const IntroOverlay = () => {
                 Manoj Malviya
             </p>
             <h1 className="text-4xl font-bold mb-4 px-4 text-black">SOFTWARE ENGINEER</h1>
-            <OpenLinkButton label="Resume" link="https://soundcloud.com/manoj-malviya-96" />
             <GridButtons items={socialMediaItems} className={'text-black'}/>
         </div>
     )
