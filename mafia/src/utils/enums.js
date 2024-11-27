@@ -40,3 +40,26 @@ export const ButtonOptions = Object.freeze({
     },
 });
 
+
+export const DropdownOptions = Object.freeze({
+    Direction: {
+        Down: 'dropdown-end',
+        Up: 'dropdown-top',
+    },
+    Behavior: {
+        Default: '',
+        Hovered: 'dropdown-hover',
+    },
+    Style: {
+        Ghost: 'btn-ghost',
+        Primary: 'btn-primary',
+        Outlined: 'btn-outline',
+        Secondary: 'btn-secondary',
+    },
+    Size: {
+        Small: 'btn-sm',
+        Medium: 'btn-md',
+        Large: 'btn-lg',
+    },
+});
+
