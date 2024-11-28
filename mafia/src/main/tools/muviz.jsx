@@ -8,6 +8,7 @@ import Dropdown from "../../base/dropdown";
 import {DropdownOptions} from "../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
+import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
 import {createDropdownItem} from "../../utils/types";
 
 
@@ -18,15 +19,20 @@ class MuvizController {
 
 const MuvizHUD = () => {
 
-    const {src, setSrc} = useState(CallingON);
-    const {isPlaying, togglePlayPause} = useAudio(src);
+    const [src, setSrc] = useState(null);
+
+    const {isPlaying, pause, togglePlayPause} = useAudio(src);
 
     const sampleOptions =
         [createDropdownItem({label: 'calling on', value: CallingON}),
             createDropdownItem({
-                label: 'calling on2222',
-                value: CallingON,
+                label: 'can you feel it',
+                value: CanYouFeelIt,
             })];
+    const handleDropdownClick = (option) => {
+        pause();
+        setSrc(option.value);
+    }
     return (
         <div className="flex flex-row gap-2 backdrop-blur-md z-10 items-center justify-center p-6 rounded-lg shadow-md">
             <PrimaryButton
@@ -39,7 +45,7 @@ const MuvizHUD = () => {
                 direction={DropdownOptions.Direction.Up}
                 buttonStyle={DropdownOptions.Style.Outlined}
                 buttonSize={DropdownOptions.Size.Small}
-                onClick={(option) => setSrc(option.value)}
+                onClick={handleDropdownClick}
             />
         </div>
     );

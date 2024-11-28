@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {DropdownOptions} from '../utils/enums';
-import {validateStructTypeForList} from "../utils/types";
+import React, { useState } from 'react';
+import { DropdownOptions } from '../utils/enums';
+import { validateStructTypeForList } from "../utils/types";
 
 const Dropdown = ({
                       onClick,
@@ -13,34 +13,46 @@ const Dropdown = ({
 
     validateStructTypeForList(options, 'DropdownItem');
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isOpen, setIsOpen] = useState(false); // Manage dropdown open state
 
     const handleOptionClick = (option, index) => {
         setActiveIndex(index);
         onClick(option); // Pass selected option to parent
+        setIsOpen(false); // Close dropdown after selection
+    };
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen); // Toggle dropdown visibility
     };
 
     return (
         <div className={`dropdown ${direction} ${behavior}`}>
-            <div tabIndex={0} role="button"
-                 className={`btn m-1 ${buttonStyle} ${buttonSize} rounded-full`}>
+            <div
+                tabIndex={0}
+                role="button"
+                className={`btn m-1 ${buttonStyle} ${buttonSize} rounded-full`}
+                onClick={toggleDropdown} // Open/close on button click
+            >
                 {options[activeIndex].icon && (<i className={options[activeIndex].icon}/>)}
                 {options[activeIndex].label && (<span>{options[activeIndex].label}</span>)}
             </div>
-            <ul
-                tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-            >
-                {options.map((option, index) => (
-                    <li key={index}>
-                        <a
-                            className={activeIndex === index ? 'active' : ''}
-                            onClick={() => handleOptionClick(option, index)}
-                        >
-                            {option.label}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+            {isOpen && ( // Conditionally render dropdown content
+                <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                >
+                    {options.map((option, index) => (
+                        <li key={index}>
+                            <a
+                                className={activeIndex === index ? 'active' : ''}
+                                onClick={() => handleOptionClick(option, index)}
+                            >
+                                {option.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };

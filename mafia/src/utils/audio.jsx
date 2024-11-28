@@ -5,7 +5,6 @@ const useAudio = (src) => {
     const audioRef = useRef(new Audio());
 
     useEffect(() => {
-        console.log(src);
         if (src) {
             audioRef.current.src = src;
             audioRef.current.load();
