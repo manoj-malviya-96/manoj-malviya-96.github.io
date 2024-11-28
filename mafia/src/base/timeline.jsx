@@ -5,7 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'; // For Bootstrap Icons
 
 const Timeline = ({ items }) => {
     return (
-        <ul className="timeline timeline-vertical md:timeline-horizontal">
+        <ul className="timeline timeline-vertical">
             {items.map((item, index) => {
                 const forDate = index % 2 ? 'timeline-end' : 'timeline-start';
                 const forContent = index % 2 ? 'timeline-start' : 'timeline-end';
