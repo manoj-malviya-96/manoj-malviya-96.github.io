@@ -8,11 +8,12 @@ module.exports = {
   daisyui: {
     themes: [{
       light: {
-        "primary": "#bababa",
+        "primary": "#c6c6c6",
         "secondary": "#656565",
-        "accent": "#cacaca",
-        "neutral": "#9a7976",
+        "accent": "#595959",
+        "neutral": "#bcbcbc",
         "base-100": "#ffffff",
+        /* Keep the following colors same */
         "info": "#3c5b8a",
         "success": "#3e9868",
         "warning": "#bdb16c",
@@ -21,9 +22,10 @@ module.exports = {
       dark: {
         "primary": "#454545",
         "secondary": "#4e4e4e",
-        "accent": "#bcbcbc",
+        "accent": "#c6c6c6",
         "neutral": "#bcbcbc",
         "base-100": "#000000",
+        /* Keep the following colors same */
         "info": "#3c5b8a",
         "success": "#3e9868",
         "warning": "#bdb16c",
