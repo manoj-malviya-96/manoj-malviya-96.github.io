@@ -22,7 +22,7 @@ const PrimaryButton = ({
 
     return (
         <motion.button
-            className={`btn h-fit ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}`}
+            className={`btn h-fit w-fit ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}`}
             onClick={onClick}
             disabled={state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
@@ -38,7 +38,7 @@ const PrimaryButton = ({
 
             {/* Label */}
             {label && (
-                <span className={icon && hideWhenSmallDevice ? 'hidden sm:inline' : ''}>{label}</span>
+                <span className={icon && hideWhenSmallDevice ? 'hidden sm:inline' : 'uppercase'}>{label}</span>
             )}
         </motion.button>
     );
