@@ -62,3 +62,8 @@ export function createGridButtonItem({
 export function createTimeLineItem({id, title, date, image, link, icon}) {
     return makeStruct({id, title, date, image, link, icon}, 'TimeLineItem');
 }
+
+
+export function createDropdownItem({label, icon, value}) {
+    return makeStruct({label, icon, value}, 'DropdownItem');
+}

@@ -1,12 +1,34 @@
-import React, {useRef, useState} from 'react'
+import React, { useRef, useState, useEffect } from 'react';
 
 const useAudio = (src) => {
-    const audioRef = useRef(new Audio(src));
     const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(new Audio());
+
+    useEffect(() => {
+        console.log(src);
+        if (src) {
+            audioRef.current.src = src;
+            audioRef.current.load();
+
+            audioRef.current.onerror = () => {
+                console.error('Failed to load audio source. Please check the file or URL.');
+            };
+        }
+        return () => {
+            audioRef.current.pause();
+            audioRef.current.src = '';
+        };
+    }, [src]);
 
     const play = () => {
-        audioRef.current.play();
-        setIsPlaying(true);
+        if (src) {
+            audioRef.current
+                .play()
+                .then(() => setIsPlaying(true))
+                .catch((err) => console.error(err.message));
+        } else {
+            console.error('No audio source provided.');
+        }
     };
 
     const pause = () => {
