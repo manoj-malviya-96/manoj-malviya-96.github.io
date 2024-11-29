@@ -4,6 +4,7 @@ import ToolInfo from "./tool-info";
 import useAudio from "../../utils/audio";
 import PrimaryButton from "../../base/primary-button";
 import Logo from './logos/muviz.svg';
+import Cover from './logos/muviz-cover.svg';
 import Dropdown from "../../base/dropdown";
 import {DropdownOptions} from "../../utils/enums";
 
@@ -75,7 +76,7 @@ class Muviz extends ToolInfo {
             id: 'muviz',
             name: 'Muviz',
             description: 'music + stunning visuals',
-            cover: Logo,
+            cover: Cover,
             componentConstructor: () => (<MuvizView/>)
         });
     }
