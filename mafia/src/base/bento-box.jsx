@@ -5,7 +5,10 @@ import {validateStructTypeForList} from "../utils/types";
 
 const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
     validateStructTypeForList(items, 'BentoBoxItem');
-   const widthClass = squareTiles ? "w-fit" : "w-full";
+
+    const widthClass = squareTiles ? "w-fit" : "w-full";
+    const aspectRatio = squareTiles ? "1 / 1" : "16 / 9";
+
     return (
         <div
             className={`grid gap-4 h-fit ${widthClass} mx-auto grid-cols-2 
@@ -21,7 +24,6 @@ const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
                             ? "lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-1"
                             : "col-span-1";
                 const rowSpan = card.size === SizeOptions.Large ? "row-span-2" : "row-span-1";
-                const aspectRatio = squareTiles ? "1 / 1" : "16 / 9";
                 return (
                     <div
                         key={index}
