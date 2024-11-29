@@ -33,8 +33,11 @@ const MuvizHUD = () => {
         pause();
         setSrc(option.value);
     }
+    const showHUD = isPlaying ? 'opacity-0' : 'opacity-100';
     return (
-        <div className="flex flex-row gap-2 backdrop-blur-md z-10 items-center justify-center p-6 rounded-lg shadow-md">
+        <div className={`${showHUD} hover:opacity-100 bg-primary bg-opacity-25 flex 
+                        flex-row gap-2 backdrop-blur-md z-10 items-center transition-opacity duration-300
+                        justify-center p-6 rounded-lg shadow-md`}>
             <PrimaryButton
                 icon={isPlaying ? 'fa fa-pause' : 'fa fa-play'}
                 onClick={togglePlayPause}>
