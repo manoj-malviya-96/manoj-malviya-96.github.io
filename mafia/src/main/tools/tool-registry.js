@@ -1,10 +1,12 @@
 import {createRouterItem, rangesTo} from "../../utils/types";
 import muvizInstance from "./muviz";
+import meshaInstance from "./mesha";
 
 
 
 export const registeredTools = [
-    muvizInstance
+    muvizInstance,
+    meshaInstance,
 ]
 
 export const makeToolRouter = () => {
