@@ -6,24 +6,25 @@ import {validateStructTypeForList} from "../utils/types";
 const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
     validateStructTypeForList(items, 'BentoBoxItem');
 
-    const widthClass = squareTiles ? "w-fit" : "w-full";
-    const aspectRatio = squareTiles ? "1 / 1" : "16 / 9";
+    const widthClass = squareTiles ? "w-fit" : "w-fit";
+    const aspectRatio = squareTiles ? "1 / 1" : "4 / 3";
 
     return (
         <div
-            className={`grid gap-4 h-fit ${widthClass} mx-auto grid-cols-2 
-                        sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8`}
+            className={`grid gap-4 h-fit ${widthClass} mx-auto 
+                        grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12`}
             style={{gridAutoRows: `${itemHeight}px`}} // Base row height
         >
             {items.map((card, index) => {
                 // Dynamically adjust col-span based on available columns
                 const colSpan =
                     card.size === SizeOptions.Large
-                        ? "lg:col-span-4 md:col-span-3 sm:col-span-2 col-span-1"
+                        ? "lg:col-span-6 md:col-span-3 sm:col-span-2 col-span-1"
                         : card.size === SizeOptions.Medium
-                            ? "lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-1"
-                            : "col-span-1";
-                const rowSpan = card.size === SizeOptions.Large ? "row-span-2" : "row-span-1";
+                            ? "lg:col-span-3 md:col-span-2 sm:col-span-1 col-span-1" // 4X2
+                            : "col-span-1"; // Small 1X1
+
+                const rowSpan = card.size === SizeOptions.Small ? "row-span-1" : "row-span-2";
                 return (
                     <div
                         key={index}

@@ -3,6 +3,7 @@ import ToolInfo from "./tool-info";
 import Logo from './logos/mesha.svg';
 import Cover from './logos/mesha-cover.svg';
 import {TopBrandLogo} from "../top-modal";
+import {SizeOptions} from "../../utils/enums";
 
 
 

@@ -6,7 +6,7 @@ import PrimaryButton from "../../base/primary-button";
 import Logo from './logos/muviz.svg';
 import Cover from './logos/muviz-cover.svg';
 import Dropdown from "../../base/dropdown";
-import {DropdownOptions} from "../../utils/enums";
+import {DropdownOptions, SizeOptions} from "../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';

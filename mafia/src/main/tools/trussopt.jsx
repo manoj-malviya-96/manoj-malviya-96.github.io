@@ -1,8 +1,9 @@
 import FullScreenPage from "../../base/full-page";
 import ToolInfo from "./tool-info";
-import Logo from './logos/muviz.svg';
+import Logo from './logos/trussopt.svg';
+import Cover from './logos/trussopt-cover.svg';
 import {TopBrandLogo} from "../top-modal";
-
+import {SizeOptions} from "../../utils/enums";
 
 
 const TrussOptView = () => {
@@ -23,9 +24,9 @@ class TrussOpt extends ToolInfo {
     constructor() {
         super({
             id: 'truss_opt',
-            name: '',
+            name: 'TrussOpt',
             description: 'create, analyze and optimize truss',
-            cover: Logo,
+            cover: Cover,
             componentConstructor: () => (<TrussOptView/>)
         });
     }

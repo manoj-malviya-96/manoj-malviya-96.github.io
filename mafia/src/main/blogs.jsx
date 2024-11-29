@@ -18,7 +18,7 @@ const BlogListing = () => {
             <FullScreenPage
                 title="Blog"
                 name="blog"
-                children={<BentoBox items={blogAsBentoboxList} onClick={handleCardClick}/>}
+                children={<BentoBox items={blogAsBentoboxList} itemHeight={400} onClick={handleCardClick}/>}
             />
         </div>
     );
