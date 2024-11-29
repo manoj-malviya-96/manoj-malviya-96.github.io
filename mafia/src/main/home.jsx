@@ -4,7 +4,7 @@ import Career from "./career";
 import BlogListing from "./blogs";
 import Tools from "./tools";
 import {createTabItem} from "../utils/types";
-import TabBarOnTop from "./tab-bar-on-top";
+import {TopTabBar} from "./top-modal";
 
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
             <Tools/>
             <BlogListing/>
             <Career/>
-            <TabBarOnTop tabs={tabs}/>
+            <TopTabBar tabs={tabs}/>
         </div>
     )
 }

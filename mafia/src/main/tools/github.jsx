@@ -5,6 +5,9 @@ import CirclePlot from "../../base/heatmap-plot";
 import {toTxtMonth} from "../../utils/date";
 import PrimaryButton from "../../base/primary-button";
 import {ButtonOptions} from "../../utils/enums";
+import {createDropdownItem, rangesTo} from "../../utils/types";
+import Dropdown from "../../base/dropdown";
+import HeatmapPlot from "../../base/heatmap-plot";
 
 const GithubHeatmap = () => {
     const [data, setData] = useState({});
@@ -14,6 +17,7 @@ const GithubHeatmap = () => {
 
     useEffect(() => {
         const processedData = processData(dataJSON);
+        console.log(processedData);
         setData(processedData);
         if (processedData[currentYear]) {
             updateStats(processedData[currentYear]);
@@ -62,16 +66,21 @@ const GithubHeatmap = () => {
         });
 
         return (
-            <CirclePlot
+            <HeatmapPlot
                 data={dailyData} // Actual daily commit data for the year
-                radialTitle=""
-                angularTitle="Days of the Year"
-                showScale={true}
-                markerSize={10}
-                toTickLabels={(x) => (toTxtMonth(Math.floor(x / 30)))}
+                xLabels={Array.from({ length: 12 }, (_, i) => toTxtMonth(i + 1))} // Month labels
+                yLabels={Array.from({ length: 31 }, (_, i) => i + 1)} // Day labels
+                title={`Commits in ${year}`}
+                height={600}
+                width={800}
+                colorscale={["#d6e685", "#8cc665", "#44a340", "#1e6823"]} // Discrete colors
+                textColor={"#ffffff"}
             />
         );
     };
+
+    const years = Object.keys(data).sort((a, b) => b - a);
+    const dropdownOptions = rangesTo(years, (year) => createDropdownItem({label: year, value: year}));
 
     return (
         <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen">
@@ -86,17 +95,10 @@ const GithubHeatmap = () => {
                         <div className="stat-value">{longestStreak}</div>
                     </div>
                 </div>
-                <div className='flex flex-col sm:inline gap-4'>
-                    {Object.keys(data).map((year) => (
-                        <PrimaryButton
-                            key={year}
-                            label={year}
-                            behavior={ButtonOptions.Behavior.Checkable}
-                            className={`btn ${currentYear === Number(year) ? "btn-primary" : ""}`}
-                            onClick={() => setCurrentYear(Number(year))}
-                        />
-                    ))}
-                </div>
+                {dropdownOptions.length > 0 && (<Dropdown
+                    options={dropdownOptions}
+                    onClick={(option) => setCurrentYear(option.value)}
+                />)}
             </div>
             <div>{data[currentYear] && renderPlot(currentYear)}</div>
         </div>

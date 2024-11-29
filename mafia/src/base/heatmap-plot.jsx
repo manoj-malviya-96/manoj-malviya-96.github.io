@@ -1,76 +1,53 @@
-import React from "react";
-import Plot from "react-plotly.js";
-import {getPrimaryColorForDaisy} from "../utils/color";
+import Plot from 'react-plotly.js';
 
-const CirclePlot = ({
-                        data,
-                        title = "",
-                        radialTitle = "",
-                        angularTitle = "",
-                        markerSize = 10,
-                        toTickLabels = (x) => x,
-                    }) => {
-    // Map days to angles (0° to 360°)
-    const angles = data.map((_, i) => (i / data.length) * 360);
-    const radii = data;
-
-    // Dynamic color variables
-    const primaryColor = getPrimaryColorForDaisy() || "#f63b4b"; // Fallback to blue
-    const textColor = getPrimaryColorForDaisy() || "#ffffff"; // Fallback to gray
-
-    const tickQs = [0, 45, 90, 135, 180, 225, 270, 315];
-    const tickText = tickQs.map((q) => toTickLabels(q));
-
+const HeatmapPlot = ({
+                         data,
+                         colorscale = ["#d6e685", "#8cc665", "#44a340", "#1e6823"], // Discrete colors
+                         xLabels = [],
+                         yLabels = [],
+                         title = "",
+                         height = 400,
+                         width = 600,
+                         textColor = "#ffffff",
+                     }) => {
     return (
         <Plot
             data={[
                 {
-                    type: "scatterpolar",
-                    r: radii,
-                    theta: angles,
-                    mode: "markers",
-                    marker: {
-                        size: markerSize,
-                        color: radii,
-                        colorscale: [
-                            [0, primaryColor],
-                            [1, primaryColor],
-                        ], // Use DaisyUI's primary theme for colors
-                        showscale: false,
-                    },
-                    hoverinfo: "r+theta", // Show radius (values) and angle (days)
+                    z: data, // 2D array of data values
+                    x: xLabels, // Labels for the columns
+                    y: yLabels, // Labels for the rows
+                    type: "heatmap",
+                    colorscale: colorscale.map((color, index) => [
+                        index / (colorscale.length - 1),
+                        color,
+                    ]), // Map colors to discrete values
+                    showscale: true, // Display the color scale
                 },
             ]}
             layout={{
                 title: {
                     text: title,
-                    font: { size: 28, color: textColor }, // Larger title font
+                    font: { size: 24, color: textColor },
                 },
-                polar: {
-                    bgcolor: "rgba(0,0,0,0)", // Transparent inside the circle
-                    radialaxis: {
-                        title: { text: radialTitle, font: { size: 16, color: 'white' } },
-                        tickfont: { size: 14, color: 'white' }, // Bigger tick font
-                        showgrid: false,
-                    },
-                    angularaxis: {
-                        title: { text: angularTitle, font: { size: 16, color: 'white' } },
-                        tickfont: { size: 10, color: 'white' }, // Bigger tick font
-                        showgrid: false,
-                        tickmode: "array",
-                        tickvals: tickQs,
-                        ticktext: tickText,
-                    },
+                xaxis: {
+                    title: { text: "X Axis", font: { size: 16, color: textColor } },
+                    tickfont: { size: 12, color: textColor },
                 },
-                hovermode: "closest",
+                yaxis: {
+                    title: { text: "Y Axis", font: { size: 16, color: textColor } },
+                    tickfont: { size: 12, color: textColor },
+                },
+                autosize: false,
+                height: height, // Control the height of the heatmap
+                width: width, // Control the width of the heatmap
                 paper_bgcolor: "rgba(0,0,0,0)", // Transparent background
-                plot_bgcolor: "rgba(0,0,0,0)", // Transparent background
-                autosize: true,
-                margin: { t: 0, l: 0, r: 0, b: 0 },
+                plot_bgcolor: "rgba(0,0,0,0)", // Transparent plot area
+                margin: { t: 40, l: 40, r: 40, b: 40 },
             }}
             style={{ width: "100%", height: "100%" }}
         />
     );
 };
 
-export default CirclePlot;
+export default HeatmapPlot;

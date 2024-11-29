@@ -7,7 +7,7 @@ const BentoBox = ({items, onClick, itemHeight = 150}) => {
     validateStructTypeForList(items, 'BentoBoxItem');
     return (
         <div
-            className="grid gap-4 h-fit w-full mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+            className="grid gap-4 h-fit w-fit mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
             style={{gridAutoRows: `${itemHeight}px`}} // Base row height
         >
             {items.map((card, index) => {
@@ -24,6 +24,9 @@ const BentoBox = ({items, onClick, itemHeight = 150}) => {
                     <div
                         key={index}
                         className={`${colSpan} ${rowSpan} bg-transparent`}
+                        style={{
+                            aspectRatio: "1 / 1", // Ensures square shape
+                        }}
                     >
                         <Card
                             image={card.cover}

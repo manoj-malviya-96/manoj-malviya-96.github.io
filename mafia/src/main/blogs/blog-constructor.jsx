@@ -5,7 +5,7 @@ import {BlogInfo} from "./blog-info";
 import {validateClassType, validateStructType} from "../../utils/types";
 import TabBar from "../../base/tab-bar";
 import CodeBlock from "../../base/code";
-import TabBarOnTop from "../tab-bar-on-top";
+import {TopTabBar} from "../top-modal";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {
@@ -89,7 +89,7 @@ const BlogConstructor = ({item}) => {
                 return (<BlogSection key={index} section={sec}/>);
             })
             }
-            <TabBarOnTop tabs={item.tabs()}/>
+            <TopTabBar tabs={item.tabs()}/>
         </div>
     )
 }
