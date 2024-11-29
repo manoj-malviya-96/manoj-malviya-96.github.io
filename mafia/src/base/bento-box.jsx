@@ -3,11 +3,13 @@ import Card from "./card";
 import {SizeOptions} from "../utils/enums";
 import {validateStructTypeForList} from "../utils/types";
 
-const BentoBox = ({items, onClick, itemHeight = 150}) => {
+const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
     validateStructTypeForList(items, 'BentoBoxItem');
+   const widthClass = squareTiles ? "w-fit" : "w-full";
     return (
         <div
-            className="grid gap-4 h-fit w-fit mx-auto grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
+            className={`grid gap-4 h-fit ${widthClass} mx-auto grid-cols-2 
+                        sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8`}
             style={{gridAutoRows: `${itemHeight}px`}} // Base row height
         >
             {items.map((card, index) => {
@@ -19,13 +21,16 @@ const BentoBox = ({items, onClick, itemHeight = 150}) => {
                             ? "lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-1"
                             : "col-span-1";
                 const rowSpan = card.size === SizeOptions.Large ? "row-span-2" : "row-span-1";
-
+                // style={{
+                //     aspectRatio: "1 / 1", // Ensures square shape
+                // }}
+                const aspectRatio = squareTiles ? "1 / 1" : "16 / 9";
                 return (
                     <div
                         key={index}
                         className={`${colSpan} ${rowSpan} bg-transparent`}
                         style={{
-                            aspectRatio: "1 / 1", // Ensures square shape
+                            aspectRatio: aspectRatio
                         }}
                     >
                         <Card

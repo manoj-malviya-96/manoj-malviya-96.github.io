@@ -3,7 +3,8 @@ import React from 'react';
 const Card = ({image, title, date, description, onClick}) => {
     return (<div
         className="card bg-transparent shadow-md h-full w-full z-0 hover:z-10 transition-all duration-300
-                        rounded-lg cursor-pointer overflow-hidden sm:card-compact hover:shadow-lg hover:scale-105 active:scale-95"
+                        rounded-lg cursor-pointer overflow-hidden sm:card-compact
+                        hover:shadow-lg hover:scale-105 active:scale-95"
         onClick={onClick}
     >
         {/* Background Image */}

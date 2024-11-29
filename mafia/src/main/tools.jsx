@@ -27,7 +27,7 @@ const Tools = () => {
         <FullScreenPage
             name="tools"
             title="Tools"
-            children={<BentoBox items={toolListAsBentoBox} onClick={handleCardClick}/>}
+            children={<BentoBox items={toolListAsBentoBox} onClick={handleCardClick} squareTiles={true}/>}
         />
     );
 }
