@@ -21,9 +21,6 @@ const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
                             ? "lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-1"
                             : "col-span-1";
                 const rowSpan = card.size === SizeOptions.Large ? "row-span-2" : "row-span-1";
-                // style={{
-                //     aspectRatio: "1 / 1", // Ensures square shape
-                // }}
                 const aspectRatio = squareTiles ? "1 / 1" : "16 / 9";
                 return (
                     <div
