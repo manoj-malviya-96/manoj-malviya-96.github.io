@@ -22,7 +22,8 @@ const PrimaryButton = ({
 
     return (
         <motion.button
-            className={`btn h-fit w-fit ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}`}
+            className={`btn h-fit w-fit ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}
+                        hover:border-primary border-opacity-30 border-2`}
             onClick={onClick}
             disabled={state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}

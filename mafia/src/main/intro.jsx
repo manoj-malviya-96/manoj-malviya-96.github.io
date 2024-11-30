@@ -30,10 +30,10 @@ const IntroOverlay = () => {
     });
     return (
         <div className="w-1/4 md:w-1/4 text-left">
-            <p className="text-lg text-primary mb-4 px-4">
+            <p className="text-lg text-primary mb-4">
                 Manoj Malviya
             </p>
-            <h1 className="text-4xl font-bold mb-4 px-4 text-black">SOFTWARE ENGINEER</h1>
+            <h1 className="text-4xl font-bold mb-4 text-black">SOFTWARE ENGINEER</h1>
             <GridButtons items={socialMediaItems} className={'text-black'}/>
         </div>
     )

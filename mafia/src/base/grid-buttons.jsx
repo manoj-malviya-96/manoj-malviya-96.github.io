@@ -6,7 +6,7 @@ const GridButtons = ({items, className}) => {
     validateStructTypeForList(items, 'GridButtonItem');
 
     return (
-        <div className="w-fit h-fit grid grid-cols-4 md:grid-cols-8 gap-4">
+        <div className="w-full h-fit grid grid-cols-4 md:grid-cols-8 px-2">
             {items.map((item, index) => (
                 <PrimaryButton
                     key={index}
