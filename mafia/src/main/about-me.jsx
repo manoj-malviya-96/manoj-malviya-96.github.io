@@ -1,22 +1,18 @@
 import React from 'react';
 import Timeline from "../base/timeline";
 import FullScreenPage from "../base/full-page";
-import {createTimeLineItem} from "../utils/types";
+import {createTimeLineItem, rangesTo} from "../utils/types";
 import GithubProfile from "./tools/github";
-
-const timelineData = [
-    createTimeLineItem({id: 1, title: "Software Engineer", date: "2021 - Present", icon: "bi bi-code-slash"}),
-    createTimeLineItem({id: 2, title: "Software Engineer", date: "2019 - 2021", icon: "bi bi-code-slash"}),
-    createTimeLineItem({id: 3, title: "Software Engineer", date: "2017 - 2019", icon: "bi bi-code-slash"}),
-];
+import {jobRelatedBlogs} from "./blogs/blog-registry";
 
 const AboutMe = () => {
+    const timelineData = rangesTo(jobRelatedBlogs, (blog)=> {return blog.timelineItem()});
     return (
         <FullScreenPage
             name="about-me"
             title="About me"
             children={
-                <div className="flex flex-col md:flex-row w-full h-fit gap-4">
+                <div className="flex flex-col md:flex-row w-full h-fit gap-8">
                     <div className="md:w-1/2 w-full h-full">
                         <Timeline items={timelineData}/>
                     </div>

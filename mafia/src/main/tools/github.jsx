@@ -161,7 +161,8 @@ const GithubProfile = () => {
     const dropdownOptions = rangesTo(years, (year) => createDropdownItem({label: year, value: year}));
 
     return (
-        <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen">
+        <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen
+                        rounded-lg border-2 border-neutral border-opacity-25">
             <div className="flex space-x-4 mb-4 justify-center">
                 <div className="stats shadow">
                     <div className="stat">

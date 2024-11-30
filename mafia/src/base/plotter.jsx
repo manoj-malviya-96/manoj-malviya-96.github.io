@@ -83,7 +83,7 @@ const Plotter = ({
         <div
             className="relative w-full h-full max-h-screen max-w-full
             overflow-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100
-            rounded-md p-2  border-2 border-neutral border-opacity-25"
+            rounded-md p-2"
         >
             <Plot
                 data={dataTrace}

@@ -1,9 +1,11 @@
 import {BentoboxSizeOption} from "../../utils/enums";
-import {createBentoBoxItem, createTabItem, makeStruct, rangesTo} from "../../utils/types";
+import {createBentoBoxItem, createTabItem, createTimeLineItem, makeStruct, rangesTo} from "../../utils/types";
 
 export class BlogInfo {
     constructor({
-                    id, title, description, summary, date, tags, cover, sections, isNew=false,
+                    id, title, description, summary, date, tags, cover, sections,
+                    icon= '',
+                    isNew=false,
                     card_size = BentoboxSizeOption.Regular
                 }) {
         this.id = id;
@@ -13,6 +15,7 @@ export class BlogInfo {
         this.date = date;
         this.tags = tags;
         this.cover = cover;
+        this.icon = icon;
         this.card_size = card_size
         this.sections = sections
         this.isNew = isNew
@@ -42,6 +45,16 @@ export class BlogInfo {
         return result;
     }
 
+    timelineItem() {
+        return createTimeLineItem({
+            id: this.id,
+            title: this.title,
+            date: this.date,
+            icon: this.icon,
+            image: this.cover,
+            link: this.path
+        })
+    }
 
 }
 
