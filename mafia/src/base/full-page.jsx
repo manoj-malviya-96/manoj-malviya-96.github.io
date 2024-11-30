@@ -11,9 +11,11 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
 
     return (
         <Element
-            className="h-fit min-h-screen w-screen flex flex-col justify-center items-center overflow-clip m-4 p-8"
+            className="h-fit min-h-screen w-screen flex flex-col justify-center items-center overflow-clip"
             name={name}
             style={{
+                margin: 0, // Remove margin
+                padding: 0, // Remove padding
                 backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
