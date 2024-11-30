@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { DropdownOptions } from '../utils/enums';
-import { validateStructTypeForList } from "../utils/types";
+import React, {useState} from 'react';
+import {DropdownOptions} from '../utils/enums';
+import {validateStructTypeForList} from "../utils/types";
 
 const Dropdown = ({
                       onClick,
@@ -9,6 +9,7 @@ const Dropdown = ({
                       direction = DropdownOptions.Direction.Down,
                       buttonStyle = DropdownOptions.Style.Primary,
                       buttonSize = DropdownOptions.Size.Medium,
+                      className = ''
                   }) => {
 
     validateStructTypeForList(options, 'DropdownItem');
@@ -26,7 +27,7 @@ const Dropdown = ({
     };
 
     return (
-        <div className={`dropdown ${direction} ${behavior}`}>
+        <div className={`dropdown ${direction} ${behavior} ${className}`}>
             <div
                 tabIndex={0}
                 role="button"

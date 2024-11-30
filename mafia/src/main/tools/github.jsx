@@ -162,7 +162,7 @@ const GithubProfile = () => {
 
     return (
         <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen">
-            <div className="flex space-x-4 mb-4">
+            <div className="flex space-x-4 mb-4 justify-center">
                 <div className="stats shadow">
                     <div className="stat">
                         <div className="stat-title">Total Commits</div>
@@ -175,6 +175,7 @@ const GithubProfile = () => {
                 </div>
                 {dropdownOptions.length > 0 && (<Dropdown
                     options={dropdownOptions}
+                    className="m-auto"
                     onClick={(option) => setCurrentYear(option.value)}
                 />)}
             </div>
