@@ -24,14 +24,16 @@ const GithubProfile = () => {
     const processData = (rawData) => {
         const formattedData = {};
         rawData.repositories.forEach((repo) => {
-            repo.daily_log.forEach(({date, commits}) => {
+            repo.daily_log.forEach(({ date, commits }) => {
                 const year = new Date(date).getFullYear();
                 if (!formattedData[year]) formattedData[year] = {};
-                formattedData[year][date] = (formattedData[year][date] || 0) + commits;
+                if (!formattedData[year][date]) formattedData[year][date] = 0; // Initialize to 0
+                formattedData[year][date] += commits; // Sum commits across repositories
             });
         });
         return formattedData;
     };
+
 
     const updateStats = (yearData) => {
         const dates = Object.keys(yearData);
