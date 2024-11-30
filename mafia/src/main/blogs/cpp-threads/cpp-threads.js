@@ -1,4 +1,4 @@
-import {BlogInfo, makeBlogCode, makeBlogSectionContent} from "../blog-info";
+import {BlogInfo, makeBlogCode, makeBlogImage, makeBlogSectionContent} from "../blog-info";
 import Cover from "./cover.webp"
 import {BentoboxSizeOption} from "../../../utils/enums";
 
@@ -39,19 +39,7 @@ class CppThreads extends BlogInfo {
                 version, but chaos ensues. Let me paint a picture: I had a shared <strong>inventory map</strong> that
                 stored the stock count of different items. Imagine multiple threads trying to update this map at the same time. It might look something like
                 this:</p>`),
-            media: makeBlogCode({
-                language: 'cpp', code: '#include iostream;\n' +
-                    '#include thread;\n' +
-                    '\n' +
-                    'void print_message() {\n' +
-                    '    std::cout: "Hello from a thread!" &lt;&lt; std::endl;\n' +
-                    '}\n' +
-                    '\n' +
-                    'int main() {\n' +
-                    '    std::thread t(print_message); // Create a thread to run print_message\n' +
-                    '    t.join(); // Wait for the thread to finish\n' +
-                    '    return 0;'
-            })
+            media: makeBlogImage({source: Cover, label: 'cover'})
         });
         super({
             id: 'cpp-threads',
