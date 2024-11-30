@@ -16,7 +16,7 @@ const BlogListing = () => {
         <div className="flex flex-col">
             {/* BentoBox with Cards */}
             <FullScreenPage
-                title="Blog"
+                title="Blogs"
                 name="blog"
                 children={<BentoBox items={blogAsBentoboxList} itemHeight={210} onClick={handleCardClick}/>}
             />
