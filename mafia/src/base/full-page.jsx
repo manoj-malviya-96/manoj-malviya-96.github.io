@@ -24,13 +24,13 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
         >
             {/* Title */}
             {title && (
-                <h2 className="text-3xl text-center mb-4 uppercase font-extrabold">
+                <h2 className="text-3xl text-center my-4 uppercase font-extrabold">
                     {title}
                 </h2>
             )}
             {/* Children */}
             {children && (
-                <div className={`w-full h-fit ${alignmentClasses}`}>
+                <div className={`w-4/5 h-fit ${alignmentClasses}`}>
                     {children}
                 </div>
             )}

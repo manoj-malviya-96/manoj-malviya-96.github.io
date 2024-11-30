@@ -80,15 +80,20 @@ const Plotter = ({
                      minimalView = true
                  }) => {
     return (
-        <Plot
-            data={dataTrace}
-            layout={createLayout(width, height, title, xTitle, yTitle, minimalView, textColor)}
-            config={{
-                displaylogo: false, // Removes the Plotly logo
-                responsive: true, // Ensures responsiveness
-            }}
-        />
+        <div
+            className="relative w-full h-full max-h-screen max-w-full
+            overflow-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100
+            rounded-md p-2 shadow-lg"
+        >
+            <Plot
+                data={dataTrace}
+                layout={createLayout(width, height, title, xTitle, yTitle, minimalView, textColor)}
+                config={{
+                    displaylogo: false, // Removes the Plotly logo
+                    responsive: true, // Ensures responsiveness
+                }}
+            />
+        </div>
     );
-};
-
+}
 export default Plotter;
