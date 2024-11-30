@@ -11,7 +11,7 @@ module.exports = {
         "primary": "#c6c6c6",
         "secondary": "#656565",
         "accent": "#595959",
-        "neutral": "#bcbcbc",
+        "neutral": "#838383",
         "base-100": "#ffffff",
         /* Keep the following colors same */
         "info": "#3c5b8a",
@@ -23,7 +23,7 @@ module.exports = {
         "primary": "#454545",
         "secondary": "#4e4e4e",
         "accent": "#c6c6c6",
-        "neutral": "#bcbcbc",
+        "neutral": "#838383",
         "base-100": "#000000",
         /* Keep the following colors same */
         "info": "#3c5b8a",

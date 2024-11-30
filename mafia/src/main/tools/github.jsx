@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import dataJSON from "../data/github_user_report.json";
-import CirclePlot from "../../base/heatmap-plot";
 import {toTxtMonth} from "../../utils/date";
-import PrimaryButton from "../../base/primary-button";
-import {ButtonOptions} from "../../utils/enums";
 import {createDropdownItem, rangesTo} from "../../utils/types";
 import Dropdown from "../../base/dropdown";
 import HeatmapPlot from "../../base/heatmap-plot";

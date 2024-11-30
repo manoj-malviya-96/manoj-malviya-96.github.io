@@ -3,7 +3,6 @@ import TemplateCover from '../assets/main.jpg';
 import FullScreenPage from "../../base/full-page";
 import {BlogInfo} from "./blog-info";
 import {validateClassType, validateStructType} from "../../utils/types";
-import TabBar from "../../base/tab-bar";
 import CodeBlock from "../../base/code";
 import {TopTabBar} from "../top-modal";
 

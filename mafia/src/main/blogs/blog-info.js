@@ -1,10 +1,10 @@
-import {SizeOptions} from "../../utils/enums";
+import {BentoboxSizeOption} from "../../utils/enums";
 import {createBentoBoxItem, createTabItem, makeStruct, rangesTo} from "../../utils/types";
 
 export class BlogInfo {
     constructor({
-                    id, title, description, summary, date, tags, cover, sections,
-                    card_size = SizeOptions.Medium
+                    id, title, description, summary, date, tags, cover, sections, isNew=false,
+                    card_size = BentoboxSizeOption.Regular
                 }) {
         this.id = id;
         this.title = title;
@@ -15,6 +15,7 @@ export class BlogInfo {
         this.cover = cover;
         this.card_size = card_size
         this.sections = sections
+        this.isNew = isNew
         this.path = '/blogs/' + this.id;
     }
 
@@ -25,8 +26,9 @@ export class BlogInfo {
                 description: this.description,
                 date: this.date,
                 tags: this.tags,
-                cover: this.cover,
+                logo: this.cover,
                 size: this.card_size,
+                isNew: this.isNew,
                 onClickArg: this.path
             }
         )

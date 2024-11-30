@@ -3,7 +3,6 @@ import ToolInfo from "./tool-info";
 import Logo from './logos/trussopt.svg';
 import Cover from './logos/trussopt-cover.svg';
 import {TopBrandLogo} from "../top-modal";
-import {SizeOptions} from "../../utils/enums";
 
 
 const TrussOptView = () => {
@@ -34,5 +33,5 @@ class TrussOpt extends ToolInfo {
 
 // We keep everything private and only expose the instance.
 
-const trussOptInstance = new TrussOpt;
+const trussOptInstance = new TrussOpt();
 export default trussOptInstance;

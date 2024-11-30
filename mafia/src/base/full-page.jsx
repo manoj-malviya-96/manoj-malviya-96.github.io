@@ -11,7 +11,7 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
 
     return (
         <Element
-            className="h-fit min-h-screen w-screen flex flex-col justify-center items-center"
+            className="h-fit min-h-screen w-screen flex flex-col justify-center items-center overflow-clip m-4 p-8"
             name={name}
             style={{
                 backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
@@ -22,13 +22,13 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
         >
             {/* Title */}
             {title && (
-                <h2 className="text-3xl text-center mb-8 uppercase font-extrabold">
+                <h2 className="text-3xl text-center mb-4 uppercase font-extrabold">
                     {title}
                 </h2>
             )}
             {/* Children */}
             {children && (
-                <div className={`w-4/5 h-fit ${alignmentClasses}`}>
+                <div className={`w-full h-fit ${alignmentClasses}`}>
                     {children}
                 </div>
             )}

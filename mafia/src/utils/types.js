@@ -34,8 +34,8 @@ export function validateClassType(instance, classType) {
     }
 }
 
-export function createBentoBoxItem({title, description, date, tags, cover, size, onClickArg}) {
-    return makeStruct({title, description, date, tags, cover, size, onClickArg},
+export function createBentoBoxItem({title, description, date, tags, logo, size, isNew, onClickArg}) {
+    return makeStruct({title, description, date, tags, logo, size, isNew, onClickArg},
         'BentoBoxItem');
 }
 

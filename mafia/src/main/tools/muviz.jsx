@@ -6,18 +6,13 @@ import PrimaryButton from "../../base/primary-button";
 import Logo from './logos/muviz.svg';
 import Cover from './logos/muviz-cover.svg';
 import Dropdown from "../../base/dropdown";
-import {DropdownOptions, SizeOptions} from "../../utils/enums";
+import {DropdownOptions} from "../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
 import {createDropdownItem} from "../../utils/types";
 import {TopBrandLogo} from "../top-modal";
 
-
-class MuvizController {
-    constructor() {
-    }
-}
 
 const MuvizHUD = () => {
     const sampleOptions =
@@ -84,5 +79,5 @@ class Muviz extends ToolInfo {
 
 // We keep everything private and only expose the instance.
 
-const muvizInstance = new Muviz;
+const muvizInstance = new Muviz();
 export default muvizInstance;

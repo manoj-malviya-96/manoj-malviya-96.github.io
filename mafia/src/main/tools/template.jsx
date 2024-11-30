@@ -8,7 +8,7 @@ import {TopBrandLogo} from "../top-modal";
 const ComingSoonView = () => {
     return (
         <FullScreenPage
-            name="mesha"
+            name="coming_soon"
             title=""
             children={
             <>

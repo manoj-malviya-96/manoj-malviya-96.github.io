@@ -1,33 +1,42 @@
 import React from 'react';
 
-const Card = ({image, title, date, description, onClick}) => {
-    return (<div
-        className="card bg-transparent h-full w-full z-0 hover:z-10 transition-all duration-300
-                        rounded-lg cursor-pointer overflow-hidden sm:card-compact border-primary border-2
-                        hover:shadow-lg hover:scale-105 active:scale-95"
-        onClick={onClick}
-    >
-        {/* Background Image */}
+const Card = ({image, title, date, description, onClick, isNew = false}) => {
+    return (
         <div
-            className="w-full h-full rounded-lg overflow-hidden"
-            style={
-                {
-                    backgroundImage: `url(${image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }
-            }
+            className="card card-compact bg-transparent shadow-md w-full h-full z-0
+                       cursor-pointer rounded-lg overflow-clip
+                       transition-transform duration-300
+                       active:scale-90 hover:scale-105 backdrop-blur-2xl hover:z-10"
+            onClick={onClick}
         >
-            {/* Overlay */}
-            <div className="w-full h-full flex flex-col justify-end p-4">
-                <h2 className="text-lg font-bold">{title}</h2>
-                <p className="text-sm text-secondary-content ">{date}</p>
-                {description && (<p className="hidden sm:inline text-sm text-secondary-content mt-2 line-clamp-2">
-                    {description}
-                </p>)}
+            {/* Image Section */}
+            <div className="relative w-full h-[calc(100%-5rem)]">
+                {isNew && (
+                    <span className="badge badge-info absolute top-0 right-0 z-10">
+                        NEW
+                    </span>
+                )}
+                <img
+                    src={image}
+                    alt={title}
+                    className="object-cover w-full h-full"
+                />
+            </div>
+
+            {/* Text Section */}
+            <div className="card-body flex flex-row w-full h-fit p-0">
+                <div className="flex flex-col gap-0 w-auto max-w-2/3">
+                    <h2 className="card-title text-lg font-bold leading-tight m-0">
+                        {title}
+                    </h2>
+                    {description && <p className="text-sm">{description}</p>}
+                </div>
+                <div className="flex flex-col gap-2 justify-center align-center ml-auto">
+                    {date && <span className="badge badge-primary w-fit whitespace-nowrap">{date}</span>}
+                </div>
             </div>
         </div>
-    </div>);
+    );
 };
 
 export default Card;

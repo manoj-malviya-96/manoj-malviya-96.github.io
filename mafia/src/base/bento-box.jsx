@@ -1,43 +1,58 @@
 import React from "react";
 import Card from "./card";
-import {SizeOptions} from "../utils/enums";
+import {BentoboxSizeOption} from "../utils/enums";
 import {validateStructTypeForList} from "../utils/types";
+
+function getColumnSpan(sizeOption) {
+    switch (sizeOption) {
+        case BentoboxSizeOption.Large:
+        case BentoboxSizeOption.Wide:
+            return "lg:col-span-2 md:col-span-1 col-span-1";
+        case BentoboxSizeOption.Tall:
+        case BentoboxSizeOption.Regular:
+        default:
+            return "lg:col-span-1 md:col-span-1 col-span-1";
+    }
+}
+
+function getRowSpan(sizeOption) {
+    switch (sizeOption) {
+        case BentoboxSizeOption.Large:
+        case BentoboxSizeOption.Tall:
+            return "row-span-2";
+        case BentoboxSizeOption.Regular:
+        default:
+            return "row-span-1";
+    }
+}
 
 const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
     validateStructTypeForList(items, 'BentoBoxItem');
 
     const widthClass = squareTiles ? "w-fit" : "w-fit";
-    const aspectRatio = squareTiles ? "1 / 1" : "4 / 3";
 
     return (
         <div
-            className={`grid gap-4 h-fit ${widthClass} mx-auto 
-                        grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12`}
+            className={`grid h-fit ${widthClass} gap-4 mx-auto 
+                        grid-cols-1 md:grid-cols-2 lg:grid-cols-4`}
             style={{gridAutoRows: `${itemHeight}px`}} // Base row height
         >
             {items.map((card, index) => {
                 // Dynamically adjust col-span based on available columns
-                const colSpan =
-                    card.size === SizeOptions.Large
-                        ? "lg:col-span-6 md:col-span-3 sm:col-span-2 col-span-1"
-                        : card.size === SizeOptions.Medium
-                            ? "lg:col-span-3 md:col-span-2 sm:col-span-1 col-span-1" // 4X2
-                            : "col-span-1"; // Small 1X1
-
-                const rowSpan = card.size === SizeOptions.Small ? "row-span-1" : "row-span-2";
+                const colSpan = getColumnSpan(card.size);
+                const rowSpan = getRowSpan(card.size);
+                console.log(card.size);
                 return (
                     <div
                         key={index}
                         className={`${colSpan} ${rowSpan} bg-transparent`}
-                        style={{
-                            aspectRatio: aspectRatio
-                        }}
                     >
                         <Card
-                            image={card.cover}
+                            image={card.logo}
                             title={card.title}
                             date={card.date}
-                            description={card.size !== "small" ? card.description : null}
+                            description={card.description}
+                            isNew={card.isNew}
                             onClick={() => onClick(card.onClickArg)}
                         />
                     </div>

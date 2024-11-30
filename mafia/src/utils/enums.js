@@ -1,8 +1,9 @@
 
-export const SizeOptions = Object.freeze({
-    Small: 0,
-    Medium: 1,
-    Large: 2,
+export const BentoboxSizeOption = Object.freeze({
+    Regular: 0,
+    Tall: 1,
+    Wide: 2,
+    Large: 3,
 });
 
 export const ButtonOptions = Object.freeze({

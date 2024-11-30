@@ -1,7 +1,6 @@
 import React from 'react';
 import PrimaryButton from './primary-button';
 import {validateStructTypeForList} from "../utils/types";
-import {ButtonOptions} from "../utils/enums";
 
 const GridButtons = ({items, className}) => {
     validateStructTypeForList(items, 'GridButtonItem');
