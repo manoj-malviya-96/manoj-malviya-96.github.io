@@ -3,9 +3,10 @@ import React from 'react';
 const Card = ({image, title, date, description, onClick, isNew = false}) => {
     return (
         <div
-            className="card card-compact bg-transparent shadow-md w-full h-full z-0
+            className="card card-compact bg-transparent w-full h-full z-0
                        cursor-pointer rounded-lg overflow-clip
                        transition-transform duration-300
+                        border-neutral border-opacity-15 border-2
                        active:scale-90 hover:scale-105 backdrop-blur-2xl hover:z-10"
             onClick={onClick}
         >

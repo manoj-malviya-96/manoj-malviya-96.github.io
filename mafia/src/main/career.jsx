@@ -20,8 +20,6 @@ const Career = () => {
                     <div className="md:w-1/2 w-full h-full">
                         <Timeline items={timelineData}/>
                     </div>
-                    {/* Divider for medium and larger screens */}
-                    <div className="hidden md:block w-px bg-secondary bg-opacity-75"></div>
                     <div className="md:w-1/2 w-full h-fit">
                           <GithubProfile/>
                     </div>
