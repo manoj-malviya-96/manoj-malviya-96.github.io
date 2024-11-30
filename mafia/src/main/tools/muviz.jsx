@@ -13,6 +13,7 @@ import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
 import {createDropdownItem} from "../../utils/types";
 import {TopBrandLogo} from "../top-modal";
 
+const AppName = 'MUVIZ';
 
 const MuvizHUD = () => {
     const sampleOptions =
@@ -56,10 +57,10 @@ const MuvizView = () => {
             name="muviz"
             title=""
             children={
-            <>
-                <TopBrandLogo logo={Logo} name='MUVIZ'  />
-                <MuvizHUD/>
-            </>
+                <>
+                    <TopBrandLogo logo={Logo} name={AppName}/>
+                    <MuvizHUD/>
+                </>
             }
         />
     );
@@ -69,7 +70,7 @@ class Muviz extends ToolInfo {
     constructor() {
         super({
             id: 'muviz',
-            name: 'Muviz',
+            name: AppName,
             description: 'music + stunning visuals',
             cover: Cover,
             componentConstructor: () => (<MuvizView/>)

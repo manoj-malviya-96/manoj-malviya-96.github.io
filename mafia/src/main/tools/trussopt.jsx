@@ -4,7 +4,7 @@ import Logo from './logos/trussopt.svg';
 import Cover from './logos/trussopt-cover.svg';
 import {TopBrandLogo} from "../top-modal";
 
-
+const AppName = 'TrussOPT';
 const TrussOptView = () => {
     return (
         <FullScreenPage
@@ -12,7 +12,7 @@ const TrussOptView = () => {
             title=""
             children={
             <>
-                <TopBrandLogo logo={Logo} name='TrussOPT'  />
+                <TopBrandLogo logo={Logo} name={AppName} />
             </>
             }
         />
@@ -23,7 +23,7 @@ class TrussOpt extends ToolInfo {
     constructor() {
         super({
             id: 'truss_opt',
-            name: 'TrussOpt',
+            name: AppName,
             description: 'create, analyze and optimize truss',
             cover: Cover,
             componentConstructor: () => (<TrussOptView/>)

@@ -4,7 +4,7 @@ import Logo from './logos/mesha.svg';
 import Cover from './logos/mesha-cover.svg';
 import {TopBrandLogo} from "../top-modal";
 
-
+const AppName = 'MESHA';
 
 const MeshaView = () => {
     return (
@@ -13,7 +13,7 @@ const MeshaView = () => {
             title=""
             children={
             <>
-                <TopBrandLogo logo={Logo} name='MESHA'  />
+                <TopBrandLogo logo={Logo} name={AppName}  />
             </>
             }
         />
@@ -24,7 +24,7 @@ class Mesha extends ToolInfo {
     constructor() {
         super({
             id: 'mesha',
-            name: 'Mesha',
+            name: AppName,
             description: 'visualize + manipulate mesh',
             cover: Cover,
             componentConstructor: () => (<MeshaView/>)

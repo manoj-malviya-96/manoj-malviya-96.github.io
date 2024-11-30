@@ -41,7 +41,6 @@ const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
                 // Dynamically adjust col-span based on available columns
                 const colSpan = getColumnSpan(card.size);
                 const rowSpan = getRowSpan(card.size);
-                console.log(card.size);
                 return (
                     <div
                         key={index}
