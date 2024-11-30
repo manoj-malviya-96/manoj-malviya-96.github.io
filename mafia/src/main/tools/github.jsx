@@ -67,9 +67,8 @@ const GithubHeatmap = () => {
                 data={dailyData} // Actual daily commit data for the year
                 xLabels={Array.from({ length: 12 }, (_, i) => toTxtMonth(i + 1))} // Month labels
                 yLabels={Array.from({ length: 31 }, (_, i) => i + 1)} // Day labels
-                title={`Commits in ${year}`}
                 height={600}
-                width={800}
+                width={600}
                 colorscale={["#d6e685", "#8cc665", "#44a340", "#1e6823"]} // Discrete colors
                 textColor={"#ffffff"}
             />

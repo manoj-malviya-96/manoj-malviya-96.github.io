@@ -22,7 +22,8 @@ const HeatmapPlot = ({
                         index / (colorscale.length - 1),
                         color,
                     ]), // Map colors to discrete values
-                    showscale: true, // Display the color scale
+                    showscale: false, // Display the color scale
+                    showgrid: false, // Hide the grid lines
                 },
             ]}
             layout={{
