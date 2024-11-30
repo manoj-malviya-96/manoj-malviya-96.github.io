@@ -83,6 +83,10 @@ const Plotter = ({
         <Plot
             data={dataTrace}
             layout={createLayout(width, height, title, xTitle, yTitle, minimalView, textColor)}
+            config={{
+                displaylogo: false, // Removes the Plotly logo
+                responsive: true, // Ensures responsiveness
+            }}
         />
     );
 };
