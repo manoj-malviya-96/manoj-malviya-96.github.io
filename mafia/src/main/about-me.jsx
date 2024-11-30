@@ -10,10 +10,10 @@ const timelineData = [
     createTimeLineItem({id: 3, title: "Software Engineer", date: "2017 - 2019", icon: "bi bi-code-slash"}),
 ];
 
-const Career = () => {
+const AboutMe = () => {
     return (
         <FullScreenPage
-            name="career"
+            name="about-me"
             title="About me"
             children={
                 <div className="flex flex-col md:flex-row w-full h-fit gap-4">
@@ -29,4 +29,4 @@ const Career = () => {
     );
 };
 
-export default Career;
+export default AboutMe;

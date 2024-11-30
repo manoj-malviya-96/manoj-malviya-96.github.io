@@ -1,6 +1,6 @@
 import React from 'react'
 import Intro from "./intro";
-import Career from "./career";
+import AboutMe from "./about-me";
 import BlogListing from "./blogs";
 import Tools from "./tools";
 import {createTabItem} from "../utils/types";
@@ -11,15 +11,15 @@ const Home = () => {
     const tabs = [
         // createTabItem({name: 'intro', label: 'Intro', icon: ''}),
         createTabItem({name: 'tools', label: 'Tools', icon: 'bi bi-app-indicator'}),
-        createTabItem({name: 'blog', label: 'Blog', icon: 'fas fa-bars-staggered'}),
-        createTabItem({name: 'career', label: 'About Me', icon: 'fas fa-person-through-window'}),
+        createTabItem({name: 'blog', label: 'Blogs', icon: 'fas fa-bars-staggered'}),
+        createTabItem({name: 'about-me', label: 'About Me', icon: 'fas fa-person-through-window'}),
     ]
     return (
         <div className='flex-row w-fit h-fit'>
             <Intro/>
             <Tools/>
             <BlogListing/>
-            <Career/>
+            <AboutMe/>
             <TopTabBar tabs={tabs}/>
         </div>
     )
