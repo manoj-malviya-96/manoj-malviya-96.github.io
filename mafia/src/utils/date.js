@@ -33,3 +33,13 @@ export function parseDate(dateString) {
         year * 10000 + fromTxtMonth(month) * 100 + parseInt(day.replace(",", ""))
     );
 }
+
+export function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+export function calDaysInMonth(year){
+    let result = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (isLeapYear(year)) result[1] = 29; // Adjust for leap years
+    return result;
+}

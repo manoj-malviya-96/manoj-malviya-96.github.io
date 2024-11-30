@@ -93,16 +93,22 @@ export function parseColor(color) {
     throw new Error("Invalid color format");
 }
 
-export function getScaleColor(brandColor, lastColor, numStops) {
+export function getScaleColor(brandColor, lastColor, numStops, mapperType = "linear") {
     let result = [[0, lastColor]];
     for (let i = 1; i <= numStops; i += 1) {
-        const intensity = i / numStops;
+        let intensity;
+        if (mapperType === "linear") {
+            intensity = i / numStops; // Linear scaling
+        } else if (mapperType === "exp") {
+            intensity = Math.pow(i / numStops, 2); // Exponential scaling
+        } else if (mapperType === "log") {
+            intensity = Math.log1p(i) / Math.log1p(numStops); // Logarithmic scaling
+        } else {
+            throw new Error(`Unsupported mapperType: ${mapperType}`);
+        }
+        console.log(i,intensity);
+
         result.push([intensity, adjustColor(brandColor, 1, intensity)]);
     }
     return result;
-}
-
-export function getPrimaryColorForDaisy() {
-    // Fetch the DaisyUI primary color variable
-    return getStyleValue('--p');
 }
