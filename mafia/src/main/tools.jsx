@@ -15,7 +15,8 @@ const Tools = () => {
             description: tool.description,
             logo: tool.logo,
             size: BentoboxSizeOption.Regular,
-            onClickArg: tool.path
+            onClickArg: tool.path,
+            hasBorder: true
         })
     );
     const handleCardClick = (path) => {

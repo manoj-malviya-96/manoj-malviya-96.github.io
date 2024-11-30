@@ -29,6 +29,7 @@ const Timeline = ({items}) => {
                             <Card
                                 image={item.image}
                                 title={item.title}
+                                hasBorder={isPresent}
                                 onClick={() => window.location.assign(item.link)}
                             />
                         </div>

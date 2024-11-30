@@ -52,6 +52,7 @@ const BentoBox = ({items, onClick, squareTiles = false, itemHeight = 150}) => {
                             date={card.date}
                             description={card.description}
                             isNew={card.isNew}
+                            hasBorder={card.hasBorder}
                             onClick={() => onClick(card.onClickArg)}
                         />
                     </div>
