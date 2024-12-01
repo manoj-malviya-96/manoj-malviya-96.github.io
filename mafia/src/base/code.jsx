@@ -44,7 +44,7 @@ const CodeBlock = ({ code, language, className }) => {
                 icon={copySuccess ? 'fas fa-check' : 'fas fa-copy'}
                 label={copySuccess ? 'Copied!' : 'Copy'}
                 onClick={handleCopy}
-                className="absolute top-2 right-2"
+                className="absolute top-2 right-2 opacity-0 hover:opacity-100"
             />
 
             {/* Code Block */}

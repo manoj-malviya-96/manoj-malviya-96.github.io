@@ -44,6 +44,33 @@ const BlogHeader = ({title, summary, date, tags, coverImage}) => {
 // // so items would look like.
 // // [{paragraph: BlogMedia}, {paragraph: BlogMedia}....]
 //
+function makeRichParagraph(contentArray) {
+    return contentArray.map((content, index) => {
+        if (typeof content === 'string') {
+            // Render plain string as a paragraph
+            return <p key={index}>{content}</p>;
+        } else if (Array.isArray(content)) {
+            // Render a paragraph with inline formatting
+            return (
+                <p key={index}>
+                    {content.map((item, subIndex) =>
+                        typeof item === 'string' ? (
+                            item
+                        ) : (
+                            React.createElement(item.tag, { key: subIndex, ...item.props }, item.children)
+                        )
+                    )}
+                </p>
+            );
+        } else if (content.tag) {
+            // Handle standalone tags (e.g., <br>, <hr>)
+            return React.createElement(content.tag, { key: index, ...content.props });
+        }
+        return null; // Handle invalid content gracefully
+    });
+}
+
+
 const BlogSection = ({section}) => {
     validateStructType(section, 'BlogSectionContent');
     return (
@@ -52,15 +79,16 @@ const BlogSection = ({section}) => {
             title={section.title}
             children={
                 <section className='flex flex-col justify-center align-center w-full h-fit gap-8 mt-4'>
-                    <div className='text-lg w-fit md:w-1/2 m-auto align-center'
-                         dangerouslySetInnerHTML={{__html: section.paragraph}}/>
+                    <div className='text-lg w-fit md:w-1/2 m-auto align-center'>
+                        {makeRichParagraph(section.paragraph)}
+                    </div>
                     <div className='w-full md:w-fit justify-center m-auto align-center'>
                         {section.media.typeKey === 'BlogImage' &&
                             <PhotoViz src={section.media.source} alt={section.media.label}
                                       className={'m-auto align-center justify-center w-fit md:w-1/2'}/>
                         }
                         {section.media.typeKey === 'BlogCode' && (
-                            <CodeBlock language={section.media.language} code={section.media.code}/>
+                            <CodeBlock language={section.media.language} code={section.media.code} className="md:w-full"/>
                         )}
 
                         {section.media.typeKey === 'BlogPlot' &&
