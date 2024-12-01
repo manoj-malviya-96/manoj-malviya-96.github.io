@@ -570,16 +570,24 @@
         {
           "date": "2024-11-20",
           "commits": 1
+        },
+        {
+          "date": "2024-11-27",
+          "commits": 2
+        },
+        {
+          "date": "2024-11-29",
+          "commits": 2
         }
       ],
       "languages": {
-        "C++": 23698027,
-        "QML": 3315150,
-        "Python": 1617719,
-        "CMake": 846484,
+        "C++": 23700172,
+        "QML": 3315327,
+        "Python": 1621376,
+        "CMake": 845797,
         "Shell": 73587,
         "C": 65254,
-        "Gherkin": 61764,
+        "Gherkin": 62248,
         "GLSL": 61107,
         "Rich Text Format": 56322,
         "Batchfile": 40516,
@@ -822,10 +830,10 @@
       ],
       "languages": {
         "C": 57811502,
-        "C++": 21999413,
-        "Python": 11248290,
+        "C++": 21999801,
+        "Python": 11248731,
         "Jupyter Notebook": 6719311,
-        "QML": 6224857,
+        "QML": 6224739,
         "Go": 1631406,
         "JavaScript": 1524190,
         "CMake": 1052999,
@@ -841,7 +849,7 @@
         "Rust": 19552,
         "Jinja": 18942,
         "QMake": 5520,
-        "Gherkin": 4049,
+        "Gherkin": 4095,
         "OpenSCAD": 2764,
         "PowerShell": 1780,
         "Stan": 1681,
