@@ -17,7 +17,7 @@ export const ButtonOptions = Object.freeze({
         Small: 'btn-sm',
         Medium: 'btn-md',
         Large: 'btn-lg',
-        Square: 'btn-square btn-lg',
+        Square: 'btn-square',
         Wide: 'btn-wide',
     },
     State: {
@@ -32,7 +32,7 @@ export const ButtonOptions = Object.freeze({
         Outlined: 'btn-outline',
         Secondary: 'btn-secondary',
         Primary: 'btn-primary',
-        Ghost: 'btn-ghost border-2 border-transparent hover:border-current', // Ghost button improvement
+        Ghost: 'btn-ghost hover:border-current', // Ghost button improvement
     },
     Behavior: {
         Default: 0,

@@ -13,17 +13,19 @@ const PrimaryButton = ({
                            style = ButtonOptions.Style.Primary,
                            behavior = ButtonOptions.Behavior.Default,
                            roundness = ButtonOptions.Round.Full,
-                            hideWhenSmallDevice = true,
+                           hideWhenSmallDevice = true,
                            className = '',
                        }) => {
 
-    const padAndGap = size !== ButtonOptions.Size.Square ? 'px-4 py-1 gap-2' : ''
+    // hover:border-neutral border-opacity-30 border-2
+
+    const padAndGap = size !== ButtonOptions.Size.Square ? 'px-4 py-1 gap-2' : 'py-0 m-0'
     const isStaticIcon = icon && icon.endsWith('.svg');
 
     return (
         <motion.button
-            className={`btn h-fit w-fit ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}
-                        hover:border-neutral border-opacity-30 border-2`}
+            className={`btn w-fit h-fit overflow-clip ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}
+                        border-white p-0 m-0 border-2`}
             onClick={onClick}
             disabled={state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
