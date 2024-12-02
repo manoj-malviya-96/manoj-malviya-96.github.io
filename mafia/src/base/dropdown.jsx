@@ -13,7 +13,7 @@ const Dropdown = ({
                   }) => {
 
     validateStructTypeForList(options, 'DropdownItem');
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(-1);
     const [isOpen, setIsOpen] = useState(false); // Manage dropdown open state
 
     const handleOptionClick = (option, index) => {
@@ -34,8 +34,9 @@ const Dropdown = ({
                 className={`btn m-1 ${buttonStyle} ${buttonSize} rounded-lg`}
                 onClick={toggleDropdown} // Open/close on button click
             >
-                {options[activeIndex].icon && (<i className={options[activeIndex].icon}/>)}
-                {options[activeIndex].label && (<span>{options[activeIndex].label}</span>)}
+                {activeIndex >= 0  && options[activeIndex].icon && (<i className={options[activeIndex].icon}/>)}
+                {activeIndex >= 0  && options[activeIndex].label && (<span>{options[activeIndex].label}</span>)}
+                {activeIndex === -1 && (<span>Select Song</span>)}
                 <i className={!isOpen ? `fa bi-arrow-down` : `fa bi-arrow-up`}/>
             </div>
             {isOpen && ( // Conditionally render dropdown content

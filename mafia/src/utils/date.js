@@ -43,3 +43,14 @@ export function calDaysInMonth(year){
     if (isLeapYear(year)) result[1] = 29; // Adjust for leap years
     return result;
 }
+
+export function formatTime (seconds){
+    const hrs = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    const paddedSecs = secs.toString().padStart(2, "0");
+    const paddedMins = minutes.toString().padStart(2, "0");
+    return hrs > 0 ? `${hrs}:${paddedMins}:${paddedSecs}` : `${minutes}:${paddedSecs}`;
+};
+
