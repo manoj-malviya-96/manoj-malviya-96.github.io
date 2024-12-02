@@ -32,7 +32,7 @@ export const ButtonOptions = Object.freeze({
         Outlined: 'btn-outline',
         Secondary: 'btn-secondary',
         Primary: 'btn-primary',
-        Ghost: 'btn-ghost hover:border-current', // Ghost button improvement
+        Ghost: 'btn-ghost hover:border-current border-opacity-30', // Ghost button improvement
     },
     Behavior: {
         Default: 0,

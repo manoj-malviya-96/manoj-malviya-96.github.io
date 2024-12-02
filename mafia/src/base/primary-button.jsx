@@ -19,13 +19,12 @@ const PrimaryButton = ({
 
     // hover:border-neutral border-opacity-30 border-2
 
-    const padAndGap = size !== ButtonOptions.Size.Square ? 'px-4 py-1 gap-2' : 'py-0 m-0'
+    const padAndGap = style !== ButtonOptions.Style.Ghost ? 'px-4 py-1 gap-2' : 'py-0 m-0'
     const isStaticIcon = icon && icon.endsWith('.svg');
 
     return (
         <motion.button
-            className={`btn w-fit h-fit overflow-clip ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}
-                        border-white p-0 m-0 border-2`}
+            className={`btn w-fit h-fit overflow-clip ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}`}
             onClick={onClick}
             disabled={state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
