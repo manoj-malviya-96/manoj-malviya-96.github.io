@@ -118,7 +118,7 @@ void sell(const std::string& item, int quantity) {
 `;
         const lockGuards = makeBlogSectionContent({
             name: 'lock-guards',
-            icon: 'fa fa-lock',
+            icon: 'fas fa-person-military-pointing',
             title: 'Lock Guards',
             paragraph: [
                 [
@@ -129,6 +129,27 @@ void sell(const std::string& item, int quantity) {
                 ]
             ],
             media: makeBlogCode({language: 'cpp', code: lockGuardCode})
+        });
+
+        const atomicCode = `
+std::map<std::string, std::atomic<int>> inventory; // Shared resource
+void restock(const std::string& item, int quantity) {
+    inventory[item] += quantity;
+    std::cout << "Restocked " << quantity
+                << " units of " << item << std::endl;
+}
+        `
+        const atomicValues = makeBlogSectionContent({
+            name: 'atomic-values',
+            icon: 'fas fa-atom',
+            title: 'Atomic Variables',
+            paragraph: [
+                [
+                    `Atomic variables are like superheroes with superpowers—able to perform 
+                    operations atomically without any interference. They ensure that operations
+                    on the variable are indivisible, preventing race conditions.`
+                ]],
+            media: makeBlogCode({language: 'cpp', code: atomicCode})
         });
 
         super({
@@ -144,7 +165,7 @@ void sell(const std::string& item, int quantity) {
 but it wasn’t as easy as launching threads. This post covers essentials like mutexes, lock guards, 
 unique locks, and atomic variables. I’ll share a real-world example: managing an inventory map in a 
 multi-threaded environment.`,
-            sections: [simpleThreadsExample, raceConditions, mutexExample, lockGuards]
+            sections: [simpleThreadsExample, raceConditions, mutexExample, lockGuards, atomicValues]
         });
     }
 }

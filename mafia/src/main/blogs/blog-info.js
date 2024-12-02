@@ -38,11 +38,9 @@ export class BlogInfo {
     }
 
     tabs() {
-        const result = [createTabItem({name: 'header', label: 'Intro', icon: 'fas fa-heading'})];
-        result.push(...rangesTo(this.sections, (section) => createTabItem({
+        return rangesTo(this.sections, (section) => createTabItem({
             name: section.name, label: section.title, icon: section.icon
-        })));
-        return result;
+        }));
     }
 
     timelineItem() {
