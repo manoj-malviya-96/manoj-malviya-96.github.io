@@ -13,7 +13,7 @@ const BlogHeader = ({title, summary, date, tags, coverImage}) => {
         coverImage = TemplateCover;
     }
     return (
-        <header className="w-screen h-fit bg-base-200 py-8 px-4 md:px-16 shadow-lg">
+        <header className="w-screen h-fit bg-base-200 py-4 shadow-lg">
             <FullScreenPage
                 name='header'
                 children={
@@ -57,14 +57,23 @@ function makeRichParagraph(contentArray) {
                         typeof item === 'string' ? (
                             item
                         ) : (
-                            React.createElement(item.tag, { key: subIndex, ...item.props }, item.children)
+                            // Add styling for inline elements
+                            React.createElement(
+                                item.tag,
+                                {
+                                    key: subIndex, ...item.props,
+                                    className: `${item.props?.className || ''} 
+                                                ${item.tag === 'code' ? 'text-info px-1' : ''}`.trim()
+                                },
+                                item.children
+                            )
                         )
                     )}
                 </p>
             );
         } else if (content.tag) {
             // Handle standalone tags (e.g., <br>, <hr>)
-            return React.createElement(content.tag, { key: index, ...content.props });
+            return React.createElement(content.tag, {key: index, ...content.props});
         }
         return null; // Handle invalid content gracefully
     });
@@ -82,13 +91,14 @@ const BlogSection = ({section}) => {
                     <div className='text-lg w-fit md:w-1/2 m-auto align-center'>
                         {makeRichParagraph(section.paragraph)}
                     </div>
-                    <div className='w-full md:w-fit justify-center m-auto align-center'>
+                    <div className='w-full justify-center m-auto align-center'>
                         {section.media.typeKey === 'BlogImage' &&
                             <PhotoViz src={section.media.source} alt={section.media.label}
-                                      className={'m-auto align-center justify-center w-fit md:w-1/2'}/>
+                                      className={'m-auto align-center justify-center w-full md:w-1/2'}/>
                         }
                         {section.media.typeKey === 'BlogCode' && (
-                            <CodeBlock language={section.media.language} code={section.media.code} className="md:w-full"/>
+                            <CodeBlock language={section.media.language} code={section.media.code}
+                                       className="m-auto align-center justify-center w-full md:w-1/2"/>
                         )}
 
                         {section.media.typeKey === 'BlogPlot' &&

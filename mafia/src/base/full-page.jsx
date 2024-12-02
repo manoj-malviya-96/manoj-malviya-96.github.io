@@ -11,7 +11,7 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
 
     return (
         <Element
-            className="h-fit min-h-screen w-screen flex flex-col justify-center items-center overflow-clip"
+            className="h-fit min-h-screen w-screen flex flex-col p-0 m-0 overflow-clip"
             name={name}
             style={{
                 margin: 0, // Remove margin
@@ -24,7 +24,7 @@ const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundIm
         >
             {/* Title */}
             {title && (
-                <h2 className="text-3xl text-center mt-4 uppercase font-extrabold">
+                <h2 className="text-3xl text-center mt-16 uppercase font-extrabold">
                     {title}
                 </h2>
             )}
