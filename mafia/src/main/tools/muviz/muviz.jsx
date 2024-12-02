@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
-import FullScreenPage from "../../base/full-page";
-import ToolInfo from "./tool-info";
-import useAudio from "../../utils/audio";
-import PrimaryButton from "../../base/primary-button";
-import Logo from './logos/muviz.svg';
-import Cover from './logos/muviz-cover.svg';
-import Dropdown from "../../base/dropdown";
-import {DropdownOptions} from "../../utils/enums";
+import FullScreenPage from "../../../base/full-page";
+import ToolInfo from "../tool-info";
+import useAudio from "../../../utils/audio";
+import PrimaryButton from "../../../base/primary-button";
+import Logo from '../logos/muviz.svg';
+import Cover from '../logos/muviz-cover.svg';
+import Dropdown from "../../../base/dropdown";
+import {DropdownOptions} from "../../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
-import {createDropdownItem} from "../../utils/types";
-import {TopBrandLogo} from "../top-modal";
-
+import {createDropdownItem} from "../../../utils/types";
+import {TopBrandLogo} from "../../top-modal";
 const AppName = 'MUVIZ';
 
 const MuvizHUD = () => {
