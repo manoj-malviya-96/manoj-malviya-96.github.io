@@ -16,24 +16,21 @@ const PrimaryButton = ({
                            hideWhenSmallDevice = true,
                            className = '',
                        }) => {
-
-    // hover:border-neutral border-opacity-30 border-2
-
-    const padAndGap = style !== ButtonOptions.Style.Ghost ? 'px-4 py-1 gap-2' : 'py-0 m-0'
     const isStaticIcon = icon && icon.endsWith('.svg');
 
     return (
         <motion.button
-            className={`btn w-fit h-fit overflow-clip ${size} ${state} ${style} ${behavior} ${roundness} ${padAndGap} ${className}`}
+            className={`btn w-fit h-fit max-w-full px-4 py-1 gap-2
+                        ${size} ${state} ${style} ${behavior} ${roundness} ${className}`}
             onClick={onClick}
             disabled={state === ButtonOptions.State.Disabled} // Disable while loading
             aria-label={label || 'Button'}
-            whileHover={{scale: 1.1}}
+            whileHover={{scale: 1.15}}
             whileTap={{scale: 0.9}}
         >
 
             {/* Icon */}
-            {!isStaticIcon && icon && <i className={icon}></i>}
+            {!isStaticIcon && icon && <i className={`${icon} w-fit h-fit`}></i>}
 
             {/* Dynamic Icon */}
             {isStaticIcon && icon && <img src={icon} alt={label}/>}

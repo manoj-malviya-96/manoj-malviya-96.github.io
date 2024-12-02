@@ -23,7 +23,7 @@ const IntroOverlay = () => {
         return createGridButtonItem({
             label: '',
             icon: icon,
-            size: ButtonOptions.Size.Medium,
+            size: ButtonOptions.Size.Large,
             style: ButtonOptions.Style.Ghost,
             onClickFunc: ()=>openLink(link),
         })
