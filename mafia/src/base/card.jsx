@@ -8,8 +8,8 @@ const Card = ({image, title, date, description, onClick, isNew = false, hasBorde
                        transition-transform duration-300
                        ${hasBorder ? "border-2" : ""}
                        hover:border-2 border-neutral border-opacity-30
-                       active:scale-90 hover:scale-105 backdrop-blur-2xl`}
-            data-tip={title}
+                       active:scale-90 hover:scale-105 backdrop-blur-2xl hover:z-10`}
+            onClick={onClick}
         >
             {/* Image Section */}
             <div className="relative w-full h-[calc(100%-5rem)]">
