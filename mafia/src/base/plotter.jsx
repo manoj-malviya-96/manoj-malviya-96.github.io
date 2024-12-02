@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import ScrollContainer from "./scroll-container";
 
 function createLayout(
     width,
@@ -80,20 +81,19 @@ const Plotter = ({
                      minimalView = true
                  }) => {
     return (
-        <div
-            className="relative w-full h-full max-h-screen max-w-full
-            overflow-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100
-            rounded-md p-2"
-        >
-            <Plot
-                data={dataTrace}
-                layout={createLayout(width, height, title, xTitle, yTitle, minimalView, textColor)}
-                config={{
-                    displaylogo: false, // Removes the Plotly logo
-                    responsive: true, // Ensures responsiveness
-                }}
-            />
-        </div>
+        <ScrollContainer
+            className="relative w-full h-full max-h-screen max-w-full rounded-md p-2"
+            children={
+                <Plot
+                    data={dataTrace}
+                    layout={createLayout(width, height, title, xTitle, yTitle, minimalView, textColor)}
+                    config={{
+                        displaylogo: false, // Removes the Plotly logo
+                        responsive: true, // Ensures responsiveness
+                    }}
+                />
+            }
+        />
     );
 }
 export default Plotter;
