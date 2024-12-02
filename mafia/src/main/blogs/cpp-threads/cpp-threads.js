@@ -5,15 +5,16 @@ import {BentoboxSizeOption} from "../../../utils/enums";
 class CppThreads extends BlogInfo {
     constructor() {
         const simpleThreadCode = `
-    void print_message() {
-        std::cout << "Hello from a thread!" << std::endl;
-    }
-    
-    int main() {
-        std::thread t(print_message); // Create a thread to run print_message
-        t.join(); // Wait for the thread to finish
-        return 0;
-    }`;
+void print_message() {
+    std::cout << "Hello from a thread!" << std::endl;
+}
+
+int main() {
+    std::thread t(print_message); // Create a thread to run print_message
+    t.join(); // Wait for the thread to finish
+    return 0;
+}
+    `;
         const simpleThreadsExample = makeBlogSectionContent({
             name: 'example',
             icon: 'fa fa-info-circle',

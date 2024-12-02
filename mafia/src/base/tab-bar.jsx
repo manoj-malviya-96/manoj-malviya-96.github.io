@@ -3,8 +3,8 @@ import {validateStructTypeForList} from "../utils/types";
 
 const TabElement = ({label, icon}) => {
     return (
-        <div className="active:scale-95 cursor-pointer">
-            <i className={`${icon} mr-2`}></i>
+        <div className="active:scale-95 cursor-pointer p-0 m-0 tooltip tooltip-bottom" data-tip={label}>
+            <i className={`${icon} mr-1`}></i>
             <span className="hidden sm:inline">{label}</span>
         </div>
     );
@@ -15,7 +15,7 @@ const TabElement = ({label, icon}) => {
 const TabBar = ({tabs, className=''}) => {
     validateStructTypeForList(tabs, 'TabItem');
     return (
-        <div className={`tabs tabs-bordered px-3 ${className}`}>
+        <div className={`tabs tabs-bordered px-3 gap-0 ${className}`}>
             {tabs.map((tab, index) => (
                 <ScrollableLink
                     key={index}
