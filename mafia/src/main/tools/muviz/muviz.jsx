@@ -82,6 +82,13 @@ const MuvizApp = () => {
         play(); // Start music playback
     };
 
+    const skipForward = () => {
+        setAudioTime(currentTime + 5);
+    }
+    const skipBackward = () => {
+        setAudioTime(currentTime - 5);
+    }
+
     const hudVisibility = isPlaying ? "opacity-0" : "opacity-100";
 
     return (
@@ -116,9 +123,9 @@ const MuvizApp = () => {
 
                     <div className="flex flex-row gap-4">
                         <PrimaryButton
-                            icon="fa-solid fa-arrow-rotate-right"
+                            icon="fa-solid fa-arrow-rotate-left"
                             style={ButtonOptions.Style.Ghost}
-                            onClick={handlePlayOrPause}
+                            onClick={skipBackward}
                         />
                         {/* Play/Pause Button */}
                         <PrimaryButton
@@ -126,9 +133,9 @@ const MuvizApp = () => {
                             onClick={handlePlayOrPause}
                         />
                         <PrimaryButton
-                            icon="fa-solid fa-arrow-rotate-left"
+                            icon="fa-solid fa-arrow-rotate-right"
                             style={ButtonOptions.Style.Ghost}
-                            onClick={handlePlayOrPause}
+                            onClick={skipForward}
                         />
                     </div>
 
