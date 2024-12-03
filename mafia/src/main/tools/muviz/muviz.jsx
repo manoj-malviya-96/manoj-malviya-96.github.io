@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import FullScreenPage from "../../../base/full-page";
 import ToolInfo from "../tool-info";
 import {useAudio} from "../../../utils/audio";
@@ -24,18 +24,24 @@ const MuvizApp = () => {
         [
             createDropdownItem({
                 label: 'calling on',
-                value: CallingON
+                value: CallingON,
+                icon: 'fas fa-music'
             }),
             createDropdownItem({
                 label: 'can you feel it',
                 value: CanYouFeelIt,
+                icon: 'fas fa-music'
             })
         ];
+
     const vizOptions = rangesTo(Object.keys(VisualizerOptions), (key) => {
-        return createDropdownItem({label: key, value: VisualizerOptions[key]});
+        return createDropdownItem({label: key, value: VisualizerOptions[key],
+                icon: 'fa-solid fa-bolt-lightning'});
     });
     const timeSkip_s = 10;
 
+
+    // State Management
     const [src, setSrc] = useState(null);
     const {
         analyser, dataArray, isPlaying, currentTime,
@@ -43,13 +49,14 @@ const MuvizApp = () => {
     } = useAudio({src: src, makeAnalyzer: true});
     const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Bar);
     const [controller, setController] = useState(null);
+    const [isFullScreen, setIsFullScreen] = useState(false);
+    const appRef = useRef(null);
 
-    const updateVisualizer = async() => {
+    const updateVisualizer = async () => {
         if (!controller && !!analyser && !!dataArray) {
             switch (visualizerType) {
                 case VisualizerOptions.Spiral:
                     const viz = new SpiralVisualizer({analyser, dataArray});
-                    console.log("Setting controller", viz);
                     await setController(viz);
                     break;
                 case VisualizerOptions.Bar:
@@ -89,22 +96,33 @@ const MuvizApp = () => {
         setAudioTime(currentTime - timeSkip_s);
     }
 
+    const toggleFullScreen = () => {
+        if (!isFullScreen) {
+            appRef.current.requestFullscreen().then(() => setIsFullScreen(true));
+        } else {
+            window.document.exitFullscreen().then(() => setIsFullScreen(false));
+        }
+    };
+
     const hudVisibilityForMd = isPlaying ? "md:opacity-0" : "md:opacity-100";
 
     return (
-        <div className="h-full w-full border-2 justify-center align-center">
-            {/* Canvas covers the full screen */}
-            {
-                <Canvas
-                    controller={controller}
-                    className="absolute top-0 left-0 w-full h-full"
-                />
-            }
+        <div className="h-full w-full justify-center align-center" ref={appRef}>
+            <Canvas
+                controller={controller}
+                className="absolute top-0 left-0 w-full h-full"
+            />
 
-            <div className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
-                            gap-2 absolute bottom-10 left-1/2 transform -translate-x-1/2
-                            bg-base-100 bg-opacity-60 rounded-lg
-                            p-4 hover:opacity-100 sm:opacity-100  ${hudVisibilityForMd} w-4/5 `}>
+            <div
+                className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
+                        gap-2 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                        bg-base-100 bg-opacity-30 rounded-lg
+                        p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
+            >
+                <span className="text-base sm:text-lg font-bold">
+                        {"Unknown Song"}
+                </span>
+
                 <Slider
                     value={currentTime}
                     min={0}
@@ -114,21 +132,20 @@ const MuvizApp = () => {
                     className="w-full h-fit"
                 />
 
-                <div className="flex justify-between items-center">
-                    <div className="flex flex-row gap-2 justify-center align-center">
-                        <span className="text-lg font-bold justify-center">{"Unknown Song"}</span>
-                        <span className="text-sm m-auto">{formatTime(currentTime)} / {formatTime(duration)}</span>
+                <div className="flex flex-wrap sm:flex-nowrap justify-around items-center w-full h-full gap-4">
+                    <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 justify-center align-center text-center">
+                        <span className="text-xs sm:text-sm">
+                        {formatTime(currentTime)} / {formatTime(duration)}
+                    </span>
                     </div>
 
-
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-2 sm:gap-4 m-auto">
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-left"
                             style={ButtonOptions.Style.Ghost}
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipBackward}
                         />
-                        {/* Play/Pause Button */}
                         <PrimaryButton
                             icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
@@ -142,8 +159,7 @@ const MuvizApp = () => {
                         />
                     </div>
 
-                    <div className="flex flex-row align-center ">
-                        {/* Song Selector */}
+                    <div className="w-full sm:w-fit h-full flex flex-row gap-1">
                         <Dropdown
                             options={sampleOptions}
                             direction={DropdownOptions.Direction.Up}
@@ -154,7 +170,6 @@ const MuvizApp = () => {
                             placeholder="Select Song"
                         />
 
-                        {/* Viz Selector */}
                         <Dropdown
                             options={vizOptions}
                             direction={DropdownOptions.Direction.Up}
@@ -163,14 +178,14 @@ const MuvizApp = () => {
                             onClick={handleVisualizerChange}
                             className="h-full w-fit m-auto"
                             placeholder="Select Visualizer"
-                            initialIndex= {0}
+                            initialIndex={0}
                         />
 
-                        {/* Fullscreen Toggle */}
                         <PrimaryButton
-                            icon="fa fa-expand"
+                            icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
                             style={ButtonOptions.Style.Ghost}
-                            className="m-auto"
+                            className="h-full w-fit m-auto"
+                            onClick={toggleFullScreen}
                         />
                     </div>
                 </div>

@@ -134,7 +134,7 @@ const GithubProfile = () => {
         const dataToPlot = yearlyHeatmapData(year);
         const dataTrace = {
             z: dataToPlot,
-            colorscale: getScaleColor("rgb(115,234,113)", "rgba(99,99,99,0.21)", 16, "log"),
+            colorscale: getScaleColor("rgb(30,251,28)", "rgba(99,99,99,0.21)", 16, "log"),
             type: "heatmap",
             xgap: 7,
             ygap: 7,
@@ -177,6 +177,7 @@ const GithubProfile = () => {
                 {dropdownOptions.length > 0 && (<Dropdown
                     options={dropdownOptions}
                     className="m-auto"
+                    initialIndex={0}
                     onClick={(option) => setCurrentYear(option.value)}
                 />)}
             </div>

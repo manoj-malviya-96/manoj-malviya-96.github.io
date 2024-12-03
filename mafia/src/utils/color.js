@@ -106,7 +106,7 @@ export function getScaleColor(brandColor, lastColor, numStops, mapperType = "lin
         } else {
             throw new Error(`Unsupported mapperType: ${mapperType}`);
         }
-        result.push([intensity, adjustColor(brandColor, 1, intensity)]);
+        result.push([intensity, adjustColor(brandColor, 1, [intensity, intensity, intensity])]);
     }
     return result;
 }
