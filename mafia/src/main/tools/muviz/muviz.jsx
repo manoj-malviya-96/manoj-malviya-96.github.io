@@ -10,59 +10,38 @@ import {ButtonOptions, DropdownOptions} from "../../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
-import {createDropdownItem} from "../../../utils/types";
+import {createDropdownItem, rangesTo} from "../../../utils/types";
 import {TopBrandLogo} from "../../top-modal";
 import {Canvas, CanvasController} from "../../../base/canvas";
 import Slider from "../../../base/slider";
 import {formatTime} from "../../../utils/date";
+import {BarVisualizer, VisualizerOptions} from "./visualizers";
 
 const AppName = 'MUVIZ';
 
-
-class BarVisualizer extends CanvasController {
-    constructor({analyser, dataArray, canvasRef}) {
-        super(canvasRef);
-        this.analyser = analyser; // Audio analyser node
-        this.dataArray = dataArray; // Frequency data array
-    }
-
-    draw() {
-        if (!this.canvasRef.current || !this.analyser || !this.dataArray) return;
-
-        const canvas = this.canvasRef.current;
-        const ctx = canvas.getContext("2d");
-        const {width, height} = canvas;
-
-        ctx.clearRect(0, 0, width, height);
-
-        this.analyser.getByteFrequencyData(this.dataArray);
-
-        const barWidth = width / this.dataArray.length;
-        this.dataArray.forEach((value, index) => {
-            const barHeight = (value / 255) * height;
-            ctx.fillStyle = `rgb(${value}, 50, 200)`;
-            ctx.fillRect(index * barWidth, height - barHeight, barWidth, barHeight);
-        });
-    }
-}
-
-
 const MuvizApp = () => {
     const sampleOptions =
-        [createDropdownItem({label: 'calling on', value: CallingON}),
+        [
+            createDropdownItem({
+                label: 'calling on',
+                value: CallingON
+            }),
             createDropdownItem({
                 label: 'can you feel it',
                 value: CanYouFeelIt,
-            })];
+            })
+        ];
+    const vizOptions = rangesTo(Object.keys(VisualizerOptions), (key) => {
+        return createDropdownItem({label: key, value: VisualizerOptions[key]});
+    });
 
     const [src, setSrc] = useState(null);
-
     const {
         analyser, dataArray, isPlaying, currentTime,
         duration, play, pause, setAudioTime
     } = useAudio({src: src, makeAnalyzer: true});
-
     const [controller, setController] = useState(null);
+    const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Bar);
 
     const handleDropdownClick = (option) => {
         pause();
@@ -70,13 +49,22 @@ const MuvizApp = () => {
         setController(null); // Reset the visualizer when switching tracks
     };
 
+    const handleVisualizerChange = (option) => {
+        pause();
+        setVisualizerType(option.value);
+        setController(null); // Reset the visualizer when switching types
+    }
+
     const handlePlayOrPause = () => {
         if (isPlaying) {
             pause();
             return;
         }
         if (!controller && analyser && dataArray) {
-            const visualizer = new BarVisualizer({analyser, dataArray});
+            let visualizer;
+            if (visualizerType === VisualizerOptions.Bar) {
+                visualizer = new BarVisualizer({analyser, dataArray});
+            }
             setController(visualizer);
         }
         play(); // Start music playback
@@ -125,16 +113,19 @@ const MuvizApp = () => {
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-left"
                             style={ButtonOptions.Style.Ghost}
+                            state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipBackward}
                         />
                         {/* Play/Pause Button */}
                         <PrimaryButton
                             icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
+                            state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={handlePlayOrPause}
                         />
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-right"
                             style={ButtonOptions.Style.Ghost}
+                            state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipForward}
                         />
                     </div>
@@ -143,12 +134,24 @@ const MuvizApp = () => {
                         {/* Song Selector */}
                         <Dropdown
                             options={sampleOptions}
-                            behavior={DropdownOptions.Behavior.Hovered}
                             direction={DropdownOptions.Direction.Up}
                             buttonSize={DropdownOptions.Size.Small}
                             buttonStyle={DropdownOptions.Style.Ghost}
                             onClick={handleDropdownClick}
                             className="h-full w-fit m-auto"
+                            placeholder="Select Song"
+                        />
+
+                        {/* Viz Selector */}
+                        <Dropdown
+                            options={vizOptions}
+                            direction={DropdownOptions.Direction.Up}
+                            buttonSize={DropdownOptions.Size.Small}
+                            buttonStyle={DropdownOptions.Style.Ghost}
+                            onClick={handleVisualizerChange}
+                            className="h-full w-fit m-auto"
+                            placeholder="Select Visualizer"
+                            initialIndex= {0}
                         />
 
                         {/* Fullscreen Toggle */}
