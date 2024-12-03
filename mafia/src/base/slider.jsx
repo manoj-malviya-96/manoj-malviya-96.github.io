@@ -5,7 +5,7 @@ const Slider = ({ labelString,value, min, max, step = 1, onChange, className}) =
         <div className={`flex items-center gap-4 ${className}`}>
             <input
                 type="range"
-                className="range range-primary flex-grow h-4"
+                className="range range-primary range-xs flex-grow"
                 min={min}
                 max={max}
                 step={step}
