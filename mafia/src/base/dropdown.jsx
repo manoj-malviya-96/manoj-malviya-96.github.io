@@ -9,11 +9,14 @@ const Dropdown = ({
                       direction = DropdownOptions.Direction.Down,
                       buttonStyle = DropdownOptions.Style.Primary,
                       buttonSize = DropdownOptions.Size.Medium,
-                      className = ''
+                      placeholder='Select',
+                      initialIndex = -1,
+                      className = '',
+
                   }) => {
 
     validateStructTypeForList(options, 'DropdownItem');
-    const [activeIndex, setActiveIndex] = useState(-1);
+    const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [isOpen, setIsOpen] = useState(false); // Manage dropdown open state
 
     const handleOptionClick = (option, index) => {
@@ -36,7 +39,7 @@ const Dropdown = ({
             >
                 {activeIndex >= 0  && options[activeIndex].icon && (<i className={options[activeIndex].icon}/>)}
                 {activeIndex >= 0  && options[activeIndex].label && (<span>{options[activeIndex].label}</span>)}
-                {activeIndex === -1 && (<span>Select Song</span>)}
+                {activeIndex === -1 && (<span>{placeholder}</span>)}
                 <i className={!isOpen ? `fa bi-arrow-down` : `fa bi-arrow-up`}/>
             </div>
             {isOpen && ( // Conditionally render dropdown content
