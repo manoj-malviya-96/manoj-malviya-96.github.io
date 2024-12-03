@@ -35,8 +35,10 @@ const MuvizApp = () => {
         ];
 
     const vizOptions = rangesTo(Object.keys(VisualizerOptions), (key) => {
-        return createDropdownItem({label: key, value: VisualizerOptions[key],
-                icon: 'fa-solid fa-bolt-lightning'});
+        return createDropdownItem({
+            label: key, value: VisualizerOptions[key],
+            icon: 'fa-solid fa-bolt-lightning'
+        });
     });
     const timeSkip_s = 10;
 
@@ -119,10 +121,12 @@ const MuvizApp = () => {
                         bg-base-100 bg-opacity-30 rounded-lg
                         p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
             >
-                <span className="text-base sm:text-lg font-bold">
-                        {"Unknown Song"}
-                </span>
-
+                <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
+                    <span className="text-base sm:text-lg font-bold"> {"Unknown Song"}</span>
+                    <span className="text-xs sm:text-sm">
+                            {formatTime(currentTime)} / {formatTime(duration)}
+                    </span>
+                </div>
                 <Slider
                     value={currentTime}
                     min={0}
@@ -132,14 +136,8 @@ const MuvizApp = () => {
                     className="w-full h-fit"
                 />
 
-                <div className="flex flex-wrap sm:flex-nowrap justify-around items-center w-full h-full gap-4">
-                    <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 justify-center align-center text-center">
-                        <span className="text-xs sm:text-sm">
-                        {formatTime(currentTime)} / {formatTime(duration)}
-                    </span>
-                    </div>
-
-                    <div className="flex flex-row gap-2 sm:gap-4 m-auto">
+                <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
+                    <div className="flex flex-row gap-2 sm:gap-4">
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-left"
                             style={ButtonOptions.Style.Ghost}
@@ -159,7 +157,7 @@ const MuvizApp = () => {
                         />
                     </div>
 
-                    <div className="w-full sm:w-fit h-full flex flex-row gap-1">
+                    <div className="w-fit h-full flex flex-row gap-1">
                         <Dropdown
                             options={sampleOptions}
                             direction={DropdownOptions.Direction.Up}
@@ -206,7 +204,8 @@ const MuvizView = () => {
                 </div>
             }
         />
-    );
+    )
+        ;
 }
 
 class Muviz extends ToolInfo {
