@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import FullScreenPage from "../../../base/full-page";
 import ToolInfo from "../tool-info";
-import useAudio from "../../../utils/audio";
+import {useAudio} from "../../../utils/audio";
 import PrimaryButton from "../../../base/primary-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
@@ -15,7 +15,7 @@ import {TopBrandLogo} from "../../top-modal";
 import {Canvas, CanvasController} from "../../../base/canvas";
 import Slider from "../../../base/slider";
 import {formatTime} from "../../../utils/date";
-import {BarVisualizer, VisualizerOptions} from "./visualizers";
+import {BarVisualizer, SpiralVisualizer, VisualizerOptions} from "./visualizers";
 
 const AppName = 'MUVIZ';
 
@@ -41,7 +41,7 @@ const MuvizApp = () => {
         duration, play, pause, setAudioTime
     } = useAudio({src: src, makeAnalyzer: true});
     const [controller, setController] = useState(null);
-    const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Bar);
+    const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Spiral);
 
     const handleDropdownClick = (option) => {
         pause();
@@ -62,8 +62,16 @@ const MuvizApp = () => {
         }
         if (!controller && analyser && dataArray) {
             let visualizer;
-            if (visualizerType === VisualizerOptions.Bar) {
-                visualizer = new BarVisualizer({analyser, dataArray});
+            switch (visualizerType) {
+                case VisualizerOptions.Spiral:
+                    visualizer = new SpiralVisualizer({analyser, dataArray});
+                    break;
+                case VisualizerOptions.Bar:
+                    visualizer = new BarVisualizer({analyser, dataArray});
+                    break;
+                default:
+                    visualizer = null;
+                    throw new Error("Invalid visualizer type");
             }
             setController(visualizer);
         }

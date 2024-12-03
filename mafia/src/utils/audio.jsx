@@ -1,6 +1,15 @@
 import { useRef, useState, useEffect } from "react";
+export const audioFFTSize = 256;
+export function computeDropLevel(array) {
+    // Assumption is during drop, every frequency completely loud.
+    const rms = Math.sqrt(
+        array.reduce((acc, val) => acc + val ** 2, 0) / array.length,
+    );
+    return rms / (audioFFTSize - 1);
+}
 
-const useAudio = ({ src, makeAnalyzer = false }) => {
+
+export const useAudio = ({ src, makeAnalyzer = false }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [analyser, setAnalyser] = useState(null);
     const [dataArray, setDataArray] = useState(null);
@@ -36,7 +45,7 @@ const useAudio = ({ src, makeAnalyzer = false }) => {
             sourceNode.connect(analyserNode);
             analyserNode.connect(audioContext.destination);
 
-            analyserNode.fftSize = 256; // Adjust as needed
+            analyserNode.fftSize = audioFFTSize; // Adjust as needed
 
             mediaElementSourceRef.current = sourceNode;
             analyserRef.current = analyserNode;
@@ -93,5 +102,3 @@ const useAudio = ({ src, makeAnalyzer = false }) => {
         setAudioTime,
     };
 };
-
-export default useAudio;

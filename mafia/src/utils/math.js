@@ -1,4 +1,4 @@
-class FibonacciGenerator {
+export class FibonacciGenerator {
     constructor() {
         this.fib1 = 1;
         this.fib2 = 1;

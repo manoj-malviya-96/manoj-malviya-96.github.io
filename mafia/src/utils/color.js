@@ -110,3 +110,18 @@ export function getScaleColor(brandColor, lastColor, numStops, mapperType = "lin
     }
     return result;
 }
+
+const possibleRandomColors = [
+    `rgb(251, 224, 224)`,
+    `rgb(238, 253, 238)`,
+    `rgb(163, 213, 255)`,
+    `rgb(228, 24, 24)`,
+    `rgb(17, 77, 205)`,
+];
+
+export const whiteColor = `rgb(255, 255, 255)`; // White color
+
+export function randomColor() {
+    const randomInt = Math.floor(Math.random() * possibleRandomColors.length);
+    return possibleRandomColors[randomInt];
+}
