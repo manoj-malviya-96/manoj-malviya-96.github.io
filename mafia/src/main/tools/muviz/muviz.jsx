@@ -16,6 +16,7 @@ import {Canvas, CanvasController} from "../../../base/canvas";
 import Slider from "../../../base/slider";
 import {formatTime} from "../../../utils/date";
 import {BarVisualizer, SpiralVisualizer, VisualizerOptions} from "./visualizers";
+import FileUpload from "../../../base/file-upload";
 
 const AppName = 'MUVIZ';
 
@@ -106,7 +107,14 @@ const MuvizApp = () => {
         }
     };
 
-    const hudVisibilityForMd = isPlaying ? "md:opacity-0" : "md:opacity-100";
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setSrc(URL.createObjectURL(file));
+        }
+    };
+
+    const hudVisibilityForMd = isPlaying ? "lg:opacity-0" : "lg:opacity-100";
 
     return (
         <div className="h-full w-full justify-center align-center" ref={appRef}>
@@ -114,12 +122,11 @@ const MuvizApp = () => {
                 controller={controller}
                 className="absolute top-0 left-0 w-full h-full"
             />
-
             <div
                 className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
                         gap-2 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2
                         bg-base-100 bg-opacity-30 rounded-lg
-                        p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
+                        p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-1/2`}
             >
                 <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
                     <span className="text-base sm:text-lg font-bold"> {"Unknown Song"}</span>
@@ -204,8 +211,7 @@ const MuvizView = () => {
                 </div>
             }
         />
-    )
-        ;
+    );
 }
 
 class Muviz extends ToolInfo {
