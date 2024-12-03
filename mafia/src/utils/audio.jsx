@@ -1,46 +1,46 @@
 import { useRef, useState, useEffect } from "react";
 
-const useAudio = ({ src = null, makeAnalyzer = false } = {}) => {
+const useAudio = ({ src, makeAnalyzer = false }) => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
     const [analyser, setAnalyser] = useState(null);
     const [dataArray, setDataArray] = useState(null);
+    const [duration, setDuration] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
 
-    const audioRef = useRef(new Audio());
-    const audioContextRef = useRef(null);
-    const analyserRef = useRef(null);
-    const mediaElementSourceRef = useRef(null);
+    const audioRef = useRef(null); // Reference to the Audio element
+    const audioContextRef = useRef(null); // Reference to the AudioContext
+    const analyserRef = useRef(null); // Reference to the AnalyserNode
+    const mediaElementSourceRef = useRef(null); // Reference to the MediaElementSourceNode
 
     useEffect(() => {
-        if (!src) return;
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.src = ""; // Disconnect the previous audio
+            mediaElementSourceRef.current?.disconnect();
+        }
 
-        // Initialize the audio element
-        audioRef.current.src = src;
-        audioRef.current.load();
+        // Create a new Audio element
+        const audioElement = new Audio(src);
+        audioRef.current = audioElement;
 
-        const updateTimes = () => {
-            setCurrentTime(audioRef.current.currentTime);
-            setDuration(audioRef.current.duration || 0);
-        };
-
-        audioRef.current.addEventListener("timeupdate", updateTimes);
+        audioElement.ondurationchange = () => setDuration(audioElement.duration || 0);
+        audioElement.ontimeupdate = () => setCurrentTime(audioElement.currentTime);
 
         if (makeAnalyzer && !audioContextRef.current) {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             audioContextRef.current = audioContext;
 
-            // Create MediaElementSourceNode only once
-            if (!mediaElementSourceRef.current) {
-                mediaElementSourceRef.current = audioContext.createMediaElementSource(audioRef.current);
-            }
-
+            const sourceNode = audioContext.createMediaElementSource(audioElement);
             const analyserNode = audioContext.createAnalyser();
-            mediaElementSourceRef.current.connect(analyserNode);
+
+            sourceNode.connect(analyserNode);
             analyserNode.connect(audioContext.destination);
 
-            analyserNode.fftSize = 256;
+            analyserNode.fftSize = 256; // Adjust as needed
+
+            mediaElementSourceRef.current = sourceNode;
             analyserRef.current = analyserNode;
+
             setAnalyser(analyserNode);
             setDataArray(new Uint8Array(analyserNode.frequencyBinCount));
         }
@@ -48,7 +48,7 @@ const useAudio = ({ src = null, makeAnalyzer = false } = {}) => {
         return () => {
             if (audioRef.current) {
                 audioRef.current.pause();
-                audioRef.current.removeEventListener("timeupdate", updateTimes);
+                audioRef.current.src = "";
             }
             if (audioContextRef.current) {
                 audioContextRef.current.close();
@@ -78,18 +78,18 @@ const useAudio = ({ src = null, makeAnalyzer = false } = {}) => {
     const setAudioTime = (time) => {
         if (audioRef.current) {
             audioRef.current.currentTime = time;
-            setCurrentTime(time);
         }
     };
 
     return {
+        audioRef,
         analyser,
         dataArray,
         isPlaying,
-        currentTime,
-        duration,
         play,
         pause,
+        currentTime,
+        duration,
         setAudioTime,
     };
 };

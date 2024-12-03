@@ -6,7 +6,7 @@ import PrimaryButton from "../../../base/primary-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
 import Dropdown from "../../../base/dropdown";
-import {DropdownOptions} from "../../../utils/enums";
+import {ButtonOptions, DropdownOptions} from "../../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
@@ -85,41 +85,73 @@ const MuvizApp = () => {
     const hudVisibility = isPlaying ? "opacity-0" : "opacity-100";
 
     return (
-        <div className="h-full w-full">
+        <div className="h-full w-full justify-center align-center">
             {/* Canvas covers the full screen */}
-            {controller && (
+            {
                 <Canvas
                     controller={controller}
                     className="absolute top-0 left-0 w-full h-full"
                 />
-            )}
+            }
 
-            {/* HUD overlays the canvas */}
-            <div
-                className={`${hudVisibility} hover:opacity-100 flex  w-4/5
-                    flex-row gap-4 backdrop-blur-md z-10 items-center transition-opacity duration-300
-                    justify-center p-4 rounded-lg shadow-md absolute bottom-10 left-1/2 transform -translate-x-1/2`}
-            >
-                <PrimaryButton
-                    icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
-                    onClick={handlePlayOrPause}
-                />
+            <div className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
+                            gap-2 absolute bottom-10 left-1/2 transform -translate-x-1/2
+                            bg-base-100 bg-opacity-60 rounded-lg
+                            p-4 ${hudVisibility} hover:opacity-100 flex w-4/5 `}>
                 <Slider
-                    labelString={`${formatTime(currentTime)}/${formatTime(duration)}`}
                     value={currentTime}
                     min={0}
                     max={duration || 0}
                     step={0.1}
                     onChange={setAudioTime}
-                    className="w-3/4 h-16"
+                    className="w-full h-fit"
                 />
-                <Dropdown
-                    options={sampleOptions}
-                    behavior={DropdownOptions.Behavior.Hovered}
-                    direction={DropdownOptions.Direction.Up}
-                    buttonSize={DropdownOptions.Size.Small}
-                    onClick={handleDropdownClick}
-                />
+
+                <div className="flex justify-between items-center">
+                    <div className="flex flex-row gap-2 justify-center align-center">
+                        <span className="text-lg font-bold justify-center">{"Unknown Song"}</span>
+                        <span className="text-sm m-auto">{formatTime(currentTime)} / {formatTime(duration)}</span>
+                    </div>
+
+
+                    <div className="flex flex-row gap-4">
+                        <PrimaryButton
+                            icon="fa-solid fa-arrow-rotate-right"
+                            style={ButtonOptions.Style.Ghost}
+                            onClick={handlePlayOrPause}
+                        />
+                        {/* Play/Pause Button */}
+                        <PrimaryButton
+                            icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
+                            onClick={handlePlayOrPause}
+                        />
+                        <PrimaryButton
+                            icon="fa-solid fa-arrow-rotate-left"
+                            style={ButtonOptions.Style.Ghost}
+                            onClick={handlePlayOrPause}
+                        />
+                    </div>
+
+                    <div className="flex flex-row align-center ">
+                        {/* Song Selector */}
+                        <Dropdown
+                            options={sampleOptions}
+                            behavior={DropdownOptions.Behavior.Hovered}
+                            direction={DropdownOptions.Direction.Up}
+                            buttonSize={DropdownOptions.Size.Small}
+                            buttonStyle={DropdownOptions.Style.Ghost}
+                            onClick={handleDropdownClick}
+                            className="h-full w-fit m-auto"
+                        />
+
+                        {/* Fullscreen Toggle */}
+                        <PrimaryButton
+                            icon="fa fa-expand"
+                            style={ButtonOptions.Style.Ghost}
+                            className="m-auto"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
