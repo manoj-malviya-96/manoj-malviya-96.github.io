@@ -34,55 +34,59 @@ const MuvizApp = () => {
     const vizOptions = rangesTo(Object.keys(VisualizerOptions), (key) => {
         return createDropdownItem({label: key, value: VisualizerOptions[key]});
     });
+    const timeSkip_s = 10;
 
     const [src, setSrc] = useState(null);
     const {
         analyser, dataArray, isPlaying, currentTime,
         duration, play, pause, setAudioTime
     } = useAudio({src: src, makeAnalyzer: true});
+    const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Bar);
     const [controller, setController] = useState(null);
-    const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Spiral);
 
-    const handleDropdownClick = (option) => {
-        pause();
+    const updateVisualizer = async() => {
+        if (!controller && !!analyser && !!dataArray) {
+            switch (visualizerType) {
+                case VisualizerOptions.Spiral:
+                    const viz = new SpiralVisualizer({analyser, dataArray});
+                    console.log("Setting controller", viz);
+                    await setController(viz);
+                    break;
+                case VisualizerOptions.Bar:
+                    await setController(new BarVisualizer({analyser, dataArray}));
+                    break;
+                default:
+                    throw new Error("Invalid visualizer type");
+            }
+        }
+    }
+
+    const handleSampleSongChange = (option) => {
         setSrc(option.value);
         setController(null); // Reset the visualizer when switching tracks
+        pause();
     };
 
     const handleVisualizerChange = (option) => {
-        pause();
         setVisualizerType(option.value);
         setController(null); // Reset the visualizer when switching types
-    }
+        pause();
+    };
 
     const handlePlayOrPause = () => {
         if (isPlaying) {
+            setController(null); // Reset the visualizer when pausing
             pause();
             return;
         }
-        if (!controller && analyser && dataArray) {
-            let visualizer;
-            switch (visualizerType) {
-                case VisualizerOptions.Spiral:
-                    visualizer = new SpiralVisualizer({analyser, dataArray});
-                    break;
-                case VisualizerOptions.Bar:
-                    visualizer = new BarVisualizer({analyser, dataArray});
-                    break;
-                default:
-                    visualizer = null;
-                    throw new Error("Invalid visualizer type");
-            }
-            setController(visualizer);
-        }
-        play(); // Start music playback
+        updateVisualizer().then(() => play());
     };
 
     const skipForward = () => {
-        setAudioTime(currentTime + 5);
+        setAudioTime(currentTime + timeSkip_s);
     }
     const skipBackward = () => {
-        setAudioTime(currentTime - 5);
+        setAudioTime(currentTime - timeSkip_s);
     }
 
     const hudVisibility = isPlaying ? "opacity-0" : "opacity-100";
@@ -145,7 +149,7 @@ const MuvizApp = () => {
                             direction={DropdownOptions.Direction.Up}
                             buttonSize={DropdownOptions.Size.Small}
                             buttonStyle={DropdownOptions.Style.Ghost}
-                            onClick={handleDropdownClick}
+                            onClick={handleSampleSongChange}
                             className="h-full w-fit m-auto"
                             placeholder="Select Song"
                         />

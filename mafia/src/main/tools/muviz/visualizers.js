@@ -4,8 +4,8 @@ import {adjustColor, randomColor, whiteColor} from "../../../utils/color";
 import {FibonacciGenerator} from "../../../utils/math";
 
 export const VisualizerOptions = Object.freeze({
-    Spiral: 0,
-    Bar: 1,
+    Bar: 0,
+    Spiral: 1,
 })
 
 export class BarVisualizer extends CanvasController {
@@ -35,97 +35,130 @@ export class BarVisualizer extends CanvasController {
 }
 
 export class SpiralVisualizer extends CanvasController {
-    constructor({analyser, dataArray, canvasRef}) {
+    constructor({ analyser, dataArray, canvasRef }) {
         super(canvasRef);
-        this.analyser = analyser; // Audio analyser node
-        this.dataArray = dataArray; // Frequency data array
 
-        this.angle = 0;
-        this.points = []; // Stores current visible points
-        this.totalPoints = 0; // Counter to keep track of points generated
+        this.analyser = analyser;
+        this.dataArray = dataArray;
 
-        this.usualRadius = 0.5;
-        this.maxGlow = 69; // Max glow intensity
-        this.padding = 47; // Padding to keep points in view
+        // Spiral properties
+        this.angle = 0; // Rotation angle of the spiral
+        this.points = []; // Active points in the spiral
+        this.totalPoints = 0; // Number of points added so far
 
-        this.fibGenerator = new FibonacciGenerator();
+        this.growthRate = 3; // Distance between consecutive points
+        this.maxGlow = 69; // Maximum glow intensity
+
+        this.canvasWidth = 0; // Cached canvas width
+        this.canvasHeight = 0; // Cached canvas height
+
+        this.baseColor = `rgb(200, 50, 150)`;
     }
 
-    addNewFibonacciPoint(radius){
-        const fibRadius = this.fibGenerator.next() * 5; // Scale the Fibonacci radius
-        const angleOffset = this.totalPoints * 0.5; // Angle spacing for points
-
-        this.points.push({
-            x: fibRadius * Math.cos(angleOffset),
-            y: fibRadius * Math.sin(angleOffset),
-            r: radius, // Start with initial radius
-            angle: angleOffset, // Save angle for future movement
-        });
-    };
-
-    updatePoint(point) {
-        point.r *= 1.0069; // Expand the radius over time
-        point.x = this.padding * point.r * Math.cos(point.angle); // Update x position
-        point.y = this.padding * point.r * Math.sin(point.angle); // Update y position
-    }
-
-    drawPoint(ctx, point, index, dropLevel, minOpacity = 0.0){
-        const { x, y, r } = point;
-
-        // Get the intensity from audio data
-        const intensity =
-            this.dataArray[(this.totalPoints - index) % this.analyser.frequencyBinCount] / audioFFTSize;
-        const factor = intensity ** 3;
-        const glow = factor * this.maxGlow;
-
-        // Draw a circle with a glow effect based on audio intensity
-        ctx.beginPath();
-        ctx.arc(x, y, (1 + dropLevel) * r, 0, Math.PI * 2);
-
-        let color = whiteColor;
-        if (factor > 0.55 && dropLevel > 0.47) {
-            color = randomColor();
+    init() {
+        // Cache canvas dimensions
+        const canvas = this.canvasRef.current;
+        if (canvas) {
+            this.canvasWidth = canvas.width;
+            this.canvasHeight = canvas.height;
         }
 
-        const drawColor = adjustColor(
-            color,
-            minOpacity + factor,
-            1 + factor ** 2 + minOpacity,
-        );
+        // Reset visualization state
+        this.points = [];
+        this.totalPoints = 0;
+        this.angle = 0;
 
-        ctx.shadowBlur = glow;
-        ctx.shadowColor = drawColor;
-        ctx.fillStyle = drawColor;
-        ctx.fill();
-    };
+        console.log("SpiralVisualizer initialized.");
+    }
 
-    draw() {
-        if (!this.canvasRef.current || !this.analyser || !this.dataArray) return;
+    addPoint() {
+        const angle = this.totalPoints * 0.5; // Spiral angle increment
+        const distance = this.totalPoints * this.growthRate; // Distance from center
 
-        const canvas = this.canvasRef.current;
-        const ctx = canvas.getContext("2d");
-        const {width, height} = canvas;
-        ctx.clearRect(0, 0, width, height);
-
-        ctx.save();
-        ctx.translate(width / 2, height / 2); // Move origin to center
-        ctx.rotate(this.angle); // Apply rotation
-
-        const dropLevel = computeDropLevel(this.dataArray);
-
-        // Draw and update each point
-        this.points.forEach((point, index) => {
-            this.drawPoint(ctx, point, index, dropLevel, 0.0); // Draw the point
-            this.updatePoint(point); // Update the position
+        // Add a new point to the spiral
+        this.points.push({
+            x: distance * Math.cos(angle),
+            y: distance * Math.sin(angle),
+            size: this.growthRate, // Initial visual size of the point
+            angle: angle, // Angle of the point in the spiral
         });
 
-        // Remove points that are out of view
-        this.points = this.points.filter((point) => point.r < width * 2);
-        this.addNewFibonacciPoint(this.usualRadius); // Add a new point
         this.totalPoints++;
+    }
 
-        // Restore canvas state and adjust angle for rotation
+    updatePoints() {
+        // Update each point's position and size
+        this.points.forEach((point) => {
+            point.size *= 1.0069; // Gradual size increase
+            point.x = 40 * point.size * Math.cos(point.angle); // Update x position
+            point.y = 40 * point.size * Math.sin(point.angle); // Update y position
+        });
+
+        // Remove points that move out of bounds
+        this.points = this.points.filter(
+            (point) =>
+                Math.abs(point.x) < this.canvasWidth && Math.abs(point.y) < this.canvasHeight
+        );
+    }
+
+    drawPoints(ctx) {
+        // Fetch audio data
+        this.analyser.getByteFrequencyData(this.dataArray);
+
+        this.points.forEach((point, index) => {
+            // Map audio data to intensity
+            const soundLevel = this.dataArray[index % this.dataArray.length] / 255;
+            const intensity = soundLevel ** 2;
+
+            // Set point properties based on audio intensity
+            const glow = intensity * this.maxGlow;
+            const brightnessVector = intensity > 0.8 ? [100, 100 , 100] : [intensity, 1, 1 + 0.67 * intensity];
+            const color = adjustColor(this.baseColor , intensity, brightnessVector);
+
+            // Draw the point
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, point.size * (0.5 + intensity), 0, Math.PI * 2);
+
+            ctx.shadowBlur = glow;
+            ctx.shadowColor = color;
+            ctx.fillStyle = color;
+            ctx.fill();
+        });
+    }
+
+    draw() {
+        const canvas = this.canvasRef.current;
+        if (!canvas || !this.analyser || !this.dataArray) return;
+
+        const ctx = canvas.getContext("2d");
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        ctx.save();
+
+        // Move the origin to the center of the canvas
+        ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2);
+        ctx.rotate(this.angle); // Apply rotation
+
+        // Update and draw points
+        this.updatePoints();
+        this.addPoint();
+        this.drawPoints(ctx);
+
         ctx.restore();
-        this.angle += (dropLevel > 0.5 ? 2 : 1) * 0.03; // Increment rotation angle
+
+        // Increment rotation angle for smooth animation
+        this.angle += 0.005;
+    }
+
+    cleanup() {
+        // Clear visualization state
+        this.points = [];
+        this.totalPoints = 0;
+        this.angle = 0;
+
+        console.log("SpiralVisualizer cleaned up.");
     }
 }
+
+
