@@ -89,10 +89,10 @@ const MuvizApp = () => {
         setAudioTime(currentTime - timeSkip_s);
     }
 
-    const hudVisibility = isPlaying ? "opacity-0" : "opacity-100";
+    const hudVisibilityForMd = isPlaying ? "md:opacity-0" : "md:opacity-100";
 
     return (
-        <div className="h-full w-full justify-center align-center">
+        <div className="h-full w-full border-2 justify-center align-center">
             {/* Canvas covers the full screen */}
             {
                 <Canvas
@@ -104,7 +104,7 @@ const MuvizApp = () => {
             <div className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
                             gap-2 absolute bottom-10 left-1/2 transform -translate-x-1/2
                             bg-base-100 bg-opacity-60 rounded-lg
-                            p-4 ${hudVisibility} hover:opacity-100 flex w-4/5 `}>
+                            p-4 hover:opacity-100 sm:opacity-100  ${hudVisibilityForMd} w-4/5 `}>
                 <Slider
                     value={currentTime}
                     min={0}
@@ -185,10 +185,10 @@ const MuvizView = () => {
             name="muviz"
             title=""
             children={
-                <>
+                <div className="w-full h-fit">
                     <TopBrandLogo logo={Logo} name={AppName}/>
                     <MuvizApp/>
-                </>
+                </div>
             }
         />
     );

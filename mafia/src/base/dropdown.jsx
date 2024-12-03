@@ -9,7 +9,7 @@ const Dropdown = ({
                       direction = DropdownOptions.Direction.Down,
                       buttonStyle = DropdownOptions.Style.Primary,
                       buttonSize = DropdownOptions.Size.Medium,
-                      placeholder='Select',
+                      placeholder = 'Select',
                       initialIndex = -1,
                       className = '',
 
@@ -37,15 +37,23 @@ const Dropdown = ({
                 className={`btn m-1 ${buttonStyle} ${buttonSize} rounded-lg`}
                 onClick={toggleDropdown} // Open/close on button click
             >
-                {activeIndex >= 0  && options[activeIndex].icon && (<i className={options[activeIndex].icon}/>)}
-                {activeIndex >= 0  && options[activeIndex].label && (<span>{options[activeIndex].label}</span>)}
-                {activeIndex === -1 && (<span>{placeholder}</span>)}
-                <i className={!isOpen ? `fa bi-arrow-down` : `fa bi-arrow-up`}/>
+                {!isOpen &&
+                    <i className={`${(activeIndex >= 0 && options[activeIndex].icon) ?
+                        options[activeIndex].icon : 'fas fa-chevron-up'}`}/>
+                }
+                {isOpen &&
+                    <i className="fas fa-chevron-down"/>
+                }
+
+                {activeIndex >= 0 && options[activeIndex].label && (
+                    <span className="hidden sm:inline">{options[activeIndex].label}</span>)}
+                {activeIndex === -1 && (<span className="hidden sm:inline">{placeholder}</span>)}
             </div>
+
             {isOpen && ( // Conditionally render dropdown content
                 <ul
                     tabIndex={0}
-                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow"
                 >
                     {options.map((option, index) => (
                         <li key={index}>
