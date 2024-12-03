@@ -126,7 +126,7 @@ const MuvizApp = () => {
                 className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
                         gap-2 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2
                         bg-base-100 bg-opacity-30 rounded-lg
-                        p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-1/2`}
+                        p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
             >
                 <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
                     <span className="text-base sm:text-lg font-bold"> {"Unknown Song"}</span>
