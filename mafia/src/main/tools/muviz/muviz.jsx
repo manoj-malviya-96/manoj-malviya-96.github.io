@@ -56,7 +56,7 @@ const MuvizApp = () => {
     const appRef = useRef(null);
 
     const updateVisualizer = async () => {
-        if (!controller && !!analyser && !!dataArray) {
+        if (!!analyser && !!dataArray) {
             switch (visualizerType) {
                 case VisualizerOptions.Spiral:
                     const viz = new SpiralVisualizer({analyser, dataArray});
@@ -71,21 +71,27 @@ const MuvizApp = () => {
         }
     }
 
+    const stopController = () => {
+        if (controller) {
+            controller.stop();
+        }
+    }
+
     const handleSampleSongChange = (option) => {
         setSrc(option.value);
-        setController(null); // Reset the visualizer when switching tracks
+        stopController();
         pause();
     };
 
     const handleVisualizerChange = (option) => {
         setVisualizerType(option.value);
-        setController(null); // Reset the visualizer when switching types
+        stopController();
         pause();
     };
 
     const handlePlayOrPause = () => {
         if (isPlaying) {
-            setController(null); // Reset the visualizer when pausing
+            stopController();
             pause();
             return;
         }

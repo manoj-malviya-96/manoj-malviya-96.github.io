@@ -62,10 +62,6 @@ export class SpiralVisualizer extends CanvasController {
             this.canvasWidth = canvas.width;
             this.canvasHeight = canvas.height;
         }
-
-        // Reset visualization state
-        this.angle = 0;
-
         console.log("SpiralVisualizer initialized.");
     }
 
@@ -88,9 +84,9 @@ export class SpiralVisualizer extends CanvasController {
         const w = 1 - wr;
         // Update each point's position and size
         this.points.forEach((point) => {
-            point.size *= 1.00069; // Gradual size increase
-            point.x = (w + wr * Math.random()) * 200 * point.size * Math.cos(point.angle); // Update x position
-            point.y = (w + wr * Math.random()) * 200 * point.size * Math.sin(point.angle); // Update y position
+            point.size *= 1.0069; // Gradual size increase
+            point.x = (w + wr * Math.random()) * 50 * point.size * Math.cos(point.angle); // Update x position
+            point.y = (w + wr * Math.random()) * 50 * point.size * Math.sin(point.angle); // Update y position
         });
 
         // Remove points that move out of bounds
@@ -140,7 +136,6 @@ export class SpiralVisualizer extends CanvasController {
         ctx.rotate(this.angle); // Apply rotation
 
         const dropLevel = computeDropLevel(this.dataArray);
-        console.log("Drop level: ", dropLevel);
 
         // Update and draw points
         this.updatePoints(0.05 * dropLevel);
@@ -155,15 +150,6 @@ export class SpiralVisualizer extends CanvasController {
 
         // Increment rotation angle for smooth animation
         this.angle += 0.005 + dropLevel * 0.001;
-    }
-
-    cleanup() {
-        // Clear visualization state
-        // this.points = [];
-        // this.totalPoints = 0;
-        this.angle = 0;
-
-        console.log("SpiralVisualizer cleaned up.");
     }
 }
 
