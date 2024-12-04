@@ -11,8 +11,7 @@ export const TopTabBar = ({tabs}) => {
 
 export const TopBrandLogo = ({logo, name}) => {
     return (
-        <div className='flex flex-column py-2 px-4 gap-2 fixed top-0 left-0 w-fit z-20
-                            backdrop-blur-md backdrop-brightness-75'>
+        <div className='flex flex-column py-2 px-4 gap-2 fixed top-0 left-0 w-fit z-20'>
             <img src={logo} alt={name} className='w-12 h-12'/>
             <h1 className='text-2xl font-bold text-center m-auto'>{name}</h1>
         </div>)
