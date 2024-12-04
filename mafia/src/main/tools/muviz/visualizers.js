@@ -46,7 +46,7 @@ export class SpiralVisualizer extends CanvasController {
         this.points = []; // Active points in the spiral
         this.totalPoints = 0; // Number of points added so far
 
-        this.growthRate = 3; // Distance between consecutive points
+        this.growthRate = 8; // Distance between consecutive points
         this.maxGlow = 69; // Maximum glow intensity
 
         this.canvasWidth = 0; // Cached canvas width
@@ -64,8 +64,6 @@ export class SpiralVisualizer extends CanvasController {
         }
 
         // Reset visualization state
-        this.points = [];
-        this.totalPoints = 0;
         this.angle = 0;
 
         console.log("SpiralVisualizer initialized.");
@@ -79,19 +77,20 @@ export class SpiralVisualizer extends CanvasController {
         this.points.push({
             x: distance * Math.cos(angle),
             y: distance * Math.sin(angle),
-            size: this.growthRate, // Initial visual size of the point
+            size: 0.5, // Initial visual size of the point
             angle: angle, // Angle of the point in the spiral
         });
 
         this.totalPoints++;
     }
 
-    updatePoints() {
+    updatePoints(wr) {
+        const w = 1 - wr;
         // Update each point's position and size
         this.points.forEach((point) => {
-            point.size *= 1.0069; // Gradual size increase
-            point.x = 40 * point.size * Math.cos(point.angle); // Update x position
-            point.y = 40 * point.size * Math.sin(point.angle); // Update y position
+            point.size *= 1.00069; // Gradual size increase
+            point.x = (w + wr * Math.random()) * 200 * point.size * Math.cos(point.angle); // Update x position
+            point.y = (w + wr * Math.random()) * 200 * point.size * Math.sin(point.angle); // Update y position
         });
 
         // Remove points that move out of bounds
@@ -101,7 +100,7 @@ export class SpiralVisualizer extends CanvasController {
         );
     }
 
-    drawPoints(ctx) {
+    drawPoints(ctx, dropLevel) {
         // Fetch audio data
         this.analyser.getByteFrequencyData(this.dataArray);
 
@@ -112,12 +111,13 @@ export class SpiralVisualizer extends CanvasController {
 
             // Set point properties based on audio intensity
             const glow = intensity * this.maxGlow;
-            const brightnessVector = intensity > 0.8 ? [100, 100 , 100] : [intensity, 1, 1 + 0.67 * intensity];
-            const color = adjustColor(this.baseColor , intensity, brightnessVector);
+            const brightnessVector = (intensity > 0.8 || dropLevel > 0.8) ?
+                                        [100, 100 , 100] : [intensity, 1, 1 + 0.67 * intensity];
+            const color = adjustColor(this.baseColor , intensity + 0.5, brightnessVector);
 
             // Draw the point
             ctx.beginPath();
-            ctx.arc(point.x, point.y, point.size * (0.5 + intensity), 0, Math.PI * 2);
+            ctx.arc(point.x, point.y, point.size * (intensity > 0.8 ? 2 : 1), 0, Math.PI * 2);
 
             ctx.shadowBlur = glow;
             ctx.shadowColor = color;
@@ -135,26 +135,32 @@ export class SpiralVisualizer extends CanvasController {
         // Clear the canvas
         ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
         ctx.save();
-
         // Move the origin to the center of the canvas
         ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2);
         ctx.rotate(this.angle); // Apply rotation
 
+        const dropLevel = computeDropLevel(this.dataArray);
+        console.log("Drop level: ", dropLevel);
+
         // Update and draw points
-        this.updatePoints();
+        this.updatePoints(0.05 * dropLevel);
+
         this.addPoint();
-        this.drawPoints(ctx);
+        if (dropLevel > 0.5) this.addPoint();
+        if (dropLevel > 0.7) this.addPoint();
+
+        this.drawPoints(ctx, dropLevel);
 
         ctx.restore();
 
         // Increment rotation angle for smooth animation
-        this.angle += 0.005;
+        this.angle += 0.005 + dropLevel * 0.001;
     }
 
     cleanup() {
         // Clear visualization state
-        this.points = [];
-        this.totalPoints = 0;
+        // this.points = [];
+        // this.totalPoints = 0;
         this.angle = 0;
 
         console.log("SpiralVisualizer cleaned up.");
