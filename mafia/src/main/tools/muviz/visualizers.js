@@ -1,7 +1,6 @@
 import {CanvasController} from "../../../base/canvas";
-import {audioFFTSize, computeDropLevel} from "../../../utils/audio";
-import {adjustColor, randomColor, whiteColor} from "../../../utils/color";
-import {FibonacciGenerator} from "../../../utils/math";
+import {audioFFTSize} from "../../../utils/audio";
+import {adjustColor} from "../../../utils/color";
 
 export const VisualizerOptions = Object.freeze({
     Bar: 0,
@@ -96,7 +95,7 @@ export class SpiralVisualizer extends CanvasController {
         );
     }
 
-    drawPoints(ctx, dropLevel) {
+    drawPoints(ctx) {
         // Fetch audio data
         this.analyser.getByteFrequencyData(this.dataArray);
 
@@ -107,8 +106,7 @@ export class SpiralVisualizer extends CanvasController {
 
             // Set point properties based on audio intensity
             const glow = intensity * this.maxGlow;
-            const brightnessVector = (intensity > 0.8 || dropLevel > 0.8) ?
-                                        [100, 100 , 100] : [intensity, 1, 1 + 0.67 * intensity];
+            const brightnessVector = intensity > 0.8 ?[100, 100 , 100] : [intensity, 1, 1 + 0.67 * intensity];
             const color = adjustColor(this.baseColor , intensity + 0.5, brightnessVector);
 
             // Draw the point
@@ -135,21 +133,14 @@ export class SpiralVisualizer extends CanvasController {
         ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2);
         ctx.rotate(this.angle); // Apply rotation
 
-        const dropLevel = computeDropLevel(this.dataArray);
-
         // Update and draw points
-        this.updatePoints(0.05 * dropLevel);
-
+        this.updatePoints(0.05);
         this.addPoint();
-        if (dropLevel > 0.5) this.addPoint();
-        if (dropLevel > 0.7) this.addPoint();
-
-        this.drawPoints(ctx, dropLevel);
-
+        this.drawPoints(ctx);
         ctx.restore();
 
         // Increment rotation angle for smooth animation
-        this.angle += 0.005 + dropLevel * 0.001;
+        this.angle += 0.005;
     }
 }
 
