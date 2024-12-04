@@ -34,7 +34,7 @@ export class BarVisualizer extends CanvasController {
 }
 
 export class SpiralVisualizer extends CanvasController {
-    constructor({ analyser, dataArray, canvasRef }) {
+    constructor({analyser, dataArray, canvasRef}) {
         super(canvasRef);
 
         this.analyser = analyser;
@@ -79,13 +79,13 @@ export class SpiralVisualizer extends CanvasController {
         this.totalPoints++;
     }
 
-    updatePoints(wr) {
-        const w = 1 - wr;
+    updatePoints(randomFactor = 0.0) {
+        const w = 1 - randomFactor;
         // Update each point's position and size
         this.points.forEach((point) => {
             point.size *= 1.0069; // Gradual size increase
-            point.x = (w + wr * Math.random()) * 50 * point.size * Math.cos(point.angle); // Update x position
-            point.y = (w + wr * Math.random()) * 50 * point.size * Math.sin(point.angle); // Update y position
+            point.x = (w + randomFactor * Math.random()) * 50 * point.size * Math.cos(point.angle); // Update x position
+            point.y = (w + randomFactor * Math.random()) * 50 * point.size * Math.sin(point.angle); // Update y position
         });
 
         // Remove points that move out of bounds
@@ -106,8 +106,8 @@ export class SpiralVisualizer extends CanvasController {
 
             // Set point properties based on audio intensity
             const glow = intensity * this.maxGlow;
-            const brightnessVector = intensity > 0.8 ?[100, 100 , 100] : [intensity, 1, 1 + 0.67 * intensity];
-            const color = adjustColor(this.baseColor , intensity + 0.5, brightnessVector);
+            const brightnessVector = intensity > 0.8 ? [100, 100, 100] : [intensity, 1, 1 + 0.67 * intensity];
+            const color = adjustColor(this.baseColor, intensity + 0.5, brightnessVector);
 
             // Draw the point
             ctx.beginPath();
@@ -126,11 +126,10 @@ export class SpiralVisualizer extends CanvasController {
 
         const ctx = canvas.getContext("2d");
 
-        // Clear the canvas
-        ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+        ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight); // Clear the canvas
         ctx.save();
-        // Move the origin to the center of the canvas
-        ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2);
+        ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2); // Move the origin to the center of the canvas
         ctx.rotate(this.angle); // Apply rotation
 
         // Update and draw points
