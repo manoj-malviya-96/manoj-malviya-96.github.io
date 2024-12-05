@@ -88,7 +88,7 @@ const BlogSection = ({section}) => {
             name={section.name}
             title={section.title}
             children={
-                <section className='flex flex-col justify-center align-center w-full h-fit gap-8 mt-4'>
+                <section className='flex flex-col justify-center align-center w-full h-fit gap-8'>
                     <div className='text-lg w-fit md:w-1/2 m-auto align-center'>
                         {makeRichParagraph(section.paragraph)}
                     </div>
@@ -105,9 +105,13 @@ const BlogSection = ({section}) => {
 
                             {section.media.typeKey === 'BlogPlot' &&
                                 <Plotter
-                                    dataTrace={section.media.plot}
-                                    height={480}
-                                    width={640}
+                                    dataTrace={section.media.dataTrace}
+                                    className={'m-auto align-center justify-center w-full md:w-1/2'}
+                                    title={section.media.title}
+                                    xTitle={section.media.xTitle}
+                                    yTitle={section.media.yTitle}
+                                    textColor={section.media.textColor}
+                                    minimalView={false}
                                 />
                             }
                             {section.media.typeKey === 'BlogHeroText' &&

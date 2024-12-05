@@ -151,14 +151,12 @@ const GithubProfile = () => {
         return (
             <Plotter
                 dataTrace={[dataTrace]}
-                height={480}
-                width={640}
             />
         );
     };
 
     const years = Object.keys(data).sort((a, b) => b - a);
-    const dropdownOptions = rangesTo(years, (year) => createDropdownItem({label: year, value: year}));
+    const dropdownOptions = rangesTo(years, (year) => createDropdownItem({label: year, value: year, icon: "fa fa-calendar"}));
 
     return (
         <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen

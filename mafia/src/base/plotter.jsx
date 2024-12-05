@@ -2,8 +2,6 @@ import Plot from "react-plotly.js";
 import ScrollContainer from "./scroll-container";
 
 function createLayout(
-    width,
-    height,
     title,
     xTitle,
     yTitle,
@@ -25,7 +23,7 @@ function createLayout(
             title: {
                 text: xTitle,
                 font: {
-                    size: 20,
+                    size: 16,
                     color: textColor,
                 },
             },
@@ -43,7 +41,7 @@ function createLayout(
             title: {
                 text: yTitle,
                 font: {
-                    size: 20,
+                    size: 16,
                     color: textColor,
                 },
             },
@@ -72,18 +70,17 @@ const Plotter = ({
                      title = "",
                      xTitle = "",
                      yTitle = "",
-                     height = "",
-                     width = "",
                      textColor = "#ffffff",
+                     className = "",
                      minimalView = true
                  }) => {
     return (
         <ScrollContainer
-            className="relative w-full h-full max-h-screen max-w-full rounded-md p-2"
+            className={`relative w-full h-full max-h-screen max-w-full rounded-md p-2 ${className}`}
             children={
                 <Plot
                     data={dataTrace}
-                    layout={createLayout(width, height, title, xTitle, yTitle, minimalView, textColor)}
+                    layout={createLayout(title, xTitle, yTitle, minimalView, textColor)}
                     config={{
                         displaylogo: false, // Removes the Plotly logo
                         responsive: true, // Ensures responsiveness

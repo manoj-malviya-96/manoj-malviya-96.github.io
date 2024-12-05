@@ -1,16 +1,14 @@
 import {
-    BlogInfo,
+    BlogInfo, heatmapColorScale,
     makeBlogCode,
     makeBlogHeroText,
-    makeBlogImage,
+    makeBlogImage, makeBlogPlot,
     makeBlogSectionContent,
-    makeHeroText
 } from "../blog-info";
 import Cover from "./cover.webp"
 import {BentoboxSizeOption} from "../../../utils/enums";
-
-
 import IntroChart from './background.png';
+import GameUI from './game-ui.png';
 
 class DeltaDesign extends BlogInfo {
     constructor() {
@@ -40,9 +38,105 @@ class DeltaDesign extends BlogInfo {
                 overarching question this research seeks to answer is as follows:`],
                 {tag: 'br'},
             ],
-            media: makeBlogHeroText({text: `What design strategies do intermediate-level designers 
-                                employ when challenged with a novel complex problem?`}),
+            media: makeBlogHeroText({
+                text: `What design strategies do intermediate-level designers 
+                                employ when challenged with a novel complex problem?`
+            }),
         });
+
+        const gameSection = makeBlogSectionContent({
+            name: 'details',
+            icon: 'fas fa-gamepad',
+            title: 'Details',
+            paragraph: [
+                `Delta-Design, a game that challenges designers by placing a typical configuration design problem in a world with altered physics, 
+                provides a unique opportunity to study how designers approach structurally similar but novel problems.
+                To support design and data collection, we built a MATLAB-based GUI that mimics a real-world design environment. 
+                It includes error and success messages, blocks impossible actions, and three message boxes for feedback on Delta World Status, 
+                design details, and participant info. A control panel allows users to correct mistakes, and a summary panel displays design 
+                constraints and objectives.`
+            ],
+            media: makeBlogImage({source: GameUI, label: 'Delta Design Game UI'}),
+        });
+
+        const stateHeatmap = {
+            z: [
+                [0.28, 0.27, 0.02, 0.02, 0.03, 0.04, 0.04, 0.0, 0.35], // S1
+                [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], // S2
+                [0.0, 0.95, 0.0, 0.01, 0.0, 0.01, 0.79, 0.01, 0.02], // S3
+                [0.65, 0.0, 0.05, 0.0, 0.01, 0.1, 0.84, 0.0, 0.89], // S4
+            ],
+            x: ["Add UP Delta",
+                "Add DOWN Delta",
+                "Add Anchor",
+                "Move",
+                "Fine Control",
+                "Flip",
+                "Color",
+                "Delete",
+                "End Study"],
+            y: ["S1", "S2", "S3", "S4"],
+            colorscale: heatmapColorScale,
+            type: "heatmap",
+            xgap: 7,
+            ygap: 7,
+            showscale: false,
+        };
+
+        const resultStates = makeBlogSectionContent({
+            name: 'state',
+            icon: 'fa fa-check-circle',
+            title: 'Result: State Map',
+            paragraph: [
+                `We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
+                investigate high- and low-performing designers (as classified using their design performance),
+                and efficient- and inefficient designers (as classified using number of actions they took).`,
+            ],
+            media: makeBlogPlot({
+                dataTrace: [stateHeatmap],
+                title: 'Design Step vs Hidden States',
+                xTitle: 'Design Step',
+                yTitle: 'Hidden State',
+                textColor: 'gray'
+            }),
+        });
+
+        const transitionHeatmap = {
+            z: [
+                [0.05, 0.91, 0.03, 0],
+                [0.75, 0.07, 0.05, 0.13],
+                [0, 0.03, 0, 0.92],
+                [0.01, 0.02, 0.65, 0.32],
+            ],
+            x: ["S1", "S2", "S3", "S4"],
+            y: ["S1", "S2", "S3", "S4"],
+            colorscale: heatmapColorScale,
+            type: "heatmap",
+            xgap: 7,
+            ygap: 7,
+            showscale: false,
+        }
+
+        const resultTransition = makeBlogSectionContent({
+            name: 'transition',
+            icon: 'fa fa-arrow-clockwise',
+            title: 'Results: Transition Probabilities',
+            paragraph: [
+                `In this study, HMM highlighted variances and similarities in how different designer groups moved through
+                latent states. The data was analyzed both in aggregate and through four distinct HMMs that modeled the
+                core latent behavior “states” designers engaged in. Participants were intermediate-level designers from
+                graduate engineering programs. Findings showed that while both efficient and inefficient designers could
+                score well, their behavior patterns differed significantly.`,
+            ],
+            media: makeBlogPlot({
+                dataTrace: [transitionHeatmap],
+                title: 'Transition between Hidden States',
+                xTitle: 'Hidden State',
+                yTitle: 'Hidden State',
+                textColor: 'gray'
+            }),
+        });
+
 
         super({
             id: 'delta-threads',
@@ -58,7 +152,7 @@ class DeltaDesign extends BlogInfo {
             efficient and less efficient strategies can lead to high scores, but the top performers use a progressive
             deepening approach—starting with foundational structure before moving into detailed optimization.`,
 
-            sections: [introSection, objectiveSection]
+            sections: [introSection, objectiveSection, gameSection, resultStates, resultTransition]
         })
     }
 }

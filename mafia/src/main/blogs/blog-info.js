@@ -1,5 +1,6 @@
 import {BentoboxSizeOption} from "../../utils/enums";
 import {createBentoBoxItem, createTabItem, createTimeLineItem, makeStruct, rangesTo} from "../../utils/types";
+import {getScaleColor} from "../../utils/color";
 
 export class BlogInfo {
     constructor({
@@ -64,8 +65,8 @@ export function makeBlogCode({language, code}) {
     return makeStruct({language, code}, 'BlogCode');
 }
 
-export function makeBlogPlot({plot}) {
-    return makeStruct({plot}, 'BlogPlot');
+export function makeBlogPlot({dataTrace, title, xTitle, yTitle, textColor}) {
+    return makeStruct({dataTrace, title, xTitle, yTitle, textColor}, 'BlogPlot');
 }
 
 export function makeBlogHeroText({text}){
@@ -75,3 +76,6 @@ export function makeBlogHeroText({text}){
 export function makeBlogSectionContent({name, icon, title, paragraph, media}) {
     return makeStruct({name, icon, title, paragraph, media}, 'BlogSectionContent');
 }
+
+
+export const heatmapColorScale = getScaleColor("rgb(83,139,216)", "rgba(94,94,94,0.87)", 8);

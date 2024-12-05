@@ -1,4 +1,5 @@
 /* ------------ Color Utilities ------------ */
+
 export function adjustColor(color, opacity = 1, brightness = [1, 1, 1]) {
     // Extract RGB values from the input color string (assumes 'rgb(r, g, b)' format)
     let [r, g, b] = color.match(/\d+/g).map(Number);
