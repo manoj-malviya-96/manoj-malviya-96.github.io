@@ -10,9 +10,10 @@ import {ButtonOptions, DropdownOptions, SliderOptions} from "../../../utils/enum
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
+import Uneath from './sample-music/uneath.mp3';
 import {createDropdownItem, rangesTo} from "../../../utils/types";
 import {TopBrandLogo} from "../../top-modal";
-import {Canvas, CanvasController} from "../../../base/canvas";
+import {Canvas} from "../../../base/canvas";
 import Slider from "../../../base/slider";
 import {formatTime} from "../../../utils/date";
 import {BarVisualizer, SpiralVisualizer, VisualizerOptions} from "./visualizers";
@@ -32,6 +33,11 @@ const MuvizApp = () => {
             createDropdownItem({
                 label: 'can you feel it',
                 value: CanYouFeelIt,
+                icon: 'fas fa-music'
+            }),
+            createDropdownItem({
+                label: 'underneath it all',
+                value: Uneath,
                 icon: 'fas fa-music'
             })
         ];
