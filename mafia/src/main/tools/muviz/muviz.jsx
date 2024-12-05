@@ -146,7 +146,7 @@ const MuvizApp = () => {
             />
             <div
                 className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
-                        gap-2 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                        gap-2 absolute bottom-4 left-1/2 transform -translate-x-1/2
                         bg-base-100 bg-opacity-30 rounded-lg
                         p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
             >
@@ -167,7 +167,7 @@ const MuvizApp = () => {
                 />
 
                 <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-                    <div className="flex flex-row gap-2 sm:gap-4">
+                    <div className="flex flex-row gap-1 sm:gap-4">
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-left"
                             style={ButtonOptions.Style.Ghost}
@@ -185,7 +185,7 @@ const MuvizApp = () => {
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipForward}
                         />
-                        <div className='flex flex-row gap-2'>
+                        <div className='flex flex-row gap-1'>
                             <PrimaryButton icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
                                 player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
                                            style={ButtonOptions.Style.Ghost}
