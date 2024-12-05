@@ -167,34 +167,40 @@ const MuvizApp = () => {
                 />
 
                 <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-                    <div className="flex flex-row gap-1 sm:gap-4">
+
+                    <div className="w-full h-full flex flex-row gap-1">
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-left"
                             style={ButtonOptions.Style.Ghost}
+                            size= {ButtonOptions.Size.MobileAdaptive}
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipBackward}
                         />
                         <PrimaryButton
                             icon={player.isPlaying ? "fa fa-pause" : "fa fa-play"}
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
+                            size= {ButtonOptions.Size.MobileAdaptive}
                             onClick={handlePlayOrPause}
                         />
                         <PrimaryButton
                             icon="fa-solid fa-arrow-rotate-right"
                             style={ButtonOptions.Style.Ghost}
+                            size= {ButtonOptions.Size.MobileAdaptive}
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipForward}
                         />
                         <div className='flex flex-row gap-1'>
-                            <PrimaryButton icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
-                                player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
-                                           style={ButtonOptions.Style.Ghost}
-                                           onClick={toggleVolume}/>
+                            <PrimaryButton
+                                icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
+                                    player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
+                                size= {ButtonOptions.Size.MobileAdaptive}
+                                style={ButtonOptions.Style.Ghost}
+                                onClick={toggleVolume}/>
                             <Slider value={player.volume} min={0} max={1} step={0.01} onChange={player.changeVolume}/>
                         </div>
                     </div>
 
-                    <div className="w-fit h-full flex flex-row gap-1">
+                    <div className="w-full h-full flex flex-row gap-1">
                         <Dropdown
                             options={sampleOptions}
                             direction={DropdownOptions.Direction.Up}

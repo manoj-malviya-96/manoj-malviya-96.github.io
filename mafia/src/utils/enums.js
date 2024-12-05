@@ -20,6 +20,7 @@ export const ButtonOptions = Object.freeze({
         Square: 'btn-square',
         Circle: 'btn-circle',
         Wide: 'btn-wide',
+        MobileAdaptive: 'btn-lg md:btn-sm',
     },
     State: {
         None: '',
