@@ -1,6 +1,5 @@
 import {
     BlogInfo, heatmapColorScale,
-    makeBlogCode,
     makeBlogHeroText,
     makeBlogImage, makeBlogPlot,
     makeBlogSectionContent,
