@@ -8,6 +8,7 @@ import {TopTabBar} from "../top-modal";
 import PhotoViz from "../../base/photo";
 import Plotter from "../../base/plotter";
 import HeroText from "../../base/hero-text";
+import HeroList from "../../base/hero-list";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {
@@ -115,7 +116,12 @@ const BlogSection = ({section}) => {
                                 />
                             }
                             {section.media.typeKey === 'BlogHeroText' &&
-                                <HeroText text={section.media.text} className='w-fit md:w-1/2'/>
+                                <HeroText text={section.media.text}
+                                          className='w-fit md:w-1/2'/>
+                            }
+                            {section.media.typeKey === 'BlogHeroList' &&
+                                <HeroList contentList={section.media.contentList} numbered={section.media.numbered}
+                                            className='w-fit md:w-1/2'/>
                             }
                         </div>
                     }

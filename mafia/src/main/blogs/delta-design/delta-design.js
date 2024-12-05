@@ -1,5 +1,5 @@
 import {
-    BlogInfo, heatmapColorScale,
+    BlogInfo, heatmapColorScale, makeBlogHeroList,
     makeBlogHeroText,
     makeBlogImage, makeBlogPlot,
     makeBlogSectionContent,
@@ -136,6 +136,22 @@ class DeltaDesign extends BlogInfo {
             }),
         });
 
+        const conclusionSection = makeBlogSectionContent({
+            name: 'conclusion',
+            icon: 'fa fa-check-circle',
+            title: 'Conclusion',
+            paragraph: [
+                `Interpreted through Schraagen’s design theory, we observed:`,
+                {tag: 'br'},
+            ],
+            media: makeBlogHeroList({
+                contentList: [
+                    `High-performing designers tend to break down complex problems into 
+                    manageable sub-problems and relate them to familiar concepts.`,
+                    `Both efficient and less efficient strategies can lead to high scores`],
+            })
+        });
+
 
         super({
             id: 'delta-threads',
@@ -151,7 +167,7 @@ class DeltaDesign extends BlogInfo {
             efficient and less efficient strategies can lead to high scores, but the top performers use a progressive
             deepening approach—starting with foundational structure before moving into detailed optimization.`,
 
-            sections: [introSection, objectiveSection, gameSection, resultStates, resultTransition]
+            sections: [introSection, objectiveSection, gameSection, resultStates, resultTransition, conclusionSection],
         })
     }
 }

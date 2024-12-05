@@ -78,4 +78,8 @@ export function makeBlogSectionContent({name, icon, title, paragraph, media}) {
 }
 
 
+export function makeBlogHeroList({contentList, numbered = false}) {
+    return makeStruct({contentList, numbered}, 'BlogHeroList');
+}
+
 export const heatmapColorScale = getScaleColor("rgb(83,139,216)", "rgba(94,94,94,0.87)", 8);
