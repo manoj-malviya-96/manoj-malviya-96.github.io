@@ -83,9 +83,9 @@ class DeltaDesign extends BlogInfo {
         };
 
         const resultStates = makeBlogSectionContent({
-            name: 'state',
-            icon: 'fa fa-check-circle',
-            title: 'Result: State Map',
+            name: 'result-1',
+            icon: 'fa fa-arrows-rotate',
+            title: 'Design States',
             paragraph: [
                 `We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
                 investigate high- and low-performing designers (as classified using their design performance),
@@ -117,9 +117,9 @@ class DeltaDesign extends BlogInfo {
         }
 
         const resultTransition = makeBlogSectionContent({
-            name: 'transition',
-            icon: 'fa fa-arrow-clockwise',
-            title: 'Results: Transition Probabilities',
+            name: 'result-2',
+            icon: 'fa fa-arrows-turn-to-dots',
+            title: 'Cognitive States',
             paragraph: [
                 `In this study, HMM highlighted variances and similarities in how different designer groups moved through
                 latent states. The data was analyzed both in aggregate and through four distinct HMMs that modeled the
@@ -148,7 +148,9 @@ class DeltaDesign extends BlogInfo {
                 contentList: [
                     `High-performing designers tend to break down complex problems into 
                     manageable sub-problems and relate them to familiar concepts.`,
-                    `Both efficient and less efficient strategies can lead to high scores`],
+                    `The inefficient designers took a more trial-and-error approach, resulting in rougher state transitions via the HMM.`,
+                    `Intermediate designers may still develop strategies for novel problems, 
+                        illustrating design theory’s relevance in a group neither novice nor expert.`,],
             })
         });
 

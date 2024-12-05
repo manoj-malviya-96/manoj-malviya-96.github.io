@@ -20,7 +20,7 @@ const TabBar = ({tabs, className=''}) => {
                 <ScrollableLink
                     key={index}
                     elementName={tab.name}
-                    className="tab"
+                    className="tab px-2 m-0"
                     activeClassName="tab-active"
                     children={
                         <TabElement
