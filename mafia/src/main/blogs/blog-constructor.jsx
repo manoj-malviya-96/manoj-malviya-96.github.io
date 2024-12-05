@@ -7,7 +7,7 @@ import CodeBlock from "../../base/code";
 import {TopTabBar} from "../top-modal";
 import PhotoViz from "../../base/photo";
 import Plotter from "../../base/plotter";
-import HeroText from "../../base/HeroText";
+import HeroText from "../../base/hero-text";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {
