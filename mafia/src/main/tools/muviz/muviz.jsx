@@ -1,12 +1,12 @@
 import React, {useRef, useState} from 'react';
 import FullScreenPage from "../../../base/full-page";
 import ToolInfo from "../tool-info";
-import {useAudio} from "../../../utils/audio";
+import {AudioPlayer} from "../../../utils/audio";
 import PrimaryButton from "../../../base/primary-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
 import Dropdown from "../../../base/dropdown";
-import {ButtonOptions, DropdownOptions} from "../../../utils/enums";
+import {ButtonOptions, DropdownOptions, SliderOptions} from "../../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
@@ -17,6 +17,7 @@ import Slider from "../../../base/slider";
 import {formatTime} from "../../../utils/date";
 import {BarVisualizer, SpiralVisualizer, VisualizerOptions} from "./visualizers";
 import FileUpload from "../../../base/file-upload";
+import ModalButton from "../../../base/modal-button";
 
 const AppName = 'MUVIZ';
 
@@ -46,24 +47,29 @@ const MuvizApp = () => {
 
     // State Management
     const [src, setSrc] = useState(null);
-    const {
-        analyser, dataArray, isPlaying, currentTime,
-        duration, play, pause, setAudioTime
-    } = useAudio({src: src, makeAnalyzer: true});
+
+    const player = AudioPlayer({src: src, makeAnalyzer: true});
+
     const [visualizerType, setVisualizerType] = useState(VisualizerOptions.Bar);
     const [controller, setController] = useState(null);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const appRef = useRef(null);
 
     const updateVisualizer = async () => {
-        if (!!analyser && !!dataArray) {
+        if (!!player.analyser && !!player.dataArray) {
             switch (visualizerType) {
                 case VisualizerOptions.Spiral:
-                    const viz = new SpiralVisualizer({analyser, dataArray});
+                    const viz = new SpiralVisualizer({
+                        analyser: player.analyser,
+                        dataArray: player.dataArray
+                    });
                     await setController(viz);
                     break;
                 case VisualizerOptions.Bar:
-                    await setController(new BarVisualizer({analyser, dataArray}));
+                    await setController(new BarVisualizer({
+                        analyser: player.analyser,
+                        dataArray: player.dataArray
+                    }));
                     break;
                 default:
                     throw new Error("Invalid visualizer type");
@@ -80,29 +86,29 @@ const MuvizApp = () => {
     const handleSampleSongChange = (option) => {
         setSrc(option.value);
         stopController();
-        pause();
+        player.pause();
     };
 
     const handleVisualizerChange = (option) => {
         setVisualizerType(option.value);
         stopController();
-        pause();
+        player.pause();
     };
 
     const handlePlayOrPause = () => {
-        if (isPlaying) {
+        if (player.isPlaying) {
             stopController();
-            pause();
+            player.pause();
             return;
         }
-        updateVisualizer().then(() => play());
+        updateVisualizer().then(() => player.play());
     };
 
     const skipForward = () => {
-        setAudioTime(currentTime + timeSkip_s);
+        player.setAudioTime(player.currentTime + timeSkip_s);
     }
     const skipBackward = () => {
-        setAudioTime(currentTime - timeSkip_s);
+        player.setAudioTime(player.currentTime - timeSkip_s);
     }
 
     const toggleFullScreen = () => {
@@ -120,7 +126,11 @@ const MuvizApp = () => {
         }
     };
 
-    const hudVisibilityForMd = isPlaying ? "lg:opacity-0" : "lg:opacity-100";
+    const toggleVolume = () => {
+        player.changeVolume(player.volume === 0 ? 0.69 : 0);
+    };
+
+    const hudVisibilityForMd = player.isPlaying ? "lg:opacity-0" : "lg:opacity-100";
 
     return (
         <div className="h-full w-full justify-center align-center" ref={appRef}>
@@ -135,17 +145,18 @@ const MuvizApp = () => {
                         p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
             >
                 <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-                    <span className="text-base sm:text-lg font-bold"> {"Unknown Song"}</span>
+                    <span className="text-base sm:text-lg font-bold">{player.title}</span>
                     <span className="text-xs sm:text-sm">
-                            {formatTime(currentTime)} / {formatTime(duration)}
+                            {formatTime(player.currentTime)} / {formatTime(player.duration)}
                     </span>
                 </div>
                 <Slider
-                    value={currentTime}
+                    value={player.currentTime}
                     min={0}
-                    max={duration || 0}
+                    max={player.duration || 0}
                     step={0.1}
-                    onChange={setAudioTime}
+                    onChange={player.setAudioTime}
+                    style={SliderOptions.Style.Info}
                     className="w-full h-fit"
                 />
 
@@ -158,7 +169,7 @@ const MuvizApp = () => {
                             onClick={skipBackward}
                         />
                         <PrimaryButton
-                            icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
+                            icon={player.isPlaying ? "fa fa-pause" : "fa fa-play"}
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={handlePlayOrPause}
                         />
@@ -168,6 +179,13 @@ const MuvizApp = () => {
                             state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
                             onClick={skipForward}
                         />
+                        <div className='flex flex-row gap-2'>
+                            <PrimaryButton icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
+                                player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
+                                           style={ButtonOptions.Style.Ghost}
+                                           onClick={toggleVolume}/>
+                            <Slider value={player.volume} min={0} max={1} step={0.01} onChange={player.changeVolume}/>
+                        </div>
                     </div>
 
                     <div className="w-fit h-full flex flex-row gap-1">
@@ -190,6 +208,20 @@ const MuvizApp = () => {
                             className="h-full w-fit m-auto"
                             placeholder="Select Visualizer"
                             initialIndex={0}
+                        />
+                        <ModalButton
+                            icon="fa-solid fa-plus"
+                            title="Choose Music"
+                            className="h-full w-fit m-auto"
+                            dialogContent={
+                                <div className="flex flex-col gap-2">
+                                    <span className="text-base">Upload Music</span>
+                                    <span className="text-xs">Only audio files are supported</span>
+                                    <FileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
+                                </div>
+                            }
+                            dialogAction={() => {
+                            }}
                         />
 
                         <PrimaryButton

@@ -1,11 +1,12 @@
 import React from "react";
+import {SliderOptions} from "../utils/enums";
 
-const Slider = ({ labelString,value, min, max, step = 1, onChange, className}) => {
+const Slider = ({labelString, value, min, max, step = 1, style = SliderOptions.Style.Default, onChange, className}) => {
     return (
         <div className={`flex items-center gap-4 ${className}`}>
             <input
                 type="range"
-                className="range range-info range-xs flex-grow"
+                className={`range ${style} range-xs flex-grow`}
                 min={min}
                 max={max}
                 step={step}
@@ -16,5 +17,6 @@ const Slider = ({ labelString,value, min, max, step = 1, onChange, className}) =
         </div>
     );
 };
+
 
 export default Slider;

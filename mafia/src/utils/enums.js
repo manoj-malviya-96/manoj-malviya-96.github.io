@@ -18,6 +18,7 @@ export const ButtonOptions = Object.freeze({
         Medium: 'btn-md',
         Large: 'btn-lg',
         Square: 'btn-square',
+        Circle: 'btn-circle',
         Wide: 'btn-wide',
     },
     State: {
@@ -62,5 +63,14 @@ export const DropdownOptions = Object.freeze({
         Medium: 'btn-md',
         Large: 'btn-lg',
     },
+});
+
+
+export const SliderOptions = Object.freeze({
+    Style: {
+        Default: 'range-primary',
+        Info: 'range-info',
+        Gradient: '',
+    }
 });
 

@@ -1,20 +1,48 @@
 import { useRef, useState, useEffect } from "react";
+import {computeGradient, computeRMS, computeVariance} from "./math";
 export const audioFFTSize = 256;
-export function computeDropLevel(array) {
-    // Assumption is during drop, every frequency completely loud.
-    const rms = Math.sqrt(
-        array.reduce((acc, val) => acc + val ** 2, 0) / array.length,
-    );
-    return rms / (audioFFTSize - 1);
+
+
+export class DropDetector {
+    constructor({sampleRate = 44000}) {
+        this.rmsHistory = []
+        this.maxHistoryLength = 200;
+
+        this.binWidth = sampleRate / 255;
+        this.baseIdxRange = this.getBinRange(20, 250);
+        this.midIdxange = this.getBinRange(250, 4000);
+        this.trebleIdxRange = this.getBinRange(4000, sampleRate / 2);
+
+        this.rmsThreshold = 0.5;
+    }
+
+    getBinRange = (startFreq, endFreq) => [
+        Math.floor(startFreq / this.binWidth),
+        Math.ceil(endFreq / this.binWidth),
+    ];
+
+    detect(array) {
+        const rms = computeRMS(array);
+        this.rmsHistory.push(rms);
+        if (this.rmsHistory.length > this.maxHistoryLength) {
+            this.rmsHistory.shift();
+        }
+        console.log(computeGradient(this.rmsHistory), rms);
+        return computeVariance(this.rmsHistory) < this.rmsThreshold * audioFFTSize;
+    }
+
 }
 
 
-export const useAudio = ({ src, makeAnalyzer = false }) => {
+
+export const AudioPlayer = ({ src, makeAnalyzer = false }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [analyser, setAnalyser] = useState(null);
     const [dataArray, setDataArray] = useState(null);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
+    const [volume, setVolume] = useState(1);
+    const [title, setTitle] = useState(""); // Store metadata here
 
     const audioRef = useRef(null); // Reference to the Audio element
     const audioContextRef = useRef(null); // Reference to the AudioContext
@@ -27,25 +55,25 @@ export const useAudio = ({ src, makeAnalyzer = false }) => {
             audioRef.current.src = ""; // Disconnect the previous audio
             mediaElementSourceRef.current?.disconnect();
         }
+        if (!src) return;
 
         // Create a new Audio element
-        const audioElement = new Audio(src);
-        audioRef.current = audioElement;
-
-        audioElement.ondurationchange = () => setDuration(audioElement.duration || 0);
-        audioElement.ontimeupdate = () => setCurrentTime(audioElement.currentTime);
+        audioRef.current = new Audio(src);
+        setTitle("unknown");
+        audioRef.current.ondurationchange = () => setDuration(audioRef.current.duration || 0);
+        audioRef.current.ontimeupdate = () => setCurrentTime(audioRef.current.currentTime);
 
         if (makeAnalyzer && !audioContextRef.current) {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             audioContextRef.current = audioContext;
 
-            const sourceNode = audioContext.createMediaElementSource(audioElement);
+            const sourceNode = audioContext.createMediaElementSource(audioRef.current);
             const analyserNode = audioContext.createAnalyser();
 
             sourceNode.connect(analyserNode);
             analyserNode.connect(audioContext.destination);
 
-            analyserNode.fftSize = audioFFTSize; // Adjust as needed
+            analyserNode.fftSize = 256; // Adjust as needed
 
             mediaElementSourceRef.current = sourceNode;
             analyserRef.current = analyserNode;
@@ -90,6 +118,13 @@ export const useAudio = ({ src, makeAnalyzer = false }) => {
         }
     };
 
+    const changeVolume = (volume) => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+            setVolume(volume);
+        }
+    };
+
     return {
         audioRef,
         analyser,
@@ -98,7 +133,10 @@ export const useAudio = ({ src, makeAnalyzer = false }) => {
         play,
         pause,
         currentTime,
-        duration,
         setAudioTime,
+        volume,
+        changeVolume,
+        title,
+        duration, // Expose metadata here
     };
 };

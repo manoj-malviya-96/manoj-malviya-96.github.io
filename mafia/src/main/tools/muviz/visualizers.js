@@ -1,5 +1,5 @@
 import {CanvasController} from "../../../base/canvas";
-import {audioFFTSize} from "../../../utils/audio";
+import {DropDetector} from "../../../utils/audio";
 import {adjustColor} from "../../../utils/color";
 
 export const VisualizerOptions = Object.freeze({
@@ -52,6 +52,8 @@ export class SpiralVisualizer extends CanvasController {
         this.canvasHeight = 0; // Cached canvas height
 
         this.baseColor = `rgb(200, 50, 150)`;
+
+        this.dropDetector = new DropDetector({sampleRate: 44000});
     }
 
     init() {
@@ -106,7 +108,7 @@ export class SpiralVisualizer extends CanvasController {
 
             // Set point properties based on audio intensity
             const glow = intensity * this.maxGlow;
-            const brightnessVector = intensity > 0.8 ? [100, 100, 100] : [intensity, 1, 1 + 0.67 * intensity];
+            const brightnessVector = intensity > 0.9 ? [100, 100, 100] : [intensity, 1, 1 + 0.67 * intensity];
             const color = adjustColor(this.baseColor, intensity + 0.5, brightnessVector);
 
             // Draw the point
@@ -123,23 +125,24 @@ export class SpiralVisualizer extends CanvasController {
     draw() {
         const canvas = this.canvasRef.current;
         if (!canvas || !this.analyser || !this.dataArray) return;
-
         const ctx = canvas.getContext("2d");
-
-
         ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight); // Clear the canvas
         ctx.save();
         ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2); // Move the origin to the center of the canvas
         ctx.rotate(this.angle); // Apply rotation
 
+
+        const isDrop = this.dropDetector.detect(this.dataArray);
+        console.log("isDrop: ", isDrop);
+
         // Update and draw points
-        this.updatePoints(0.05);
+        this.updatePoints(isDrop ? 0.05: 0.0);
         this.addPoint();
         this.drawPoints(ctx);
         ctx.restore();
 
         // Increment rotation angle for smooth animation
-        this.angle += 0.005;
+        this.angle += (isDrop ? 2 : 1) * 0.005;
     }
 }
 
