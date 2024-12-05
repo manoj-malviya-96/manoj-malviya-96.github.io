@@ -7,6 +7,7 @@ import CodeBlock from "../../base/code";
 import {TopTabBar} from "../top-modal";
 import PhotoViz from "../../base/photo";
 import Plotter from "../../base/plotter";
+import HeroText from "../../base/HeroText";
 
 const BlogHeader = ({title, summary, date, tags, coverImage}) => {
     if (!coverImage) {
@@ -91,24 +92,29 @@ const BlogSection = ({section}) => {
                     <div className='text-lg w-fit md:w-1/2 m-auto align-center'>
                         {makeRichParagraph(section.paragraph)}
                     </div>
-                    <div className='w-full justify-center m-auto align-center'>
-                        {section.media.typeKey === 'BlogImage' &&
-                            <PhotoViz src={section.media.source} alt={section.media.label}
-                                      className={'m-auto align-center justify-center w-full md:w-1/2'}/>
-                        }
-                        {section.media.typeKey === 'BlogCode' && (
-                            <CodeBlock language={section.media.language} code={section.media.code}
-                                       className="m-auto align-center justify-center w-full md:w-1/2"/>
-                        )}
+                    {section.media &&
+                        <div className='w-full justify-center m-auto align-center'>
+                            {section.media.typeKey === 'BlogImage' &&
+                                <PhotoViz src={section.media.source} alt={section.media.label}
+                                          className={'m-auto align-center justify-center w-full md:w-1/2'}/>
+                            }
+                            {section.media.typeKey === 'BlogCode' && (
+                                <CodeBlock language={section.media.language} code={section.media.code}
+                                           className="m-auto align-center justify-center w-full md:w-1/2"/>
+                            )}
 
-                        {section.media.typeKey === 'BlogPlot' &&
-                            <Plotter
-                                dataTrace={section.media.plot}
-                                height={480}
-                                width={640}
-                            />
-                        }
-                    </div>
+                            {section.media.typeKey === 'BlogPlot' &&
+                                <Plotter
+                                    dataTrace={section.media.plot}
+                                    height={480}
+                                    width={640}
+                                />
+                            }
+                            {section.media.typeKey === 'BlogHeroText' &&
+                                <HeroText text={section.media.text} className='w-fit md:w-1/2'/>
+                            }
+                        </div>
+                    }
                 </section>
             }
         />

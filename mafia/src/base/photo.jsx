@@ -11,7 +11,7 @@ const PhotoViz = ({src, alt, className=''}) => {
                         alt={alt}
                         className="rounded-lg cursor-pointer w-full h-full"
                     />
-                    <span className='text-primary fw-bold uppercase'>{alt}</span>
+                    <span className='text-primary fw-bold text-sm mt-2 w-full'>{alt}</span>
                 </div>
             </PhotoView>
         </PhotoProvider>

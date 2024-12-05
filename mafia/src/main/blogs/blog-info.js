@@ -68,6 +68,10 @@ export function makeBlogPlot({plot}) {
     return makeStruct({plot}, 'BlogPlot');
 }
 
+export function makeBlogHeroText({text}){
+    return makeStruct({text}, 'BlogHeroText');
+}
+
 export function makeBlogSectionContent({name, icon, title, paragraph, media}) {
     return makeStruct({name, icon, title, paragraph, media}, 'BlogSectionContent');
 }
