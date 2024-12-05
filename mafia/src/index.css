@@ -16,3 +16,10 @@ code {
     monospace;
 }
 
+
+input[type=range].vertical {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  vertical-align: middle;
+}
+

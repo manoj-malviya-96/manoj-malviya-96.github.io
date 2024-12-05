@@ -1,7 +1,7 @@
 import {createRouterItem, rangesTo} from "../../utils/types";
 import muvizInstance from "./muviz/muviz";
 import meshaInstance from "./mesha";
-import trussOptInstance from "./trussopt";
+import trussOptInstance from "./trussopt/trussopt";
 
 
 

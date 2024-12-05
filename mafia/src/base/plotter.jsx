@@ -59,11 +59,8 @@ function createLayout(
             scaleratio: 1,
         },
         showlegend: false,
-        padding: 0,
         margin: {t: margin, l: margin, r: margin, b: margin},
         autosize: true,
-        width: width,
-        height: height,
         paper_bgcolor: backgroundColor,
         plot_bgcolor: backgroundColor,
         hovermode: "closest",
@@ -75,8 +72,8 @@ const Plotter = ({
                      title = "",
                      xTitle = "",
                      yTitle = "",
-                     height = 400,
-                     width = 600,
+                     height = "",
+                     width = "",
                      textColor = "#ffffff",
                      minimalView = true
                  }) => {
