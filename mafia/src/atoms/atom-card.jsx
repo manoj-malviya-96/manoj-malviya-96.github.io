@@ -23,7 +23,7 @@ const AtomCard = ({image, title, date, description, onClick, isNew = false, hasB
             {date &&
                 <div className="flex flex-row gap-2">
                     <i className="pi pi-calendar text-accent"/>
-                    <span className="text-muted text-sm">{date}</span>
+                    <span className="text-accent text-sm">{date}</span>
                 </div>
             }
         </div>
