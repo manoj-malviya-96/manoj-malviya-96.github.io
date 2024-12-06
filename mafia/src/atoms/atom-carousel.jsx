@@ -29,55 +29,31 @@ export const AtomCarousel = ({items, onClick}) => {
     };
     const responsiveOptions = [
         {
-            breakpoint: "1199px",
+            breakpoint: ScreenSizeBreakPointsPx.ExtraLarge,
             numVisible: 4,
-            numScroll: 4
+            numScroll: 1
         },
         {
-            breakpoint: "991px",
+            breakpoint: ScreenSizeBreakPointsPx.Large,
             numVisible: 3,
-            numScroll: 3
+            numScroll: 1
         },
         {
-            breakpoint: "767px",
+            breakpoint: ScreenSizeBreakPointsPx.Medium,
             numVisible: 2,
-            numScroll: 2
+            numScroll: 1
         },
         {
-            breakpoint: "575px",
+            breakpoint: ScreenSizeBreakPointsPx.Small,
             numVisible: 1,
             numScroll: 1
         }
     ];
 
 
-    // const responsiveOptions = [
-    //     {
-    //         breakpoint: ScreenSizeBreakPointsPx.ExtraLarge,
-    //         numVisible: 4,
-    //         numScroll: 4
-    //     },
-    //     {
-    //         breakpoint: ScreenSizeBreakPointsPx.Large,
-    //         numVisible: 3,
-    //         numScroll: 3
-    //     },
-    //     {
-    //         breakpoint: ScreenSizeBreakPointsPx.Medium,
-    //         numVisible: 2,
-    //         numScroll: 2
-    //     },
-    //     {
-    //         breakpoint: ScreenSizeBreakPointsPx.Small,
-    //         numVisible: 1,
-    //         numScroll: 1
-    //     }
-    // ];
-
-
     return (
         <div>
-            <Carousel value={items} numVisible={3} numScroll={3} responsiveOptions={responsiveOptions}
+            <Carousel value={items} numVisible={3} numScroll={1} responsiveOptions={responsiveOptions}
                       itemTemplate={makeCard}/>
         </div>
     );

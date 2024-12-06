@@ -6,8 +6,7 @@ const AtomCard = ({image, title, date, description, onClick, isNew = false, hasB
     const header = (
         <div className="relative">
             {isNew && (
-                <Badge value="NEW" className="absolute top-0 right-0 p-4"
-                       style={{borderRadius: 0}} severity="warning"/>
+                <Badge value="NEW" className="badge absolute top-0 right-0 px-2 rounded-badge" severity="danger"/>
             )}
             <img
                 src={image}
@@ -17,18 +16,28 @@ const AtomCard = ({image, title, date, description, onClick, isNew = false, hasB
         </div>
     );
 
-    const footer = date && (
-        <span className="w-fit whitespace-nowrap">{date}</span>
+    const footer = (
+        <div>
+            {title && <h2 className="text-2xl text-primary-content font-bold uppercase">{title}</h2>}
+            {description && <p className="text-accent">{description}</p>}
+            {date &&
+                <div className="flex flex-row gap-2">
+                    <i className="pi pi-calendar text-accent"/>
+                    <span className="text-muted text-sm">{date}</span>
+                </div>
+            }
+        </div>
     );
+
     return (
         <Card
-            title={title}
-            subTitle={description}
             header={header}
             footer={footer}
-            style={{backgroundColor: 'rgba(0, 0, 0, 0)'}} // transparent background, overrides prime-react default
+            style={{
+                backgroundColor: 'rgba(0, 0, 0, 0)'
+            }} // transparent background, overrides prime-react default
             className={`w-full h-full cursor-pointer 
-                        overflow-clip rounded-lg
+                        overflow-clip rounded-lg text-primary
                         border-0 border-primary border-opacity-50
                         hover:border  ${hasBorder ? 'border' : ''}`}
             onClick={onClick}

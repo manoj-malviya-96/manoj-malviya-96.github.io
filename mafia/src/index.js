@@ -19,7 +19,6 @@ root.render(
             ripple: true,
             unstyled: true,
             pt: Tailwind,
-            ptOptions: {mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge}
         }}>
             <App/>
         </PrimeReactProvider>
