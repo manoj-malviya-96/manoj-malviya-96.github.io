@@ -10,11 +10,12 @@ export function createCarouselItem({title, description, date, tags, logo, size, 
         'CarouselItem');
 }
 
-export const AtomCarousel = ({items, onClick, autoPlay = false}) => {
+export const AtomCarousel = ({items, onClick}) => {
     validateStructTypeForList(items, 'CarouselItem');
+    console.log(items.length);
 
     const makeCard = (card) => {
-        return <div className="mr-2 h-full w-full">
+        return <div className="p-4">
             <AtomCard
                 image={card.logo}
                 title={card.title}
@@ -26,35 +27,58 @@ export const AtomCarousel = ({items, onClick, autoPlay = false}) => {
             />
         </div>
     };
-
     const responsiveOptions = [
         {
-            breakpoint: ScreenSizeBreakPointsPx.ExtraLarge,
-            numVisible: 2,
-            numScroll: 1
+            breakpoint: "1199px",
+            numVisible: 4,
+            numScroll: 4
         },
         {
-            breakpoint: ScreenSizeBreakPointsPx.Large,
+            breakpoint: "991px",
             numVisible: 3,
-            numScroll: 1
+            numScroll: 3
         },
         {
-            breakpoint: ScreenSizeBreakPointsPx.Medium,
+            breakpoint: "767px",
             numVisible: 2,
-            numScroll: 1
+            numScroll: 2
         },
         {
-            breakpoint: ScreenSizeBreakPointsPx.Small,
+            breakpoint: "575px",
             numVisible: 1,
             numScroll: 1
         }
     ];
 
 
+    // const responsiveOptions = [
+    //     {
+    //         breakpoint: ScreenSizeBreakPointsPx.ExtraLarge,
+    //         numVisible: 4,
+    //         numScroll: 4
+    //     },
+    //     {
+    //         breakpoint: ScreenSizeBreakPointsPx.Large,
+    //         numVisible: 3,
+    //         numScroll: 3
+    //     },
+    //     {
+    //         breakpoint: ScreenSizeBreakPointsPx.Medium,
+    //         numVisible: 2,
+    //         numScroll: 2
+    //     },
+    //     {
+    //         breakpoint: ScreenSizeBreakPointsPx.Small,
+    //         numVisible: 1,
+    //         numScroll: 1
+    //     }
+    // ];
+
+
     return (
         <div>
-            <Carousel value={items} numScroll={1} numVisible={3} responsiveOptions={responsiveOptions}
-                      autoplayInterval={autoPlay ? 3000 : 0} itemTemplate={makeCard}/>
+            <Carousel value={items} numVisible={3} numScroll={3} responsiveOptions={responsiveOptions}
+                      itemTemplate={makeCard}/>
         </div>
     );
 };

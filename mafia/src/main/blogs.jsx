@@ -13,12 +13,12 @@ const BlogListing = () => {
         navigate(path);
     };
     return (
-        <div className="flex flex-column">
+        <div className="flex flex-column w-fit h-full">
             {/* BentoBox with Cards */}
             <FullScreenPage
                 title="Blogs"
                 name="blog"
-                children={<AtomCarousel items={items} autoPlay={true} onClick={handleCardClick}/>}
+                children={<AtomCarousel items={items} onClick={handleCardClick}/>}
             />
         </div>
     );

@@ -6,12 +6,13 @@ const AtomCard = ({image, title, date, description, onClick, isNew = false, hasB
     const header = (
         <div className="relative">
             {isNew && (
-                <Badge value="NEW" className="absolute top-0 right-0" severity="warning"/>
+                <Badge value="NEW" className="absolute top-0 right-0 p-4"
+                       style={{borderRadius: 0}} severity="warning"/>
             )}
             <img
                 src={image}
                 alt={title}
-                className="img-cover w-full h-full"
+                className="object-cover w-full h-full"
             />
         </div>
     );
@@ -25,7 +26,7 @@ const AtomCard = ({image, title, date, description, onClick, isNew = false, hasB
             subTitle={description}
             header={header}
             footer={footer}
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }} // transparent background, overrides prime-react default
+            style={{backgroundColor: 'rgba(0, 0, 0, 0)'}} // transparent background, overrides prime-react default
             className={`w-full h-full cursor-pointer 
                         overflow-clip rounded-lg
                         border-0 border-primary border-opacity-50
