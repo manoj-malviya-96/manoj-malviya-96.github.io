@@ -45,7 +45,7 @@ const AtomButton = ({
             >
                 {/*Icons hack: Tailwind + Prime React messes up the padding, when only icon is used. This centers icon*/}
                 {icon && <i className={icon}/>}
-                {label && <span>{label}</span>}
+                {label && <span className='hidden sm:inline'>{label}</span>}
             </Button>
         </MotionDiv>
     );
