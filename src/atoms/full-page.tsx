@@ -1,6 +1,21 @@
-import { Element } from 'react-scroll';
+import React, {ReactNode} from 'react';
+import {Element} from 'react-scroll';
 
-const FullScreenPage = ({ name, title, children, childrenAlignment, backgroundImage }) => {
+interface FullScreenPageProps {
+    name: string;
+    title?: string;
+    children?: ReactNode;
+    childrenAlignment?: string; // Example: 'justify-center items-center'
+    backgroundImage?: string;
+}
+
+const FullScreenPage: React.FC<FullScreenPageProps> = ({
+                                                           name,
+                                                           title,
+                                                           children,
+                                                           childrenAlignment,
+                                                           backgroundImage,
+                                                       }) => {
     if (!name) {
         throw new Error("The 'name' prop is required for FullScreenPage.");
     }
