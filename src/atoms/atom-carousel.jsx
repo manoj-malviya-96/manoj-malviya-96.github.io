@@ -12,49 +12,23 @@ export function createCarouselItem({title, description, date, tags, logo, size, 
 
 export const AtomCarousel = ({items, onClick}) => {
     validateStructTypeForList(items, 'CarouselItem');
-    console.log(items.length);
-
-    const makeCard = (card) => {
-        return <div className="p-4">
-            <AtomCard
-                image={card.logo}
-                title={card.title}
-                date={card.date}
-                description={card.description}
-                isNew={card.isNew}
-                hasBorder={card.hasBorder}
-                onClick={() => onClick(card.onClickArg)}
-            />
-        </div>
-    };
-    const responsiveOptions = [
-        {
-            breakpoint: ScreenSizeBreakPointsPx.ExtraLarge,
-            numVisible: 4,
-            numScroll: 1
-        },
-        {
-            breakpoint: ScreenSizeBreakPointsPx.Large,
-            numVisible: 3,
-            numScroll: 1
-        },
-        {
-            breakpoint: ScreenSizeBreakPointsPx.Medium,
-            numVisible: 2,
-            numScroll: 1
-        },
-        {
-            breakpoint: ScreenSizeBreakPointsPx.Small,
-            numVisible: 1,
-            numScroll: 1
-        }
-    ];
-
-
+    //! Reason I am using this is because the prime-react carousel is not scrollable. This uses daisyUI
     return (
-        <div>
-            <Carousel value={items} numVisible={3} numScroll={1} responsiveOptions={responsiveOptions}
-                      itemTemplate={makeCard}/>
+        <div className='carousel w-full m-auto'>
+            {items.map((item, index) => {
+                return (
+                    <div key={index} className="carousel-item w-1/2 md:w-1/3 xl:w-1/4 h-fit rounded-box p-2">
+                        <AtomCard
+                            image={item.logo}
+                            title={item.title}
+                            date={item.date}
+                            description={item.description}
+                            isNew={item.isNew}
+                            hasBorder={item.hasBorder}
+                            onClick={() => onClick(item.onClickArg)}
+                        />
+                    </div>);
+            })}
         </div>
     );
 };
