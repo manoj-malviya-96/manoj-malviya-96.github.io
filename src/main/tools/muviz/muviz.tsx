@@ -145,8 +145,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
         </div>
     );
 
-    const hudVisibilityForMd = useMemo(() => (player.isPlaying ? "lg:opacity-0" : "lg:opacity-100"), [player.isPlaying]);
-
+    const hudVisibilityForMd = () => (
+        player.isPlaying ? "lg:opacity-0" : "lg:opacity-100");
 
     const MetadataRow: React.FC<{
         player: AudioPlayer

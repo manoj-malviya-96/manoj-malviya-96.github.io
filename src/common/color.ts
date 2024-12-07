@@ -24,11 +24,6 @@ export function adjustColor(
     g = Math.min(255, Math.max(0, g * brightness[1]));
     b = Math.min(255, Math.max(0, b * brightness[2]));
 
-    // Validate opacity is between 0 and 1
-    if (opacity < 0 || opacity > 1) {
-        throw new Error("Opacity must be between 0 and 1.");
-    }
-
     // Return the modified color in 'rgba(r, g, b, opacity)' format
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }

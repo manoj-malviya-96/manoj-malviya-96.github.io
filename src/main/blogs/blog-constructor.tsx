@@ -145,7 +145,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             name={name}
             title={title}
             children={
-                <section className='flex flex-column justify-center align-center w-full h-fit gap-8'>
+                <section className='flex flex-col justify-center align-center w-4/5 h-fit gap-8'>
                     <div className='text-lg w-fit m-auto align-center'>
                         {makeRichParagraph(paragraph)}
                     </div>
