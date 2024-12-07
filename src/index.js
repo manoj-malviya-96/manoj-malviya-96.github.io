@@ -10,7 +10,6 @@ import {PrimeReactProvider} from 'primereact/api';
 import 'primereact/resources/primereact.css';
 import './index.css';
 import Tailwind from "primereact/passthrough/tailwind";
-import {twMerge} from 'tailwind-merge';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

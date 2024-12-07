@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {Button} from 'primereact/button';
 import MotionDiv from './motion-div';
-import {ScreenSizeContext, ScreenSizes} from './screen';
+import {ScreenSizeContext, ScreenSizes} from '../common/screen';
 
 export interface AtomButtonProps {
     icon?: string;
     label?: string;
-    onClick?: () => void;
+    onClick: () => void;
     severity?: 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'help' | 'contrast' | undefined;
     size?: 'small' | undefined | 'large';
     badge?: string;
@@ -40,7 +40,7 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
     const daisyClass = ghostMode ? 'btn-ghost' : 'btn-primary';
 
     return (
-        <MotionDiv className={className}>
+        <MotionDiv>
             <Button
                 className={`btn ${daisyClass} w-fit h-fit justify-center items-center`}
                 size={breakpoint !== ScreenSizes.Small ? size : 'large'}

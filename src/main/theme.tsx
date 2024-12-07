@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import AtomButton from "../atoms/atom-button";
+import {AtomButton} from "../atoms/atom-button";
 
 const availableThemes = [
     {name: 'Dark', icon: 'pi pi-moon'},
@@ -33,11 +33,10 @@ const ThemeButton = () => {
 
     return (
         <AtomButton
-            icon={currentThemeDetails.icon}
+            icon={currentThemeDetails?.icon}
             label={currentTheme}
             onClick={cycleTheme}
-        >
-        </AtomButton>
+        />
     );
 };
 

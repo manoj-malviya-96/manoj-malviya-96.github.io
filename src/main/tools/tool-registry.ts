@@ -1,19 +1,15 @@
-import {createRouterItem, rangesTo} from "../../utils/types";
+import {rangesTo} from "../../common/types";
 import muvizInstance from "./muviz/muviz";
-import meshaInstance from "./mesha";
-import trussOptInstance from "./trussopt/trussopt";
-
+import {RouteDefinition} from "../../common/router";
 
 
 export const registeredTools = [
     muvizInstance,
-    meshaInstance,
-    trussOptInstance
 ]
 
 export const makeToolRouter = () => {
     return rangesTo(registeredTools, (info) => {
-        return createRouterItem({path: info.path, component: info.component})
+        return {path: info.path, component: info.component} as RouteDefinition;
     });
 };
 

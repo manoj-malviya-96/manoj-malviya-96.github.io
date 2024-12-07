@@ -6,9 +6,11 @@ import {Badge} from "primereact/badge";
 export interface AtomCardProps {
     image: string;
     title: string;
-    date: string;
-    description: string;
-    onClick: () => void;
+    date?: string;
+    description?: string;
+
+    onClick(): void;
+
     isNew?: boolean;
     hasBorder?: boolean;
 }

@@ -18,7 +18,7 @@ SyntaxHighlighter.registerLanguage("matlab", matlab);
 SyntaxHighlighter.registerLanguage("qml", qml);
 
 // Define props interface
-interface CodeBlockProps {
+export interface CodeBlockProps {
     code: string;
     language: "cpp" | "javascript" | "python" | "matlab" | "qml"; // Add more languages as needed
     className?: string;

@@ -1,17 +1,43 @@
 import {CanvasController} from "../../../atoms/canvas";
-import {DropDetector} from "../../../utils/audio";
-import {adjustColor} from "../../../utils/color";
+import {DropDetector} from "../../../common/audio";
+import {adjustColor} from "../../../common/color";
+import React from "react";
 
-export const VisualizerOptions = Object.freeze({
-    Bar: 0,
-    Spiral: 1,
-})
+export enum VisualizerType {
+    Bar = 0,
+    Spiral = 1
+}
 
-export class BarVisualizer extends CanvasController {
-    constructor({analyser, dataArray, canvasRef}) {
+export function toString(type: VisualizerType): string {
+    switch (type) {
+        case VisualizerType.Bar:
+            return "Bar";
+        case VisualizerType.Spiral:
+            return "Spiral";
+    }
+}
+
+interface VisualizerProps {
+    analyser: AnalyserNode;
+    dataArray: Uint8Array;
+    canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>;
+}
+
+export class BaseVisualizer extends CanvasController {
+    protected readonly analyser: AnalyserNode;
+    protected readonly dataArray: Uint8Array;
+
+    constructor({analyser, dataArray, canvasRef}: VisualizerProps) {
         super(canvasRef);
-        this.analyser = analyser; // Audio analyser node
-        this.dataArray = dataArray; // Frequency data array
+        this.analyser = analyser;
+        this.dataArray = dataArray;
+    }
+}
+
+export class BarVisualizer extends BaseVisualizer {
+
+    constructor({analyser, dataArray, canvasRef}: VisualizerProps) {
+        super({analyser, dataArray, canvasRef});
     }
 
     draw() {
@@ -19,6 +45,13 @@ export class BarVisualizer extends CanvasController {
 
         const canvas = this.canvasRef.current;
         const ctx = canvas.getContext("2d");
+
+        // Ensure the context is not null
+        if (!ctx) {
+            console.error("2D context could not be retrieved from canvas.");
+            return;
+        }
+
         const {width, height} = canvas;
         ctx.clearRect(0, 0, width, height);
 
@@ -33,12 +66,19 @@ export class BarVisualizer extends CanvasController {
     }
 }
 
-export class SpiralVisualizer extends CanvasController {
-    constructor({analyser, dataArray, canvasRef}) {
-        super(canvasRef);
+export class SpiralVisualizer extends BaseVisualizer {
+    private angle: number;
+    private points: any[];
+    private totalPoints: number;
+    private readonly growthRate: number;
+    private readonly maxGlow: number;
+    private canvasWidth: number;
+    private canvasHeight: number;
+    private dropDetector: DropDetector;
+    private readonly baseColor: string;
 
-        this.analyser = analyser;
-        this.dataArray = dataArray;
+    constructor({analyser, dataArray, canvasRef}: VisualizerProps) {
+        super({analyser, dataArray, canvasRef});
 
         // Spiral properties
         this.angle = 0; // Rotation angle of the spiral
@@ -97,7 +137,8 @@ export class SpiralVisualizer extends CanvasController {
         );
     }
 
-    drawPoints(ctx) {
+    drawPoints(ctx: CanvasRenderingContext2D | null) {
+        if (!ctx) return;
         // Fetch audio data
         this.analyser.getByteFrequencyData(this.dataArray);
 
@@ -118,6 +159,7 @@ export class SpiralVisualizer extends CanvasController {
             ctx.shadowBlur = glow;
             ctx.shadowColor = color;
             ctx.fillStyle = color;
+            ``
             ctx.fill();
         });
     }
@@ -126,17 +168,18 @@ export class SpiralVisualizer extends CanvasController {
         const canvas = this.canvasRef.current;
         if (!canvas || !this.analyser || !this.dataArray) return;
         const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
         ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight); // Clear the canvas
         ctx.save();
         ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2); // Move the origin to the center of the canvas
         ctx.rotate(this.angle); // Apply rotation
 
-
         const isDrop = this.dropDetector.detect(this.dataArray);
         console.log("isDrop: ", isDrop);
 
         // Update and draw points
-        this.updatePoints(isDrop ? 0.05: 0.0);
+        this.updatePoints(isDrop ? 0.05 : 0.0);
         this.addPoint();
         this.drawPoints(ctx);
         ctx.restore();

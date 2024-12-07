@@ -1,5 +1,6 @@
-import {BlogInfo, makeBlogCode, makeBlogImage, makeBlogSectionContent} from "../blog-info";
+import {BlogInfo} from "../blog-info";
 import Cover from "./cover.webp"
+import {BlogCodeProps, BlogSectionContentProps} from "../blog-constructor";
 
 class CppThreads extends BlogInfo {
     constructor() {
@@ -14,49 +15,44 @@ int main() {
     return 0;
 }
     `;
-        const simpleThreadsExample = makeBlogSectionContent({
+        const simpleThreadsExample: BlogSectionContentProps = {
             name: 'example',
             icon: 'fa fa-info-circle',
             title: 'Simple Example',
             paragraph: [
-                [
-                    `When I first explored C++ threads, it felt like entering a new world. C++’s `,
-                    {tag: 'code', children: '<thread>'},
-                    ` library provides built-in multi-threading support, enabling concurrent execution. 
-                    Initially, I thought it would be simple, but managing threads can be challenging.`
-                ]
+                `When I first explored C++ threads, it felt like entering a new world. C++’s `,
+                {tag: 'code', children: '<thread>'},
+                ` library provides built-in multi-threading support, enabling concurrent execution. 
+                   Initially, I thought it would be simple, but managing threads can be challenging.`
             ],
-            media: makeBlogCode({
+            media: {
                 language: 'cpp',
                 code: simpleThreadCode
-            })
-        });
+            } as BlogCodeProps
+        };
 
-        const raceConditions = makeBlogSectionContent({
+        const raceConditions: BlogSectionContentProps = {
             name: 'race-conditions',
             icon: 'fa fa-person-running',
             title: 'Race conditions',
             paragraph: [
-                [
-                    `One of the first things I ran into was a race condition.
-                      It’s like having multiple people trying to update the same Excel file simultaneously—everyone
-                     thinks they're editing the latest version, but chaos ensues.`
-                ],
+                `One of the first things I ran into was a race condition.
+                 It’s like having multiple people trying to update the same 
+                 Excel file simultaneously—everyone thinks they're editing the 
+                 latest version, but chaos ensues.`,
                 {tag: 'br'},
-                [
-                    `Let me paint a picture: I had a shared inventory map
-                     that stored the stock count of different items.
-                     Imagine multiple threads trying to update this map at the same time.
-                     It might look something like this: Here's an example code snippet:`
-                ]
+                `Let me paint a picture: I had a shared inventory map
+                 that stored the stock count of different items.
+                 Imagine multiple threads trying to update this map at the same time.
+                 It might look something like this: Here's an example code snippet:`
             ],
-            media: makeBlogCode({
+            media: {
                 language: 'cpp', code:
                     `
 std::map<std::string, int> inventory;
                 `
-            })
-        });
+            } as BlogCodeProps
+        }
 
 
         const mutexCode = `    
@@ -82,18 +78,18 @@ void sell(const std::string& item, int quantity) {
                     << " units of " << item << std::endl;
     }
 }`;
-        const mutexExample = makeBlogSectionContent({
+        const mutexExample: BlogSectionContentProps = {
             name: 'mutex-example',
             icon: 'fa fa-lock',
             title: 'Mutexes',
             paragraph: [
-                [`A mutex is like a bouncer at a club, ensuring that only one person can enter a specific
+                `A mutex is like a bouncer at a club, ensuring that only one person can enter a specific
                  area at a time. This prevents a total meltdown caused by multiple people trying to access
                  the same thing at the same time.`
-                ]
+                , {tag: 'br'},
             ],
-            media: makeBlogCode({language: 'cpp', code: mutexCode})
-        });
+            media: {language: 'cpp', code: mutexCode} as BlogCodeProps
+        };
 
         const lockGuardCode = `
 void restock(const std::string& item, int quantity) {
@@ -116,20 +112,19 @@ void sell(const std::string& item, int quantity) {
     }
 }
 `;
-        const lockGuards = makeBlogSectionContent({
+        const lockGuards: BlogSectionContentProps = {
             name: 'lock-guards',
             icon: 'fas fa-person-military-pointing',
             title: 'Lock Guards',
             paragraph: [
-                [
-                    `Manually locking and unlocking a mutex felt like juggling with one too many 
-                    balls in the air. I discovered `,{tag: 'code', children: `std::lock_guard`},
-                    `, which automatically locks and 
+                `Manually locking and unlocking a mutex felt like juggling with one too many 
+                    balls in the air. I discovered `,
+                {tag: 'code', children: `std::lock_guard`},
+                `, which automatically locks and 
                     unlocks the mutex for you—much less risky.`
-                ]
             ],
-            media: makeBlogCode({language: 'cpp', code: lockGuardCode})
-        });
+            media: {language: 'cpp', code: lockGuardCode} as BlogCodeProps
+        }
 
         const atomicCode = `
 std::map<std::string, std::atomic<int>> inventory; // Shared resource
@@ -139,18 +134,17 @@ void restock(const std::string& item, int quantity) {
                 << " units of " << item << std::endl;
 }
         `
-        const atomicValues = makeBlogSectionContent({
+        const atomicValues: BlogSectionContentProps = {
             name: 'atomic-values',
             icon: 'fas fa-atom',
             title: 'Atomic Variables',
             paragraph: [
-                [
-                    `Atomic variables are like superheroes with superpowers—able to perform 
-                    operations atomically without any interference. They ensure that operations
-                    on the variable are indivisible, preventing race conditions.`
-                ]],
-            media: makeBlogCode({language: 'cpp', code: atomicCode})
-        });
+                `Atomic variables are like superheroes with superpowers—able to perform 
+                operations atomically without any interference. They ensure that operations
+                on the variable are indivisible, preventing race conditions.`
+            ],
+            media: {language: 'cpp', code: atomicCode} as BlogCodeProps
+        };
 
         super({
             id: 'cpp-threads',

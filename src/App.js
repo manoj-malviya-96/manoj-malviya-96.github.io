@@ -1,8 +1,9 @@
 import React from 'react';
 import NavBar from "./main/navbar";
-import RouterConstructor from "./atoms/router";
+import RouterConstructor from "./common/router";
 import constructedRoutes from "./main/routes";
-import {ScreenSizeProvider} from "./atoms/screen";
+import {ScreenSizeProvider} from "./common/screen";
+
 const App = () => {
     return (
         <ScreenSizeProvider>

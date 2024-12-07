@@ -1,82 +1,82 @@
-import {createTabItem, createTimeLineItem, makeStruct, rangesTo} from "../../utils/types";
-import {getScaleColor} from "../../utils/color";
-import {createCarouselItem} from "../../atoms/atom-carousel";
+import {rangesTo} from "../../common/types";
+import {getScaleColor} from "../../common/color";
+import {AtomCarouselProps} from "../../atoms/atom-carousel";
+import {TabItemProps} from "../../atoms/tab-bar";
+import {AtomCardProps} from "../../atoms/atom-card";
+import {openLink} from "../../common/links";
+
+
+interface BlogInfoConstructor {
+    id: string;
+    title: string;
+    description: string;
+    summary: string;
+    date: string; // Use `Date` if this is a Date object instead of a string.
+    tags: string[];
+    cover: string; // URL or path to the cover image.
+    sections: any[]; // Define a specific type for sections if available.
+    icon?: string; // Optional with a default value.
+    isNew?: boolean; // Optional with a default value.
+}
 
 export class BlogInfo {
+    private readonly id: string;
+    readonly title: string;
+    private readonly description: string;
+    readonly summary: string;
+    readonly date: string; // Use `Date` if needed.
+    readonly tags: string[];
+    readonly cover: string;
+    private readonly icon: string;
+    readonly sections: any[]; // Replace `any[]` with a specific type if possible.
+    private readonly isNew: boolean;
+    private readonly path: string;
+
     constructor({
-                    id, title, description, summary, date, tags, cover, sections,
-                    icon= '',
-                    isNew=false,
-                }) {
+                    id,
+                    title,
+                    description,
+                    summary,
+                    date,
+                    tags,
+                    cover,
+                    sections,
+                    icon = '',
+                    isNew = false,
+                }: BlogInfoConstructor) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.summary = summary
+        this.summary = summary;
         this.date = date;
         this.tags = tags;
         this.cover = cover;
         this.icon = icon;
-        this.sections = sections
-        this.isNew = isNew
+        this.sections = sections;
+        this.isNew = isNew;
         this.path = '/blogs/' + this.id;
     }
 
+
     toCarouselItem() {
-        return createCarouselItem(
-            {
-                title: this.title,
-                description: this.description,
-                date: this.date,
-                tags: this.tags,
-                logo: this.cover,
-                isNew: this.isNew,
-                onClickArg: this.path
-            }
-        )
+        return {
+            title: this.title,
+            description: this.description,
+            date: this.date,
+            image: this.cover,
+            isNew: this.isNew,
+            onClick: () => openLink(this.path, null),
+        } as AtomCardProps;
     }
 
     tabs() {
-        return rangesTo(this.sections, (section) => createTabItem({
-            name: section.name, label: section.title, icon: section.icon
-        }));
+        return rangesTo(this.sections, (section) => {
+            return {
+                name: section.name, label: section.title, icon: section.icon
+            } as TabItemProps;
+        });
     }
-
-    timelineItem() {
-        return createTimeLineItem({
-            id: this.id,
-            title: this.title,
-            date: this.date,
-            icon: this.icon,
-            image: this.cover,
-            link: this.path
-        })
-    }
-
 }
 
-export function makeBlogImage({source, label}) {
-    return makeStruct({source, label}, 'BlogImage');
-}
-
-export function makeBlogCode({language, code}) {
-    return makeStruct({language, code}, 'BlogCode');
-}
-
-export function makeBlogPlot({dataTrace, title, xTitle, yTitle, textColor}) {
-    return makeStruct({dataTrace, title, xTitle, yTitle, textColor}, 'BlogPlot');
-}
-
-export function makeBlogHeroText({text}){
-    return makeStruct({text}, 'BlogHeroText');
-}
-
-export function makeBlogSectionContent({name, icon, title, paragraph, media}) {
-    return makeStruct({name, icon, title, paragraph, media}, 'BlogSectionContent');
-}
-
-
-export function makeBlogHeroList({contentList, numbered = false}) {
-    return makeStruct({contentList, numbered}, 'BlogHeroList');
-}
-
-export const heatmapColorScale = getScaleColor("rgb(83,139,216)", "rgba(94,94,94,0.87)", 8);
+export const heatmapColorScale =
+    getScaleColor("rgb(83,139,216)", "rgba(94,94,94,0.87)", 8);

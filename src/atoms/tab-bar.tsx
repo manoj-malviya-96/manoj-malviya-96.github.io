@@ -2,7 +2,7 @@ import ScrollableLink from "./scrollable-link";
 import React from "react";
 
 
-interface TabItemProps {
+export interface TabItemProps {
     name: string;
     label?: string;
     icon?: string;
@@ -17,7 +17,7 @@ const TabItem: React.FC<TabItemProps> = ({label, icon}) => {
     );
 };
 
-interface TabBarProps {
+export interface TabBarProps {
     items: Array<TabItemProps>;
     className?: string;
 }

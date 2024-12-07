@@ -1,11 +1,11 @@
 import React from "react";
 import {AtomCard, AtomCardProps} from "./atom-card";
 
-export interface CarouselProps {
+export interface AtomCarouselProps {
     items: Array<AtomCardProps>; // List of button props
 }
 
-export const AtomCarousel: React.FC<CarouselProps> = ({items}) => {
+export const AtomCarousel: React.FC<AtomCarouselProps> = ({items}) => {
     //! Reason I am using this is because the prime-react carousel is not scrollable.
     //  This uses daisyUI
     return (

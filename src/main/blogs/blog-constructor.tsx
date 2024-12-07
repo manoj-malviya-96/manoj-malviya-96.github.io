@@ -2,15 +2,26 @@ import React from 'react';
 import TemplateCover from '../assets/main.jpg';
 import FullScreenPage from "../../atoms/full-page";
 import {BlogInfo} from "./blog-info";
-import {validateClassType, validateStructType} from "../../utils/types";
-import CodeBlock from "../../atoms/code";
-import {TopTabBar} from "../top-modal";
+import CodeBlock, {CodeBlockProps} from "../../atoms/code";
+import {TopTabBar} from "../../atoms/top-modal";
 import AtomImage from "../../atoms/photo";
 import Plotter from "../../atoms/plotter";
 import HeroText from "../../atoms/hero-text";
 import HeroList from "../../atoms/hero-list";
+import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 
-const BlogHeader = ({title, summary, date, tags, coverImage}) => {
+
+interface BlogHeaderProps {
+    title: string;
+    summary: string;
+    date: string;
+    tags: string[];
+    coverImage: string;
+}
+
+const BlogHeader: React.FC<BlogHeaderProps> = (
+    {title, summary, date, tags, coverImage}
+) => {
     if (!coverImage) {
         coverImage = TemplateCover;
     }
@@ -41,90 +52,104 @@ const BlogHeader = ({title, summary, date, tags, coverImage}) => {
 };
 
 
-//
-// //! I want to do this-> Paragraph | BlogMedia. Only one pair is allowed at a time.
-// // so items would look like.
-// // [{paragraph: BlogMedia}, {paragraph: BlogMedia}....]
-//
-function makeRichParagraph(contentArray) {
-    return contentArray.map((content, index) => {
-        if (typeof content === 'string') {
-            // Render plain string as a paragraph
-            return <p key={index}>{content}</p>;
-        } else if (Array.isArray(content)) {
-            // Render a paragraph with inline formatting
-            return (
-                <p key={index}>
-                    {content.map((item, subIndex) =>
-                        typeof item === 'string' ? (
-                            item
-                        ) : (
-                            // Add styling for inline elements
-                            React.createElement(
-                                item.tag,
-                                {
-                                    key: subIndex, ...item.props,
-                                    className: `${item.props?.className || ''} 
-                                                ${item.tag === 'code' ? 'text-info px-1' : ''}`.trim()
-                                },
-                                item.children
-                            )
-                        )
-                    )}
-                </p>
-            );
-        } else if (content.tag) {
-            // Handle standalone tags (e.g., <br>, <hr>)
-            return React.createElement(content.tag, {key: index, ...content.props});
-        }
-        return null; // Handle invalid content gracefully
-    });
+export interface BlogImageProps {
+    kind: "image";
+    source: string;
+    label: string;
+}
+
+export interface BlogCodeProps {
+    kind: "code";
+    language: CodeBlockProps['language'];
+    code: string;
+}
+
+export interface BlogPlotProps {
+    kind: "plot";
+    dataTrace: any;
+    title: string;
+    xTitle: string;
+    yTitle: string;
+    textColor: string;
+}
+
+export interface BlogHeroTextProps {
+    kind: "heroText";
+    text: string;
+}
+
+export interface BlogHeroListProps {
+    kind: "heroList";
+    contentList: string[];
+    numbered: boolean;
+}
+
+export type BlogMediaType =
+    BlogImageProps | BlogCodeProps | BlogPlotProps | BlogHeroTextProps | BlogHeroListProps | undefined;
+
+export interface BlogSectionContentProps {
+    name: string;
+    icon: string;
+    title: string;
+    paragraph: InlineContentType[];
+    media: BlogMediaType;
 }
 
 
-const BlogSection = ({section}) => {
-    validateStructType(section, 'BlogSectionContent');
+const BlogSection: React.FC<BlogSectionContentProps> = ({
+                                                            name, icon, title, paragraph, media
+                                                        }) => {
+
+    const RenderMedia: React.FC<{ media: BlogMediaType }> = ({media}) => {
+            if (!media) {
+                return <></>;
+            }
+            return (<div className='w-full justify-center m-auto align-center'>
+                    {media.kind === "image" &&
+                        <AtomImage src={media.source}
+                                   alt={media.label}
+                                   className={'m-auto align-center justify-center w-full md:w-1/2'}/>
+                    }
+                    {media.kind === 'code' && (
+                        <CodeBlock language={media.language}
+                                   code={media.code}
+                                   className="m-auto align-center justify-center w-full md:w-1/2"/>
+                    )}
+
+                    {media.kind === 'plot' &&
+                        <Plotter
+                            dataTrace={media.dataTrace}
+                            className={'m-auto align-center justify-center w-full md:w-1/2'}
+                            title={media.title}
+                            xTitle={media.xTitle}
+                            yTitle={media.yTitle}
+                            textColor={media.textColor}
+                            minimalView={false}
+                        />
+                    }
+                    {media.kind === 'heroText' &&
+                        <HeroText text={media.text}
+                                  className='w-fit md:w-1/2'/>
+                    }
+                    {media.kind === 'heroList' &&
+                        <HeroList contentList={media.contentList}
+                                  numbered={media.numbered}
+                                  className='w-fit md:w-1/2'/>
+                    }
+                </div>
+            )
+        }
+    ;
     return (
         <FullScreenPage
-            name={section.name}
-            title={section.title}
+            name={name}
+            title={title}
             children={
                 <section className='flex flex-column justify-center align-center w-full h-fit gap-8'>
-                    <div className='text-lg w-fit w-6 m-auto align-center'>
-                        {makeRichParagraph(section.paragraph)}
+                    <div className='text-lg w-fit m-auto align-center'>
+                        {makeRichParagraph(paragraph)}
                     </div>
-                    {section.media &&
-                        <div className='w-full justify-center m-auto align-center'>
-                            {section.media.typeKey === 'BlogImage' &&
-                                <AtomImage src={section.media.source} alt={section.media.label}
-                                           className={'m-auto align-center justify-center w-full md:w-1/2'}/>
-                            }
-                            {section.media.typeKey === 'BlogCode' && (
-                                <CodeBlock language={section.media.language} code={section.media.code}
-                                           className="m-auto align-center justify-center w-full md:w-1/2"/>
-                            )}
-
-                            {section.media.typeKey === 'BlogPlot' &&
-                                <Plotter
-                                    dataTrace={section.media.dataTrace}
-                                    className={'m-auto align-center justify-center w-full md:w-1/2'}
-                                    title={section.media.title}
-                                    xTitle={section.media.xTitle}
-                                    yTitle={section.media.yTitle}
-                                    textColor={section.media.textColor}
-                                    minimalView={false}
-                                />
-                            }
-                            {section.media.typeKey === 'BlogHeroText' &&
-                                <HeroText text={section.media.text}
-                                          className='w-fit md:w-1/2'/>
-                            }
-                            {section.media.typeKey === 'BlogHeroList' &&
-                                <HeroList contentList={section.media.contentList} numbered={section.media.numbered}
-                                            className='w-fit md:w-1/2'/>
-                            }
-                        </div>
-                    }
+                    <RenderMedia media={media}/>
                 </section>
             }
         />
@@ -132,8 +157,11 @@ const BlogSection = ({section}) => {
 }
 
 
-const BlogConstructor = ({item}) => {
-    validateClassType(item, BlogInfo);
+interface BlogConstructorProps {
+    item: BlogInfo;
+}
+
+const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
     return (
         <div className='flex-row w-full h-fit'>
             <BlogHeader
@@ -143,11 +171,11 @@ const BlogConstructor = ({item}) => {
                 tags={item.tags}
                 coverImage={item.cover}
             />
-            {item.sections.map((sec, index) => {
-                return (<BlogSection key={index} section={sec}/>);
+            {item.sections.map((secProps, index) => {
+                return (<BlogSection key={index} {...secProps} />);
             })
             }
-            <TopTabBar tabs={item.tabs()}/>
+            <TopTabBar items={item.tabs()}/>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import React, {useRef} from 'react';
 
 interface AtomFileUploadProps {
     acceptTypes: string;
-    onFileChange: (file: File) => void;
+    onFileChange: (fileUrl: string) => void;
 }
 
 const AtomFileUpload: React.FC<AtomFileUploadProps> = ({acceptTypes, onFileChange}) => {
@@ -19,7 +19,8 @@ const AtomFileUpload: React.FC<AtomFileUploadProps> = ({acceptTypes, onFileChang
     const handleFileUpload = (event: any) => {
         const file = event.files?.[0]; // Get the first selected file
         if (file) {
-            onFileChange(file); // Pass the file to the provided callback
+            const fileUrl = URL.createObjectURL(file); // Convert the file to a URL
+            onFileChange(fileUrl); // Pass the file to the provided callback
             showToast('info', 'File Selected', `You selected: ${file.name}`);
         }
     };

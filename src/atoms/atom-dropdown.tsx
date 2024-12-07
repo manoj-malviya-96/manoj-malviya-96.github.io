@@ -3,42 +3,46 @@ import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
 import {FloatLabel} from "primereact/floatlabel";
 
 
-interface DropdownItemProps {
+export interface AtomDropdownItemProps {
     label: string;
-    icon?: string;
+    value: any;
 }
 
-interface DropdownProps {
-    onClick: (option: DropdownItemProps) => void;
-    options: Array<DropdownItemProps>;
+interface AtomDropdownProps {
+    onClick: (option: AtomDropdownItemProps) => void;
+    dropdownIcon?: string;
+    options: Array<AtomDropdownItemProps>;
     placeholder?: string;
     initialIndex?: number;
     className?: string;
 }
 
-const AtomDropdown: React.FC<DropdownProps> = ({
-                                                   onClick,
-                                                   options,
-                                                   placeholder = 'Select',
-                                                   initialIndex = -1,
-                                               }) => {
+const AtomDropdown: React.FC<AtomDropdownProps> = ({
+                                                       onClick,
+                                                       options,
+                                                       dropdownIcon,
+                                                       placeholder = 'Select',
+                                                       initialIndex = -1,
+                                                   }) => {
 
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const randomId = crypto.randomUUID().toString();
 
-    const handleOptionClick = (value: DropdownItemProps) => {
-        const index = options.findIndex(option => option === value);
+    const handleOptionClick = (selectedOption: AtomDropdownItemProps) => {
+        const index = options.findIndex(option => option === selectedOption);
         setActiveIndex(index);
-        onClick(value); // Pass selected option to parent
+        onClick(selectedOption.value); // Pass selected option to parent
     }
 
     return (
         <FloatLabel>
             <Dropdown
                 inputId={randomId}
-                value={options[activeIndex]}
+                value={options[activeIndex].label}
                 onChange={(e: DropdownChangeEvent) => handleOptionClick(e.value)}
                 options={options}
+                dropdownIcon={dropdownIcon ? dropdownIcon : 'pi pi-chevron-down'}
+                collapseIcon="pi pi-chevron-up"
                 optionLabel="name" className="w-full"/>
             <label htmlFor={randomId}>{placeholder}</label>
         </FloatLabel>

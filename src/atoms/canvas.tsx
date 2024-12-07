@@ -1,10 +1,10 @@
 import React, {useRef, useEffect, useState} from "react";
 
 export class CanvasController {
-    canvasRef: React.RefObject<HTMLCanvasElement>;
+    canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>;
     animationFrameId: number | null;
 
-    constructor(canvasRef: React.RefObject<HTMLCanvasElement>) {
+    constructor(canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>) {
         this.canvasRef = canvasRef;
         this.animationFrameId = null;
     }

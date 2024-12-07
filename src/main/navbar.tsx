@@ -1,6 +1,7 @@
 import React from 'react';
 import ThemeButton from "./theme";
-import AtomButton from "../atoms/atom-button";
+import {AtomButton} from "../atoms/atom-button";
+
 
 const Navbar = () => {
     return (

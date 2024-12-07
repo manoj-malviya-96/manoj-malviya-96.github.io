@@ -1,0 +1,31 @@
+import React from 'react';
+import FullScreenPage from "../atoms/full-page";
+import {registeredTools} from "./tools/tool-registry";
+import {rangesTo} from "../common/types";
+import {AtomCarousel} from "../atoms/atom-carousel";
+import {AtomCardProps} from "../atoms/atom-card";
+import {openLink} from "../common/links";
+
+
+const ToolDrawer = () => {
+
+    const items = rangesTo(registeredTools, (tool) => {
+        return {
+            title: tool.name,
+            description: tool.description,
+            image: tool.cover,
+            onClick: () => openLink(tool.path),
+        } as AtomCardProps;
+    });
+    return (
+        <FullScreenPage
+            name="tools"
+            title="ToolList"
+            children={<AtomCarousel items={items}/>}
+        />
+    );
+}
+
+export default ToolDrawer;
+
+
