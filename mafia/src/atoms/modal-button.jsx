@@ -12,7 +12,7 @@ const ModalButton = ({
             <AtomButton
                 label={label}
                 icon={icon}
-                style={ButtonOptions.Style.Ghost}
+                ghostMode={true}
                 onClick={() => document.getElementById(id).showModal()}
                 className={className}
                 disabled={disabled}

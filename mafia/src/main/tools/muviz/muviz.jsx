@@ -145,100 +145,109 @@ const MuvizApp = () => {
                 className="absolute top-0 left-0 w-full h-full"
             />
             <div
-                className={`flex flex-col h-fit justify-between m-auto backdrop-blur-md z-10
-                        gap-2 absolute bottom-4 left-1/2 transform -translate-x-1/2
-                        bg-base-100 bg-opacity-30 rounded-lg
-                        p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd} w-full md:w-4/5`}
+                className={`inline-block w-full h-full z-5 p-4 hover:opacity-100 sm:opacity-100 ${hudVisibilityForMd}`}
             >
-                <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-                    <span className="text-base sm:text-lg font-bold">{player.title}</span>
-                    <span className="text-xs sm:text-sm">
+                <div className={`flex flex-wrap sm:flex-nowrap w-fit h-fit 
+                                justify-center items-center gap-4 
+                                absolute left-1/2 top-1/2 transform -translate-x-1/2`}>
+                    <AtomButton
+                        icon="fa-solid fa-arrow-rotate-left"
+                        ghostMode={true}
+                        size='large'
+                        onClick={skipBackward}
+                        disabled={!src || player.currentTime < timeSkip_s}
+                    />
+                    <AtomButton
+                        icon={player.isPlaying ? "fa fa-pause" : "fa fa-play"}
+                        disabled={!src}
+                        size='large'
+                        ghostMode={true}
+                        onClick={handlePlayOrPause}
+                    />
+                    <AtomButton
+                        icon="fa-solid fa-arrow-rotate-right"
+                        ghostMode={true}
+                        size='large'
+                        disabled={!src}
+                        onClick={skipForward}
+                    />
+                </div>
+                <div className="flex flex-col gap-4 w-full h-fit absolute left-0 bottom-0 p-4">
+
+                    <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
+                        <span className="text-base sm:text-lg font-bold">{player.title}</span>
+                        <span className="text-xs sm:text-sm">
                             {formatTime(player.currentTime)} / {formatTime(player.duration)}
                     </span>
-                </div>
-                <Slider
-                    value={player.currentTime}
-                    min={0}
-                    max={player.duration || 0}
-                    step={0.1}
-                    onChange={player.setAudioTime}
-                    style={SliderOptions.Style.Info}
-                    className="w-full h-fit"
-                />
-
-                <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-
-                    <div className="w-full h-full flex flex-row gap-1">
-                        <AtomButton
-                            icon="fa-solid fa-arrow-rotate-left"
-                            onClick={skipBackward}
-                        />
-                        <AtomButton
-                            icon={player.isPlaying ? "fa fa-pause" : "fa fa-play"}
-                            state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
-                            size= {ButtonOptions.Size.MobileAdaptive}
-                            onClick={handlePlayOrPause}
-                        />
-                        <AtomButton
-                            icon="fa-solid fa-arrow-rotate-right"
-                            style={ButtonOptions.Style.Ghost}
-                            size= {ButtonOptions.Size.MobileAdaptive}
-                            state={src ? ButtonOptions.State.None : ButtonOptions.State.Disabled}
-                            onClick={skipForward}
-                        />
-                        <div className='flex flex-row gap-1'>
-                            <AtomButton
-                                icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
-                                    player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
-                                size= {ButtonOptions.Size.MobileAdaptive}
-                                style={ButtonOptions.Style.Ghost}
-                                onClick={toggleVolume}/>
-                            <Slider value={player.volume} min={0} max={1} step={0.01} onChange={player.changeVolume}/>
-                        </div>
                     </div>
 
-                    <div className="w-full h-full flex flex-row gap-1">
-                        <Dropdown
-                            options={sampleOptions}
-                            direction={DropdownOptions.Direction.Up}
-                            buttonSize={DropdownOptions.Size.Small}
-                            buttonStyle={DropdownOptions.Style.Ghost}
-                            onClick={handleSampleSongChange}
-                            className="h-full w-fit m-auto"
-                            placeholder="Select Song"
-                        />
+                    <Slider
+                        value={player.currentTime}
+                        min={0}
+                        max={player.duration || 0}
+                        step={0.1}
+                        onChange={player.setAudioTime}
+                        style={SliderOptions.Style.Info}
+                        className="w-full h-fit"
+                    />
 
-                        <Dropdown
-                            options={vizOptions}
-                            direction={DropdownOptions.Direction.Up}
-                            buttonSize={DropdownOptions.Size.Small}
-                            buttonStyle={DropdownOptions.Style.Ghost}
-                            onClick={handleVisualizerChange}
-                            className="h-full w-fit m-auto"
-                            placeholder="Select Visualizer"
-                            initialIndex={0}
-                        />
-                        <ModalButton
-                            icon="fa-solid fa-plus"
-                            title="Choose Music"
-                            className="h-full w-fit m-auto"
-                            dialogContent={
-                                <div className="flex flex-col gap-2">
-                                    <span className="text-base">Upload Music</span>
-                                    <span className="text-xs">Only audio files are supported</span>
-                                    <FileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
-                                </div>
-                            }
-                            dialogAction={() => {
-                            }}
-                        />
+                    <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-fit">
 
-                        <AtomButton
-                            icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
-                            style={ButtonOptions.Style.Ghost}
-                            className="h-full w-fit m-auto"
-                            onClick={toggleFullScreen}
-                        />
+                        <div className="w-fit h-fit flex flex-row">
+                            <div className='flex flex-row gap-1'>
+                                <AtomButton
+                                    ghostMode={true}
+                                    icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
+                                        player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
+                                    onClick={toggleVolume}/>
+                                <Slider value={player.volume} min={0} max={1} step={0.01}
+                                        onChange={player.changeVolume}/>
+                            </div>
+                        </div>
+
+                        <div className="w-fit h-full flex flex-row gap-1">
+                            <Dropdown
+                                options={sampleOptions}
+                                direction={DropdownOptions.Direction.Up}
+                                buttonSize={DropdownOptions.Size.Small}
+                                buttonStyle={DropdownOptions.Style.Ghost}
+                                onClick={handleSampleSongChange}
+                                className="h-full w-fit m-auto"
+                                placeholder="Select Song"
+                            />
+
+                            <Dropdown
+                                options={vizOptions}
+                                direction={DropdownOptions.Direction.Up}
+                                buttonSize={DropdownOptions.Size.Small}
+                                buttonStyle={DropdownOptions.Style.Ghost}
+                                onClick={handleVisualizerChange}
+                                className="h-full w-fit m-auto"
+                                placeholder="Select Visualizer"
+                                initialIndex={0}
+                            />
+                            <ModalButton
+                                icon="fa-solid fa-plus"
+                                title="Choose Music"
+                                className="h-full w-fit m-auto"
+                                dialogContent={
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-base">Upload Music</span>
+                                        <span className="text-xs">Only audio files are supported</span>
+                                        <FileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
+                                    </div>
+                                }
+                                dialogAction={() => {
+                                }}
+                            />
+
+                            <AtomButton
+                                icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
+                                ghostMode={true}
+                                className="h-full w-fit m-auto"
+                                onClick={toggleFullScreen}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
