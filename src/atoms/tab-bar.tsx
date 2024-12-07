@@ -1,7 +1,14 @@
 import ScrollableLink from "./scrollable-link";
-import {validateStructTypeForList} from "../utils/types";
+import React from "react";
 
-const TabElement = ({label, icon}) => {
+
+interface TabItemProps {
+    name: string;
+    label?: string;
+    icon?: string;
+}
+
+const TabItem: React.FC<TabItemProps> = ({label, icon}) => {
     return (
         <div className="active:scale-95 cursor-pointer p-0 m-0 tooltip tooltip-bottom" data-tip={label}>
             <i className={`${icon} mr-1`}></i>
@@ -10,22 +17,27 @@ const TabElement = ({label, icon}) => {
     );
 };
 
+interface TabBarProps {
+    items: Array<TabItemProps>;
+    className?: string;
+}
+
 
 //! Scroll to the section when a tab is clicked.
-const TabBar = ({tabs, className=''}) => {
-    validateStructTypeForList(tabs, 'TabItem');
+const TabBar: React.FC<TabBarProps> = ({items, className = ''}) => {
     return (
         <div className={`tabs tabs-bordered px-3 gap-0 ${className}`}>
-            {tabs.map((tab, index) => (
+            {items.map((item, index) => (
                 <ScrollableLink
                     key={index}
-                    elementName={tab.name}
+                    elementName={item.name}
                     className="tab px-2 m-0"
                     activeClassName="tab-active"
                     children={
-                        <TabElement
-                            label={tab.label}
-                            icon={tab.icon}
+                        <TabItem
+                            name={item.name}
+                            label={item.label}
+                            icon={item.icon}
                         />
                     }
                 />

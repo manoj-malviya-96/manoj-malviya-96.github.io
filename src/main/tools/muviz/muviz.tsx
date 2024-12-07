@@ -5,7 +5,7 @@ import {AudioPlayer} from "../../../utils/audio";
 import AtomButton from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
-import Dropdown from "../../../atoms/dropdown";
+import AtomDropdown from "../../../atoms/atom-dropdown";
 import {ButtonOptions, DropdownOptions, SliderOptions} from "../../../utils/enums";
 
 import CallingON from './sample-music/calling.mp3';
@@ -17,7 +17,7 @@ import {Canvas} from "../../../atoms/canvas";
 import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../utils/date";
 import {BarVisualizer, SpiralVisualizer, VisualizerOptions} from "./visualizers";
-import FileUpload from "../../../atoms/file-upload";
+import AtomFileUpload from "../../../atoms/atom-file-upload";
 import ModalButton from "../../../atoms/modal-button";
 
 const AppName = 'MUVIZ';

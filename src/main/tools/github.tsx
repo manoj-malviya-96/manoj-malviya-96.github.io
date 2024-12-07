@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 
 import dataJSON from "../data/github_user_report.json";
 import {createDropdownItem, rangesTo} from "../../utils/types";
-import Dropdown from "../../atoms/dropdown";
+import AtomDropdown from "../../atoms/atom-dropdown";
 import Plotter from "../../atoms/plotter";
 import {getScaleColor} from "../../utils/color";
 import {calDaysInMonth, toTxtMonth} from "../../utils/date";

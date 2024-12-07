@@ -1,7 +1,14 @@
 import React from "react";
 
 
-const HeroList = ({contentList, numbered = false, className=''}) => {
+interface HeroListProps {
+    contentList: Array<string>;
+    numbered?: boolean;
+    className?: string;
+}
+
+
+const HeroList: React.FC<HeroListProps> = ({contentList, numbered = false, className = ''}) => {
     return (
         <div className={`${className} flex flex-col m-auto align-center gap-4`}>
             {

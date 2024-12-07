@@ -1,13 +1,19 @@
 import {motion} from "motion/react";
-const MotionDiv = ({children, className}) => {
+import React from "react";
+
+interface MotionDivProps {
+    children: React.ReactNode;
+}
+
+const MotionDiv: React.FC<MotionDivProps> = ({children}) => {
     return (
         <motion.div
             whileHover={{scale: 1.1}}
             whileTap={{scale: 0.95}}
-            className={`inline-block ${className}`}
         >
             {children}
         </motion.div>
-    )
-}
+    );
+};
+
 export default MotionDiv;

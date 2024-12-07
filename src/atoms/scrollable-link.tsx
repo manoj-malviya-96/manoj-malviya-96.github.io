@@ -1,7 +1,15 @@
-import { Link } from 'react-scroll';
+import {Link} from 'react-scroll';
+import React from "react";
+
+interface ScrollableLinkProps {
+    elementName: string;
+    className: string;
+    activeClassName: string;
+    children: React.ReactNode;
+}
 
 //! Scroll to the section when a tab is clicked.
-const ScrollableLink = ({elementName, className, activeClassName, children}) => {
+const ScrollableLink: React.FC<ScrollableLinkProps> = ({elementName, className, activeClassName, children}) => {
     return (
         <Link
             key={elementName}

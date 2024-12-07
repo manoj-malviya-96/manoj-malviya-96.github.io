@@ -5,7 +5,7 @@ import {BlogInfo} from "./blog-info";
 import {validateClassType, validateStructType} from "../../utils/types";
 import CodeBlock from "../../atoms/code";
 import {TopTabBar} from "../top-modal";
-import PhotoViz from "../../atoms/photo";
+import AtomImage from "../../atoms/photo";
 import Plotter from "../../atoms/plotter";
 import HeroText from "../../atoms/hero-text";
 import HeroList from "../../atoms/hero-list";
@@ -96,8 +96,8 @@ const BlogSection = ({section}) => {
                     {section.media &&
                         <div className='w-full justify-center m-auto align-center'>
                             {section.media.typeKey === 'BlogImage' &&
-                                <PhotoViz src={section.media.source} alt={section.media.label}
-                                          className={'m-auto align-center justify-center w-full md:w-1/2'}/>
+                                <AtomImage src={section.media.source} alt={section.media.label}
+                                           className={'m-auto align-center justify-center w-full md:w-1/2'}/>
                             }
                             {section.media.typeKey === 'BlogCode' && (
                                 <CodeBlock language={section.media.language} code={section.media.code}
