@@ -26,7 +26,7 @@ export interface TabBarProps {
 //! Scroll to the section when a tab is clicked.
 const TabBar: React.FC<TabBarProps> = ({items, className = ''}) => {
     return (
-        <div className={`tabs tabs-bordered px-3 gap-0 ${className}`}>
+        <div className={`tabs tabs-bordered px-3 gap-0 bg-primary rounded-full ${className}`}>
             {items.map((item, index) => (
                 <ScrollableLink
                     key={index}

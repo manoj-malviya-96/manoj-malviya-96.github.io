@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
-import {FloatLabel} from "primereact/floatlabel";
 
 
 export interface AtomDropdownItemProps {
@@ -9,7 +8,7 @@ export interface AtomDropdownItemProps {
 }
 
 interface AtomDropdownProps {
-    onClick: (option: AtomDropdownItemProps) => void;
+    onClick: (option: any) => void;
     dropdownIcon?: string;
     options: Array<AtomDropdownItemProps>;
     placeholder?: string;
@@ -23,29 +22,34 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                        dropdownIcon,
                                                        placeholder = 'Select',
                                                        initialIndex = -1,
+                                                       className = ''
                                                    }) => {
 
-    const [activeIndex, setActiveIndex] = useState(initialIndex);
-    const randomId = crypto.randomUUID().toString();
+    const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex] : null);
+    const randomId = crypto.randomUUID();
 
-    const handleOptionClick = (selectedOption: AtomDropdownItemProps) => {
-        const index = options.findIndex(option => option === selectedOption);
-        setActiveIndex(index);
-        onClick(selectedOption.value); // Pass selected option to parent
-    }
+    const handleOptionClick = (value: any) => {
+        selectedValue(value);
+        onClick(value); // Pass selected option to parent
+    };
+
 
     return (
-        <FloatLabel>
+        <div className={`card flex justify-content-center ${className}`}>
             <Dropdown
                 inputId={randomId}
-                value={options[activeIndex].label}
+                value={value}
                 onChange={(e: DropdownChangeEvent) => handleOptionClick(e.value)}
                 options={options}
                 dropdownIcon={dropdownIcon ? dropdownIcon : 'pi pi-chevron-down'}
                 collapseIcon="pi pi-chevron-up"
-                optionLabel="name" className="w-full"/>
-            <label htmlFor={randomId}>{placeholder}</label>
-        </FloatLabel>
+                optionLabel="label"
+                className="w-full bg-transparent border-primary hover:border-primary"
+                style={{
+                    backgroundColor: 'transparent',
+                }}
+            />
+        </div>
     );
 };
 export default AtomDropdown;

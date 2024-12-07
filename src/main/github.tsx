@@ -1,5 +1,5 @@
 import React, {useState, useEffect, JSX} from "react";
-import dataJSON from "../../data/github_user_report.json";
+import dataJSON from "../data/github_user_report.json";
 import {rangesTo} from "../common/types";
 import AtomDropdown, {AtomDropdownItemProps} from "../atoms/atom-dropdown";
 import Plotter from "../atoms/plotter";
@@ -187,7 +187,7 @@ const GithubProfile: React.FC = () => {
         <div
             className="p-1 w-full sm:max-w-screen-sm md:max-w-screen rounded-lg border-2 border-neutral border-opacity-25"
         >
-            <div className="flex space-x-4 mb-4 justify-center">
+            <div className="flex space-x-4 mb-4 justify-center item-center">
                 <div className="stats shadow">
                     <div className="stat">
                         <div className="stat-title">Total Commits</div>
@@ -201,9 +201,10 @@ const GithubProfile: React.FC = () => {
                 {dropdownOptions.length > 0 && (
                     <AtomDropdown
                         options={dropdownOptions}
-                        className="m-auto"
+                        className="m-auto h-full bg-transparent"
                         initialIndex={0}
-                        onClick={(option) => setCurrentYear(Number(option.value))}
+                        dropdownIcon='pi pi-calendar'
+                        onClick={(option) => setCurrentYear(Number(option))}
                     />
                 )}
             </div>

@@ -20,7 +20,7 @@ const ToolDrawer = () => {
     return (
         <FullScreenPage
             name="tools"
-            title="ToolList"
+            title="Tools"
             children={<AtomCarousel items={items}/>}
         />
     );
