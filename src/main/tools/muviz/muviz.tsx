@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
-import {AudioPlayer, AudioPlayerProps, makeAudioPlayer} from "../../../common/audio";
+import {AudioPlayer, AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
 import {AtomButton} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
@@ -37,7 +37,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
     const appRef = useRef(null);
 
     // Player Setup
-    const player = makeAudioPlayer({src: src, makeAnalyzer: true});
+    const player = useAudioPlayer({src: src, makeAnalyzer: true});
 
     const updateVisualizer = async () => {
         if (!player.analyser || !player.dataArray) {

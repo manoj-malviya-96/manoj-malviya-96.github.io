@@ -49,7 +49,7 @@ export interface AudioPlayer {
     duration: number;
 }
 
-export const makeAudioPlayer = ({src, makeAnalyzer = false}: AudioPlayerProps): AudioPlayer => {
+export const useAudioPlayer = ({src, makeAnalyzer = false}: AudioPlayerProps): AudioPlayer => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
     const [dataArray, setDataArray] = useState<Uint8Array | null>(null);
