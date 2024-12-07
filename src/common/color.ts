@@ -67,24 +67,38 @@ export function getSizeFromStyle(property: CSSProperty) {
 
 
 type ColorMapperType = "linear" | "exp" | "log";
+export function getScaleColor(
+    brandColor: string | HexColor,
+    lastColor: string | HexColor,
+    numStops: number,
+    mapperType: ColorMapperType = "linear"
+): Array<[number, string]> {
+    const result: Array<[number, string]> = [[0, lastColor]];
 
-export function getScaleColor(brandColor: string | HexColor,
-                              lastColor: string | HexColor,
-                              numStops: number,
-                              mapperType: ColorMapperType = "linear") {
-    let result = [[0, lastColor]];
-    for (let i = 1; i <= numStops; i += 1) {
-        let intensity;
-        if (mapperType === "linear") {
-            intensity = i / numStops; // Linear scaling
-        } else if (mapperType === "exp") {
-            intensity = Math.pow(i / numStops, 2); // Exponential scaling
-        } else if (mapperType === "log") {
-            intensity = Math.log1p(i) / Math.log1p(numStops); // Logarithmic scaling
-        } else {
-            throw new Error(`Unsupported mapperType: ${mapperType}`);
+    for (let i = 1; i <= numStops; i++) {
+        let intensity: number;
+
+        // Determine the scaling intensity
+        switch (mapperType) {
+            case "linear":
+                intensity = i / numStops;
+                break;
+            case "exp":
+                intensity = Math.pow(i / numStops, 2);
+                break;
+            case "log":
+                intensity = Math.log1p(i) / Math.log1p(numStops);
+                break;
+            default:
+                throw new Error(`Unsupported mapperType: ${mapperType}`);
         }
-        result.push([intensity, adjustColor(brandColor, 1, [intensity, intensity, intensity])]);
+
+        // Add the scaled color to the result
+        result.push([
+            intensity,
+            adjustColor(brandColor, 1, [intensity, intensity, intensity]),
+        ]);
     }
+
     return result;
 }

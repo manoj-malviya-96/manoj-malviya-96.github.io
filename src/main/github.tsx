@@ -1,30 +1,55 @@
-import React, {useState, useEffect} from "react";
-
-import dataJSON from "./data/github_user_report.json";
-import {createDropdownItem, rangesTo} from "../common/types";
-import AtomDropdown from "../atoms/atom-dropdown";
+import React, {useState, useEffect, JSX} from "react";
+import dataJSON from "../../data/github_user_report.json";
+import {rangesTo} from "../common/types";
+import AtomDropdown, {AtomDropdownItemProps} from "../atoms/atom-dropdown";
 import Plotter from "../atoms/plotter";
 import {getScaleColor} from "../common/color";
-import {calDaysInMonth, toTxtMonth} from "../common/date";
+import {calDaysInMonth} from "../common/date";
 
-const GithubProfile = () => {
-    const [data, setData] = useState({});
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    const [totalCommits, setTotalCommits] = useState(0);
-    const [longestStreak, setLongestStreak] = useState(0);
+// Define types for the data structures
+interface DailyLog {
+    date: string; // ISO date string
+    commits: number;
+}
+
+interface Languages {
+    [language: string]: number | undefined;
+}
+
+
+interface Repository {
+    repo: string; // Repository name
+    daily_log: DailyLog[]; // Array of daily logs
+    languages: Languages; // Map of languages with line counts
+}
+
+type RawData = Repository[];
+
+interface ProcessedData {
+    [year: string]: {
+        [date: string]: number;
+    };
+}
+
+const GithubProfile: React.FC = () => {
+    const [data, setData] = useState<ProcessedData>({});
+    const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+    const [totalCommits, setTotalCommits] = useState<number>(0);
+    const [longestStreak, setLongestStreak] = useState<number>(0);
 
     useEffect(() => {
-        const processedData = processData(dataJSON);
+        const rawData: RawData = dataJSON["repositories"];
+        const processedData = processData(rawData);
         setData(processedData);
         if (processedData[currentYear]) {
             updateStats(processedData[currentYear]);
         }
     }, [currentYear]);
 
-    const processData = (rawData) => {
-        const formattedData = {};
-        rawData.repositories.forEach((repo) => {
-            repo.daily_log.forEach(({ date, commits }) => {
+    const processData = (rawData: RawData): ProcessedData => {
+        const formattedData: ProcessedData = {};
+        rawData.forEach((repo) => {
+            repo.daily_log.forEach(({date, commits}) => {
                 const year = new Date(date).getFullYear();
                 if (!formattedData[year]) formattedData[year] = {};
                 if (!formattedData[year][date]) formattedData[year][date] = 0; // Initialize to 0
@@ -34,16 +59,52 @@ const GithubProfile = () => {
         return formattedData;
     };
 
+    const generateCustomDates = (year: number): (string | null)[][] => {
+        const daysInMonth = calDaysInMonth(year); // Get days in each month for the year
+        const grid = Array.from({length: gridY}, () => Array(gridX).fill(null)); // Create empty grid
 
-    const updateStats = (yearData) => {
+        let currentCol = 0; // Tracks the column for each month
+        let monthIndex = 0;
+
+        for (let x = 0; x < gridX; x += 2) {
+            const firstHalf = Array(gridY).fill(null);
+            const secondHalf = Array(gridY).fill(null);
+
+            for (let day = 1; day <= daysInMonth[monthIndex]; day++) {
+                const dateKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+                if (day <= gridY) {
+                    firstHalf[day - 1] = dateKey; // Fill first half with valid dates
+                } else {
+                    secondHalf[day - 17] = dateKey; // Fill second half with valid dates
+                }
+            }
+
+            // Assign valid dates or nulls to grid
+            for (let row = 0; row < gridY; row++) {
+                grid[row][currentCol] = firstHalf[row];
+                grid[row][currentCol + 1] = secondHalf[row];
+            }
+
+            monthIndex += 1; // Move to the next month
+            if (monthIndex >= 12) break; // Stop if no more months
+
+            currentCol += 2; // Move to the next pair of columns
+        }
+
+        return grid;
+    };
+
+
+    const updateStats = (yearData: Record<string, number>): void => {
         const dates = Object.keys(yearData);
         setTotalCommits(dates.reduce((sum, date) => sum + yearData[date], 0));
         let longest = 0,
             current = 0;
         dates
-            .sort((a, b) => new Date(a) - new Date(b))
+            .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
             .forEach((date, i, arr) => {
-                if (i > 0 && new Date(date) - new Date(arr[i - 1]) === 86400000) {
+                if (i > 0 && new Date(date).getTime() - new Date(arr[i - 1]).getTime() === 86400000) {
                     current++;
                 } else {
                     longest = Math.max(longest, current);
@@ -56,8 +117,8 @@ const GithubProfile = () => {
     const gridX = 24;
     const gridY = 16;
 
-    const yearlyHeatmapData = (year) => {
-        const grid = Array.from({ length: gridY }, () => Array(gridX).fill(null));
+    const yearlyHeatmapData = (year: number): (number | null)[][] => {
+        const grid = Array.from({length: gridY}, () => Array(gridX).fill(null));
         const daysInMonth = calDaysInMonth(year);
 
         if (!data[year]) return grid; // Return empty grid if no data for the year
@@ -92,75 +153,40 @@ const GithubProfile = () => {
         return grid;
     };
 
-    const generateCustomDates = (year) => {
-        const daysInMonth = calDaysInMonth(year);
-        const grid = Array.from({ length: gridY }, () => Array(gridX).fill(null));
+    const renderPlot = (year: number): JSX.Element => {
+        const dataToPlot = yearlyHeatmapData(year); // This is your z-values array
+        const customData = generateCustomDates(year); // Generate custom dates
 
-        let currentCol = 0; // Tracks the column for each month
-        let monthIndex = 0;
-        let dayCounter = 1;
-
-        for (let x = 0; x < gridX; x += 2) {
-            const firstHalf = Array(gridY).fill(null);
-            const secondHalf = Array(gridY).fill(null);
-
-            for (let day = 1; day <= daysInMonth[monthIndex]; day++) {
-                const dateKey = `${toTxtMonth(monthIndex + 1).padStart(2, "0")} ${String(day).padStart(2, "0")}`;
-
-                if (day <= 16) {
-                    firstHalf[day - 1] = dateKey; // Fill first half with valid dates
-                } else {
-                    secondHalf[day - 17] = dateKey; // Fill second half with valid dates
-                }
-            }
-
-            // Assign valid dates or nulls to grid
-            for (let row = 0; row < gridY; row++) {
-                grid[row][currentCol] = firstHalf[row];
-                grid[row][currentCol + 1] = secondHalf[row];
-            }
-
-            monthIndex += 1; // Move to the next month
-            if (monthIndex >= 12) break; // Stop if no more months
-
-            dayCounter = 1; // Reset day counter for the next month
-            currentCol += 2; // Move to the next pair of columns
-        }
-
-        return grid;
-    };
-
-    const renderPlot = (year) => {
-        const dataToPlot = yearlyHeatmapData(year);
-        const dataTrace = {
+        const dataTrace: Partial<Plotly.Data> = {
             z: dataToPlot,
+            customdata: customData, // Attach metadata to each point
             colorscale: getScaleColor("rgb(30,251,28)", "rgba(99,99,99,0.21)", 16, "log"),
             type: "heatmap",
             xgap: 7,
             ygap: 7,
             zmin: 1,
-            zmax: Math.max(...dataToPlot.flat()),
             showscale: false,
-            hovertemplate: "%{z} commits on %{customdata}<extra></extra>",
-            x: Array.from({length: gridX}, (_, num) => num),
-            y: Array.from({length: gridY}, (_, num) => num),
-            customdata: null,
+            hovertemplate: "%{z} commits on %{customdata}<extra></extra>", // Use customdata in hovertemplate
+            x: Array.from({length: gridX}, (_, num) => num), // X-axis labels
+            y: Array.from({length: gridY}, (_, num) => num), // Y-axis labels
         };
-        dataTrace.customdata = generateCustomDates(year);
 
-        return (
-            <Plotter
-                dataTrace={[dataTrace]}
-            />
-        );
+        return <Plotter dataTrace={[dataTrace]}/>;
     };
 
-    const years = Object.keys(data).sort((a, b) => b - a);
-    const dropdownOptions = rangesTo(years, (year) => createDropdownItem({label: year, value: year, icon: "fa fa-calendar"}));
+    const years = Object.keys(data).map(Number).sort((a, b) => b - a);
+    const dropdownOptions = rangesTo(
+        years,
+        (year): AtomDropdownItemProps => ({
+            label: year.toString(),
+            value: year,
+        })
+    );
 
     return (
-        <div className="p-1 w-full sm:max-w-screen-sm md:max-w-screen
-                        rounded-lg border-2 border-neutral border-opacity-25">
+        <div
+            className="p-1 w-full sm:max-w-screen-sm md:max-w-screen rounded-lg border-2 border-neutral border-opacity-25"
+        >
             <div className="flex space-x-4 mb-4 justify-center">
                 <div className="stats shadow">
                     <div className="stat">
@@ -172,12 +198,14 @@ const GithubProfile = () => {
                         <div className="stat-value">{longestStreak}</div>
                     </div>
                 </div>
-                {dropdownOptions.length > 0 && (<Dropdown
-                    options={dropdownOptions}
-                    className="m-auto"
-                    initialIndex={0}
-                    onClick={(option) => setCurrentYear(option.value)}
-                />)}
+                {dropdownOptions.length > 0 && (
+                    <AtomDropdown
+                        options={dropdownOptions}
+                        className="m-auto"
+                        initialIndex={0}
+                        onClick={(option) => setCurrentYear(Number(option.value))}
+                    />
+                )}
             </div>
             <div>{data[currentYear] && renderPlot(currentYear)}</div>
         </div>
