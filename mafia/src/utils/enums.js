@@ -59,13 +59,3 @@ export const DropdownOptions = Object.freeze({
         Large: 'btn-lg',
     },
 });
-
-
-export const SliderOptions = Object.freeze({
-    Style: {
-        Default: 'range-primary',
-        Info: 'range-info',
-        Gradient: '',
-    }
-});
-

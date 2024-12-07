@@ -14,7 +14,7 @@ import Uneath from './sample-music/uneath.mp3';
 import {createDropdownItem, rangesTo} from "../../../utils/types";
 import {TopBrandLogo} from "../../top-modal";
 import {Canvas} from "../../../atoms/canvas";
-import Slider from "../../../atoms/slider";
+import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../utils/date";
 import {BarVisualizer, SpiralVisualizer, VisualizerOptions} from "./visualizers";
 import FileUpload from "../../../atoms/file-upload";
@@ -181,13 +181,12 @@ const MuvizApp = () => {
                     </span>
                     </div>
 
-                    <Slider
+                    <AtomSlider
                         value={player.currentTime}
                         min={0}
                         max={player.duration || 0}
                         step={0.1}
                         onChange={player.setAudioTime}
-                        style={SliderOptions.Style.Info}
                         className="w-full h-fit"
                     />
 
@@ -200,8 +199,8 @@ const MuvizApp = () => {
                                     icon={player.volume === 0 ? "fa-solid fa-volume-xmark" :
                                         player.volume > 0.69 ? "fa-solid fa-volume-high" : "fa-solid fa-volume-low"}
                                     onClick={toggleVolume}/>
-                                <Slider value={player.volume} min={0} max={1} step={0.01}
-                                        onChange={player.changeVolume}/>
+                                <AtomSlider value={player.volume} min={0} max={1} step={0.01}
+                                            onChange={player.changeVolume}/>
                             </div>
                         </div>
 
