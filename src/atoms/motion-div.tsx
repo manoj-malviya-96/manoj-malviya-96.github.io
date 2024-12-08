@@ -11,7 +11,7 @@ const MotionDiv: React.FC<MotionDivProps> = ({children, enableHoverEffect = true
     return (
         <motion.div
             whileHover={{scale: enableHoverEffect ? 1.05 : 1}}
-            whileTap={{scale: enableTapEffect ? 0.95 : 1}}
+            whileTap={{scale: enableTapEffect ? 0.9 : 1}}
         >
             {children}
         </motion.div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card} from 'primereact/card';
 import {Badge} from "primereact/badge";
+import MotionDiv from "./motion-div";
 
 
 export interface AtomCardProps {
@@ -51,17 +52,19 @@ export const AtomCard: React.FC<AtomCardProps> = ({
     );
 
     return (
-        <Card
-            header={header}
-            footer={footer}
-            style={{
-                backgroundColor: 'rgba(0, 0, 0, 0)'
-            }} // transparent background, overrides prime-react default
-            className={`w-full h-full cursor-pointer 
+        <MotionDiv enableHoverEffect={false}>
+            <Card
+                header={header}
+                footer={footer}
+                style={{
+                    backgroundColor: 'rgba(0, 0, 0, 0)'
+                }} // transparent background, overrides prime-react default
+                className={`w-full h-full cursor-pointer 
                         overflow-clip rounded-lg text-primary
                         border-0 border-primary border-opacity-50
                         hover:border  ${hasBorder ? 'border' : ''}`}
-            onClick={onClick}
-        />
+                onClick={onClick}
+            />
+        </MotionDiv>
     );
 }
