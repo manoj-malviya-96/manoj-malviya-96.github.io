@@ -8,7 +8,7 @@ import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
 import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
-import {MemoizedAtomButton} from "./atom-button";
+import {AtomButton} from "./atom-button";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);
@@ -46,14 +46,14 @@ const CodeBlock: React.FC<CodeBlockProps> = ({code, language, className = ""}) =
                             flex flex-row w-full justify-between rounded-t-lg">
                 <span className="p-2 text-small">{language}</span>
                 {/* Copy Button */}
-                <MemoizedAtomButton
+                <AtomButton
                     loading={isCopying}
                     icon={copySuccess ? "fas fa-check" : "fas fa-copy"}
                     label={copySuccess ? "Copied!" : "Copy"}
                     onClick={handleCopy}
                     size={"small"}
                     rounded={false}
-                    ghostMode={true}
+                    ghost={true}
                 />
             </div>
 

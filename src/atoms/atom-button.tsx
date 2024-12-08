@@ -15,12 +15,13 @@ export interface AtomButtonProps {
     outlined?: boolean;
     disabled?: boolean;
     raised?: boolean;
-    ghostMode?: boolean;
+    ghost?: boolean;
     className?: string;
     loading?: boolean;
+    neutralGhost?: boolean;
 }
 
-export const AtomButton: React.FC<AtomButtonProps> = ({
+const _AtomButton: React.FC<AtomButtonProps> = ({
                                                           icon,
                                                           label,
                                                           onClick,
@@ -32,15 +33,20 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
                                                           outlined = false,
                                                           disabled = false,
                                                           raised = false,
-                                                          ghostMode = false,
+                                                          ghost = false,
                                                           loading = false,
+                                                          neutralGhost = false,
                                                           className = '',
                                                       }) => {
     const breakpoint = useContext(ScreenSizeContext);
-    const daisyClass = ghostMode ? 'btn-ghost w-full' : 'btn-primary';
+
+    let daisyClass = ghost ? 'btn-ghost w-full' : 'btn-primary';
+    if (neutralGhost) {
+        daisyClass = 'bg-transparent text-neutral hover:text-white';
+    }
 
     return (
-        <MotionDiv enableHoverEffect={!ghostMode}>
+        <MotionDiv enableHoverEffect={!ghost || !neutralGhost}>
             <Button
                 className={`btn ${daisyClass} w-fit h-fit justify-center items-center px-5 py-0`}
                 size={breakpoint !== ScreenSizes.Small ? size : 'large'}
@@ -50,7 +56,7 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
                 disabled={disabled}
                 raised={raised}
                 badge={badge}
-                text={ghostMode}
+                text={ghost}
                 onClick={onClick}
                 loading={loading}
                 tooltip={tooltip ?? ''}
@@ -72,4 +78,4 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
 };
 
 
-export const MemoizedAtomButton = React.memo(AtomButton);
+export const AtomButton = React.memo(_AtomButton);

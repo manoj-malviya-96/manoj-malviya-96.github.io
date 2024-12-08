@@ -43,7 +43,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                 {...atomButtonProps} // Spread AtomButton props
                 label={label}
                 icon={icon}
-                ghostMode={true}
+                ghost={true}
                 onClick={showDialog}
                 className={className}
                 disabled={disabled}

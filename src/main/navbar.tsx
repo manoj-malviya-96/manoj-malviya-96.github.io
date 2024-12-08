@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTheme} from "./theme";
-import {MemoizedAtomButton} from "../atoms/atom-button";
+import {AtomButton} from "../atoms/atom-button";
 import {useNavigate} from "react-router-dom";
 
 
@@ -11,12 +11,12 @@ const Navbar = () => {
         <div
             className="flex gap-2 p-4 z-10 fixed top-0 right-0 h-fit w-fit overflow-x-hidden"
         >
-            <MemoizedAtomButton
+            <AtomButton
                 label="Home"
                 icon="pi pi-home"
                 onClick={() => navigate("/")}
             />
-            <MemoizedAtomButton
+            <AtomButton
                 icon={currentThemeDetails.icon}
                 label={currentTheme}
                 onClick={cycleTheme}

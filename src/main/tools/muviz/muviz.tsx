@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
 import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
-import {AtomButton, AtomButtonProps, MemoizedAtomButton} from "../../../atoms/atom-button";
+import {AtomButton, AtomButtonProps, AtomButton} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
@@ -143,26 +143,27 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
                         items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2">
-                    <MemoizedAtomButton
+                    <AtomButton
                         icon="fa-solid fa-arrow-rotate-left"
-                        ghostMode={true}
+                        ghost={true}
                         size="large"
                         onClick={skipBackward}
                         disabled={!src || currentTime < 10}
                     />
-                    <MemoizedAtomButton
+                    <AtomButton
                         icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
                         disabled={!src}
                         size="large"
-                        ghostMode={true}
+                        ghost={true}
                         onClick={handlePlayOrPause}
                     />
-                    <MemoizedAtomButton
+                    <AtomButton
                         icon="fa-solid fa-arrow-rotate-right"
-                        ghostMode={true}
+                        ghost={true}
                         size="large"
                         onClick={skipForward}
                         disabled={!src}
+                        neutralGhost={true}
                     />
                 </div>
 
@@ -198,7 +199,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         <div className="w-fit h-fit flex flex-row">
                             <div className="flex flex-row gap-1 items-center">
                                 <AtomButton
-                                    ghostMode={true}
+                                    ghost={true}
                                     icon={
                                         volume === 0
                                             ? "fa-solid fa-volume-xmark"
@@ -206,6 +207,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                                 ? "fa-solid fa-volume-high"
                                                 : "fa-solid fa-volume-low"
                                     }
+                                    neutralGhost={true}
                                     onClick={toggleVolume}
                                 />
                                 <AtomSlider
@@ -247,13 +249,15 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                         <AtomFileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
                                     </div>
                                 }
+                                neutralGhost={true}
                                 addOkButton={true}
                             />
-                            <MemoizedAtomButton
+                            <AtomButton
                                 icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
-                                ghostMode={true}
+                                ghost={true}
                                 className="h-full w-fit m-auto"
                                 onClick={handleToggleFullScreen}
+                                neutralGhost={true}
                             />
                         </div>
                     </div>

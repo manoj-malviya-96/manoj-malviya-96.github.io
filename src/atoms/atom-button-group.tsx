@@ -1,6 +1,6 @@
 import React from 'react';
 import {ButtonGroup} from "primereact/buttongroup";
-import {AtomButtonProps, MemoizedAtomButton} from './atom-button';
+import {AtomButtonProps, AtomButton} from './atom-button';
 
 // Import or reuse AtomButtonProps from AtomButton definition
 
@@ -13,10 +13,10 @@ const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({items}) => 
         <div className="justify-content-center w-fit h-fit bg-black bg-opacity-25 rounded-lg">
             <ButtonGroup>
                 {items.map((item, index) => (
-                    <MemoizedAtomButton
+                    <AtomButton
                         key={index}
                         {...item}
-                        ghostMode={true}
+                        ghost={true}
                         rounded={false}
                         size="large"
                     />
