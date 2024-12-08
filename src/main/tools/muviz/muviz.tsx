@@ -37,32 +37,44 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
     const appRef = useRef<HTMLDivElement | null>(null);
 
     // Player Setup
-    const player = useAudioPlayer({src, makeAnalyzer: true});
+    const {
+        analyser,
+        dataArray,
+        isPlaying,
+        play,
+        pause,
+        currentTime,
+        setAudioTime,
+        volume,
+        changeVolume,
+        title,
+        duration,
+    } = useAudioPlayer({src, makeAnalyzer: true});
 
     const updateVisualizer = useCallback(async () => {
-        if (!player.analyser || !player.dataArray) {
+        if (!analyser || !dataArray) {
             return;
         }
 
         switch (visualizerType) {
             case VisualizerType.Spiral:
                 const spiralViz = new SpiralVisualizer({
-                    analyser: player.analyser,
-                    dataArray: player.dataArray,
+                    analyser: analyser,
+                    dataArray: dataArray,
                 });
                 setController(spiralViz);
                 break;
             case VisualizerType.Bar:
                 const barViz = new BarVisualizer({
-                    analyser: player.analyser,
-                    dataArray: player.dataArray,
+                    analyser: analyser,
+                    dataArray: dataArray,
                 });
                 setController(barViz);
                 break;
             default:
                 throw new Error("Invalid visualizer type");
         }
-    }, [player.analyser, player.dataArray, visualizerType]);
+    }, [analyser, dataArray, visualizerType]);
 
     const stopController = useCallback(() => {
         if (controller) {
@@ -74,36 +86,36 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
         (value: any) => {
             setSrc(value);
             stopController();
-            player.pause();
+            pause();
         },
-        [stopController, player]
+        [stopController, pause]
     );
 
     const handleVisualizerChange = useCallback(
         (value: any) => {
             setVisualizerType(value);
             stopController();
-            player.pause();
+            pause();
         },
-        [stopController, player]
+        [stopController, pause]
     );
 
     const handlePlayOrPause = useCallback(() => {
-        if (player.isPlaying) {
+        if (isPlaying) {
             stopController();
-            player.pause();
+            pause();
         } else {
-            updateVisualizer().then(() => player.play());
+            updateVisualizer().then(() => play());
         }
-    }, [player, stopController, updateVisualizer]);
+    }, [play, stopController, updateVisualizer]);
 
     const skipForward = useCallback(() => {
-        player.setAudioTime(player.currentTime + timeSkip_s);
-    }, [player]);
+        setAudioTime(currentTime + timeSkip_s);
+    }, [currentTime]);
 
     const skipBackward = useCallback(() => {
-        player.setAudioTime(player.currentTime - timeSkip_s);
-    }, [player]);
+        setAudioTime(currentTime - timeSkip_s);
+    }, [currentTime]);
 
     const handleToggleFullScreen = useCallback(() => {
         toggleFullScreen(appRef.current, isFullScreen).then(() => setIsFullScreen(!isFullScreen));
@@ -116,153 +128,135 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
     }, []);
 
     const toggleVolume = useCallback(() => {
-        player.changeVolume(player.volume === 0 ? 0.69 : 0);
-    }, [player]);
+        changeVolume(volume === 0 ? 0.69 : 0);
+    }, [volume]);
 
-    const hudVisibilityForMd = useMemo(
-        () => (player.isPlaying ? "lg:opacity-0" : "lg:opacity-100"),
-        [player.isPlaying]
-    );
-
-    // Memoized Child Components
-    const CenterControls = React.memo(() => (
-        <div
-            className="flex flex-wrap sm:flex-nowrap w-fit h-fit justify-center
-                        items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2">
-            <MemoizedAtomButton
-                icon="fa-solid fa-arrow-rotate-left"
-                ghostMode={true}
-                size="large"
-                onClick={skipBackward}
-                disabled={!src || player.currentTime < 10}
-            />
-            <MemoizedAtomButton
-                icon={player.isPlaying ? "fa fa-pause" : "fa fa-play"}
-                disabled={!src}
-                size="large"
-                ghostMode={true}
-                onClick={handlePlayOrPause}
-            />
-            <MemoizedAtomButton
-                icon="fa-solid fa-arrow-rotate-right"
-                ghostMode={true}
-                size="large"
-                onClick={skipForward}
-                disabled={!src}
-            />
-        </div>
-    ));
-
-    const MetadataRow = React.memo(() => (
-        <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-            <span className="text-base sm:text-lg font-bold">
-                {player.title ? player.title : "No Song"}
-            </span>
-            <span className="text-xs sm:text-sm">
-                {formatTime(player.currentTime)} / {formatTime(player.duration)}
-            </span>
-        </div>
-    ));
-
-    const VolumeControl = React.memo(() => (
-        <div className="w-fit h-fit flex flex-row">
-            <div className="flex flex-row gap-1">
-                <AtomButton
-                    ghostMode={true}
-                    icon={
-                        player.volume === 0
-                            ? "fa-solid fa-volume-xmark"
-                            : player.volume > 0.69
-                                ? "fa-solid fa-volume-high"
-                                : "fa-solid fa-volume-low"
-                    }
-                    onClick={toggleVolume}
-                />
-                <AtomSlider
-                    value={player.volume}
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    onChange={player.changeVolume}
-                />
-            </div>
-        </div>
-    ));
-
-    const TimeSlider = React.memo(() => (
-        <AtomSlider
-            value={player.currentTime}
-            min={0}
-            max={player.duration || 0}
-            step={0.1}
-            onChange={player.setAudioTime}
-            className="w-full h-fit"
-        />
-    ));
-
-    const RightControls = React.memo(() => (
-        <div className="w-fit h-full flex flex-row gap-1">
-            <AtomDropdown
-                options={songOptions}
-                dropdownIcon={"fas fa-music"}
-                onClick={handleSampleSongChange}
-                className="h-full w-fit m-auto"
-                placeholder="Select Song"
-            />
-            <AtomDropdown
-                options={vizOptions}
-                onClick={handleVisualizerChange}
-                className="h-full w-fit m-auto"
-                placeholder="Select Visualizer"
-                initialIndex={0}
-            />
-            <ModalButton
-                icon="fa-solid fa-plus"
-                title="Choose Music"
-                className="h-full w-fit m-auto"
-                onClick={() => {
-                }}
-                dialogContent={
-                    <div className="flex flex-col gap-2">
-                        <span className="text-base">Upload Music</span>
-                        <span className="text-xs">Only audio files are supported</span>
-                        <AtomFileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
-                    </div>
-                }
-            />
-            <MemoizedAtomButton
-                icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
-                ghostMode={true}
-                className="h-full w-fit m-auto"
-                onClick={handleToggleFullScreen}
-            />
-        </div>
-    ));
-
-    const HudControls = React.memo(() => (
-        <div
-            className={`inline-block w-full h-full border-2 z-5 p-4`}
-        >
-            <CenterControls/>
-            <div className="flex flex-col gap-4 w-full h-fit absolute left-0 bottom-0 p-4">
-                <MetadataRow/>
-                <TimeSlider/>
-                <div
-                    className="flex flex-wrap sm:flex-nowrap justify-between
-                                    items-center w-full h-fit"
-                >
-                    <VolumeControl/>
-                    <RightControls/>
-                </div>
-            </div>
-        </div>
-    ));
 
     // Render
     return (
         <div className="h-full w-full justify-center align-center" ref={appRef}>
             <Canvas controller={controller} className="absolute top-0 left-0 w-full h-full z-0"/>
-            <HudControls/>
+
+            {/*HUD*/}
+            <div className={`inline-block w-full h-full z-5 p-4`}>
+                {/*Central Controls*/}
+                <div
+                    className="flex flex-wrap sm:flex-nowrap w-fit h-fit justify-center
+                        items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2">
+                    <MemoizedAtomButton
+                        icon="fa-solid fa-arrow-rotate-left"
+                        ghostMode={true}
+                        size="large"
+                        onClick={skipBackward}
+                        disabled={!src || currentTime < 10}
+                    />
+                    <MemoizedAtomButton
+                        icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
+                        disabled={!src}
+                        size="large"
+                        ghostMode={true}
+                        onClick={handlePlayOrPause}
+                    />
+                    <MemoizedAtomButton
+                        icon="fa-solid fa-arrow-rotate-right"
+                        ghostMode={true}
+                        size="large"
+                        onClick={skipForward}
+                        disabled={!src}
+                    />
+                </div>
+
+                {/*Bottom HUD*/}
+                <div className="flex flex-col gap-4 w-full h-fit absolute left-0 bottom-0 p-4">
+
+                    {/* Metadata */}
+                    <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
+                        <span className="text-base sm:text-lg font-bold">
+                            {title ? title : "No Song"}
+                        </span>
+                        <span className="text-xs sm:text-sm">
+                            {formatTime(currentTime)} / {formatTime(duration)}
+                        </span>
+                    </div>
+
+                    {/* Time Slider*/}
+                    <AtomSlider
+                        value={currentTime}
+                        min={0}
+                        max={duration || 0}
+                        step={0.1}
+                        onChange={setAudioTime}
+                        className="w-full h-fit"
+                    />
+
+                    {/* Volume Row */}
+                    <div
+                        className="flex flex-wrap sm:flex-nowrap justify-between
+                                    items-center w-full h-fit"
+                    >
+                        <div className="w-fit h-fit flex flex-row">
+                            <div className="flex flex-row gap-1">
+                                <AtomButton
+                                    ghostMode={true}
+                                    icon={
+                                        volume === 0
+                                            ? "fa-solid fa-volume-xmark"
+                                            : volume > 0.69
+                                                ? "fa-solid fa-volume-high"
+                                                : "fa-solid fa-volume-low"
+                                    }
+                                    onClick={toggleVolume}
+                                />
+                                <AtomSlider
+                                    value={volume}
+                                    min={0}
+                                    max={1}
+                                    step={0.01}
+                                    onChange={changeVolume}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Right Controls*/}
+                        <div className="w-fit h-full flex flex-row gap-1">
+                            <AtomDropdown
+                                options={songOptions}
+                                dropdownIcon={"fas fa-music"}
+                                onClick={handleSampleSongChange}
+                                className="h-full w-fit m-auto"
+                                placeholder="Select Song"
+                            />
+                            <AtomDropdown
+                                options={vizOptions}
+                                onClick={handleVisualizerChange}
+                                className="h-full w-fit m-auto"
+                                placeholder="Select Visualizer"
+                                initialIndex={0}
+                            />
+                            <ModalButton
+                                icon="fa-solid fa-plus"
+                                title="Choose Music"
+                                className="h-full w-fit m-auto"
+                                onClick={() => {
+                                }}
+                                dialogContent={
+                                    <div className="flex flex-col gap-2">
+                                        <span className="text-base">Upload Music</span>
+                                        <span className="text-xs">Only audio files are supported</span>
+                                        <AtomFileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
+                                    </div>
+                                }
+                            />
+                            <MemoizedAtomButton
+                                icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
+                                ghostMode={true}
+                                className="h-full w-fit m-auto"
+                                onClick={handleToggleFullScreen}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
