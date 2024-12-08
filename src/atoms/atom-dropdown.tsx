@@ -47,6 +47,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
                 backgroundColor: 'transparent',
                 borderColor: daisyPrimary(),
                 color: daisyPrimaryText(),
+                backdropFilter: 'blur(20px)',
             }
         },
         trigger: {

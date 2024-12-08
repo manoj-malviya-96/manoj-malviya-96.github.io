@@ -141,7 +141,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
             <div className={`inline-block w-full h-full z-5 p-4`}>
                 {/*Central Controls*/}
                 <div
-                    className="flex flex-wrap sm:flex-nowrap w-fit h-fit justify-center
+                    className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
                         items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2">
                     <MemoizedAtomButton
                         icon="fa-solid fa-arrow-rotate-left"
@@ -213,7 +213,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                     max={1}
                                     step={0.01}
                                     onChange={changeVolume}
-                                    className={"w-20 h-fit"}
+                                    className={"w-200 h-fit"}
                                 />
                             </div>
                         </div>
