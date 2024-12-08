@@ -8,6 +8,7 @@ const constructedRoutes = [
         path: "/",
         component: Home,
     }
+
 ];
 constructedRoutes.push(...makeBlogRouters())
 constructedRoutes.push(...makeToolRouter())

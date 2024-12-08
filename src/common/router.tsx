@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import {AnimatePresence, Variants} from "motion/react";
 import SlidingAnimation from "../atoms/sliding-animation";
+import NavBar from "../main/navbar";
 
 // Define the type for an individual route
 export interface RouteDefinition {
@@ -56,6 +57,7 @@ const RouterConstructor: React.FC<RouterConstructorProps> = ({routes}) => {
     return (
         <Router>
             <ScrollToTop/>
+            <NavBar/>
             <MakeRoutesWithAnimation routes={routes}/>
         </Router>
     );

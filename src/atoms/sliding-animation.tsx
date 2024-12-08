@@ -20,7 +20,7 @@ const SlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
             animate="animate"
             exit="exit"
             variants={slidingVariants}
-            transition={{duration: 0.3}}
+            transition={{duration: 0.42}}
         >
             {children}
         </motion.div>

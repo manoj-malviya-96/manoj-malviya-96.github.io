@@ -9,7 +9,6 @@ const App = () => {
     return (
         <ThemeProvider>
             <ScreenSizeProvider>
-                <NavBar/>
                 <RouterConstructor routes={constructedRoutes}/>
             </ScreenSizeProvider>
         </ThemeProvider>
