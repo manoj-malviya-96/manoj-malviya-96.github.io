@@ -8,7 +8,7 @@ import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
 import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
-import {AtomButton, MemoizedAtomButton} from "./atom-button";
+import {MemoizedAtomButton} from "./atom-button";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);

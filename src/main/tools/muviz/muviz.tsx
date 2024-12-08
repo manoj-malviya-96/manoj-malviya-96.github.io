@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
 import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
 import {AtomButton, MemoizedAtomButton} from "../../../atoms/atom-button";
@@ -107,15 +107,15 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
         } else {
             updateVisualizer().then(() => play());
         }
-    }, [play, stopController, updateVisualizer]);
+    }, [play, pause, stopController, updateVisualizer, isPlaying]);
 
     const skipForward = useCallback(() => {
         setAudioTime(currentTime + timeSkip_s);
-    }, [currentTime]);
+    }, [currentTime, setAudioTime]);
 
     const skipBackward = useCallback(() => {
         setAudioTime(currentTime - timeSkip_s);
-    }, [currentTime]);
+    }, [currentTime, setAudioTime]);
 
     const handleToggleFullScreen = useCallback(() => {
         toggleFullScreen(appRef.current, isFullScreen).then(() => setIsFullScreen(!isFullScreen));
@@ -129,7 +129,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
 
     const toggleVolume = useCallback(() => {
         changeVolume(volume === 0 ? 0.69 : 0);
-    }, [volume]);
+    }, [volume, changeVolume]);
 
 
     // Render
