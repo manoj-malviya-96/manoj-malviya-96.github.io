@@ -23,7 +23,7 @@ const AtomSlider: React.FC<AtomSliderProps> = ({
                                                }) => {
     return (
         <div className={`card flex justify-center ${className}`}>
-            <Slider className={`bg-transparent w-full h-fit`}
+            <Slider className={`border-2 border-primary border-opacity-10 w-full h-fit`}
                     value={value} min={min} max={max} step={step} orientation={orientation}
                     onChange={(event => onChange(event.value as number))}
             />

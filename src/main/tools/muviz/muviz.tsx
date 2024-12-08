@@ -195,7 +195,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                     items-center w-full h-fit"
                     >
                         <div className="w-fit h-fit flex flex-row">
-                            <div className="flex flex-row gap-1">
+                            <div className="flex flex-row gap-1 items-center">
                                 <AtomButton
                                     ghostMode={true}
                                     icon={
@@ -213,6 +213,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                     max={1}
                                     step={0.01}
                                     onChange={changeVolume}
+                                    className={"w-20 h-fit"}
                                 />
                             </div>
                         </div>

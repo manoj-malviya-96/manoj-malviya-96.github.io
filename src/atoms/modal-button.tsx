@@ -26,8 +26,6 @@ const ModalButton: React.FC<ModalButtonProps> = ({
         setVisible(true);
     };
 
-    //<Button label="Top" icon="pi pi-arrow-down" onClick={() => show('top')} className="p-button-warning" style={{ minWidth: '10rem' }} />
-
     return (
         <>
             <AtomButton
