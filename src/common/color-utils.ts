@@ -1,4 +1,49 @@
 /* ------------ Color Utilities ------------ */
+import * as culori from 'culori';
+
+
+function isOklchAndConvert(input: string): any {
+
+    if (!input.startsWith('oklch')) {
+        input = `oklch(${input})`;
+    }
+
+    // Regular expression to validate OKLCH format
+    const oklchRegex = /^oklch\((\d+(\.\d+)?%)\s+(\d+(\.\d+)?)\s+(\d+(\.\d+)?)(\s*\/\s*\d+(\.\d+)?)?\)$/i;
+
+    // Check if input matches OKLCH format
+    if (!oklchRegex.test(input)) {
+        console.error('Input is not in OKLCH format.');
+        return input;
+    }
+
+    try {
+        // Parse the OKLCH color
+        const parsedColor = culori.parse(input);
+
+        if (!parsedColor) {
+            throw new Error('Failed to parse OKLCH color.');
+        }
+
+        // Convert to RGBA
+        const rgba = culori.rgb(parsedColor);
+
+        // Format and return as an RGBA string
+        return `rgba(${Math.round(rgba.r * 255)}, ${Math.round(rgba.g * 255)}, ${Math.round(rgba.b * 255)}, ${rgba.alpha ?? 1})`;
+    } catch (error) {
+        throw new Error(`Failed to convert OKLCH to RGBA: ${(error as Error).message}`);
+    }
+}
+
+// Example Usage
+try {
+    const input = 'oklch(82.6562% 0 0 / 1)'; // Lightness with zero chroma
+    const result = isOklchAndConvert(input);
+    console.log(result); // Outputs: rgba(211, 211, 211, 1)
+} catch (error) {
+    console.error((error as Error).message);
+}
+
 
 export function adjustColor(
     color: string,
@@ -60,8 +105,13 @@ export function getSizeFromStyle(property: CSSProperty) {
     return Number(getStyleValue(property).replace("px", ""));
 }
 
+export function getColorFromStyle(property: CSSProperty) {
+    return isOklchAndConvert(getStyleValue(property));
+}
+
 
 type ColorMapperType = "linear" | "exp" | "log";
+
 export function getScaleColor(
     brandColor: string | HexColor,
     lastColor: string | HexColor,
@@ -97,3 +147,8 @@ export function getScaleColor(
 
     return result;
 }
+
+export const daisyPrimary = getColorFromStyle('--p');
+export const daisyPrimaryText = getColorFromStyle('--pc');
+export const daisySecondary = getColorFromStyle('--s');
+export const daisySecondaryText = getColorFromStyle('--sc');

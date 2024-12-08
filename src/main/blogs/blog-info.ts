@@ -1,5 +1,5 @@
 import {rangesTo} from "../../common/types";
-import {getScaleColor} from "../../common/color";
+import {getScaleColor} from "../../common/color-utils";
 import {AtomCarouselProps} from "../../atoms/atom-carousel";
 import {TabItemProps} from "../../atoms/tab-bar";
 import {AtomCardProps} from "../../atoms/atom-card";

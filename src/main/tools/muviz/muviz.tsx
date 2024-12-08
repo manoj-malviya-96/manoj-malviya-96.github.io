@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
 import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
-import {AtomButton, MemoizedAtomButton} from "../../../atoms/atom-button";
+import {AtomButton, AtomButtonProps, MemoizedAtomButton} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
@@ -238,8 +238,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                 icon="fa-solid fa-plus"
                                 title="Choose Music"
                                 className="h-full w-fit m-auto"
-                                onClick={() => {
-                                }}
+                                onClick={() => {}}
                                 dialogContent={
                                     <div className="flex flex-col gap-2">
                                         <span className="text-base">Upload Music</span>
@@ -247,6 +246,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                         <AtomFileUpload acceptTypes="audio/*" onFileChange={handleFileChange}/>
                                     </div>
                                 }
+                                addOkButton={true}
                             />
                             <MemoizedAtomButton
                                 icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}

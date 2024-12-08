@@ -1,6 +1,6 @@
 import {CanvasController} from "../../../atoms/canvas";
 import {DropDetector} from "../../../common/audio";
-import {adjustColor} from "../../../common/color";
+import {adjustColor} from "../../../common/color-utils";
 
 export enum VisualizerType {
     Bar = 0,

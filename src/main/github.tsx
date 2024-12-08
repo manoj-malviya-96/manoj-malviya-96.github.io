@@ -3,7 +3,7 @@ import dataJSON from "../data/github_user_report.json";
 import {rangesTo} from "../common/types";
 import AtomDropdown, {AtomDropdownItemProps} from "../atoms/atom-dropdown";
 import Plotter from "../atoms/plotter";
-import {getScaleColor} from "../common/color";
+import {getScaleColor} from "../common/color-utils";
 import {calDaysInMonth} from "../common/date";
 
 // Define types for the data structures

@@ -42,7 +42,7 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
     return (
         <MotionDiv enableHoverEffect={!ghostMode}>
             <Button
-                className={`btn ${daisyClass} w-fit h-fit justify-center items-center`}
+                className={`btn ${daisyClass} w-fit h-fit justify-center items-center px-5 py-0`}
                 size={breakpoint !== ScreenSizes.Small ? size : 'large'}
                 severity={severity}
                 rounded={rounded}

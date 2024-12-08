@@ -1,13 +1,13 @@
 import React from "react";
-import {Dialog, DialogProps} from 'primereact/dialog';
+import {Dialog} from 'primereact/dialog';
 import {AtomButton, AtomButtonProps} from "./atom-button";
+import {daisyPrimary, getColorFromStyle} from "../common/color-utils";
 
 export interface AtomDialogProps {
-    position?: DialogProps['position']; // Reusing the position type from DialogProps
+    visible: boolean;
     title?: string;
     content?: React.ReactNode;
     footerButtons?: Array<AtomButtonProps>
-    visible?: boolean;
     modal?: boolean;
 
     onHide(): void;
@@ -19,7 +19,7 @@ interface AtomHeaderProps {
 
 const AtomHeader: React.FC<AtomHeaderProps> = ({title}) => {
     return (
-        <div className={`p-4 bg-transparent bg-opacity-50 rounded-t-lg`}>
+        <div className={`p-4 bg-transparent rounded-t-lg`}>
             <h2 className="text-2xl font-bold text-center">{title}</h2>
         </div>
     );
@@ -27,7 +27,6 @@ const AtomHeader: React.FC<AtomHeaderProps> = ({title}) => {
 
 const AtomDialog: React.FC<AtomDialogProps> = ({
                                                    title,
-                                                   position,
                                                    content,
                                                    footerButtons,
                                                    visible,
@@ -36,20 +35,56 @@ const AtomDialog: React.FC<AtomDialogProps> = ({
                                                }) => {
 
     const header = title ? <AtomHeader title={title}/> : undefined;
+
     const footer = footerButtons ?
         footerButtons.map((props, index) => {
             return <AtomButton key={index} {...props}/>
         }) : undefined;
+
+
+    const dialogPt = {
+        root: {
+            style: {
+                borderColor: `${daisyPrimary}`,
+                borderOpacity: 0.25,
+                backgroundColor: 'transparent',
+                backdropFilter: 'blur(10px)',
+            },
+        },
+        content: {
+            style: {
+                borderColor: 'transparent',
+                backgroundColor: 'transparent',
+            }
+        },
+        header: {
+            style: {
+                borderColor: 'transparent',
+                backgroundColor: 'transparent',
+            }
+        },
+        footer: {
+            style: {
+                borderColor: 'transparent',
+                backgroundColor: 'transparent',
+            }
+        }
+    }
 
     return (
         <Dialog
             header={header}
             footer={footer}
             visible={visible}
-            position={position}
-            modal={modal}
             onHide={onHide}
-            className="modal w-3/4 h-3/4 bg-transparent backdrop-blur-md backdrop-brightness-75
+            closeOnEscape={true}
+            modal={modal}
+            draggable={true}
+            focusOnShow={true}
+            pt={dialogPt}
+            style={{width: '75vw', backgroundColor: 'transparent'}}
+            className="bg-transparent
+                backdrop-blur-md backdrop-brightness-75 justify-center items-center
                 rounded-lg m-auto border-2 border-primary border-opacity-25"
         >
             {content}

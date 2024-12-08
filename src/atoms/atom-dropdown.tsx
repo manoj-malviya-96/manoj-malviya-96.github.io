@@ -44,7 +44,9 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
                 dropdownIcon={dropdownIcon ? dropdownIcon : 'pi pi-chevron-down'}
                 collapseIcon="pi pi-chevron-up"
                 optionLabel="label"
-                className="w-full bg-transparent border-primary hover:border-primary"
+                variant={'outlined'}
+                placeholder={placeholder}
+                className="w-full border-primary hover:border-primary"
                 style={{
                     backgroundColor: 'transparent',
                 }}

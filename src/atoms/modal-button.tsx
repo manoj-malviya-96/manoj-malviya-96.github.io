@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {AtomButton, AtomButtonProps} from "./atom-button";
 import AtomDialog, {AtomDialogProps} from "./atom-dialog"; // Assuming you have a Dialog component
 
@@ -6,6 +6,7 @@ interface ModalButtonProps extends AtomButtonProps {
     title: string;
     dialogContent: React.ReactNode;
     footerButtons?: Array<AtomButtonProps>;
+    addOkButton?: boolean;
 }
 
 const ModalButton: React.FC<ModalButtonProps> = ({
@@ -15,16 +16,26 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                                                      disabled,
                                                      title,
                                                      dialogContent,
-                                                     footerButtons,
+                                                     footerButtons = [],
+                                                     addOkButton = false,
                                                      ...atomButtonProps // Capture any additional AtomButton props
                                                  }) => {
     const [visible, setVisible] = useState(false);
-    const [position, setPosition] = useState<AtomDialogProps["position"]>("center");
-
-    const showDialog = (position: AtomDialogProps["position"]) => {
-        setPosition(position);
+    const showDialog = useCallback(() => {
         setVisible(true);
-    };
+    }, [setVisible]);
+
+    const hideDialog = useCallback(() => {
+        setVisible(false);
+    }, [setVisible]);
+
+    if (addOkButton) {
+        footerButtons?.push({
+            label: "OK",
+            icon: "fa fa-check",
+            onClick: hideDialog,
+        });
+    }
 
     return (
         <>
@@ -33,13 +44,16 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                 label={label}
                 icon={icon}
                 ghostMode={true}
-                onClick={() => showDialog('top')}
+                onClick={showDialog}
                 className={className}
                 disabled={disabled}
             />
-            <AtomDialog visible={visible} title={title} position={position}
-                        onHide={() => setVisible(false)}
-                        content={dialogContent} footerButtons={footerButtons}/>
+            <AtomDialog visible={visible}
+                        title={title}
+                        modal={true}
+                        onHide={hideDialog}
+                        content={dialogContent}
+                        footerButtons={footerButtons}/>
         </>
     );
 };
