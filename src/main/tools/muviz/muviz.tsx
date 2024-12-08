@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
 import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
-import {AtomButton, AtomButtonProps, AtomButton} from "../../../atoms/atom-button";
+import {AtomButton} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import Cover from '../logos/muviz-cover.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
@@ -145,7 +145,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2">
                     <AtomButton
                         icon="fa-solid fa-arrow-rotate-left"
-                        ghost={true}
+                        neutralGhost={true}
                         size="large"
                         onClick={skipBackward}
                         disabled={!src || currentTime < 10}
@@ -154,12 +154,11 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
                         disabled={!src}
                         size="large"
-                        ghost={true}
+                        neutralGhost={true}
                         onClick={handlePlayOrPause}
                     />
                     <AtomButton
                         icon="fa-solid fa-arrow-rotate-right"
-                        ghost={true}
                         size="large"
                         onClick={skipForward}
                         disabled={!src}
@@ -199,7 +198,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         <div className="w-fit h-fit flex flex-row">
                             <div className="flex flex-row gap-1 items-center">
                                 <AtomButton
-                                    ghost={true}
                                     icon={
                                         volume === 0
                                             ? "fa-solid fa-volume-xmark"
@@ -241,7 +239,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                 icon="fa-solid fa-plus"
                                 title="Choose Music"
                                 className="h-full w-fit m-auto"
-                                onClick={() => {}}
+                                onClick={() => {
+                                }}
                                 dialogContent={
                                     <div className="flex flex-col gap-2">
                                         <span className="text-base">Upload Music</span>
@@ -254,7 +253,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                             />
                             <AtomButton
                                 icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
-                                ghost={true}
                                 className="h-full w-fit m-auto"
                                 onClick={handleToggleFullScreen}
                                 neutralGhost={true}

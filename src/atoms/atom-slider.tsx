@@ -11,31 +11,33 @@ interface AtomSliderProps {
     orientation?: "horizontal" | "vertical";
     onChange: (value: number) => void;
     className?: string;
+    neutralMode?: boolean;
 }
 
-const AtomSlider: React.FC<AtomSliderProps> = ({
-                                                   value,
-                                                   min,
-                                                   max,
-                                                   step = 1,
-                                                   orientation = 'horizontal',
-                                                   onChange,
-                                                   className
-                                               }) => {
-    const {daisyPrimary, daisyPrimaryText} = useTheme();
+const _AtomSlider: React.FC<AtomSliderProps> = ({
+                                                    value,
+                                                    min,
+                                                    max,
+                                                    step = 1,
+                                                    orientation = 'horizontal',
+                                                    onChange,
+                                                    className,
+                                                    neutralMode = false
+                                                }) => {
+    const {daisyPrimary, daisyPrimaryText, daisyNeutral, daisyNeutralText} = useTheme();
     const sliderPt = {
         root: {
             style: {
                 height: '2px',
                 width: '100%',
-                backgroundColor: daisyPrimary,
+                backgroundColor: neutralMode ? daisyNeutral : daisyPrimary,
             }
         },
         handle: {
             style: {
                 width: '10px',
                 height: '30px',
-                backgroundColor: daisyPrimary,
+                backgroundColor: neutralMode ? daisyNeutral : daisyPrimary,
                 border: 'none',
                 borderRadius: '2px',
                 boxShadow: 'none',
@@ -45,7 +47,7 @@ const AtomSlider: React.FC<AtomSliderProps> = ({
         },
         range: {
             style: {
-                backgroundColor: daisyPrimaryText,
+                backgroundColor: neutralMode ? daisyNeutralText : daisyPrimaryText,
             }
         }
     }
@@ -61,5 +63,5 @@ const AtomSlider: React.FC<AtomSliderProps> = ({
     );
 };
 
-
+const AtomSlider = React.memo(_AtomSlider);
 export default AtomSlider;

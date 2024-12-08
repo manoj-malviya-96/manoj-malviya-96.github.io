@@ -16,20 +16,22 @@ interface AtomDropdownProps {
     placeholder?: string;
     initialIndex?: number;
     className?: string;
+    neutralMode?: boolean;
 }
 
-const AtomDropdown: React.FC<AtomDropdownProps> = ({
+const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                        onClick,
                                                        options,
                                                        dropdownIcon,
                                                        placeholder = 'Select',
                                                        initialIndex = -1,
-                                                       className = ''
+                                                       className = '',
+                                                       neutralMode = false,
                                                    }) => {
 
     const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex] : null);
     const randomId = crypto.randomUUID();
-    const {daisyPrimary, daisyPrimaryText} = useTheme();
+    const {daisyPrimary, daisyPrimaryText, daisyNeutralText, daisyNeutral} = useTheme();
 
     const handleOptionClick = (value: any) => {
         selectedValue(value);
@@ -40,31 +42,31 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
         root: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: daisyPrimary,
+                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
                 color: 'white',
             }
         },
         panel: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: daisyPrimary,
-                color: daisyPrimaryText,
+                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
+                color: neutralMode ? daisyNeutralText: daisyPrimaryText,
                 backdropFilter: 'blur(20px)',
             }
         },
         trigger: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: daisyPrimary,
-                color: daisyPrimaryText,
+                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
+                color: neutralMode ? daisyNeutralText: daisyPrimaryText,
             }
         },
         wrapper: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: daisyPrimary,
-                color: daisyPrimaryText,
-                selectedColor: daisyPrimaryText,
+                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
+                color: neutralMode ? daisyNeutralText: daisyPrimaryText,
+                selectedColor: neutralMode ? daisyNeutralText: daisyPrimaryText,
             }
         },
     }
@@ -87,4 +89,6 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
         </div>
     );
 };
+
+const AtomDropdown = React.memo(_AtomDropdown);
 export default AtomDropdown;

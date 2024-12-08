@@ -22,27 +22,27 @@ export interface AtomButtonProps {
 }
 
 const _AtomButton: React.FC<AtomButtonProps> = ({
-                                                          icon,
-                                                          label,
-                                                          onClick,
-                                                          severity,
-                                                          size,
-                                                          badge,
-                                                          tooltip,
-                                                          rounded = true,
-                                                          outlined = false,
-                                                          disabled = false,
-                                                          raised = false,
-                                                          ghost = false,
-                                                          loading = false,
-                                                          neutralGhost = false,
-                                                          className = '',
-                                                      }) => {
+                                                    icon,
+                                                    label,
+                                                    onClick,
+                                                    severity,
+                                                    size,
+                                                    badge,
+                                                    tooltip,
+                                                    rounded = true,
+                                                    outlined = false,
+                                                    disabled = false,
+                                                    raised = false,
+                                                    ghost = false,
+                                                    loading = false,
+                                                    neutralGhost = false,
+                                                    className = '',
+                                                }) => {
     const breakpoint = useContext(ScreenSizeContext);
 
     let daisyClass = ghost ? 'btn-ghost w-full' : 'btn-primary';
     if (neutralGhost) {
-        daisyClass = 'bg-transparent text-neutral hover:text-white';
+        daisyClass = 'bg-transparent text-neutral border-none hover:text-white disabled:text-neutral-50';
     }
 
     return (

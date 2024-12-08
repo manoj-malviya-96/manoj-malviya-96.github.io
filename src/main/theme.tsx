@@ -18,8 +18,8 @@ interface ThemeContextType {
     setCurrentTheme: (theme: string) => void;
     daisyPrimary: string;
     daisyPrimaryText: string;
-    daisySecondary: string;
-    daisySecondaryText: string;
+    daisyNeutral: string;
+    daisyNeutralText: string;
 }
 
 // Create the context
@@ -48,8 +48,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [themeColors, setThemeColors] = useState({
         daisyPrimary: '',
         daisyPrimaryText: '',
-        daisySecondary: '',
-        daisySecondaryText: '',
+        daisyNeutral: '',
+        daisyNeutralText: '',
     });
 
     // Update theme on the DOM and localStorage
@@ -61,8 +61,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setThemeColors({
             daisyPrimary: getColorFromStyle('--p'),
             daisyPrimaryText: getColorFromStyle('--pc'),
-            daisySecondary: getColorFromStyle('--s'),
-            daisySecondaryText: getColorFromStyle('--sc'),
+            daisyNeutral: getColorFromStyle('--n'),
+            daisyNeutralText: getColorFromStyle('--nc'),
         });
     }, [currentTheme]);
 
@@ -86,8 +86,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 setCurrentTheme,
                 daisyPrimary: themeColors.daisyPrimary,
                 daisyPrimaryText: themeColors.daisyPrimaryText,
-                daisySecondary: themeColors.daisySecondary,
-                daisySecondaryText: themeColors.daisySecondaryText,
+                daisyNeutral: themeColors.daisyNeutral,
+                daisyNeutralText: themeColors.daisyNeutralText,
             }}
         >
             {children}

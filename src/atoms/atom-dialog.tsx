@@ -9,6 +9,7 @@ export interface AtomDialogProps {
     content?: React.ReactNode;
     footerButtons?: Array<AtomButtonProps>
     modal?: boolean;
+    neutralMode?: boolean;
 
     onHide(): void;
 }
@@ -25,15 +26,16 @@ const AtomHeader: React.FC<AtomHeaderProps> = ({title}) => {
     );
 }
 
-const AtomDialog: React.FC<AtomDialogProps> = ({
-                                                   title,
-                                                   content,
-                                                   footerButtons,
-                                                   visible,
-                                                   modal,
-                                                   onHide,
-                                               }) => {
-    const {daisyPrimary} = useTheme();
+const _AtomDialog: React.FC<AtomDialogProps> = ({
+                                                    title,
+                                                    content,
+                                                    footerButtons,
+                                                    visible,
+                                                    modal,
+                                                    onHide,
+                                                    neutralMode = false,
+                                                }) => {
+    const {daisyPrimary, daisyNeutral} = useTheme();
 
     const header = title ? <AtomHeader title={title}/> : undefined;
 
@@ -45,7 +47,7 @@ const AtomDialog: React.FC<AtomDialogProps> = ({
     const dialogPt = {
         root: {
             style: {
-                borderColor: daisyPrimary,
+                borderColor: neutralMode ? daisyPrimary : daisyNeutral,
                 borderOpacity: 0.25,
                 backgroundColor: 'transparent',
                 backdropFilter: 'blur(10px)',
@@ -93,5 +95,7 @@ const AtomDialog: React.FC<AtomDialogProps> = ({
         </Dialog>
     );
 }
+
+const AtomDialog = React.memo(_AtomDialog);
 
 export default AtomDialog;
