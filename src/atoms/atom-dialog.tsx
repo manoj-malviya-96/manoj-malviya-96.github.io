@@ -1,7 +1,7 @@
 import React from "react";
 import {Dialog} from 'primereact/dialog';
 import {AtomButton, AtomButtonProps} from "./atom-button";
-import {daisyPrimary, getColorFromStyle} from "../common/color-utils";
+import {useTheme} from "../main/theme";
 
 export interface AtomDialogProps {
     visible: boolean;
@@ -33,6 +33,7 @@ const AtomDialog: React.FC<AtomDialogProps> = ({
                                                    modal,
                                                    onHide,
                                                }) => {
+    const {daisyPrimary} = useTheme();
 
     const header = title ? <AtomHeader title={title}/> : undefined;
 
@@ -44,7 +45,7 @@ const AtomDialog: React.FC<AtomDialogProps> = ({
     const dialogPt = {
         root: {
             style: {
-                borderColor: daisyPrimary(),
+                borderColor: daisyPrimary,
                 borderOpacity: 0.25,
                 backgroundColor: 'transparent',
                 backdropFilter: 'blur(10px)',

@@ -147,7 +147,3 @@ export function getScaleColor(
 
     return result;
 }
-export const daisyPrimary = ()=>getColorFromStyle('--p');
-export const daisyPrimaryText = ()=>getColorFromStyle('--pc');
-export const daisySecondary = ()=>getColorFromStyle('--s');
-export const daisySecondaryText = ()=>getColorFromStyle('--sc');

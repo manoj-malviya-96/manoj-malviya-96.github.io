@@ -138,7 +138,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
             <Canvas controller={controller} className="absolute top-0 left-0 w-full h-full z-0"/>
 
             {/*HUD*/}
-            <div className={`inline-block w-full h-full z-5 p-4`}>
+            <div className="inline-block w-full h-full z-5 p-4">
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
@@ -167,14 +167,15 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                 </div>
 
                 {/*Bottom HUD*/}
-                <div className="flex flex-col gap-4 w-full h-fit absolute left-0 bottom-0 p-4">
+                <div className="flex flex-col gap-4 w-full rounded-lg h-fit absolute left-0 bottom-0 p-4
+                                backdrop-blur-lg">
 
                     {/* Metadata */}
                     <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">
-                        <span className="text-base sm:text-lg font-bold">
+                        <span className="text-base text-white sm:text-lg font-bold">
                             {title ? title : "No Song"}
                         </span>
-                        <span className="text-xs sm:text-sm">
+                        <span className="text-xs text-white sm:text-sm">
                             {formatTime(currentTime)} / {formatTime(duration)}
                         </span>
                     </div>

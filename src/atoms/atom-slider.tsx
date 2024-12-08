@@ -1,6 +1,6 @@
 import React from "react";
 import {Slider} from "primereact/slider";
-import {daisyPrimary, daisyPrimaryText} from "../common/color-utils";
+import {useTheme} from "../main/theme";
 
 
 interface AtomSliderProps {
@@ -22,19 +22,20 @@ const AtomSlider: React.FC<AtomSliderProps> = ({
                                                    onChange,
                                                    className
                                                }) => {
+    const {daisyPrimary, daisyPrimaryText} = useTheme();
     const sliderPt = {
         root: {
             style: {
                 height: '2px',
                 width: '100%',
-                backgroundColor: daisyPrimary(),
+                backgroundColor: daisyPrimary,
             }
         },
         handle: {
             style: {
                 width: '10px',
                 height: '30px',
-                backgroundColor: daisyPrimary(),
+                backgroundColor: daisyPrimary,
                 border: 'none',
                 borderRadius: '2px',
                 boxShadow: 'none',
@@ -44,7 +45,7 @@ const AtomSlider: React.FC<AtomSliderProps> = ({
         },
         range: {
             style: {
-                backgroundColor: daisyPrimaryText(),
+                backgroundColor: daisyPrimaryText,
             }
         }
     }

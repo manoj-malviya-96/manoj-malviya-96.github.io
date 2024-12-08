@@ -3,13 +3,16 @@ import NavBar from "./main/navbar";
 import RouterConstructor from "./common/router";
 import constructedRoutes from "./main/routes";
 import {ScreenSizeProvider} from "./common/screen";
+import {ThemeProvider} from "./main/theme";
 
 const App = () => {
     return (
-        <ScreenSizeProvider>
-            <NavBar/>
-            <RouterConstructor routes={constructedRoutes}/>
-        </ScreenSizeProvider>
+        <ThemeProvider>
+            <ScreenSizeProvider>
+                <NavBar/>
+                <RouterConstructor routes={constructedRoutes}/>
+            </ScreenSizeProvider>
+        </ThemeProvider>
     );
 };
 
