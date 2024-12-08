@@ -106,7 +106,7 @@ export function getSizeFromStyle(property: CSSProperty) {
 }
 
 export function getColorFromStyle(property: CSSProperty) {
-    return isOklchAndConvert(getStyleValue(property));
+    return `${isOklchAndConvert(getStyleValue(property))}`;
 }
 
 
@@ -147,8 +147,7 @@ export function getScaleColor(
 
     return result;
 }
-
-export const daisyPrimary = getColorFromStyle('--p');
-export const daisyPrimaryText = getColorFromStyle('--pc');
-export const daisySecondary = getColorFromStyle('--s');
-export const daisySecondaryText = getColorFromStyle('--sc');
+export const daisyPrimary = ()=>getColorFromStyle('--p');
+export const daisyPrimaryText = ()=>getColorFromStyle('--pc');
+export const daisySecondary = ()=>getColorFromStyle('--s');
+export const daisySecondaryText = ()=>getColorFromStyle('--sc');

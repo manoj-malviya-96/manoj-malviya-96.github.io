@@ -41,22 +41,23 @@ const AtomDialog: React.FC<AtomDialogProps> = ({
             return <AtomButton key={index} {...props}/>
         }) : undefined;
 
-
     const dialogPt = {
         root: {
             style: {
-                borderColor: `${daisyPrimary}`,
+                borderColor: daisyPrimary(),
                 borderOpacity: 0.25,
                 backgroundColor: 'transparent',
                 backdropFilter: 'blur(10px)',
             },
         },
+
         content: {
             style: {
                 borderColor: 'transparent',
                 backgroundColor: 'transparent',
             }
         },
+
         header: {
             style: {
                 borderColor: 'transparent',

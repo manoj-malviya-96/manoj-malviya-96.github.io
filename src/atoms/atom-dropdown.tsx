@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
+import {daisyPrimary, daisyPrimaryText} from "../common/color-utils";
 
 
 export interface AtomDropdownItemProps {
@@ -33,6 +34,37 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
         onClick(value); // Pass selected option to parent
     };
 
+    const dropdownPt = {
+        root: {
+            style: {
+                backgroundColor: 'transparent',
+                borderColor: daisyPrimary(),
+                color: 'white',
+            }
+        },
+        panel: {
+            style: {
+                backgroundColor: 'transparent',
+                borderColor: daisyPrimary(),
+                color: daisyPrimaryText(),
+            }
+        },
+        trigger: {
+            style: {
+                backgroundColor: 'transparent',
+                borderColor: daisyPrimary(),
+                color: daisyPrimaryText(),
+            }
+        },
+        wrapper: {
+            style: {
+                backgroundColor: 'transparent',
+                borderColor: daisyPrimary(),
+                color: daisyPrimaryText(),
+                selectedColor: daisyPrimaryText(),
+            }
+        },
+    }
 
     return (
         <div className={`card flex justify-content-center ${className}`}>
@@ -46,10 +78,8 @@ const AtomDropdown: React.FC<AtomDropdownProps> = ({
                 optionLabel="label"
                 variant={'outlined'}
                 placeholder={placeholder}
-                className="w-full border-primary hover:border-primary"
-                style={{
-                    backgroundColor: 'transparent',
-                }}
+                className="w-full"
+                pt={dropdownPt}
             />
         </div>
     );
