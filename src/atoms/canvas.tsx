@@ -1,12 +1,16 @@
 import React, {useRef, useEffect, useState} from "react";
 
 export class CanvasController {
-    canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>;
+    canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null> | undefined;
     animationFrameId: number | null;
 
-    constructor(canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>) {
-        this.canvasRef = canvasRef;
+    constructor() {
+        this.canvasRef = React.createRef();
         this.animationFrameId = null;
+    }
+
+    setCanvasRef(canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>) {
+        this.canvasRef = canvasRef;
     }
 
     init(): void {
@@ -51,7 +55,7 @@ export const Canvas: React.FC<CanvasProps> = ({controller = null, className = ""
         if (!controller) return;
 
         // Assign canvasRef to controller and start it
-        controller.canvasRef = canvasRef as React.RefObject<HTMLCanvasElement>;
+        controller.setCanvasRef(canvasRef as React.RefObject<HTMLCanvasElement>);
         controller.start();
 
         // Cleanup on unmount

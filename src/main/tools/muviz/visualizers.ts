@@ -1,7 +1,6 @@
 import {CanvasController} from "../../../atoms/canvas";
 import {DropDetector} from "../../../common/audio";
 import {adjustColor} from "../../../common/color";
-import React from "react";
 
 export enum VisualizerType {
     Bar = 0,
@@ -20,15 +19,14 @@ export function toString(type: VisualizerType): string {
 interface VisualizerProps {
     analyser: AnalyserNode;
     dataArray: Uint8Array;
-    canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>;
 }
 
 export class BaseVisualizer extends CanvasController {
     protected readonly analyser: AnalyserNode;
     protected readonly dataArray: Uint8Array;
 
-    constructor({analyser, dataArray, canvasRef}: VisualizerProps) {
-        super(canvasRef);
+    constructor({analyser, dataArray}: VisualizerProps) {
+        super();
         this.analyser = analyser;
         this.dataArray = dataArray;
     }
@@ -36,11 +34,13 @@ export class BaseVisualizer extends CanvasController {
 
 export class BarVisualizer extends BaseVisualizer {
 
-    constructor({analyser, dataArray, canvasRef}: VisualizerProps) {
-        super({analyser, dataArray, canvasRef});
+    constructor({analyser, dataArray}: VisualizerProps) {
+        super({analyser, dataArray});
     }
 
     draw() {
+
+        if (!this.canvasRef) return;
         if (!this.canvasRef.current || !this.analyser || !this.dataArray) return;
 
         const canvas = this.canvasRef.current;
@@ -77,8 +77,8 @@ export class SpiralVisualizer extends BaseVisualizer {
     private dropDetector: DropDetector;
     private readonly baseColor: string;
 
-    constructor({analyser, dataArray, canvasRef}: VisualizerProps) {
-        super({analyser, dataArray, canvasRef});
+    constructor({analyser, dataArray}: VisualizerProps) {
+        super({analyser, dataArray});
 
         // Spiral properties
         this.angle = 0; // Rotation angle of the spiral
@@ -98,6 +98,8 @@ export class SpiralVisualizer extends BaseVisualizer {
 
     init() {
         // Cache canvas dimensions
+        if (!this.canvasRef) return;
+
         const canvas = this.canvasRef.current;
         if (canvas) {
             this.canvasWidth = canvas.width;
@@ -159,12 +161,13 @@ export class SpiralVisualizer extends BaseVisualizer {
             ctx.shadowBlur = glow;
             ctx.shadowColor = color;
             ctx.fillStyle = color;
-            ``
             ctx.fill();
         });
     }
 
     draw() {
+        if (!this.canvasRef) return;
+
         const canvas = this.canvasRef.current;
         if (!canvas || !this.analyser || !this.dataArray) return;
         const ctx = canvas.getContext("2d");

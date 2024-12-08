@@ -70,3 +70,6 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
         </MotionDiv>
     );
 };
+
+
+export const MemoizedAtomButton = React.memo(AtomButton);
