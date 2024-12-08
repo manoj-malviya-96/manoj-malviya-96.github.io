@@ -57,18 +57,6 @@ export class BlogInfo {
         this.path = '/blogs/' + this.id;
     }
 
-
-    toCarouselItem() {
-        return {
-            title: this.title,
-            description: this.description,
-            date: this.date,
-            image: this.cover,
-            isNew: this.isNew,
-            onClick: () => openLink(this.path, null),
-        } as AtomCardProps;
-    }
-
     tabs() {
         return rangesTo(this.sections, (section) => {
             return {

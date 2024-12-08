@@ -5,18 +5,21 @@ import {rangesTo} from "../common/types";
 import {AtomCarousel} from "../atoms/atom-carousel";
 import {AtomCardProps} from "../atoms/atom-card";
 import {openLink} from "../common/links";
+import {useNavigate} from "react-router-dom";
 
 
 const ToolDrawer = () => {
+    const navigate = useNavigate();
 
     const items = rangesTo(registeredTools, (tool) => {
         return {
             title: tool.name,
             description: tool.description,
             image: tool.cover,
-            onClick: () => openLink(tool.path),
-        } as AtomCardProps;
+            onClick: () => navigate(tool.path),
+        };
     });
+
     return (
         <FullScreenPage
             name="tools"

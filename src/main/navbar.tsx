@@ -1,9 +1,11 @@
 import React from 'react';
 import {useTheme} from "./theme";
-import { MemoizedAtomButton} from "../atoms/atom-button";
+import {MemoizedAtomButton} from "../atoms/atom-button";
+import {useNavigate} from "react-router-dom";
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const {currentTheme, currentThemeDetails, cycleTheme, themeEnabled} = useTheme();
     return (
         <div
@@ -12,9 +14,7 @@ const Navbar = () => {
             <MemoizedAtomButton
                 label="Home"
                 icon="pi pi-home"
-                onClick={() => {
-                    window.location.href = "/";
-                }}
+                onClick={() => navigate("/")}
             />
             <MemoizedAtomButton
                 icon={currentThemeDetails.icon}
