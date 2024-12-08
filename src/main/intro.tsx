@@ -10,12 +10,12 @@ import ProfilePicture from "../main/assets/main.jpg";
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
     ['fa-brands fa-linkedin', 'https://www.linkedin.com/in/manoj-malviya-44700aa4/', 'linkedin'],
-    ['pi pi-github', 'https://github.com/manoj-malviya-96', 'github'],
-    ['pi pi-google', 'https://scholar.google.com/citations?user=0oMXOy0AAAAJ&hl=en&authuser=2',
+    ['fa-brands fa-github', 'https://github.com/manoj-malviya-96', 'github'],
+    ['fa-brands fa-google', 'https://scholar.google.com/citations?user=0oMXOy0AAAAJ&hl=en&authuser=2',
         'google scholar'],
-    ['pi pi-instagram', 'https://www.instagram.com/manoj_malviya_/', 'instagram'],
-    ['pi pi-youtube', 'https://www.youtube.com/@manoj_malviya', 'youtube'],
-    ['pi pi-apple', 'https://music.apple.com/us/artist/manoj-malviya/1721435458', 'apple music'],
+    ['fa-brands fa-instagram', 'https://www.instagram.com/manoj_malviya_/', 'instagram'],
+    ['fa-brands fa-youtube', 'https://www.youtube.com/@manoj_malviya', 'youtube'],
+    ['fa-brands fa-apple', 'https://music.apple.com/us/artist/manoj-malviya/1721435458', 'apple music'],
     ['fa-brands fa-soundcloud', 'https://soundcloud.com/manoj-malviya-96', 'soundcloud'],
 ];
 

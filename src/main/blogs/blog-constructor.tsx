@@ -104,22 +104,22 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             if (media === undefined) {
                 return <></>;
             }
-            return (<div className='w-4/5 justify-center m-auto align-center'>
+            return (<div className='w-full lg:w-2/3 justify-center m-auto align-center'>
                     {media.kind === "image" &&
                         <AtomImage src={media.source}
                                    alt={media.label}
-                                   className={'m-auto align-center justify-center w-full lg:w-full'}/>
+                                   className={'m-auto align-center justify-center w-full'}/>
                     }
                     {media.kind === 'code' && (
                         <CodeBlock language={media.language}
                                    code={media.code}
-                                   className="m-auto align-center justify-center w-full lg:w-full"/>
+                                   className="m-auto align-center justify-center w-full"/>
                     )}
 
                     {media.kind === 'plot' &&
                         <Plotter
                             dataTrace={media.dataTrace}
-                            className={'m-auto align-center justify-center w-full lg:w-full'}
+                            className={'m-auto align-center justify-center w-full'}
                             title={media.title}
                             xTitle={media.xTitle}
                             yTitle={media.yTitle}
@@ -129,12 +129,12 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                     }
                     {media.kind === 'heroText' &&
                         <HeroText text={media.text}
-                                  className='w-fit lg:w-full'/>
+                                  className='w-full'/>
                     }
                     {media.kind === 'heroList' &&
                         <HeroList contentList={media.contentList}
                                   numbered={media.numbered}
-                                  className='w-fit lg:w-full'/>
+                                  className='w-full'/>
                     }
                 </div>
             )

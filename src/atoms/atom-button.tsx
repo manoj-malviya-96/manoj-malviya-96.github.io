@@ -37,10 +37,10 @@ export const AtomButton: React.FC<AtomButtonProps> = ({
                                                           className = '',
                                                       }) => {
     const breakpoint = useContext(ScreenSizeContext);
-    const daisyClass = ghostMode ? 'btn-ghost' : 'btn-primary';
+    const daisyClass = ghostMode ? 'btn-ghost w-full' : 'btn-primary';
 
     return (
-        <MotionDiv>
+        <MotionDiv enableHoverEffect={!ghostMode}>
             <Button
                 className={`btn ${daisyClass} w-fit h-fit justify-center items-center`}
                 size={breakpoint !== ScreenSizes.Small ? size : 'large'}

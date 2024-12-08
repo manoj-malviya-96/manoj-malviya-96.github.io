@@ -3,13 +3,15 @@ import React from "react";
 
 interface MotionDivProps {
     children: React.ReactNode;
+    enableHoverEffect?: boolean;
+    enableTapEffect?: boolean;
 }
 
-const MotionDiv: React.FC<MotionDivProps> = ({children}) => {
+const MotionDiv: React.FC<MotionDivProps> = ({children, enableHoverEffect = true, enableTapEffect = true}) => {
     return (
         <motion.div
-            whileHover={{scale: 1.05}}
-            whileTap={{scale: 0.95}}
+            whileHover={{scale: enableHoverEffect ? 1.05 : 1}}
+            whileTap={{scale: enableTapEffect ? 0.95 : 1}}
         >
             {children}
         </motion.div>

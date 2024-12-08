@@ -41,7 +41,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({code, language, className = ""}) =
     };
 
     return (
-        <div className={`relative ${className} w-full h-full`}>
+        <div className={`relative ${className}`}>
             <div className="bg-primary
                             flex flex-row w-full justify-between rounded-t-lg">
                 <span className="p-2 text-small">{language}</span>
@@ -51,12 +51,15 @@ const CodeBlock: React.FC<CodeBlockProps> = ({code, language, className = ""}) =
                     icon={copySuccess ? "fas fa-check" : "fas fa-copy"}
                     label={copySuccess ? "Copied!" : "Copy"}
                     onClick={handleCopy}
+                    size={"small"}
+                    rounded={false}
                     ghostMode={true}
                 />
             </div>
 
             {/* Code Block */}
-            <SyntaxHighlighter language={language} style={codeStyle} className="rounded-b-lg w-full h-full">
+            <SyntaxHighlighter language={language} style={codeStyle}
+                               className="rounded-b-lg">
                 {code}
             </SyntaxHighlighter>
         </div>
