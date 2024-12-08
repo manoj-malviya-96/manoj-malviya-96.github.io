@@ -8,7 +8,7 @@ import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
 import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
-import {AtomButton} from "./atom-button";
+import {AtomButton, MemoizedAtomButton} from "./atom-button";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);
@@ -41,18 +41,22 @@ const CodeBlock: React.FC<CodeBlockProps> = ({code, language, className = ""}) =
     };
 
     return (
-        <div className={`relative ${className}`}>
-            {/* Copy Button */}
-            <AtomButton
-                loading={isCopying}
-                icon={copySuccess ? "fas fa-check" : "fas fa-copy"}
-                label={copySuccess ? "Copied!" : "Copy"}
-                onClick={handleCopy}
-                className="absolute top-2 right-2 opacity-0 hover:opacity-100"
-            />
+        <div className={`relative ${className} w-full h-full`}>
+            <div className="bg-primary
+                            flex flex-row w-full justify-between rounded-t-lg">
+                <span className="p-2 text-small">{language}</span>
+                {/* Copy Button */}
+                <MemoizedAtomButton
+                    loading={isCopying}
+                    icon={copySuccess ? "fas fa-check" : "fas fa-copy"}
+                    label={copySuccess ? "Copied!" : "Copy"}
+                    onClick={handleCopy}
+                    ghostMode={true}
+                />
+            </div>
 
             {/* Code Block */}
-            <SyntaxHighlighter language={language} style={codeStyle} className="rounded-lg">
+            <SyntaxHighlighter language={language} style={codeStyle} className="rounded-b-lg w-full h-full">
                 {code}
             </SyntaxHighlighter>
         </div>

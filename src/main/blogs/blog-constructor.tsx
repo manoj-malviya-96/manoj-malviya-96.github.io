@@ -101,25 +101,25 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                                                         }) => {
 
     const RenderMedia: React.FC<{ media: BlogMediaType }> = ({media}) => {
-            if (!media) {
+            if (media === undefined) {
                 return <></>;
             }
-            return (<div className='w-full justify-center m-auto align-center'>
+            return (<div className='w-4/5 justify-center m-auto align-center'>
                     {media.kind === "image" &&
                         <AtomImage src={media.source}
                                    alt={media.label}
-                                   className={'m-auto align-center justify-center w-full md:w-1/2'}/>
+                                   className={'m-auto align-center justify-center w-full lg:w-full'}/>
                     }
                     {media.kind === 'code' && (
                         <CodeBlock language={media.language}
                                    code={media.code}
-                                   className="m-auto align-center justify-center w-full md:w-1/2"/>
+                                   className="m-auto align-center justify-center w-full lg:w-full"/>
                     )}
 
                     {media.kind === 'plot' &&
                         <Plotter
                             dataTrace={media.dataTrace}
-                            className={'m-auto align-center justify-center w-full md:w-1/2'}
+                            className={'m-auto align-center justify-center w-full lg:w-full'}
                             title={media.title}
                             xTitle={media.xTitle}
                             yTitle={media.yTitle}
@@ -129,12 +129,12 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                     }
                     {media.kind === 'heroText' &&
                         <HeroText text={media.text}
-                                  className='w-fit md:w-1/2'/>
+                                  className='w-fit lg:w-full'/>
                     }
                     {media.kind === 'heroList' &&
                         <HeroList contentList={media.contentList}
                                   numbered={media.numbered}
-                                  className='w-fit md:w-1/2'/>
+                                  className='w-fit lg:w-full'/>
                     }
                 </div>
             )
@@ -145,8 +145,8 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             name={name}
             title={title}
             children={
-                <section className='flex flex-col justify-center align-center w-4/5 h-fit gap-8'>
-                    <div className='text-lg w-fit m-auto align-center'>
+                <section className='flex flex-col justify-center align-center w-full h-fit gap-8'>
+                    <div className='text-lg w-fit lg:w-1/2 m-auto align-center'>
                         {makeRichParagraph(paragraph)}
                     </div>
                     <RenderMedia media={media}/>

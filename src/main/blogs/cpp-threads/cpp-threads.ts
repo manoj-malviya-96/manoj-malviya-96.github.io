@@ -26,9 +26,10 @@ int main() {
                    Initially, I thought it would be simple, but managing threads can be challenging.`
             ],
             media: {
+                kind: 'code',
                 language: 'cpp',
                 code: simpleThreadCode
-            } as BlogCodeProps
+            }
         };
 
         const raceConditions: BlogSectionContentProps = {
@@ -47,11 +48,12 @@ int main() {
                  It might look something like this: Here's an example code snippet:`
             ],
             media: {
+                kind: 'code',
                 language: 'cpp', code:
                     `
 std::map<std::string, int> inventory;
                 `
-            } as BlogCodeProps
+            }
         }
 
 
@@ -88,7 +90,7 @@ void sell(const std::string& item, int quantity) {
                  the same thing at the same time.`
                 , {tag: 'br'},
             ],
-            media: {language: 'cpp', code: mutexCode} as BlogCodeProps
+            media: {kind: 'code', language: 'cpp', code: mutexCode}
         };
 
         const lockGuardCode = `
@@ -123,7 +125,7 @@ void sell(const std::string& item, int quantity) {
                 `, which automatically locks and 
                     unlocks the mutex for you—much less risky.`
             ],
-            media: {language: 'cpp', code: lockGuardCode} as BlogCodeProps
+            media: {kind: 'code', language: 'cpp', code: lockGuardCode} as BlogCodeProps
         }
 
         const atomicCode = `
@@ -143,7 +145,7 @@ void restock(const std::string& item, int quantity) {
                 operations atomically without any interference. They ensure that operations
                 on the variable are indivisible, preventing race conditions.`
             ],
-            media: {language: 'cpp', code: atomicCode} as BlogCodeProps
+            media: {kind: 'code', language: 'cpp', code: atomicCode}
         };
 
         super({
