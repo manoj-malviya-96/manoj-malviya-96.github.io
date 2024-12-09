@@ -31,7 +31,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
 
     const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex] : null);
     const randomId = crypto.randomUUID();
-    const {daisyPrimary, daisyPrimaryText, daisyNeutralText, daisyNeutral} = useTheme();
+    const {daisyPrimary, daisyPrimaryText, daisyNeutral} = useTheme();
 
     const handleOptionClick = (value: any) => {
         selectedValue(value);
@@ -50,23 +50,23 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             style: {
                 backgroundColor: 'transparent',
                 borderColor: neutralMode ? daisyNeutral : daisyPrimary,
-                color: neutralMode ? daisyNeutralText: daisyPrimaryText,
+                color: neutralMode ? daisyNeutral: daisyPrimaryText,
                 backdropFilter: 'blur(20px)',
             }
         },
         trigger: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
-                color: neutralMode ? daisyNeutralText: daisyPrimaryText,
+                borderColor: 'transparent',
+                color: neutralMode ? daisyNeutral: daisyPrimaryText,
             }
         },
         wrapper: {
             style: {
                 backgroundColor: 'transparent',
                 borderColor: neutralMode ? daisyNeutral : daisyPrimary,
-                color: neutralMode ? daisyNeutralText: daisyPrimaryText,
-                selectedColor: neutralMode ? daisyNeutralText: daisyPrimaryText,
+                color: neutralMode ? daisyNeutral: daisyPrimaryText,
+                selectedColor: neutralMode ? daisyNeutral: daisyPrimaryText,
             }
         },
     }

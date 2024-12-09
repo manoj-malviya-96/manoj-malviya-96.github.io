@@ -19,7 +19,6 @@ interface ThemeContextType {
     daisyPrimary: string;
     daisyPrimaryText: string;
     daisyNeutral: string;
-    daisyNeutralText: string;
 }
 
 // Create the context
@@ -49,7 +48,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         daisyPrimary: '',
         daisyPrimaryText: '',
         daisyNeutral: '',
-        daisyNeutralText: '',
     });
 
     // Update theme on the DOM and localStorage
@@ -62,7 +60,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             daisyPrimary: getColorFromStyle('--p'),
             daisyPrimaryText: getColorFromStyle('--pc'),
             daisyNeutral: getColorFromStyle('--n'),
-            daisyNeutralText: getColorFromStyle('--nc'),
         });
     }, [currentTheme]);
 
@@ -87,7 +84,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 daisyPrimary: themeColors.daisyPrimary,
                 daisyPrimaryText: themeColors.daisyPrimaryText,
                 daisyNeutral: themeColors.daisyNeutral,
-                daisyNeutralText: themeColors.daisyNeutralText,
             }}
         >
             {children}

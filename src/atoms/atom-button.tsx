@@ -42,7 +42,8 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
 
     let daisyClass = ghost ? 'btn-ghost w-full' : 'btn-primary';
     if (neutralGhost) {
-        daisyClass = 'bg-transparent text-neutral border-none hover:text-white disabled:text-neutral-50';
+        daisyClass = 'bg-transparent text-neutral border-none ' +
+                    'hover:bg-transparent hover:text-white disabled:text-neutral-50';
     }
 
     return (

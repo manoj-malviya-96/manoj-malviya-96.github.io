@@ -188,6 +188,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         step={0.1}
                         onChange={setAudioTime}
                         className="w-full h-fit"
+                        neutralMode={true}
                     />
 
                     {/* Volume Row */}
@@ -214,7 +215,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                     max={1}
                                     step={0.01}
                                     onChange={changeVolume}
-                                    className={"w-200 h-fit"}
+                                    neutralMode={true}
+                                    className={"w-120 h-fit"}
                                 />
                             </div>
                         </div>
@@ -227,6 +229,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                 onClick={handleSampleSongChange}
                                 className="h-full w-fit m-auto"
                                 placeholder="Select Song"
+                                neutralMode={true}
                             />
                             <AtomDropdown
                                 options={vizOptions}
@@ -234,6 +237,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                                 className="h-full w-fit m-auto"
                                 placeholder="Select Visualizer"
                                 initialIndex={0}
+                                neutralMode={true}
                             />
                             <ModalButton
                                 icon="fa-solid fa-plus"

@@ -24,7 +24,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                                                     className,
                                                     neutralMode = false
                                                 }) => {
-    const {daisyPrimary, daisyPrimaryText, daisyNeutral, daisyNeutralText} = useTheme();
+    const {daisyPrimary, daisyPrimaryText, daisyNeutral} = useTheme();
     const sliderPt = {
         root: {
             style: {
@@ -47,7 +47,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
         },
         range: {
             style: {
-                backgroundColor: neutralMode ? daisyNeutralText : daisyPrimaryText,
+                backgroundColor: neutralMode ? daisyNeutral : daisyPrimaryText,
             }
         }
     }
