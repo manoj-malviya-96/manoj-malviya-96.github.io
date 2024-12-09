@@ -45,6 +45,9 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
         daisyClass = 'bg-transparent text-neutral border-none ' +
                     'hover:bg-transparent hover:text-white disabled:text-neutral-50';
     }
+    if (!outlined) {
+        daisyClass += ' bg-opacity-50 border-none';
+    }
 
     return (
         <MotionDiv enableHoverEffect={!ghost || !neutralGhost}>

@@ -138,7 +138,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
             <Canvas controller={controller} className="absolute top-0 left-0 w-full h-full z-0"/>
 
             {/*HUD*/}
-            <div className="inline-block w-full h-full z-5 p-4">
+            <div className="inline-block w-full h-full z-5 p-4  lg:opacity-0 lg:hover:opacity-100">
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center

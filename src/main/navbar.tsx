@@ -43,7 +43,7 @@ const Navbar = () => {
             className={'z-20'}
             start={(
                 <div className='flex flex-row w-fit h-fit justify-center items-center
-                        gap-2 px-4 py-2 m-0 bg-primary rounded-full '>
+                        gap-2 px-4 py-2 m-0 bg-primary bg-opacity-50 rounded-full '>
                     <img src={logo} alt={name} className='w-6 h-6'/>
                     <h1 className='text-lg font-bold text-center m-auto'>{name}</h1>
                 </div>
