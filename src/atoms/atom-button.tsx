@@ -46,7 +46,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                     'hover:bg-transparent hover:text-white disabled:text-neutral-50';
     }
     if (!outlined) {
-        daisyClass += ' bg-opacity-50 border-none';
+        daisyClass += ' bg-opacity-70 border-none';
     }
 
     return (
