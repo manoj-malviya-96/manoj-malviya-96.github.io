@@ -4,7 +4,7 @@ import AtomButtonGroup from "../atoms/atom-button-group";
 import {rangesTo} from "../common/types";
 import {openLink} from "../common/links";
 import {AtomButtonProps} from "../atoms/atom-button";
-import ProfilePicture from "../main/assets/main.jpg";
+import ProfilePicture from "./assets/main.jpg";
 
 
 interface IntroOverlayProps {

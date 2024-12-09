@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from "./main/navbar";
+import NavBar, {NavbarProvider} from "./main/navbar";
 import RouterConstructor from "./common/router";
 import constructedRoutes from "./main/routes";
 import {ScreenSizeProvider} from "./common/screen";
@@ -9,7 +9,9 @@ const App = () => {
     return (
         <ThemeProvider>
             <ScreenSizeProvider>
-                <RouterConstructor routes={constructedRoutes}/>
+                <NavbarProvider>
+                    <RouterConstructor routes={constructedRoutes}/>
+                </NavbarProvider>
             </ScreenSizeProvider>
         </ThemeProvider>
     );

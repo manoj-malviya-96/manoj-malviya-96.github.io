@@ -2,8 +2,9 @@ import React from 'react'
 import Intro from "./intro";
 import BlogListing from "./blog-list";
 import AboutMe from "./about-me";
-import {TopTabBar} from "../atoms/top-modal";
+import BrandLogo from "./assets/logo.svg";
 import ToolDrawer from "./tool-drawer";
+import {useNavbar} from "./navbar";
 
 
 const Home = () => {
@@ -12,6 +13,11 @@ const Home = () => {
         {name: 'blog', label: 'Blogs', icon: 'fas fa-bars-staggered'},
         {name: 'about-me', label: 'About Me', icon: 'fas fa-person-through-window'},
     ]
+
+    const {setName, setLogo} = useNavbar();
+    setName('');
+    setLogo(BrandLogo);
+
     return (
         <div className='flex-row w-full h-fit'>
             <Intro/>

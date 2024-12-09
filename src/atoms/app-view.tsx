@@ -2,6 +2,7 @@ import FullScreenPage from "./full-page";
 import {TopBrandLogo} from "./top-modal";
 import Logo from "../main/tools/logos/muviz.svg";
 import React from "react";
+import {useNavbar} from "../main/navbar";
 
 
 interface AppViewProps {
@@ -11,13 +12,15 @@ interface AppViewProps {
 }
 
 const AppView: React.FC<AppViewProps> = ({name, logo, children}) => {
+    const {setLogo, setName} = useNavbar();
+    setLogo(logo);
+    setName(name);
     return (
         <FullScreenPage
             name={name.toLowerCase()}
             title=""
             children={
                 <div className="w-full h-fit">
-                    <TopBrandLogo logo={logo} name={name}/>
                     {children}
                 </div>
             }
