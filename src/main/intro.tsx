@@ -13,11 +13,15 @@ interface IntroOverlayProps {
 
 const IntroOverlay: React.FC<IntroOverlayProps> = ({socialMediaItems}) => {
     return (
-        <div className="absolute left-8 top-1/3">
-            <p className="text-lg mb-1">
+        <div className="absolute left-8 top-1/3 w-1/3">
+            <p className="text-lg mb-1 text-black">
                 Manoj Malviya
             </p>
-            <h1 className="text-4xl text-white font-bold mb-4">SOFTWARE ENGINEER</h1>
+            <h1 className="text-4xl text-indigo-600 font-bold mb-4 uppercase">
+                Crafting innovation with MAFIA—Manoj's Artistic
+                Fusion for Interactive Applications. Where art meets technology,
+                and creativity drives solutions."
+            </h1>
             <AtomButtonGroup items={socialMediaItems}/>
         </div>
     )

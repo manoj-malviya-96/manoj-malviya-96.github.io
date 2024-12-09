@@ -41,11 +41,11 @@ export const AtomCard: React.FC<AtomCardProps> = ({
     const footer = (
         <div>
             {title && <h2 className="text-2xl text-primary-content font-bold uppercase">{title}</h2>}
-            {description && <p className="text-accent">{description}</p>}
+            {description && <p className="text-sm text-primary-content">{description}</p>}
             {date &&
                 <div className="flex flex-row gap-2">
-                    <i className="pi pi-calendar text-accent"/>
-                    <span className="text-accent text-sm">{date}</span>
+                    <i className="pi pi-calendar text-primary-content"/>
+                    <span className="text-sm text-primary-content">{date}</span>
                 </div>
             }
         </div>

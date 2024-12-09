@@ -20,7 +20,7 @@ module.exports = {
             Light: {
                 "primary": "#9a9a9a",
                 "secondary": "#535353",
-                "accent": "#888888",
+                "accent": "#99afff", // Using accent to show brand color
                 "neutral": "rgba(165,165,165,0.47)",
                 "base-100": "#ffffff",
                 /* Keep the following colors same */
@@ -32,7 +32,7 @@ module.exports = {
             Dark: {
                 "primary": "#454545",
                 "secondary": "#4e4e4e",
-                "accent": "#c6c6c6",
+                "accent": "#99afff", // Using accent to show brand color
                 "neutral": "rgba(165,165,165,0.47)",
                 "base-100": "#000000",
                 /* Keep the following colors same */
