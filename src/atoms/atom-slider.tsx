@@ -28,19 +28,23 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                                                     neutralMode = false
                                                 }) => {
     const {daisyPrimary, daisyPrimaryText, daisyNeutral} = useTheme();
+
+    const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
+
+
     const sliderPt = {
         root: {
             style: {
                 height: '2px',
                 width: '100%',
-                backgroundColor: neutralMode ? daisyNeutral : daisyPrimary,
+                backgroundColor: adjustColor(mainColor, 0.2),
             }
         },
         handle: {
             style: {
                 width: '10px',
                 height: size === 'small' ? '10px' : '30px',
-                backgroundColor: neutralMode ? daisyNeutral : daisyPrimary,
+                backgroundColor: mainColor,
                 border: 'none',
                 borderRadius: '2px',
                 boxShadow: 'none',
@@ -51,7 +55,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
         range: {
             style: {
                 height: '3px',
-                backgroundColor: neutralMode ? 'white' : daisyPrimaryText,
+                backgroundColor: mainColor,
             }
         }
     }

@@ -42,7 +42,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
     };
     const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
     const mainTextColor = neutralMode ? daisyNeutral : daisyPrimaryText;
-    const borderColor = adjustColor(mainColor, 0.5);
+    const borderColor = adjustColor(mainColor, 0.2);
 
     const dropdownPt = {
         root: {
