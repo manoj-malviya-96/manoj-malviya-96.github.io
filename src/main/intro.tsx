@@ -14,7 +14,7 @@ const Intro = () => {
                             Manoj's
                         </p>
                         <h1 className="text-4xl text-black font-bold mb-4 uppercase">
-                            Audacious Framework for Interactive Apps
+                            Audacious Factory Of Interactive Apps
                         </h1>
                     </div>
                 )
