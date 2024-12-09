@@ -1,12 +1,5 @@
-import React, {ReactNode} from "react";
+import React, {ReactNode, useEffect} from "react";
 import {motion, Variants} from "motion/react";
-
-// Define the variants type explicitly for type safety
-const slidingVariants: Variants = {
-    initial: {x: "100vh"},
-    animate: {x: 0},
-    exit: {x: "-100vw"}
-};
 
 // Define props interface
 interface SlidingAnimationProps {
@@ -14,12 +7,15 @@ interface SlidingAnimationProps {
 }
 
 const SlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Ensure top scroll position
+    }, []);
+
     return (
         <motion.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={slidingVariants}
+            initial={{opacity: 0, y: '100vh'}}
+            animate={{opacity: 1, y: 0}}
+            exit={{opacity: 0, y: '-100vh'}}
             transition={{duration: 0.21}}
         >
             {children}

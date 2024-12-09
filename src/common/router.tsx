@@ -39,16 +39,6 @@ const MakeRoutesWithAnimation: React.FC<MakeRoutesWithAnimationProps> = ({routes
     );
 };
 
-const ScrollToTop: React.FC = () => {
-    const {pathname} = useLocation();
-
-    useEffect(() => {
-        window.scrollTo(0, 30); // Scroll to top but y=30 ? // fixme - why 30?
-    }, [pathname]); // Run on every path change
-
-    return null;
-};
-
 interface RouterConstructorProps {
     routes: RouteDefinition[];
 }
@@ -56,7 +46,6 @@ interface RouterConstructorProps {
 const RouterConstructor: React.FC<RouterConstructorProps> = ({routes}) => {
     return (
         <Router>
-            <ScrollToTop/>
             <NavBar/>
             <MakeRoutesWithAnimation routes={routes}/>
         </Router>
