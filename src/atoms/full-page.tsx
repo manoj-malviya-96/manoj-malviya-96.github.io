@@ -26,7 +26,7 @@ const FullScreenPage: React.FC<FullScreenPageProps> = ({
 
     return (
         <Element
-            className="h-fit min-h-screen w-screen flex flex-col p-0 m-0 overflow-clip"
+            className="h-fit min-h-screen w-screen flex flex-col p-0 m-0 overflow-clip justify-center"
             name={name}
             style={{
                 margin: 0, // Remove margin
@@ -45,7 +45,7 @@ const FullScreenPage: React.FC<FullScreenPageProps> = ({
             )}
             {/* Children */}
             {children && (
-                <div className={`p-8 w-full h-fit mt-4 ${alignmentClasses}`}>
+                <div className={`p-16 w-full h-fit mt-4 m-auto ${alignmentClasses}`}>
                     {children}
                 </div>
             )}

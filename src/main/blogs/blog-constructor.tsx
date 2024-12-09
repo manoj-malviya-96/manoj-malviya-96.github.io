@@ -171,9 +171,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
                 tags={item.tags}
                 coverImage={item.cover}
             />
-            <div className="inline-block w-full h-fit justify-center relative">
-                {/* Table of Contents */}
-            </div>
+            {/* Table of Contents - padding is left 16, as i use padding-16 for full page view */}
             <div className="sticky left-16 top-1/2 hidden md:inline-block w-fit h-fit">
                 <TableOfContents sections={item.tabs()}/>
             </div>
