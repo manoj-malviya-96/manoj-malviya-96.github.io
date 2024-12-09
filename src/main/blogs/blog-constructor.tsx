@@ -9,6 +9,7 @@ import Plotter from "../../atoms/plotter";
 import HeroText from "../../atoms/hero-text";
 import HeroList from "../../atoms/hero-list";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
+import TabBar, {TabItemProps} from "../../atoms/tab-bar";
 
 
 interface BlogHeaderProps {
