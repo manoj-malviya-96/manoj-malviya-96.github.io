@@ -19,7 +19,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({sections, className}) 
             <ScrollableLink
                 key={index}
                 elementName={item.name}
-                className="px-2 text-sm "
+                className="px-2 text-sm cursor-pointer "
                 activeClassName="text-primary-content text-sm font-bold"
                 children={
                     <span>{item.label}</span>

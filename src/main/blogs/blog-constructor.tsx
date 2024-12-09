@@ -26,7 +26,7 @@ const BlogHeader: React.FC<BlogHeaderProps> = (
         coverImage = TemplateCover;
     }
     return (
-        <header className="w-screen h-fit bg-base-200 py-4 shadow-lg">
+        <header className="w-screen h-fit bg-transparent py-4">
             <FullScreenPage
                 name='header'
                 children={
@@ -173,15 +173,15 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
             />
             <div className="inline-block w-full h-fit justify-center relative">
                 {/* Table of Contents */}
-                <div className="sticky left-16 top-16 hidden md:inline-block w-fit h-fit">
-                    <TableOfContents sections={item.tabs()}/>
-                </div>
-                {/* Blog Content */}
-                <div className="inline-block w-full h-fit">
-                    {item.sections.map((secProps, index) => (
-                        <BlogSection key={index} {...secProps} />
-                    ))}
-                </div>
+            </div>
+            <div className="sticky left-16 top-1/2 hidden md:inline-block w-fit h-fit">
+                <TableOfContents sections={item.tabs()}/>
+            </div>
+            {/* Blog Content */}
+            <div className="inline-block w-full h-fit">
+                {item.sections.map((secProps, index) => (
+                    <BlogSection key={index} {...secProps} />
+                ))}
             </div>
         </div>
 
