@@ -167,8 +167,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                 </div>
 
                 {/*Bottom HUD*/}
-                <div className="flex flex-col gap-4 w-full rounded-lg h-fit absolute left-0 bottom-0 p-4
-                                backdrop-blur-lg">
+                <div className="flex flex-col gap-4 w-full rounded-lg h-fit absolute left-0 bottom-0 p-4">
 
                     {/* Metadata */}
                     <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full h-full gap-4">

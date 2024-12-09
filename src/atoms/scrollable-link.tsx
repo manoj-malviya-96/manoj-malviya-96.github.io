@@ -3,8 +3,8 @@ import React from "react";
 
 interface ScrollableLinkProps {
     elementName: string;
-    className: string;
-    activeClassName: string;
+    className?: string;
+    activeClassName?: string;
     children: React.ReactNode;
 }
 

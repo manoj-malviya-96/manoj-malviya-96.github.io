@@ -15,7 +15,7 @@ const AtomToolbar: React.FC<AtomToolbarProps> = ({start, center, end, className}
     const stylePt = {
         root: {
             style: {
-                backgroundColor: adjustColor('rgb(0, 0, 0)', 0.3),
+                backgroundColor: 'transparent',
                 position: 'fixed',
                 top: 0,
                 left: 0,
@@ -29,7 +29,12 @@ const AtomToolbar: React.FC<AtomToolbarProps> = ({start, center, end, className}
         },
         end: {
             style: {
-                backgroundColor: 'transparent',
+                marginRight: '8px',
+            }
+        },
+        start: {
+            style: {
+                marginLeft: '8px',
             }
         }
     };

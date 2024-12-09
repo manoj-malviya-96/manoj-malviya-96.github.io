@@ -1,6 +1,4 @@
 import FullScreenPage from "./full-page";
-import {TopBrandLogo} from "./top-modal";
-import Logo from "../main/tools/logos/muviz.svg";
 import React from "react";
 import {useNavbar} from "../main/navbar";
 

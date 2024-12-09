@@ -3,13 +3,12 @@ import TemplateCover from '../assets/main.jpg';
 import FullScreenPage from "../../atoms/full-page";
 import {BlogInfo} from "./blog-info";
 import CodeBlock, {CodeBlockProps} from "../../atoms/code";
-import {TopTabBar} from "../../atoms/top-modal";
+import TableOfContents from "../../atoms/table-of-contents";
 import AtomImage from "../../atoms/photo";
 import Plotter from "../../atoms/plotter";
 import HeroText from "../../atoms/hero-text";
 import HeroList from "../../atoms/hero-list";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
-import TabBar, {TabItemProps} from "../../atoms/tab-bar";
 
 
 interface BlogHeaderProps {
@@ -164,7 +163,7 @@ interface BlogConstructorProps {
 
 const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
     return (
-        <div className='flex-row w-full h-fit'>
+        <div className="flex flex-col w-full h-fit">
             <BlogHeader
                 title={item.title}
                 summary={item.summary}
@@ -172,12 +171,20 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
                 tags={item.tags}
                 coverImage={item.cover}
             />
-            {item.sections.map((secProps, index) => {
-                return (<BlogSection key={index} {...secProps} />);
-            })
-            }
-            <TopTabBar items={item.tabs()}/>
+            <div className="inline-block w-full h-fit justify-center relative">
+                {/* Table of Contents */}
+                <div className="sticky left-16 top-16 hidden md:inline-block w-fit h-fit">
+                    <TableOfContents sections={item.tabs()}/>
+                </div>
+                {/* Blog Content */}
+                <div className="inline-block w-full h-fit">
+                    {item.sections.map((secProps, index) => (
+                        <BlogSection key={index} {...secProps} />
+                    ))}
+                </div>
+            </div>
         </div>
+
     )
 }
 
