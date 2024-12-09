@@ -15,7 +15,7 @@ const Home = () => {
     ]
 
     const {setName, setLogo} = useNavbar();
-    setName('');
+    setName('MAFIA');
     setLogo(BrandLogo);
 
     return (

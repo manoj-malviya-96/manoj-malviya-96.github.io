@@ -25,7 +25,7 @@ export const useNavbar = (): NavbarContextType => {
 
 export const NavbarProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [logo, setLogo] = React.useState(WebsiteLogo);
-    const [name, setName] = React.useState('');
+    const [name, setName] = React.useState('MAFIA');
     return (
         <NavbarContext.Provider value={{logo, setLogo, name, setName}}>
             {children}
@@ -42,9 +42,10 @@ const Navbar = () => {
         <AtomToolbar
             className={'z-20'}
             start={(
-                <div className='flex flex-row w-fit gap-2 p-0 m-0'>
-                    <img src={logo} alt={name} className='w-12 h-12'/>
-                    <h1 className='text-2xl font-bold text-center text-neutral m-auto'>{name}</h1>
+                <div className='flex flex-row w-fit h-fit justify-center items-center
+                        gap-2 px-4 py-2 m-0 bg-primary rounded-full '>
+                    <img src={logo} alt={name} className='w-6 h-6'/>
+                    <h1 className='text-lg font-bold text-center m-auto'>{name}</h1>
                 </div>
             )}
             end={(

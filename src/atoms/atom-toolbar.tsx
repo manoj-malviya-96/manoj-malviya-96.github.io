@@ -24,7 +24,6 @@ const AtomToolbar: React.FC<AtomToolbarProps> = ({start, center, end, className}
                 height: 'content-fit',
                 padding: 8,
                 border: 'none',
-                backdropFilter: 'blur(10px)',
             }
         },
         end: {

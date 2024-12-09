@@ -47,7 +47,12 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             style: {
                 backgroundColor: 'transparent',
                 borderColor: borderColor,
-                color: 'white',
+                color: mainTextColor,
+            }
+        },
+        input: {
+            style: {
+                display: 'hidden',
             }
         },
         panel: {
@@ -76,7 +81,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
     }
 
     return (
-        <div className={`card flex justify-content-center ${className}`}>
+        <div className={`flex justify-content-center ${className}`}>
             <Dropdown
                 inputId={randomId}
                 value={value}
@@ -84,10 +89,9 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 options={options}
                 dropdownIcon={dropdownIcon ? dropdownIcon : 'pi pi-chevron-down'}
                 collapseIcon="pi pi-chevron-up"
-                optionLabel="label"
                 variant={'outlined'}
                 placeholder={placeholder}
-                className="w-full"
+                className="w-fit"
                 pt={dropdownPt}
             />
         </div>
