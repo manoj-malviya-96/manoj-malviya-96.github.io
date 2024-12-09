@@ -104,7 +104,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             if (media === undefined) {
                 return <></>;
             }
-            return (<div className='w-full lg:w-2/3 justify-center m-auto align-center'>
+            return (<div className='w-full lg:w-1/2 justify-center m-auto align-center'>
                     {media.kind === "image" &&
                         <AtomImage src={media.source}
                                    alt={media.label}

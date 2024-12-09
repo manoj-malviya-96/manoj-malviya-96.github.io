@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
 import {useTheme} from "../main/theme";
+import {adjustColor} from "../common/color-utils";
 
 
 
@@ -37,20 +38,23 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
         selectedValue(value);
         onClick(value); // Pass selected option to parent
     };
+    const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
+    const mainTextColor = neutralMode ? daisyNeutral : daisyPrimaryText;
+    const borderColor = adjustColor(mainColor, 0.5);
 
     const dropdownPt = {
         root: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
+                borderColor: borderColor,
                 color: 'white',
             }
         },
         panel: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
-                color: neutralMode ? daisyNeutral: daisyPrimaryText,
+                borderColor: borderColor,
+                color: mainTextColor,
                 backdropFilter: 'blur(20px)',
             }
         },
@@ -58,15 +62,15 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             style: {
                 backgroundColor: 'transparent',
                 borderColor: 'transparent',
-                color: neutralMode ? daisyNeutral: daisyPrimaryText,
+                color: mainTextColor,
             }
         },
         wrapper: {
             style: {
                 backgroundColor: 'transparent',
-                borderColor: neutralMode ? daisyNeutral : daisyPrimary,
-                color: neutralMode ? daisyNeutral: daisyPrimaryText,
-                selectedColor: neutralMode ? daisyNeutral: daisyPrimaryText,
+                borderColor:borderColor,
+                color: mainTextColor,
+                selectedColor: mainTextColor,
             }
         },
     }

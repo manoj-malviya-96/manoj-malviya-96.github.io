@@ -50,10 +50,11 @@ export function adjustColor(
     opacity: number = 1,
     brightness: number[] = [1, 1, 1]
 ): string {
-    if (!color) {
-        throw new Error("Color is undefined");
-    }
 
+    if (!color) {
+        console.error('Color is not defined');
+        return "rgba(0,0,0,0)";
+    }
     // Match RGB values in the input string (assumes 'rgb(r, g, b)' format)
     const match = color.match(/\d+/g);
 
