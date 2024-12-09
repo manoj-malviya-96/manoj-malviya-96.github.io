@@ -3,6 +3,7 @@ import {useTheme} from "./theme";
 import {AtomButton} from "../atoms/atom-button";
 import {useNavigate} from "react-router-dom";
 import AtomToolbar from "../atoms/atom-toolbar";
+import WebsiteLogo from "./assets/logo.svg";
 
 
 interface NavbarContextType {
@@ -23,7 +24,7 @@ export const useNavbar = (): NavbarContextType => {
 }
 
 export const NavbarProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
-    const [logo, setLogo] = React.useState('');
+    const [logo, setLogo] = React.useState(WebsiteLogo);
     const [name, setName] = React.useState('');
     return (
         <NavbarContext.Provider value={{logo, setLogo, name, setName}}>
