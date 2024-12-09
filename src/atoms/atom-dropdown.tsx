@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
 import {useTheme} from "../main/theme";
 import {adjustColor} from "../common/color-utils";
+import {ScreenSizeContext, ScreenSizes} from '../common/screen';
 
 
 
@@ -31,6 +32,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                    }) => {
 
     const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex] : null);
+    const breakpoint = useContext(ScreenSizeContext);
     const randomId = crypto.randomUUID();
     const {daisyPrimary, daisyPrimaryText, daisyNeutral} = useTheme();
 
@@ -48,11 +50,16 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 backgroundColor: 'transparent',
                 borderColor: borderColor,
                 color: mainTextColor,
+                width: 'content-fit',
+                height: 'content-fit',
+                padding: breakpoint !== ScreenSizes.Small ? 0 : 8,
             }
         },
         input: {
             style: {
-                display: 'hidden',
+                backgroundColor: 'transparent',
+                color: mainTextColor,
+                display: breakpoint !== ScreenSizes.Small ? 'flex' : 'none',
             }
         },
         panel: {
@@ -81,7 +88,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
     }
 
     return (
-        <div className={`flex justify-content-center ${className}`}>
+        <div className={`inline-block justify-content-center ${className}`}>
             <Dropdown
                 inputId={randomId}
                 value={value}
@@ -91,7 +98,6 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 collapseIcon="pi pi-chevron-up"
                 variant={'outlined'}
                 placeholder={placeholder}
-                className="w-fit"
                 pt={dropdownPt}
             />
         </div>

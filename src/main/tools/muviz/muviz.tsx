@@ -221,7 +221,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         </div>
 
                         {/* Right Controls*/}
-                        <div className="w-fit h-full flex flex-row gap-1">
+                        <div className="w-full lg:w-fit h-full flex flex-row gap-4 justify-around">
                             <AtomDropdown
                                 options={songOptions}
                                 dropdownIcon={"fas fa-music"}
