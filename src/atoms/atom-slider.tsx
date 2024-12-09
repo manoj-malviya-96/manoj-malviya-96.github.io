@@ -1,6 +1,6 @@
 import React from "react";
 import {Slider} from "primereact/slider";
-import {useTheme} from "../main/theme";
+import {useTheme} from "../common/theme";
 import {adjustColor} from "../common/color-utils";
 
 

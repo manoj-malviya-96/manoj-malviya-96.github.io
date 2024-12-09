@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
-import {useTheme} from "../main/theme";
+import {useTheme} from "../common/theme";
 import {adjustColor} from "../common/color-utils";
 import {ScreenSizeContext, ScreenSizes} from '../common/screen';
 

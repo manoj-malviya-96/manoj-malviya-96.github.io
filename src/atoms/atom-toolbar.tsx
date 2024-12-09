@@ -1,6 +1,6 @@
 import {Toolbar, ToolbarProps} from 'primereact/toolbar';
 import React from "react";
-import {useTheme} from "../main/theme";
+import {useTheme} from "../common/theme";
 import {classNames} from "primereact/utils";
 import {adjustColor} from "../common/color-utils";
 

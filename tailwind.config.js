@@ -18,30 +18,44 @@ module.exports = {
     daisyui: {
         themes: [{
             Light: {
-                "primary": "#9a9a9a",
-                "secondary": "#535353",
-                "accent": "#5c74ba", // Using accent to show brand color
-                "neutral": "#A3A3A3FF",
+                "primary": "#9ca3af",
+
+                "secondary": "#9ca3af",
+
+                "accent": "#4A516D",
+
+                "neutral": "#cdcdcd",
+
                 "base-100": "#ffffff",
-                /* Keep the following colors same */
-                "info": "#3c5b8a",
-                "success": "#3e9868",
-                "warning": "#bdb16c",
-                "error": "#954b4a",
+
+                "info": "#60a5fa",
+
+                "success": "#34d399",
+
+                "warning": "#fb923c",
+
+                "error": "#fb7185",
             },
             Dark: {
-                "primary": "#454545",
-                "secondary": "#4e4e4e",
-                "accent": "#5c74ba", // Using accent to show brand color
-                "neutral": "#A3A3A3FF",
-                "base-100": "#000000",
-                /* Keep the following colors same */
-                "info": "#3c5b8a",
-                "success": "#3e9868",
-                "warning": "#bdb16c",
-                "error": "#954b4a",
-            }
 
+                "primary": "#1c1917",
+
+                "secondary": "#595959",
+
+                "accent": "#4A516D",
+
+                "neutral": "#cdcdcd",
+
+                "base-100": "#000000",
+
+                "info": "#2563eb",
+
+                "success": "#047857",
+
+                "warning": "#d97706",
+
+                "error": "#e11d48",
+            }
         }], // Add more themes here if needed
     },
 };

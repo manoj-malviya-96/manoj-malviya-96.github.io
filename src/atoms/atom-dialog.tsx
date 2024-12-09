@@ -1,7 +1,7 @@
 import React from "react";
 import {Dialog} from 'primereact/dialog';
 import {AtomButton, AtomButtonProps} from "./atom-button";
-import {useTheme} from "../main/theme";
+import {useTheme} from "../common/theme";
 
 export interface AtomDialogProps {
     visible: boolean;

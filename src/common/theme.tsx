@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
-import {getColorFromStyle} from "../common/color-utils";
+import {getColorFromStyle} from "./color-utils";
 
 // Define available themes
 export const availableThemes = [
@@ -19,6 +19,7 @@ interface ThemeContextType {
     daisyPrimary: string;
     daisyPrimaryText: string;
     daisyNeutral: string;
+    isDark: boolean;
 }
 
 // Create the context
@@ -84,6 +85,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({children
                 daisyPrimary: themeColors.daisyPrimary,
                 daisyPrimaryText: themeColors.daisyPrimaryText,
                 daisyNeutral: themeColors.daisyNeutral,
+                isDark: currentTheme === 'Dark',
             }}
         >
             {children}
