@@ -191,34 +191,34 @@ const MuvizApp: React.FC<MuvizAppProps> = ({songOptions, vizOptions}) => {
                         neutralMode={true}
                     />
 
-                    {/* Volume Row */}
+
                     <div
                         className="flex flex-wrap sm:flex-nowrap justify-between
                                     items-center w-full h-fit"
                     >
-                        <div className="w-fit h-fit flex flex-row">
-                            <div className="flex flex-row gap-1 items-center">
-                                <AtomButton
-                                    icon={
-                                        volume === 0
-                                            ? "fa-solid fa-volume-xmark"
-                                            : volume > 0.69
-                                                ? "fa-solid fa-volume-high"
-                                                : "fa-solid fa-volume-low"
-                                    }
-                                    neutralGhost={true}
-                                    onClick={toggleVolume}
-                                />
-                                <AtomSlider
-                                    value={volume}
-                                    min={0}
-                                    max={1}
-                                    step={0.01}
-                                    onChange={changeVolume}
-                                    neutralMode={true}
-                                    className={"w-120 h-fit"}
-                                />
-                            </div>
+                        {/* Volume Row */}
+                        <div className="w-48 flex flex-row gap-1 items-center">
+                            <AtomButton
+                                icon={
+                                    volume === 0
+                                        ? "fa-solid fa-volume-xmark"
+                                        : volume > 0.69
+                                            ? "fa-solid fa-volume-high"
+                                            : "fa-solid fa-volume-low"
+                                }
+                                neutralGhost={true}
+                                onClick={toggleVolume}
+                            />
+                            <AtomSlider
+                                value={volume}
+                                min={0}
+                                max={1}
+                                step={0.01}
+                                onChange={changeVolume}
+                                neutralMode={true}
+                                size="small"
+                                className={"w-1/3 h-fit"}
+                            />
                         </div>
 
                         {/* Right Controls*/}

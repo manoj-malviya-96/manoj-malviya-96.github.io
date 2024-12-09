@@ -1,6 +1,7 @@
 import React from "react";
 import {Slider} from "primereact/slider";
 import {useTheme} from "../main/theme";
+import {adjustColor} from "../common/color-utils";
 
 
 interface AtomSliderProps {
@@ -12,6 +13,7 @@ interface AtomSliderProps {
     onChange: (value: number) => void;
     className?: string;
     neutralMode?: boolean;
+    size?: 'small' | 'normal';
 }
 
 const _AtomSlider: React.FC<AtomSliderProps> = ({
@@ -22,6 +24,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                                                     orientation = 'horizontal',
                                                     onChange,
                                                     className,
+                                                    size = 'medium',
                                                     neutralMode = false
                                                 }) => {
     const {daisyPrimary, daisyPrimaryText, daisyNeutral} = useTheme();
@@ -36,25 +39,26 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
         handle: {
             style: {
                 width: '10px',
-                height: '30px',
+                height: size === 'small' ? '10px' : '30px',
                 backgroundColor: neutralMode ? daisyNeutral : daisyPrimary,
                 border: 'none',
                 borderRadius: '2px',
                 boxShadow: 'none',
                 cursor: 'pointer',
-                marginTop: '-14px', //Hacky to center the handle
+                marginTop: size === 'small' ? '-4px' : '-14px',
             }
         },
         range: {
             style: {
-                backgroundColor: neutralMode ? daisyNeutral : daisyPrimaryText,
+                height: '3px',
+                backgroundColor: neutralMode ? 'white' : daisyPrimaryText,
             }
         }
     }
 
 
     return (
-        <div className={`card flex justify-center w-full ${className}`}>
+        <div className={`card flex justify-center ${className}`}>
             <Slider pt={sliderPt}
                     value={value} min={min} max={max} step={step} orientation={orientation}
                     onChange={(event => onChange(event.value as number))}
