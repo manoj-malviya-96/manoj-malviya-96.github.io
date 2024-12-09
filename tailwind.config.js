@@ -38,7 +38,7 @@ module.exports = {
             },
             Dark: {
 
-                "primary": "#1c1917",
+                "primary": "#222222",
 
                 "secondary": "#595959",
 

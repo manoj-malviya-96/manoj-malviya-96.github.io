@@ -8,12 +8,13 @@ interface AtomImageProps {
     className?: string;
 }
 
-const AtomImage: React.FC<AtomImageProps> = ({src, alt, className = ''}) => {
+const _AtomImage: React.FC<AtomImageProps> = ({src, alt, className = ''}) => {
     return (
         <div className={`card flex justify-content-center ${className}`}>
-            <Image src={src} alt={alt} preview/>
+            <Image src={src} alt={alt} loading={'lazy'} preview/>
         </div>
     );
 };
 
+const AtomImage = React.memo(_AtomImage);
 export default AtomImage;

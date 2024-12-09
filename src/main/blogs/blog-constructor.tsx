@@ -4,7 +4,7 @@ import FullScreenPage from "../../atoms/full-page";
 import {BlogInfo} from "./blog-info";
 import CodeBlock, {CodeBlockProps} from "../../atoms/code";
 import TableOfContents from "../../atoms/table-of-contents";
-import AtomImage from "../../atoms/photo";
+import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
 import HeroText from "../../atoms/hero-text";
 import HeroList from "../../atoms/hero-list";

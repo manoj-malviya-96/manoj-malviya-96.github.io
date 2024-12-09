@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Light as SyntaxHighlighter} from "react-syntax-highlighter";
-import {vs2015 as codeStyle} from "react-syntax-highlighter/dist/esm/styles/hljs"; // Choose a theme
+import {irBlack as darkStyle, github as lightStyle} from "react-syntax-highlighter/dist/esm/styles/hljs"; // Choose a theme
 
 // Import languages
 import cpp from "react-syntax-highlighter/dist/esm/languages/hljs/cpp";
@@ -9,6 +9,7 @@ import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
 import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
 import {AtomButton} from "./atom-button";
+import {useTheme} from "../common/theme";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);
@@ -27,6 +28,7 @@ export interface CodeBlockProps {
 const CodeBlock: React.FC<CodeBlockProps> = ({code, language, className = ""}) => {
     const [copySuccess, setCopySuccess] = useState(false);
     const [isCopying, setCopying] = useState(false);
+    const {isDark} = useTheme();
 
     const handleCopy = async () => {
         try {
@@ -58,8 +60,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({code, language, className = ""}) =
             </div>
 
             {/* Code Block */}
-            <SyntaxHighlighter language={language} style={codeStyle}
-                               className="rounded-b-lg">
+            <SyntaxHighlighter language={language} style={isDark ? darkStyle : lightStyle}
+                               className="rounded-b-lg border-b border-l border-r
+                               border-secondary border-opacity-30">
                 {code}
             </SyntaxHighlighter>
         </div>
