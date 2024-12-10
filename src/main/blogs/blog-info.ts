@@ -1,0 +1,72 @@
+import {rangesTo} from "../../common/types";
+import {getScaleColor} from "../../common/color-utils";
+import {TabItemProps} from "../../atoms/tab-bar";
+
+
+interface BlogInfoConstructor {
+    id: string;
+    title: string;
+    description: string;
+    summary: string;
+    date: string; // Use `Date` if this is a Date object instead of
+                  // a string.
+    tags: string[];
+    cover: string; // URL or path to the cover image.
+    sections: any[]; // Define a specific type for sections if
+                     // available.
+    icon?: string; // Optional with a default value.
+    isNew?: boolean; // Optional with a default value.
+}
+
+export class BlogInfo {
+    private readonly id: string;
+    readonly title: string;
+    private readonly description: string;
+    readonly summary: string;
+    readonly date: string; // Use `Date` if needed.
+    readonly tags: string[];
+    readonly cover: string;
+    private readonly icon: string;
+    readonly sections: any[]; // Replace `any[]` with a specific
+                              // type if possible.
+    private readonly isNew: boolean;
+    private readonly path: string;
+    
+    constructor({
+                    id,
+                    title,
+                    description,
+                    summary,
+                    date,
+                    tags,
+                    cover,
+                    sections,
+                    icon = '',
+                    isNew = false,
+                }: BlogInfoConstructor) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.summary = summary;
+        this.date = date;
+        this.tags = tags;
+        this.cover = cover;
+        this.icon = icon;
+        this.sections = sections;
+        this.isNew = isNew;
+        this.path = '/blogs/' + this.id;
+    }
+    
+    tabs() {
+        return rangesTo(this.sections, (section) => {
+            return {
+                name: section.name,
+                label: section.title,
+                icon: section.icon
+            } as TabItemProps;
+        });
+    }
+}
+
+export const heatmapColorScale =
+    getScaleColor("rgb(83,139,216)", "rgba(94,94,94,0.87)", 8);
