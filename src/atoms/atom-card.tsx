@@ -2,6 +2,8 @@ import React from 'react';
 import {Card} from 'primereact/card';
 import {Badge} from "primereact/badge";
 import MotionDiv from "./motion-div";
+import AtomSvg from "./atom-svg";
+import AtomImage from "./atom-image";
 
 
 export interface AtomCardProps {
@@ -14,6 +16,7 @@ export interface AtomCardProps {
 
     isNew?: boolean;
     hasBorder?: boolean;
+    isLarge?: boolean;
 }
 
 export const AtomCard: React.FC<AtomCardProps> = ({
@@ -23,23 +26,28 @@ export const AtomCard: React.FC<AtomCardProps> = ({
                                                       description,
                                                       onClick,
                                                       isNew = false,
-                                                      hasBorder = false
+                                                      hasBorder = false,
+                                                      isLarge = false,
                                                   }) => {
+
     const header = (
-        <div className="relative">
+        <div className="relative justify-center items-center">
             {isNew && (
-                <Badge value="NEW" className="badge absolute top-0 right-0 px-2 rounded-badge" severity="danger"/>
+                <Badge value="NEW" className="badge absolute top-0 right-0
+                                    px-2 rounded-badge" severity="info"/>
             )}
-            <img
+            {image.endsWith('.svg') && <AtomSvg
                 src={image}
                 alt={title}
-                className="object-cover w-full h-full"
-            />
+                className={`object-cover m-auto w-32 h-32`}
+            />}
+            {!image.endsWith('.svg') &&
+                <AtomImage src={image} alt={title} preview={false}/>}
         </div>
     );
 
     const footer = (
-        <div>
+        <div className="w-full h-full justify-center items-center">
             {title && <h2 className="text-2xl text-primary-content font-bold uppercase">{title}</h2>}
             {description && <p className="text-sm text-primary-content">{description}</p>}
             {date &&
@@ -50,16 +58,16 @@ export const AtomCard: React.FC<AtomCardProps> = ({
             }
         </div>
     );
-
+    const cardSize = isLarge ? 'w-full h-full' : 'w-64 h-64';
     return (
-        <MotionDiv enableHoverEffect={false}>
+        <MotionDiv>
             <Card
                 header={header}
                 footer={footer}
                 style={{
                     backgroundColor: 'rgba(0, 0, 0, 0)'
                 }} // transparent background, overrides prime-react default
-                className={`w-full h-full cursor-pointer 
+                className={`${cardSize} cursor-pointer 
                         overflow-clip rounded-lg text-primary
                         border-0 border-primary border-opacity-50
                         hover:border  ${hasBorder ? 'border' : ''}`}

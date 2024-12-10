@@ -22,12 +22,12 @@ const BlogListing = () => {
     });
 
     return (
-        <div className="flex flex-column w-fit h-full">
+        <div className="flex flex-column w-full h-full">
             {/* BentoBox with Cards */}
             <FullScreenPage
                 title="Blogs"
                 name="blog"
-                children={<AtomCarousel items={items}/>}
+                children={<AtomCarousel items={items} useLargeCards={true}/>}
             />
         </div>
     );

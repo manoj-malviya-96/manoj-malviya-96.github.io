@@ -6,12 +6,13 @@ interface AtomImageProps {
     src: string;
     alt: string;
     className?: string;
+    preview?: boolean;
 }
 
-const _AtomImage: React.FC<AtomImageProps> = ({src, alt, className = ''}) => {
+const _AtomImage: React.FC<AtomImageProps> = ({src, alt, preview=true, className = ''}) => {
     return (
         <div className={`card flex justify-content-center ${className}`}>
-            <Image src={src} alt={alt} loading={'lazy'} preview/>
+            <Image src={src} alt={alt} loading={'lazy'} preview={preview}/>
         </div>
     );
 };
