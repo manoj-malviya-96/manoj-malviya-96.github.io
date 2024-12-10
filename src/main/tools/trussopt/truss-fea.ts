@@ -1,19 +1,19 @@
-import LatticeMesh from "./lattice-mesh";
+import TrussMesh from "./truss-mesh";
 import numeric from "numeric";
 
 
-class LatticeFEA {
+class TrussFea {
     private readonly E: number = 1;
     private readonly ndof: number;
     readonly ndof_per_node: number;
-    private mesh: LatticeMesh;
+    private mesh: TrussMesh;
     public displacements: number[] | null = null;
     public stresses: number[] = [];
     public strainEnergy: number = 0;
     public derivative_strainEnergy: number[] = [];
     public totalVolume: number = 0;
     
-    constructor(mesh: LatticeMesh, E: number = 1) {
+    constructor(mesh: TrussMesh, E: number = 1) {
         this.E = E;
         this.ndof_per_node = 2;
         this.ndof = mesh.points.length * this.ndof_per_node;
@@ -163,4 +163,4 @@ class LatticeFEA {
     }
 }
 
-export default LatticeFEA;
+export default TrussFea;

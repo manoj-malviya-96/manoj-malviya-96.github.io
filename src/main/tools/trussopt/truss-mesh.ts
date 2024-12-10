@@ -4,7 +4,7 @@ export enum LatticeType {
 }
 
 
-class LatticeMesh {
+class TrussMesh {
     cellSize: number;
     meshWidth: number;
     meshHeight: number;
@@ -201,4 +201,4 @@ class LatticeMesh {
     }
 }
 
-export default LatticeMesh;
+export default TrussMesh;

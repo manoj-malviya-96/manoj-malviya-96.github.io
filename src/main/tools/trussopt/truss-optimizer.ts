@@ -1,9 +1,9 @@
-import LatticeMesh from "./lattice-mesh";
-import LatticeFEA from "./lattice-fea";
+import TrussMesh from "./truss-mesh";
+import TrussFea from "./truss-fea";
 import {epsilon} from "numeric";
 
-class LatticeOptimizer {
-    readonly currentMesh: LatticeMesh;
+class TrussOptimizer {
+    readonly currentMesh: TrussMesh;
     private readonly numIterations: number;
     private readonly targetFraction: number;
     private startObj: number = 0;
@@ -11,15 +11,15 @@ class LatticeOptimizer {
     message: string = "";
     success: boolean = false;
     
-    constructor(initialMesh: LatticeMesh, numIterations: number = 200, targetFraction: number = 0.4) {
+    constructor(initialMesh: TrussMesh, numIterations: number = 200, targetFraction: number = 0.4) {
         this.currentMesh = initialMesh;
         this.numIterations = numIterations;
         this.targetFraction = targetFraction;
         this.computeInitValues(initialMesh);
     }
     
-    computeInitValues(initialMesh: LatticeMesh): void {
-        const feaEngine = new LatticeFEA(initialMesh);
+    computeInitValues(initialMesh: TrussMesh): void {
+        const feaEngine = new TrussFea(initialMesh);
         feaEngine.compute();
         this.startObj = feaEngine.strainEnergy;
         this.startVolume = feaEngine.totalVolume;
@@ -72,7 +72,7 @@ class LatticeOptimizer {
         const mesh = this.currentMesh;
         const X = mesh.normThickness;
         
-        const FEA = new LatticeFEA(mesh);
+        const FEA = new TrussFea(mesh);
         FEA.compute();
         
         const obj = FEA.strainEnergy / this.startObj;
@@ -115,4 +115,4 @@ class LatticeOptimizer {
     }
 }
 
-export default LatticeOptimizer;
+export default TrussOptimizer;
