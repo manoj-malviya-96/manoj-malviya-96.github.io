@@ -1,4 +1,4 @@
-import {CanvasController} from "../../../atoms/canvas";
+import {AtomCanvasController} from "../../../atoms/atom-canvas";
 import {DropDetector} from "../../../common/audio";
 import {adjustColor} from "../../../common/color-utils";
 
@@ -21,7 +21,7 @@ interface VisualizerProps {
     dataArray: Uint8Array;
 }
 
-export class BaseVisualizer extends CanvasController {
+export class BaseVisualizer extends AtomCanvasController {
     protected readonly analyser: AnalyserNode;
     protected readonly dataArray: Uint8Array;
     

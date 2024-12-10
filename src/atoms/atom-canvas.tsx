@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from "react";
 
-export class CanvasController {
+export class AtomCanvasController {
     canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null> | undefined;
     animationFrameId: number | null;
     
@@ -45,12 +45,12 @@ export class CanvasController {
 }
 
 
-interface CanvasProps {
-    controller?: CanvasController | null;
+interface AtomCanvasProps {
+    controller?: AtomCanvasController | null;
     className?: string;
 }
 
-export const Canvas: React.FC<CanvasProps> = ({
+export const AtomCanvas: React.FC<AtomCanvasProps> = ({
                                                   controller = null,
                                                   className = ""
                                               }) => {

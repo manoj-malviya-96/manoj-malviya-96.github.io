@@ -14,7 +14,7 @@ import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
 import Uneath from './sample-music/uneath.mp3';
 
-import {Canvas, CanvasController} from "../../../atoms/canvas";
+import {AtomCanvas, AtomCanvasController} from "../../../atoms/atom-canvas";
 import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../common/date";
 import {
@@ -44,7 +44,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     // State Management
     const [src, setSrc] = useState<AudioPlayerProps["src"]>(null);
     const [visualizerType, setVisualizerType] = useState(VisualizerType.Spiral);
-    const [controller, setController] = useState<CanvasController | null>(null);
+    const [controller, setController] = useState<AtomCanvasController | null>(null);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const appRef = useRef<HTMLDivElement | null>(null);
     
@@ -149,8 +149,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     return (
         <div className="h-full w-full justify-center align-center"
              ref={appRef}>
-            <Canvas controller={controller}
-                    className="absolute top-0 left-0 w-full h-full z-0"/>
+            <AtomCanvas controller={controller}
+                        className="absolute top-0 left-0 w-full h-full z-0"/>
             
             {/*HUD*/}
             <div className={`inline-block w-full h-full z-5 p-4
