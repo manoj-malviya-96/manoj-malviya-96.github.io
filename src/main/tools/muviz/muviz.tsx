@@ -3,7 +3,6 @@ import ToolInfo from "../tool-info";
 import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
 import {AtomButton} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
-import Cover from '../logos/muviz-cover.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
 
 import CallingON from './sample-music/calling.mp3';
@@ -314,7 +313,7 @@ class Muviz extends ToolInfo {
             id: 'muviz',
             name: AppName,
             description: 'music + stunning visuals',
-            cover: Cover,
+            cover: Logo,
             componentConstructor: () => (<MuvizView/>)
         });
     }

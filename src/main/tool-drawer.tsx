@@ -19,11 +19,13 @@ const ToolDrawer = () => {
     });
 
     return (
-        <FullScreenPage
-            name="tools"
-            title="Tools"
-            children={<AtomCarousel items={items}/>}
-        />
+        <div className="flex flex-column w-full h-full">
+            <FullScreenPage
+                name="tools"
+                title="Tools"
+                children={<AtomCarousel items={items} />}
+            />
+        </div>
     );
 }
 
