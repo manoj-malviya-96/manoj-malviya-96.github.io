@@ -3,6 +3,13 @@ export enum LatticeType {
     Checkerboard = "checkerboard",
 }
 
+interface TrussMeshProps {
+    cellSize: number;
+    meshWidth: number;
+    meshHeight: number;
+    latticeType: LatticeType;
+}
+
 
 class TrussMesh {
     cellSize: number;
@@ -18,7 +25,7 @@ class TrussMesh {
     lengths: number[];
     directionCosines: Array<[number, number]>;
     
-    constructor(cellSize: number, meshWidth: number, meshHeight: number, latticeType: LatticeType) {
+    constructor({cellSize, meshWidth, meshHeight, latticeType}: TrussMeshProps) {
         this.cellSize = cellSize;
         this.meshWidth = meshWidth;
         this.meshHeight = meshHeight;
@@ -42,6 +49,8 @@ class TrussMesh {
         // Add Left most edge as fixed points
         const n_nodes_x = Math.floor(this.meshWidth / this.cellSize);
         const n_nodes_z = Math.floor(this.meshHeight / this.cellSize);
+        
+        
         for (let i = 0; i <= n_nodes_z; i++) {
             this.fixedPoints.add(i * (
                 n_nodes_x + 1
