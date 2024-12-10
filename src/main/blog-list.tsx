@@ -1,9 +1,8 @@
-import {AtomCarousel} from "../atoms/atom-carousel";
 import FullScreenPage from "../atoms/full-page";
 import {registeredBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/types";
-import {openLink} from "../common/links";
 import {useNavigate} from "react-router-dom";
+import AtomCardGrid from "../atoms/atom-card-grid";
 
 
 const BlogListing = () => {
@@ -22,14 +21,11 @@ const BlogListing = () => {
     });
 
     return (
-        <div className="flex flex-column w-full h-full">
-            {/* BentoBox with Cards */}
-            <FullScreenPage
-                title="Blogs"
-                name="blog"
-                children={<AtomCarousel items={items} useLargeCards={true}/>}
-            />
-        </div>
+        <FullScreenPage
+            title="Blogs"
+            name="blog"
+            children={<AtomCardGrid items={items}/>}
+        />
     );
 };
 
