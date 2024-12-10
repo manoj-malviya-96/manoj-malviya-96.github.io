@@ -5,6 +5,7 @@ import AppView from "../../../atoms/app-view";
 import AtomKnob from "../../../atoms/atom-knob";
 import AtomToggleButton from "../../../atoms/atom-toggle-button";
 import {AtomButton} from "../../../atoms/atom-button";
+import AtomDropdown from "../../../atoms/atom-dropdown";
 
 const AppName = 'TrussOpt';
 
@@ -44,6 +45,18 @@ const TrussOptView = () => {
                         step={1}
                         initValue={10}
                         onChange={(e) => console.log(e)}
+                    />
+                    <AtomDropdown
+                        placeholder='Select Lattice Type'
+                        initialIndex={0}
+                        options={[
+                            {label: 'Cross', value: 'cross'},
+                            {
+                                label: 'Checkerboard',
+                                value: 'checkerboard'
+                            }
+                        ]}
+                        onClick={(e) => console.log(e)}
                     />
                     <AtomToggleButton
                         offLabel='Fix Nodes'
