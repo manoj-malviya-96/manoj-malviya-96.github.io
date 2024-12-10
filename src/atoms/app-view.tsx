@@ -17,11 +17,7 @@ const AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
         <FullScreenPage
             name={appName.toLowerCase()}
             title=""
-            children={
-                <div className="w-full h-fit">
-                    {children}
-                </div>
-            }
+            children={children}
         />
     );
 }
