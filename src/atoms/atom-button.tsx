@@ -69,7 +69,6 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                     showDelay: 300,
                     hideDelay: 100,
                     position: 'bottom',
-                    style: {backgroundColor: 'rgba(0, 0, 0, 0.0)'},
                     mouseTrack: true,
                     mouseTrackTop: 15,
                 }}
