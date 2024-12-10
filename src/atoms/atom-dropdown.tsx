@@ -30,7 +30,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                         neutralMode = false,
                                                     }) => {
     
-    const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex] : null);
+    const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex].value : null);
     const breakpoint = useContext(ScreenSizeContext);
     const randomId = crypto.randomUUID();
     const {
