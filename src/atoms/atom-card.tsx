@@ -36,10 +36,10 @@ export const AtomCard: React.FC<AtomCardProps> = ({
                 <Badge value="NEW" className="badge absolute top-0 right-0
                                     px-2 rounded-badge" severity="info"/>
             )}
-            {image.endsWith('.svg') && <AtomSvg
+            {image.endsWith('.svg') && <img
                 src={image}
                 alt={title}
-                className={`object-cover m-auto w-32 h-32`}
+                className={`object-cover m-auto`}
             />}
             {!image.endsWith('.svg') &&
                 <AtomImage src={image} alt={title} preview={false}/>}
@@ -68,8 +68,8 @@ export const AtomCard: React.FC<AtomCardProps> = ({
                     backgroundColor: 'rgba(0, 0, 0, 0)'
                 }} // transparent background, overrides prime-react default
                 className={`${cardSize} cursor-pointer 
-                        overflow-clip rounded-lg text-primary
-                        border-0 border-primary border-opacity-50
+                        rounded-lg text-primary p-4
+                        border-0 border-primary border-opacity-80
                         hover:border  ${hasBorder ? 'border' : ''}`}
                 onClick={onClick}
             />

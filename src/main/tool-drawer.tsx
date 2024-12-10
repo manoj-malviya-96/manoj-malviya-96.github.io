@@ -2,8 +2,8 @@ import React from 'react';
 import FullScreenPage from "../atoms/full-page";
 import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/types";
-import {AtomCarousel} from "../atoms/atom-carousel";
 import {useNavigate} from "react-router-dom";
+import AtomCardGrid from "../atoms/atom-card-grid";
 
 
 const ToolDrawer = () => {
@@ -19,13 +19,11 @@ const ToolDrawer = () => {
     });
 
     return (
-        <div className="flex flex-column w-full h-full">
-            <FullScreenPage
-                name="tools"
-                title="Tools"
-                children={<AtomCarousel items={items} />}
-            />
-        </div>
+        <FullScreenPage
+            name="tools"
+            title="Tools"
+            children={<AtomCardGrid items={items} />}
+        />
     );
 }
 
