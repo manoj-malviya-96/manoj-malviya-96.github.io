@@ -45,7 +45,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
     };
     const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
     const mainTextColor = neutralMode ? daisyNeutral : daisyPrimaryText;
-    const borderColor = adjustColor(mainColor, 0.2);
+    const borderColor = neutralMode ? adjustColor(mainColor, 0.4) : mainColor;
     
     const dropdownPt = {
         root: {
@@ -92,7 +92,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
     
     return (
         <div
-            className={`inline-block justify-content-center ${className}`}>
+            className={`flex flex-col gap-0 ${className}`}>
             <Dropdown
                 inputId={randomId}
                 value={value}
@@ -100,9 +100,12 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 options={options}
                 dropdownIcon={dropdownIcon ? dropdownIcon : 'pi pi-chevron-down'}
                 collapseIcon="pi pi-chevron-up"
+                optionLabel={'label'}
+                optionValue={'value'}
                 variant={'outlined'}
                 placeholder={placeholder}
                 pt={dropdownPt}
+                tooltip={placeholder}
             />
         </div>
     );
