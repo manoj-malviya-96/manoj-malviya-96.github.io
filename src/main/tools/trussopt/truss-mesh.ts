@@ -43,6 +43,7 @@ class TrussMesh {
         
         this.generateMeshData();
         this.computeLengthAndDirectionCosines();
+        this.addCantileverCase();
     }
     
     addCantileverCase() {
@@ -111,8 +112,11 @@ class TrussMesh {
                 }
                 this.addConnection(n1, n3);
                 this.addConnection(n1, n2);
-                this.addConnection(n2, n4);
                 this.addConnection(n3, n4);
+                
+                if (j=== n_nodes_x - 1){
+                    this.addConnection(n2, n4);
+                }
             }
         }
     }
