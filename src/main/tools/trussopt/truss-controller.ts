@@ -7,11 +7,17 @@ import {AtomCanvasController} from "../../../atoms/atom-canvas";
 export class TrussStructureView extends AtomCanvasController {
     private mesh: TrussMesh | null;
     trussColor: string;
+    private readonly offset: number;
+    private readonly maxLineWidth: number;
+    private readonly pointRadius: number;
     
     constructor(color: string, mesh: TrussMesh | null) {
         super();
         this.mesh = mesh;
         this.trussColor = color
+        this.offset = 10;
+        this.maxLineWidth = 6;
+        this.pointRadius = 6
     }
     
     updateMesh(mesh: TrussMesh | null) {
@@ -51,29 +57,31 @@ export class TrussStructureView extends AtomCanvasController {
         const edges = this.mesh.connections;
         // 0.** is random magic number - to make it not super-big and get clipped by edges
         const factor = 0.90 * Math.min(width / this.mesh.meshWidth, height / this.mesh.meshHeight);
-        const offset = 10
-        points = points.map(([x, y]) => [factor * x + offset, factor * y + offset]);
+        points = points.map(([x, y]) => [factor * x + this.offset, factor * y + this.offset]);
         
         // get force points
         const forcePointsX = this.mesh.forcePoints_X;
         const forcePointsY = this.mesh.forcePoints_Y;
         const fixedPoints = this.mesh.fixedPoints;
+        const thickness = this.mesh.normThickness;
         
-        edges.forEach(([start, end]) => {
+        
+        edges.forEach(([start, end], idx) => {
             const [x1, y1] = points[start];
             const [x2, y2] = points[end];
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.strokeStyle = this.trussColor
+            ctx.lineWidth = this.maxLineWidth * thickness[idx];
             ctx.stroke();
             ctx.closePath();
         });
         
-        const pointRadius = 6;
+        
         points.forEach(([x, y]) => {
             ctx.beginPath();
-            ctx.arc(x, y, pointRadius, 0, 2 * Math.PI);
+            ctx.arc(x, y, this.pointRadius, 0, 2 * Math.PI);
             ctx.fillStyle = this.trussColor
             ctx.fill();
             ctx.closePath();
@@ -82,7 +90,7 @@ export class TrussStructureView extends AtomCanvasController {
         if (forcePointsX.size > 0) {
             forcePointsX.forEach((idx) => {
                 ctx.beginPath();
-                ctx.arc(points[idx][0], points[idx][1], pointRadius, 0, 2 * Math.PI);
+                ctx.arc(points[idx][0], points[idx][1], this.pointRadius, 0, 2 * Math.PI);
                 ctx.fillStyle = 'red'
                 ctx.fill();
                 ctx.closePath();
@@ -92,7 +100,7 @@ export class TrussStructureView extends AtomCanvasController {
         if (forcePointsY.size > 0) {
             forcePointsY.forEach((idx) => {
                 ctx.beginPath();
-                ctx.arc(points[idx][0], points[idx][1], pointRadius, 0, 2 * Math.PI);
+                ctx.arc(points[idx][0], points[idx][1], this.pointRadius, 0, 2 * Math.PI);
                 ctx.fillStyle = 'orange'
                 ctx.fill();
                 ctx.closePath();
@@ -102,7 +110,7 @@ export class TrussStructureView extends AtomCanvasController {
         if (fixedPoints.size > 0) {
             fixedPoints.forEach((idx) => {
                 ctx.beginPath();
-                ctx.arc(points[idx][0], points[idx][1], pointRadius, 0, 2 * Math.PI);
+                ctx.arc(points[idx][0], points[idx][1], this.pointRadius, 0, 2 * Math.PI);
                 ctx.fillStyle = 'blue'
                 ctx.fill();
                 ctx.closePath();
