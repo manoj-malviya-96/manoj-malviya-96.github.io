@@ -10,7 +10,8 @@ import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
 import {useTheme} from "../../../common/theme";
-import AtomStats from "../../../atoms/AtomStats";
+import AtomStats from "../../../atoms/atom-stats";
+import TrussFea from "./truss-fea";
 
 const AppName = 'TrussOpt';
 
@@ -26,13 +27,22 @@ const TrussOptView = () => {
         daisyPrimary,
     } = useTheme();
     
-    
     const controller = new TrussStructureView(daisyPrimary, mesh);
     
     useEffect(() => {
         controller.trussColor = daisyPrimary;
+        controller.feaEngine = null;
         controller.updateMesh(mesh);
     }, [mesh, daisyPrimary]);
+    
+    const simulate = () => {
+        if (!mesh){
+            return ;
+        }
+        const feaEngine = new TrussFea(mesh);
+        feaEngine.compute();
+        controller.addFeaResults(feaEngine);
+    }
     
     return (
         <AppView
@@ -103,10 +113,17 @@ const TrussOptView = () => {
                                 onChange={(e) => console.log(e)}
                             />
                         </div>
-                        <AtomButton
-                            label='Analyze'
-                            icon='pi pi-play'
-                            onClick={() => console.log('Analyze')}
+                        <AtomToggleButton
+                            offLabel='Simulate'
+                            offIcon='pi pi-play'
+                            onIcon='pi pi-stop'
+                            onChange={(e: boolean) => {
+                                if (e) {
+                                    simulate();
+                                } else {
+                                    controller.addFeaResults(null);
+                                }
+                            }}
                         />
                         <AtomButton
                             label='Optimize'

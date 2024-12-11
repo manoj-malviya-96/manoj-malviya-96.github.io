@@ -161,3 +161,9 @@ export function getScaleColor(
     
     return result;
 }
+
+
+export function makeColorScale(color1: string, color2: string, color3: string){
+    const interpolator = culori.interpolate([color1, color2, color3]);
+    return (value:number)=> culori.formatRgb(interpolator(value));
+}

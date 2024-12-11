@@ -198,20 +198,6 @@ class TrussMesh {
             this.forcePoints_X.add(closestNode);
         }
     }
-    
-    computeDisplacedPoints(
-        displacements: Array<number>,
-        ndof_per_node: number = 2,
-        scale: number = 0.01
-    ) {
-        return this.points.map(([x, y], index) => {
-            const start_dof = index * ndof_per_node;
-            return [
-                x + scale * displacements[start_dof],
-                y + scale * displacements[start_dof + 1],
-            ];
-        });
-    }
 }
 
 export default TrussMesh;
