@@ -14,6 +14,7 @@ export class TrussStructureView extends AtomCanvasController {
     
     updateMesh(mesh: TrussMesh | null) {
         this.mesh = mesh;
+        this.draw();
     }
     
     draw() {
@@ -41,8 +42,11 @@ export class TrussStructureView extends AtomCanvasController {
         const {width, height} = canvas;
         ctx.clearRect(0, 0, width, height);
         const factor = Math.min(width / this.mesh.meshWidth, height / this.mesh.meshHeight);
+        console.log(factor, width, height, this.mesh.meshWidth, this.mesh.meshHeight);
         
+        //Make
         points = points.map(([x, y]) => [factor * x, factor * y]);
+        
         edges.forEach(([start, end]) => {
             const [x1, y1] = points[start];
             const [x2, y2] = points[end];
@@ -57,7 +61,7 @@ export class TrussStructureView extends AtomCanvasController {
         points.forEach(([x, y]) => {
             ctx.beginPath();
             ctx.arc(x, y, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "white";
             ctx.fill();
             ctx.closePath();
         });

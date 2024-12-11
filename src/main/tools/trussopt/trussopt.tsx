@@ -23,7 +23,6 @@ const TrussOptView = () => {
     
     useEffect(() => {
         controller.updateMesh(mesh);
-        controller.draw();
     }, [mesh]);
     
     return (
@@ -31,14 +30,32 @@ const TrussOptView = () => {
             appName={AppName}
             appLogo={Logo}
             children={
-                <div className="h-full w-full justify-center align-center">
-                    <AtomCanvas controller={controller} animationLoop={false}
-                                className="absolute top-0 left-0 w-full h-2/3 translate-y-1/4 z-0 p-8"/>
+                <div className="h-full w-full flex flex-col-reverse md:flex-row
+                                p-0 m-0 gap-2 items-center">
                     <div
-                        className=" absolute bottom-0 left-0 w-full h-fit
-                        flex flex-row gap-4 rounded-lg
-                        border border-primary z-5
-                        justify-center items-center">
+                        className=" w-fit h-full
+                        flex flex-col gap-4 rounded-lg
+                        border border-primary
+                        justify-center items-center p-2">
+                        
+                        <div className="flex flex-row gap-1">
+                            <AtomKnob
+                                label='Mesh Width (mm)'
+                                min={cellSize}
+                                max={100}
+                                step={cellSize}
+                                initValue={meshWidth}
+                                onChange={setMeshWidth}
+                            />
+                            <AtomKnob
+                                label='Mesh Height (mm)'
+                                min={cellSize}
+                                max={100}
+                                step={cellSize}
+                                initValue={meshHeight}
+                                onChange={setMeshHeight}
+                            />
+                        </div>
                         <AtomKnob
                             label='Cell Size (mm)'
                             min={5}
@@ -46,22 +63,6 @@ const TrussOptView = () => {
                             step={5}
                             initValue={cellSize}
                             onChange={setCellSize}
-                        />
-                        <AtomKnob
-                            label='Mesh Width (mm)'
-                            min={cellSize}
-                            max={100}
-                            step={cellSize}
-                            initValue={meshWidth}
-                            onChange={setMeshWidth}
-                        />
-                        <AtomKnob
-                            label='Mesh Height (mm)'
-                            min={cellSize}
-                            max={100}
-                            step={cellSize}
-                            initValue={meshHeight}
-                            onChange={setMeshHeight}
                         />
                         <AtomDropdown
                             placeholder='Select Lattice Type'
@@ -75,22 +76,24 @@ const TrussOptView = () => {
                             ]}
                             onClick={setLatticeType}
                         />
-                        <AtomToggleButton
-                            offLabel='Fix Nodes'
-                            offIcon='pi pi-lock-open'
-                            onIcon='pi pi-lock'
-                            tooltip='Add fix nodes to the truss'
-                            initValue={false}
-                            onChange={(e) => console.log(e)}
-                        />
-                        <AtomToggleButton
-                            offLabel='Load Nodes'
-                            offIcon='pi pi-arrow-up'
-                            onIcon='pi pi-arrow-down'
-                            tooltip='Add Load nodes to the truss'
-                            initValue={false}
-                            onChange={(e) => console.log(e)}
-                        />
+                        <div className="flex flex-row gap-2">
+                            <AtomToggleButton
+                                offLabel='Fix Nodes'
+                                offIcon='pi pi-lock-open'
+                                onIcon='pi pi-lock'
+                                tooltip='Add fix nodes to the truss'
+                                initValue={false}
+                                onChange={(e) => console.log(e)}
+                            />
+                            <AtomToggleButton
+                                offLabel='Load Nodes'
+                                offIcon='pi pi-arrow-up'
+                                onIcon='pi pi-arrow-down'
+                                tooltip='Add Load nodes to the truss'
+                                initValue={false}
+                                onChange={(e) => console.log(e)}
+                            />
+                        </div>
                         <AtomButton
                             label='Analyze'
                             icon='pi pi-play'
@@ -109,6 +112,9 @@ const TrussOptView = () => {
                             onClick={() => console.log('Refresh')}
                         />
                     </div>
+                    <AtomCanvas controller={controller} animationLoop={false}
+                                className=" w-3/4 h-full
+                                            justify-center items-center max-h-screen p-2"/>
                 </div>
             }
         />
