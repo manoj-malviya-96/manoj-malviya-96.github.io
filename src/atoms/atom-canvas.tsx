@@ -1,4 +1,6 @@
 import React, {useRef, useEffect, useState} from "react";
+import HeroText from "./hero-text";
+import {useTheme} from "../common/theme";
 
 export class AtomCanvasController {
     canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null> | undefined;
@@ -60,21 +62,43 @@ export class AtomCanvasController {
 interface AtomCanvasProps {
     controller?: AtomCanvasController | null;
     animationLoop?: boolean;
+    isLoading?: boolean;
     className?: string;
 }
 
-export const AtomCanvas: React.FC<AtomCanvasProps> = ({
+export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
                                                           controller = null,
+                                                          isLoading = false,
                                                           animationLoop = true,
-                                                          className = ""
+                                                          className = "",
                                                       }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const {daisyPrimaryText} = useTheme();
     
     useEffect(() => {
-        if (!controller) {
-            if (canvasRef && canvasRef.current) {
-                canvasRef.current.textContent = "Canvas, Not available";
+        
+        if (canvasRef.current && isLoading) {
+            const ctx = canvasRef.current.getContext("2d");
+            if (ctx) {
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+                
+                // Set text properties
+                ctx.font = "bold 48px Arial";
+                ctx.fillStyle = daisyPrimaryText;
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                
+                // Draw the loading text
+                ctx.fillText(
+                    "Loading...",
+                    canvasRef.current.width / 2,
+                    canvasRef.current.height / 2
+                );
             }
+        }
+        
+        if (!controller || isLoading) {
             return;
         }
         
@@ -86,7 +110,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = ({
         return () => {
             controller.stop();
         };
-    }, [controller]);
+    }, [controller, isLoading]);
     
     const [dimensions, setDimensions] = useState({
         width: window.innerWidth,
@@ -97,7 +121,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = ({
         if (controller) {
             controller.restart();
         }
-    }
+    };
     
     useEffect(() => {
         const handleResize = () => {
@@ -120,3 +144,6 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = ({
         />
     );
 };
+
+export const AtomCanvas = React.memo(_AtomCanvas);
+
