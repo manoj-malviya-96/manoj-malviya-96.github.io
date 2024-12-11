@@ -129,18 +129,21 @@ const TrussOptView = () => {
                                 }
                             }}
                         />
-                        <AtomButton
-                            label='Optimize'
-                            icon='pi pi-cog'
-                            severity={'info'}
-                            onClick={() => console.log('Optimize')}
-                        />
-                        <AtomButton
-                            label='Clear'
-                            icon='fas fa-trash'
-                            severity={'danger'}
-                            onClick={() => console.log('Refresh')}
-                        />
+                        <div className="flex flex-row gap-2">
+                            <AtomButton
+                                label='Optimize'
+                                icon='pi pi-cog'
+                                severity={'info'}
+                                tooltip={'optimize the truss'}
+                                onClick={() => console.log('Optimize')}
+                            />
+                            <AtomButton
+                                icon='fas fa-trash'
+                                severity={'danger'}
+                                tooltip={'clear optimization results'}
+                                onClick={() => console.log('Refresh')}
+                            />
+                        </div>
                     </div>
                     <div className="w-3/4 h-fit flex flex-col gap-2">
                         <div className='w-fit h-fit flex flex-row gap-2'>
