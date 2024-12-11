@@ -2,6 +2,7 @@ import React from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/mesha.svg';
 import AppView from "../../../atoms/app-view";
+import HeroText from "../../../atoms/hero-text";
 
 const AppName = 'MESHA';
 
@@ -10,7 +11,12 @@ const MeshaView = () => {
         <AppView
             appName={AppName}
             appLogo={Logo}
-            children={<div/>}
+            children={
+                <div className="w-1/2">
+                    <HeroText text={`Mesha is not available right now, Coming soon...`}
+                    />
+                </div>
+            }
         />
     )
 }
@@ -31,5 +37,6 @@ class Mesha extends ToolInfo {
 
 
 // We keep everything private and only expose the instance.
-const meshaInstance = new Mesha();
+const meshaInstance = new Mesha()
+;
 export default meshaInstance;
