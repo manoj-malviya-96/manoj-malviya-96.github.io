@@ -22,9 +22,9 @@ const AtomTimeline: React.FC<TimelineProps> = ({items}) => {
     const makeMarker = (item: TimelineItemProps) => {
         return (
             <span
-                className="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
-                style={{backgroundColor: item.color}}>
-                <i className={item.icon}></i>
+                className="flex w-2rem h-2rem align-items-center j
+                ustify-content-center border-circle text-primary-content">
+                <i className={item.icon ? item.icon : 'pi pi-circle'}></i>
             </span>
         );
     };
@@ -32,6 +32,7 @@ const AtomTimeline: React.FC<TimelineProps> = ({items}) => {
     const makeCard = (item: TimelineItemProps) => {
         return (
             <AtomCard image={item.image} title={item.title} description={item.description}
+                      centerAlign={true}
                       onClick={item.onClick}/>
         );
     };
