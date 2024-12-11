@@ -7,11 +7,12 @@ import AtomToggleButton from "../../../atoms/atom-toggle-button";
 import {AtomButton} from "../../../atoms/atom-button";
 import AtomDropdown from "../../../atoms/atom-dropdown";
 import {TrussStructureView, useTrussOpt} from "./truss-controller";
-import {LatticeType} from "./truss-mesh";
+import TrussMesh, {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
 import {useTheme} from "../../../common/theme";
 import AtomStats from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
+import TrussOptimizer from "./truss-optimizer";
 
 const AppName = 'TrussOpt';
 
@@ -20,7 +21,7 @@ const TrussOptView = () => {
         meshWidth, setMeshWidth,
         meshHeight, setMeshHeight,
         cellSize, setCellSize,
-        setLatticeType, mesh
+        setLatticeType, mesh,
     } = useTrussOpt();
     
     const {
@@ -28,15 +29,19 @@ const TrussOptView = () => {
     } = useTheme();
     
     const controller = new TrussStructureView(daisyPrimary, mesh);
+    const [canvasLoading, setCanvasLoading] = useState<boolean>(false);
+    const [simResult, setSimResult] = useState<TrussFeaResults | null>();
+    const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
     
     useEffect(() => {
         controller.trussColor = daisyPrimary;
         controller.feaEngine = null;
-        controller.updateMesh(mesh);
-    }, [mesh, daisyPrimary]);
-    
-    
-    const [simResult, setSimResult] = useState<TrussFeaResults | null>();
+        if (optimizeMesh) {
+            controller.updateMesh(optimizeMesh);
+        } else {
+            controller.updateMesh(mesh);
+        }
+    }, [mesh, optimizeMesh, daisyPrimary]);
     
     const simulate = () => {
         if (!mesh) {
@@ -46,6 +51,34 @@ const TrussOptView = () => {
         feaEngine.compute();
         controller.addFeaResults(feaEngine);
         setSimResult(feaEngine.getResults());
+    }
+    
+    const optimize = async () => {
+        console.log('Optimize');
+        setCanvasLoading(true);
+        if (!mesh) {
+            throw new Error('Null Scene');
+        }
+        const optimizer = new TrussOptimizer(structuredClone(mesh));
+        try {
+            await optimizer.optimize();
+            if (optimizer.success) {
+                setOptimizeMesh(optimizer.currentMesh);
+                setSimResult(optimizer.lastFEAResult);
+            } else {
+                clearOptimize();
+            }
+        }
+        catch (e: any) {
+            console.error(e);
+            clearOptimize();
+        }
+        setCanvasLoading(false);
+    }
+    
+    const clearOptimize = () => {
+        setOptimizeMesh(null);
+        setSimResult(null);
     }
     
     return (
@@ -137,23 +170,23 @@ const TrussOptView = () => {
                                 icon='pi pi-cog'
                                 severity={'info'}
                                 tooltip={'optimize the truss'}
-                                onClick={() => console.log('Optimize')}
+                                onClick={optimize}
                             />
                             <AtomButton
                                 icon='fas fa-trash'
                                 severity={'danger'}
                                 tooltip={'clear optimization results'}
-                                onClick={() => console.log('Refresh')}
+                                onClick={clearOptimize}
                             />
                         </div>
                     </div>
                     <div className="w-3/4 h-fit flex flex-col gap-2">
                         <div className='w-fit h-fit flex flex-row gap-2'>
                             <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
-                            <AtomStats text={'Max Stress'} value={simResult ? simResult.maxStress : 'N/A'}/>
                             <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
                         </div>
                         <AtomCanvas controller={controller} animationLoop={false}
+                                    isLoading={canvasLoading}
                                     className=" w-full h-fit justify-center items-center
                                                 max-h-screen"/>
                     </div>

@@ -1,5 +1,5 @@
 import TrussMesh from "./truss-mesh";
-import TrussFea from "./truss-fea";
+import TrussFea, {TrussFeaResults} from "./truss-fea";
 import {epsilon} from "numeric";
 
 class TrussOptimizer {
@@ -8,8 +8,10 @@ class TrussOptimizer {
     private readonly targetFraction: number;
     private startObj: number = 0;
     private startVolume: number = 0;
-    message: string = "";
-    success: boolean = false;
+    
+    public errorMessage: string = "";
+    public success: boolean = true;
+    public lastFEAResult: TrussFeaResults | null = null;
     
     constructor(initialMesh: TrussMesh, numIterations: number = 200, targetFraction: number = 0.4) {
         this.currentMesh = initialMesh;
@@ -74,11 +76,12 @@ class TrussOptimizer {
         
         const FEA = new TrussFea(mesh);
         FEA.compute();
+        this.lastFEAResult = FEA.getResults();
         
         const obj = FEA.strainEnergy / this.startObj;
         if (isNaN(obj)) {
             this.success = false;
-            this.message =
+            this.errorMessage =
                 "FEA computation failed, optimization leads to NaN displacements";
             return;
         }
@@ -89,18 +92,14 @@ class TrussOptimizer {
         const newThickness = this.computeLambda(X, dObj_dX, mesh.lengths);
         
         // Check if all elements are at the minimum thickness
-        if (newThickness.every((val) => val <= epsilon)) {
+        if (newThickness.every((val) => val <= 0.1)) {
             this.success = false;
-            this.message =
+            this.errorMessage =
                 "Cant optimize more, all elements are at minimum thickness";
             return;
         }
         
         this.currentMesh.normThickness = newThickness;
-        this.message = `
-            Volume: ${FEA.totalVolume}
-            Strain-Energy: ${FEA.strainEnergy}
-            `;
     }
     
     async optimize() {
