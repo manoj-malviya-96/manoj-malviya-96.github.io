@@ -7,7 +7,7 @@ import AtomDropdown, {
 import Plotter from "../atoms/plotter";
 import {getScaleColor} from "../common/color-utils";
 import {calDaysInMonth} from "../common/date";
-import AtomStats from "../atoms/AtomStats";
+import AtomStats from "../atoms/atom-stats";
 
 // Define types for the data structures
 interface DailyLog {
