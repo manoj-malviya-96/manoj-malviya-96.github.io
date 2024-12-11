@@ -104,16 +104,18 @@ const TrussOptView = () => {
                                 offLabel='Fix Nodes'
                                 offIcon='pi pi-lock-open'
                                 onIcon='pi pi-lock'
-                                tooltip='Add fix nodes to the truss'
+                                tooltip='Add fix nodes to the truss, disabled for now'
                                 initValue={false}
+                                disabled={true}
                                 onChange={(e) => console.log(e)}
                             />
                             <AtomToggleButton
                                 offLabel='Load Nodes'
                                 offIcon='pi pi-arrow-up'
                                 onIcon='pi pi-arrow-down'
-                                tooltip='Add Load nodes to the truss'
+                                tooltip='Add Load nodes to the truss, disabled for now'
                                 initValue={false}
+                                disabled={true}
                                 onChange={(e) => console.log(e)}
                             />
                         </div>
