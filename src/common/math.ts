@@ -33,3 +33,9 @@ export const sumRange = (range: Array<number>) =>
 
 export const meanRange = (range: Array<number>) =>
     sumRange(range) / range.length;
+
+
+export const roundTo = (num: number, places: number) => {
+    const factor = 10 ** places;
+    return Math.round(num * factor) / factor;
+}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/trussopt.svg';
 import AppView from "../../../atoms/app-view";
@@ -11,7 +11,7 @@ import {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
 import {useTheme} from "../../../common/theme";
 import AtomStats from "../../../atoms/atom-stats";
-import TrussFea from "./truss-fea";
+import TrussFea, {TrussFeaResults} from "./truss-fea";
 
 const AppName = 'TrussOpt';
 
@@ -35,6 +35,9 @@ const TrussOptView = () => {
         controller.updateMesh(mesh);
     }, [mesh, daisyPrimary]);
     
+    
+    const [simResult, setSimResult] = useState<TrussFeaResults | null>();
+    
     const simulate = () => {
         if (!mesh){
             return ;
@@ -42,6 +45,7 @@ const TrussOptView = () => {
         const feaEngine = new TrussFea(mesh);
         feaEngine.compute();
         controller.addFeaResults(feaEngine);
+        setSimResult(feaEngine.getResults());
     }
     
     return (
@@ -140,9 +144,9 @@ const TrussOptView = () => {
                     </div>
                     <div className="w-3/4 h-fit flex flex-col gap-1">
                         <div className='w-fit h-fit flex flex-row gap-2'>
-                            <AtomStats text={'Volume'} value={90}/>
-                            <AtomStats text={'FEA'} value={90}/>
-                            <AtomStats text={'Status'} value={90}/>
+                            <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
+                            <AtomStats text={'Max Stress'} value={simResult ? simResult.maxStress : 'N/A'}/>
+                            <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
                         </div>
                         <AtomCanvas controller={controller} animationLoop={false}
                                     className=" w-full h-fit justify-center items-center

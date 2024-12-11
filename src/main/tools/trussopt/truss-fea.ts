@@ -1,6 +1,14 @@
 import TrussMesh from "./truss-mesh";
 import numeric from "numeric";
+import {roundTo} from "../../../common/math";
 
+
+export interface TrussFeaResults {
+    maxStress: number
+    minStress: number
+    volume: number
+    strainEnergy: number
+}
 
 class TrussFea {
     private readonly E: number = 1;
@@ -12,6 +20,7 @@ class TrussFea {
     public strainEnergy: number = 0;
     public derivative_strainEnergy: number[] = [];
     public totalVolume: number = 0;
+    public computed: boolean = false;
     
     constructor(mesh: TrussMesh, E: number = 1) {
         this.E = E;
@@ -35,6 +44,7 @@ class TrussFea {
         this.computeStrainEnergy(U, K);
         this.computeDerivativeStrainEnergy();
         this.computeTotalVolume();
+        this.computed = true;
     }
     
     private computeGlobalStiffnessMatrix(): number[][] {
@@ -160,6 +170,22 @@ class TrussFea {
             (acc, val, i) => acc + val * this.mesh.lengths[i],
             0
         );
+    }
+    
+    public getResults(): TrussFeaResults {
+        if (!this.computed) {
+            throw new Error("FEA not computed");
+        }
+        
+        const maxStress = roundTo(Math.max(...this.stresses), 2);
+        const minStress = roundTo(Math.min(...this.stresses), 2);
+        
+        return {
+            maxStress,
+            minStress,
+            volume: roundTo(this.totalVolume, 2),
+            strainEnergy: roundTo(this.strainEnergy, 2),
+        };
     }
 }
 
