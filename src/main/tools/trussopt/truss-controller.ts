@@ -48,11 +48,12 @@ export class TrussStructureView extends AtomCanvasController {
         
         const {width, height} = canvas;
         ctx.clearRect(0, 0, width, height);
-        const factor = Math.min(width / this.mesh.meshWidth, height / this.mesh.meshHeight);
-        console.log(factor, width, height, this.mesh.meshWidth, this.mesh.meshHeight);
+        
+        // 0.** is random magic number - to make it not super big
+        const factor = 0.90 * Math.min(width / this.mesh.meshWidth, height / this.mesh.meshHeight);
         
         //Make
-        points = points.map(([x, y]) => [factor * x, factor * y]);
+        points = points.map(([x, y]) => [factor * x , factor * y]);
         
         edges.forEach(([start, end]) => {
             const [x1, y1] = points[start];
