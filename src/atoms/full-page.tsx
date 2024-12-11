@@ -47,7 +47,7 @@ const FullScreenPage: React.FC<FullScreenPageProps> = ({
             {/* Children */}
             {children && (
                 <div
-                    className={`p-16 w-full h-fit m-auto ${alignmentClasses}`}>
+                    className={`p-4 w-full h-fit m-auto ${alignmentClasses}`}>
                     {children}
                 </div>
             )}
