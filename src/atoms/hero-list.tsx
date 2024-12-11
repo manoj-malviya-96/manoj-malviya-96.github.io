@@ -23,9 +23,9 @@ const HeroList: React.FC<HeroListProps> = ({
                                         hover:border-opacity-100 transition duration-300 ease-in-out
                                         border-2 border-primary border-opacity-50">
                             <span
-                                className="text-2xl font-bold m-auto">{numbered ? `${index + 1}` : ""}</span>
+                                className="text-xl m-auto">{numbered ? `${index + 1}` : ""}</span>
                             <span
-                                className="text-2xl font-bold">{content}</span>
+                                className="text-xl">{content}</span>
                         </div>
                     );
                 })
