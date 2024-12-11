@@ -57,9 +57,9 @@ const TrussOptView = () => {
                                 p-0 m-0 gap-8 items-center">
                     <div
                         className=" w-fit h-full
-                        flex flex-col gap-4 rounded-lg
+                        flex flex-col gap-6 px-2 py-6 rounded-lg
                         border border-primary
-                        justify-center items-center p-2">
+                        justify-center items-center">
                         
                         <div className="flex flex-row gap-1">
                             <AtomKnob
