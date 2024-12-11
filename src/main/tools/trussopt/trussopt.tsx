@@ -38,7 +38,7 @@ const TrussOptView = () => {
             appName={AppName}
             appLogo={Logo}
             children={
-                <div className="h-full w-full flex flex-col-reverse md:flex-row
+                <div className="h-fit w-full flex flex-col-reverse md:flex-row
                                 p-0 m-0 gap-2 items-center">
                     <div
                         className=" w-fit h-full
@@ -121,7 +121,7 @@ const TrussOptView = () => {
                         />
                     </div>
                     <AtomCanvas controller={controller} animationLoop={false}
-                                className=" w-3/4 h-full
+                                className=" w-3/4 h-fit
                                             justify-center items-center max-h-screen p-2"/>
                 </div>
             }
