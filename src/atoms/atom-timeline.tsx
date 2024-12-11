@@ -6,6 +6,7 @@ import {Timeline} from "primereact/timeline"; // Assuming you have a
 export interface TimelineItemProps {
     image: string;
     title: string;
+    description?: string;
     date?: string;
     icon?: string;
     color?: string;
@@ -30,7 +31,7 @@ const AtomTimeline: React.FC<TimelineProps> = ({items}) => {
     
     const makeCard = (item: TimelineItemProps) => {
         return (
-            <AtomCard image={item.image} title={item.title}
+            <AtomCard image={item.image} title={item.title} description={item.description}
                       onClick={item.onClick}/>
         );
     };

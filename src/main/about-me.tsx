@@ -7,6 +7,8 @@ import {rangesTo} from "../common/types";
 import {openLink} from "../common/links";
 import {AtomButtonProps} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
+import {BlogInfo} from "./blogs/blog-info";
+import {useNavigate} from "react-router-dom";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -31,8 +33,15 @@ const socialMediaItems = rangesTo(
     });
 
 const AboutMe = () => {
+    const navigate = useNavigate();
     const timelineData = rangesTo(jobRelatedBlogs, (blog) => {
-        return blog.timelineItem()
+        return {
+            image: blog.cover,
+            title: blog.title,
+            date: blog.date,
+            description: blog.description,
+            onClick: () => navigate(blog.path),
+        };
     });
     return (
         <FullScreenPage

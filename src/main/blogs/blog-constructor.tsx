@@ -102,7 +102,7 @@ export type BlogMediaType =
 export interface BlogSectionContentProps {
     name: string;
     title: string;
-    paragraph: InlineContentType[];
+    paragraph?: InlineContentType[];
     media: BlogMediaType;
 }
 
@@ -166,10 +166,10 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             children={
                 <section
                     className='flex flex-col justify-center align-center w-full h-fit gap-8'>
-                    <div
+                    {paragraph && <div
                         className='text-lg w-fit lg:w-1/2 m-auto align-center'>
                         {makeRichParagraph(paragraph)}
-                    </div>
+                    </div>}
                     <RenderMedia media={media}/>
                 </section>
             }

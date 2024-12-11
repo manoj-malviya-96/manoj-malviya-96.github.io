@@ -4,6 +4,7 @@ import cppThreadsInstance from "./cpp-threads/cpp-threads";
 import {RouteDefinition} from "../../common/router";
 import deltaDesignInstance from "./delta-design/delta-design";
 import rapidToptInstance from "./rapid-topt/rapid-topt";
+import formlabsRDInstance from "./work-exp/formlabs-rd";
 
 export const registeredBlogs = [
     cppThreadsInstance,
@@ -11,7 +12,7 @@ export const registeredBlogs = [
     rapidToptInstance,
 ]
 
-export const jobRelatedBlogs = []
+export const jobRelatedBlogs = [formlabsRDInstance]
 
 export const makeBlogRouters = () => {
     return rangesTo(registeredBlogs.concat(jobRelatedBlogs), (blog) => {
