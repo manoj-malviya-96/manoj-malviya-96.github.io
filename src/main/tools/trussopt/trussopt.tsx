@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/trussopt.svg';
 import AppView from "../../../atoms/app-view";
@@ -6,19 +6,25 @@ import AtomKnob from "../../../atoms/atom-knob";
 import AtomToggleButton from "../../../atoms/atom-toggle-button";
 import {AtomButton} from "../../../atoms/atom-button";
 import AtomDropdown from "../../../atoms/atom-dropdown";
-import {useTrussOpt} from "./truss-controller";
+import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
 
 const AppName = 'TrussOpt';
 
 const TrussOptView = () => {
+    const controller = new TrussStructureView();
     const {
         meshWidth, setMeshWidth,
         meshHeight, setMeshHeight,
         cellSize, setCellSize,
-        setLatticeType, controller
+        setLatticeType, mesh
     } = useTrussOpt();
+    
+    useEffect(() => {
+        controller.updateMesh(mesh);
+        controller.draw();
+    }, [mesh]);
     
     return (
         <AppView
@@ -26,8 +32,8 @@ const TrussOptView = () => {
             appLogo={Logo}
             children={
                 <div className="h-full w-full justify-center align-center">
-                    <AtomCanvas controller={controller} className="absolute
-                                                top-0 left-0 w-full h-2/3 translate-y-1/4 z-0 p-8"/>
+                    <AtomCanvas controller={controller} animationLoop={false}
+                                className="absolute top-0 left-0 w-full h-2/3 translate-y-1/4 z-0 p-8"/>
                     <div
                         className=" absolute bottom-0 left-0 w-full h-fit
                         flex flex-row gap-4 rounded-lg

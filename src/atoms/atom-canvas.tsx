@@ -27,13 +27,18 @@ export class AtomCanvasController {
         // resources)
     }
     
-    start(): void {
+    start(makeLoop:boolean=true): void {
         const drawLoop = () => {
             this.draw();
             this.animationFrameId = requestAnimationFrame(drawLoop);
         };
         this.init();
-        drawLoop();
+        
+        if (makeLoop) {
+            drawLoop();
+        } else {
+            this.draw();
+        }
     }
     
     stop(): void {
@@ -47,11 +52,13 @@ export class AtomCanvasController {
 
 interface AtomCanvasProps {
     controller?: AtomCanvasController | null;
+    animationLoop?: boolean;
     className?: string;
 }
 
 export const AtomCanvas: React.FC<AtomCanvasProps> = ({
                                                   controller = null,
+                                                    animationLoop = true,
                                                   className = ""
                                               }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -63,7 +70,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = ({
         
         // Assign canvasRef to controller and start it
         controller.setCanvasRef(canvasRef as React.RefObject<HTMLCanvasElement>);
-        controller.start();
+        controller.start(animationLoop);
         
         // Cleanup on unmount
         return () => {

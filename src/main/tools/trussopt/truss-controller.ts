@@ -5,10 +5,14 @@ import {AtomCanvasController} from "../../../atoms/atom-canvas";
 
 
 export class TrussStructureView extends AtomCanvasController {
-    private readonly mesh: TrussMesh;
+    private mesh: TrussMesh | null;
     
-    constructor(mesh: TrussMesh) {
+    constructor() {
         super();
+        this.mesh = null;
+    }
+    
+    updateMesh(mesh: TrussMesh | null) {
         this.mesh = mesh;
     }
     
@@ -17,6 +21,9 @@ export class TrussStructureView extends AtomCanvasController {
             return;
         }
         if (!this.canvasRef.current || !this.mesh) {
+            return;
+        }
+        if (!this.mesh) {
             return;
         }
         
@@ -54,8 +61,6 @@ export class TrussStructureView extends AtomCanvasController {
             ctx.fill();
             ctx.closePath();
         });
-        
-        
     }
 }
 
@@ -65,17 +70,16 @@ export const useTrussOpt = () => {
     const [meshHeight, setMeshHeight] = useState<number>(20);
     const [cellSize, setCellSize] = useState<number>(10);
     const [latticeType, setLatticeType] = useState<LatticeType>(LatticeType.Cross);
-    const [controller, setController] = useState<AtomCanvasController | null>(null);
+    const [mesh, setMesh] = useState<TrussMesh | null>(null);
     
     
     useEffect(() => {
-        const mesh = new TrussMesh({
+        setMesh(new TrussMesh({
             meshWidth: meshWidth,
             meshHeight: meshHeight,
             cellSize: cellSize,
             latticeType: latticeType,
-        });
-        setController(new TrussStructureView(mesh));
+        }));
     }, [meshWidth, meshHeight, cellSize, latticeType]);
     
     return {
@@ -83,6 +87,6 @@ export const useTrussOpt = () => {
         meshHeight, setMeshHeight,
         cellSize, setCellSize,
         latticeType, setLatticeType,
-        controller,
+        mesh,
     }
 }
