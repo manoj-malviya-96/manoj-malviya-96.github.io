@@ -39,8 +39,8 @@ const TrussOptView = () => {
     const [simResult, setSimResult] = useState<TrussFeaResults | null>();
     
     const simulate = () => {
-        if (!mesh){
-            return ;
+        if (!mesh) {
+            return;
         }
         const feaEngine = new TrussFea(mesh);
         feaEngine.compute();
@@ -54,7 +54,7 @@ const TrussOptView = () => {
             appLogo={Logo}
             children={
                 <div className="h-fit w-full flex flex-col-reverse md:flex-row
-                                p-0 m-0 gap-2 items-center">
+                                p-0 m-0 gap-8 items-center">
                     <div
                         className=" w-fit h-full
                         flex flex-col gap-4 rounded-lg
@@ -142,7 +142,7 @@ const TrussOptView = () => {
                             onClick={() => console.log('Refresh')}
                         />
                     </div>
-                    <div className="w-3/4 h-fit flex flex-col gap-1">
+                    <div className="w-3/4 h-fit flex flex-col gap-2">
                         <div className='w-fit h-fit flex flex-row gap-2'>
                             <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
                             <AtomStats text={'Max Stress'} value={simResult ? simResult.maxStress : 'N/A'}/>
