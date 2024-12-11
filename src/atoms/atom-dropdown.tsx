@@ -106,6 +106,13 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 placeholder={placeholder}
                 pt={dropdownPt}
                 tooltip={placeholder}
+                tooltipOptions={{
+                    showDelay: 300,
+                    hideDelay: 100,
+                    position: 'bottom',
+                    mouseTrack: true,
+                    mouseTrackTop: 15,
+                }}
             />
         </div>
     );
