@@ -93,7 +93,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = ({
             ref={canvasRef}
             width={dimensions.width}
             height={dimensions.height}
-            className={`bg-black ${className}`}
+            className={`${className}`}
         />
     );
 };

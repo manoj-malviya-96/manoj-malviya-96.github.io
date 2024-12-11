@@ -150,7 +150,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         <div className="h-full w-full justify-center align-center"
              ref={appRef}>
             <AtomCanvas controller={controller}
-                        className="absolute top-0 left-0 w-full h-full z-0"/>
+                        className="bg-black absolute top-0 left-0 w-full h-full z-0"/>
             
             {/*HUD*/}
             <div className={`inline-block w-full h-full z-5 p-4
