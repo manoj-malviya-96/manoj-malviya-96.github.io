@@ -10,6 +10,7 @@ import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
 import {useTheme} from "../../../common/theme";
+import AtomStats from "../../../atoms/AtomStats";
 
 const AppName = 'TrussOpt';
 
@@ -22,16 +23,16 @@ const TrussOptView = () => {
     } = useTrussOpt();
     
     const {
-        daisyPrimaryText,
+        daisyPrimary,
     } = useTheme();
     
     
-    const controller = new TrussStructureView(daisyPrimaryText, mesh);
+    const controller = new TrussStructureView(daisyPrimary, mesh);
     
     useEffect(() => {
-        controller.trussColor = daisyPrimaryText;
+        controller.trussColor = daisyPrimary;
         controller.updateMesh(mesh);
-    }, [mesh, daisyPrimaryText]);
+    }, [mesh, daisyPrimary]);
     
     return (
         <AppView
@@ -120,9 +121,16 @@ const TrussOptView = () => {
                             onClick={() => console.log('Refresh')}
                         />
                     </div>
-                    <AtomCanvas controller={controller} animationLoop={false}
-                                className=" w-3/4 h-fit
-                                            justify-center items-center max-h-screen p-2"/>
+                    <div className="w-3/4 h-fit flex flex-col gap-1">
+                        <div className='w-fit h-fit flex flex-row gap-2'>
+                            <AtomStats text={'Volume'} value={90}/>
+                            <AtomStats text={'FEA'} value={90}/>
+                            <AtomStats text={'Status'} value={90}/>
+                        </div>
+                        <AtomCanvas controller={controller} animationLoop={false}
+                                    className=" w-full h-fit justify-center items-center
+                                                max-h-screen"/>
+                    </div>
                 </div>
             }
         />
