@@ -7,6 +7,7 @@ import AtomDropdown, {
 import Plotter from "../atoms/plotter";
 import {getScaleColor} from "../common/color-utils";
 import {calDaysInMonth} from "../common/date";
+import AtomStats from "../atoms/AtomStats";
 
 // Define types for the data structures
 interface DailyLog {
@@ -230,20 +231,8 @@ const GithubProfile: React.FC = () => {
         >
             <div
                 className="flex space-x-4 mb-4 justify-center item-center">
-                <div className="stats shadow">
-                    <div className="stat">
-                        <div className="stat-title">Total Commits
-                        </div>
-                        <div
-                            className="stat-value">{totalCommits}</div>
-                    </div>
-                    <div className="stat">
-                        <div className="stat-title">Longest Streak
-                        </div>
-                        <div
-                            className="stat-value">{longestStreak}</div>
-                    </div>
-                </div>
+                    <AtomStats text={'Total Commits'} value={totalCommits}/>
+                    <AtomStats text={'Longest Streak'} value={longestStreak}/>
                 {dropdownOptions.length > 0 && (
                     <AtomDropdown
                         options={dropdownOptions}
