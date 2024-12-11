@@ -9,11 +9,11 @@ import AtomDropdown from "../../../atoms/atom-dropdown";
 import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
+import {useTheme} from "../../../common/theme";
 
 const AppName = 'TrussOpt';
 
 const TrussOptView = () => {
-    const controller = new TrussStructureView();
     const {
         meshWidth, setMeshWidth,
         meshHeight, setMeshHeight,
@@ -21,9 +21,17 @@ const TrussOptView = () => {
         setLatticeType, mesh
     } = useTrussOpt();
     
+    const {
+        daisyPrimaryText,
+    } = useTheme();
+    
+    
+    const controller = new TrussStructureView(daisyPrimaryText, mesh);
+    
     useEffect(() => {
+        controller.trussColor = daisyPrimaryText;
         controller.updateMesh(mesh);
-    }, [mesh]);
+    }, [mesh, daisyPrimaryText]);
     
     return (
         <AppView

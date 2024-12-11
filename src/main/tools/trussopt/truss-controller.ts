@@ -6,10 +6,12 @@ import {AtomCanvasController} from "../../../atoms/atom-canvas";
 
 export class TrussStructureView extends AtomCanvasController {
     private mesh: TrussMesh | null;
+    trussColor: string;
     
-    constructor() {
+    constructor(color: string, mesh: TrussMesh | null) {
         super();
-        this.mesh = null;
+        this.mesh = mesh;
+        this.trussColor = color
     }
     
     updateMesh(mesh: TrussMesh | null) {
@@ -25,6 +27,11 @@ export class TrussStructureView extends AtomCanvasController {
             return;
         }
         if (!this.mesh) {
+            return;
+        }
+        
+        if (!this.trussColor){
+            console.error('No color defined');
             return;
         }
         
@@ -53,7 +60,7 @@ export class TrussStructureView extends AtomCanvasController {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
-            ctx.strokeStyle = "white";
+            ctx.strokeStyle = this.trussColor
             ctx.stroke();
             ctx.closePath();
         });
@@ -61,7 +68,7 @@ export class TrussStructureView extends AtomCanvasController {
         points.forEach(([x, y]) => {
             ctx.beginPath();
             ctx.arc(x, y, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = "white";
+            ctx.fillStyle = this.trussColor
             ctx.fill();
             ctx.closePath();
         });
