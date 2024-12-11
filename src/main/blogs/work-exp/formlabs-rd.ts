@@ -4,7 +4,7 @@ import Cover from "./formlabs-rd-cover.jpg";
 class FormlabsRd extends BlogInfo {
     constructor() {
         super({
-            id: 'cpp-threads',
+            id: 'formlabs-rd',
             title: 'R&D Software Engineer',
             description: 'Formlabs',
             date: 'Jan 1, 2020',
