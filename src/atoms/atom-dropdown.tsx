@@ -88,6 +88,14 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 selectedColor: mainTextColor,
             }
         },
+        item: {
+            style: {
+                backgroundColor: 'transparent',
+                borderColor: borderColor,
+                color: mainTextColor,
+                selectedColor: mainTextColor,
+            }
+        },
     }
     
     return (
@@ -103,13 +111,14 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 optionLabel={'label'}
                 optionValue={'value'}
                 variant={'outlined'}
+                checkmark={true}
                 placeholder={placeholder}
                 pt={dropdownPt}
                 tooltip={placeholder}
                 tooltipOptions={{
-                    showDelay: 300,
-                    hideDelay: 100,
-                    position: 'bottom',
+                    showDelay: 690,
+                    hideDelay: 0,
+                    position: 'top',
                     mouseTrack: true,
                     mouseTrackTop: 15,
                 }}
