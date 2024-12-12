@@ -10,11 +10,11 @@ const Intro = () => {
             children={
                 (
                     <div
-                        className="absolute right-8 top-1/3 w-fit md:w-1/3 p-4">
-                        <p className="text-lg mb-1 text-neutral">
+                        className="absolute left-8 top-1/3 w-fit md:w-1/3 p-4">
+                        <p className="text-lg mb-1 text-black">
                             Manoj's
                         </p>
-                        <h1 className="text-4xl text-neutral font-bold mb-4 uppercase">
+                        <h1 className="text-4xl text-black font-bold mb-4 uppercase">
                             Audacious Factory Of Interactive Apps
                         </h1>
                     </div>
