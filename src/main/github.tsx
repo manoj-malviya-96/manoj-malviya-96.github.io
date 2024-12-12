@@ -230,7 +230,7 @@ const GithubProfile: React.FC = () => {
             className="p-1 w-full sm:max-w-screen-sm md:max-w-screen rounded-lg border-2 border-neutral border-opacity-25"
         >
             <div
-                className="flex space-x-4 mb-4 justify-center item-center">
+                className="flex space-x-1 mb-4 w-full justify-center item-center">
                     <AtomStats text={'Total Commits'} value={totalCommits}/>
                     <AtomStats text={'Longest Streak'} value={longestStreak}/>
                 {dropdownOptions.length > 0 && (
