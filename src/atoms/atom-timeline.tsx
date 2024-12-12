@@ -1,13 +1,14 @@
 import React from 'react';
 import {AtomCard} from './atom-card';
-import {Timeline} from "primereact/timeline"; // Assuming you have a
+import {Timeline} from "primereact/timeline";
+import {parseDate} from "../common/date"; // Assuming you have a
                                               // Card component
 
 export interface TimelineItemProps {
     image: string;
     title: string;
+    date: string;
     description?: string;
-    date?: string;
     icon?: string;
     color?: string;
     
@@ -37,6 +38,8 @@ const AtomTimeline: React.FC<TimelineProps> = ({items}) => {
         );
     };
     
+    // Sort descending by date
+    items.sort((a, b) => {return parseDate(b.date) - parseDate(a.date)});
     return (
         <Timeline align="alternate" className="customized-timeline"
                   value={items} content={makeCard}
