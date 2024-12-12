@@ -1,23 +1,20 @@
-function handleRunningApps() {
-  // Pause the music app if it exists before loading new content
-  if (window.musicApp) {
-    window.musicApp.resetAudio();
-  }
-  // Pause the mesh morph app if it exists before loading new content
-  if (window.meshaMorph) {
-    window.meshaMorph = null;
-  }
-}
+import React from 'react';
+import NavBar, {NavbarProvider} from "./main/navbar";
+import RouterConstructor from "./common/router";
+import constructedRoutes from "./main/routes";
+import {ScreenSizeProvider} from "./common/screen";
+import {ThemeProvider} from "./common/theme";
 
-function initMusicApp() {
-  window.musicApp = new MusicVizView();
-}
+const App = () => {
+    return (
+        <ThemeProvider>
+            <ScreenSizeProvider>
+                <NavbarProvider>
+                    <RouterConstructor routes={constructedRoutes}/>
+                </NavbarProvider>
+            </ScreenSizeProvider>
+        </ThemeProvider>
+    );
+};
 
-function initMeshMorph() {
-  window.meshaMorph = new MeshView();
-  window.meshaMorph.animate();
-}
-
-function initLatticeTopt() {
-  window.latticeTopt = new LatticeViewer();
-}
+export default App;
