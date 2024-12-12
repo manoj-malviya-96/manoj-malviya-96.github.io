@@ -50,7 +50,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
     }
     
     return (
-        <MotionDiv enableHoverEffect={!ghost || !neutralGhost}>
+        <MotionDiv enableHoverEffect={!ghost && !neutralGhost}>
             <Button
                 className={`btn ${daisyClass} w-fit h-fit justify-center 
                             items-center px-5 py-0 m-0`}
