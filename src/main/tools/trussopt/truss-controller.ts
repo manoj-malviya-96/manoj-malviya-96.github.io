@@ -15,10 +15,10 @@ export class TrussStructureView extends AtomCanvasController {
     private readonly pointRadius: number;
     feaEngine: TrussFea | null;
     
-    constructor(color: string) {
+    constructor() {
         super();
         this.mesh = null;
-        this.trussColor = color
+        this.trussColor = 'white'
         this.offset = 10;
         this.maxLineWidth = 6;
         this.pointRadius = 6
