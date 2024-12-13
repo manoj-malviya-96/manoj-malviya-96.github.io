@@ -28,7 +28,7 @@ const TrussOptView = () => {
         daisyPrimary,
     } = useTheme();
     
-    const controller = new TrussStructureView(daisyPrimary, mesh);
+    const controller = new TrussStructureView(daisyPrimary);
     const [canvasLoading, setCanvasLoading] = useState<boolean>(false);
     const [simResult, setSimResult] = useState<TrussFeaResults | null>();
     const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
