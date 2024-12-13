@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {AtomButton, AtomButtonProps} from "./atom-button";
-import AtomDialog, {AtomDialogProps} from "./atom-dialog";
+import AtomDialog from "./atom-dialog";
 
 interface ModalButtonProps extends AtomButtonProps {
     title: string;

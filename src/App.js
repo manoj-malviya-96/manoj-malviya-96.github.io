@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar, {NavbarProvider} from "./main/navbar";
+import {NavbarProvider} from "./main/navbar";
 import RouterConstructor from "./common/router";
 import constructedRoutes from "./main/routes";
 import {ScreenSizeProvider} from "./common/screen";

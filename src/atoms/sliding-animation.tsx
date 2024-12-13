@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect} from "react";
-import {motion, Variants} from "motion/react";
+import {motion} from "motion/react";
 
 // Define props interface
 interface SlidingAnimationProps {

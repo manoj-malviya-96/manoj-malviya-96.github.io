@@ -1,5 +1,4 @@
 import React from "react";
-import TabBar, {TabBarProps} from "./tab-bar";
 import ScrollableLink from "./scrollable-link";
 
 

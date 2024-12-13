@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import TrussMesh, {LatticeType} from "./truss-mesh";
-import {epsilon} from "numeric";
 import {AtomCanvasController} from "../../../atoms/atom-canvas";
 import TrussFea from "./truss-fea";
-import {getScaleColor, makeColorScale} from "../../../common/color-utils";
+import {makeColorScale} from "../../../common/color-utils";
 import {drawArrow, drawX} from "../../../common/canvas-drawer";
 
 

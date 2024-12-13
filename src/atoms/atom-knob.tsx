@@ -1,5 +1,5 @@
 import {Knob, KnobChangeEvent} from 'primereact/knob';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useTheme} from "../common/theme";
 
 interface AtomKnobProps {
@@ -27,7 +27,6 @@ const _AtomKnob: React.FC<AtomKnobProps> = ({
     const {
         daisyPrimary,
         daisyPrimaryText,
-        daisyNeutral
     } = useTheme();
     const [value, setValue] = useState<number>(initValue);
     

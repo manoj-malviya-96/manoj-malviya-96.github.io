@@ -1,5 +1,4 @@
 import React from 'react';
-import {ButtonGroup} from "primereact/buttongroup";
 import {AtomButtonProps, AtomButton} from './atom-button';
 
 // Import or reuse AtomButtonProps from AtomButton definition

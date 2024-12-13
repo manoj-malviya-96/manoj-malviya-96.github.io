@@ -2,7 +2,6 @@ import React from 'react';
 import {Card} from 'primereact/card';
 import {Badge} from "primereact/badge";
 import MotionDiv from "./motion-div";
-import AtomSvg from "./atom-svg";
 import AtomImage from "./atom-image";
 
 

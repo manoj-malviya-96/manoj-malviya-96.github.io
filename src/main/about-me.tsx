@@ -7,7 +7,6 @@ import {rangesTo} from "../common/types";
 import {openLink} from "../common/links";
 import {AtomButtonProps} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
-import {BlogInfo} from "./blogs/blog-info";
 import {useNavigate} from "react-router-dom";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];

@@ -41,7 +41,7 @@ const TrussOptView = () => {
         } else {
             controller.updateMesh(mesh);
         }
-    }, [mesh, optimizeMesh, daisyPrimary]);
+    }, [controller, mesh, optimizeMesh, daisyPrimary]);
     
     const simulate = () => {
         if (!mesh) {

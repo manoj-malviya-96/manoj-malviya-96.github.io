@@ -1,5 +1,4 @@
 import React, {useRef, useEffect, useState} from "react";
-import HeroText from "./hero-text";
 import {useTheme} from "../common/theme";
 
 export class AtomCanvasController {
@@ -111,20 +110,19 @@ export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
         return () => {
             controller.stop();
         };
-    }, [controller, isLoading]);
+    }, [controller, isLoading, animationLoop, daisyPrimaryText]);
     
     const [dimensions, setDimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
     
-    const restartController = () => {
-        if (controller) {
-            controller.restart();
-        }
-    };
-    
     useEffect(() => {
+        const restartController = () => {
+            if (controller) {
+                controller.restart();
+            }
+        };
         const handleResize = () => {
             setDimensions({
                 width: window.innerWidth,
@@ -134,7 +132,7 @@ export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, [setDimensions, restartController]);
+    }, [setDimensions]);
     
     return (
         <canvas

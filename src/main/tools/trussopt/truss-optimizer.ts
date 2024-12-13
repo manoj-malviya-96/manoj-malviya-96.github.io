@@ -39,19 +39,21 @@ class TrussOptimizer {
                        l1 + l2
                    ) / 2;
         
+        const computeD = (x: number, dc_x:number)=>{
+            const d = Math.sqrt((
+                -1 * dc_x
+            ) / lmid);
+            const xn = x * d;
+            return Math.max(Math.min(1, xn), epsilon);
+        }
+        
         while (l2 - l1 > tolerance) {
             lmid = 0.5 * (
                 l2 + l1
             );
             
             // Calculate potential `X_new` based on current `lmid`
-            X_temp = X.map((x, index) => {
-                const d = Math.sqrt((
-                                        -1 * dc[index]
-                                    ) / lmid);
-                const xn = x * d;
-                return Math.max(Math.min(1, xn), epsilon);
-            });
+            X_temp = X.map((x, index) => computeD(x, dc[index]));
             
             // Calculate volume of `X_temp`
             const currentVolume = X_temp.reduce(

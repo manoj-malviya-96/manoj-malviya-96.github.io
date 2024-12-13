@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from "react";
-import {computeGradient, computeRMS, computeVariance} from "./math";
+import {computeRMS, computeVariance} from "./math";
 
 export const audioFFTSize = 256;
 
