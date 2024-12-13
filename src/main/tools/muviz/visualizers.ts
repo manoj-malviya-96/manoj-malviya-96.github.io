@@ -41,9 +41,11 @@ export class BarVisualizer extends BaseVisualizer {
     draw() {
         
         if (!this.canvasRef) {
+            console.error("Canvas reference is null.");
             return;
         }
         if (!this.canvasRef.current || !this.analyser || !this.dataArray) {
+            console.error("Canvas, analyser or data array is null.");
             return;
         }
         
@@ -216,10 +218,7 @@ export class SpiralVisualizer extends BaseVisualizer {
                                                                     // the
                                                                     // canvas
         ctx.rotate(this.angle); // Apply rotation
-        
         const isDrop = this.dropDetector.detect(this.dataArray);
-        console.log("isDrop: ", isDrop);
-        
         // Update and draw points
         this.updatePoints(isDrop ? 0.05 : 0.0);
         this.addPoint();

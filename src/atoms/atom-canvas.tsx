@@ -32,13 +32,13 @@ export class AtomCanvasController {
     }
     
     start(): void {
-        const drawLoop = () => {
-            this.draw();
-            this.animationFrameId = requestAnimationFrame(drawLoop);
-        };
         this.init();
         
         if (this.makeLoop) {
+            const drawLoop = () => {
+                this.draw();
+                this.animationFrameId = requestAnimationFrame(drawLoop);
+            };
             drawLoop();
         } else {
             this.draw();
@@ -105,6 +105,7 @@ export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
         // Assign canvasRef to controller and start it
         controller.setCanvasRef(canvasRef as React.RefObject<HTMLCanvasElement>);
         controller.makeLoop = animationLoop;
+        controller.start();
         
         // Cleanup on unmount
         return () => {
