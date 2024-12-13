@@ -19,6 +19,7 @@ export interface AtomButtonProps {
     className?: string;
     loading?: boolean;
     neutralGhost?: boolean;
+    animated?: boolean;
 }
 
 const _AtomButton: React.FC<AtomButtonProps> = ({
@@ -36,6 +37,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                                                     ghost = false,
                                                     loading = false,
                                                     neutralGhost = false,
+                                                    animated=false,
                                                     className = '',
                                                 }) => {
     const breakpoint = useContext(ScreenSizeContext);
@@ -47,6 +49,9 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
     }
     if (!outlined) {
         daisyClass += ' bg-opacity-70 backdrop-blur-xl border-none';
+    }
+    if (animated) {
+        daisyClass += 'animate-spin';
     }
     
     return (
