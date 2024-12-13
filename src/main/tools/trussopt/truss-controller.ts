@@ -15,9 +15,9 @@ export class TrussStructureView extends AtomCanvasController {
     private readonly pointRadius: number;
     feaEngine: TrussFea | null;
     
-    constructor(color: string, mesh: TrussMesh | null) {
+    constructor(color: string) {
         super();
-        this.mesh = mesh;
+        this.mesh = null;
         this.trussColor = color
         this.offset = 10;
         this.maxLineWidth = 6;
@@ -34,7 +34,6 @@ export class TrussStructureView extends AtomCanvasController {
         this.feaEngine = feaEngine;
         this.draw();
     }
-    
     
     
     draw() {
@@ -94,6 +93,7 @@ export class TrussStructureView extends AtomCanvasController {
         
         
         if (this.feaEngine) {
+            console.debug('drawing simulation results');
             const displacements = this.feaEngine.displacements;
             const stresses = this.feaEngine.stresses;
             const nDof = this.feaEngine.ndof_per_node;
