@@ -1,7 +1,6 @@
 import React from 'react';
 import FullScreenPage from "../atoms/full-page";
 import ProfilePicture from "./assets/main.jpg";
-import {Button} from "primereact/button";
 import {AtomButton} from "../atoms/atom-button";
 
 const Intro = () => {
