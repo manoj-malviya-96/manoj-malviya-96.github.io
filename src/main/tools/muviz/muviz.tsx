@@ -43,7 +43,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     // State Management
     const [src, setSrc] = useState<AudioPlayerProps["src"]>(null);
-    const [visualizerType, setVisualizerType] = useState(VisualizerType.Spiral);
+    const [visualizerType, setVisualizerType] = useState(VisualizerType.Bar);
     const [controller, setController] = useState<AtomCanvasController | null>(null);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const appRef = useRef<HTMLDivElement | null>(null);
@@ -67,7 +67,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         if (!analyser || !dataArray) {
             return;
         }
-        
+        console.log("Creating visualizer...", toString(visualizerType));
         switch (visualizerType) {
             case VisualizerType.Spiral:
                 const spiralViz = new SpiralVisualizer({
@@ -105,8 +105,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     const handleVisualizerChange = useCallback(
         (value: any) => {
-            setVisualizerType(value);
             stopController();
+            setVisualizerType(value);
             pause();
         },
         [stopController, pause]
@@ -153,7 +153,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                         className="bg-black absolute top-0 left-0 w-full h-full z-0"/>
             
             {/*HUD*/}
-            <div className={`inline-block w-full h-full z-5 p-4
+            <div className={`inline-block w-full h-full z-5 p-4 bg-transparent
                 ${showHUD ? "lg:opacity-100" : "lg:opacity-0"}
                  lg:hover:opacity-100`}>
                 {/*Central Controls*/}

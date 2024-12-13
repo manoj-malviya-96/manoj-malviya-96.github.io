@@ -1,8 +1,8 @@
 import React from 'react';
 import {AtomCard} from './atom-card';
 import {Timeline} from "primereact/timeline";
-import {parseDate} from "../common/date"; // Assuming you have a
-                                              // Card component
+import {parseDate} from "../common/date";
+import {useTheme} from "../common/theme";
 
 export interface TimelineItemProps {
     image: string;
@@ -17,15 +17,17 @@ export interface TimelineItemProps {
 
 interface TimelineProps {
     items: TimelineItemProps[];
+    orientation?: 'vertical' | 'horizontal';
 }
 
-const AtomTimeline: React.FC<TimelineProps> = ({items}) => {
+const AtomTimeline: React.FC<TimelineProps> = ({items, orientation = 'vertical'}) => {
+    const {daisyPrimary} = useTheme();
     const makeMarker = (item: TimelineItemProps) => {
         return (
             <span
                 className="flex w-2rem h-2rem align-items-center j
                 ustify-content-center border-circle text-primary-content">
-                <i className={item.icon ? item.icon : 'pi pi-circle'}></i>
+                <i className={item.icon ? item.icon : 'fas fa-circle'}></i>
             </span>
         );
     };
@@ -33,17 +35,31 @@ const AtomTimeline: React.FC<TimelineProps> = ({items}) => {
     const makeCard = (item: TimelineItemProps) => {
         return (
             <AtomCard image={item.image} title={item.title} description={item.description}
-                      centerAlign={true}
+                      centerAlign={true} className="w-fit"
                       onClick={item.onClick}/>
         );
     };
     
     // Sort descending by date
-    items.sort((a, b) => {return parseDate(b.date) - parseDate(a.date)});
+    items.sort((a, b) => {
+        return parseDate(b.date) - parseDate(a.date)
+    });
+    
+    const stylePt = {
+        connector: {
+            style: {
+                backgroundColor: daisyPrimary,
+            }
+        }
+    }
+    
     return (
-        <Timeline align="alternate" className="customized-timeline"
-                  value={items} content={makeCard}
-                  marker={makeMarker}/>
+        <Timeline align="alternate" className="customized-timeline p-4"
+                  value={items}
+                  content={makeCard}
+                  layout={orientation}
+                  marker={makeMarker}
+                  pt={stylePt}/>
     )
 }
 
