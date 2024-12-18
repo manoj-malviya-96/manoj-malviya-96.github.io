@@ -49,6 +49,7 @@ jobs:
             "Formlabs/SetOps"
             "mmalviyar/TopOpt-GAN"
             "mmalviyar/2D-TOpt-V2"
+            "manoj-malviya-96/ev-sim"
           )
 
           # Initialize JSON for storing repository data
