@@ -1,4 +1,4 @@
-import React, {useState, useEffect, JSX} from "react";
+import React, {useState, useEffect} from "react";
 import dataJSON from "../data/github_user_report.json";
 import {rangesTo} from "../common/math";
 import AtomDropdown, {
