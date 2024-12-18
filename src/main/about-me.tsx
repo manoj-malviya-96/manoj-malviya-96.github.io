@@ -1,5 +1,4 @@
 import React from 'react';
-import AtomTimeline from "../atoms/atom-timeline";
 import FullScreenPage from "../atoms/full-page";
 import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
