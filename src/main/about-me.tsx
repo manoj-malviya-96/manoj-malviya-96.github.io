@@ -60,11 +60,12 @@ const AboutMe = () => {
                     <AtomButtonGroup items={socialMediaItems}/>
                     
                     <div
-                        className="flex flex-col p-8 w-full h-fit gap-8">
-                        <div className="w-full h-1/2">
-                            <AtomTimeline items={timelineData} orientation={'horizontal'}/>
+                        className="flex flex-col flex-grow p-8 w-full h-fit gap-32">
+                        <div className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
+                            <AtomTimeline  className={'m-auto'}
+                                items={timelineData} orientation={'horizontal'}/>
                         </div>
-                        <div className="w-full h-1/2">
+                        <div className="w-full h-1/2 border-2">
                             <GithubProfile/>
                         </div>
                     </div>
