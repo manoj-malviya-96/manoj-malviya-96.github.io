@@ -8,6 +8,7 @@ import {openLink} from "../common/links";
 import {AtomButtonProps} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
 import {useNavigate} from "react-router-dom";
+import AtomCardGrid from "../atoms/atom-card-grid";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -62,10 +63,9 @@ const AboutMe = () => {
                     <div
                         className="flex flex-col flex-grow p-8 w-full h-fit gap-32">
                         <div className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
-                            <AtomTimeline  className={'m-auto'}
-                                items={timelineData} orientation={'horizontal'}/>
+                            <AtomCardGrid items={timelineData}/>
                         </div>
-                        <div className="w-full h-1/2 border-2">
+                        <div className="w-full h-1/2">
                             <GithubProfile/>
                         </div>
                     </div>
