@@ -589,16 +589,16 @@
         }
       ],
       "languages": {
-        "C++": 23734391,
-        "QML": 3314034,
-        "Python": 1637357,
-        "CMake": 850200,
-        "Shell": 75115,
-        "C": 65254,
-        "Gherkin": 62258,
+        "C++": 23858292,
+        "QML": 3320814,
+        "Python": 1599760,
+        "CMake": 856545,
+        "Shell": 74913,
+        "C": 65194,
+        "Gherkin": 63230,
         "GLSL": 61107,
         "Rich Text Format": 56322,
-        "Batchfile": 40620,
+        "Batchfile": 40750,
         "Groovy": 23301,
         "CSS": 21715,
         "Objective-C++": 19819,
@@ -630,7 +630,7 @@
       ],
       "languages": {
         "C++": 184530,
-        "CMake": 19389,
+        "CMake": 20245,
         "C": 1095
       }
     },
@@ -760,12 +760,33 @@
         {
           "date": "2024-11-13",
           "commits": 1
+        },
+        {
+          "date": "2024-12-10",
+          "commits": 52
+        },
+        {
+          "date": "2024-12-11",
+          "commits": 42
+        },
+        {
+          "date": "2024-12-12",
+          "commits": 7
+        },
+        {
+          "date": "2024-12-13",
+          "commits": 10
+        },
+        {
+          "date": "2024-12-18",
+          "commits": 2
         }
       ],
       "languages": {
-        "JavaScript": 198997,
-        "HTML": 121334,
-        "CSS": 28742
+        "TypeScript": 187884,
+        "JavaScript": 3950,
+        "HTML": 1675,
+        "CSS": 643
       }
     },
     {
@@ -837,26 +858,26 @@
         }
       ],
       "languages": {
-        "C": 57811502,
-        "C++": 22069928,
-        "Python": 11255584,
+        "C": 57812015,
+        "C++": 22157185,
+        "Python": 11287169,
         "Jupyter Notebook": 6719311,
-        "QML": 6240579,
-        "Go": 1666267,
+        "QML": 6255102,
+        "Go": 1631406,
         "JavaScript": 1524190,
-        "CMake": 1055788,
+        "CMake": 1059971,
         "Assembly": 568918,
         "TypeScript": 424443,
-        "Shell": 418944,
+        "Shell": 420063,
         "HTML": 305314,
         "CSS": 126878,
-        "Makefile": 46568,
-        "Dockerfile": 30071,
+        "Makefile": 46570,
+        "Dockerfile": 32141,
         "TeX": 27973,
         "Cython": 25392,
         "Rust": 19552,
         "Jinja": 18942,
-        "Gherkin": 6579,
+        "Gherkin": 7386,
         "QMake": 5520,
         "OpenSCAD": 2764,
         "PowerShell": 1780,
@@ -1448,10 +1469,10 @@
         }
       ],
       "languages": {
-        "Jupyter Notebook": 1056309916,
+        "Jupyter Notebook": 1058619484,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 40180937,
+        "Python": 40186298,
         "JavaScript": 14615804,
         "C++": 6982898,
         "Mathematica": 3004790,
@@ -1490,142 +1511,6 @@
     {
       "repo": "Formlabs/SetOps",
       "daily_log": [
-        {
-          "date": "2022-05-12",
-          "commits": 12
-        },
-        {
-          "date": "2022-05-17",
-          "commits": 1
-        },
-        {
-          "date": "2022-05-18",
-          "commits": 5
-        },
-        {
-          "date": "2022-05-25",
-          "commits": 4
-        },
-        {
-          "date": "2022-05-26",
-          "commits": 1
-        },
-        {
-          "date": "2022-06-06",
-          "commits": 2
-        },
-        {
-          "date": "2022-06-09",
-          "commits": 2
-        },
-        {
-          "date": "2022-06-10",
-          "commits": 3
-        },
-        {
-          "date": "2022-06-11",
-          "commits": 4
-        },
-        {
-          "date": "2022-06-24",
-          "commits": 2
-        },
-        {
-          "date": "2022-06-27",
-          "commits": 2
-        },
-        {
-          "date": "2022-06-28",
-          "commits": 6
-        },
-        {
-          "date": "2022-07-06",
-          "commits": 1
-        },
-        {
-          "date": "2022-07-11",
-          "commits": 7
-        },
-        {
-          "date": "2022-07-12",
-          "commits": 3
-        },
-        {
-          "date": "2022-07-13",
-          "commits": 1
-        },
-        {
-          "date": "2022-07-23",
-          "commits": 4
-        },
-        {
-          "date": "2022-07-27",
-          "commits": 1
-        },
-        {
-          "date": "2022-08-02",
-          "commits": 3
-        },
-        {
-          "date": "2022-08-03",
-          "commits": 2
-        },
-        {
-          "date": "2022-08-05",
-          "commits": 3
-        },
-        {
-          "date": "2022-08-06",
-          "commits": 1
-        },
-        {
-          "date": "2022-08-07",
-          "commits": 3
-        },
-        {
-          "date": "2022-08-10",
-          "commits": 5
-        },
-        {
-          "date": "2022-08-12",
-          "commits": 1
-        },
-        {
-          "date": "2022-08-14",
-          "commits": 1
-        },
-        {
-          "date": "2022-08-16",
-          "commits": 5
-        },
-        {
-          "date": "2022-08-17",
-          "commits": 2
-        },
-        {
-          "date": "2022-08-18",
-          "commits": 2
-        },
-        {
-          "date": "2022-08-19",
-          "commits": 2
-        },
-        {
-          "date": "2022-08-22",
-          "commits": 1
-        },
-        {
-          "date": "2022-08-23",
-          "commits": 1
-        },
-        {
-          "date": "2022-09-01",
-          "commits": 6
-        },
-        {
-          "date": "2022-09-04",
-          "commits": 1
-        },
         {
           "date": "2022-09-05",
           "commits": 4
@@ -2004,8 +1889,8 @@
         }
       ],
       "languages": {
-        "Python": 4420222,
-        "JavaScript": 1025087,
+        "Python": 4432401,
+        "JavaScript": 1029125,
         "C": 67455,
         "HTML": 25633,
         "Jupyter Notebook": 25007,
@@ -2013,7 +1898,7 @@
         "OpenSCAD": 15810,
         "Shell": 7355,
         "Makefile": 3871,
-        "Dockerfile": 2518
+        "Dockerfile": 2590
       }
     }
   ]
