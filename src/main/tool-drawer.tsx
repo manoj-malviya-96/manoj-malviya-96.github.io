@@ -1,7 +1,7 @@
 import React from 'react';
 import FullScreenPage from "../atoms/full-page";
 import {registeredTools} from "./tools/tool-registry";
-import {rangesTo} from "../common/types";
+import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
 import AtomCardGrid from "../atoms/atom-card-grid";
 

@@ -1,5 +1,5 @@
 import BlogConstructor from "./blog-constructor";
-import {rangesTo} from "../../common/types";
+import {rangesTo} from "../../common/math";;
 import cppThreadsInstance from "./cpp-threads/cpp-threads";
 import {RouteDefinition} from "../../common/router";
 import deltaDesignInstance from "./delta-design/delta-design";

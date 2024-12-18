@@ -1,4 +1,4 @@
-import {rangesTo} from "../../common/types";
+import {rangesTo} from "../../common/math";
 import {getScaleColor} from "../../common/color-utils";
 import {TabItemProps} from "../../atoms/tab-bar";
 

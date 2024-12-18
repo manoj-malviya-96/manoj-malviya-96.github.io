@@ -1,17 +1,14 @@
 import React, {useState, useEffect, JSX} from "react";
 import dataJSON from "../data/github_user_report.json";
-import {rangesTo} from "../common/types";
+import {rangesTo} from "../common/math";
 import AtomDropdown, {
     AtomDropdownItemProps
 } from "../atoms/atom-dropdown";
-import Plotter from "../atoms/plotter";
-import {getScaleColor} from "../common/color-utils";
-import {calDaysInMonth} from "../common/date";
 import AtomStats from "../atoms/atom-stats";
+import {CalendarChart} from "../atoms/atom-echart";
 
-// Define types for the data structures
 interface DailyLog {
-    date: string; // ISO date string
+    date: ISODateStr; // ISO date string
     commits: number;
 }
 
@@ -29,14 +26,14 @@ interface Repository {
 type RawData = Repository[];
 
 interface ProcessedData {
-    [year: string]: {
-        [date: string]: number;
+    [year: Year]: {
+        [date: ISODateStr]: number;
     };
 }
 
 const GithubProfile: React.FC = () => {
     const [data, setData] = useState<ProcessedData>({});
-    const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+    const [currentYear, setCurrentYear] = useState<Year>(new Date().getFullYear());
     const [totalCommits, setTotalCommits] = useState<number>(0);
     const [longestStreak, setLongestStreak] = useState<number>(0);
     
@@ -51,67 +48,22 @@ const GithubProfile: React.FC = () => {
     
     const processData = (rawData: RawData): ProcessedData => {
         const formattedData: ProcessedData = {};
+        
         rawData.forEach((repo) => {
             repo.daily_log.forEach(({date, commits}) => {
                 const year = new Date(date).getFullYear();
                 if (!formattedData[year]) {
                     formattedData[year] = {};
                 }
-                if (!formattedData[year][date]) {
+                const dailyData = formattedData[year];
+                if (!dailyData[date]) {
                     formattedData[year][date] = 0;
                 } // Initialize to 0
-                formattedData[year][date] += commits; // Sum commits
-                                                      // across
-                                                      // repositories
+                formattedData[year][date] += commits;
             });
         });
         return formattedData;
     };
-    
-    const generateCustomDates = (year: number): (string | null)[][] => {
-        const daysInMonth = calDaysInMonth(year); // Get days in
-                                                  // each month for
-                                                  // the year
-        const grid = Array.from({length: gridY}, () => Array(gridX).fill(null)); // Create empty grid
-        
-        let currentCol = 0; // Tracks the column for each month
-        let monthIndex = 0;
-        
-        for (let x = 0; x < gridX; x += 2) {
-            const firstHalf = Array(gridY).fill(null);
-            const secondHalf = Array(gridY).fill(null);
-            
-            for (let day = 1; day <= daysInMonth[monthIndex]; day++) {
-                const dateKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-                
-                if (day <= gridY) {
-                    firstHalf[day - 1] = dateKey; // Fill first half
-                                                  // with valid
-                                                  // dates
-                } else {
-                    secondHalf[day - 17] = dateKey; // Fill second
-                                                    // half with
-                                                    // valid dates
-                }
-            }
-            
-            // Assign valid dates or nulls to grid
-            for (let row = 0; row < gridY; row++) {
-                grid[row][currentCol] = firstHalf[row];
-                grid[row][currentCol + 1] = secondHalf[row];
-            }
-            
-            monthIndex += 1; // Move to the next month
-            if (monthIndex >= 12) {
-                break;
-            } // Stop if no more months
-            
-            currentCol += 2; // Move to the next pair of columns
-        }
-        
-        return grid;
-    };
-    
     
     const updateStats = (yearData: Record<string, number>): void => {
         const dates = Object.keys(yearData);
@@ -131,89 +83,6 @@ const GithubProfile: React.FC = () => {
         setLongestStreak(Math.max(longest, current));
     };
     
-    const gridX = 24;
-    const gridY = 16;
-    
-    const yearlyHeatmapData = (year: number): (number | null)[][] => {
-        const grid = Array.from({length: gridY}, () => Array(gridX).fill(null));
-        const daysInMonth = calDaysInMonth(year);
-        
-        if (!data[year]) {
-            return grid;
-        } // Return empty grid if no data for the year
-        const yearlyData = data[year];
-        
-        let currentCol = 0; // Tracks the column for each month
-        
-        daysInMonth.forEach((days, monthIndex) => {
-            const firstHalf = Array(gridY).fill(null);
-            const secondHalf = Array(gridY).fill(null);
-            
-            for (let day = 1; day <= days; day++) {
-                const dateKey = `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const commits = yearlyData[dateKey] ?? 0; // Default
-                                                          // to 0 if
-                                                          // data is
-                                                          // missing
-                
-                if (day <= gridY) {
-                    firstHalf[day - 1] = commits; // Fill the first
-                                                  // half of the
-                                                  // month
-                } else {
-                    secondHalf[day - 17] = commits; // Fill the
-                                                    // second half
-                                                    // of the month
-                }
-            }
-            
-            // Assign data to the grid columns for the current month
-            for (let row = 0; row < gridY; row++) {
-                grid[row][currentCol] = firstHalf[row]; // First
-                                                        // half in
-                                                        // the first
-                                                        // column
-                grid[row][currentCol + 1] = secondHalf[row]; // Second
-                                                             // half
-                                                             // in
-                                                             // the
-                                                             // second
-                                                             // column
-            }
-            
-            currentCol += 2; // Move to the next month's columns
-        });
-        
-        return grid;
-    };
-    
-    const renderPlot = (year: number): JSX.Element => {
-        const dataToPlot = yearlyHeatmapData(year); // This is your
-                                                    // z-values
-                                                    // array
-        const customData = generateCustomDates(year); // Generate
-                                                      // custom
-                                                      // dates
-        
-        const dataTrace: Partial<Plotly.Data> = {
-            z: dataToPlot,
-            customdata: customData, // Attach metadata to each point
-            colorscale: getScaleColor("rgb(30,251,28)", "rgba(99,99,99,0.21)", 16, "log"),
-            type: "heatmap",
-            xgap: 7,
-            ygap: 7,
-            zmin: 1,
-            showscale: false,
-            hovertemplate: "%{z} commits on %{customdata}<extra></extra>", // Use customdata in hovertemplate
-            x: Array.from({length: gridX}, (_, num) => num), // X-axis
-                                                             // labels
-            y: Array.from({length: gridY}, (_, num) => num), // Y-axis
-                                                             // labels
-        };
-        
-        return <Plotter dataTrace={[dataTrace]}/>;
-    };
-    
     const years = Object.keys(data).map(Number).sort((a, b) => b - a);
     const dropdownOptions = rangesTo(
         years,
@@ -227,12 +96,12 @@ const GithubProfile: React.FC = () => {
     
     return (
         <div
-            className="p-1 w-full sm:max-w-screen-sm md:max-w-screen rounded-lg border-2 border-neutral border-opacity-25"
+            className="p-2 w-full h-full justify-center items-center"
         >
             <div
-                className="flex space-x-1 mb-4 w-full justify-center item-center">
-                    <AtomStats text={'Total Commits'} value={totalCommits}/>
-                    <AtomStats text={'Longest Streak'} value={longestStreak}/>
+                className="w-fit flex m-auto justify-between item-center">
+                <AtomStats text={'Total Commits'} value={totalCommits}/>
+                <AtomStats text={'Longest Streak'} value={longestStreak}/>
                 {dropdownOptions.length > 0 && (
                     <AtomDropdown
                         options={dropdownOptions}
@@ -243,9 +112,14 @@ const GithubProfile: React.FC = () => {
                     />
                 )}
             </div>
-            <div>{data[currentYear] && renderPlot(currentYear)}</div>
+            <div className='w-full h-full'>
+                {data[currentYear] && <CalendarChart data={data[currentYear]} unit={'Commits'}
+                                                     year={currentYear}/>}
+                {!data[currentYear] && <div>No data for this year</div>}
+            </div>
         </div>
     );
 };
+
 
 export default GithubProfile;

@@ -3,7 +3,7 @@ import AtomTimeline from "../atoms/atom-timeline";
 import FullScreenPage from "../atoms/full-page";
 import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
-import {rangesTo} from "../common/types";
+import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
 import {AtomButtonProps} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
@@ -60,11 +60,11 @@ const AboutMe = () => {
                     <AtomButtonGroup items={socialMediaItems}/>
                     
                     <div
-                        className="flex flex-col md:flex-row w-full h-fit gap-8">
-                        <div className="md:w-1/2 w-full h-full">
-                            <AtomTimeline items={timelineData}/>
+                        className="flex flex-col p-8 w-full h-fit gap-8">
+                        <div className="w-full h-1/2">
+                            <AtomTimeline items={timelineData} orientation={'horizontal'}/>
                         </div>
-                        <div className="md:w-1/2 w-full h-fit">
+                        <div className="w-full h-1/2">
                             <GithubProfile/>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import {rangesTo} from "../../common/types";
+import {rangesTo} from "../../common/math";
 import muvizInstance from "./muviz/muviz";
 import {RouteDefinition} from "../../common/router";
 import meshaInstance from "./mesha/mesha";
