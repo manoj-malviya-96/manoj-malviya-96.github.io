@@ -52,7 +52,7 @@ jobs:
           )
 
           # Initialize JSON for storing repository data
-          echo '{"repositories": []}' > data/github_user_report.json
+          echo '{"repositories": []}' > src/data/github_user_report.json
 
           # Loop through each repository and fetch basic commit counts, grouped by date, and languages
           for repo in "${repositories[@]}"; do
@@ -106,7 +106,7 @@ jobs:
 
               # Add repository data (daily log with commit date and languages) to the JSON output
               jq --arg repo "$repo" --argjson daily_log "$daily_log" --argjson languages "$languages" \
-                '.repositories += [{"repo": $repo, "daily_log": $daily_log, "languages": $languages}]' data/github_user_report.json > data/temp.json && mv data/temp.json data/github_user_report.json
+                '.repositories += [{"repo": $repo, "daily_log": $daily_log, "languages": $languages}]' src/data/github_user_report.json > src/data/temp.json && mv src/data/temp.json src/data/github_user_report.json
             else
               echo "Skipping repository $repo due to no commits found."
             fi
