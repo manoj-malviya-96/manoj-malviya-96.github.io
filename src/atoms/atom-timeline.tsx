@@ -35,7 +35,7 @@ const AtomTimeline: React.FC<TimelineProps> = ({items, orientation = 'vertical'}
     const makeCard = (item: TimelineItemProps) => {
         return (
             <AtomCard image={item.image} title={item.title} description={item.description}
-                      centerAlign={true} className="w-fit"
+                      className="w-full"
                       onClick={item.onClick}/>
         );
     };

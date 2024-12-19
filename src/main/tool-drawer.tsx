@@ -15,7 +15,6 @@ const ToolDrawer = () => {
             description: tool.description,
             image: tool.cover,
             onClick: () => navigate(tool.path),
-            centerAlign: true,
         };
     });
     
@@ -23,8 +22,9 @@ const ToolDrawer = () => {
         <FullScreenPage
             name="tools"
             title="Tools"
-            children={<AtomCardGrid items={items}/>}
-        />
+        >
+            <AtomCardGrid items={items} classNameForCard={'w-48 h-48'}/>
+        </FullScreenPage>
     );
 }
 

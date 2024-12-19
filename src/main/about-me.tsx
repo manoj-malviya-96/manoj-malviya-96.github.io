@@ -62,7 +62,7 @@ const AboutMe = () => {
                     <div
                         className="flex flex-col flex-grow p-8 w-full h-fit gap-32">
                         <div className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
-                            <AtomCardGrid items={timelineData}/>
+                            <AtomCardGrid items={timelineData} classNameForCard={'w-64 h-fit py-2'}/>
                         </div>
                         <div className="w-full h-1/2">
                             <GithubProfile/>
