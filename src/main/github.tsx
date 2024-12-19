@@ -105,7 +105,7 @@ const GithubProfile: React.FC = () => {
                 {dropdownOptions.length > 0 && (
                     <AtomDropdown
                         options={dropdownOptions}
-                        className="m-auto h-full bg-transparent"
+                        className="w-64 m-auto"
                         initialIndex={0}
                         dropdownIcon='pi pi-calendar'
                         onClick={(option) => setCurrentYear(Number(option))}

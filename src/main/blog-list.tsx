@@ -24,7 +24,11 @@ const BlogListing = () => {
         <FullScreenPage
             title="Blogs"
             name="blog"
-            children={<AtomCardGrid items={items}/>}
+            children={
+            <AtomCardGrid
+                items={items}
+                classNameForCard={'h-96 w-72'}
+            />}
         />
     );
 };
