@@ -237,7 +237,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 step={0.01}
                                 onChange={changeVolume}
                                 neutralMode={true}
-                                size="small"
                                 className={"w-1/3 h-fit"}
                             />
                         </div>
