@@ -32,7 +32,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                                                     size = "normal",
                                                     neutralMode = false,
                                                 }) => {
-    const height = size === "small" ? 3 : 5;
+    const magicSize = size === "small" ? 3 : 5;
     const {daisyPrimary, daisyNeutral} = useTheme();
     
     let progressPercentage = 0;
@@ -63,13 +63,13 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                 style={{
                     appearance: "none",
                     width: "100%",
-                    height: `${height}px`,
+                    height: `${magicSize}px`,
                     outline: "none",
                     cursor: "pointer",
                     background: `linear-gradient(to right,
                                     ${mainColor} ${progressPercentage}%,
                                     ${backgroundColor} ${progressPercentage}%)`,
-                    borderRadius: "5px",
+                    borderRadius: `${magicSize / 2}px`,
                 }}
             />
             <style>{`
@@ -77,9 +77,9 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                     -webkit-appearance: none;
                     appearance: none;
                     background-color: ${mainColor};
-                    width: ${height}px;
-                    border-radius: 2px;
-                    height: ${4 * height}px;
+                    width: ${magicSize}px;
+                    border-radius: ${magicSize / 2}px;
+                    height: ${4 * magicSize}px;
                     cursor: pointer;
                 }
             `}</style>
