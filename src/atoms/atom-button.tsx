@@ -79,7 +79,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                 }}
             >
                 {/* Icons hack: Tailwind + PrimeReact messes up the padding, when only icon is used */}
-                {icon && <i className={icon}/>}
+                {icon && <i className={`${icon} w-4 h-4`}/>}
                 {label && <span
                     className="hidden sm:inline">{label}</span>}
             </Button>
