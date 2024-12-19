@@ -133,6 +133,7 @@ const TrussOptView = () => {
                                     value: LatticeType.Checkerboard
                                 }
                             ]}
+                            className={'w-40'}
                             onClick={setLatticeType}
                         />
                         <div className="flex flex-row gap-2">

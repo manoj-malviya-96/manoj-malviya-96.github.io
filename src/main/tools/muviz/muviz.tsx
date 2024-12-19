@@ -222,10 +222,10 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                             <AtomButton
                                 icon={
                                     volume === 0
-                                    ? "fa-solid fa-volume-xmark"
-                                    : volume > 0.69
-                                      ? "fa-solid fa-volume-high"
-                                      : "fa-solid fa-volume-low"
+                                        ? "fa-solid fa-volume-xmark"
+                                        : volume > 0.69
+                                            ? "fa-solid fa-volume-high"
+                                            : "fa-solid fa-volume-low"
                                 }
                                 neutralGhost={true}
                                 onClick={toggleVolume}
@@ -249,14 +249,14 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 options={songOptions}
                                 dropdownIcon={"fas fa-music"}
                                 onClick={handleSampleSongChange}
-                                className="h-full w-fit m-auto"
+                                className="h-full w-44 m-auto"
                                 placeholder="Select Song"
                                 neutralMode={true}
                             />
                             <AtomDropdown
                                 options={vizOptions}
                                 onClick={handleVisualizerChange}
-                                className="h-full w-fit m-auto"
+                                className="h-full w-28 m-auto"
                                 placeholder="Select Visualizer"
                                 initialIndex={0}
                                 neutralMode={true}
