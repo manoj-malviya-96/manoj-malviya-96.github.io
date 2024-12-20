@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {AtomButton, AtomButtonProps} from "./atom-button";
 import AtomDialog from "./atom-dialog";
 
@@ -16,26 +16,13 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                                                      disabled,
                                                      title,
                                                      dialogContent,
-                                                     footerButtons = [],
                                                      addOkButton = false,
                                                      ...atomButtonProps // Capture any additional AtomButton props
                                                  }) => {
-    const [visible, setVisible] = useState(false);
-    const showDialog = useCallback(() => {
-        setVisible(true);
-    }, [setVisible]);
     
-    const hideDialog = useCallback(() => {
-        setVisible(false);
-    }, [setVisible]);
     
-    if (addOkButton) {
-        footerButtons?.push({
-            label: "OK",
-            icon: "fa fa-check",
-            onClick: hideDialog,
-        });
-    }
+    const [isOpen, setIsOpen] = useState(false);
+    
     
     return (
         <>
@@ -43,16 +30,16 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                 {...atomButtonProps} // Spread AtomButton props
                 label={label}
                 icon={icon}
-                onClick={showDialog}
+                onClick={() => setIsOpen(!isOpen)}
                 className={className}
                 disabled={disabled}
             />
-            <AtomDialog visible={visible}
-                        title={title}
-                        modal={true}
-                        onHide={hideDialog}
-                        content={dialogContent}
-                        footerButtons={footerButtons}/>
+            <AtomDialog
+                title={title}
+                visible={isOpen}
+                content={dialogContent}
+                closeCallback={() => setIsOpen(false)}
+            />
         </>
     );
 };

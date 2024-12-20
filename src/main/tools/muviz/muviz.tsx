@@ -267,7 +267,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                     </div>
                                 }
                                 type={ButtonType.Ghost}
-                                addOkButton={true}
                             />
                             <AtomButton
                                 icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
