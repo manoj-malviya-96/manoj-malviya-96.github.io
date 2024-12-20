@@ -1,91 +1,74 @@
-import React, {useContext} from 'react';
-import {Button} from 'primereact/button';
+import React from 'react';
 import MotionDiv from './motion-div';
-import {ScreenSizeContext, ScreenSizes} from '../common/screen';
+
+export enum ButtonSize {
+    ExtraSmall = 'btn-xs',
+    Small = 'btn-sm',
+    Medium = '',
+    Large = 'btn-lg',
+}
+
+export enum ButtonSeverity {
+    Primary = 'btn-primary',
+    Secondary = 'btn-secondary',
+    Success = 'btn-success',
+    Info = 'btn-info',
+    Warning = 'btn-warning',
+    Error = 'btn-error',
+}
+
+export enum ButtonType {
+    Outlined = 'btn-outline',
+    Ghost = 'btn-ghost hover:bg-transparent hover:border-0 hover:font-bold active:bg-transparent',
+    Solid = '',
+}
 
 export interface AtomButtonProps {
     icon?: string;
     label?: string;
     onClick?: () => void;
-    severity?: 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'help' | 'contrast' | undefined;
-    size?: 'small' | undefined | 'large';
-    badge?: string;
+    size?: ButtonSize;
+    type?: ButtonType;
+    severity?: ButtonSeverity;
     tooltip?: string;
     rounded?: boolean;
-    outlined?: boolean;
     disabled?: boolean;
-    raised?: boolean;
-    ghost?: boolean;
-    className?: string;
     loading?: boolean;
-    neutralGhost?: boolean;
     animated?: boolean;
+    className?: string;
 }
 
 const _AtomButton: React.FC<AtomButtonProps> = ({
                                                     icon,
                                                     label,
                                                     onClick,
-                                                    severity,
-                                                    size,
-                                                    badge,
+                                                    severity = ButtonSeverity.Primary,
+                                                    size = ButtonSize.Medium,
+                                                    type = ButtonType.Solid,
                                                     tooltip,
-                                                    rounded = true,
-                                                    outlined = false,
                                                     disabled = false,
-                                                    raised = false,
-                                                    ghost = false,
                                                     loading = false,
-                                                    neutralGhost = false,
-                                                    animated=false,
                                                     className = '',
                                                 }) => {
-    const breakpoint = useContext(ScreenSizeContext);
-    
-    let daisyClass = ghost ? 'btn-ghost w-full' : 'btn-primary';
-    if (neutralGhost) {
-        daisyClass = 'bg-transparent text-neutral border-none ' +
-                     'hover:bg-transparent hover:text-white disabled:text-neutral-50';
-    }
-    if (!outlined) {
-        daisyClass += ' bg-opacity-70 backdrop-blur-xl border-none';
-    }
-    if (animated) {
-        daisyClass += 'animate-spin';
-    }
+    const daisyClass = `btn ${size} ${type} ${severity}`;
     
     return (
-        <MotionDiv enableHoverEffect={!ghost && !neutralGhost}>
-            <Button
-                className={`btn ${daisyClass} w-fit h-fit justify-center 
-                            items-center px-5 py-0 m-0`}
-                size={breakpoint !== ScreenSizes.Small ? size : 'large'}
-                severity={severity}
-                rounded={rounded}
-                outlined={outlined}
-                disabled={disabled}
-                raised={raised}
-                badge={badge}
-                text={ghost}
-                onClick={onClick}
-                loading={loading}
-                tooltip={tooltip ?? ''}
-                tooltipOptions={{
-                    showDelay: 300,
-                    hideDelay: 100,
-                    position: 'bottom',
-                    mouseTrack: true,
-                    mouseTrackTop: 15,
-                }}
-            >
-                {/* Icons hack: Tailwind + PrimeReact messes up the padding, when only icon is used */}
-                {icon && <i className={`${icon} w-4 h-4`}/>}
-                {label && <span
-                    className="hidden sm:inline">{label}</span>}
-            </Button>
+        <MotionDiv enableHoverEffect={!disabled}>
+            <div className="tooltip tooltip-primary tooltip-bottom" data-tip={tooltip}>
+                <button
+                    className={`btn ${label ? 'md:px-4 rounded-full' : 'btn-circle'}
+                                ${daisyClass}
+                                ${className}`}
+                    onClick={onClick}
+                    disabled={disabled}
+                >
+                    {loading && <div className="spinner spinner-primary"/>}
+                    {icon && <i className={`${icon}`}/>}
+                    {label && <span className="hidden sm:inline">{label}</span>}
+                </button>
+            </div>
         </MotionDiv>
     );
 };
-
 
 export const AtomButton = React.memo(_AtomButton);

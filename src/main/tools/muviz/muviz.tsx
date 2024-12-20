@@ -1,14 +1,9 @@
 import React, {useCallback, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
-import {
-    AudioPlayerProps,
-    useAudioPlayer
-} from "../../../common/audio";
-import {AtomButton} from "../../../atoms/atom-button";
+import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
+import {AtomButton, ButtonSize, ButtonType} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
-import AtomDropdown, {
-    AtomDropdownItemProps
-} from "../../../atoms/atom-dropdown";
+import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
 
 import CallingON from './sample-music/calling.mp3';
 import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
@@ -17,12 +12,7 @@ import Uneath from './sample-music/uneath.mp3';
 import {AtomCanvas, AtomCanvasController} from "../../../atoms/atom-canvas";
 import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../common/date";
-import {
-    BarVisualizer,
-    SpiralVisualizer,
-    toString,
-    VisualizerType
-} from "./visualizers";
+import {BarVisualizer, SpiralVisualizer, toString, VisualizerType} from "./visualizers";
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import ModalButton from "../../../atoms/modal-button";
 import {toggleFullScreen} from "../../../common/full-screen";
@@ -148,6 +138,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     // Render
     return (
         <div className="h-full w-full justify-center align-center"
+             data-theme="Dark"
              ref={appRef}>
             <AtomCanvas controller={controller}
                         className="bg-black absolute top-0 left-0 w-full h-full z-0"/>
@@ -162,24 +153,24 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                         items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2">
                     <AtomButton
                         icon="fa-solid fa-arrow-rotate-left"
-                        neutralGhost={true}
-                        size="large"
+                        type={ButtonType.Ghost}
+                        size={ButtonSize.Large}
                         onClick={skipBackward}
                         disabled={!src || currentTime < 10}
                     />
                     <AtomButton
                         icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
                         disabled={!src}
-                        size="large"
-                        neutralGhost={true}
+                        size={ButtonSize.Large}
+                        type={ButtonType.Ghost}
                         onClick={handlePlayOrPause}
                     />
                     <AtomButton
                         icon="fa-solid fa-arrow-rotate-right"
-                        size="large"
+                        type={ButtonType.Ghost}
+                        size={ButtonSize.Large}
                         onClick={skipForward}
                         disabled={!src}
-                        neutralGhost={true}
                     />
                 </div>
                 
@@ -227,7 +218,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                             ? "fa-solid fa-volume-high"
                                             : "fa-solid fa-volume-low"
                                 }
-                                neutralGhost={true}
+                                type={ButtonType.Ghost}
                                 onClick={toggleVolume}
                             />
                             <AtomSlider
@@ -263,7 +254,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                             <ModalButton
                                 icon="fa-solid fa-plus"
                                 title="Choose Music"
-                                className="h-full w-fit m-auto"
                                 onClick={() => {
                                 }}
                                 dialogContent={
@@ -276,14 +266,13 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                             onFileChange={handleFileChange}/>
                                     </div>
                                 }
-                                neutralGhost={true}
+                                type={ButtonType.Ghost}
                                 addOkButton={true}
                             />
                             <AtomButton
                                 icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
-                                className="h-full w-fit m-auto"
                                 onClick={handleToggleFullScreen}
-                                neutralGhost={true}
+                                type={ButtonType.Ghost}
                             />
                         </div>
                     </div>

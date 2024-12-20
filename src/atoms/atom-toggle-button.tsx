@@ -22,10 +22,10 @@ const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
     const [checked, setChecked] = useState<boolean>(initValue);
     
     if (!onLabel) {
-        onLabel=offLabel;
+        onLabel = offLabel;
     }
     if (!onIcon && offIcon) {
-        onIcon=offIcon;
+        onIcon = offIcon;
     }
     
     const onToggle = () => {
@@ -42,7 +42,6 @@ const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
             label={checked ? onLabel : offLabel}
             icon={checked ? onIcon : offIcon}
             onClick={onToggle}
-            outlined={!checked}
         />
     );
 };

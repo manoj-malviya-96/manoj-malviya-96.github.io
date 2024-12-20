@@ -4,7 +4,7 @@ import Logo from '../logos/trussopt.svg';
 import AppView from "../../../atoms/app-view";
 import AtomKnob from "../../../atoms/atom-knob";
 import AtomToggleButton from "../../../atoms/atom-toggle-button";
-import {AtomButton} from "../../../atoms/atom-button";
+import {AtomButton, ButtonSeverity} from "../../../atoms/atom-button";
 import AtomDropdown from "../../../atoms/atom-dropdown";
 import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import TrussMesh, {LatticeType} from "./truss-mesh";
@@ -172,13 +172,13 @@ const TrussOptView = () => {
                             <AtomButton
                                 label='Optimize'
                                 icon='pi pi-cog'
-                                severity={'info'}
+                                severity={ButtonSeverity.Success}
                                 tooltip={'optimize the truss'}
                                 onClick={optimize}
                             />
                             <AtomButton
                                 icon='fas fa-trash'
-                                severity={'danger'}
+                                severity={ButtonSeverity.Error}
                                 tooltip={'clear optimization results'}
                                 onClick={clearOptimize}
                             />

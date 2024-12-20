@@ -4,7 +4,7 @@ import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
-import {AtomButtonProps} from "../atoms/atom-button";
+import {AtomButtonProps, ButtonType} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
 import {useNavigate} from "react-router-dom";
 import AtomCardGrid from "../atoms/atom-card-grid";
@@ -26,6 +26,7 @@ const socialMediaItems = rangesTo(
     MySocialMediaLinks, (smLink: SocialMediaLink) => {
         return {
             icon: smLink[0],
+            type: ButtonType.Ghost,
             onClick: () => openLink(smLink[1], null),
             tooltip: smLink[2],
         } as AtomButtonProps;

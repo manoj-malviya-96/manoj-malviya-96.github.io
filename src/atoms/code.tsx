@@ -1,23 +1,14 @@
 import React, {useState} from "react";
 import {Light as SyntaxHighlighter} from "react-syntax-highlighter";
-import {
-    irBlack as darkStyle,
-    github as lightStyle
-} from "react-syntax-highlighter/dist/esm/styles/hljs"; // Choose a
-                                                        // theme
-
+import {github as lightStyle, irBlack as darkStyle} from "react-syntax-highlighter/dist/esm/styles/hljs"; // Choose a
+// theme
 // Import languages
-import cpp
-    from "react-syntax-highlighter/dist/esm/languages/hljs/cpp";
-import javascript
-    from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
-import python
-    from "react-syntax-highlighter/dist/esm/languages/hljs/python";
-import matlab
-    from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
-import qml
-    from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
-import {AtomButton} from "./atom-button";
+import cpp from "react-syntax-highlighter/dist/esm/languages/hljs/cpp";
+import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
+import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
+import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
+import {AtomButton, ButtonType} from "./atom-button";
 import {useTheme} from "../common/theme";
 
 // Register languages
@@ -74,9 +65,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
                     icon={copySuccess ? "fas fa-check" : "fas fa-copy"}
                     label={copySuccess ? "Copied!" : "Copy"}
                     onClick={handleCopy}
-                    size={"small"}
-                    rounded={false}
-                    ghost={true}
+                    type={ButtonType.Ghost}
                 />
             </div>
             
