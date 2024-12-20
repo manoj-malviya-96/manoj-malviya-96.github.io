@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AtomButton, AtomButtonProps} from "./atom-button";
 
 interface AtomToggleButtonProps extends AtomButtonProps {
@@ -20,6 +20,10 @@ const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
                                                                 ...props
                                                             }) => {
     const [checked, setChecked] = useState<boolean>(initValue);
+    
+    useEffect(() => {
+        setChecked(initValue);
+    }, [initValue]);
     
     if (!onLabel) {
         onLabel = offLabel;
