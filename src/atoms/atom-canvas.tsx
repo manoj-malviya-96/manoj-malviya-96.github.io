@@ -132,7 +132,7 @@ export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, [setDimensions]);
+    }, [controller, setDimensions]);
     
     return (
         <canvas
