@@ -1,5 +1,5 @@
 import React from 'react';
-import MotionDiv from "./motion-div";
+import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 
 
 export interface AtomCardProps {
@@ -27,7 +27,7 @@ export const AtomCard: React.FC<AtomCardProps> = ({
                                                   }) => {
     
     return (
-        <MotionDiv>
+        <AtomSimpleMotionContainer>
             <div
                 className={`cursor-pointer rounded-lg border border-primary border-opacity-0 hover:border-opacity-100
                             ${className}`}
@@ -59,6 +59,6 @@ export const AtomCard: React.FC<AtomCardProps> = ({
                         <p className={`text-sm font-sans w-full ${centered ? 'text-center' : ''}`}>{description}</p>}
                 </div>
             </div>
-        </MotionDiv>
+        </AtomSimpleMotionContainer>
     );
 }

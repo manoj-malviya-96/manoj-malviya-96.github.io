@@ -7,7 +7,7 @@ interface MotionDivProps {
     enableTapEffect?: boolean;
 }
 
-const MotionDiv: React.FC<MotionDivProps> = ({
+const AtomSimpleMotionContainer: React.FC<MotionDivProps> = ({
                                                  children,
                                                  enableHoverEffect = true,
                                                  enableTapEffect = true
@@ -22,4 +22,4 @@ const MotionDiv: React.FC<MotionDivProps> = ({
     );
 };
 
-export default MotionDiv;
+export default AtomSimpleMotionContainer;

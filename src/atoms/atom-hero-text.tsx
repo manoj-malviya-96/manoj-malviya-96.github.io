@@ -1,5 +1,5 @@
 import React from "react";
-import MotionDiv from "./motion-div";
+import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 
 interface HeroTextProps {
     text: string;
@@ -8,15 +8,15 @@ interface HeroTextProps {
 }
 
 
-const HeroText: React.FC<HeroTextProps> = ({text, upperCase = true, className}) => {
+const AtomHeroText: React.FC<HeroTextProps> = ({text, upperCase = true, className}) => {
     return (
         <div className={`${className} m-auto align-center rounded-lg
                     justify-center p-8 cursor-pointer`}>
-            <MotionDiv>
+            <AtomSimpleMotionContainer>
                 <h2 className={`text-2xl text-center font-bold  ${upperCase ? 'uppercase' : ''}`}>{text}</h2>
-            </MotionDiv>
+            </AtomSimpleMotionContainer>
         </div>
     );
 }
 
-export default HeroText;
+export default AtomHeroText;

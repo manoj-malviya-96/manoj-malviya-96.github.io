@@ -9,7 +9,7 @@ interface ScrollableLinkProps {
 }
 
 //! Scroll to the section when a tab is clicked.
-const ScrollableLink: React.FC<ScrollableLinkProps> = ({
+const AtomScrollableLink: React.FC<ScrollableLinkProps> = ({
                                                            elementName,
                                                            className,
                                                            activeClassName,
@@ -31,5 +31,5 @@ const ScrollableLink: React.FC<ScrollableLinkProps> = ({
     );
 };
 
-export default ScrollableLink;
+export default AtomScrollableLink;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import MotionDiv from './motion-div';
+import AtomSimpleMotionContainer from './atom-simple-motion-container';
 
 export enum ButtonSize {
     ExtraSmall = 'btn-xs',
@@ -57,7 +57,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
         <div className={`${tooltip ? 'tooltip tooltip-primary tooltip-bottom' : ''}`}
              data-tip={tooltip}>
             
-            <MotionDiv enableHoverEffect={!disabled}>
+            <AtomSimpleMotionContainer enableHoverEffect={!disabled}>
                 <button
                     className={`btn ${label ? 'md:px-4 rounded-full' : 'btn-circle'}
                                 ${daisyClass}
@@ -74,7 +74,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                     {icon && <i className={`${icon}`}/>}
                     {label && <span className="hidden sm:inline">{label}</span>}
                 </button>
-            </MotionDiv>
+            </AtomSimpleMotionContainer>
         </div>
     );
 };

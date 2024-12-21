@@ -6,7 +6,7 @@ import {
     useLocation
 } from "react-router-dom";
 import {AnimatePresence, Variants} from "motion/react";
-import SlidingAnimation from "../atoms/sliding-animation";
+import AtomMotionSlidingAnimation from "../atoms/atom-motion-sliding-animation";
 import NavBar from "./navbar";
 
 // Define the type for an individual route
@@ -40,9 +40,9 @@ const MakeRoutesWithAnimation: React.FC<MakeRoutesWithAnimationProps> = ({routes
                         key={index}
                         path={path}
                         element={
-                            <SlidingAnimation {...animation}>
+                            <AtomMotionSlidingAnimation {...animation}>
                                 <Component {...props} />
-                            </SlidingAnimation>
+                            </AtomMotionSlidingAnimation>
                         }
                     />
                 ))}

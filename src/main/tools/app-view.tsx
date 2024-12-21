@@ -1,4 +1,4 @@
-import FullScreenPage from "../../atoms/full-page";
+import AtomFullScreenContainer from "../../atoms/atom-full-screen-container";
 import React from "react";
 import {useNavbar} from "../../providers/navbar";
 
@@ -14,7 +14,7 @@ const AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
     setLogo(appLogo);
     setName(appName);
     return (
-        <FullScreenPage
+        <AtomFullScreenContainer
             name={appName.toLowerCase()}
             title=""
             children={children}

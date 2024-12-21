@@ -10,7 +10,7 @@ interface FullScreenPageProps {
     backgroundImage?: string;
 }
 
-const FullScreenPage: React.FC<FullScreenPageProps> = ({
+const AtomFullScreenContainer: React.FC<FullScreenPageProps> = ({
                                                            name,
                                                            title,
                                                            children,
@@ -55,4 +55,4 @@ const FullScreenPage: React.FC<FullScreenPageProps> = ({
     );
 };
 
-export default FullScreenPage;
+export default AtomFullScreenContainer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import FullScreenPage from "../atoms/full-page";
+import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
@@ -44,7 +44,7 @@ const AboutMe = () => {
         };
     });
     return (
-        <FullScreenPage
+        <AtomFullScreenContainer
             name="about-me"
             title="About me"
             children={

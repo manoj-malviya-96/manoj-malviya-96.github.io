@@ -1,11 +1,11 @@
 import React from 'react';
-import FullScreenPage from "../atoms/full-page";
+import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import ProfilePicture from "./assets/main.jpg";
 import {AtomButton} from "../atoms/atom-button";
 
 const Intro = () => {
     return (
-        <FullScreenPage
+        <AtomFullScreenContainer
             name="intro"
             backgroundImage={ProfilePicture}
             children={

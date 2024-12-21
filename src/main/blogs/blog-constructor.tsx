@@ -1,13 +1,13 @@
 import React from 'react';
 import TemplateCover from '../assets/main.jpg';
-import FullScreenPage from "../../atoms/full-page";
+import AtomFullScreenContainer from "../../atoms/atom-full-screen-container";
 import {BlogInfo} from "./blog-info";
 import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
-import TableOfContents from "../../atoms/table-of-contents";
+import AtomTableOfContents from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
-import HeroText from "../../atoms/hero-text";
-import HeroList from "../../atoms/hero-list";
+import AtomHeroText from "../../atoms/atom-hero-text";
+import AtomHeroList from "../../atoms/atom-hero-list";
 import {
     InlineContentType,
     makeRichParagraph
@@ -30,7 +30,7 @@ const BlogHeader: React.FC<BlogHeaderProps> = (
     }
     return (
         <header className="w-screen h-fit bg-transparent py-4">
-            <FullScreenPage
+            <AtomFullScreenContainer
                 name='header'
                 children={
                     <div
@@ -147,20 +147,20 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                         />
                     }
                     {media.kind === 'heroText' &&
-                        <HeroText text={media.text}
-                                  className='w-full'/>
+                        <AtomHeroText text={media.text}
+                                      className='w-full'/>
                     }
                     {media.kind === 'heroList' &&
-                        <HeroList contentList={media.contentList}
-                                  numbered={media.numbered}
-                                  className='w-full'/>
+                        <AtomHeroList contentList={media.contentList}
+                                      numbered={media.numbered}
+                                      className='w-full'/>
                     }
                 </div>
             )
         }
     ;
     return (
-        <FullScreenPage
+        <AtomFullScreenContainer
             name={name}
             title={title}
             children={
@@ -195,7 +195,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
             {/* Table of Contents - padding is left 16, as i use padding-16 for full page view */}
             <div
                 className="sticky left-16 top-1/2 hidden md:inline-block w-fit h-fit">
-                <TableOfContents sections={item.tabs()}/>
+                <AtomTableOfContents sections={item.tabs()}/>
             </div>
             {/* Blog Content */}
             <div className="inline-block w-full h-fit">

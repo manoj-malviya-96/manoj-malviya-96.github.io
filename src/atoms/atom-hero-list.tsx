@@ -8,7 +8,7 @@ interface HeroListProps {
 }
 
 
-const HeroList: React.FC<HeroListProps> = ({
+const AtomHeroList: React.FC<HeroListProps> = ({
                                                contentList,
                                                numbered = false,
                                                className = ''
@@ -34,4 +34,4 @@ const HeroList: React.FC<HeroListProps> = ({
     );
 }
 
-export default HeroList;
+export default AtomHeroList;

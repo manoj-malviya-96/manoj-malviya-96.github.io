@@ -6,7 +6,7 @@ interface ScrollContainerProps {
 }
 
 
-const ScrollContainer: React.FC<ScrollContainerProps> = ({
+const AtomScrollContainer: React.FC<ScrollContainerProps> = ({
                                                              className,
                                                              children
                                                          }) => {
@@ -18,4 +18,4 @@ const ScrollContainer: React.FC<ScrollContainerProps> = ({
         </div>
     );
 };
-export default ScrollContainer;
+export default AtomScrollContainer;
