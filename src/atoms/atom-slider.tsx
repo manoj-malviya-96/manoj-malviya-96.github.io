@@ -33,14 +33,14 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                                                     neutralMode = false,
                                                 }) => {
     const magicSize = size === "small" ? 3 : 5;
-    const {daisyPrimary, daisyNeutral} = useTheme();
+    const {daisyPrimary} = useTheme();
     
     let progressPercentage = 0;
     if (value) {
         progressPercentage = ((value - min) / (max - min)) * 100;
     }
     
-    const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
+    const mainColor = neutralMode ? 'rgba(200,200,200)' : daisyPrimary;
     const backgroundColor = adjustColor(mainColor, 0.27);
     
     return (

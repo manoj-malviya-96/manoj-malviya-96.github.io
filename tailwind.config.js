@@ -19,41 +19,24 @@ module.exports = {
         themes: [{
             Light: {
                 "primary": "#c8c8c8",
-
                 "secondary": "#a9a9a9",
-
-                "accent": "#939393",
-
+                "accent": "#0d0d0d",
                 "neutral": "#797979",
-
                 "base-100": "#e8e8e8",
-
                 "info": "#60a5fa",
-
                 "success": "#34d399",
-
                 "warning": "#fb923c",
-
                 "error": "#fb7185",
             },
             Dark: {
-
                 "primary": "#0d0d0d",
-
                 "secondary": "#454545",
-
-                "accent": "#646464",
-
+                "accent": "#c8c8c8",
                 "neutral": "#797979",
-
                 "base-100": "#00000d",
-
                 "info": "#2563eb",
-
                 "success": "#047857",
-
                 "warning": "#d97706",
-
                 "error": "#e11d48",
             }
         }], // Add more themes here if needed
