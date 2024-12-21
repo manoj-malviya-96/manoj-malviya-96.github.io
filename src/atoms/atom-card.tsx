@@ -50,13 +50,14 @@ const _AtomCard: React.FC<AtomCardProps> = ({
                     </span>
                     
                     {date &&
-                        <span className="flex flex-row items-center text-sm font-sans gap-2">
+                        <span className="flex flex-row items-center text-sm text-secondary-content gap-2">
                             {date}
                             <i className="far fa-calendar-alt"/>
                         </span>
                     }
                     {description &&
-                        <p className={`text-sm font-sans w-full ${centered ? 'text-center' : ''}`}>{description}</p>}
+                        <p className={`text-sm font-sans w-full text-secondary
+                            ${centered ? 'text-center' : ''}`}>{description}</p>}
                 </div>
             </div>
         </AtomSimpleMotionContainer>
