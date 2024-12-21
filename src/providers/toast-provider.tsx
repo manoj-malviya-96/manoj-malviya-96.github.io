@@ -35,7 +35,7 @@ export const useToast = (): ToastContextType => {
     return context;
 };
 
-export const ToastManager: React.FC<{ children: ReactNode }> = ({children}) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
     
     const addToast = (message: string, type: ToastType = "info", duration = 2000) => {
@@ -84,4 +84,4 @@ export const ToastManager: React.FC<{ children: ReactNode }> = ({children}) => {
     );
 };
 
-export default ToastManager;
+export default ToastProvider;
