@@ -242,7 +242,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 placeholder="Select Song"
                                 header={
                                     <ModalButton
-                                        icon="fa-solid fa-plus"
+                                        icon="fa-solid fa-upload"
                                         label="Upload"
                                         title="Upload Audio File"
                                         dialogContent= {
