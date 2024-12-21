@@ -5,19 +5,22 @@ import constructedRoutes from "./main/routes";
 import {ScreenSizeProvider} from "./providers/screen";
 import {ThemeProvider} from "./providers/theme";
 import {init as initAnalytics} from "./main/analytics";
-import Toasts from "./providers/toasts";
+import Toasts, {ToastProvider} from "./providers/toasts";
+import DialogProvider from "./providers/dialogs";
 
 const App = () => {
     initAnalytics();
     return (
         <ThemeProvider>
-            <Toasts>
-                <ScreenSizeProvider>
-                    <NavbarProvider>
-                        <RouterConstructor routes={constructedRoutes}/>
-                    </NavbarProvider>
-                </ScreenSizeProvider>
-            </Toasts>
+            <ScreenSizeProvider>
+                <NavbarProvider>
+                    <ToastProvider>
+                        <DialogProvider>
+                            <RouterConstructor routes={constructedRoutes}/>
+                        </DialogProvider>
+                    </ToastProvider>
+                </NavbarProvider>
+            </ScreenSizeProvider>
         </ThemeProvider>
     );
 };

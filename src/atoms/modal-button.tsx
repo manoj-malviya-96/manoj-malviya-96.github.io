@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {AtomButton, AtomButtonProps} from "./atom-button";
 import AtomDialog from "./atom-dialog";
+import {useDialog} from "../providers/dialogs";
 
 interface ModalButtonProps extends AtomButtonProps {
     title: string;
@@ -21,26 +22,16 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                                                  }) => {
     
     
-    const [isOpen, setIsOpen] = useState(false);
-    
-    
+    const {addDialog} = useDialog();
     return (
-        <>
-            <AtomButton
-                {...atomButtonProps} // Spread AtomButton props
-                label={label}
-                icon={icon}
-                onClick={() => setIsOpen(!isOpen)}
-                className={className}
-                disabled={disabled}
-            />
-            <AtomDialog
-                title={title}
-                visible={isOpen}
-                content={dialogContent}
-                closeCallback={() => setIsOpen(false)}
-            />
-        </>
+        <AtomButton
+            {...atomButtonProps} // Spread AtomButton props
+            label={label}
+            icon={icon}
+            onClick={() => addDialog({title, content: dialogContent})}
+            className={className}
+            disabled={disabled}
+        />
     );
 };
 

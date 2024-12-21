@@ -1,40 +1,55 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import {AtomButton} from "./atom-button";
 
 export interface AtomDialogProps {
     visible?: boolean;
     title?: string;
     content?: React.ReactNode;
-    neutralMode?: boolean;
     closeCallback?: () => void;
-    position?: { x: number; y: number }; // Add screen coordinates
 }
 
-const _AtomDialog: React.FC<AtomDialogProps> = ({
-                                                    title,
-                                                    content,
-                                                    visible = false,
-                                                    closeCallback = () => {
-                                                    },
-                                                }) => {
-    return (
-        <dialog
-            className={`modal absolute z-10 rounded-lg bg-transparent border-primary border
-                backdrop-blur-md flex flex-col p-8 transition-transform duration-300
-                ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
-        >
-            <div className="absolute top-4 right-4">
-                <AtomButton icon="fas fa-xmark" onClick={closeCallback}/>
-            </div>
-            
-            <div className="flex flex-col justify-center items-center p-4">
-                <h2 className="text-primary-content text-2xl font-bold text-center">{title}</h2>
-                <div className="mt-4">{content}</div>
-            </div>
-        </dialog>
-    );
-};
+const AtomDialog = forwardRef<HTMLDivElement, AtomDialogProps>(
+    ({title, content, visible = false, closeCallback}, ref) => {
+        return (
+            <>
+                {/* Background overlay */}
+                <div className={`fixed inset-0 w-full h-full z-20 backdrop-brightness-75
+                                bg-transparent ${visible ? "block" : "hidden"}`}/>
+                {/* Dialog */}
+                <div
+                    ref={ref}
+                    tabIndex={-1}
+                    className={`fixed left-0 bottom-0 w-full h-fit z-20
+                            flex flex-col justify-center items-center p-8
+                            backdrop-blur-md bg-primary bg-opacity-50
+                            border-primary border rounded-t-lg
+                            transition-transform duration-500 ${
+                        visible
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-full opacity-0 pointer-events-none"
+                    }`}
+                    role="dialog"
+                    aria-labelledby="dialog-title"
+                    aria-modal="true"
+                >
+                    <div className="absolute top-4 right-4">
+                        <AtomButton icon="fas fa-xmark" onClick={closeCallback}/>
+                    </div>
+                    <div className="flex flex-col justify-center items-center p-4">
+                        <h2
+                            id="dialog-title"
+                            className="text-primary-content text-2xl font-bold text-center"
+                        >
+                            {title}
+                        </h2>
+                        <div className="mt-4">{content}</div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+);
 
-const AtomDialog = React.memo(_AtomDialog);
+AtomDialog.displayName = "AtomDialog";
 
 export default AtomDialog;
