@@ -57,8 +57,7 @@ export const ToastManager: React.FC<{ children: ReactNode }> = ({children}) => {
     
     const removeToast = (id: number) => {
         setToasts((prev) => {
-            const updated = prev.filter((toast) => toast.id !== id);
-            return updated;
+            return prev.filter((toast) => toast.id !== id);
         });
         
     };
