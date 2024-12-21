@@ -59,7 +59,12 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                     className={`btn ${label ? 'md:px-4 rounded-full' : 'btn-circle'}
                                 ${daisyClass}
                                 ${className}`}
-                    onClick={onClick}
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        if (!loading && !disabled && onClick) {
+                            onClick();
+                        }
+                    }}
                     disabled={disabled}
                 >
                     {loading && <div className="spinner spinner-primary"/>}
