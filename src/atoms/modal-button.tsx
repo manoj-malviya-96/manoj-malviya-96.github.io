@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React  from "react";
 import {AtomButton, AtomButtonProps} from "./atom-button";
-import AtomDialog from "./atom-dialog";
 import {useDialog} from "../providers/dialogs";
 
 interface ModalButtonProps extends AtomButtonProps {
