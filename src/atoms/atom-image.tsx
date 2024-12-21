@@ -30,7 +30,7 @@ const AtomImage: React.FC<AtomImageProps> = ({
                 removeShortcut("Escape");
             };
         }
-    }, [isFullScreen]);
+    }, [isFullScreen, addShortcut, removeShortcut]);
     
     return (
         <>
