@@ -1,25 +1,5 @@
 import React, {createContext, ReactNode, useContext, useState} from "react";
-
-type ToastType = "info" | "success" | "error" | "warning";
-
-const getIcon = (type: ToastType) => {
-    switch (type) {
-        case "info":
-            return "fas fa-light-bulb";
-        case "success":
-            return "fas fa-thumbs-up";
-        case "error":
-            return "fas fa-bug";
-        case "warning":
-            return "fas fa-triangle-exclamation";
-    }
-}
-
-interface Toast {
-    id: number;
-    message: string;
-    type: ToastType;
-}
+import AtomToast, {ToastType, AtomToastItemProps} from "../atoms/atom-toast";
 
 interface ToastContextType {
     addToast: (message: string, type?: ToastType, duration?: number) => void;
@@ -36,7 +16,7 @@ export const useToast = (): ToastContextType => {
 };
 
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => {
-    const [toasts, setToasts] = useState<Toast[]>([]);
+    const [toasts, setToasts] = useState<AtomToastItemProps[]>([]);
     
     const addToast = (message: string, type: ToastType = "info", duration = 2000) => {
         console.log("Adding toast:", message, type); // Debugging
@@ -65,21 +45,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => 
     return (
         <ToastContext.Provider value={{addToast}}>
             {children}
-            <div className="toast toast-top toast-center">
-                {toasts.map((toast) => (
-                    <div
-                        key={toast.id}
-                        className={`alert ${'alert-'+ toast.type} rounded-lg p-2 flex flex-row gap-2`}
-                    >
-                        <i
-                            className={`${getIcon(toast.type)} text-small`}
-                        />
-                        <span className="text-small">
-                            {toast.message}
-                        </span>
-                    </div>
-                ))}
-            </div>
+            <AtomToast toasts={toasts}/>
         </ToastContext.Provider>
     );
 };
