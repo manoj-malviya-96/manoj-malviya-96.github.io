@@ -1,6 +1,4 @@
-import {Knob, KnobChangeEvent} from 'primereact/knob';
 import React, {useState} from "react";
-import {useTheme} from "../providers/theme";
 
 interface AtomKnobProps {
     step?: number;
@@ -15,57 +13,65 @@ interface AtomKnobProps {
 
 const _AtomKnob: React.FC<AtomKnobProps> = ({
                                                 label,
-                                                step,
-                                                min,
-                                                max,
+                                                step = 1,
+                                                min = 0,
+                                                max = 100,
                                                 disabled = false,
                                                 readOnly = false,
                                                 onChange,
-                                                initValue = 10.0,
+                                                initValue = 50,
                                             }) => {
-    
-    const {
-        daisyPrimary,
-        daisyPrimaryText,
-    } = useTheme();
     const [value, setValue] = useState<number>(initValue);
     
-    const handleOnChange = (e: KnobChangeEvent) => {
-        setValue(e.value);
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = parseFloat(e.target.value);
+        setValue(newValue);
         if (onChange) {
-            onChange(e.value);
+            onChange(newValue);
         }
-    }
+    };
+    
+    const rotation = (
+        (
+            value - min
+        ) / (
+            max - min
+        )
+    ) * 270 - 135;
     
     return (
-        <div
-            className="card flex justify-center items-center p-2 w-fit h-full cursor-pointer">
-            {label && <span
-                className='m-auto text-sm'>{label}</span>}
-            <Knob
-                value={value}
-                min={min}
-                max={max}
-                step={step}
-                readOnly={readOnly}
-                pt={{
-                    range: {
-                        style: {
-                            stroke: daisyPrimary,
-                        }
-                    },
-                    value: {
-                        style: {
-                            stroke: daisyPrimaryText,
-                        }
-                    }
-                }}
-                textColor={daisyPrimaryText}
-                onChange={handleOnChange}
-            />
+        <div className="flex flex-col items-center w-fit h-fit p-4">
+            {label && <span className="text-sm mb-2">{label}</span>}
+            
+            <div className="relative w-24 h-24">
+                
+                <div className="absolute inset-0 flex justify-center items-center
+                                rounded-full bg-primary border-primary">
+                    <div
+                        className="absolute inset-0 rounded-full border-8
+                                    border-primary border-t-primary-content"
+                        style={{
+                            transform: `rotate(${rotation}deg)`
+                        }}
+                    >
+                    </div>
+                    <span className={"text-3xl font-bold"}>{value}</span>
+                </div>
+                
+                <input
+                    type="range"
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                    min={min}
+                    max={max}
+                    step={step}
+                    value={value}
+                    onChange={handleOnChange}
+                    disabled={disabled || readOnly}
+                />
+            </div>
         </div>
     );
-}
+};
 
 const AtomKnob = React.memo(_AtomKnob);
 export default AtomKnob;
