@@ -54,7 +54,9 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
     const daisyClass = `btn ${size} ${type} ${severity}`;
     
     return (
-        <div className="tooltip tooltip-primary tooltip-bottom" data-tip={tooltip}>
+        <div className={`${tooltip ? 'tooltip tooltip-primary tooltip-bottom' : ''}`}
+             data-tip={tooltip}>
+            
             <MotionDiv enableHoverEffect={!disabled}>
                 <button
                     className={`btn ${label ? 'md:px-4 rounded-full' : 'btn-circle'}
