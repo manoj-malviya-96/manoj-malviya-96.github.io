@@ -20,12 +20,11 @@ const AtomImage: React.FC<AtomImageProps> = ({
     const {addShortcut, removeShortcut} = useKeyboardManager();
     const [isFullScreen, setIsFullScreen] = useState(false);
     
-    const openFullScreen = () => setIsFullScreen(true);
-    const closeFullScreen = () => setIsFullScreen(false);
+    const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
     
     useEffect(() => {
         if (isFullScreen) {
-            addShortcut("Escape", closeFullScreen);
+            addShortcut("Escape", toggleFullScreen);
             return () => {
                 removeShortcut("Escape");
             };
@@ -35,36 +34,37 @@ const AtomImage: React.FC<AtomImageProps> = ({
     return (
         <>
             {/* Normal Image */}
-            <div
-                className={`card flex justify-content-center gap-2 relative ${className}`}
-            >
+            <div className={`relative ${className}`}>
                 <img
                     src={src}
                     alt={alt}
                     loading="lazy"
                     className={`cursor-pointer ${preview ? "hover:opacity-90" : ""}`}
-                    onClick={preview ? openFullScreen : undefined}
+                    onClick={preview ? toggleFullScreen : undefined}
                 />
-                {showLabel && <span className="text-neutral text-sm">{alt}</span>}
+                {showLabel && <span className="text-sm text-secondary-content">{alt}</span>}
             </div>
             
             {/* Full-Screen Overlay */}
             {isFullScreen && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50
-                                transition-opacity duration-300"
-                    onClick={closeFullScreen}
+                    className="fixed inset-0 z-50 bg-black bg-opacity-80 flex justify-center items-center transition-opacity duration-300"
+                    onClick={toggleFullScreen} // to close it outside the image
                 >
                     <div className="absolute top-4 right-4">
-                        <AtomButton icon="fas fa-xmark"
-                                    size={ButtonSize.Large}
-                                    type={ButtonType.Ghost}
-                                    onClick={closeFullScreen}/>
+                        <AtomButton
+                            icon="fas fa-xmark"
+                            size={ButtonSize.Large}
+                            type={ButtonType.Ghost}
+                            onClick={toggleFullScreen}
+                        />
                     </div>
                     <img
                         src={src}
                         alt={alt}
-                        className="max-w-full max-h-full rounded-md shadow-lg transition-transform duration-300"
+                        loading="lazy"
+                        className="max-w-full max-h-full rounded-md shadow-lg
+                                    transition-transform duration-300"
                         onClick={(e) => e.stopPropagation()}
                     />
                 </div>
@@ -72,6 +72,5 @@ const AtomImage: React.FC<AtomImageProps> = ({
         </>
     );
 };
-
 
 export default AtomImage;
