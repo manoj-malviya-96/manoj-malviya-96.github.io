@@ -5,19 +5,19 @@ import constructedRoutes from "./main/routes";
 import {ScreenSizeProvider} from "./providers/screen";
 import {ThemeProvider} from "./providers/theme";
 import {init as initAnalytics} from "./main/analytics";
-import ToastProvider from "./providers/toast-provider";
+import Toasts from "./providers/toasts";
 
 const App = () => {
     initAnalytics();
     return (
         <ThemeProvider>
-            <ToastProvider>
+            <Toasts>
                 <ScreenSizeProvider>
                     <NavbarProvider>
                         <RouterConstructor routes={constructedRoutes}/>
                     </NavbarProvider>
                 </ScreenSizeProvider>
-            </ToastProvider>
+            </Toasts>
         </ThemeProvider>
     );
 };

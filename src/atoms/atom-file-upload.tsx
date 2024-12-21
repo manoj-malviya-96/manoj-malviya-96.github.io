@@ -1,5 +1,5 @@
 import React from "react";
-import {useToast} from "../providers/toast-provider";
+import {useToast} from "../providers/toasts";
 
 interface AtomFileUploadProps {
     acceptTypes: string;
