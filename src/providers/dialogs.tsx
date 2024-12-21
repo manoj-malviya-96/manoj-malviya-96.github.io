@@ -16,7 +16,7 @@ export const useDialog = (): DialogContextType => {
     return context;
 };
 
-const DialogProvider: React.FC<{ children: ReactNode }> = ({children}) => {
+const _DialogProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const {addShortcut, removeShortcut} = useKeyboardManager();
     const [dialog, setDialog] = useState<AtomDialogProps | null>(null);
     const [showDialog, setShowDialog] = useState(false);
@@ -61,5 +61,5 @@ const DialogProvider: React.FC<{ children: ReactNode }> = ({children}) => {
         </DialogContext.Provider>
     );
 };
-
+const DialogProvider = React.memo(_DialogProvider);
 export default DialogProvider;

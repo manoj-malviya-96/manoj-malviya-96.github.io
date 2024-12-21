@@ -9,10 +9,12 @@ interface AppViewProps {
     children: React.ReactNode;
 }
 
-const AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
-    const {setLogo, setName} = useNavbar();
-    setLogo(appLogo);
-    setName(appName);
+const _AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
+    const {updateBrand} = useNavbar();
+    updateBrand({
+        logo: appLogo,
+        name: appName
+    });
     return (
         <AtomFullScreenContainer
             name={appName.toLowerCase()}
@@ -22,4 +24,5 @@ const AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
     );
 }
 
+const AppView = React.memo(_AppView);
 export default AppView;

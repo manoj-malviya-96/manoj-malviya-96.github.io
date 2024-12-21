@@ -17,7 +17,7 @@ export const useKeyboardManager = (): KeyboardManagerContextType => {
     return context;
 };
 
-export const KeyboardShortcutProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+export const _KeyboardShortcutProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const shortcutsRef = useRef<Map<string, ShortcutHandler>>(new Map());
     
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -50,5 +50,5 @@ export const KeyboardShortcutProvider: React.FC<{ children: React.ReactNode }> =
         </KeyboardManagerContext.Provider>
     );
 };
-
+export const KeyboardShortcutProvider = React.memo(_KeyboardShortcutProvider);
 export default KeyboardShortcutProvider;

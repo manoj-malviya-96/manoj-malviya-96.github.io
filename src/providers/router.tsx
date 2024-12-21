@@ -55,7 +55,7 @@ interface RouterConstructorProps {
     routes: RouteDefinition[];
 }
 
-const RouterConstructor: React.FC<RouterConstructorProps> = ({routes}) => {
+const _RouterConstructor: React.FC<RouterConstructorProps> = ({routes}) => {
     return (
         <Router>
             <NavBar/>
@@ -64,4 +64,5 @@ const RouterConstructor: React.FC<RouterConstructorProps> = ({routes}) => {
     );
 };
 
+const RouterConstructor = React.memo(_RouterConstructor);
 export default RouterConstructor;

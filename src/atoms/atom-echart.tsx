@@ -11,8 +11,7 @@ interface CalendarData {
 }
 
 const dayTime = 24 * 3600 * 1000;
-
-export const CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
+const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
     const {daisyPrimary, daisyPrimaryText} = useTheme();
     
     
@@ -93,3 +92,4 @@ export const CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
                              height: '400px'
                          }}/>;
 };
+export const CalendarChart = React.memo(_CalendarChart);

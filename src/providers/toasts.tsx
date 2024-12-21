@@ -15,7 +15,7 @@ export const useToast = (): ToastContextType => {
     return context;
 };
 
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => {
+const _ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [toasts, setToasts] = useState<AtomToastItemProps[]>([]);
     
     const addToast = (message: string, type: ToastType = "info", duration = 2000) => {
@@ -49,5 +49,5 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => 
         </ToastContext.Provider>
     );
 };
-
+const ToastProvider = React.memo(_ToastProvider);
 export default ToastProvider;

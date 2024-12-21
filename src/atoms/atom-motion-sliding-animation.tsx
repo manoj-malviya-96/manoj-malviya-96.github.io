@@ -6,7 +6,7 @@ interface SlidingAnimationProps {
     children: ReactNode; // ReactNode covers all valid JSX children
 }
 
-const AtomMotionSlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
+const _AtomMotionSlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
     useEffect(() => {
         window.scrollTo(0, 0); // Ensure top scroll position
     }, []);
@@ -23,4 +23,5 @@ const AtomMotionSlidingAnimation: React.FC<SlidingAnimationProps> = ({children})
     );
 };
 
+const AtomMotionSlidingAnimation = React.memo(_AtomMotionSlidingAnimation);
 export default AtomMotionSlidingAnimation;

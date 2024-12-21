@@ -6,12 +6,14 @@ import AtomToolbar from "../atoms/atom-toolbar";
 import WebsiteLogo from "../main/assets/logo.svg";
 import AtomSvg from "../atoms/atom-svg";
 
+interface BrandLogoProps {
+    logo: string;
+    name: string;
+}
 
 interface NavbarContextType {
-    logo: string;
-    setLogo: (value: string) => void;
-    name: string;
-    setName: (value: string) => void;
+    brand: BrandLogoProps;
+    updateBrand: (newBrand: BrandLogoProps) => void;
 }
 
 const NavbarContext = React.createContext<NavbarContextType | undefined>(undefined);
@@ -24,23 +26,32 @@ export const useNavbar = (): NavbarContextType => {
     return context;
 }
 
-export const NavbarProvider: React.FC<{
+const _NavbarProvider: React.FC<{
     children: React.ReactNode
 }> = ({children}) => {
-    const [logo, setLogo] = React.useState(WebsiteLogo);
-    const [name, setName] = React.useState('MAFIA');
+    const [brand, setBrand] = React.useState<BrandLogoProps>({
+        logo: WebsiteLogo,
+        name: 'MAFIA'
+    });
+    
+    const updateBrand = (newBrand: BrandLogoProps) => {
+        if (newBrand.logo !== brand.logo || newBrand.name !== brand.name) {
+            setBrand(newBrand);
+        }
+    }
     return (
         <NavbarContext.Provider
-            value={{logo, setLogo, name, setName}}>
+            value={{brand, updateBrand}}>
             {children}
         </NavbarContext.Provider>
     )
 }
+export const NavbarProvider = React.memo(_NavbarProvider);
 
 
-const Navbar = () => {
+const _Navbar = () => {
     const navigate = useNavigate();
-    const {logo, name} = useNavbar();
+    const {brand} = useNavbar();
     const {
         currentTheme,
         currentThemeDetails,
@@ -54,9 +65,9 @@ const Navbar = () => {
                 <div className='flex flex-row w-fit h-fit justify-center items-center
                         backdrop-blur-md gap-2 px-4 py-2 m-0
                         bg-primary bg-opacity-80 rounded-full '>
-                    <AtomSvg src={logo} alt={name}
+                    <AtomSvg src={brand.logo} alt={brand.name}
                              className='w-6 h-6'/>
-                    <h1 className='text-lg font-bold text-center m-auto'>{name}</h1>
+                    <h1 className='text-lg font-bold text-center m-auto'>{brand.name}</h1>
                 </div>
             )}
             end={(
@@ -78,5 +89,5 @@ const Navbar = () => {
         />
     );
 };
-
+const Navbar = React.memo(_Navbar);
 export default Navbar;

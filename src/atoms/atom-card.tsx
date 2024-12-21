@@ -15,16 +15,16 @@ export interface AtomCardProps {
     className?: string;
 }
 
-export const AtomCard: React.FC<AtomCardProps> = ({
-                                                      image,
-                                                      title,
-                                                      date,
-                                                      description,
-                                                      onClick,
-                                                      centered = false,
-                                                      isNew = false,
-                                                      className = '',
-                                                  }) => {
+const _AtomCard: React.FC<AtomCardProps> = ({
+                                                image,
+                                                title,
+                                                date,
+                                                description,
+                                                onClick,
+                                                centered = false,
+                                                isNew = false,
+                                                className = '',
+                                            }) => {
     
     return (
         <AtomSimpleMotionContainer>
@@ -62,3 +62,5 @@ export const AtomCard: React.FC<AtomCardProps> = ({
         </AtomSimpleMotionContainer>
     );
 }
+export const AtomCard = React.memo(_AtomCard);
+export default AtomCard;

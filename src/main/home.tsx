@@ -8,35 +8,17 @@ import {useNavbar} from "../providers/navbar";
 
 
 const Home = () => {
-    // const tabs = [
-    //     {
-    //         name: 'tools',
-    //         label: 'ToolList',
-    //         icon: 'bi bi-app-indicator'
-    //     },
-    //     {
-    //         name: 'blog',
-    //         label: 'Blogs',
-    //         icon: 'fas fa-bars-staggered'
-    //     },
-    //     {
-    //         name: 'about-me',
-    //         label: 'About Me',
-    //         icon: 'fas fa-person-through-window'
-    //     },
-    // ]
-    
-    const {setName, setLogo} = useNavbar();
-    setName('MAFIA');
-    setLogo(BrandLogo);
-    
+    const {updateBrand} = useNavbar();
+    updateBrand({
+        logo: BrandLogo,
+        name: 'MAFIA'
+    });
     return (
         <div className='flex-row w-full h-fit'>
             <Intro/>
             <ToolDrawer/>
             <BlogListing/>
             <AboutMe/>
-            {/*<TopTabBar items={tabs}/>*/}
         </div>
     )
 }
