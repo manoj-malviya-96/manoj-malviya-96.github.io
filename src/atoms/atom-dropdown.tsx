@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ReactNode, useState} from 'react';
 import {AtomButton, ButtonType} from "./atom-button";
 
 export interface AtomDropdownItemProps {
@@ -10,6 +10,7 @@ interface AtomDropdownProps {
     onClick: (option: any) => void;
     dropdownIcon?: string;
     options: Array<AtomDropdownItemProps>;
+    header?: ReactNode;
     placeholder?: string;
     initialIndex?: number;
     className?: string;
@@ -19,6 +20,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                         onClick,
                                                         options,
                                                         dropdownIcon,
+                                                        header,
                                                         placeholder = 'Select',
                                                         initialIndex = -1,
                                                         className = '',
@@ -52,7 +54,8 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             <ul
                 tabIndex={0}
                 className={`dropdown-content menu p-0 shadow w-full mb-3
-                            bg-transparent backdrop-blur-lg rounded-md
+                            border border-primary border-opacity-50
+                            bg-transparent backdrop-blur-lg rounded-lg
                             ${open ? 'block' : 'hidden'}`}
             >
                 {options.map((option, index) => (
@@ -66,6 +69,11 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                         </div>
                     </li>
                 ))}
+                {header &&
+                    <li className={'border-primary border-t'}>
+                        {header}
+                    </li>
+                }
             </ul>
         </div>
     );

@@ -240,6 +240,25 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 onClick={handleSampleSongChange}
                                 className="h-full w-44 m-auto"
                                 placeholder="Select Song"
+                                header={
+                                    <ModalButton
+                                        icon="fa-solid fa-plus"
+                                        label="Upload"
+                                        title="Upload Audio File"
+                                        dialogContent= {
+                                            <div
+                                                className="flex flex-col gap-2">
+                                                <span className="text-xs">
+                                                    Only audio files (.wav/.mp3/..) are supported
+                                                </span>
+                                                <AtomFileUpload
+                                                    acceptTypes="audio/*"
+                                                    onFileChange={handleFileChange}/>
+                                            </div>
+                                        }
+                                        type={ButtonType.Ghost}
+                                    />
+                                }
                             />
                             <AtomDropdown
                                 options={vizOptions}
@@ -247,22 +266,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 className="h-full w-28 m-auto"
                                 placeholder="Select Visualizer"
                                 initialIndex={0}
-                            />
-                            <ModalButton
-                                icon="fa-solid fa-plus"
-                                title="Upload Audio File"
-                                dialogContent={
-                                    <div
-                                        className="flex flex-col gap-2">
-                                        <span className="text-xs">
-                                            Only audio files (.wav/.mp3/..) are supported
-                                        </span>
-                                        <AtomFileUpload
-                                            acceptTypes="audio/*"
-                                            onFileChange={handleFileChange}/>
-                                    </div>
-                                }
-                                type={ButtonType.Ghost}
                             />
                             <AtomButton
                                 icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}

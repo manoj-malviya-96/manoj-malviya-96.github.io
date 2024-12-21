@@ -7,6 +7,7 @@ export interface AtomDialogProps {
     content?: React.ReactNode;
     neutralMode?: boolean;
     closeCallback?: () => void;
+    position?: { x: number; y: number }; // Add screen coordinates
 }
 
 const _AtomDialog: React.FC<AtomDialogProps> = ({
@@ -15,14 +16,12 @@ const _AtomDialog: React.FC<AtomDialogProps> = ({
                                                     visible = false,
                                                     closeCallback = () => {
                                                     },
-                                                    neutralMode = false,
                                                 }) => {
-    
     return (
-        <div
-            className={`fixed bottom-0 left-0 w-full h-fit z-10 rounded-t-lg
-                bg-transparent border-primary border backdrop-blur-md flex flex-col p-8
-                transition-transform duration-300 ${visible ? "translate-y-0" : "translate-y-full"}`}
+        <dialog
+            className={`modal absolute z-10 rounded-lg bg-transparent border-primary border
+                backdrop-blur-md flex flex-col p-8 transition-transform duration-300
+                ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
         >
             <div className="absolute top-4 right-4">
                 <AtomButton icon="fas fa-xmark" onClick={closeCallback}/>
@@ -32,7 +31,7 @@ const _AtomDialog: React.FC<AtomDialogProps> = ({
                 <h2 className="text-primary-content text-2xl font-bold text-center">{title}</h2>
                 <div className="mt-4">{content}</div>
             </div>
-        </div>
+        </dialog>
     );
 };
 
