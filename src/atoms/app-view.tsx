@@ -1,6 +1,6 @@
 import FullScreenPage from "./full-page";
 import React from "react";
-import {useNavbar} from "../main/navbar";
+import {useNavbar} from "../providers/navbar";
 
 
 interface AppViewProps {

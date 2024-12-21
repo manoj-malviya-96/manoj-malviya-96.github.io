@@ -4,7 +4,7 @@ import BlogListing from "./blog-list";
 import AboutMe from "./about-me";
 import BrandLogo from "./assets/logo.svg";
 import ToolDrawer from "./tool-drawer";
-import {useNavbar} from "./navbar";
+import {useNavbar} from "../providers/navbar";
 
 
 const Home = () => {

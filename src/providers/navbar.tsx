@@ -1,9 +1,9 @@
 import React from 'react';
-import {useTheme} from "../providers/theme";
+import {useTheme} from "./theme";
 import {AtomButton} from "../atoms/atom-button";
 import {useNavigate} from "react-router-dom";
 import AtomToolbar from "../atoms/atom-toolbar";
-import WebsiteLogo from "./assets/logo.svg";
+import WebsiteLogo from "../main/assets/logo.svg";
 import AtomSvg from "../atoms/atom-svg";
 
 

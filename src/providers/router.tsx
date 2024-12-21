@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import {AnimatePresence, Variants} from "motion/react";
 import SlidingAnimation from "../atoms/sliding-animation";
-import NavBar from "../main/navbar";
+import NavBar from "./navbar";
 
 // Define the type for an individual route
 export interface RouteDefinition {
