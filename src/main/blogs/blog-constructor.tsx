@@ -2,7 +2,7 @@ import React from 'react';
 import TemplateCover from '../assets/main.jpg';
 import FullScreenPage from "../../atoms/full-page";
 import {BlogInfo} from "./blog-info";
-import CodeBlock, {CodeBlockProps} from "../../atoms/code";
+import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
 import TableOfContents from "../../atoms/table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
@@ -130,9 +130,9 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                                    className={'m-auto align-center justify-center w-full'}/>
                     }
                     {media.kind === 'code' && (
-                        <CodeBlock language={media.language}
-                                   code={media.code}
-                                   className="m-auto align-center justify-center w-full"/>
+                        <AtomCodeBlock language={media.language}
+                                       code={media.code}
+                                       className="m-auto align-center justify-center w-full"/>
                     )}
                     
                     {media.kind === 'plot' &&

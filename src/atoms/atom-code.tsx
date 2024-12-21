@@ -29,7 +29,7 @@ export interface CodeBlockProps {
     className?: string;
 }
 
-const CodeBlock: React.FC<CodeBlockProps> = ({
+const AtomCodeBlock: React.FC<CodeBlockProps> = ({
                                                  code,
                                                  language,
                                                  className = ""
@@ -80,4 +80,4 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     );
 };
 
-export default CodeBlock;
+export default AtomCodeBlock;
