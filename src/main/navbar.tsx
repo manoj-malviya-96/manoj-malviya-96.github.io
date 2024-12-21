@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 import {AtomButton} from "../atoms/atom-button";
 import {useNavigate} from "react-router-dom";
 import AtomToolbar from "../atoms/atom-toolbar";

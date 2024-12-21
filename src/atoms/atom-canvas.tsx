@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from "react";
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 
 export class AtomCanvasController {
     canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null> | undefined;

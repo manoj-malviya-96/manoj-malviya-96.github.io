@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 import {roundTo} from "../common/math";
 
 interface CalendarData {

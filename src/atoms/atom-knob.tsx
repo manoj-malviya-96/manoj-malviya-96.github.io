@@ -1,6 +1,6 @@
 import {Knob, KnobChangeEvent} from 'primereact/knob';
 import React, {useState} from "react";
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 
 interface AtomKnobProps {
     step?: number;

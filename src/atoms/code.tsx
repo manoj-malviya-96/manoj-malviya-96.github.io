@@ -9,7 +9,7 @@ import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
 import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
 import {AtomButton, ButtonType} from "./atom-button";
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);

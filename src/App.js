@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavbarProvider} from "./main/navbar";
-import RouterConstructor from "./common/router";
+import RouterConstructor from "./providers/router";
 import constructedRoutes from "./main/routes";
-import {ScreenSizeProvider} from "./common/screen";
-import {ThemeProvider} from "./common/theme";
+import {ScreenSizeProvider} from "./providers/screen";
+import {ThemeProvider} from "./providers/theme";
 import {init as initAnalytics} from "./main/analytics";
-import ToastManager from "./common/toast-manager";
+import ToastManager from "./providers/toast-manager";
 
 const App = () => {
     initAnalytics();

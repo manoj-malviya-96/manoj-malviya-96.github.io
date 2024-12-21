@@ -9,7 +9,7 @@ import AtomDropdown from "../../../atoms/atom-dropdown";
 import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import TrussMesh, {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
-import {useTheme} from "../../../common/theme";
+import {useTheme} from "../../../providers/theme";
 import AtomStats from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";

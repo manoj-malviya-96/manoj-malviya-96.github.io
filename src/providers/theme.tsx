@@ -4,7 +4,7 @@ import React, {
     useState,
     useEffect
 } from 'react';
-import {getColorFromStyle} from "./color-utils";
+import {getColorFromStyle} from "../common/color-utils";
 
 // Define available themes
 export const availableThemes = [

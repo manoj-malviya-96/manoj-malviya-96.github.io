@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 
 
 interface AtomSvgProps {

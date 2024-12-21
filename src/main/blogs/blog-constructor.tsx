@@ -124,10 +124,10 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                 <div
                     className='w-full lg:w-1/2 justify-center m-auto align-center'>
                     {media.kind === "image" &&
-                     <AtomImage src={media.source}
-                                alt={media.label}
-                                showLabel={true}
-                                className={'m-auto align-center justify-center w-full'}/>
+                        <AtomImage src={media.source}
+                                   alt={media.label}
+                                   showLabel={true}
+                                   className={'m-auto align-center justify-center w-full'}/>
                     }
                     {media.kind === 'code' && (
                         <CodeBlock language={media.language}
@@ -136,24 +136,24 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                     )}
                     
                     {media.kind === 'plot' &&
-                     <Plotter
-                         dataTrace={media.dataTrace}
-                         className={'m-auto align-center justify-center w-full'}
-                         title={media.title}
-                         xTitle={media.xTitle}
-                         yTitle={media.yTitle}
-                         textColor={media.textColor}
-                         minimalView={false}
-                     />
+                        <Plotter
+                            dataTrace={media.dataTrace}
+                            className={'m-auto align-center justify-center w-full'}
+                            title={media.title}
+                            xTitle={media.xTitle}
+                            yTitle={media.yTitle}
+                            textColor={media.textColor}
+                            minimalView={false}
+                        />
                     }
                     {media.kind === 'heroText' &&
-                     <HeroText text={media.text}
-                               className='w-full'/>
+                        <HeroText text={media.text}
+                                  className='w-full'/>
                     }
                     {media.kind === 'heroList' &&
-                     <HeroList contentList={media.contentList}
-                               numbered={media.numbered}
-                               className='w-full'/>
+                        <HeroList contentList={media.contentList}
+                                  numbered={media.numbered}
+                                  className='w-full'/>
                     }
                 </div>
             )

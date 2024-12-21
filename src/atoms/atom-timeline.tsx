@@ -2,7 +2,7 @@ import React from 'react';
 import {AtomCard} from './atom-card';
 import {Timeline} from "primereact/timeline";
 import {parseDate} from "../common/date";
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 
 export interface TimelineItemProps {
     image: string;

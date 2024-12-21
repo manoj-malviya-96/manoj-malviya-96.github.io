@@ -1,5 +1,5 @@
 import React from "react";
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 import {adjustColor} from "../common/color-utils";
 
 export enum SliderOrientation {
