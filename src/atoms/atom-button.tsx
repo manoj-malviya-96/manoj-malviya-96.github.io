@@ -19,7 +19,8 @@ export enum ButtonSeverity {
 
 export enum ButtonType {
     Outlined = 'btn-outline',
-    Ghost = 'btn-ghost hover:bg-transparent hover:border-0 hover:font-bold active:bg-transparent',
+    Ghost = `btn-ghost hover:bg-transparent
+            hover:border-0 hover:font-bold active:bg-transparent`,
     Solid = '',
 }
 

@@ -38,7 +38,7 @@ export const useToast = (): ToastContextType => {
 export const ToastManager: React.FC<{ children: ReactNode }> = ({children}) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
     
-    const addToast = (message: string, type: ToastType = "info", duration = 200000) => {
+    const addToast = (message: string, type: ToastType = "info", duration = 2000) => {
         console.log("Adding toast:", message, type); // Debugging
         const id = Date.now();
         setToasts((prev) => {

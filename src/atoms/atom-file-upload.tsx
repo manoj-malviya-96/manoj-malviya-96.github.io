@@ -1,62 +1,41 @@
-import {Toast} from 'primereact/toast';
-import {FileUpload} from 'primereact/fileupload';
-import React, {useRef} from 'react';
+import React, {useRef} from "react";
+import {useToast} from "../common/toast-manager";
 
 interface AtomFileUploadProps {
     acceptTypes: string;
     onFileChange: (fileUrl: string) => void;
 }
 
-const AtomFileUpload: React.FC<AtomFileUploadProps> = ({
-                                                           acceptTypes,
-                                                           onFileChange
-                                                       }) => {
-    const toast = useRef<Toast>(null);
+const _AtomFileUpload: React.FC<AtomFileUploadProps> = ({
+                                                            acceptTypes,
+                                                            onFileChange,
+                                                        }) => {
+    const {addToast} = useToast();
     
-    const showToast = (type: 'info' | 'error', summary: string, detail: string) => {
-        if (toast.current) {
-            toast.current.show({severity: type, summary, detail});
-        }
-    };
-    
-    const handleFileUpload = (event: any) => {
-        const file = event.files?.[0]; // Get the first selected file
-        if (file) {
-            const fileUrl = URL.createObjectURL(file); // Convert
-                                                       // the file
-                                                       // to a URL
-            onFileChange(fileUrl); // Pass the file to the provided
-                                   // callback
-            showToast('info', 'File Selected', `You selected: ${file.name}`);
-        }
-    };
-    
-    const onUpload = () => {
-        showToast('info', 'Success', 'File uploaded successfully!');
-    };
-    
-    const onError = () => {
-        showToast('error', 'Error', 'File upload failed.');
-    };
+    const handleFileUpload =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const file = event.target.files?.[0];
+            
+            if (file) {
+                // Generate URL for the uploaded file
+                const fileUrl = URL.createObjectURL(file);
+                onFileChange(fileUrl);
+                addToast(`File uploaded: ${file.name}`, "success");
+            } else {
+                addToast("No file selected. Please try again.", "error");
+            }
+        };
     
     return (
-        <div className="card flex justify-content-center">
-            <Toast ref={toast}/>
-            <FileUpload
-                mode="basic"
-                name="demo[]"
-                url="/api/upload"
-                accept={acceptTypes}
-                maxFileSize={1000000}
-                onUpload={onUpload}
-                onError={onError}
-                customUpload
-                uploadHandler={handleFileUpload} // Handle file
-                                                 // selection
-                                                 // manually
-            />
-        </div>
+        <input
+            type="file"
+            onChange={handleFileUpload}
+            accept={acceptTypes}
+            className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+        />
     );
 };
+
+const AtomFileUpload = React.memo(_AtomFileUpload);
 
 export default AtomFileUpload;

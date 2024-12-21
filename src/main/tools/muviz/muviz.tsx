@@ -253,14 +253,13 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                             />
                             <ModalButton
                                 icon="fa-solid fa-plus"
-                                title="Choose Music"
-                                onClick={() => {
-                                }}
+                                title="Upload Audio File"
                                 dialogContent={
                                     <div
                                         className="flex flex-col gap-2">
-                                        <span className="text-base">Upload Music</span>
-                                        <span className="text-xs">Only audio files are supported</span>
+                                        <span className="text-xs">
+                                            Only audio files (.wav/.mp3/..) are supported
+                                        </span>
                                         <AtomFileUpload
                                             acceptTypes="audio/*"
                                             onFileChange={handleFileChange}/>
