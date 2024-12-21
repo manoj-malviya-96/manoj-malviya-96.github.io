@@ -201,8 +201,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                         className="w-full h-fit"
                         neutralMode={true}
                     />
-                    
-                    
+                    {/* Volume and Right Controls */}
                     <div
                         className="flex flex-wrap sm:flex-nowrap justify-between
                                     items-center w-full h-fit"
@@ -241,7 +240,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 onClick={handleSampleSongChange}
                                 className="h-full w-44 m-auto"
                                 placeholder="Select Song"
-                                neutralMode={true}
                             />
                             <AtomDropdown
                                 options={vizOptions}
@@ -249,7 +247,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 className="h-full w-28 m-auto"
                                 placeholder="Select Visualizer"
                                 initialIndex={0}
-                                neutralMode={true}
                             />
                             <ModalButton
                                 icon="fa-solid fa-plus"

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {AtomButton, ButtonType} from "./atom-button";
 
 export interface AtomDropdownItemProps {
     label: string;
@@ -12,7 +13,6 @@ interface AtomDropdownProps {
     placeholder?: string;
     initialIndex?: number;
     className?: string;
-    neutralMode?: boolean;
 }
 
 const _AtomDropdown: React.FC<AtomDropdownProps> = ({
@@ -22,7 +22,6 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                         placeholder = 'Select',
                                                         initialIndex = -1,
                                                         className = '',
-                                                        neutralMode = false,
                                                     }) => {
     
     const [selectedOption, setSelectedOption] = useState<AtomDropdownItemProps | null>(
@@ -41,21 +40,18 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
     return (
         <div className={`dropdown dropdown-top ${className}`}>
             {/*Button*/}
-            <div
-                tabIndex={0}
+            <AtomButton
+                icon={open ? iconWhenDropdownIsOpen : iconWhenDropdownIsClosed}
+                label={selectedOption ? selectedOption.label : placeholder}
                 onClick={() => setOpen(!open)}
-                className={`btn w-full
-                            ${neutralMode ? 'btn-ghost text-neutral' : 'btn-primary'}`}
-            >
-                {selectedOption ? selectedOption.label : placeholder}
-                <i className={`ml-auto ${open ? iconWhenDropdownIsOpen :
-                    iconWhenDropdownIsClosed}`}></i>
-            </div>
+                className={`w-full`}
+                type={ButtonType.Ghost}
+            />
+            
             {/*DropDown Content*/}
             <ul
                 tabIndex={0}
                 className={`dropdown-content menu p-0 shadow w-full mb-3
-                            ${neutralMode ? 'text-neutral' : 'text-primary-content'}
                             bg-transparent backdrop-blur-lg rounded-md
                             ${open ? 'block' : 'hidden'}`}
             >

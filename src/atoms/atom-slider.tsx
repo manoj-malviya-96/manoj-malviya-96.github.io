@@ -41,7 +41,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
     }
     
     const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
-    const backgroundColor = adjustColor(mainColor, 0.2);
+    const backgroundColor = adjustColor(mainColor, 0.5);
     
     return (
         <div className={`flex flex-col ${className}`}>
