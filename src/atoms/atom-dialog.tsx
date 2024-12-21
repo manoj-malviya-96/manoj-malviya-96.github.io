@@ -1,5 +1,5 @@
 import React, {forwardRef} from "react";
-import {AtomButton} from "./atom-button";
+import {AtomButton, ButtonSize, ButtonType} from "./atom-button";
 
 export interface AtomDialogProps {
     visible?: boolean;
@@ -33,7 +33,10 @@ const AtomDialog = forwardRef<HTMLDivElement, AtomDialogProps>(
                     aria-modal="true"
                 >
                     <div className="absolute top-4 right-4">
-                        <AtomButton icon="fas fa-xmark" onClick={closeCallback}/>
+                        <AtomButton icon="fas fa-xmark"
+                                    size={ButtonSize.Large}
+                                    type={ButtonType.Ghost}
+                                    onClick={closeCallback}/>
                     </div>
                     <div className="flex flex-col justify-center items-center p-4">
                         <h2

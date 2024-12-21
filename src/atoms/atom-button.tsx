@@ -80,3 +80,4 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
 };
 
 export const AtomButton = React.memo(_AtomButton);
+export default AtomButton;

@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState, ReactNode, useEffect, useRef} from "react";
 import AtomDialog, {AtomDialogProps} from "../atoms/atom-dialog";
+import {useKeyboardManager} from "./keyboard";
 
 interface DialogContextType {
     addDialog: (dialog: AtomDialogProps | null) => void;
@@ -16,6 +17,7 @@ export const useDialog = (): DialogContextType => {
 };
 
 const DialogProvider: React.FC<{ children: ReactNode }> = ({children}) => {
+    const {addShortcut, removeShortcut} = useKeyboardManager();
     const [dialog, setDialog] = useState<AtomDialogProps | null>(null);
     const [showDialog, setShowDialog] = useState(false);
     const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -29,29 +31,21 @@ const DialogProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     
     const closeDialog = () => {
         setShowDialog(false);
-        setTimeout(() => setDialog(null), 300); // Matches CSS animation duration
+        setTimeout(() => setDialog(null), 300);
     };
     
     useEffect(() => {
         if (showDialog && dialogRef.current) {
-            dialogRef.current.focus(); // Automatically focus the dialog
+            dialogRef.current.focus();
         }
-        
-        const handleKeyDown = (event: KeyboardEvent) => {
-            event.stopPropagation();
-            event.preventDefault();
-            if (event.key === "Escape") {
-                closeDialog();
-            }
-        };
         
         if (showDialog) {
-            document.addEventListener("keydown", handleKeyDown);
+            addShortcut("Escape", closeDialog);
             return () => {
-                document.removeEventListener("keydown", handleKeyDown);
+                removeShortcut("Escape");
             };
         }
-    }, [showDialog]);
+    }, [showDialog, addShortcut, removeShortcut]);
     
     return (
         <DialogContext.Provider value={{addDialog}}>
