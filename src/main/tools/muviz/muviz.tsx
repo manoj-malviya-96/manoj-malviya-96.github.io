@@ -16,7 +16,7 @@ import {BarVisualizer, SpiralVisualizer, toString, VisualizerType} from "./visua
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import ModalButton from "../../../atoms/modal-button";
 import {toggleFullScreen} from "../../../common/full-screen";
-import AppView from "../../../atoms/app-view";
+import AppView from "../app-view";
 
 const AppName = 'MUVIZ';
 

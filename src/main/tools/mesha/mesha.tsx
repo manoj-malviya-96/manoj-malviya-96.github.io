@@ -1,7 +1,7 @@
 import React from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/mesha.svg';
-import AppView from "../../../atoms/app-view";
+import AppView from "../app-view";
 import HeroText from "../../../atoms/hero-text";
 
 const AppName = 'MESHA';

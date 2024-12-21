@@ -1,6 +1,6 @@
-import FullScreenPage from "./full-page";
+import FullScreenPage from "../../atoms/full-page";
 import React from "react";
-import {useNavbar} from "../providers/navbar";
+import {useNavbar} from "../../providers/navbar";
 
 
 interface AppViewProps {

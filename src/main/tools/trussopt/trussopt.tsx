@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/trussopt.svg';
-import AppView from "../../../atoms/app-view";
+import AppView from "../app-view";
 import AtomKnob from "../../../atoms/atom-knob";
 import AtomToggleButton from "../../../atoms/atom-toggle-button";
 import {AtomButton, ButtonSeverity} from "../../../atoms/atom-button";
