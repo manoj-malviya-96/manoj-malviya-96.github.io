@@ -26,7 +26,7 @@ const ToolDrawer = () => {
         >
             <AtomCardGrid
                 items={items}
-                classNameForCard={'w-48 h-48'}/>
+                classNameForCard={'w-36 h-36'}/>
         </AtomFullScreenContainer>
     );
 }

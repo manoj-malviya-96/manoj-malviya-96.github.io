@@ -35,7 +35,7 @@ const _AtomCard: React.FC<AtomCardProps> = ({
             >
                 {image && (
                     <img src={image} alt={title} loading={'lazy'}
-                         className="w-full h-2/3 object-cover"/>
+                         className="w-full h-2/3 object-contain"/>
                 )}
                 
                 <div className={`w-full min-h-1/3 h-fit
