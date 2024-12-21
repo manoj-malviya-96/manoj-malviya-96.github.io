@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {AtomButton, AtomButtonProps} from "./atom-button";
+import React from "react";
+import {AtomButton} from "./atom-button";
 
 export interface AtomDialogProps {
     visible?: boolean;

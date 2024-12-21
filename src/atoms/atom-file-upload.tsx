@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {useToast} from "../common/toast-manager";
 
 interface AtomFileUploadProps {
