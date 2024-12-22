@@ -2,27 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-import 'primeicons/primeicons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
-import {PrimeReactProvider} from 'primereact/api';
-import 'primereact/resources/primereact.css';
 import './index.css';
-import Tailwind from "primereact/passthrough/tailwind";
-import {twMerge} from "tailwind-merge";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <PrimeReactProvider value={{
-            ripple: true,
-            unstyled: true,
-            pt: Tailwind,
-            ptOptions: {mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge}
-        }}>
-            <App/>
-        </PrimeReactProvider>
+        <App/>
     </React.StrictMode>
 );
 
