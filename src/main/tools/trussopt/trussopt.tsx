@@ -10,7 +10,7 @@ import {TrussStructureView, useTrussOpt} from "./truss-controller";
 import TrussMesh, {LatticeType} from "./truss-mesh";
 import {AtomCanvas} from "../../../atoms/atom-canvas";
 import {useTheme} from "../../../providers/theme";
-import AtomStats from "../../../atoms/atom-stats";
+import AtomStats, {StatSeverity} from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
 import AtomGroup from "../../../atoms/atom-group";
@@ -204,8 +204,15 @@ const TrussOptView = () => {
                                 isLoading={canvasLoading}
                                 className="w-full h-full"/>
                     <div className='w-fit h-fit flex flex-row gap-4'>
-                        <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
-                        <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
+                        <AtomStats
+                            text={'Volume'}
+                            value={simResult ? simResult.volume : 'N/A'}
+                            severity={StatSeverity.Success}
+                        />
+                        <AtomStats
+                            text={'Strain Energy'}
+                            value={simResult ? simResult.strainEnergy : 'N/A'}
+                        />
                     </div>
                 </div>
             </div>
