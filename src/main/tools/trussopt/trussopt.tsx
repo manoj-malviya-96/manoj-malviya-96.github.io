@@ -25,7 +25,7 @@ const TrussOptView = () => {
     } = useTrussOpt();
     
     const {
-        daisyPrimary,
+        daisyPrimaryText,
     } = useTheme();
     
     const controller = React.useMemo(() => {
@@ -37,14 +37,14 @@ const TrussOptView = () => {
     const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
     
     useEffect(() => {
-        controller.trussColor = daisyPrimary;
+        controller.trussColor = daisyPrimaryText;
         controller.feaEngine = null;
         if (optimizeMesh) {
             controller.updateMesh(optimizeMesh);
         } else {
             controller.updateMesh(mesh);
         }
-    }, [controller, mesh, optimizeMesh, daisyPrimary]);
+    }, [controller, mesh, optimizeMesh, daisyPrimaryText]);
     
     const simulate = () => {
         if (!mesh) {
@@ -88,115 +88,113 @@ const TrussOptView = () => {
         <AppView
             appName={AppName}
             appLogo={Logo}
-            children={
-                <div className="h-fit w-full flex flex-col-reverse md:flex-row
+        >
+            <div className="h-fit w-full flex flex-col-reverse md:flex-row
                                 p-0 m-0 gap-8 items-center">
-                    <div
-                        className=" w-fit h-full
+                <div
+                    className=" w-fit h-full
                         flex flex-col gap-6 px-2 py-6 rounded-lg
-                        border border-primary
                         justify-center items-center">
-                        
-                        <div className="flex flex-row gap-1">
-                            <AtomKnob
-                                label='Mesh Width (mm)'
-                                min={cellSize}
-                                max={100}
-                                step={cellSize}
-                                initValue={meshWidth}
-                                onChange={setMeshWidth}
-                            />
-                            <AtomKnob
-                                label='Mesh Height (mm)'
-                                min={cellSize}
-                                max={100}
-                                step={cellSize}
-                                initValue={meshHeight}
-                                onChange={setMeshHeight}
-                            />
-                        </div>
+                    
+                    <div className="flex flex-row gap-1">
                         <AtomKnob
-                            label='Cell Size (mm)'
-                            min={5}
-                            max={20}
-                            step={5}
-                            initValue={cellSize}
-                            onChange={setCellSize}
+                            label='Mesh Width (mm)'
+                            min={cellSize}
+                            max={100}
+                            step={cellSize}
+                            initValue={meshWidth}
+                            onChange={setMeshWidth}
                         />
-                        <AtomDropdown
-                            placeholder='Select Lattice Type'
-                            initialIndex={0}
-                            options={[
-                                {label: 'Cross', value: LatticeType.Cross},
-                                {
-                                    label: 'Checkerboard',
-                                    value: LatticeType.Checkerboard
-                                }
-                            ]}
-                            className={'w-40'}
-                            onClick={setLatticeType}
+                        <AtomKnob
+                            label='Mesh Height (mm)'
+                            min={cellSize}
+                            max={100}
+                            step={cellSize}
+                            initValue={meshHeight}
+                            onChange={setMeshHeight}
                         />
-                        <div className="flex flex-row gap-2">
-                            <AtomToggleButton
-                                offLabel='Fix Nodes'
-                                offIcon='pi pi-lock-open'
-                                onIcon='pi pi-lock'
-                                tooltip='Add fix nodes to the truss, disabled for now'
-                                initValue={false}
-                                disabled={true}
-                                onChange={(e) => console.log(e)}
-                            />
-                            <AtomToggleButton
-                                offLabel='Load Nodes'
-                                offIcon='pi pi-arrow-up'
-                                onIcon='pi pi-arrow-down'
-                                tooltip='Add Load nodes to the truss, disabled for now'
-                                initValue={false}
-                                disabled={true}
-                                onChange={(e) => console.log(e)}
-                            />
-                        </div>
-                        <AtomToggleButton
-                            offLabel='Simulate'
-                            offIcon='pi pi-play'
-                            onIcon='pi pi-stop'
-                            onChange={(e: boolean) => {
-                                if (e) {
-                                    simulate();
-                                } else {
-                                    controller.addFeaResults(null);
-                                }
-                            }}
-                        />
-                        <div className="flex flex-row gap-2">
-                            <AtomButton
-                                label='Optimize'
-                                icon='pi pi-cog'
-                                severity={ButtonSeverity.Success}
-                                tooltip={'optimize the truss'}
-                                onClick={optimize}
-                            />
-                            <AtomButton
-                                icon='fas fa-trash'
-                                severity={ButtonSeverity.Error}
-                                tooltip={'clear optimization results'}
-                                onClick={clearOptimize}
-                            />
-                        </div>
                     </div>
-                    <div className="w-3/4 h-fit flex flex-col gap-2">
-                        <div className='w-fit h-fit flex flex-row gap-2'>
-                            <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
-                            <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
-                        </div>
-                        <AtomCanvas controller={controller} animationLoop={false}
-                                    isLoading={canvasLoading}
-                                    className=" w-full h-fit justify-center items-center
-                                                max-h-screen"/>
+                    <AtomKnob
+                        label='Cell Size (mm)'
+                        min={5}
+                        max={20}
+                        step={5}
+                        initValue={cellSize}
+                        onChange={setCellSize}
+                    />
+                    <AtomDropdown
+                        placeholder='Select Lattice Type'
+                        initialIndex={0}
+                        options={[
+                            {label: 'Cross', value: LatticeType.Cross},
+                            {
+                                label: 'Checkerboard',
+                                value: LatticeType.Checkerboard
+                            }
+                        ]}
+                        className={'w-40'}
+                        onClick={setLatticeType}
+                    />
+                    <div className="flex flex-row gap-2">
+                        <AtomToggleButton
+                            offLabel='Fix Nodes'
+                            offIcon='pi pi-lock-open'
+                            onIcon='pi pi-lock'
+                            tooltip='Add fix nodes to the truss, disabled for now'
+                            initValue={false}
+                            disabled={true}
+                            onChange={(e) => console.log(e)}
+                        />
+                        <AtomToggleButton
+                            offLabel='Load Nodes'
+                            offIcon='pi pi-arrow-up'
+                            onIcon='pi pi-arrow-down'
+                            tooltip='Add Load nodes to the truss, disabled for now'
+                            initValue={false}
+                            disabled={true}
+                            onChange={(e) => console.log(e)}
+                        />
+                    </div>
+                    <AtomToggleButton
+                        offLabel='Simulate'
+                        offIcon='pi pi-play'
+                        onIcon='pi pi-stop'
+                        onChange={(e: boolean) => {
+                            if (e) {
+                                simulate();
+                            } else {
+                                controller.addFeaResults(null);
+                            }
+                        }}
+                    />
+                    <div className="flex flex-row gap-2">
+                        <AtomButton
+                            label='Optimize'
+                            icon='pi pi-cog'
+                            severity={ButtonSeverity.Info}
+                            tooltip={'optimize the truss'}
+                            onClick={optimize}
+                        />
+                        <AtomButton
+                            icon='fas fa-trash'
+                            severity={ButtonSeverity.Error}
+                            tooltip={'clear optimization results'}
+                            onClick={clearOptimize}
+                        />
                     </div>
                 </div>
-            }
-        />
+                <div className="w-3/4 h-fit flex flex-col gap-2">
+                    <div className='w-fit h-fit flex flex-row gap-2'>
+                        <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
+                        <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
+                    </div>
+                    <AtomCanvas controller={controller} animationLoop={false}
+                                isLoading={canvasLoading}
+                                className=" w-full h-fit justify-center items-center
+                                                max-h-screen"/>
+                </div>
+            </div>
+        </AppView>
     )
 }
 

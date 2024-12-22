@@ -60,11 +60,11 @@ const _Navbar = () => {
     } = useTheme();
     return (
         <AtomToolbar
-            className={'z-20'}
+            className={'z-20 px-4'}
             start={(
                 <div className='flex flex-row w-fit h-fit justify-center items-center
                         backdrop-blur-md gap-2 px-4 py-2 m-0
-                        bg-primary bg-opacity-80 rounded-full '>
+                        bg-primary rounded-full '>
                     <AtomSvg src={brand.logo} alt={brand.name}
                              className='w-6 h-6'/>
                     <h1 className='text-lg font-bold text-center m-auto'>{brand.name}</h1>
