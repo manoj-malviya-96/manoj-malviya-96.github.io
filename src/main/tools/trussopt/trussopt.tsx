@@ -132,11 +132,11 @@ const TrussOptView = () => {
                                     value: LatticeType.Cross
                                 },
                                 {
-                                    label: 'Checkerboard',
+                                    label: 'Checker',
                                     value: LatticeType.Checkerboard
                                 }
                             ]}
-                            className={'w-40'}
+                            className={'w-32 m-auto'}
                             onClick={setLatticeType}
                         />
                     </div>

@@ -18,7 +18,7 @@ export enum ButtonSeverity {
 
 export enum ButtonType {
     Outlined = 'border-secondary bg-opacity-0 border hover:bg-opacity-100',
-    Ghost = `btn-ghost hover:bg-transparent
+    Ghost = `bg-transparent border-0 hover:bg-transparent
             hover:border-0 hover:font-bold active:bg-transparent`,
     Solid = '',
 }
@@ -31,7 +31,6 @@ export interface AtomButtonProps {
     type?: ButtonType;
     severity?: ButtonSeverity;
     tooltip?: string;
-    rounded?: boolean;
     disabled?: boolean;
     loading?: boolean;
     animated?: boolean;
@@ -58,7 +57,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
             
             <AtomSimpleMotionContainer enableHoverEffect={!disabled}>
                 <button
-                    className={`btn ${label ? 'md:px-4 rounded-full' : 'btn-circle'}
+                    className={`btn ${label ? 'md:px-6 rounded-full' : 'btn-circle'}
                                 ${daisyClass}
                                 ${className}`}
                     onClick={(event) => {
@@ -71,7 +70,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                 >
                     {loading && <div className="spinner spinner-primary"/>}
                     {icon && <i className={`${icon}`}/>}
-                    {label && <span className="hidden sm:inline">{label}</span>}
+                    {label && <span className="hidden sm:inline ml-auto">{label}</span>}
                 </button>
             </AtomSimpleMotionContainer>
         </div>
