@@ -46,10 +46,10 @@ const _AtomKnob: React.FC<AtomKnobProps> = ({
             <div className="relative w-24 h-24">
                 
                 <div className="absolute inset-0 flex justify-center items-center
-                                rounded-full bg-primary border-primary">
+                                rounded-full bg-primary border-secondary">
                     <div
                         className="absolute inset-0 rounded-full border-8
-                                    border-primary border-t-primary-content"
+                                    border-secondary border-t-primary-content"
                         style={{
                             transform: `rotate(${rotation}deg)`
                         }}

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import TrussMesh, {LatticeType} from "./truss-mesh";
 import {AtomCanvasController} from "../../../atoms/atom-canvas";
 import TrussFea from "./truss-fea";
-import {makeColorScale} from "../../../common/color-utils";
+import {adjustColor, makeColorScale} from "../../../common/color-utils";
 import {drawArrow, drawX} from "../../../common/canvas-drawer";
 
 
@@ -62,7 +62,6 @@ export class TrussStructureView extends AtomCanvasController {
         const {width, height} = canvas;
         ctx.clearRect(0, 0, width, height);
         
-        
         let points = this.mesh.points;
         const edges = this.mesh.connections;
         // 0.** is random magic number - to make it not super-big and get clipped by edges
@@ -70,29 +69,8 @@ export class TrussStructureView extends AtomCanvasController {
         points = points.map(([x, y]) => [factor * x + this.offset, factor * y + this.offset]);
         
         const thickness = this.mesh.normThickness;
-        edges.forEach(([start, end], idx) => {
-            const [x1, y1] = points[start];
-            const [x2, y2] = points[end];
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = this.trussColor
-            ctx.lineWidth = this.maxLineWidth * thickness[idx];
-            ctx.stroke();
-            ctx.closePath();
-        });
-        
-        points.forEach(([x, y]) => {
-            ctx.beginPath();
-            ctx.arc(x, y, this.pointRadius, 0, 2 * Math.PI);
-            ctx.fillStyle = this.trussColor
-            ctx.fill();
-            ctx.closePath();
-        });
-        
         
         if (this.feaEngine) {
-            console.debug('drawing simulation results');
             const displacements = this.feaEngine.displacements;
             const stresses = this.feaEngine.stresses;
             const nDof = this.feaEngine.ndof_per_node;
@@ -100,7 +78,11 @@ export class TrussStructureView extends AtomCanvasController {
             
             const maxStress = Math.max(...stresses);
             const minStress = Math.min(...stresses);
-            const normalizeStress = (stress:number) => (stress - minStress) / (maxStress - minStress);
+            const normalizeStress = (stress: number) => (
+                stress - minStress
+            ) / (
+                maxStress - minStress
+            );
             const colorScale = makeColorScale('blue', 'grey', 'red')
             
             if (!displacements) {
@@ -129,6 +111,29 @@ export class TrussStructureView extends AtomCanvasController {
                 ctx.closePath();
             });
         }
+        
+        const normalColor = this.feaEngine ? adjustColor(this.trussColor, 0.069) : this.trussColor;
+        
+        edges.forEach(([start, end], idx) => {
+            const [x1, y1] = points[start];
+            const [x2, y2] = points[end];
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = normalColor
+            ctx.lineWidth = this.maxLineWidth * thickness[idx];
+            ctx.stroke();
+            ctx.closePath();
+        });
+        
+        points.forEach(([x, y]) => {
+            ctx.beginPath();
+            ctx.arc(x, y, this.pointRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = normalColor
+            ctx.fill();
+            ctx.closePath();
+        });
+        
         // get force points
         const forcePointsX = this.mesh.forcePoints_X;
         if (forcePointsX.size > 0) {
@@ -150,6 +155,7 @@ export class TrussStructureView extends AtomCanvasController {
                 drawX(ctx, points[idx][0], points[idx][1], this.pointRadius, 'purple', this.pointRadius);
             });
         }
+        
     }
 }
 

@@ -94,7 +94,7 @@ const TrussOptView = () => {
                 <div
                     className=" w-fit h-full
                         flex flex-col gap-6 p-2 rounded-lg
-                        justify-center items-center bg-secondary bg-opacity-20">
+                        justify-center items-center bg-secondary bg-opacity-50">
                     
                     <div className="flex flex-row gap-1">
                         <AtomKnob

@@ -10,7 +10,7 @@ interface AtomStatsProps {
 
 const _AtomStats: React.FC<AtomStatsProps> = ({text, value, className}) => {
     return (
-        <div className={`stat ${className}`}>
+        <div className={`stat ${className} border-secondary border rounded-lg w-fit h-fit`}>
             <div className="stat-title">{text}</div>
             <div
                 className="stat-value">{value}</div>

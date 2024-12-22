@@ -42,7 +42,7 @@ const AtomImage: React.FC<AtomImageProps> = ({
                     className={`cursor-pointer ${preview ? "hover:opacity-90" : ""}`}
                     onClick={preview ? toggleFullScreen : undefined}
                 />
-                {showLabel && <span className="text-sm text-secondary-content">{alt}</span>}
+                {showLabel && <span className="text-sm text-accent">{alt}</span>}
             </div>
             
             {/* Full-Screen Overlay */}

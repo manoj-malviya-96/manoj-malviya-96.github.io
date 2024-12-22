@@ -73,7 +73,7 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = ({
             <SyntaxHighlighter language={language}
                                style={isDark ? darkStyle : lightStyle}
                                className="rounded-b-lg border-b border-l border-r
-                               border-secondary border-opacity-30">
+                               border-secondary">
                 {code}
             </SyntaxHighlighter>
         </div>

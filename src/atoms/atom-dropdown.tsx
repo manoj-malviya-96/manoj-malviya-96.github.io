@@ -54,7 +54,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             <ul
                 tabIndex={0}
                 className={`dropdown-content menu p-0 shadow w-full mb-3
-                            border border-primary border-opacity-50
+                            border border-secondary
                             bg-transparent backdrop-blur-lg rounded-lg
                             ${open ? 'block' : 'hidden'}`}
             >
@@ -70,7 +70,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                     </li>
                 ))}
                 {header &&
-                    <li className={'border-primary border-t'}>
+                    <li className={'border-secondary border-t'}>
                         {header}
                     </li>
                 }
