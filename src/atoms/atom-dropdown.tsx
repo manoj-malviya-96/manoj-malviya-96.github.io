@@ -62,7 +62,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                     <li key={index}>
                         <div
                             className={`rounded-lg w-full
-                                        ${selectedOption === option ? 'active' : ''}`}
+                                        ${selectedOption === option ? 'active bg-secondary' : ''}`}
                             onClick={() => handleOptionClick(option)}
                         >
                             {option.label}

@@ -13,6 +13,7 @@ import {useTheme} from "../../../providers/theme";
 import AtomStats from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
+import AtomGroup from "../../../atoms/atom-group";
 
 const AppName = 'TrussOpt';
 
@@ -93,56 +94,61 @@ const TrussOptView = () => {
             <div className="h-fit w-full flex flex-col-reverse md:flex-row
                                 p-0 m-0 gap-8 items-center">
                 <div
-                    className=" w-fit h-full
-                        flex flex-col gap-6 px-2 py-3 rounded-lg
-                        justify-center items-center bg-secondary bg-opacity-50">
+                    className="w-1/4 h-fit
+                        flex flex-col gap-6 px-2 py-3
+                        justify-center items-center">
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center">
-                        <AtomKnob
-                            label='Mesh Width (mm)'
-                            min={cellSize}
-                            max={100}
-                            step={cellSize}
-                            initValue={meshWidth}
-                            onChange={setMeshWidth}
-                        />
-                        <AtomKnob
-                            label='Mesh Height (mm)'
-                            min={cellSize}
-                            max={100}
-                            step={cellSize}
-                            initValue={meshHeight}
-                            onChange={setMeshHeight}
-                        />
-                        <AtomKnob
-                            label='Cell Size (mm)'
-                            min={5}
-                            max={20}
-                            step={5}
-                            initValue={cellSize}
-                            onChange={setCellSize}
-                        />
-                        <AtomDropdown
-                            placeholder='Select Lattice Type'
-                            initialIndex={0}
-                            dropdownIcon={'fas fa-layer-group'}
-                            options={[
-                                {
-                                    label: 'Cross',
-                                    value: LatticeType.Cross
-                                },
-                                {
-                                    label: 'Checker',
-                                    value: LatticeType.Checkerboard
-                                }
-                            ]}
-                            className={'w-32 m-auto'}
-                            onClick={setLatticeType}
-                        />
-                    </div>
-                    <div className="flex flex-row gap-2">
+                    <AtomGroup
+                        label={'Design Inital Truss'}
+                    >
+                        <div className="p-0 grid grid-cols-1 lg:grid-cols-2
+                                            justify-center items-center">
+                            <AtomKnob
+                                label='Mesh Width (mm)'
+                                min={cellSize}
+                                max={100}
+                                step={cellSize}
+                                initValue={meshWidth}
+                                onChange={setMeshWidth}
+                            />
+                            <AtomKnob
+                                label='Mesh Height (mm)'
+                                min={cellSize}
+                                max={100}
+                                step={cellSize}
+                                initValue={meshHeight}
+                                onChange={setMeshHeight}
+                            />
+                            <AtomKnob
+                                label='Cell Size (mm)'
+                                min={5}
+                                max={20}
+                                step={5}
+                                initValue={cellSize}
+                                onChange={setCellSize}
+                            />
+                            <AtomDropdown
+                                placeholder='Select Lattice Type'
+                                initialIndex={0}
+                                dropdownIcon={'fas fa-layer-group'}
+                                options={[
+                                    {
+                                        label: 'Cross',
+                                        value: LatticeType.Cross
+                                    },
+                                    {
+                                        label: 'Checker',
+                                        value: LatticeType.Checkerboard
+                                    }
+                                ]}
+                                className={'w-32 m-auto'}
+                                onClick={setLatticeType}
+                            />
+                        </div>
+                    </AtomGroup>
+                    
+                    <AtomGroup label={'FEA'} layout={'horizontal'}>
                         <AtomToggleButton
-                            offLabel='Fix Nodes'
                             offIcon='fas fa-lock-open'
                             onIcon='fas fa-lock'
                             tooltip='Add fix nodes to the truss, disabled for now'
@@ -151,7 +157,6 @@ const TrussOptView = () => {
                             onChange={(e) => console.log(e)}
                         />
                         <AtomToggleButton
-                            offLabel='Load Nodes'
                             offIcon='fas fa-arrow-up'
                             onIcon='fas fa-arrow-down'
                             tooltip='Add Load nodes to the truss, disabled for now'
@@ -159,48 +164,49 @@ const TrussOptView = () => {
                             disabled={true}
                             onChange={(e) => console.log(e)}
                         />
-                    </div>
-                    <AtomToggleButton
-                        offLabel='Simulate'
-                        offIcon='fas fa-play'
-                        onIcon='fas fa-stop'
-                        tooltip='simulate the truss'
-                        initValue={controller.feaEngine !== null}
-                        type={ButtonType.Outlined}
-                        onChange={(e: boolean) => {
-                            if (e) {
-                                simulate();
-                            } else {
-                                controller.addFeaResults(null);
-                            }
-                        }}
-                    />
-                    <div className="flex flex-row gap-2">
-                        <AtomButton
-                            label='Optimize'
-                            icon='fas fa-bolt-lightning'
-                            severity={ButtonSeverity.Info}
-                            tooltip={'optimize the truss'}
-                            onClick={optimize}
+                        <AtomToggleButton
+                            offLabel='Simulate'
+                            offIcon='fas fa-play'
+                            onIcon='fas fa-stop'
+                            tooltip='simulate the truss'
+                            initValue={controller.feaEngine !== null}
+                            type={ButtonType.Outlined}
+                            onChange={(e: boolean) => {
+                                if (e) {
+                                    simulate();
+                                } else {
+                                    controller.addFeaResults(null);
+                                }
+                            }}
                         />
-                        <AtomButton
-                            icon='fas fa-trash'
-                            severity={ButtonSeverity.Error}
-                            tooltip={'clear optimization results'}
-                            onClick={clearOptimize}
-                        />
-                    </div>
+                    </AtomGroup>
+                    <AtomGroup label={'Optimization'}>
+                        <div className="flex flex-row gap-2">
+                            <AtomButton
+                                label='Optimize'
+                                icon='fas fa-bolt-lightning'
+                                severity={ButtonSeverity.Info}
+                                tooltip={'optimize the truss'}
+                                onClick={optimize}
+                            />
+                            <AtomButton
+                                icon='fas fa-trash'
+                                severity={ButtonSeverity.Error}
+                                tooltip={'clear optimization results'}
+                                onClick={clearOptimize}
+                            />
+                        </div>
+                    </AtomGroup>
                 </div>
-                <div className="w-3/4 h-fit flex flex-col gap-2
-                                justify-center items-center">
+                <div className="w-3/4 h-full flex flex-col gap-2
+                                justify-center items-end mt-16">
+                    <AtomCanvas controller={controller} animationLoop={false}
+                                isLoading={canvasLoading}
+                                className="w-full h-full"/>
                     <div className='w-fit h-fit flex flex-row gap-4'>
                         <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
                         <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
                     </div>
-                    <AtomCanvas controller={controller} animationLoop={false}
-                                isLoading={canvasLoading}
-                                className=" w-full h-fit justify-center items-center
-                                                max-h-screen"/>
                 </div>
             </div>
         </AppView>

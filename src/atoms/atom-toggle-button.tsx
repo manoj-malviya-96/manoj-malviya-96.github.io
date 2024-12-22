@@ -3,7 +3,7 @@ import {AtomButton, AtomButtonProps} from "./atom-button";
 
 interface AtomToggleButtonProps extends AtomButtonProps {
     onLabel?: string;
-    offLabel: string;
+    offLabel?: string;
     onIcon?: string;
     offIcon?: string;
     onChange?: (value: boolean) => void;
