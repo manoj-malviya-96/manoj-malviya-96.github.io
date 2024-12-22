@@ -93,8 +93,8 @@ const TrussOptView = () => {
                                 p-0 m-0 gap-8 items-center">
                 <div
                     className=" w-fit h-full
-                        flex flex-col gap-6 px-2 py-6 rounded-lg
-                        justify-center items-center">
+                        flex flex-col gap-6 p-2 rounded-lg
+                        justify-center items-center bg-secondary bg-opacity-20">
                     
                     <div className="flex flex-row gap-1">
                         <AtomKnob
@@ -183,7 +183,8 @@ const TrussOptView = () => {
                         />
                     </div>
                 </div>
-                <div className="w-3/4 h-fit flex flex-col gap-2">
+                <div className="w-3/4 h-fit flex flex-col gap-2
+                                justify-center items-center">
                     <div className='w-fit h-fit flex flex-row gap-2'>
                         <AtomStats text={'Volume'} value={simResult ? simResult.volume : 'N/A'}/>
                         <AtomStats text={'Strain Energy'} value={simResult ? simResult.strainEnergy : 'N/A'}/>
