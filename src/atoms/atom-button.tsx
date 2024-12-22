@@ -45,6 +45,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                                                     size = ButtonSize.Medium,
                                                     type = ButtonType.Solid,
                                                     tooltip,
+                                                    animated = false,
                                                     disabled = false,
                                                     loading = false,
                                                     className = '',
@@ -69,8 +70,14 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                     disabled={disabled}
                 >
                     {loading && <div className="spinner spinner-primary"/>}
-                    {icon && <i className={`${icon}`}/>}
-                    {label && <span className="hidden sm:inline ml-auto">{label}</span>}
+                    {icon && <i className={`${icon} ${animated ? 'animate-pulse' : ''}`}/>}
+                    {label &&
+                        <span className=
+                                  {`hidden sm:inline ml-auto
+                                  ${animated ? 'animate-pulse' : ''}`}>
+                            {label}
+                        </span>
+                    }
                 </button>
             </AtomSimpleMotionContainer>
         </div>

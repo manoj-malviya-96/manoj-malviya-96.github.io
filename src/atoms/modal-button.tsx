@@ -1,12 +1,10 @@
-import React  from "react";
+import React from "react";
 import {AtomButton, AtomButtonProps} from "./atom-button";
 import {useDialog} from "../providers/dialogs";
 
 interface ModalButtonProps extends AtomButtonProps {
     title: string;
     dialogContent: React.ReactNode;
-    footerButtons?: Array<AtomButtonProps>;
-    addOkButton?: boolean;
 }
 
 const ModalButton: React.FC<ModalButtonProps> = ({
@@ -16,7 +14,6 @@ const ModalButton: React.FC<ModalButtonProps> = ({
                                                      disabled,
                                                      title,
                                                      dialogContent,
-                                                     addOkButton = false,
                                                      ...atomButtonProps // Capture any additional AtomButton props
                                                  }) => {
     
