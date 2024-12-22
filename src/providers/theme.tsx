@@ -8,8 +8,8 @@ import {getColorFromStyle} from "../common/color-utils";
 
 // Define available themes
 export const availableThemes = [
-    {name: 'Dark', icon: 'pi pi-moon'},
-    {name: 'Light', icon: 'pi pi-sun'},
+    {name: 'Dark', icon: 'fas fa-moon'},
+    {name: 'Light', icon: 'fas fa-sun'},
 ];
 
 

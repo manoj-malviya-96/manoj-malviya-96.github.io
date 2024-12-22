@@ -99,7 +99,7 @@ const GithubProfile: React.FC = () => {
             className="p-2 w-full h-full justify-center items-center"
         >
             <div
-                className="w-fit flex m-auto justify-between item-center">
+                className="w-fit flex flex-row m-auto justify-between item-center gap-4 border-secondary">
                 <AtomStats text={'Total Commits'} value={totalCommits}/>
                 <AtomStats text={'Longest Streak'} value={longestStreak}/>
                 {dropdownOptions.length > 0 && (
@@ -107,7 +107,7 @@ const GithubProfile: React.FC = () => {
                         options={dropdownOptions}
                         className="w-64 m-auto"
                         initialIndex={0}
-                        dropdownIcon='pi pi-calendar'
+                        dropdownIcon='fas fa-calendar'
                         onClick={(option) => setCurrentYear(Number(option))}
                     />
                 )}

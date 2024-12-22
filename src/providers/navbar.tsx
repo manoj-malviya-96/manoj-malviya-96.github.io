@@ -74,7 +74,7 @@ const _Navbar = () => {
                 <div className='flex flex-row gap-2'>
                     <AtomButton
                         label="Home"
-                        icon="pi pi-home"
+                        icon="fas fa-home"
                         onClick={() => navigate("/")}
                     />
                     <AtomButton

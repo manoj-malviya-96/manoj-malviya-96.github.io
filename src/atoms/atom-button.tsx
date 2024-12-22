@@ -9,15 +9,15 @@ export enum ButtonSize {
 }
 
 export enum ButtonSeverity {
-    Primary = 'btn-primary hover:btn-secondary shadow-none',
-    Success = 'btn-success',
-    Info = 'btn-info',
-    Warning = 'btn-warning',
-    Error = 'btn-error',
+    Primary = 'btn-primary hover:btn-secondary shadow-none border-primary',
+    Success = 'btn-success border-success',
+    Info = 'btn-info border-info',
+    Warning = 'btn-warning border-warning',
+    Error = 'btn-error border-error',
 }
 
 export enum ButtonType {
-    Outlined = 'btn-outline',
+    Outlined = 'border-secondary bg-opacity-0 border hover:bg-opacity-100',
     Ghost = `btn-ghost hover:bg-transparent
             hover:border-0 hover:font-bold active:bg-transparent`,
     Solid = '',

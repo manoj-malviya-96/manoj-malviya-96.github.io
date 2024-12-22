@@ -47,7 +47,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                 label={selectedOption ? selectedOption.label : placeholder}
                 onClick={() => setOpen(!open)}
                 className={`w-full`}
-                type={ButtonType.Ghost}
+                type={ButtonType.Outlined}
             />
             
             {/*DropDown Content*/}
