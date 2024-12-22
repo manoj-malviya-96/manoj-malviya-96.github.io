@@ -1,7 +1,7 @@
 import React from 'react';
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import ProfilePicture from "./assets/main.jpg";
-import {AtomButton} from "../atoms/atom-button";
+import {AtomButton, ButtonType} from "../atoms/atom-button";
 
 const Intro = () => {
     return (
@@ -22,10 +22,14 @@ const Intro = () => {
                         </div>
                         <div className="absolute bottom-8 left-1/2">
                             <AtomButton
-                                icon="pi pi-arrow-down"
+                                icon="fas fa-arrow-down"
+                                label="Scroll Down for more"
                                 animated={true}
                                 onClick={() => {
-                                    document.getElementById("about")?.scrollIntoView({behavior: "smooth"});
+                                    window.scroll({
+                                        top: window.innerHeight,
+                                        behavior: 'smooth'
+                                    });
                                 }}
                             />
                         </div>
