@@ -31,6 +31,7 @@ export interface AtomButtonProps {
     type?: ButtonType;
     severity?: ButtonSeverity;
     tooltip?: string;
+    pill?: boolean;
     disabled?: boolean;
     loading?: boolean;
     animated?: boolean;
@@ -45,6 +46,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
                                                     size = ButtonSize.Medium,
                                                     type = ButtonType.Solid,
                                                     tooltip,
+                                                    pill = true,
                                                     animated = false,
                                                     disabled = false,
                                                     loading = false,
@@ -58,7 +60,8 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
             
             <AtomSimpleMotionContainer enableHoverEffect={!disabled}>
                 <button
-                    className={`btn ${label ? 'md:px-6 rounded-full' : 'btn-circle'}
+                    className={`btn ${label ? 'md:px-6' : 'btn-circle'}
+                                ${ pill ? 'rounded-full': 'rounded-lg'}
                                 ${daisyClass}
                                 ${className}`}
                     onClick={(event) => {

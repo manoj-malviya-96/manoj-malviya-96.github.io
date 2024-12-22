@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/trussopt.svg';
 import AppView from "../app-view";
@@ -47,11 +47,8 @@ const TrussOptView = () => {
         }
     }, [controller, mesh, optimizeMesh, daisyPrimaryText]);
     
-    useEffect(() => {
-        clearOptimize();
-    }, [mesh]);
     
-    const simulate = () => {
+    const simulate = useCallback(() => {
         const feaEngine = optimizeMesh ? new TrussFea(optimizeMesh) :
             mesh ? new TrussFea(structuredClone(mesh)) : null;
         if (!feaEngine) {
@@ -61,9 +58,16 @@ const TrussOptView = () => {
         feaEngine.compute();
         controller.addFeaResults(feaEngine);
         setSimResult(feaEngine.getResults());
-    }
+    }, [controller, optimizeMesh, mesh]);
     
-    const optimize = async () => {
+    
+    const clearOptimize = useCallback(() => {
+        setOptimizeMesh(null);
+        setSimResult(null);
+        controller.addFeaResults(null);
+    }, [controller]);
+    
+    const optimize = useCallback(async () => {
         console.log('Optimize');
         setCanvasLoading(true);
         if (!mesh) {
@@ -85,13 +89,11 @@ const TrussOptView = () => {
             clearOptimize();
         }
         setCanvasLoading(false);
-    }
+    }, [mesh, controller, clearOptimize]);
     
-    const clearOptimize = () => {
-        setOptimizeMesh(null);
-        setSimResult(null);
-        controller.addFeaResults(null);
-    }
+    useEffect(() => {
+        clearOptimize();
+    }, [mesh, clearOptimize]);
     
     return (
         <AppView
