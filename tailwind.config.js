@@ -21,7 +21,7 @@ module.exports = {
                 "primary": "#f7f7f7",
                 "base-100": "#f7f7f7",
                 "secondary": "#a9a9a9",
-                "accent": "#454545",
+                "accent": "#373737",
                 "neutral": "#797979",
                 "info": "#60a5fa",
                 "success": "#32cd4b",
@@ -31,7 +31,7 @@ module.exports = {
             Dark: {
                 "primary": "#000000",
                 "base-100": "#000000",
-                "secondary": "#454545",
+                "secondary": "#373737",
                 "accent": "#a9a9a9",
                 "neutral": "#797979",
                 "info": "#233e9a",
