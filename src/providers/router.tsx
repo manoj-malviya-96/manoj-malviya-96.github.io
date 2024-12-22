@@ -1,22 +1,19 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {
     BrowserRouter as Router,
     Routes,
     Route,
-    useLocation
+    useLocation,
 } from "react-router-dom";
 import {AnimatePresence, Variants} from "motion/react";
 import AtomMotionSlidingAnimation from "../atoms/atom-motion-sliding-animation";
 import NavBar from "./navbar";
 
-// Define the type for an individual route
 export interface RouteDefinition {
     path: string;
-    component: React.FC<any>; // Adjust "any" to specific props if
-                              // needed
-    props?: Record<string, any>; // Props to pass to the component
-    animation?: Variants; // Optional animation variants for
-                          // SlidingAnimation
+    component: React.FC<any>;
+    props?: Record<string, any>;
+    animation?: Variants;
 }
 
 interface MakeRoutesWithAnimationProps {
@@ -24,28 +21,29 @@ interface MakeRoutesWithAnimationProps {
 }
 
 const MakeRoutesWithAnimation: React.FC<MakeRoutesWithAnimationProps> = ({routes}) => {
-    const location = useLocation(); // Track the current route
-    
+    const location = useLocation();
     return (
         <AnimatePresence mode="wait">
-            {/* Ensure exit animations are processed */}
-            <Routes location={location} key={location.pathname}>
-                {routes.map(({
-                                 path,
-                                 component: Component,
-                                 props,
-                                 animation
-                             }, index) => (
+            <Routes location={location} key={location.key || location.pathname}>
+                {routes.map(({path, component: Component, props}, index) => (
                     <Route
                         key={index}
                         path={path}
                         element={
-                            <AtomMotionSlidingAnimation {...animation}>
+                            <AtomMotionSlidingAnimation>
                                 <Component {...props} />
                             </AtomMotionSlidingAnimation>
                         }
                     />
                 ))}
+                <Route path="*" element={
+                    <span
+                        className={`fixed left-1/2 top-1/2 transform -translate-x-1/2 -transform-y-1/2
+                                    text-2xl text-center uppercase`}>
+                            Oops Wrong Path, use Home to be safe and happy! See you there :)
+                        </span>
+                }
+                />
             </Routes>
         </AnimatePresence>
     );
@@ -56,10 +54,12 @@ interface RouterConstructorProps {
 }
 
 const _RouterConstructor: React.FC<RouterConstructorProps> = ({routes}) => {
+    const memoizedRoutes = useMemo(() => routes, [routes]);
+    
     return (
         <Router>
             <NavBar/>
-            <MakeRoutesWithAnimation routes={routes}/>
+            <MakeRoutesWithAnimation routes={memoizedRoutes}/>
         </Router>
     );
 };

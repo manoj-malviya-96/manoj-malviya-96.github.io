@@ -1,7 +1,6 @@
 import React, {ReactNode, useEffect} from "react";
 import {motion} from "motion/react";
 
-// Define props interface
 interface SlidingAnimationProps {
     children: ReactNode; // ReactNode covers all valid JSX children
 }
