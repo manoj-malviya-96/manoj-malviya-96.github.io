@@ -38,20 +38,6 @@ function isOklchAndConvert(input: string): any {
     }
 }
 
-// Example Usage
-try {
-    const input = 'oklch(82.6562% 0 0 / 1)'; // Lightness with zero
-                                             // chroma
-    const result = isOklchAndConvert(input);
-    console.log(result); // Outputs: rgba(211, 211, 211, 1)
-}
-catch (error) {
-    console.error((
-        error as Error
-    ).message);
-}
-
-
 export function adjustColor(
     color: string,
     opacity: number = 1,

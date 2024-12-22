@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Intro from "./intro";
 import BlogListing from "./blog-list";
 import AboutMe from "./about-me";
@@ -9,10 +9,13 @@ import {useNavbar} from "../providers/navbar";
 
 const Home = () => {
     const {updateBrand} = useNavbar();
-    updateBrand({
-        logo: BrandLogo,
-        name: 'MAFIA'
-    });
+    useEffect(() => {
+        updateBrand({
+            logo: BrandLogo,
+            name: 'MAFIA'
+        });
+    }, [BrandLogo, updateBrand]);
+    
     return (
         <div className='flex-row w-full h-fit'>
             <Intro/>
