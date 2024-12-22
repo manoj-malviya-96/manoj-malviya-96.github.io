@@ -1,5 +1,5 @@
 import AtomFullScreenContainer from "../../atoms/atom-full-screen-container";
-import React from "react";
+import React, {useEffect} from "react";
 import {useNavbar} from "../../providers/navbar";
 
 
@@ -11,10 +11,14 @@ interface AppViewProps {
 
 const _AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
     const {updateBrand} = useNavbar();
-    updateBrand({
-        logo: appLogo,
-        name: appName
-    });
+    
+    useEffect(() => {
+        updateBrand({
+            logo: appLogo,
+            name: appName,
+        });
+    }, [appLogo, appName, updateBrand]);
+    
     return (
         <AtomFullScreenContainer
             name={appName.toLowerCase()}

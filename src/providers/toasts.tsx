@@ -18,7 +18,7 @@ export const useToast = (): ToastContextType => {
 const _ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [toasts, setToasts] = useState<AtomToastItemProps[]>([]);
     
-    const addToast = (message: string, type: ToastType = "info", duration = 2000) => {
+    const addToast = (message: string, type: ToastType = "info", duration = 20000) => {
         console.log("Adding toast:", message, type); // Debugging
         const id = Date.now();
         setToasts((prev) => {

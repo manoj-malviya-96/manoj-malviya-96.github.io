@@ -28,18 +28,19 @@ interface AtomToastProps {
 
 const _AtomToast = ({toasts}: AtomToastProps) => {
     return (
-        <div className="toast toast-top toast-center">
+        // mt-12 is for brand logo. Todo can be moved to navbar.
+        <div className="toast toast-top toast-start mt-12">
             {toasts.map((toast) => (
                 <div
                     key={toast.id}
-                    className={`alert ${'alert-' + toast.type} rounded-lg p-2 flex flex-row gap-2`}
+                    className={`alert alert-${toast.type} rounded-lg p-2`}
                 >
                     <i
                         className={`${getIcon(toast.type)} text-small`}
                     />
-                    <span className="text-small">
+                    <span className="text-sm">
                             {toast.message}
-                        </span>
+                    </span>
                 </div>
             ))}
         </div>

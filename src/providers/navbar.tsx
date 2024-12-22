@@ -62,6 +62,7 @@ const _Navbar = () => {
         <AtomToolbar
             className={'z-20 px-4'}
             start={(
+                // Brand Logo
                 <div className='flex flex-row w-fit h-fit justify-center items-center
                         backdrop-blur-md gap-2 px-4 py-2 m-0
                         bg-primary rounded-full '>

@@ -6,7 +6,9 @@ module.exports = {
         "./src/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            scrollBehavior: ['smooth'],
+        },
     },
     plugins: [require('daisyui'), require("tailwind-scrollbar")],
     daisyui: {

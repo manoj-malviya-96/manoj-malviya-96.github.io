@@ -23,6 +23,7 @@ interface ThemeContextType {
     setCurrentTheme: (theme: string) => void;
     daisyPrimary: string;
     daisyPrimaryText: string;
+    daisySecondary: string;
     daisyNeutral: string;
     isDark: boolean;
 }
@@ -56,6 +57,7 @@ export const _ThemeProvider: React.FC<{
         daisyPrimary: '',
         daisyPrimaryText: '',
         daisyNeutral: '',
+        daisySecondary: '',
     });
     
     // Update theme on the DOM and localStorage
@@ -68,6 +70,7 @@ export const _ThemeProvider: React.FC<{
             daisyPrimary: getColorFromStyle('--p'),
             daisyPrimaryText: getColorFromStyle('--pc'),
             daisyNeutral: getColorFromStyle('--n'),
+            daisySecondary: getColorFromStyle('--s'),
         });
     }, [currentTheme]);
     
@@ -94,6 +97,7 @@ export const _ThemeProvider: React.FC<{
                 daisyPrimary: themeColors.daisyPrimary,
                 daisyPrimaryText: themeColors.daisyPrimaryText,
                 daisyNeutral: themeColors.daisyNeutral,
+                daisySecondary: themeColors.daisySecondary,
                 isDark: currentTheme === 'Dark',
             }}
         >
