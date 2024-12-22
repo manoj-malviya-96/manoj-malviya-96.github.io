@@ -580,19 +580,19 @@
           "commits": 2
         },
         {
-          "date": "2024-12-03",
-          "commits": 10
+          "date": "2024-12-12",
+          "commits": 11
         },
         {
-          "date": "2024-12-04",
-          "commits": 4
+          "date": "2024-12-17",
+          "commits": 3
         }
       ],
       "languages": {
-        "C++": 23858292,
-        "QML": 3320814,
+        "C++": 23870169,
+        "QML": 3320192,
         "Python": 1599760,
-        "CMake": 856545,
+        "CMake": 856321,
         "Shell": 74913,
         "C": 65194,
         "Gherkin": 63230,
@@ -779,11 +779,15 @@
         },
         {
           "date": "2024-12-18",
+          "commits": 8
+        },
+        {
+          "date": "2024-12-19",
           "commits": 2
         }
       ],
       "languages": {
-        "TypeScript": 187884,
+        "TypeScript": 187962,
         "JavaScript": 3950,
         "HTML": 1675,
         "CSS": 643
@@ -858,26 +862,26 @@
         }
       ],
       "languages": {
-        "C": 57812015,
-        "C++": 22157185,
-        "Python": 11287169,
+        "C": 57812473,
+        "C++": 22210089,
+        "Python": 11288351,
         "Jupyter Notebook": 6719311,
-        "QML": 6255102,
-        "Go": 1631406,
+        "QML": 6275399,
+        "Go": 1638207,
         "JavaScript": 1524190,
-        "CMake": 1059971,
+        "CMake": 1064502,
         "Assembly": 568918,
         "TypeScript": 424443,
         "Shell": 420063,
         "HTML": 305314,
         "CSS": 126878,
-        "Makefile": 46570,
+        "Makefile": 46743,
         "Dockerfile": 32141,
         "TeX": 27973,
         "Cython": 25392,
         "Rust": 19552,
         "Jinja": 18942,
-        "Gherkin": 7386,
+        "Gherkin": 7453,
         "QMake": 5520,
         "OpenSCAD": 2764,
         "PowerShell": 1780,
@@ -1472,7 +1476,7 @@
         "Jupyter Notebook": 1058619484,
         "HTML": 104185169,
         "C": 57518262,
-        "Python": 40186298,
+        "Python": 40293429,
         "JavaScript": 14615804,
         "C++": 6982898,
         "Mathematica": 3004790,
