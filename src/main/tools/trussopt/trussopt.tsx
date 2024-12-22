@@ -47,11 +47,17 @@ const TrussOptView = () => {
         }
     }, [controller, mesh, optimizeMesh, daisyPrimaryText]);
     
+    useEffect(() => {
+        clearOptimize();
+    }, [mesh]);
+    
     const simulate = () => {
-        if (!mesh) {
-            return;
+        const feaEngine = optimizeMesh ? new TrussFea(optimizeMesh) :
+            mesh ? new TrussFea(structuredClone(mesh)) : null;
+        if (!feaEngine) {
+            throw new Error('Null Scene');
         }
-        const feaEngine = new TrussFea(mesh);
+        
         feaEngine.compute();
         controller.addFeaResults(feaEngine);
         setSimResult(feaEngine.getResults());
@@ -84,6 +90,7 @@ const TrussOptView = () => {
     const clearOptimize = () => {
         setOptimizeMesh(null);
         setSimResult(null);
+        controller.addFeaResults(null);
     }
     
     return (
@@ -207,11 +214,14 @@ const TrussOptView = () => {
                         <AtomStats
                             text={'Volume'}
                             value={simResult ? simResult.volume : 'N/A'}
-                            severity={StatSeverity.Success}
+                            severity={simResult ? optimizeMesh ?
+                                StatSeverity.Success : StatSeverity.Info : StatSeverity.Primary}
                         />
                         <AtomStats
                             text={'Strain Energy'}
                             value={simResult ? simResult.strainEnergy : 'N/A'}
+                            severity={simResult ? optimizeMesh ?
+                                StatSeverity.Success : StatSeverity.Info : StatSeverity.Primary}
                         />
                     </div>
                 </div>

@@ -1,7 +1,8 @@
 import React from 'react'
 
 export enum StatSeverity {
-    Primary = 'text-primary',
+    Primary = 'text-primary-content',
+    Info = 'text-info',
     Success = 'text-success',
     Warning = 'text-warning',
     Danger = 'text-danger',
