@@ -1,5 +1,6 @@
 import React from "react";
 import {useToast} from "../providers/toasts";
+import {ToastSeverity} from "./atom-toast";
 
 interface AtomFileUploadProps {
     acceptTypes: string;
@@ -20,9 +21,9 @@ const _AtomFileUpload: React.FC<AtomFileUploadProps> = ({
                 // Generate URL for the uploaded file
                 const fileUrl = URL.createObjectURL(file);
                 onFileChange(fileUrl);
-                addToast(`File uploaded: ${file.name}`, "success");
+                addToast(`File uploaded: ${file.name}`, ToastSeverity.Success);
             } else {
-                addToast("No file selected. Please try again.", "error");
+                addToast("No file selected. Please try again.", ToastSeverity.Error);
             }
         };
     

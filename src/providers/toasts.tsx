@@ -1,8 +1,8 @@
 import React, {createContext, ReactNode, useContext, useState} from "react";
-import AtomToast, {ToastType, AtomToastItemProps} from "../atoms/atom-toast";
+import AtomToast, {ToastSeverity, AtomToastItemProps} from "../atoms/atom-toast";
 
 interface ToastContextType {
-    addToast: (message: string, type?: ToastType, duration?: number) => void;
+    addToast: (message: string, type?: ToastSeverity, duration?: number) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -18,7 +18,7 @@ export const useToast = (): ToastContextType => {
 const _ToastProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [toasts, setToasts] = useState<AtomToastItemProps[]>([]);
     
-    const addToast = (message: string, type: ToastType = "info", duration = 20000) => {
+    const addToast = (message: string, type: ToastSeverity = ToastSeverity.Info, duration = 2000) => {
         console.log("Adding toast:", message, type); // Debugging
         const id = Date.now();
         setToasts((prev) => {

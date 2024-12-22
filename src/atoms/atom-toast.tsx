@@ -1,17 +1,22 @@
 import React from "react";
 
 
-export type ToastType = "info" | "success" | "error" | "warning";
+export enum ToastSeverity {
+    Info = "alert-info",
+    Success = "alert-success",
+    Error = "alert-error",
+    Warning = "alert-warning",
+}
 
-const getIcon = (type: ToastType) => {
+const getIcon = (type: ToastSeverity) => {
     switch (type) {
-        case "info":
+        case ToastSeverity.Info:
             return "fas fa-light-bulb";
-        case "success":
+        case ToastSeverity.Success:
             return "fas fa-thumbs-up";
-        case "error":
+        case ToastSeverity.Error:
             return "fas fa-bug";
-        case "warning":
+        case ToastSeverity.Warning:
             return "fas fa-triangle-exclamation";
     }
 }
@@ -19,7 +24,7 @@ const getIcon = (type: ToastType) => {
 export interface AtomToastItemProps {
     id: number;
     message: string;
-    type: ToastType;
+    type: ToastSeverity;
 }
 
 interface AtomToastProps {
@@ -33,10 +38,10 @@ const _AtomToast = ({toasts}: AtomToastProps) => {
             {toasts.map((toast) => (
                 <div
                     key={toast.id}
-                    className={`alert alert-${toast.type} rounded-lg p-2`}
+                    className={`alert ${toast.type} rounded-lg p-2`}
                 >
                     <i
-                        className={`${getIcon(toast.type)} text-small`}
+                        className={`${getIcon(toast.type)} text-sm`}
                     />
                     <span className="text-sm">
                             {toast.message}
