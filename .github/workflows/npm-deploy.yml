@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: '20.18.0'
 
+      - name: Setup GitHub token
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.WEBSITE_TOKEN }}@github.com/manoj-malviya-96/manoj-malviya-96.github.io.git
+          echo "GitHub token set for authentication."
+
       - name: Install Dependencies
         run: npm install
 
