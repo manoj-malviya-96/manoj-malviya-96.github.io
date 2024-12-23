@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AtomButton, AtomButtonProps} from "./atom-button";
 
 interface AtomToggleButtonProps extends AtomButtonProps {
     onLabel?: string;
-    offLabel: string;
+    offLabel?: string;
     onIcon?: string;
     offIcon?: string;
     onChange?: (value: boolean) => void;
@@ -21,11 +21,15 @@ const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
                                                             }) => {
     const [checked, setChecked] = useState<boolean>(initValue);
     
+    useEffect(() => {
+        setChecked(initValue);
+    }, [initValue]);
+    
     if (!onLabel) {
-        onLabel=offLabel;
+        onLabel = offLabel;
     }
     if (!onIcon && offIcon) {
-        onIcon=offIcon;
+        onIcon = offIcon;
     }
     
     const onToggle = () => {
@@ -42,7 +46,6 @@ const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
             label={checked ? onLabel : offLabel}
             icon={checked ? onIcon : offIcon}
             onClick={onToggle}
-            outlined={!checked}
         />
     );
 };

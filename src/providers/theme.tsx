@@ -4,12 +4,12 @@ import React, {
     useState,
     useEffect
 } from 'react';
-import {getColorFromStyle} from "./color-utils";
+import {getColorFromStyle} from "../common/color-utils";
 
 // Define available themes
 export const availableThemes = [
-    {name: 'Dark', icon: 'pi pi-moon'},
-    {name: 'Light', icon: 'pi pi-sun'},
+    {name: 'Dark', icon: 'fas fa-moon'},
+    {name: 'Light', icon: 'fas fa-sun'},
 ];
 
 
@@ -23,6 +23,7 @@ interface ThemeContextType {
     setCurrentTheme: (theme: string) => void;
     daisyPrimary: string;
     daisyPrimaryText: string;
+    daisySecondary: string;
     daisyNeutral: string;
     isDark: boolean;
 }
@@ -40,7 +41,7 @@ export const useTheme = (): ThemeContextType => {
 };
 
 // ThemeProvider Component
-export const ThemeProvider: React.FC<{
+export const _ThemeProvider: React.FC<{
     children: React.ReactNode
 }> = ({children}) => {
     const [themeEnabled, setThemeEnabled] = useState(true);
@@ -56,6 +57,7 @@ export const ThemeProvider: React.FC<{
         daisyPrimary: '',
         daisyPrimaryText: '',
         daisyNeutral: '',
+        daisySecondary: '',
     });
     
     // Update theme on the DOM and localStorage
@@ -68,6 +70,7 @@ export const ThemeProvider: React.FC<{
             daisyPrimary: getColorFromStyle('--p'),
             daisyPrimaryText: getColorFromStyle('--pc'),
             daisyNeutral: getColorFromStyle('--n'),
+            daisySecondary: getColorFromStyle('--s'),
         });
     }, [currentTheme]);
     
@@ -94,6 +97,7 @@ export const ThemeProvider: React.FC<{
                 daisyPrimary: themeColors.daisyPrimary,
                 daisyPrimaryText: themeColors.daisyPrimaryText,
                 daisyNeutral: themeColors.daisyNeutral,
+                daisySecondary: themeColors.daisySecondary,
                 isDark: currentTheme === 'Dark',
             }}
         >
@@ -101,3 +105,5 @@ export const ThemeProvider: React.FC<{
         </ThemeContext.Provider>
     );
 };
+
+export const ThemeProvider = React.memo(_ThemeProvider);

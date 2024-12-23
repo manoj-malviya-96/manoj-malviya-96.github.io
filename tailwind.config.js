@@ -3,60 +3,39 @@
 module.exports = {
     content: [
         "./index.html",
-        "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-        "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
-
-        // Or if using `src` directory:
         "./src/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            scrollBehavior: ['smooth'],
+        },
     },
     plugins: [require('daisyui'), require("tailwind-scrollbar")],
     daisyui: {
         themes: [{
             Light: {
-                "primary": "#9ca3af",
-
-                "secondary": "#9ca3af",
-
-                "accent": "#4A516D",
-
-                "neutral": "#cdcdcd",
-
-                "base-100": "#ffffff",
-
+                "primary": "#f7f7f7",
+                "base-100": "#f7f7f7",
+                "secondary": "#dddddd",
+                "accent": "#373737",
+                "neutral": "#797979",
                 "info": "#60a5fa",
-
-                "success": "#34d399",
-
+                "success": "#32cd4b",
                 "warning": "#fb923c",
-
                 "error": "#fb7185",
             },
             Dark: {
-
-                "primary": "#222222",
-
-                "secondary": "#595959",
-
-                "accent": "#4A516D",
-
-                "neutral": "#cdcdcd",
-
+                "primary": "#000000",
                 "base-100": "#000000",
-
-                "info": "#2563eb",
-
-                "success": "#047857",
-
+                "secondary": "#1b1b1b",
+                "accent": "#a9a9a9",
+                "neutral": "#797979",
+                "info": "#233e9a",
+                "success": "#116e29",
                 "warning": "#d97706",
-
-                "error": "#e11d48",
+                "error": "#ba322d",
             }
-        }], // Add more themes here if needed
+        }],
     },
 };
 

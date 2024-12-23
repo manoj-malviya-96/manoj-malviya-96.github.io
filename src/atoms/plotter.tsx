@@ -1,5 +1,5 @@
 import Plot from "react-plotly.js";
-import ScrollContainer from "./scroll-container";
+import AtomScrollContainer from "./atom-scroll-container";
 import React from "react";
 
 function createLayout(
@@ -86,7 +86,7 @@ const Plotter: React.FC<PlotterProps> = ({
                                              minimalView = true,
                                          }) => {
     return (
-        <ScrollContainer
+        <AtomScrollContainer
             className={`relative w-full h-full max-h-screen max-w-full rounded-md p-2 ${className}`}
         >
             <Plot
@@ -97,7 +97,7 @@ const Plotter: React.FC<PlotterProps> = ({
                     responsive: true, // Ensures responsiveness
                 }}
             />
-        </ScrollContainer>
+        </AtomScrollContainer>
     );
 };
 

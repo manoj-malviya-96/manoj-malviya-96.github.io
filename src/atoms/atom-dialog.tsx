@@ -1,101 +1,58 @@
-import React from "react";
-import {Dialog} from 'primereact/dialog';
-import {AtomButton, AtomButtonProps} from "./atom-button";
-import {useTheme} from "../common/theme";
+import React, {forwardRef} from "react";
+import {AtomButton, ButtonSize, ButtonType} from "./atom-button";
 
 export interface AtomDialogProps {
-    visible: boolean;
+    visible?: boolean;
     title?: string;
     content?: React.ReactNode;
-    footerButtons?: Array<AtomButtonProps>
-    modal?: boolean;
-    neutralMode?: boolean;
-    
-    onHide(): void;
+    closeCallback?: () => void;
 }
 
-interface AtomHeaderProps {
-    title: string;
-}
-
-const AtomHeader: React.FC<AtomHeaderProps> = ({title}) => {
-    return (
-        <div className={`p-4 bg-transparent rounded-t-lg`}>
-            <h2 className="text-2xl font-bold text-center">{title}</h2>
-        </div>
-    );
-}
-
-const _AtomDialog: React.FC<AtomDialogProps> = ({
-                                                    title,
-                                                    content,
-                                                    footerButtons,
-                                                    visible,
-                                                    modal,
-                                                    onHide,
-                                                    neutralMode = false,
-                                                }) => {
-    const {daisyPrimary, daisyNeutral} = useTheme();
-    
-    const header = title ? <AtomHeader title={title}/> : undefined;
-    
-    const footer = footerButtons ?
-                   footerButtons.map((props, index) => {
-                       return <AtomButton key={index} {...props}/>
-                   }) : undefined;
-    
-    const dialogPt = {
-        root: {
-            style: {
-                borderColor: neutralMode ? daisyPrimary : daisyNeutral,
-                borderOpacity: 0.25,
-                backgroundColor: 'transparent',
-                backdropFilter: 'blur(10px)',
-            },
-        },
-        
-        content: {
-            style: {
-                borderColor: 'transparent',
-                backgroundColor: 'transparent',
-            }
-        },
-        
-        header: {
-            style: {
-                borderColor: 'transparent',
-                backgroundColor: 'transparent',
-            }
-        },
-        footer: {
-            style: {
-                borderColor: 'transparent',
-                backgroundColor: 'transparent',
-            }
-        }
+const AtomDialog = forwardRef<HTMLDivElement, AtomDialogProps>(
+    ({title, content, visible = false, closeCallback}, ref) => {
+        return (
+            <>
+                {/* Background overlay */}
+                <div className={`fixed inset-0 w-full h-full z-20 backdrop-brightness-75
+                                bg-transparent ${visible ? "block" : "hidden"}`}/>
+                {/* Dialog */}
+                <div
+                    ref={ref}
+                    tabIndex={-1}
+                    className={`fixed left-0 bottom-0 w-full h-fit z-20
+                            flex flex-col justify-center items-center p-8
+                            backdrop-blur-md bg-primary bg-opacity-50
+                            border-primary border rounded-t-lg
+                            transition-transform duration-500 ${
+                        visible
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-full opacity-0 pointer-events-none"
+                    }`}
+                    role="dialog"
+                    aria-labelledby="dialog-title"
+                    aria-modal="true"
+                >
+                    <div className="absolute top-4 right-4">
+                        <AtomButton icon="fas fa-xmark"
+                                    size={ButtonSize.Large}
+                                    type={ButtonType.Ghost}
+                                    onClick={closeCallback}/>
+                    </div>
+                    <div className="flex flex-col justify-center items-center p-4">
+                        <h2
+                            id="dialog-title"
+                            className="text-primary-content text-2xl font-bold text-center"
+                        >
+                            {title}
+                        </h2>
+                        <div className="mt-4">{content}</div>
+                    </div>
+                </div>
+            </>
+        );
     }
-    
-    return (
-        <Dialog
-            header={header}
-            footer={footer}
-            visible={visible}
-            onHide={onHide}
-            closeOnEscape={true}
-            modal={modal}
-            draggable={true}
-            focusOnShow={true}
-            pt={dialogPt}
-            style={{width: '75vw', backgroundColor: 'transparent'}}
-            className="bg-transparent
-                backdrop-blur-md backdrop-brightness-75 justify-center items-center
-                rounded-lg m-auto border-2 border-primary border-opacity-25"
-        >
-            {content}
-        </Dialog>
-    );
-}
+);
 
-const AtomDialog = React.memo(_AtomDialog);
+AtomDialog.displayName = "AtomDialog";
 
 export default AtomDialog;

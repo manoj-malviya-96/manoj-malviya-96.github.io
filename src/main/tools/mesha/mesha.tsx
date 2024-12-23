@@ -1,8 +1,8 @@
 import React from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/mesha.svg';
-import AppView from "../../../atoms/app-view";
-import HeroText from "../../../atoms/hero-text";
+import AppView from "../app-view";
+import AtomHeroText from "../../../atoms/atom-hero-text";
 
 const AppName = 'MESHA';
 
@@ -13,7 +13,7 @@ const MeshaView = () => {
             appLogo={Logo}
             children={
                 <div className="w-1/2">
-                    <HeroText text={`Mesha is not available right now, Coming soon...`}
+                    <AtomHeroText text={`Mesha is not available right now, Coming soon...`}
                     />
                 </div>
             }

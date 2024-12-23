@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 
 
 interface AtomSvgProps {
@@ -13,7 +13,7 @@ const _AtomSvg: React.FC<AtomSvgProps> = ({src, alt, className}) => {
     return <img src={src} alt={alt}
                 className={className}
                 loading="eager"
-                style={{filter: isDark ? 'brightness(150%)' : 'brightness(69%)'}}/>;
+                style={{filter: isDark ? 'brightness(169%)' : 'brightness(69%)'}}/>;
 }
 
 const AtomSvg = React.memo(_AtomSvg);

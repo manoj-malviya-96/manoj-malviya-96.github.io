@@ -1,9 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {Dropdown, DropdownChangeEvent} from 'primereact/dropdown';
-import {useTheme} from "../common/theme";
-import {adjustColor} from "../common/color-utils";
-import {ScreenSizeContext, ScreenSizes} from '../common/screen';
-
+import React, {ReactNode, useState} from 'react';
+import {AtomButton, ButtonType} from "./atom-button";
 
 export interface AtomDropdownItemProps {
     label: string;
@@ -14,115 +10,72 @@ interface AtomDropdownProps {
     onClick: (option: any) => void;
     dropdownIcon?: string;
     options: Array<AtomDropdownItemProps>;
+    header?: ReactNode;
     placeholder?: string;
     initialIndex?: number;
     className?: string;
-    neutralMode?: boolean;
 }
 
 const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                                                         onClick,
                                                         options,
                                                         dropdownIcon,
+                                                        header,
                                                         placeholder = 'Select',
                                                         initialIndex = -1,
                                                         className = '',
-                                                        neutralMode = false,
                                                     }) => {
     
-    const [value, selectedValue] = useState<any>(initialIndex !== -1 ? options[initialIndex].value : null);
-    const breakpoint = useContext(ScreenSizeContext);
-    const randomId = crypto.randomUUID();
-    const {
-        daisyPrimary,
-        daisyPrimaryText,
-        daisyNeutral
-    } = useTheme();
+    const [selectedOption, setSelectedOption] = useState<AtomDropdownItemProps | null>(
+        initialIndex !== -1 ? options[initialIndex] : null);
+    const [open, setOpen] = useState(false);
     
-    const handleOptionClick = (value: any) => {
-        selectedValue(value);
-        onClick(value); // Pass selected option to parent
+    const iconWhenDropdownIsClosed = dropdownIcon ? dropdownIcon : 'fa fa-chevron-up';
+    const iconWhenDropdownIsOpen = 'fa fa-chevron-down';
+    
+    const handleOptionClick = (option: AtomDropdownItemProps) => {
+        setSelectedOption(option);
+        onClick(option.value); // Pass selected option to parent
+        setOpen(false);
     };
-    const mainColor = neutralMode ? daisyNeutral : daisyPrimary;
-    const mainTextColor = neutralMode ? daisyNeutral : daisyPrimaryText;
-    const borderColor = neutralMode ? adjustColor(mainColor, 0.4) : mainColor;
-    
-    const dropdownPt = {
-        root: {
-            style: {
-                backgroundColor: 'transparent',
-                borderColor: borderColor,
-                color: mainTextColor,
-                width: 'content-fit',
-                height: 'content-fit',
-                padding: breakpoint !== ScreenSizes.Small ? 0 : 8,
-            }
-        },
-        input: {
-            style: {
-                backgroundColor: 'transparent',
-                color: mainTextColor,
-                display: breakpoint !== ScreenSizes.Small ? 'flex' : 'none',
-            }
-        },
-        panel: {
-            style: {
-                backgroundColor: 'transparent',
-                borderColor: borderColor,
-                color: mainTextColor,
-                backdropFilter: 'blur(20px)',
-            }
-        },
-        trigger: {
-            style: {
-                backgroundColor: 'transparent',
-                borderColor: 'transparent',
-                color: mainTextColor,
-            }
-        },
-        wrapper: {
-            style: {
-                backgroundColor: 'transparent',
-                borderColor: borderColor,
-                color: mainTextColor,
-                selectedColor: mainTextColor,
-            }
-        },
-        item: {
-            style: {
-                backgroundColor: 'transparent',
-                borderColor: borderColor,
-                color: mainTextColor,
-                selectedColor: mainTextColor,
-            }
-        },
-    }
     
     return (
-        <div
-            className={`flex flex-col gap-0 ${className}`}>
-            <Dropdown
-                inputId={randomId}
-                value={value}
-                onChange={(e: DropdownChangeEvent) => handleOptionClick(e.value)}
-                options={options}
-                dropdownIcon={dropdownIcon ? dropdownIcon : 'pi pi-chevron-down'}
-                collapseIcon="pi pi-chevron-up"
-                optionLabel={'label'}
-                optionValue={'value'}
-                variant={'outlined'}
-                checkmark={true}
-                placeholder={placeholder}
-                pt={dropdownPt}
-                tooltip={placeholder}
-                tooltipOptions={{
-                    showDelay: 690,
-                    hideDelay: 0,
-                    position: 'top',
-                    mouseTrack: true,
-                    mouseTrackTop: 15,
-                }}
+        <div className={`dropdown dropdown-top ${className}`}>
+            {/*Button*/}
+            <AtomButton
+                icon={open ? iconWhenDropdownIsOpen : iconWhenDropdownIsClosed}
+                label={selectedOption ? selectedOption.label : placeholder}
+                onClick={() => setOpen(!open)}
+                className={`w-full`}
+                pill={false}
+                type={ButtonType.Outlined}
             />
+            
+            {/*DropDown Content*/}
+            <ul
+                tabIndex={0}
+                className={`dropdown-content menu p-0 shadow w-full mb-3
+                            border border-secondary
+                            bg-transparent backdrop-blur-lg rounded-lg
+                            ${open ? 'block' : 'hidden'}`}
+            >
+                {options.map((option, index) => (
+                    <li key={index}>
+                        <div
+                            className={`rounded-lg w-full
+                                        ${selectedOption === option ? 'active bg-secondary' : ''}`}
+                            onClick={() => handleOptionClick(option)}
+                        >
+                            {option.label}
+                        </div>
+                    </li>
+                ))}
+                {header &&
+                    <li className={'border-secondary border-t'}>
+                        {header}
+                    </li>
+                }
+            </ul>
         </div>
     );
 };

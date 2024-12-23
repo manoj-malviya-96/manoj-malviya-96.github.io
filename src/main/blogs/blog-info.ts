@@ -1,6 +1,6 @@
 import {rangesTo} from "../../common/math";
 import {getScaleColor} from "../../common/color-utils";
-import {TabItemProps} from "../../atoms/tab-bar";
+import {TabItemProps} from "../../atoms/atom-tab-bar";
 
 
 interface BlogInfoConstructor {

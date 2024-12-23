@@ -1,8 +1,5 @@
 import React from 'react';
-import {Card} from 'primereact/card';
-import {Badge} from "primereact/badge";
-import MotionDiv from "./motion-div";
-import AtomImage from "./atom-image";
+import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 
 
 export interface AtomCardProps {
@@ -13,77 +10,60 @@ export interface AtomCardProps {
     
     onClick(): void;
     
+    centered?: boolean;
     isNew?: boolean;
-    hasBorder?: boolean;
-    centerAlign?: boolean;
     className?: string;
 }
 
-export const AtomCard: React.FC<AtomCardProps> = ({
-                                                      image,
-                                                      title,
-                                                      date,
-                                                      description,
-                                                      onClick,
-                                                      isNew = false,
-                                                      hasBorder = false,
-                                                      centerAlign = false,
-                                                      className = '',
-                                                  }) => {
+const _AtomCard: React.FC<AtomCardProps> = ({
+                                                image,
+                                                title,
+                                                date,
+                                                description,
+                                                onClick,
+                                                centered = false,
+                                                isNew = false,
+                                                className = '',
+                                            }) => {
     
-    const centerAlignClass = centerAlign ? 'm-auto text-center' : '';
-    
-    const children = (
-        <div className='w-full h-full flex flex-col gap-6'>
-            <div className="relative justify-center items-center">
-                {isNew && (
-                    <Badge value="NEW" className="badge absolute top-0 right-0
-                                    px-2 rounded-badge"
-                           severity="info"/>
-                )}
-                {image.endsWith('.svg') && <img
-                    src={image}
-                    alt={title}
-                    className={`object-cover m-auto`}
-                />}
-                {!image.endsWith('.svg') &&
-                 <AtomImage src={image} alt={title}
-                            preview={false}/>}
-            </div>
-            <div className="w-fit h-fit flex flex-col gap-2">
-                {title && <h2 className={`text-2xl text-primary-content 
-                    font-bold uppercase ${centerAlignClass}`}>{title}</h2>}
-                
-                {description && <p className={`w-40 text-sm text-primary-content 
-                    ${centerAlignClass}`}>
-                    {description}</p>
-                }
-                {date &&
-                 <div className="flex flex-row gap-2">
-                     <i className="pi pi-calendar text-primary-content"/>
-                     <span
-                         className="text-sm text-primary-content">{date}</span>
-                 </div>
-                }
-            </div>
-        </div>
-    );
     return (
-        <MotionDiv>
-            <Card
-                children={children}
-                style={{
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    boxShadow: 'none',
-                }} // transparent background, overrides prime-react
-                   // default
-                className={`w-full cursor-pointer rounded-lg text-primary 
-                        border border-opacity-0 border-primary 
-                        shadow-none flex-grow h-full
-                        hover:border-opacity-100  
-                        ${hasBorder ? 'border-opacity-100' : ''} ${className}`}
+        <AtomSimpleMotionContainer>
+            <div
+                className={`cursor-pointer rounded-lg border border-secondary p-2
+                            border-opacity-0 hover:border-opacity-100
+                            ${className}`}
                 onClick={onClick}
-            />
-        </MotionDiv>
+            >
+                {image && (
+                    <img src={image} alt={title} loading={'lazy'}
+                         className={`w-full h-2/3 object-contain
+                                    ${centered ? 'p-4' : 'p-0'}`}/>
+                )}
+                
+                <div className={`w-full min-h-1/3 h-fit
+                                flex flex-col flex-wrap
+                                gap-0 mt-4 p-2
+                            ${centered ? 'justify-center items-center' : ''} `}>
+                    
+                    <span className="flex flex-row gap-2 items-center">
+                        <h2 className="card-title">{title}</h2>
+                        {isNew && <span
+                            className="badge badge-info">New</span>}
+                    </span>
+                    
+                    {date &&
+                        <span className="flex flex-row items-center text-sm text-accent gap-2">
+                            {date}
+                            <i className="far fa-calendar-alt"/>
+                        </span>
+                    }
+                    {description &&
+                        <p className={`text-sm font-sans w-full text-accent
+                            ${centered ? 'text-center' : ''}`}>{description}</p>}
+                </div>
+            </div>
+        </AtomSimpleMotionContainer>
     );
 }
+export const AtomCard = React.memo(_AtomCard);
+export default AtomCard;

@@ -1,5 +1,5 @@
 import React from 'react';
-import FullScreenPage from "../atoms/full-page";
+import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
@@ -15,16 +15,19 @@ const ToolDrawer = () => {
             description: tool.description,
             image: tool.cover,
             onClick: () => navigate(tool.path),
-            centerAlign: true,
+            centered: true,
         };
     });
     
     return (
-        <FullScreenPage
+        <AtomFullScreenContainer
             name="tools"
             title="Tools"
-            children={<AtomCardGrid items={items}/>}
-        />
+        >
+            <AtomCardGrid
+                items={items}
+                classNameForCard={'w-48 h-36'}/>
+        </AtomFullScreenContainer>
     );
 }
 

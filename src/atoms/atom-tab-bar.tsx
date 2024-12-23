@@ -1,4 +1,4 @@
-import ScrollableLink from "./scrollable-link";
+import AtomScrollableLink from "./atom-scrollable-link";
 import React from "react";
 
 
@@ -26,12 +26,12 @@ export interface TabBarProps {
 
 
 //! Scroll to the section when a tab is clicked.
-const TabBar: React.FC<TabBarProps> = ({items, className = ''}) => {
+const AtomTabBar: React.FC<TabBarProps> = ({items, className = ''}) => {
     return (
         <div
             className={`tabs tabs-bordered px-3 gap-0 bg-primary rounded-full ${className}`}>
             {items.map((item, index) => (
-                <ScrollableLink
+                <AtomScrollableLink
                     key={index}
                     elementName={item.name}
                     className="tab px-2 m-0"
@@ -48,4 +48,4 @@ const TabBar: React.FC<TabBarProps> = ({items, className = ''}) => {
         </div>
     );
 };
-export default TabBar;
+export default AtomTabBar;

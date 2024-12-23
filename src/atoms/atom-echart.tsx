@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
-import {useTheme} from "../common/theme";
+import {useTheme} from "../providers/theme";
 import {roundTo} from "../common/math";
 
 interface CalendarData {
@@ -11,9 +11,8 @@ interface CalendarData {
 }
 
 const dayTime = 24 * 3600 * 1000;
-
-export const CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
-    const {daisyPrimary, daisyPrimaryText} = useTheme();
+const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
+    const {daisySecondary, daisyPrimaryText} = useTheme();
     
     
     const startDate = +echarts.time.parse(`${year}-01-01`); // Start of the year
@@ -41,7 +40,7 @@ export const CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
             text: ['High', 'Low'],
             formatter: (value: number) => `${roundTo(value, 0)} ${unit}`,
             inRange: {
-                color: [daisyPrimary, '#00dc2c'],
+                color: [daisySecondary, '#00dc2c'],
             },
             textStyle: {
                 color: daisyPrimaryText,
@@ -73,8 +72,8 @@ export const CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
                 lineStyle: {
                     color: daisyPrimaryText,
                     width: 1,
-                    opacity: 0.69,
-                    type: 'dotted',
+                    opacity: 0.47,
+                    type: 'solid',
                 },
             },
         },
@@ -93,3 +92,4 @@ export const CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
                              height: '400px'
                          }}/>;
 };
+export const CalendarChart = React.memo(_CalendarChart);

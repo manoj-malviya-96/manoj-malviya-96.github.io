@@ -8,7 +8,7 @@ interface HeroListProps {
 }
 
 
-const HeroList: React.FC<HeroListProps> = ({
+const AtomHeroList: React.FC<HeroListProps> = ({
                                                contentList,
                                                numbered = false,
                                                className = ''
@@ -21,7 +21,7 @@ const HeroList: React.FC<HeroListProps> = ({
                     return (
                         <div className="flex flex-row gap-8 rounded-lg justify-center p-8 w-full h-fit
                                         hover:border-opacity-100 transition duration-300 ease-in-out
-                                        cursor-pointer border-2 border-primary border-opacity-50">
+                                        cursor-pointer border-2 border-secondary border-opacity-50">
                             <span
                                 className="text-xl m-auto">{numbered ? `${index + 1}` : ""}</span>
                             <span
@@ -34,4 +34,4 @@ const HeroList: React.FC<HeroListProps> = ({
     );
 }
 
-export default HeroList;
+export default AtomHeroList;

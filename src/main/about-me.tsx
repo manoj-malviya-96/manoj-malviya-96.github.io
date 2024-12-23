@@ -1,10 +1,10 @@
 import React from 'react';
-import FullScreenPage from "../atoms/full-page";
+import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
-import {AtomButtonProps} from "../atoms/atom-button";
+import {AtomButtonProps, ButtonType} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
 import {useNavigate} from "react-router-dom";
 import AtomCardGrid from "../atoms/atom-card-grid";
@@ -26,6 +26,7 @@ const socialMediaItems = rangesTo(
     MySocialMediaLinks, (smLink: SocialMediaLink) => {
         return {
             icon: smLink[0],
+            type: ButtonType.Ghost,
             onClick: () => openLink(smLink[1], null),
             tooltip: smLink[2],
         } as AtomButtonProps;
@@ -43,7 +44,7 @@ const AboutMe = () => {
         };
     });
     return (
-        <FullScreenPage
+        <AtomFullScreenContainer
             name="about-me"
             title="About me"
             children={
@@ -62,7 +63,7 @@ const AboutMe = () => {
                     <div
                         className="flex flex-col flex-grow p-8 w-full h-fit gap-32">
                         <div className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
-                            <AtomCardGrid items={timelineData}/>
+                            <AtomCardGrid items={timelineData} classNameForCard={'w-64 h-fit py-2'}/>
                         </div>
                         <div className="w-full h-1/2">
                             <GithubProfile/>

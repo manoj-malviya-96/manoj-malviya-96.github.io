@@ -1,12 +1,11 @@
 import React, {ReactNode, useEffect} from "react";
 import {motion} from "motion/react";
 
-// Define props interface
 interface SlidingAnimationProps {
     children: ReactNode; // ReactNode covers all valid JSX children
 }
 
-const SlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
+const _AtomMotionSlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
     useEffect(() => {
         window.scrollTo(0, 0); // Ensure top scroll position
     }, []);
@@ -23,4 +22,5 @@ const SlidingAnimation: React.FC<SlidingAnimationProps> = ({children}) => {
     );
 };
 
-export default SlidingAnimation;
+const AtomMotionSlidingAnimation = React.memo(_AtomMotionSlidingAnimation);
+export default AtomMotionSlidingAnimation;
