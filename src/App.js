@@ -1,11 +1,11 @@
 import React from 'react';
 import RouterConstructor from "./providers/router";
 import constructedRoutes from "./main/routes";
-import {init as initAnalytics} from "./main/analytics";
 import MafiaProvider from "./main/mafia-provider";
+import initWebsite from "./main/init";
 
 const App = () => {
-    initAnalytics();
+    initWebsite();
     return (
         <MafiaProvider>
             <RouterConstructor routes={constructedRoutes}/>

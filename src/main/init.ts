@@ -4,6 +4,13 @@ const tagManagerArgs = {
     gtmId: 'G-T2JX2G6X81'
 }
 
-export function init() {
+function initAnalytics() {
     TagManager.initialize(tagManagerArgs)
 }
+
+export default function initWebsite(){
+    initAnalytics()
+    console.log("Website initialized")
+}
+
+

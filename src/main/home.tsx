@@ -14,7 +14,7 @@ const Home = () => {
             logo: BrandLogo,
             name: 'MAFIA'
         });
-    }, [BrandLogo, updateBrand]);
+    }, [updateBrand]);
     
     return (
         <div className='flex-row w-full h-fit'>

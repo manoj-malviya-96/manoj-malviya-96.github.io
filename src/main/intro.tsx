@@ -20,7 +20,7 @@ const Intro = () => {
                                 Audacious Factory Of Interactive Apps
                             </h1>
                         </div>
-                        <div className="absolute bottom-8 left-1/2">
+                        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
                             <AtomButton
                                 icon="fas fa-arrow-down"
                                 label="Scroll Down for more"

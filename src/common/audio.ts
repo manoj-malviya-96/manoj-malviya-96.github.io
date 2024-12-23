@@ -1,5 +1,7 @@
-import React, {useRef, useState, useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {computeRMS, computeVariance} from "./math";
+import parse from "id3-parser";
+import {IBytes} from "id3-parser/lib/interface";
 
 export const audioFFTSize = 256;
 
@@ -49,6 +51,41 @@ export interface AudioPlayer {
     duration: number;
 }
 
+
+export interface ID3Metadata {
+    title?: string;
+    artist?: string;
+    album?: string;
+    year?: string;
+    genre?: string;
+    trackNumber?: string;
+    [key: string]: any; // For additional unknown tags
+}
+
+const fetchMetadataFromUrl = async (url: string): Promise<ID3Metadata | null> => {
+    try {
+        // Fetch the audio file as an ArrayBuffer
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch audio: ${response.statusText}`);
+        }
+        
+        const arrayBuffer = await response.arrayBuffer();
+        
+        // Parse metadata using id3-parser
+        const metadata = parse(arrayBuffer as IBytes);
+        if (!metadata) {
+            console.warn("No ID3 tags found in the audio file.");
+            return null;
+        }
+        return metadata as ID3Metadata;
+    } catch (error) {
+        console.error("Error fetching or parsing metadata:", error);
+        return null;
+    }
+};
+
+
 export const useAudioPlayer = ({
                                    src,
                                    makeAnalyzer = false
@@ -59,22 +96,11 @@ export const useAudioPlayer = ({
     const [duration, setDuration] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [volume, setVolume] = useState<number>(1);
-    const [title, setTitle] = useState<string>(""); // Store
-                                                    // metadata here
-    
-    const audioRef = useRef<HTMLAudioElement | null>(null); // Reference
-                                                            // to
-                                                            // the
-                                                            // Audio
-                                                            // element
-    const audioContextRef = useRef<AudioContext | null>(null); // Reference
-                                                               // to
-                                                               // the
-                                                               // AudioContext
-    const analyserRef = useRef<AnalyserNode | null>(null); // Reference
-                                                           // to the
-                                                           // AnalyserNode
-    const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null); // Reference to the MediaElementSourceNode
+    const [title, setTitle] = useState<string>("");
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const analyserRef = useRef<AnalyserNode | null>(null);
+    const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null); // Reference to the
     
     useEffect(() => {
         if (audioRef.current) {
@@ -87,9 +113,17 @@ export const useAudioPlayer = ({
             return;
         }
         
+        fetchMetadataFromUrl(src).then((metadata: ID3Metadata | null) => {
+            console.log("Metadata:", metadata);
+            if (metadata) {
+                setTitle(metadata.title || "Unknown");
+            } else {
+                setTitle("Unknown");
+            }
+        });
+        
         // Create a new Audio element
         audioRef.current = new Audio(src);
-        setTitle("unknown");
         audioRef.current.ondurationchange = () => setDuration(audioRef.current?.duration || 0);
         audioRef.current.ontimeupdate = () => setCurrentTime(audioRef.current?.currentTime || 0);
         
@@ -120,7 +154,7 @@ export const useAudioPlayer = ({
                 audioRef.current.src = "";
             }
             if (audioContextRef.current) {
-                audioContextRef.current.close();
+                audioContextRef.current.close().then(r => console.log("Audio context closed"));
                 audioContextRef.current = null;
                 analyserRef.current = null;
                 mediaElementSourceRef.current = null;
