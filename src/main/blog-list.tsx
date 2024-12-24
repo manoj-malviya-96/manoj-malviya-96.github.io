@@ -23,12 +23,15 @@ const BlogListing = () => {
     return (
         <AtomFullScreenContainer
             title="Blogs"
+            description={`A collection of blogs on various topics.
+                            Simply my thoughts and experiences with tech and life.`}
             name="blog"
             children={
-            <AtomCardGrid
-                items={items}
-                classNameForCard={'h-96 w-72'}
-            />}
+                <AtomCardGrid
+                    items={items}
+                    classNameForCard={'h-96 w-72'}
+                />
+            }
         />
     );
 };

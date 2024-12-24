@@ -4,6 +4,7 @@ import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
 import AtomCardGrid from "../atoms/atom-card-grid";
+import AtomGroup from "../atoms/atom-group";
 
 
 const ToolDrawer = () => {
@@ -23,10 +24,13 @@ const ToolDrawer = () => {
         <AtomFullScreenContainer
             name="tools"
             title="Tools"
+            description={`I make tools which inspire me to learn and grow. Here are some of them -`}
         >
-            <AtomCardGrid
+            <AtomGroup label="Tools">
+                <AtomCardGrid
                 items={items}
                 classNameForCard={'w-48 h-36'}/>
+            </AtomGroup>
         </AtomFullScreenContainer>
     );
 }

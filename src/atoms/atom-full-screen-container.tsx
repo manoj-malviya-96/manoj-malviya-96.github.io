@@ -4,6 +4,7 @@ import {Element} from 'react-scroll';
 interface FullScreenPageProps {
     name: string;
     title?: string;
+    description?: string;
     children?: ReactNode;
     childrenAlignment?: string; // Example: 'justify-center
                                 // items-center'
@@ -11,19 +12,20 @@ interface FullScreenPageProps {
 }
 
 const _AtomFullScreenContainer: React.FC<FullScreenPageProps> = ({
-                                                           name,
-                                                           title,
-                                                           children,
-                                                           childrenAlignment,
-                                                           backgroundImage,
-                                                       }) => {
+                                                                     name,
+                                                                     title,
+                                                                     description,
+                                                                     children,
+                                                                     childrenAlignment,
+                                                                     backgroundImage,
+                                                                 }) => {
     if (!name) {
         throw new Error("The 'name' prop is required for FullScreenPage.");
     }
     
     const alignmentClasses = childrenAlignment
-                             ? `flex ${childrenAlignment}`
-                             : 'flex justify-center items-center';
+        ? `flex ${childrenAlignment}`
+        : 'flex justify-center items-center';
     
     return (
         <Element
@@ -44,10 +46,16 @@ const _AtomFullScreenContainer: React.FC<FullScreenPageProps> = ({
                     {title}
                 </h2>
             )}
+            
+            {/* Description */}
+            {description && (
+                <p className="text-center mt-4">{description}</p>
+            )}
+            
             {/* Children */}
             {children && (
                 <div
-                    className={`p-4 w-full h-fit m-auto ${alignmentClasses}`}>
+                    className={`p-4 w-fit max-w-full h-fit mx-auto ${alignmentClasses}`}>
                     {children}
                 </div>
             )}

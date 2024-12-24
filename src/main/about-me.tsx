@@ -8,6 +8,7 @@ import {AtomButtonProps, ButtonType} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
 import {useNavigate} from "react-router-dom";
 import AtomCardGrid from "../atoms/atom-card-grid";
+import AtomGroup from "../atoms/atom-group";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -47,27 +48,30 @@ const AboutMe = () => {
         <AtomFullScreenContainer
             name="about-me"
             title="About me"
-            children={
-                <div
-                    className="flex flex-col w-full h-fit gap-4 justify-center items-center">
-                    <span className="w-fit lg:w-1/2">Hi there! I’m
-                        <strong> Manoj Malviya</strong>,
+            description={`Hi there! I’m
+                        Manoj Malviya,
                         a Software Engineer who loves solving tricky
                         problems with elegant solutions and introduce creativity and artistic.
                         I use fancy computer tools and methods
                         to turn these problems into real results. I’m a great problem solver
                         who always puts the user first. I’ve led many complex projects and
-                        always delivered elegant solutions.</span>
+                        always delivered elegant solutions.`}
+            children={
+                <div
+                    className="flex flex-col w-full h-fit gap-4 justify-center items-center">
                     <AtomButtonGroup items={socialMediaItems}/>
-                    
                     <div
                         className="flex flex-col flex-grow p-8 w-full h-fit gap-32">
-                        <div className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
+                        <AtomGroup
+                            label={'Career Highlights'}
+                            className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
                             <AtomCardGrid items={timelineData} classNameForCard={'w-64 h-fit py-2'}/>
-                        </div>
-                        <div className="w-full h-1/2">
+                        </AtomGroup>
+                        <AtomGroup
+                            label={'Github Profile'}
+                            className="w-full h-1/2">
                             <GithubProfile/>
-                        </div>
+                        </AtomGroup>
                     </div>
                 </div>
             }

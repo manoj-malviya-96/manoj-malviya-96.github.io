@@ -12,7 +12,7 @@ interface CalendarData {
 
 const dayTime = 24 * 3600 * 1000;
 const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
-    const {daisySecondary, daisyPrimaryText} = useTheme();
+    const {daisyAccent, daisyPrimaryText} = useTheme();
     
     
     const startDate = +echarts.time.parse(`${year}-01-01`); // Start of the year
@@ -40,7 +40,7 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
             text: ['High', 'Low'],
             formatter: (value: number) => `${roundTo(value, 0)} ${unit}`,
             inRange: {
-                color: [daisySecondary, '#00dc2c'],
+                color: [daisyAccent, '#00dc2c'],
             },
             textStyle: {
                 color: daisyPrimaryText,

@@ -29,9 +29,7 @@ const _AtomCard: React.FC<AtomCardProps> = ({
     return (
         <AtomSimpleMotionContainer>
             <div
-                className={`cursor-pointer rounded-lg border border-secondary p-2
-                            border-opacity-0 hover:border-opacity-100
-                            ${className}`}
+                className={`cursor-pointer rounded-lg ${className}`}
                 onClick={onClick}
             >
                 {image && (
