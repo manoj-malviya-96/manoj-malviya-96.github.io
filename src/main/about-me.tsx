@@ -61,7 +61,7 @@ const AboutMe = () => {
                     className="flex flex-col w-full h-fit gap-4 justify-center items-center">
                     <AtomButtonGroup items={socialMediaItems}/>
                     <div
-                        className="flex flex-col flex-grow p-8 w-full h-fit gap-32">
+                        className="flex flex-col flex-grow p-8 w-full h-fit gap-8">
                         <AtomGroup
                             label={'Career Highlights'}
                             className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
