@@ -49,7 +49,7 @@ const _AtomFullScreenContainer: React.FC<FullScreenPageProps> = ({
             
             {/* Description */}
             {description && (
-                <p className="text-center mt-4">{description}</p>
+                <p className="text-center mt-4 w-1/2 mx-auto">{description}</p>
             )}
             
             {/* Children */}
