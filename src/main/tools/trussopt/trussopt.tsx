@@ -100,10 +100,10 @@ const TrussOptView = () => {
             appName={AppName}
             appLogo={Logo}
         >
-            <div className="h-fit w-full flex flex-col-reverse md:flex-row
-                                p-0 m-0 gap-8 items-center">
+            <div className="h-full w-full flex flex-col-reverse md:flex-row
+                                p-0 m-0 gap-8 items-center mt-12">
                 <div
-                    className="w-1/4 h-fit
+                    className="w-1/3 h-fit
                         flex flex-col gap-6 px-2 py-3
                         justify-center items-center">
                     
@@ -208,12 +208,15 @@ const TrussOptView = () => {
                         </div>
                     </AtomGroup>
                 </div>
-                <div className="w-3/4 h-full flex flex-col gap-2
-                                justify-center items-end mt-16">
+                <AtomGroup
+                    label={'Truss Structure'}
+                    className={'w-full h-full'}
+                >
                     <AtomCanvas controller={controller} animationLoop={false}
                                 isLoading={canvasLoading}
-                                className="w-full h-full"/>
-                    <div className='w-fit h-fit flex flex-row gap-4'>
+                                className="w-full h-full p-4"/>
+                    <div className='absolute right-0 bottom-0 p-2
+                                    z-5 bg-primary bg-opacity-80 backdrop-blur-lg'>
                         <AtomStats
                             text={'Volume'}
                             value={simResult ? simResult.volume : 'N/A'}
@@ -227,7 +230,7 @@ const TrussOptView = () => {
                                 StatSeverity.Success : StatSeverity.Info : StatSeverity.Primary}
                         />
                     </div>
-                </div>
+                </AtomGroup>
             </div>
         </AppView>
     )
