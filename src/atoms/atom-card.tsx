@@ -29,9 +29,7 @@ const _AtomCard: React.FC<AtomCardProps> = ({
     return (
         <AtomSimpleMotionContainer>
             <div
-                className={`cursor-pointer rounded-lg border border-secondary p-2
-                            border-opacity-0 hover:border-opacity-100
-                            ${className}`}
+                className={`cursor-pointer rounded-lg ${className}`}
                 onClick={onClick}
             >
                 {image && (
@@ -52,13 +50,13 @@ const _AtomCard: React.FC<AtomCardProps> = ({
                     </span>
                     
                     {date &&
-                        <span className="flex flex-row items-center text-sm text-accent gap-2">
+                        <span className="flex flex-row items-center text-sm text-neutral gap-2">
                             {date}
                             <i className="far fa-calendar-alt"/>
                         </span>
                     }
                     {description &&
-                        <p className={`text-sm font-sans w-full text-accent
+                        <p className={`text-sm font-sans w-full text-neutral
                             ${centered ? 'text-center' : ''}`}>{description}</p>}
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ScrollContainerProps {
-    className: string | undefined;
+    className?: string | undefined;
     children: React.ReactNode;
 }
 

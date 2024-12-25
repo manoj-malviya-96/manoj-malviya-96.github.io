@@ -4,6 +4,7 @@ import BoundaryCond from "./boundary_condition.png";
 import DataSetup from './representation.png';
 import Models from './models.png';
 import Result from './results.png';
+import {BentoItemSize} from "../../../atoms/atom-bentobox";
 
 class RapidTopt extends BlogInfo {
     constructor() {
@@ -77,6 +78,7 @@ class RapidTopt extends BlogInfo {
             date: 'Aug 15, 2020',
             tags: ['Generative Design', 'Optimization', 'AI', 'GPU'],
             cover: Cover,
+            cardSize: BentoItemSize.Medium,
             summary: `With the rise of Additive Manufacturing (AM) and Computational Sciences, 
             design algorithms like Topology Optimization (TO) have attracted academic and industrial 
             interest. TO aims to optimize structures by maximizing stiffness, given geometric, 

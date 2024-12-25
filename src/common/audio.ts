@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {computeRMS, computeVariance} from "./math";
-import parse from "id3-parser";
-import {IBytes} from "id3-parser/lib/interface";
+import jsmediatags from "jsmediatags";
+
 
 export const audioFFTSize = 256;
 
@@ -30,7 +30,6 @@ export class DropDetector {
     
 }
 
-
 export interface AudioPlayerProps {
     src: string | null;
     makeAnalyzer?: boolean; // Optional, defaults to false
@@ -51,39 +50,28 @@ export interface AudioPlayer {
     duration: number;
 }
 
-
-export interface ID3Metadata {
-    title?: string;
-    artist?: string;
-    album?: string;
-    year?: string;
-    genre?: string;
-    trackNumber?: string;
-    [key: string]: any; // For additional unknown tags
+const readAudioMetadata = async (src: string): Promise<{ title?: string; artist?: string }> => {
+    return new Promise((resolve, reject) => {
+        fetch(src)
+            .then((response) => response.blob())
+            .then((blob) => {
+                jsmediatags.read(blob, {
+                    onSuccess: (tag) => {
+                        resolve({
+                            title: tag.tags.title || 'Unknown Title',
+                            artist: tag.tags.artist || 'Unknown Artist',
+                        });
+                    },
+                    onError: (error) => {
+                        reject(`Error reading metadata: ${error.type}`);
+                    },
+                });
+            })
+            .catch((error) => {
+                reject(`Error fetching file: ${error.message}`);
+            });
+    });
 }
-
-const fetchMetadataFromUrl = async (url: string): Promise<ID3Metadata | null> => {
-    try {
-        // Fetch the audio file as an ArrayBuffer
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch audio: ${response.statusText}`);
-        }
-        
-        const arrayBuffer = await response.arrayBuffer();
-        
-        // Parse metadata using id3-parser
-        const metadata = parse(arrayBuffer as IBytes);
-        if (!metadata) {
-            console.warn("No ID3 tags found in the audio file.");
-            return null;
-        }
-        return metadata as ID3Metadata;
-    } catch (error) {
-        console.error("Error fetching or parsing metadata:", error);
-        return null;
-    }
-};
 
 
 export const useAudioPlayer = ({
@@ -112,18 +100,11 @@ export const useAudioPlayer = ({
         if (!src) {
             return;
         }
-        
-        fetchMetadataFromUrl(src).then((metadata: ID3Metadata | null) => {
-            console.log("Metadata:", metadata);
-            if (metadata) {
-                setTitle(metadata.title || "Unknown");
-            } else {
-                setTitle("Unknown");
-            }
-        });
+        readAudioMetadata(src).then(({title}) => setTitle(title || "Sad"));
         
         // Create a new Audio element
         audioRef.current = new Audio(src);
+        audioRef.current.onloadedmetadata = () => setTitle(audioRef.current?.title || "Sad");
         audioRef.current.ondurationchange = () => setDuration(audioRef.current?.duration || 0);
         audioRef.current.ontimeupdate = () => setCurrentTime(audioRef.current?.currentTime || 0);
         

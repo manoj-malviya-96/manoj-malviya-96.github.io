@@ -3,16 +3,18 @@ import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import {useTheme} from "../providers/theme";
 import {roundTo} from "../common/math";
+import {adjustColor} from "../common/color-utils";
 
 interface CalendarData {
     data: Record<string, number>; // {'yyyy-MM-dd': value}
     year: number;
+    height?: number;
     unit: string;
 }
 
 const dayTime = 24 * 3600 * 1000;
-const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
-    const {daisySecondary, daisyPrimaryText} = useTheme();
+const _CalendarChart: React.FC<CalendarData> = ({data, year, unit, height}) => {
+    const {daisyNeutral, daisyPrimaryText} = useTheme();
     
     
     const startDate = +echarts.time.parse(`${year}-01-01`); // Start of the year
@@ -37,10 +39,10 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
             calculable: true,
             orient: 'horizontal',
             left: 'center',
-            text: ['High', 'Low'],
+            type: 'piecewise',
             formatter: (value: number) => `${roundTo(value, 0)} ${unit}`,
             inRange: {
-                color: [daisySecondary, '#00dc2c'],
+                color: [adjustColor(daisyNeutral, 0.5), '#00dc2c'],
             },
             textStyle: {
                 color: daisyPrimaryText,
@@ -49,8 +51,8 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
         },
         calendar: {
             range: `${year}`,
-            cellSize: ['auto', 20],
-            top: 120,
+            cellSize: [15, 15],
+            top: 100,
             left: 30,
             right: 10,
             itemStyle: {
@@ -68,7 +70,7 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
                 show: false,
             },
             splitLine: {
-                show: true, // Ensures separators are visible
+                show: false, // Ensures separators are visible
                 lineStyle: {
                     color: daisyPrimaryText,
                     width: 1,
@@ -89,7 +91,8 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
     return <ReactECharts option={options}
                          lazyUpdate={true}
                          style={{
-                             height: '400px'
-                         }}/>;
+                             height: `${height ? height : 400}px`
+                         }
+                         }/>;
 };
 export const CalendarChart = React.memo(_CalendarChart);

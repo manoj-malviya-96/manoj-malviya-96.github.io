@@ -1,5 +1,6 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./formlabs-rd-cover.jpg";
+import Logo from "./form-4-icon.svg"
 
 class FormlabsRd extends BlogInfo {
     constructor() {
@@ -7,10 +8,11 @@ class FormlabsRd extends BlogInfo {
             id: 'formlabs-rd',
             title: 'R&D Software Engineer',
             description: 'Formlabs',
-            date: 'Jan 1, 2020',
+            date: 'Jan 2020',
             tags: ['C++', 'Optimization', 'Physics Modelling', 'Web Development', 'Process Engineer'],
             cover: Cover,
             isNew: false,
+            logo: Logo,
             summary: `I was responsible for improving core product performance, making systems more reliable and efficient, and reducing resource waste. I worked on creating tools to help teams collaborate better and make data-driven decisions. My role also involved refining processes with advanced modeling and enhancing predictive accuracy to improve outcomes and overall user experience.`,
             sections: [
                 {

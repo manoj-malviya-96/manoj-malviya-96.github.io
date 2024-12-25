@@ -43,19 +43,19 @@ const _AtomKnob: React.FC<AtomKnobProps> = ({
         <div className="flex flex-col items-center w-fit h-fit p-4">
             {label && <span className="text-sm mb-2">{label}</span>}
             
-            <div className="relative w-24 h-24">
+            <div className="relative w-20 h-20">
                 
                 <div className="absolute inset-0 flex justify-center items-center
-                                rounded-full bg-primary border-secondary">
+                                rounded-full bg-primary border-neutral">
                     <div
                         className="absolute inset-0 rounded-full border-8
-                                    border-secondary border-t-primary-content"
+                                    border-neutral border-t-primary-content"
                         style={{
                             transform: `rotate(${rotation}deg)`
                         }}
                     >
                     </div>
-                    <span className={"text-3xl font-bold"}>{value}</span>
+                    <span className={"text-2xl font-bold"}>{value}</span>
                 </div>
                 
                 <input

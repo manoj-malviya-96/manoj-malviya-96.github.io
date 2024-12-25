@@ -17,8 +17,8 @@ export enum ButtonSeverity {
 }
 
 export enum ButtonType {
-    Outlined = 'border-secondary bg-opacity-0 border hover:bg-opacity-100',
-    Ghost = `bg-transparent border-0 hover:bg-transparent
+    Outlined = 'border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100',
+    Ghost = `bg-transparent border-0 hover:bg-transparent hover:text-secondary
             hover:border-0 hover:font-bold active:bg-transparent`,
     Solid = '',
 }
@@ -55,7 +55,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
     const daisyClass = `btn ${size} ${type} ${severity}`;
     
     return (
-        <div className={`${tooltip ? 'tooltip tooltip-primary tooltip-bottom' : ''}`}
+        <div className={`${tooltip ? 'tooltip tooltip-secondary tooltip-bottom' : ''}`}
              data-tip={tooltip}>
             
             <AtomSimpleMotionContainer enableHoverEffect={!disabled}>

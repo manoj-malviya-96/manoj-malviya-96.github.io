@@ -2,25 +2,29 @@ import React from 'react';
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import ProfilePicture from "./assets/main.jpg";
 import {AtomButton} from "../atoms/atom-button";
+import AtomImage from "../atoms/atom-image";
+import AtomBrandText from "../atoms/atom-brand-text";
 
 const Intro = () => {
     return (
         <AtomFullScreenContainer
             name="intro"
-            backgroundImage={ProfilePicture}
             children={
                 (
-                    <>
+                    <div className={`w-full h-full flex flex-col-reverse
+                                     md:flex-row gap-4 p-8 items-center`}>
                         <div
-                            className="absolute left-8 top-1/3 w-fit md:w-1/3 p-4">
-                            <p className="text-lg mb-1 text-black">
-                                Manoj's
-                            </p>
-                            <h1 className="text-4xl text-black font-bold mb-4 uppercase">
-                                Audacious Factory Of Interactive Apps
-                            </h1>
-                        </div>
-                        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                            className="flex flex-col flex-wrap p-2 gap-4
+                                        items-center justify-center">
+                            <span className={'w-full text-center'}>Manoj Malviya</span>
+                            
+                            <AtomBrandText
+                                className={'text-center w-full'}
+                                text={`Multidisciplinary software engineer`}/>
+                            <span className={'w-full text-center'}>
+                                Innovating with knack of creativity and problem solving
+                            </span>
+                            
                             <AtomButton
                                 icon="fas fa-arrow-down"
                                 label="Scroll Down for more"
@@ -33,7 +37,9 @@ const Intro = () => {
                                 }}
                             />
                         </div>
-                    </>
+                        <AtomImage src={ProfilePicture} alt={'profile picture'}
+                                   className={'rounded-lg'}/>
+                    </div>
                 )
             }
         />
