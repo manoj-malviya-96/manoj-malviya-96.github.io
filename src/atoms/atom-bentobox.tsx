@@ -42,7 +42,8 @@ const _AtomBentoBoxItem: React.FC<AtomBentoItemProps> = ({
             </span>
             {description && (
                 <span
-                    className="absolute inset-0 p-8 flex items-center justify-center bg-primary bg-opacity-50
+                    className="absolute inset-0 p-8 flex items-center justify-center
+                                bg-secondary bg-opacity-80 hover:text-secondary-content active:scale-95
                                 opacity-0 hover:opacity-100 transition hover:backdrop-blur-sm">
                     {description}
                 </span>
