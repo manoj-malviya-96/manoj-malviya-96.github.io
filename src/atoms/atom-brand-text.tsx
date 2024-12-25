@@ -9,7 +9,8 @@ interface AtomBrandTextProps {
 const AtomBrandText = ({text, className}: AtomBrandTextProps) => {
     return (
         <span className={`text-accent font-extrabold text-wrap
-                        text-5xl uppercase whitespace-normal break-words overflow-auto ${className}`}>{text}</span>
+                        text-4xl uppercase
+                        whitespace-normal break-words ${className}`}>{text}</span>
     );
 }
 

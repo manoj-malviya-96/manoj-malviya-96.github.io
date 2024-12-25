@@ -21,7 +21,9 @@ const Intro = () => {
                             <AtomBrandText
                                 className={'text-center w-full'}
                                 text={`Multidisciplinary software engineer`}/>
-                            <span> Innovating with knack of creativity and problem solving </span>
+                            <span className={'w-full text-center'}>
+                                Innovating with knack of creativity and problem solving
+                            </span>
                             
                             <AtomButton
                                 icon="fas fa-arrow-down"
