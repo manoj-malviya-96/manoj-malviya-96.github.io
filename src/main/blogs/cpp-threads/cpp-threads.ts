@@ -1,9 +1,7 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./cover.webp"
-import {
-    BlogCodeProps,
-    BlogSectionContentProps
-} from "../blog-constructor";
+import {BlogCodeProps, BlogSectionContentProps} from "../blog-constructor";
+import {BentoItemSize} from "../../../atoms/atom-bentobox";
 
 class CppThreads extends BlogInfo {
     constructor() {
@@ -158,6 +156,7 @@ void restock(const std::string& item, int quantity) {
             tags: ['C++', 'Concurrency', 'Threads'],
             cover: Cover,
             isNew: true,
+            cardSize: BentoItemSize.Large,
             summary: `Multi-threading in programming sounds simple, but it’s complex. I used it to speed up a project, 
             but it wasn’t as easy as launching threads. This post covers essentials like mutexes, lock guards,
             unique locks, and atomic variables. I’ll share a real-world example: managing an inventory map in a

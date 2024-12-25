@@ -1,6 +1,7 @@
 import {rangesTo} from "../../common/math";
 import {getScaleColor} from "../../common/color-utils";
 import {TabItemProps} from "../../atoms/atom-tab-bar";
+import {BentoItemSize} from "../../atoms/atom-bentobox";
 
 
 interface BlogInfoConstructor {
@@ -16,6 +17,7 @@ interface BlogInfoConstructor {
                      // available.
     icon?: string; // Optional with a default value.
     isNew?: boolean; // Optional with a default value.
+    cardSize?: BentoItemSize;
 }
 
 export class BlogInfo {
@@ -31,6 +33,8 @@ export class BlogInfo {
                               // type if possible.
     private readonly isNew: boolean;
     private readonly path: string;
+    readonly cardSize: BentoItemSize = BentoItemSize.Small;
+    
     
     constructor({
                     id,
@@ -41,6 +45,7 @@ export class BlogInfo {
                     tags,
                     cover,
                     sections,
+                    cardSize,
                     icon = '',
                     isNew = false,
                 }: BlogInfoConstructor) {
@@ -54,6 +59,7 @@ export class BlogInfo {
         this.icon = icon;
         this.sections = sections;
         this.isNew = isNew;
+        this.cardSize= cardSize ? cardSize: BentoItemSize.Small;
         this.path = '/blogs/' + this.id;
     }
     
