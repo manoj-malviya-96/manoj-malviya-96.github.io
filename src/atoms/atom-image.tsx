@@ -34,7 +34,7 @@ const AtomImage: React.FC<AtomImageProps> = ({
     return (
         <>
             {/* Normal Image */}
-            <div className={`relative ${className}`}>
+            <div className={`relative ${className} overflow-clip`}>
                 <img
                     src={src}
                     alt={alt}

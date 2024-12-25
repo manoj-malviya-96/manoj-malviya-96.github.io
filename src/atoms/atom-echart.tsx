@@ -69,7 +69,7 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit, height}) => {
                 show: false,
             },
             splitLine: {
-                show: true, // Ensures separators are visible
+                show: false, // Ensures separators are visible
                 lineStyle: {
                     color: daisyPrimaryText,
                     width: 1,
