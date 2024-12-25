@@ -1,5 +1,6 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./formlabs-sw-cover.jpg";
+import Logo from "./preform-blue.ico";
 
 class FormlabsSW extends BlogInfo {
     constructor() {
@@ -7,9 +8,10 @@ class FormlabsSW extends BlogInfo {
             id: 'formlabs-software',
             title: 'Lead Software Engineer',
             description: 'Formlabs',
-            date: 'Sept 15, 2023',
+            date: 'Oct 2023',
             tags: ['C++', 'QML', 'Optimization', 'UI/UX', 'Algorithms', 'API Development', 'Embedded'],
             cover: Cover,
+            logo: Logo,
             isNew: false,
             summary: `I led the development of advanced CAD features and optimization algorithms for 3D print-preparation software, improving performance and reliability. I owned the creation of scalable UI frameworks and streamlined workflows through close collaboration with cross-functional teams. Additionally, I built and integrated APIs for seamless ecosystem functionality, developed data analysis tools to enable strategic decision-making, and contributed to hardware servicing improvements. I also mentored team members, drove coding standards, and ensured quality through test-driven development.`,
             sections: [

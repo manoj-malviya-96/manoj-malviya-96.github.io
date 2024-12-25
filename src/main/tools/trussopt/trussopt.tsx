@@ -109,6 +109,7 @@ const TrussOptView = () => {
                     
                     <AtomGroup
                         label={'Design Inital Truss'}
+                        className={'w-full'}
                     >
                         <div className="p-0 grid grid-cols-1 lg:grid-cols-2
                                             justify-center items-center">
@@ -156,7 +157,7 @@ const TrussOptView = () => {
                         </div>
                     </AtomGroup>
                     
-                    <AtomGroup label={'FEA'} layout={'horizontal'}>
+                    <AtomGroup label={'FEA'} layout={'horizontal'} className={'w-full'}>
                         <AtomToggleButton
                             offIcon='fas fa-lock-open'
                             onIcon='fas fa-lock'
@@ -189,7 +190,7 @@ const TrussOptView = () => {
                             }}
                         />
                     </AtomGroup>
-                    <AtomGroup label={'Optimization'}>
+                    <AtomGroup label={'Optimization'} className={'w-full'}>
                         <div className="flex flex-row gap-2">
                             <AtomButton
                                 label='Optimize'

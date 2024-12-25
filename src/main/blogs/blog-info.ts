@@ -15,7 +15,7 @@ interface BlogInfoConstructor {
     cover: string; // URL or path to the cover image.
     sections: any[]; // Define a specific type for sections if
                      // available.
-    icon?: string; // Optional with a default value.
+    logo?: string; // Optional with a default value.
     isNew?: boolean; // Optional with a default value.
     cardSize?: BentoItemSize;
 }
@@ -28,7 +28,7 @@ export class BlogInfo {
     readonly date: string; // Use `Date` if needed.
     readonly tags: string[];
     readonly cover: string;
-    private readonly icon: string;
+    readonly logo: string;
     readonly sections: any[]; // Replace `any[]` with a specific
                               // type if possible.
     private readonly isNew: boolean;
@@ -46,7 +46,7 @@ export class BlogInfo {
                     cover,
                     sections,
                     cardSize,
-                    icon = '',
+                    logo = '',
                     isNew = false,
                 }: BlogInfoConstructor) {
         this.id = id;
@@ -56,7 +56,7 @@ export class BlogInfo {
         this.date = date;
         this.tags = tags;
         this.cover = cover;
-        this.icon = icon;
+        this.logo = logo;
         this.sections = sections;
         this.isNew = isNew;
         this.cardSize= cardSize ? cardSize: BentoItemSize.Small;

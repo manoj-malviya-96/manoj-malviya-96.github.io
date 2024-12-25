@@ -7,8 +7,8 @@ import {openLink} from "../common/links";
 import {AtomButtonProps, ButtonType} from "../atoms/atom-button";
 import AtomButtonGroup from "../atoms/atom-button-group";
 import {useNavigate} from "react-router-dom";
-import AtomCardGrid from "../atoms/atom-card-grid";
 import AtomGroup from "../atoms/atom-group";
+import AtomTimeline from "../atoms/atom-timeline";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -37,9 +37,9 @@ const AboutMe = () => {
     const navigate = useNavigate();
     const timelineData = rangesTo(jobRelatedBlogs, (blog) => {
         return {
-            image: blog.cover,
             title: blog.title,
             date: blog.date,
+            icon: blog.logo,
             description: blog.description,
             onClick: () => navigate(blog.path),
         };
@@ -65,12 +65,12 @@ const AboutMe = () => {
                         <AtomGroup
                             label={'Career Highlights'}
                             layout={'horizontal'}
-                            className="w-1/2 h-full justify-center items-center mx-auto">
-                            <AtomCardGrid items={timelineData} classNameForCard={'w-64 h-fit py-2'}/>
+                            className="w-1/2">
+                            <AtomTimeline items={timelineData}/>
                         </AtomGroup>
                         <AtomGroup
                             label={'Github Profile'}
-                            className="w-1/2 h-1/2">
+                            className="w-full h-1/2">
                             <GithubProfile/>
                         </AtomGroup>
                     </div>

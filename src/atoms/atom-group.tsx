@@ -10,7 +10,7 @@ interface AtomGroupProps {
 
 const AtomGroup: React.FC<AtomGroupProps> = ({label, children, layout = 'vertical', className = ''}) => {
     return (
-        <div className="w-full flex flex-col gap-1">
+        <div className={`flex flex-col gap-1 ${className}`}>
             {label && <label className="text-xs text-accent">{label}</label>}
             <div
                 className={`flex flex-${layout === 'vertical' ? 'col' : 'row'}
@@ -18,8 +18,7 @@ const AtomGroup: React.FC<AtomGroupProps> = ({label, children, layout = 'vertica
                         bg-transparent
                         border border-accent border-opacity-50
                         backdrop-blur-lg w-full h-fit
-                        justify-center items-center
-                        ${className}`}>
+                        justify-center items-center`}>
                 {children}
             </div>
         </div>
