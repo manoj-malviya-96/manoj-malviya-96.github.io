@@ -7,11 +7,12 @@ import {roundTo} from "../common/math";
 interface CalendarData {
     data: Record<string, number>; // {'yyyy-MM-dd': value}
     year: number;
+    height?: number;
     unit: string;
 }
 
 const dayTime = 24 * 3600 * 1000;
-const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
+const _CalendarChart: React.FC<CalendarData> = ({data, year, unit, height}) => {
     const {daisyAccent, daisyPrimaryText} = useTheme();
     
     
@@ -49,8 +50,8 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
         },
         calendar: {
             range: `${year}`,
-            cellSize: ['auto', 20],
-            top: 120,
+            cellSize: [15, 15],
+            top: 100,
             left: 30,
             right: 10,
             itemStyle: {
@@ -89,7 +90,7 @@ const _CalendarChart: React.FC<CalendarData> = ({data, year, unit}) => {
     return <ReactECharts option={options}
                          lazyUpdate={true}
                          style={{
-                             height: '400px'
-                         }}/>;
+                             height: `${height ? height: 400}px`}
+                         }/>;
 };
 export const CalendarChart = React.memo(_CalendarChart);
