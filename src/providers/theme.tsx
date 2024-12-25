@@ -24,6 +24,7 @@ interface ThemeContextType {
     daisyPrimary: string;
     daisyPrimaryText: string;
     daisySecondary: string;
+    daisyNeutral: string;
     daisyAccent: string;
     isDark: boolean;
 }
@@ -57,6 +58,7 @@ export const _ThemeProvider: React.FC<{
         daisyPrimary: '',
         daisyPrimaryText: '',
         daisyAccent: '',
+        daisyNeutral:'',
         daisySecondary: '',
     });
     
@@ -71,6 +73,7 @@ export const _ThemeProvider: React.FC<{
             daisyPrimaryText: getColorFromStyle('--pc'),
             daisyAccent: getColorFromStyle('--a'),
             daisySecondary: getColorFromStyle('--s'),
+            daisyNeutral: getColorFromStyle('--n'),
         });
     }, [currentTheme]);
     
@@ -98,6 +101,7 @@ export const _ThemeProvider: React.FC<{
                 daisyPrimaryText: themeColors.daisyPrimaryText,
                 daisyAccent: themeColors.daisyAccent,
                 daisySecondary: themeColors.daisySecondary,
+                daisyNeutral: themeColors.daisyNeutral,
                 isDark: currentTheme === 'Dark',
             }}
         >

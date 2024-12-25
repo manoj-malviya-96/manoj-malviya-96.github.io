@@ -30,7 +30,7 @@ const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical',
                     <li key={index}
                         onClick={item.onClick}
                         className={'cursor-pointer hover:bg-secondary hover:text-secondary-content w-fit'}>
-                        {index !== 0 && <hr className={'bg-accent'}/>}
+                        {index !== 0 && <hr className={'bg-neutral'}/>}
                         <div className="timeline-start">{item.date}</div>
                         <div className="timeline-middle">
                             {
@@ -49,7 +49,7 @@ const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical',
                                 <span className="text-small">{item.description}</span>
                             }
                         </div>
-                        {index !== items.length - 1 && <hr className={'bg-accent'}/>}
+                        {index !== items.length - 1 && <hr className={'bg-neutral'}/>}
                     </li>
                 );
             })}

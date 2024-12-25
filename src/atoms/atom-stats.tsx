@@ -19,7 +19,7 @@ interface AtomStatsProps {
 
 const _AtomStats: React.FC<AtomStatsProps> = ({text, value, severity, className}) => {
     return (
-        <div className={`stat ${className} rounded-lg w-fit h-fit
+        <div className={`stat ${className} rounded-lg w-fit h-fit cursor-auto
                         hover:bg-secondary hover:text-secondary-content`}>
             <h2 className="stat-title">{text}</h2>
             <span

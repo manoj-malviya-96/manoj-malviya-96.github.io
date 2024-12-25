@@ -26,18 +26,17 @@ const _AtomBentoBoxItem: React.FC<AtomBentoItemProps> = ({
                                                          }) => {
     return (
         <div
-            className={`relative rounded-lg
-                        cursor-pointer transition overflow-hidden
+            className={`relative rounded-none cursor-pointer transition overflow-hidden
                         ${size} ${className}`}
             onClick={onClick}
         >
             <img
                 src={image}
                 alt={title || "Bento Item"}
-                className="w-full h-full object-cover rounded-md"
+                className="w-full h-full object-cover"
             />
             <span className="absolute top-4 left-4 p-2">
-                <h3 className="text-lg uppercase
+                <h3 className="text-lg uppercase text-white
                             font-bold text-center">{title}</h3>
             </span>
             {description && (

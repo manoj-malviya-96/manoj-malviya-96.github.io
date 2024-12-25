@@ -54,16 +54,17 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             {/*DropDown Content*/}
             <ul
                 tabIndex={0}
-                className={`dropdown-content menu p-0 shadow w-full mb-3
-                            border border-secondary
-                            bg-transparent backdrop-blur-lg rounded-lg
+                className={`dropdown-content menu p-2 shadow w-full mb-3
+                            border border-neutral border-opacity-50 rounded-lg
+                            bg-primary bg-opacity-50 backdrop-blur-xl
                             ${open ? 'block' : 'hidden'}`}
             >
                 {options.map((option, index) => (
                     <li key={index}>
                         <div
-                            className={`rounded-lg w-full
-                                        ${selectedOption === option ? 'active bg-secondary' : ''}`}
+                            className={`w-full rounded-none
+                            ${!!selectedOption && selectedOption === option ?
+                                'bg-secondary text-secondary-content' : ''}`}
                             onClick={() => handleOptionClick(option)}
                         >
                             {option.label}
@@ -71,7 +72,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
                     </li>
                 ))}
                 {header &&
-                    <li className={'border-secondary border-t'}>
+                    <li className={'border-neutral border-t'}>
                         {header}
                     </li>
                 }

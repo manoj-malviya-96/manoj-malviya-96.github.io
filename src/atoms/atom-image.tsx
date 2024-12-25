@@ -47,7 +47,7 @@ const AtomImage: React.FC<AtomImageProps> = ({
                     <i className={"fas fa-magnifying-glass text-2xl"}/>
                 </div>
                 }
-                {showLabel && <span className="text-sm text-accent">{alt}</span>}
+                {showLabel && <span className="text-sm text-neutral">{alt}</span>}
             </div>
             
             {/* Full-Screen Overlay */}
