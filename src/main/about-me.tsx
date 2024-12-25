@@ -61,15 +61,16 @@ const AboutMe = () => {
                     className="flex flex-col w-full h-fit gap-4 justify-center items-center">
                     <AtomButtonGroup items={socialMediaItems}/>
                     <div
-                        className="flex flex-col flex-grow p-8 w-full h-fit gap-8">
+                        className="flex flex-row flex-grow p-8 w-full h-fit gap-8">
                         <AtomGroup
                             label={'Career Highlights'}
-                            className="w-fit max-w-full h-1/2 justify-center items-center m-auto">
+                            layout={'horizontal'}
+                            className="w-1/2 h-full justify-center items-center mx-auto">
                             <AtomCardGrid items={timelineData} classNameForCard={'w-64 h-fit py-2'}/>
                         </AtomGroup>
                         <AtomGroup
                             label={'Github Profile'}
-                            className="w-full h-1/2">
+                            className="w-1/2 h-1/2">
                             <GithubProfile/>
                         </AtomGroup>
                     </div>
