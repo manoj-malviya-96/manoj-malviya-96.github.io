@@ -34,14 +34,19 @@ const AtomImage: React.FC<AtomImageProps> = ({
     return (
         <>
             {/* Normal Image */}
-            <div className={`relative ${className} overflow-clip`}>
+            <div className={`relative ${className} overflow-clip items-center justify-center`}>
                 <img
                     src={src}
                     alt={alt}
                     loading="lazy"
-                    className={`cursor-pointer ${preview ? "hover:opacity-90" : ""}`}
-                    onClick={preview ? toggleFullScreen : undefined}
                 />
+                <div className={`absolute inset-0 bg-primary
+                                flex items-center justify-center cursor-pointer
+                                opacity-0 ${preview ? "hover:bg-opacity-50 hover:opacity-90" : ""} `}
+                     onClick={preview ? toggleFullScreen : undefined}
+                >
+                    <i className={"fas fa-magnifying-glass text-2xl"}/>
+                </div>
                 {showLabel && <span className="text-sm text-accent">{alt}</span>}
             </div>
             
