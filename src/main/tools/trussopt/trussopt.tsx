@@ -101,20 +101,17 @@ const TrussOptView = () => {
             appLogo={Logo}
         >
             <div className="h-full w-full flex flex-col-reverse md:flex-row
-                                p-0 m-0 gap-8 items-center mt-12">
+                                p-0 m-0 gap-4 mt-12">
                 <div
-                    className="w-1/3 h-fit
-                        flex flex-col gap-6 px-2 py-3
-                        justify-center items-center">
-                    
+                    className="w-full h-full md:w-fit md:h-fit
+                        flex flex-col gap-3">
                     <AtomGroup
                         label={'Design Inital Truss'}
                         className={'w-full'}
                     >
-                        <div className="p-0 grid grid-cols-1 lg:grid-cols-2
-                                            justify-center items-center">
+                        <div className="p-0 flex flex-row justify-center items-center">
                             <AtomKnob
-                                label='Mesh Width (mm)'
+                                label='Width'
                                 min={cellSize}
                                 max={100}
                                 step={cellSize}
@@ -122,7 +119,7 @@ const TrussOptView = () => {
                                 onChange={setMeshWidth}
                             />
                             <AtomKnob
-                                label='Mesh Height (mm)'
+                                label='Height'
                                 min={cellSize}
                                 max={100}
                                 step={cellSize}
@@ -130,31 +127,31 @@ const TrussOptView = () => {
                                 onChange={setMeshHeight}
                             />
                             <AtomKnob
-                                label='Cell Size (mm)'
+                                label='Cell Size'
                                 min={5}
                                 max={20}
                                 step={5}
                                 initValue={cellSize}
                                 onChange={setCellSize}
                             />
-                            <AtomDropdown
-                                placeholder='Select Lattice Type'
-                                initialIndex={0}
-                                dropdownIcon={'fas fa-layer-group'}
-                                options={[
-                                    {
-                                        label: 'Cross',
-                                        value: LatticeType.Cross
-                                    },
-                                    {
-                                        label: 'Checker',
-                                        value: LatticeType.Checkerboard
-                                    }
-                                ]}
-                                className={'w-32 m-auto'}
-                                onClick={setLatticeType}
-                            />
                         </div>
+                        <AtomDropdown
+                            placeholder='Select Lattice Type'
+                            initialIndex={0}
+                            dropdownIcon={'fas fa-layer-group'}
+                            options={[
+                                {
+                                    label: 'Cross',
+                                    value: LatticeType.Cross
+                                },
+                                {
+                                    label: 'Checker',
+                                    value: LatticeType.Checkerboard
+                                }
+                            ]}
+                            className={'w-32 mx-auto'}
+                            onClick={setLatticeType}
+                        />
                     </AtomGroup>
                     
                     <AtomGroup label={'FEA'} layout={'horizontal'} className={'w-full'}>
@@ -201,6 +198,7 @@ const TrussOptView = () => {
                             />
                             <AtomButton
                                 icon='fas fa-trash'
+                                label={'Clear'}
                                 severity={ButtonSeverity.Error}
                                 tooltip={'clear optimization results'}
                                 onClick={clearOptimize}
@@ -215,19 +213,17 @@ const TrussOptView = () => {
                     <AtomCanvas controller={controller} animationLoop={false}
                                 isLoading={canvasLoading}
                                 className="w-full h-full p-4"/>
-                    <div className='absolute right-0 bottom-0 p-2
+                    <div className='absolute right-0 bottom-0
                                     z-5 bg-primary bg-opacity-80 backdrop-blur-lg'>
                         <AtomStats
                             text={'Volume'}
                             value={simResult ? simResult.volume : 'N/A'}
-                            severity={simResult ? optimizeMesh ?
-                                StatSeverity.Success : StatSeverity.Info : StatSeverity.Primary}
+                            severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
                         />
                         <AtomStats
                             text={'Strain Energy'}
                             value={simResult ? simResult.strainEnergy : 'N/A'}
-                            severity={simResult ? optimizeMesh ?
-                                StatSeverity.Success : StatSeverity.Info : StatSeverity.Primary}
+                            severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
                         />
                     </div>
                 </AtomGroup>

@@ -1,5 +1,6 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useTheme} from "../providers/theme";
+import {ScreenSizes, useScreenSizeBreakpoint} from "../providers/screen";
 
 export class AtomCanvasController {
     canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null> | undefined;
@@ -66,29 +67,61 @@ interface AtomCanvasProps {
 }
 
 export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
-                                                          controller = null,
-                                                          isLoading = false,
-                                                          animationLoop = true,
-                                                          className = "",
-                                                      }) => {
+                                                           controller = null,
+                                                           isLoading = false,
+                                                           animationLoop = true,
+                                                           className = "",
+                                                       }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const {daisyPrimaryText} = useTheme();
+    const breakpoint = useScreenSizeBreakpoint();
+    
+    const heightScale = breakpoint === ScreenSizes.Small ? 0.5 : 1;
+    const [dimensions, setDimensions] = useState({width: window.innerWidth, height: window.innerHeight * heightScale});
     
     useEffect(() => {
+        const resizeCanvas = () => {
+            if (canvasRef.current) {
+                canvasRef.current.width = dimensions.width;
+                canvasRef.current.height = dimensions.height;
+            }
+        };
         
+        resizeCanvas();
+        
+        if (controller && !isLoading) {
+            controller.setCanvasRef(canvasRef as React.RefObject<HTMLCanvasElement>);
+            controller.makeLoop = animationLoop;
+            controller.start();
+            
+            return () => {
+                controller.stop();
+            };
+        }
+    }, [controller, isLoading, animationLoop, dimensions]);
+    
+    useEffect(() => {
+        const handleResize = () => {
+            setDimensions({width: window.innerWidth, height: window.innerHeight});
+        };
+        window.addEventListener("resize", handleResize);
+        
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+    
+    useEffect(() => {
         if (canvasRef.current && isLoading) {
             const ctx = canvasRef.current.getContext("2d");
             if (ctx) {
-                // Clear the canvas
                 ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
                 
-                // Set text properties
                 ctx.font = "bold 48px Arial";
                 ctx.fillStyle = daisyPrimaryText;
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 
-                // Draw the loading text
                 ctx.fillText(
                     "Loading...",
                     canvasRef.current.width / 2,
@@ -96,50 +129,17 @@ export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
                 );
             }
         }
-        
-        if (!controller || isLoading) {
-            return;
-        }
-        
-        // Assign canvasRef to controller and start it
-        controller.setCanvasRef(canvasRef as React.RefObject<HTMLCanvasElement>);
-        controller.makeLoop = animationLoop;
-        controller.start();
-        
-        // Cleanup on unmount
-        return () => {
-            controller.stop();
-        };
-    }, [controller, isLoading, animationLoop, daisyPrimaryText]);
-    
-    const [dimensions, setDimensions] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
-    
-    useEffect(() => {
-        const restartController = () => {
-            if (controller) {
-                controller.restart();
-            }
-        };
-        const handleResize = () => {
-            setDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-            restartController();
-        };
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, [controller, setDimensions]);
+    }, [isLoading, daisyPrimaryText, dimensions]);
     
     return (
         <canvas
             ref={canvasRef}
-            width={dimensions.width}
-            height={dimensions.height}
-            className={`${className}`}
+            className={className}
+            style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+            }}
         />
     );
 };
