@@ -11,12 +11,17 @@ const Intro = () => {
             name="intro"
             children={
                 (
-                    <div className={'w-full h-full flex flex-row gap-2 p-8'}>
+                    <div className={`w-full h-full flex flex-col-reverse
+                                     md:flex-row gap-4 p-8 items-center`}>
                         <div
-                            className="flex flex-col gap-4 items-center justify-center p-4 w-1/2">
-                            Manoj Malviya
-                            <AtomBrandText text={`Multidisciplinary software engineer`} />
-                            innovating with knack of creativity and problem solving.
+                            className="flex flex-col flex-wrap p-2 gap-4
+                                        items-center justify-center">
+                            <span className={'w-full text-center'}>Manoj Malviya</span>
+                            
+                            <AtomBrandText
+                                className={'text-center w-full'}
+                                text={`Multidisciplinary software engineer`}/>
+                            <span> Innovating with knack of creativity and problem solving </span>
                             
                             <AtomButton
                                 icon="fas fa-arrow-down"

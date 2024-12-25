@@ -99,7 +99,8 @@ const GithubProfile: React.FC = () => {
             className="p-2 w-full h-full justify-center items-center"
         >
             <div
-                className="w-fit flex flex-row m-auto justify-between item-center gap-4 border-secondary">
+                className="w-fit flex flex-col md:flex-row m-auto justify-between
+                            item-center gap-4">
                 <AtomStats text={'Total Commits'} value={totalCommits}/>
                 <AtomStats text={'Longest Streak'} value={longestStreak}/>
                 {dropdownOptions.length > 0 && (
@@ -114,7 +115,7 @@ const GithubProfile: React.FC = () => {
             </div>
             <div className='w-full h-full'>
                 {data[currentYear] && <CalendarChart data={data[currentYear]} unit={'Commits'}
-                                                     year={currentYear} height={300}  />}
+                                                     year={currentYear} height={300}/>}
                 {!data[currentYear] && <div>No data for this year</div>}
             </div>
         </div>

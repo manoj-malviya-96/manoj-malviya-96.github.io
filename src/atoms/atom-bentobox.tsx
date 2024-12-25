@@ -33,6 +33,7 @@ const _AtomBentoBoxItem: React.FC<AtomBentoItemProps> = ({
             <img
                 src={image}
                 alt={title || "Bento Item"}
+                loading={'lazy'}
                 className="w-full h-full object-cover"
             />
             <span className="absolute top-4 left-4 p-2">
@@ -42,7 +43,7 @@ const _AtomBentoBoxItem: React.FC<AtomBentoItemProps> = ({
             {description && (
                 <span
                     className="absolute inset-0 p-8 flex items-center justify-center bg-primary bg-opacity-50
-                                opacity-0 hover:opacity-100 transition">
+                                opacity-0 hover:opacity-100 transition hover:backdrop-blur-sm">
                     {description}
                 </span>
             )}
