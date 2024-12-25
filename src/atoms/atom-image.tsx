@@ -44,7 +44,7 @@ const AtomImage: React.FC<AtomImageProps> = ({
                                 opacity-0 hover:bg-opacity-50 hover:opacity-90`}
                                  onClick={toggleFullScreen}
                 >
-                    <i className={"fas fa-magnifying-glass text-2xl"}/>
+                    <i className={"fas fa-magnifying-glass-plus text-2xl"}/>
                 </div>
                 }
                 {showLabel && <span className="text-sm text-neutral">{alt}</span>}
