@@ -18,10 +18,14 @@ class FormlabsSW extends BlogInfo {
                 {
                     name: 'key-achievements',
                     title: 'Key Achievements',
-                    media:{
+                    media: {
                         kind: 'heroList',
                         contentList: [
-                            `Engineered high-performance CAD features like model labeling, orientation optimization, model grouping and part cages for a desktop application (PreForm), improving user efficiency in complex CAD workflows.`,
+                            {
+                                summary: `Engineered advanced CAD features and automated algorithms for 3D print-preparation software`,
+                                icon: 'fas fa-cube',
+                                title: `5X`,
+                            },
                             `Led the development of ecosystem features, building and integrating APIs between hardware and desktop applications, to enable real-time  encrypted information flow, e.g. hardware camera streaming via secure local network`,
                             `Owned the development of a modular, scalable UI framework using C++ and Qt Framework. Facilitated seamless collaboration with UI/UX team and beta users, streamlining critical workflows (e.g. seamless 3D print upload).`,
                             `Initiated and developed large-scale data analysis tools, enabling data-driven feature development and strategic decision-making. Used SQL (BigQuery), Redash, and Segment logging.`,

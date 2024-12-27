@@ -1,18 +1,25 @@
 import React from "react";
 
 
+interface HeroListItemProps {
+    summary: string;
+    title?: number;
+    icon?: string;
+}
+type HeroListContent = string | HeroListItemProps;
+
 interface HeroListProps {
-    contentList: Array<string>;
+    contentList: Array<HeroListContent>;
     numbered?: boolean;
     className?: string;
 }
 
 
 const AtomHeroList: React.FC<HeroListProps> = ({
-                                               contentList,
-                                               numbered = false,
-                                               className = ''
-                                           }) => {
+                                                   contentList,
+                                                   numbered = false,
+                                                   className = ''
+                                               }) => {
     return (
         <div
             className={`${className} flex flex-col m-auto align-center gap-4`}>
@@ -20,12 +27,19 @@ const AtomHeroList: React.FC<HeroListProps> = ({
                 contentList.map((content, index) => {
                     return (
                         <div className="flex flex-row gap-8 rounded-lg justify-center p-8 w-full h-fit
-                                        hover:border-opacity-100 transition duration-300 ease-in-out
-                                        cursor-pointer border-2 border-secondary border-opacity-50">
+                                        transition duration-300 ease-in-out hover:bg-secondary hover:text-secondary-content
+                                        cursor-pointer border border-neutral border-opacity-50">
                             <span
                                 className="text-xl m-auto">{numbered ? `${index + 1}` : ""}</span>
-                            <span
-                                className="text-xl">{content}</span>
+                            {typeof content === 'string' && <span
+                                className="text-xl">{content}</span>}
+                            {typeof content === 'object' &&
+                                <div className={'flex flex-row gap-4 items-center justify-around'}>
+                                    <i className={`${content.icon} text-accent text-4xl`}/>
+                                    <span className={`text-5xl text-accent`}>{content.title}</span>
+                                    <span className={'text-xl'}>{content.summary}</span>
+                                </div>
+                            }
                         </div>
                     );
                 })
