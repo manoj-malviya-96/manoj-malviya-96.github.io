@@ -22,13 +22,25 @@ class FormlabsSW extends BlogInfo {
                         kind: 'heroList',
                         contentList: [
                             {
-                                summary: `Engineered advanced CAD features and automated algorithms for 3D print-preparation software`,
+                                summary: `Engineered advanced CAD features and automated algorithms for 3D print-prep software.`,
                                 icon: 'fas fa-cube',
                                 title: `5X`,
                             },
-                            `Led the development of ecosystem features, building and integrating APIs between hardware and desktop applications, to enable real-time  encrypted information flow, e.g. hardware camera streaming via secure local network`,
-                            `Owned the development of a modular, scalable UI framework using C++ and Qt Framework. Facilitated seamless collaboration with UI/UX team and beta users, streamlining critical workflows (e.g. seamless 3D print upload).`,
-                            `Initiated and developed large-scale data analysis tools, enabling data-driven feature development and strategic decision-making. Used SQL (BigQuery), Redash, and Segment logging.`,
+                            {
+                                summary: `Powered seamless, secure hardware-desktop connectivity`,
+                                icon: 'fas fa-wifi',
+                                title: `100%`,
+                            },
+                            {
+                                summary: `Developed scalable UI frameworks and streamlined workflows`,
+                                icon: 'fas fa-tasks',
+                                title: `100%`,
+                            },
+                            {
+                                summary: `Created data analysis tools driving feature development and strategy.`,
+                                icon: 'fas fa-chart-line',
+                                title: `100%`,
+                            },
                             `Spearheaded the development of embedded tools for servicing a flagship hardware product (e.g. introduced a maintenance tool, cutting error rates by ~15% and optimizing service workflows for greater efficiency).`,
                             `Led cross-functional teams, mentoring interns, conducting code reviews, and streamlining international collaboration. Drove test-driven development, fixed critical bugs, and set coding standards to enhance feature development.`,
                             `Awarded Performance Award for being among the Top 3 engineers in productivity, contribution and impact.`
