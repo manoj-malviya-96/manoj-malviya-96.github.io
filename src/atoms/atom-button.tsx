@@ -39,19 +39,19 @@ export interface AtomButtonProps {
 }
 
 export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
-                                                              icon,
-                                                              label,
-                                                              onClick,
-                                                              severity = ButtonSeverity.Primary,
-                                                              size = ButtonSize.Medium,
-                                                              type = ButtonType.Solid,
-                                                              tooltip,
-                                                              pill = true,
-                                                              animated = false,
-                                                              disabled = false,
-                                                              loading = false,
-                                                              className = '',
-                                                          }) => {
+                                                                     icon,
+                                                                     label,
+                                                                     onClick,
+                                                                     severity = ButtonSeverity.Primary,
+                                                                     size = ButtonSize.Medium,
+                                                                     type = ButtonType.Solid,
+                                                                     tooltip,
+                                                                     pill = true,
+                                                                     animated = false,
+                                                                     disabled = false,
+                                                                     loading = false,
+                                                                     className = '',
+                                                                 }) => {
     const daisyClass = `btn ${size} ${type} ${severity}`;
     
     return (

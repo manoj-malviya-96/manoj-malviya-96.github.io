@@ -55,8 +55,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(({
             <ul
                 tabIndex={0}
                 className={`dropdown-content menu p-2 shadow w-full mb-3
-                            border border-neutral border-opacity-50 rounded-lg
-                            bg-primary bg-opacity-50 backdrop-blur-xl
+                            border border-neutral border-opacity-50 rounded-lg bg-primary
                             ${open ? 'block' : 'hidden'}`}
             >
                 {options.map((option, index) => (
