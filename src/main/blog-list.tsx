@@ -1,14 +1,15 @@
+import React, {ComponentType} from "react";
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {registeredBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
-import AtomBentobox from "../atoms/atom-bentobox";
-
+import AtomBentoBox, {BentoBoxItemProps} from "../atoms/atom-bentobox";
+import {AtomCardProps, AtomImageCard} from "../atoms/atom-card";
 
 const BlogListing = () => {
-    
     const navigate = useNavigate();
     
+    // Convert blogs into items for AtomCard
     const items = rangesTo(registeredBlogs, (blog) => {
         return {
             title: blog.title,
@@ -18,7 +19,7 @@ const BlogListing = () => {
             image: blog.cover,
             isNew: blog.isNew,
             onClick: () => navigate(blog.path),
-        }
+        } as AtomCardProps;
     });
     
     return (
@@ -27,12 +28,12 @@ const BlogListing = () => {
             description={`A collection of blogs on various topics.
                             Simply my thoughts and experiences with tech and life.`}
             name="blog"
-            children={
-                <AtomBentobox
-                    items={items}
-                />
-            }
-        />
+        >
+            <AtomBentoBox
+                items={items}
+                component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
+            />
+        </AtomFullScreenContainer>
     );
 };
 

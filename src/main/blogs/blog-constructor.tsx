@@ -7,7 +7,7 @@ import AtomTableOfContents from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
 import AtomHeroText from "../../atoms/atom-hero-text";
-import AtomHeroList from "../../atoms/atom-hero-list";
+import AtomHeroList, {HeroListContent} from "../../atoms/atom-hero-list";
 import {
     InlineContentType,
     makeRichParagraph
@@ -87,8 +87,8 @@ export interface BlogHeroTextProps {
 
 export interface BlogHeroListProps {
     kind: "heroList";
-    contentList: string[];
-    numbered: boolean;
+    contentList: HeroListContent[];
+    numbered?: boolean;
 }
 
 export type BlogMediaType =

@@ -2,10 +2,11 @@ import {BlogInfo, heatmapColorScale} from "../blog-info";
 import Cover from "./cover.webp"
 import IntroChart from './background.png';
 import GameUI from './game-ui.png';
+import {BlogSectionContentProps} from "../blog-constructor";
 
 class DeltaDesign extends BlogInfo {
     constructor() {
-        const introSection = {
+        const introSection:BlogSectionContentProps = {
             name: 'intro',
             title: 'Introduction',
             paragraph: [
@@ -24,16 +25,15 @@ class DeltaDesign extends BlogInfo {
             },
         };
         
-        const objectiveSection = {
+        const objectiveSection:BlogSectionContentProps = {
             name: 'objective',
             title: 'Objective',
             paragraph: [
-                [
-                    `This work introduces a digital Delta Design Game to study how designers tackle novel problems. The tool
+                `This work introduces a digital Delta Design Game to study how designers tackle novel problems. The tool
                 records each decision, allowing us to analyze behaviors of high vs. low performers and efficient vs.
                 inefficient designers, focusing on how automaticity affects design outcomes. To this end, the
                 overarching question this research seeks to answer is as follows:`
-                ],
+                ,
                 {tag: 'br'},
             ],
             media: {
@@ -43,7 +43,7 @@ class DeltaDesign extends BlogInfo {
             },
         };
         
-        const gameSection = {
+        const gameSection:BlogSectionContentProps = {
             name: 'details',
             title: 'Details',
             paragraph: [
@@ -87,7 +87,7 @@ class DeltaDesign extends BlogInfo {
             showscale: false,
         };
         
-        const resultStates = {
+        const resultStates:BlogSectionContentProps = {
             name: 'result-1',
             title: 'Design States',
             paragraph: [
@@ -121,7 +121,7 @@ class DeltaDesign extends BlogInfo {
             showscale: false,
         }
         
-        const resultTransition = {
+        const resultTransition:BlogSectionContentProps = {
             name: 'result-2',
             title: 'Cognitive States',
             paragraph: [
@@ -141,7 +141,7 @@ class DeltaDesign extends BlogInfo {
             },
         };
         
-        const conclusionSection = {
+        const conclusionSection:BlogSectionContentProps = {
             name: 'conclusion',
             title: 'Conclusion',
             paragraph: [

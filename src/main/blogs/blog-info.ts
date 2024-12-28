@@ -2,6 +2,7 @@ import {rangesTo} from "../../common/math";
 import {getScaleColor} from "../../common/color-utils";
 import {TabItemProps} from "../../atoms/atom-tab-bar";
 import {BentoItemSize} from "../../atoms/atom-bentobox";
+import {BlogSectionContentProps} from "./blog-constructor";
 
 
 interface BlogInfoConstructor {
@@ -13,8 +14,7 @@ interface BlogInfoConstructor {
                   // a string.
     tags: string[];
     cover: string; // URL or path to the cover image.
-    sections: any[]; // Define a specific type for sections if
-                     // available.
+    sections: BlogSectionContentProps[];
     logo?: string; // Optional with a default value.
     isNew?: boolean; // Optional with a default value.
     cardSize?: BentoItemSize;
@@ -29,8 +29,7 @@ export class BlogInfo {
     readonly tags: string[];
     readonly cover: string;
     readonly logo: string;
-    readonly sections: any[]; // Replace `any[]` with a specific
-                              // type if possible.
+    readonly sections: BlogSectionContentProps[];
     private readonly isNew: boolean;
     private readonly path: string;
     readonly cardSize: BentoItemSize = BentoItemSize.Small;

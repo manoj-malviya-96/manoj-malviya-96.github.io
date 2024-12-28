@@ -3,10 +3,10 @@ import React from "react";
 
 interface HeroListItemProps {
     summary: string;
-    title?: number;
+    title?: string;
     icon?: string;
 }
-type HeroListContent = string | HeroListItemProps;
+export type HeroListContent = string | HeroListItemProps;
 
 interface HeroListProps {
     contentList: Array<HeroListContent>;
