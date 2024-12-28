@@ -11,14 +11,14 @@ interface FullScreenPageProps {
     backgroundImage?: string;
 }
 
-const _AtomFullScreenContainer: React.FC<FullScreenPageProps> = ({
-                                                                     name,
-                                                                     title,
-                                                                     description,
-                                                                     children,
-                                                                     childrenAlignment,
-                                                                     backgroundImage,
-                                                                 }) => {
+const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
+                                                                               name,
+                                                                               title,
+                                                                               description,
+                                                                               children,
+                                                                               childrenAlignment,
+                                                                               backgroundImage,
+                                                                           }) => {
     if (!name) {
         throw new Error("The 'name' prop is required for FullScreenPage.");
     }
@@ -61,7 +61,6 @@ const _AtomFullScreenContainer: React.FC<FullScreenPageProps> = ({
             )}
         </Element>
     );
-};
+});
 
-const AtomFullScreenContainer = React.memo(_AtomFullScreenContainer);
 export default AtomFullScreenContainer;

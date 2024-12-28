@@ -10,15 +10,15 @@ interface AtomToggleButtonProps extends AtomButtonProps {
     initValue?: boolean;
 }
 
-const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
-                                                                onLabel,
-                                                                offLabel,
-                                                                onIcon,
-                                                                offIcon,
-                                                                onChange,
-                                                                initValue = false,
-                                                                ...props
-                                                            }) => {
+const AtomToggleButton: React.FC<AtomToggleButtonProps> = React.memo(({
+                                                                          onLabel,
+                                                                          offLabel,
+                                                                          onIcon,
+                                                                          offIcon,
+                                                                          onChange,
+                                                                          initValue = false,
+                                                                          ...props
+                                                                      }) => {
     const [checked, setChecked] = useState<boolean>(initValue);
     
     useEffect(() => {
@@ -48,7 +48,5 @@ const _AtomToggleButton: React.FC<AtomToggleButtonProps> = ({
             onClick={onToggle}
         />
     );
-};
-
-const AtomToggleButton = React.memo(_AtomToggleButton);
+});
 export default AtomToggleButton;

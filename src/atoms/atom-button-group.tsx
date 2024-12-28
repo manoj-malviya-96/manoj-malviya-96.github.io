@@ -1,10 +1,8 @@
 import React from 'react';
 import {AtomButtonProps, AtomButton} from './atom-button';
 
-// Import or reuse AtomButtonProps from AtomButton definition
-
 interface AtomButtonGroupProps {
-    items: Array<AtomButtonProps>; // List of button props
+    items: Array<AtomButtonProps>;
 }
 
 const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({items}) => {

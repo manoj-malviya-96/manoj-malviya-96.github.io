@@ -6,6 +6,7 @@ interface HeroListItemProps {
     title?: string;
     icon?: string;
 }
+
 export type HeroListContent = string | HeroListItemProps;
 
 interface HeroListProps {
@@ -15,11 +16,11 @@ interface HeroListProps {
 }
 
 
-const AtomHeroList: React.FC<HeroListProps> = ({
-                                                   contentList,
-                                                   numbered = false,
-                                                   className = ''
-                                               }) => {
+const AtomHeroList: React.FC<HeroListProps> = React.memo(({
+                                                              contentList,
+                                                              numbered = false,
+                                                              className = ''
+                                                          }) => {
     return (
         <div
             className={`${className} flex flex-col m-auto align-center gap-4`}>
@@ -48,6 +49,6 @@ const AtomHeroList: React.FC<HeroListProps> = ({
             }
         </div>
     );
-}
+});
 
 export default AtomHeroList;

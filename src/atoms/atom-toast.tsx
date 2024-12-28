@@ -31,7 +31,7 @@ interface AtomToastProps {
     toasts: AtomToastItemProps[];
 }
 
-const _AtomToast = ({toasts}: AtomToastProps) => {
+const AtomToast = React.memo(({toasts}: AtomToastProps) => {
     return (
         // mt-12 is for brand logo. Todo can be moved to navbar.
         <div className="toast toast-top toast-start mt-12">
@@ -50,6 +50,5 @@ const _AtomToast = ({toasts}: AtomToastProps) => {
             ))}
         </div>
     )
-}
-const AtomToast = React.memo(_AtomToast);
+});
 export default AtomToast;

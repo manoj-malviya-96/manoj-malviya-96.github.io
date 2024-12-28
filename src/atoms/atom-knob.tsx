@@ -11,16 +11,16 @@ interface AtomKnobProps {
     initValue?: number;
 }
 
-const _AtomKnob: React.FC<AtomKnobProps> = ({
-                                                label,
-                                                step = 1,
-                                                min = 0,
-                                                max = 100,
-                                                disabled = false,
-                                                readOnly = false,
-                                                onChange,
-                                                initValue = 50,
-                                            }) => {
+const AtomKnob: React.FC<AtomKnobProps> = React.memo(({
+                                                          label,
+                                                          step = 1,
+                                                          min = 0,
+                                                          max = 100,
+                                                          disabled = false,
+                                                          readOnly = false,
+                                                          onChange,
+                                                          initValue = 50,
+                                                      }) => {
     const [value, setValue] = useState<number>(initValue);
     
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +71,5 @@ const _AtomKnob: React.FC<AtomKnobProps> = ({
             </div>
         </div>
     );
-};
-
-const AtomKnob = React.memo(_AtomKnob);
+});
 export default AtomKnob;

@@ -55,4 +55,4 @@ const AtomDialog = forwardRef<HTMLDivElement, AtomDialogProps>(
 
 AtomDialog.displayName = "AtomDialog";
 
-export default AtomDialog;
+export default React.memo(AtomDialog);

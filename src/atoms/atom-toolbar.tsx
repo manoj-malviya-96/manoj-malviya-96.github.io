@@ -7,12 +7,12 @@ interface AtomToolbarProps {
     className?: string;
 }
 
-const _AtomToolbar: React.FC<AtomToolbarProps> = ({
-                                                      start,
-                                                      center,
-                                                      end,
-                                                      className = "",
-                                                  }) => {
+const AtomToolbar: React.FC<AtomToolbarProps> = React.memo(({
+                                                                start,
+                                                                center,
+                                                                end,
+                                                                className = "",
+                                                            }) => {
     return (
         <div
             className={`flex items-center justify-between fixed top-0 left-0 w-full
@@ -23,7 +23,5 @@ const _AtomToolbar: React.FC<AtomToolbarProps> = ({
             <div className="flex items-center space-x-2">{end}</div>
         </div>
     );
-};
-
-const AtomToolbar = React.memo(_AtomToolbar);
+});
 export default AtomToolbar;

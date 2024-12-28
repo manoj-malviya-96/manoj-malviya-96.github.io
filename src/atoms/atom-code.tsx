@@ -22,15 +22,11 @@ SyntaxHighlighter.registerLanguage("qml", qml);
 // Define props interface
 export interface CodeBlockProps {
     code: string;
-    language: "cpp" | "javascript" | "python" | "matlab" | "qml"; // Add
-                                                                  // more
-                                                                  // languages
-                                                                  // as
-                                                                  // needed
+    language: "cpp" | "javascript" | "python" | "matlab" | "qml";
     className?: string;
 }
 
-const AtomCodeBlock: React.FC<CodeBlockProps> = ({
+const AtomCodeBlock: React.FC<CodeBlockProps> = React.memo(({
                                                      code,
                                                      language,
                                                      className = ""
@@ -45,10 +41,7 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = ({
             await navigator.clipboard.writeText(code);
             setCopying(false);
             setCopySuccess(true);
-            setTimeout(() => setCopySuccess(false), 1000); // Reset
-                                                           // after
-                                                           // 1
-                                                           // second
+            setTimeout(() => setCopySuccess(false), 1000);
         }
         catch (err) {
             console.error("Failed to copy: ", err);
@@ -77,6 +70,6 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = ({
             </SyntaxHighlighter>
         </AtomGroup>
     );
-};
+});
 
 export default AtomCodeBlock;

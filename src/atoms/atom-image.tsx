@@ -10,13 +10,13 @@ interface AtomImageProps {
     showLabel?: boolean;
 }
 
-const AtomImage: React.FC<AtomImageProps> = ({
-                                                 src,
-                                                 alt,
-                                                 preview = true,
-                                                 showLabel = false,
-                                                 className = "",
-                                             }) => {
+const AtomImage: React.FC<AtomImageProps> = React.memo(({
+                                                            src,
+                                                            alt,
+                                                            preview = true,
+                                                            showLabel = false,
+                                                            className = "",
+                                                        }) => {
     const {addShortcut, removeShortcut} = useKeyboardManager();
     const [isFullScreen, setIsFullScreen] = useState(false);
     
@@ -76,6 +76,6 @@ const AtomImage: React.FC<AtomImageProps> = ({
             )}
         </>
     );
-};
+});
 
 export default AtomImage;

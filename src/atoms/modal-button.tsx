@@ -7,7 +7,7 @@ interface ModalButtonProps extends AtomButtonProps {
     dialogContent: React.ReactNode;
 }
 
-const ModalButton: React.FC<ModalButtonProps> = ({
+const ModalButton: React.FC<ModalButtonProps> = React.memo(({
                                                      label,
                                                      icon,
                                                      className,
@@ -29,6 +29,6 @@ const ModalButton: React.FC<ModalButtonProps> = ({
             disabled={disabled}
         />
     );
-};
+});
 
 export default ModalButton;

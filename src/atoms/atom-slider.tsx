@@ -20,24 +20,30 @@ export interface AtomSliderProps {
     label?: string;
 }
 
-const _AtomSlider: React.FC<AtomSliderProps> = ({
-                                                    value,
-                                                    min,
-                                                    max,
-                                                    step = 1,
-                                                    orientation = SliderOrientation.Horizontal,
-                                                    onChange,
-                                                    className,
-                                                    label,
-                                                    size = "normal",
-                                                    neutralMode = false,
-                                                }) => {
+const AtomSlider: React.FC<AtomSliderProps> = React.memo(({
+                                                              value,
+                                                              min,
+                                                              max,
+                                                              step = 1,
+                                                              orientation = SliderOrientation.Horizontal,
+                                                              onChange,
+                                                              className,
+                                                              label,
+                                                              size = "normal",
+                                                              neutralMode = false,
+                                                          }) => {
     const magicSize = size === "small" ? 3 : 5;
     const {daisyPrimary} = useTheme();
     
     let progressPercentage = 0;
     if (value) {
-        progressPercentage = ((value - min) / (max - min)) * 100;
+        progressPercentage = (
+            (
+                value - min
+            ) / (
+                max - min
+            )
+        ) * 100;
     }
     
     const mainColor = neutralMode ? 'rgba(200,200,200)' : daisyPrimary;
@@ -59,7 +65,7 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
                 max={max}
                 step={step}
                 onChange={(event) =>
-                            onChange(Number(event.target.value))}
+                    onChange(Number(event.target.value))}
                 style={{
                     appearance: "none",
                     width: "100%",
@@ -85,7 +91,6 @@ const _AtomSlider: React.FC<AtomSliderProps> = ({
             `}</style>
         </div>
     );
-};
+});
 
-const AtomSlider = React.memo(_AtomSlider);
 export default AtomSlider;

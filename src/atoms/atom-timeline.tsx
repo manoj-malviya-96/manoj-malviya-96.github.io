@@ -17,7 +17,7 @@ interface AtomTimelineProps {
 }
 
 
-const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical', className}) => {
+const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({items, layout = 'vertical', className}) => {
     items.sort((a, b) => {
         return a.date < b.date ? 1 : -1;
     });
@@ -55,7 +55,5 @@ const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical',
             })}
         </ul>
     )
-}
-
-const AtomTimeline = React.memo(_AtomTimeline);
+});
 export default AtomTimeline;

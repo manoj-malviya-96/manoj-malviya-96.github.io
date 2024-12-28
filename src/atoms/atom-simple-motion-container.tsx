@@ -7,11 +7,11 @@ interface MotionDivProps {
     enableTapEffect?: boolean;
 }
 
-const _AtomSimpleMotionContainer: React.FC<MotionDivProps> = ({
-                                                                  children,
-                                                                  enableHoverEffect = true,
-                                                                  enableTapEffect = true
-                                                              }) => {
+const AtomSimpleMotionContainer: React.FC<MotionDivProps> = ({
+                                                                 children,
+                                                                 enableHoverEffect = true,
+                                                                 enableTapEffect = true
+                                                             }) => {
     return (
         <motion.div
             whileHover={{scale: enableHoverEffect ? 1.05 : 1}}
@@ -22,5 +22,4 @@ const _AtomSimpleMotionContainer: React.FC<MotionDivProps> = ({
     );
 };
 
-const AtomSimpleMotionContainer = React.memo(_AtomSimpleMotionContainer);
 export default AtomSimpleMotionContainer;

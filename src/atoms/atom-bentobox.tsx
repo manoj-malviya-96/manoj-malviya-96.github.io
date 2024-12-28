@@ -23,7 +23,7 @@ interface AtomBentoBoxProps<T extends BentoBoxItemProps> {
     className?: string;
 }
 
-const AtomBentoBox = <T extends BentoBoxItemProps>({
+const AtomBentoBox = React.memo((<T extends BentoBoxItemProps>({
                                                        items,
                                                        component: Component,
                                                        className,
@@ -40,6 +40,6 @@ const AtomBentoBox = <T extends BentoBoxItemProps>({
             </div>
         </AtomScrollContainer>
     );
-};
+}));
 
-export default React.memo(AtomBentoBox);
+export default AtomBentoBox;

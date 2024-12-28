@@ -6,12 +6,12 @@ interface AtomBrandTextProps {
     className?: string
 }
 
-const AtomBrandText = ({text, className}: AtomBrandTextProps) => {
+const AtomBrandText = React.memo(({text, className}: AtomBrandTextProps) => {
     return (
         <span className={`text-accent font-extrabold text-wrap
                         text-4xl uppercase
                         whitespace-normal break-words ${className}`}>{text}</span>
     );
-}
+});
 
 export default AtomBrandText;

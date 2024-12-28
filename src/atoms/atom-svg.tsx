@@ -8,13 +8,11 @@ interface AtomSvgProps {
     className?: string;
 }
 
-const _AtomSvg: React.FC<AtomSvgProps> = ({src, alt, className}) => {
+const AtomSvg: React.FC<AtomSvgProps> = React.memo(({src, alt, className}) => {
     const {isDark} = useTheme();
     return <img src={src} alt={alt}
                 className={className}
                 loading="eager"
                 style={{filter: isDark ? 'brightness(169%)' : ''}}/>;
-}
-
-const AtomSvg = React.memo(_AtomSvg);
+});
 export default AtomSvg;
