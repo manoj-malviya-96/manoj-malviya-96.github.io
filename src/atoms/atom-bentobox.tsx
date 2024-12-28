@@ -32,7 +32,7 @@ const AtomBentoBox = React.memo((<T extends BentoBoxItemProps>({
         <AtomScrollContainer>
             <div
                 className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 p-2 ${className}`}
-                style={{gridAutoRows: "150px"}}
+                style={{gridAutoRows: "250px"}}
             >
                 {items.map((item, index) => (
                     <Component key={index} {...item} className={item.size ? item.size : randomSize()}/>

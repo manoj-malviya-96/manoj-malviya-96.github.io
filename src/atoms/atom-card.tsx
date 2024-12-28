@@ -22,16 +22,19 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
                                                                   }) => {
     return (
         <div
-            className={`w-full h-full cursor-pointer overflow-hidden flex flex-col items-center justify-center bg-cover bg-center transition ${className}`}
+            className={`relative cursor-pointer overflow-hidden group ${className}`}
             onClick={onClick}
             style={{
                 backgroundImage: `url(${image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
             }}
         >
             <div
-                className="w-full h-full p-8 flex flex-col items-center
-                            justify-center opacity-0 hover:opacity-100 transition-opacity duration-300
-                            hover:bg-secondary hover:text-secondary-content">
+                className="w-full h-full p-8 flex flex-col items-center justify-center
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                            group-hover:bg-secondary group-hover:text-secondary-content">
                 <h2 className="card-title text-center">{title}</h2>
                 {isNew && <span className="badge badge-info">New</span>}
                 {date && (
@@ -46,6 +49,8 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
                     </p>
                 )}
             </div>
+            <span className="absolute left-0 bottom-0 p-2 group-hover:opacity-0
+                            text-neutral text-sm uppercase">{title}</span>
         </div>
     );
 });
