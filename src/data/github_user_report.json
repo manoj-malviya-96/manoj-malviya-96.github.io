@@ -545,7 +545,7 @@
         },
         {
           "date": "2024-11-11",
-          "commits": 14
+          "commits": 6
         },
         {
           "date": "2024-11-12",
@@ -572,16 +572,16 @@
           "commits": 1
         },
         {
-          "date": "2024-11-27",
+          "date": "2024-12-03",
           "commits": 2
         },
         {
-          "date": "2024-11-29",
-          "commits": 2
+          "date": "2024-12-04",
+          "commits": 4
         },
         {
           "date": "2024-12-12",
-          "commits": 11
+          "commits": 17
         },
         {
           "date": "2024-12-17",
@@ -783,14 +783,38 @@
         },
         {
           "date": "2024-12-19",
-          "commits": 2
+          "commits": 8
+        },
+        {
+          "date": "2024-12-20",
+          "commits": 5
+        },
+        {
+          "date": "2024-12-21",
+          "commits": 28
+        },
+        {
+          "date": "2024-12-22",
+          "commits": 20
+        },
+        {
+          "date": "2024-12-23",
+          "commits": 10
+        },
+        {
+          "date": "2024-12-24",
+          "commits": 3
+        },
+        {
+          "date": "2024-12-25",
+          "commits": 15
         }
       ],
       "languages": {
-        "TypeScript": 187962,
-        "JavaScript": 3950,
-        "HTML": 1675,
-        "CSS": 643
+        "TypeScript": 204659,
+        "JavaScript": 3248,
+        "HTML": 2076,
+        "CSS": 349
       }
     },
     {
@@ -1473,7 +1497,7 @@
         }
       ],
       "languages": {
-        "Jupyter Notebook": 1058619484,
+        "Jupyter Notebook": 1059138851,
         "HTML": 104185169,
         "C": 57518262,
         "Python": 40293429,
@@ -1515,110 +1539,6 @@
     {
       "repo": "Formlabs/SetOps",
       "daily_log": [
-        {
-          "date": "2022-09-05",
-          "commits": 4
-        },
-        {
-          "date": "2022-09-07",
-          "commits": 1
-        },
-        {
-          "date": "2022-09-08",
-          "commits": 1
-        },
-        {
-          "date": "2022-09-13",
-          "commits": 8
-        },
-        {
-          "date": "2022-09-14",
-          "commits": 3
-        },
-        {
-          "date": "2022-09-15",
-          "commits": 3
-        },
-        {
-          "date": "2022-09-21",
-          "commits": 1
-        },
-        {
-          "date": "2022-09-22",
-          "commits": 8
-        },
-        {
-          "date": "2022-09-23",
-          "commits": 2
-        },
-        {
-          "date": "2022-09-25",
-          "commits": 1
-        },
-        {
-          "date": "2022-09-26",
-          "commits": 28
-        },
-        {
-          "date": "2022-09-27",
-          "commits": 6
-        },
-        {
-          "date": "2022-09-28",
-          "commits": 3
-        },
-        {
-          "date": "2022-09-29",
-          "commits": 1
-        },
-        {
-          "date": "2022-09-30",
-          "commits": 6
-        },
-        {
-          "date": "2022-10-04",
-          "commits": 3
-        },
-        {
-          "date": "2022-10-09",
-          "commits": 2
-        },
-        {
-          "date": "2022-10-12",
-          "commits": 1
-        },
-        {
-          "date": "2022-10-17",
-          "commits": 2
-        },
-        {
-          "date": "2022-10-18",
-          "commits": 1
-        },
-        {
-          "date": "2022-11-02",
-          "commits": 1
-        },
-        {
-          "date": "2022-11-11",
-          "commits": 6
-        },
-        {
-          "date": "2022-11-12",
-          "commits": 1
-        },
-        {
-          "date": "2022-11-14",
-          "commits": 3
-        },
-        {
-          "date": "2022-11-21",
-          "commits": 1
-        },
-        {
-          "date": "2022-11-22",
-          "commits": 3
-        },
         {
           "date": "2022-11-25",
           "commits": 1
