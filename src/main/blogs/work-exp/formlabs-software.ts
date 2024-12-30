@@ -1,6 +1,7 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./formlabs-sw-cover.jpg";
 import Logo from "./preform-blue.ico";
+import {BentoItemSize} from "../../../atoms/atom-bentobox";
 
 class FormlabsSW extends BlogInfo {
     constructor() {
@@ -25,25 +26,38 @@ class FormlabsSW extends BlogInfo {
                                 summary: `Engineered advanced CAD features and automated algorithms for 3D print-prep software.`,
                                 icon: 'fas fa-cube',
                                 title: `5X`,
+                                size: BentoItemSize.Large,
                             },
                             {
                                 summary: `Powered seamless, secure hardware-desktop connectivity`,
                                 icon: 'fas fa-wifi',
                                 title: `100%`,
+                                size: BentoItemSize.Large,
                             },
                             {
                                 summary: `Developed scalable UI frameworks and streamlined workflows`,
                                 icon: 'fas fa-tasks',
                                 title: `100%`,
+                                size: BentoItemSize.Medium,
                             },
                             {
                                 summary: `Created data analysis tools driving feature development and strategy.`,
                                 icon: 'fas fa-chart-line',
                                 title: `100%`,
+                                size: BentoItemSize.Medium,
                             },
-                            `Spearheaded the development of embedded tools for servicing a flagship hardware product (e.g. introduced a maintenance tool, cutting error rates by ~15% and optimizing service workflows for greater efficiency).`,
-                            `Led cross-functional teams, mentoring interns, conducting code reviews, and streamlining international collaboration. Drove test-driven development, fixed critical bugs, and set coding standards to enhance feature development.`,
-                            `Awarded Performance Award for being among the Top 3 engineers in productivity, contribution and impact.`
+                            {
+                                size: BentoItemSize.Small,
+                                summary: `Spearheaded the development of embedded tools for servicing a flagship hardware product (e.g. introduced a maintenance tool, cutting error rates by ~15% and optimizing service workflows for greater efficiency`,
+                            },
+                            {
+                                size: BentoItemSize.Small,
+                                summary: `Led cross-functional teams, mentoring interns, conducting code reviews, and streamlining international collaboration. Drove test-driven development, fixed critical bugs, and set coding standards to enhance feature development.`,
+                            },
+                            {
+                                size: BentoItemSize.Small,
+                                summary: `Awarded Performance Award for being among the Top 3 engineers in productivity, contribution and impact.`,
+                            }
                         ]
                     }
                 }

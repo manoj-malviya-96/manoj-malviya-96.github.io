@@ -31,7 +31,9 @@ const BlogListing = () => {
         >
             <AtomBentoBox
                 items={items}
-                className={'w-3/4 mx-auto'}
+                columns={5}
+                className={'mx-auto'}
+                autoRowsSize={269}
                 component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
             />
         </AtomFullScreenContainer>

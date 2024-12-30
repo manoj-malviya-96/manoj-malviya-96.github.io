@@ -1,7 +1,8 @@
 import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
+import {BentoBoxItemProps} from "./atom-bentobox";
 
-export interface AtomCardProps {
+export interface AtomCardProps extends BentoBoxItemProps{
     image: string;
     title: string;
     description?: string;
@@ -29,12 +30,15 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                width: '100%',
+                height: '100%',
             }}
         >
             <div
-                className="w-full h-full p-8 flex flex-col items-center justify-center
+                className="w-full h-full p-2 flex flex-col items-center justify-center
                             opacity-0 group-hover:opacity-100 transition-opacity duration-300
                             group-hover:bg-secondary group-hover:text-secondary-content">
+                
                 <h2 className="card-title text-center">{title}</h2>
                 {isNew && <span className="badge badge-info">New</span>}
                 {date && (
@@ -49,8 +53,8 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
                     </p>
                 )}
             </div>
-            <span className="absolute left-0 bottom-0 p-2 group-hover:opacity-0
-                            text-neutral text-sm uppercase">{title}</span>
+            <span className="absolute left-0 top-0 p-2 group-hover:opacity-0
+                            text-white font-bold uppercase">{title}</span>
         </div>
     );
 });

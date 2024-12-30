@@ -1,6 +1,7 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./formlabs-rd-cover.jpg";
 import Logo from "./form-4-icon.svg"
+import {BentoItemSize} from "../../../atoms/atom-bentobox";
 
 class FormlabsRd extends BlogInfo {
     constructor() {
@@ -18,14 +19,29 @@ class FormlabsRd extends BlogInfo {
                 {
                     name: 'key-achievements',
                     title: 'Key Achievements',
-                    media:{
+                    media: {
                         kind: 'heroList',
                         contentList: [
-                            `Revamped the core product feature (3D-printing support generation) and pioneered a patent-pending truss optimization algorithm that significantly improved reliability, and achieved  a ~70% extra material reduction.`,
-                            `Developed and maintained internal website hosting computational, data-collection and analytical tools, allowing other teams to work more efficiently and provide a single source of truth for critical decisions.`,
-                            `Authored an internal-use book on computational physics modeling for the company's flagship products, detailing key aspects of the print process, underlying physics, parameter-driven behaviors, and optimization strategies.`,
-                            `Led cross-functional teams to optimize material settings for flagship products using advanced computational models and precision experiments, enhancing reliability and performance.`,
-                            `Reduced 3D print-time-estimation error by 10% and computation time by 75% through an approximate physics model.`,
+                            {
+                                size: BentoItemSize.Medium,
+                                summary: `Revamped the core product feature (3D-printing support generation) and pioneered a patent-pending truss optimization algorithm that significantly improved reliability, and achieved  a ~70% extra material reduction.`,
+                            },
+                            {
+                                size: BentoItemSize.Medium,
+                                summary: `Developed and maintained internal website hosting computational, data-collection and analytical tools, allowing other teams to work more efficiently and provide a single source of truth for critical decisions.`,
+                            },
+                            {
+                                size: BentoItemSize.Medium,
+                                summary: `Authored an internal-use book on computational physics modeling for the company's flagship products, detailing key aspects of the print process, underlying physics, parameter-driven behaviors, and optimization strategies.`,
+                            },
+                            {
+                                size: BentoItemSize.Medium,
+                                summary: `Led cross-functional teams to optimize material settings for flagship products using advanced computational models and precision experiments, enhancing reliability and performance.`,
+                            },
+                            {
+                                size: BentoItemSize.Medium,
+                                summary: `Reduced 3D print-time-estimation error by 10% and computation time by 75% through an approximate physics model.`,
+                            },
                         ]
                     }
                 }

@@ -1,17 +1,14 @@
 import React from 'react';
 import TemplateCover from '../assets/main.jpg';
 import AtomFullScreenContainer from "../../atoms/atom-full-screen-container";
-import {BlogInfo} from "./blog-info";
 import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
 import AtomTableOfContents from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
 import AtomHeroText from "../../atoms/atom-hero-text";
-import AtomHeroList, {HeroListContent} from "../../atoms/atom-hero-list";
-import {
-    InlineContentType,
-    makeRichParagraph
-} from "../../common/inline-content";
+import AtomHeroList, {HeroListItemProps} from "../../atoms/atom-hero-list";
+import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
+import {BlogInfo} from "./blog-info";
 
 
 interface BlogHeaderProps {
@@ -87,8 +84,7 @@ export interface BlogHeroTextProps {
 
 export interface BlogHeroListProps {
     kind: "heroList";
-    contentList: HeroListContent[];
-    numbered?: boolean;
+    contentList: HeroListItemProps[];
 }
 
 export type BlogMediaType =
@@ -152,7 +148,6 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                     }
                     {media.kind === 'heroList' &&
                         <AtomHeroList contentList={media.contentList}
-                                      numbered={media.numbered}
                                       className='w-full'/>
                     }
                 </div>
@@ -199,7 +194,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
             </div>
             {/* Blog Content */}
             <div className="inline-block w-full h-fit">
-                {item.sections.map((secProps, index) => (
+                {item.sections.map((secProps: BlogSectionContentProps, index: number) => (
                     <BlogSection key={index} {...secProps} />
                 ))}
             </div>
