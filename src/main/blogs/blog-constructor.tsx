@@ -5,10 +5,10 @@ import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
 import AtomTableOfContents from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
-import AtomHeroText from "../../atoms/atom-hero-text";
 import AtomHeroList, {HeroListItemProps} from "../../atoms/atom-hero-list";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
+import {AtomHeroTitleText} from "../../atoms/atom-text";
 
 
 interface BlogHeaderProps {
@@ -143,8 +143,8 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
                         />
                     }
                     {media.kind === 'heroText' &&
-                        <AtomHeroText text={media.text}
-                                      className='w-full'/>
+                        <AtomHeroTitleText text={media.text}
+                                        className='w-full'/>
                     }
                     {media.kind === 'heroList' &&
                         <AtomHeroList contentList={media.contentList}

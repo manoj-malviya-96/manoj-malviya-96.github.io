@@ -1,8 +1,9 @@
 import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import {BentoBoxItemProps} from "./atom-bentobox";
+import {AtomSecondaryText, AtomTitleText} from "./atom-text";
 
-export interface AtomCardProps extends BentoBoxItemProps{
+export interface AtomCardProps extends BentoBoxItemProps {
     image: string;
     title: string;
     description?: string;
@@ -81,8 +82,8 @@ export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
                     loading="lazy"
                     className="w-full h-2/3 object-contain"
                 />
-                <div className="w-full flex flex-col items-center gap-2 mt-4 p-2">
-                    <h2 className="card-title text-center">{title}</h2>
+                <div className="w-full flex flex-col items-center gap-0 p-2 h-full">
+                    <AtomTitleText text={title} className={'text-center'}/>
                     {isNew && <span className="badge badge-info">New</span>}
                     {date && (
                         <span className="text-sm text-neutral text-center">
@@ -90,9 +91,7 @@ export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
                         </span>
                     )}
                     {description && (
-                        <p className="text-sm font-sans text-neutral text-center">
-                            {description}
-                        </p>
+                        <AtomSecondaryText text={description} className={'text-center'}/>
                     )}
                 </div>
             </div>

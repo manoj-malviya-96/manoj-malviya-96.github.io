@@ -1,5 +1,6 @@
 import React from "react";
 import AtomBentoBox, {BentoBoxItemProps} from "./atom-bentobox";
+import {AtomHeroTitleText, AtomSecondaryText} from "./atom-text";
 
 
 export interface HeroListItemProps extends BentoBoxItemProps {
@@ -22,11 +23,11 @@ const AtomHeroListItem: React.FC<HeroListItemProps> = React.memo(({icon, title, 
                                         cursor-auto border border-neutral border-opacity-50">
             {hasSub &&
                 <div className={'flex flex-row gap-2 w-full'}>
-                    {icon && <i className={`${icon} text-accent text-4xl`}/>}
-                    {title && <span className={`text-5xl text-accent`}>{title}</span>}
+                    {icon && <i className={`${icon} text-4xl`}/>}
+                    {title && <AtomHeroTitleText text={title}/>}
                 </div>
             }
-            <span className={'text-lg w-full'}>{summary}</span>
+            <AtomSecondaryText text={summary} className={'w-full'}/>
         </div>
     );
 });

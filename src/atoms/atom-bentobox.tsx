@@ -44,8 +44,9 @@ const AtomBentoBox = React.memo((
                 <div
                     className={`grid gap-4 p-2 ${className}`}
                     style={{
+                        grid: 'auto-flow',
                         gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                        gridAutoRows: `minmax(${autoRowsSize}px, max-content)`,
+                        gridAutoRows: `minmax(${autoRowsSize}px, min-content)`,
                         gridAutoFlow: 'dense',
                     }}
                 >
