@@ -23,39 +23,56 @@ class FormlabsSW extends BlogInfo {
                         kind: 'heroList',
                         contentList: [
                             {
-                                summary: `Engineered advanced CAD features and automated algorithms for 3D print-prep software.`,
+                                summary: `Led the end-to-end development of high-performance and easy-to-use CAD features for a 3D print-preparation software (PreForm): auto-orientation, model-grouping and part cages.`,
                                 icon: 'fas fa-cube',
-                                title: `5X`,
-                                size: BentoItemSize.Large,
-                            },
-                            {
-                                summary: `Powered seamless, secure hardware-desktop connectivity`,
-                                icon: 'fas fa-wifi',
-                                title: `100%`,
-                                size: BentoItemSize.Large,
-                            },
-                            {
-                                summary: `Developed scalable UI frameworks and streamlined workflows`,
-                                icon: 'fas fa-tasks',
-                                title: `100%`,
+                                title: `CAD Tools`,
                                 size: BentoItemSize.Medium,
                             },
                             {
-                                summary: `Created data analysis tools driving feature development and strategy.`,
+                                summary: `Led the development of eco-system features,
+                                            building and integrating APIs to create synergy for
+                                            hardware and its supporting web/desktop applications.
+                                            Enabled encrypted real-time information flow, e.g. real-time 3D Print monitoring.`,
+                                icon: 'fas fa-circle-nodes',
+                                title: `Seamless Ecosystem`,
+                                size: BentoItemSize.Medium,
+                                link: {
+                                    text: 'E.g. Real Time 3D Print monitoring',
+                                    url: 'https://youtu.be/hWzOTDmyoxI?t=131'
+                                },
+                            },
+                            {
+                                summary: `Owned the development of a modular, scalable UI framework using C++ and Qt Framework. Facilitated seamless collaboration with UI/UX team and beta users, streamlining critical workflows.`,
+                                icon: 'fa-brands fa-uikit',
+                                title: `Modern UI/UX`,
+                                size: BentoItemSize.Medium,
+                                link: {
+                                    text: 'e.g. seamless 3D print upload',
+                                    url: 'https://youtu.be/hWzOTDmyoxI?t=131'
+                                },
+                            },
+                            {
+                                summary: `Initiated and developed large-scale data analysis tools, enabling data-driven feature development and strategic decision-making. Used SQL (Big-Query), Redash, and Segment logging.`,
                                 icon: 'fas fa-chart-line',
-                                title: `100%`,
+                                title: `Big Data Analysis`,
                                 size: BentoItemSize.Medium,
                             },
                             {
                                 size: BentoItemSize.Small,
+                                icon: 'fas fa-microchip',
+                                title: `Embedded Tools`,
                                 summary: `Spearheaded the development of embedded tools for servicing a flagship hardware product (e.g. introduced a maintenance tool, cutting error rates by ~15% and optimizing service workflows for greater efficiency`,
                             },
                             {
+                                title: `Team Player`,
+                                icon: 'fas fa-users',
                                 size: BentoItemSize.Small,
                                 summary: `Led cross-functional teams, mentoring interns, conducting code reviews, and streamlining international collaboration. Drove test-driven development, fixed critical bugs, and set coding standards to enhance feature development.`,
                             },
                             {
-                                size: BentoItemSize.Small,
+                                icon: 'fas fa-award',
+                                title: `Performance Award`,
+                                size: BentoItemSize.Large,
                                 summary: `Awarded Performance Award for being among the Top 3 engineers in productivity, contribution and impact.`,
                             }
                         ]

@@ -39,7 +39,7 @@ const BlogHeader: React.FC<BlogHeaderProps> = (
                             <div className="flex flex-wrap gap-2">
                                 {tags.map((tag, index) => (
                                     <span key={index}
-                                          className="badge badge-accent rounded-full">
+                                          className="badge badge-secondary rounded-md">
                                 {tag}
                             </span>
                                 ))}
@@ -118,7 +118,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             }
             return (
                 <div
-                    className='w-full lg:w-1/2 justify-center m-auto align-center'>
+                    className='w-full lg:w-2/3 justify-center m-auto align-center'>
                     {media.kind === "image" &&
                         <AtomImage src={media.source}
                                    alt={media.label}

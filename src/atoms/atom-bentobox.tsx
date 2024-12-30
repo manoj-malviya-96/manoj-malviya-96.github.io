@@ -19,14 +19,20 @@ interface AtomBentoBoxProps<T extends BentoBoxItemProps> {
     className?: string;
 }
 
-function toSpan(size: BentoItemSize) {
+function toSpan(size: BentoItemSize, maxColumns = 4) {
     switch (size) {
         case BentoItemSize.Small:
-            return 'col-span-1';
+            return `col-span-1 row-span-1`;
         case BentoItemSize.Medium:
-            return 'col-span-2';
+            if (maxColumns < 3) {
+                return `col-span-1 row-span-1`;
+            }
+            return `col-span-2 row-span-1`;
         case BentoItemSize.Large:
-            return 'col-span-3';
+            if (maxColumns < 3) {
+                return `col-span-2 row-span-1`;
+            }
+            return `col-span-3 row-span-2`;
     }
 }
 
@@ -42,16 +48,15 @@ const AtomBentoBox = React.memo((
         return (
             <AtomScrollContainer>
                 <div
-                    className={`grid gap-4 p-2 ${className}`}
+                    className={`grid gap-4 p-2 ${className} items-start`}
                     style={{
-                        grid: 'auto-flow',
                         gridTemplateColumns: `repeat(${columns}, 1fr)`,
                         gridAutoRows: `minmax(${autoRowsSize}px, min-content)`,
                         gridAutoFlow: 'dense',
                     }}
                 >
                     {items.map((item, index) => (
-                        <Component key={index} {...item} className={toSpan(item.size)}/>
+                        <Component key={index} {...item} className={toSpan(item.size, columns)}/>
                     ))}
                 </div>
             </AtomScrollContainer>

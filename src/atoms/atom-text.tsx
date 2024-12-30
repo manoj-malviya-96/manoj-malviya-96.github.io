@@ -27,6 +27,24 @@ export const AtomTitleText: React.FC<AtomTextProps> = ({text, className = ''}) =
 
 export const AtomHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
     return (
+        <h2 className={`text-3xl font-bold ${className}`}>{text}</h2>
+    );
+}
+
+export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
+    return (
         <h1 className={`text-4xl font-bold uppercase ${className}`}>{text}</h1>
     )
+}
+
+
+export interface AtomLinkProps extends AtomTextProps {
+    url: string;
+}
+
+export const AtomLink: React.FC<AtomLinkProps> = ({text, url, className = ''}) => {
+    return (
+        <a href={url} className={`text-primary-content hover:text-accent
+                                    text-sm underline ${className}`}>{text}</a>
+    );
 }

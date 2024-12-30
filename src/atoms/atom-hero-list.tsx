@@ -1,12 +1,14 @@
 import React from "react";
 import AtomBentoBox, {BentoBoxItemProps} from "./atom-bentobox";
-import {AtomHeroTitleText, AtomSecondaryText} from "./atom-text";
+import {AtomHeroTitleText, AtomLink, AtomLinkProps, AtomSecondaryText, AtomTitleText} from "./atom-text";
 
 
 export interface HeroListItemProps extends BentoBoxItemProps {
     summary: string;
     title?: string;
     icon?: string;
+    link?: AtomLinkProps;
+    className?: string;
 }
 
 interface HeroListProps {
@@ -14,20 +16,22 @@ interface HeroListProps {
     className?: string;
 }
 
-const AtomHeroListItem: React.FC<HeroListItemProps> = React.memo(({icon, title, summary}) => {
+
+const AtomHeroListItem: React.FC<HeroListItemProps> = React.memo(({icon, title, summary, link, className}) => {
     const hasSub = title || icon;
     return (
-        <div className="flex flex-col gap-8 rounded-lg justify-center p-8 w-full h-fit
-                                        transition duration-300
+        <div className={`flex flex-col gap-4 rounded-lg p-8 w-full h-full
+                                        transition duration-300 items-start justify-start
                                         hover:bg-secondary hover:text-secondary-content
-                                        cursor-auto border border-neutral border-opacity-50">
+                                        cursor-auto border border-neutral border-opacity-50 ${className}`}>
             {hasSub &&
-                <div className={'flex flex-row gap-2 w-full'}>
-                    {icon && <i className={`${icon} text-4xl`}/>}
+                <div className={'flex flex-row gap-4 w-full'}>
+                    {icon && <i className={`${icon} text-3xl`}/>}
                     {title && <AtomHeroTitleText text={title}/>}
                 </div>
             }
             <AtomSecondaryText text={summary} className={'w-full'}/>
+            {link && <AtomLink {...link}/>}
         </div>
     );
 });
