@@ -1,102 +1,100 @@
 import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import {BentoBoxItemProps} from "./atom-bentobox";
-import {AtomSecondaryText, AtomTitleText} from "./atom-text";
+import {AtomDateAndText, AtomSecondaryText, AtomTitleText} from "./atom-text";
 
 export interface AtomCardProps extends BentoBoxItemProps {
-    image: string;
-    title: string;
-    description?: string;
-    date?: string;
-    onClick?: () => void;
-    isNew?: boolean;
-    className?: string;
+	image: string;
+	title: string;
+	description?: string;
+	date?: string;
+	onClick?: () => void;
+	isNew?: boolean;
+	className?: string;
 }
 
 export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
-                                                                      image,
-                                                                      title,
-                                                                      description,
-                                                                      date,
-                                                                      onClick,
-                                                                      isNew = false,
-                                                                      className = '',
+	                                                                  image,
+	                                                                  title,
+	                                                                  description,
+	                                                                  date,
+	                                                                  onClick,
+	                                                                  isNew = false,
+	                                                                  className = '',
                                                                   }) => {
-    return (
-        <div
-            className={`relative cursor-pointer overflow-hidden group ${className}`}
-            onClick={onClick}
-            style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                width: '100%',
-                height: '100%',
-            }}
-        >
-            <div
-                className="w-full h-full p-2 flex flex-col items-center justify-center
+	return (
+		<div
+			className={`relative cursor-pointer overflow-hidden group ${className}`}
+			onClick={onClick}
+			style={{
+				backgroundImage: `url(${image})`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundRepeat: 'no-repeat',
+				width: '100%',
+				height: '100%',
+			}}
+		>
+			<div
+				className="w-full h-full p-2 flex flex-col items-center justify-center
                             opacity-0 group-hover:opacity-100 transition-opacity duration-300
                             group-hover:bg-secondary group-hover:text-secondary-content">
-                
-                <h2 className="card-title text-center">{title}</h2>
-                {isNew && <span className="badge badge-info">New</span>}
-                {date && (
-                    <span className="text-sm text-center">
+				
+				<h2 className="card-title text-center">{title}</h2>
+				{isNew && <span className="badge badge-info">New</span>}
+				{date && (
+					<span className="text-sm text-center">
                         <i className={`fas fa-calendar-alt mr-2`}/>
-                        {date}
+						{date}
                     </span>
-                )}
-                {description && (
-                    <p className="text-sm font-sans text-center">
-                        {description}
-                    </p>
-                )}
-            </div>
-            <span className="absolute left-0 top-0 p-2 group-hover:opacity-0
+				)}
+				{description && (
+					<p className="text-sm font-sans text-center">
+						{description}
+					</p>
+				)}
+			</div>
+			<span className="absolute left-0 top-0 p-2 group-hover:opacity-0
                             text-white font-bold uppercase">{title}</span>
-        </div>
-    );
+		</div>
+	);
 });
 
 export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
-                                                                       image,
-                                                                       title,
-                                                                       description,
-                                                                       date,
-                                                                       onClick,
-                                                                       isNew = false,
-                                                                       className = '',
+	                                                                   image,
+	                                                                   title,
+	                                                                   description,
+	                                                                   date,
+	                                                                   onClick,
+	                                                                   isNew = false,
+	                                                                   className = '',
                                                                    }) => {
-    return (
-        <AtomSimpleMotionContainer enableHoverEffect={true}>
-            <div
-                className={`cursor-pointer overflow-hidden p-4
+	return (
+		<AtomSimpleMotionContainer enableHoverEffect={true}>
+			<div
+				className={`cursor-pointer overflow-hidden p-4
                             flex flex-col items-center justify-center transition ${className}`}
-                onClick={onClick}
-            >
-                <img
-                    src={image}
-                    alt={title}
-                    loading="lazy"
-                    className="w-full h-2/3 object-contain"
-                />
-                <div className="w-full flex flex-col items-center gap-0 p-2 h-full">
-                    <AtomTitleText text={title} className={'text-center'}/>
-                    {isNew && <span className="badge badge-info">New</span>}
-                    {date && (
-                        <span className="text-sm text-neutral text-center">
-                            {date}
-                        </span>
-                    )}
-                    {description && (
-                        <AtomSecondaryText text={description} className={'text-center'}/>
-                    )}
-                </div>
-            </div>
-        </AtomSimpleMotionContainer>
-    );
+				onClick={onClick}
+			>
+				<img
+					src={image}
+					alt={title}
+					loading="lazy"
+					className="w-full h-2/3 object-contain"
+				/>
+				<div className="w-full flex flex-col items-center gap-0 p-2 h-full">
+					<AtomTitleText text={title} className={'text-center'}/>
+					{isNew && <span className="badge badge-info">New</span>}
+					{date && (
+						<AtomDateAndText text={date}/>
+					)}
+					{description && (
+						<AtomSecondaryText text={description} className={'text-center'}/>
+					)}
+				</div>
+			</div>
+		</AtomSimpleMotionContainer>
+	);
 });
 
 export default AtomSimpleCard;

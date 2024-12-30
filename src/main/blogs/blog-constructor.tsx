@@ -8,7 +8,7 @@ import Plotter from "../../atoms/plotter";
 import AtomHeroList, {HeroListItemProps} from "../../atoms/atom-hero-list";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
-import {AtomHeroTitleText} from "../../atoms/atom-text";
+import {AtomDateAndText, AtomHeroTitleText, AtomPrimaryText} from "../../atoms/atom-text";
 
 
 interface BlogHeaderProps {
@@ -32,11 +32,11 @@ const BlogHeader: React.FC<BlogHeaderProps> = (
                 children={
                     <div
                         className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6">
-                        <div className="flex-1">
-                            <h1 className="text-5xl font-bold mb-4 uppercase">{title}</h1>
-                            <p className="text-left text-sm text-neutral">{date}</p>
-                            <p className="text-lg mb-4 mt-4">{summary}</p>
-                            <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-col w-1/2 gap-0">
+                            <AtomHeroTitleText text={title} />
+                            <AtomDateAndText text={date} />
+                            <AtomPrimaryText text={summary} className={'mt-4'}/>
+                            <div className="flex flex-wrap gap-2 mt-4">
                                 {tags.map((tag, index) => (
                                     <span key={index}
                                           className="badge badge-secondary rounded-md">
