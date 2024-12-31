@@ -14,7 +14,7 @@ const AtomGroup: React.FC<AtomGroupProps> = ({label, children, layout = 'vertica
             {label && <label className="text-xs text-neutral">{label}</label>}
             <div
                 className={`flex flex-${layout === 'vertical' ? 'col' : 'row'}
-                        gap-4 p-3 rounded-md hover:shadow
+                        gap-4 p-2 rounded-md hover:shadow
                         bg-transparent
                         border border-neutral border-opacity-50
                         backdrop-blur-lg w-full h-fit

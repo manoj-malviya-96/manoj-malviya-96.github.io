@@ -26,7 +26,7 @@ const ToolDrawer = () => {
             title="Playground"
             description={`I make tools which inspire me to learn and grow. Here are some of them -`}
         >
-            <AtomGroup label="tools">
+            <AtomGroup label="Tools">
                 <AtomCardGrid
                 items={items}
                 classNameForCard={'w-48 h-36'}/>
