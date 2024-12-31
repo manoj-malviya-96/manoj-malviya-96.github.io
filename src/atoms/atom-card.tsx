@@ -11,6 +11,7 @@ export interface AtomCardProps extends BentoBoxItemProps {
 	onClick?: () => void;
 	isNew?: boolean;
 	className?: string;
+	category?: string;
 }
 
 export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
@@ -19,6 +20,7 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
 	                                                                  description,
 	                                                                  date,
 	                                                                  onClick,
+	                                                                  category,
 	                                                                  isNew = false,
 	                                                                  className = '',
                                                                   }) => {
@@ -55,7 +57,10 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
 				)}
 			</div>
 			<span className="absolute left-0 top-0 p-2 group-hover:opacity-0
-                            text-white font-bold uppercase">{title}</span>
+                            text-white font-bold uppercase">{title}
+			</span>
+			{category && <AtomSecondaryText text={category}/>}
+		
 		</div>
 	);
 });

@@ -16,6 +16,7 @@ const BlogListing = () => {
             description: blog.description,
             size: blog.cardSize,
             date: blog.date,
+            category: blog.category,
             image: blog.cover,
             isNew: blog.isNew,
             onClick: () => navigate(blog.path),
@@ -32,7 +33,7 @@ const BlogListing = () => {
             <AtomBentoBox
                 items={items}
                 columns={5}
-                className={'mx-auto'}
+                className={'mx-auto w-3/4'}
                 autoRowsSize={269}
                 component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
             />

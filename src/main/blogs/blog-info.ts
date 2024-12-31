@@ -4,6 +4,7 @@ import {TabItemProps} from "../../atoms/atom-tab-bar";
 import {BentoItemSize} from "../../atoms/atom-bentobox";
 import {BlogSectionContentProps} from "./blog-constructor";
 
+export type categoryType = "Programming" | "Projects" | "Life";
 
 interface BlogInfoConstructor {
     id: string;
@@ -18,6 +19,7 @@ interface BlogInfoConstructor {
     logo?: string; // Optional with a default value.
     isNew?: boolean; // Optional with a default value.
     cardSize?: BentoItemSize;
+    category?: categoryType;
 }
 
 export class BlogInfo {
@@ -29,6 +31,7 @@ export class BlogInfo {
     readonly tags: string[];
     readonly cover: string;
     readonly logo: string;
+    readonly category: categoryType | undefined;
     readonly sections: BlogSectionContentProps[];
     private readonly isNew: boolean;
     private readonly path: string;
@@ -44,6 +47,7 @@ export class BlogInfo {
                     tags,
                     cover,
                     sections,
+                    category,
                     cardSize,
                     logo = '',
                     isNew = false,
@@ -58,6 +62,7 @@ export class BlogInfo {
         this.logo = logo;
         this.sections = sections;
         this.isNew = isNew;
+        this.category = category;
         this.cardSize= cardSize ? cardSize: BentoItemSize.Small;
         this.path = '/blogs/' + this.id;
     }

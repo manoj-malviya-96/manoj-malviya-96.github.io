@@ -7,11 +7,13 @@ import rapidToptInstance from "./rapid-topt/rapid-topt";
 import formlabsRDInstance from "./work-exp/formlabs-rd";
 import formlabsSWInstance from "./work-exp/formlabs-software";
 import pennStateRDInstance from "./work-exp/penn-state";
+import qmlOptimizationInstance from "./qml-optimization/qml-opt";
 
 export const registeredBlogs = [
+    qmlOptimizationInstance,
     cppThreadsInstance,
     deltaDesignInstance,
-    rapidToptInstance,
+    rapidToptInstance
 ]
 
 export const jobRelatedBlogs = [

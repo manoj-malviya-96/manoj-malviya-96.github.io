@@ -118,7 +118,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = ({
             }
             return (
                 <div
-                    className='w-full lg:w-2/3 justify-center m-auto align-center'>
+                    className='w-full lg:w-1/2 justify-center m-auto align-center'>
                     {media.kind === "image" &&
                         <AtomImage src={media.source}
                                    alt={media.label}
@@ -189,7 +189,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
             />
             {/* Table of Contents - padding is left 16, as i use padding-16 for full page view */}
             <div
-                className="sticky left-16 top-1/2 hidden md:inline-block w-fit h-fit">
+                className="sticky left-8 top-1/2 hidden md:inline-block w-44 text-wrap h-fit">
                 <AtomTableOfContents sections={item.tabs()}/>
             </div>
             {/* Blog Content */}

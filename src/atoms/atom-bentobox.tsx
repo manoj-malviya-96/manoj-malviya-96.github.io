@@ -32,7 +32,7 @@ function toSpan(size: BentoItemSize, maxColumns = 4) {
             if (maxColumns < 3) {
                 return `col-span-2 row-span-1`;
             }
-            return `col-span-3 row-span-2`;
+            return `col-span-2 row-span-2`;
     }
 }
 
