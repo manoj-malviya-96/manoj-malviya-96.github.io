@@ -10,7 +10,8 @@ const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({items}) => 
     return (
         <AtomGroup
             layout={'horizontal'}
-            className="flex flex-row gap-0 p-0 justify-content-center w-fit h-fit">
+            hug={true}
+            className="flex flex-row gap-0 justify-content-center w-fit h-fit">
             {items.map((item, index) => (
                 <AtomButton
                     key={index}
