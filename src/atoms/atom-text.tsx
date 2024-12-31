@@ -33,7 +33,7 @@ export const AtomHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''
 
 export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
-		<h1 className={`text-4xl font-bold uppercase ${className}`}>{text}</h1>
+		<h1 className={`text-4xl font-bold uppercase text-center ${className}`}>{text}</h1>
 	)
 }
 
