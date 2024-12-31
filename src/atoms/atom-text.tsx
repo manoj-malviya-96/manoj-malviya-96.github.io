@@ -54,3 +54,11 @@ export const AtomDateAndText: React.FC<AtomTextProps> = ({text, className = ''})
 		<span className={`text-sm opacity-70 ${className}`}><i className='fas fa-calendar-days'></i> {text}</span>
 	);
 }
+
+export const AtomBrandText: React.FC<AtomTextProps> = React.memo(({text, className}) => {
+	return (
+		<span className={`text-accent font-extrabold text-wrap
+                        text-4xl uppercase
+                        whitespace-normal break-words ${className}`}>{text}</span>
+	);
+});

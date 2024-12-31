@@ -1,5 +1,5 @@
 import React from "react";
-import AtomSvg from "./atom-svg";
+import {AtomThemeSensitiveImage} from "./atom-image";
 
 
 interface AtomTimelineItemProps {
@@ -35,7 +35,7 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({items, layout = '
                         <div className="timeline-middle">
                             {
                                 item.icon &&
-                                <AtomSvg
+                                <AtomThemeSensitiveImage
                                     src={item.icon}
                                     alt={'icon'}
                                     className={'w-12 h-12'}

@@ -3,7 +3,7 @@ import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
-import AtomCardGrid from "../atoms/atom-card-grid";
+import {AtomCardGrid} from "../atoms/atom-card";
 import AtomGroup from "../atoms/atom-group";
 
 

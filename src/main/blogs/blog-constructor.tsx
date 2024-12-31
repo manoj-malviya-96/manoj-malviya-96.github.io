@@ -5,7 +5,7 @@ import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
 import AtomTableOfContents from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
-import AtomHeroList, {HeroListItemProps} from "../../atoms/atom-hero-list";
+import AtomHeroGrid, {AtomHeroGridItemProps} from "../../atoms/atom-hero-grid";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
 import {AtomDateAndText, AtomHeroTitleText, AtomPrimaryText} from "../../atoms/atom-text";
@@ -84,7 +84,7 @@ export interface BlogHeroTextProps {
 
 export interface BlogHeroListProps {
 	kind: "heroList";
-	contentList: HeroListItemProps[];
+	contentList: AtomHeroGridItemProps[];
 }
 
 export type BlogMediaType =
@@ -139,7 +139,7 @@ const RenderMedia: React.FC<{
                                    className='w-full'/>
 			}
 			{media.kind === 'heroList' &&
-                <AtomHeroList contentList={media.contentList}
+                <AtomHeroGrid contentList={media.contentList}
                               className='w-full'/>
 			}
 		</div>
