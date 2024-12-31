@@ -10,7 +10,7 @@ const BlogListing = () => {
     const navigate = useNavigate();
     
     // Convert blogs into items for AtomCard
-    const items = rangesTo(registeredBlogs, (blog) => {
+    const allItems = rangesTo(registeredBlogs, (blog) => {
         return {
             title: blog.title,
             description: blog.description,
@@ -31,7 +31,7 @@ const BlogListing = () => {
             name="blog"
         >
             <AtomBentoBox
-                items={items}
+                items={allItems}
                 columns={5}
                 className={'mx-auto w-3/4'}
                 autoRowsSize={269}
