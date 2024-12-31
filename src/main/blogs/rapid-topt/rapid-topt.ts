@@ -5,11 +5,12 @@ import DataSetup from './representation.png';
 import Models from './models.png';
 import Result from './results.png';
 import {BentoItemSize} from "../../../atoms/atom-bentobox";
+import {BlogSectionContentProps} from "../blog-constructor";
 
 class RapidTopt extends BlogInfo {
     constructor() {
         
-        const introSection = {
+        const introSection:BlogSectionContentProps = {
             name: 'intro',
             title: 'Introduction',
             paragraph: [
@@ -32,7 +33,7 @@ class RapidTopt extends BlogInfo {
         }
         
         
-        const dataSection = {
+        const dataSection:BlogSectionContentProps = {
             name: 'data-setup',
             title: 'Data Setup',
             paragraph: [
@@ -45,7 +46,7 @@ class RapidTopt extends BlogInfo {
             }
         }
         
-        const modelsSection = {
+        const modelsSection:BlogSectionContentProps = {
             name: 'model-setup',
             title: 'Model Setup',
             paragraph: [
@@ -58,7 +59,7 @@ class RapidTopt extends BlogInfo {
             }
         }
         
-        const conclusionSection = {
+        const conclusionSection:BlogSectionContentProps = {
             name: 'conclusion',
             title: 'Conclusion',
             paragraph: [

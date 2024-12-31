@@ -16,15 +16,15 @@ interface AtomDropdownProps {
     className?: string;
 }
 
-const _AtomDropdown: React.FC<AtomDropdownProps> = ({
-                                                        onClick,
-                                                        options,
-                                                        dropdownIcon,
-                                                        header,
-                                                        placeholder = 'Select',
-                                                        initialIndex = -1,
-                                                        className = '',
-                                                    }) => {
+const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(({
+                                                                  onClick,
+                                                                  options,
+                                                                  dropdownIcon,
+                                                                  header,
+                                                                  placeholder = 'Select',
+                                                                  initialIndex = -1,
+                                                                  className = '',
+                                                              }) => {
     
     const [selectedOption, setSelectedOption] = useState<AtomDropdownItemProps | null>(
         initialIndex !== -1 ? options[initialIndex] : null);
@@ -55,8 +55,7 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             <ul
                 tabIndex={0}
                 className={`dropdown-content menu p-2 shadow w-full mb-3
-                            border border-neutral border-opacity-50 rounded-lg
-                            bg-primary bg-opacity-50 backdrop-blur-xl
+                            border border-neutral border-opacity-50 rounded-lg bg-primary
                             ${open ? 'block' : 'hidden'}`}
             >
                 {options.map((option, index) => (
@@ -79,7 +78,5 @@ const _AtomDropdown: React.FC<AtomDropdownProps> = ({
             </ul>
         </div>
     );
-};
-
-const AtomDropdown = React.memo(_AtomDropdown);
+});
 export default AtomDropdown;

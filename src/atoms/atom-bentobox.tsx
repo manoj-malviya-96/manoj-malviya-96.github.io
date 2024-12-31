@@ -1,85 +1,67 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import AtomScrollContainer from "./atom-scroll-container";
 
 export enum BentoItemSize {
-    Small = "col-span-1 row-span-1",
-    Medium = "col-span-2 row-span-1",
-    Large = "col-span-2 row-span-2",
+    Small = 1,
+    Medium = 2,
+    Large = 3,
 }
 
-interface AtomBentoItemProps {
-    image: string;
-    onClick?: () => void;
-    title?: string;
-    size?: BentoItemSize;
-    description?: string;
+export interface BentoBoxItemProps {
+    size: BentoItemSize;
+}
+
+interface AtomBentoBoxProps<T extends BentoBoxItemProps> {
+    items: T[];
+    component: ComponentType<T>;
+    autoRowsSize?: number;
+    columns?: number;
     className?: string;
 }
 
-const _AtomBentoBoxItem: React.FC<AtomBentoItemProps> = ({
-                                                             image,
-                                                             onClick,
-                                                             title,
-                                                             size = BentoItemSize.Medium,
-                                                             description,
-                                                             className,
-                                                         }) => {
-    return (
-        <div
-            className={`relative rounded-none cursor-pointer transition overflow-hidden
-                        ${size} ${className}`}
-            onClick={onClick}
-        >
-            <img
-                src={image}
-                alt={title || "Bento Item"}
-                loading={'lazy'}
-                className="w-full h-full object-cover"
-            />
-            <span className="absolute top-4 left-4 p-2">
-                <h3 className="text-lg uppercase text-white
-                            font-bold text-center">{title}</h3>
-            </span>
-            {description && (
-                <span
-                    className="absolute inset-0 p-8 flex items-center justify-center
-                                bg-secondary bg-opacity-80 hover:text-secondary-content active:scale-95
-                                opacity-0 hover:opacity-100 transition hover:backdrop-blur-sm">
-                    {description}
-                </span>
-            )}
-        </div>
-    );
-};
-const AtomBentoBoxItem = React.memo(_AtomBentoBoxItem);
-
-interface AtomBentoBoxProps {
-    items: AtomBentoItemProps[];
-    className?: string;
+function toSpan(size: BentoItemSize, maxColumns = 4) {
+    switch (size) {
+        case BentoItemSize.Small:
+            return `col-span-1 row-span-1`;
+        case BentoItemSize.Medium:
+            if (maxColumns < 3) {
+                return `col-span-1 row-span-1`;
+            }
+            return `col-span-2 row-span-1`;
+        case BentoItemSize.Large:
+            if (maxColumns < 3) {
+                return `col-span-2 row-span-1`;
+            }
+            return `col-span-2 row-span-2`;
+    }
 }
 
-const _AtomBentoBox: React.FC<AtomBentoBoxProps> = ({
-                                                        items,
-                                                        className,
-                                                    }) => {
-    
-    items.sort((a, b) => {
-        return a.size === b.size ? 0 : a.size === BentoItemSize.Large ? -1 : 1;
-    });
-    
-    return (
-        <AtomScrollContainer>
-            <div
-                className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 p-2 ${className}`}
-                style={{gridAutoRows: "250px"}}
-            >
-                {items.map((item, index) => (
-                    <AtomBentoBoxItem key={index} {...item}/>
-                ))}
-            </div>
-        </AtomScrollContainer>
-    );
-};
 
-const AtomBentoBox = React.memo(_AtomBentoBox);
+const AtomBentoBox = React.memo((
+    <T extends BentoBoxItemProps>({
+                                      items,
+                                      component: Component,
+                                      className,
+                                      autoRowsSize = 0,
+                                      columns = 4,
+                                  }: AtomBentoBoxProps<T>) => {
+        return (
+            <AtomScrollContainer>
+                <div
+                    className={`grid gap-4 p-2 ${className} items-start`}
+                    style={{
+                        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                        gridAutoRows: `minmax(${autoRowsSize}px, min-content)`,
+                        gridAutoFlow: 'dense',
+                    }}
+                >
+                    {items.map((item, index) => (
+                        <Component key={index} {...item} className={toSpan(item.size, columns)}/>
+                    ))}
+                </div>
+            </AtomScrollContainer>
+        );
+    }
+));
+
 export default AtomBentoBox;

@@ -3,7 +3,7 @@ import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import ProfilePicture from "./assets/main.jpg";
 import {AtomButton} from "../atoms/atom-button";
 import AtomImage from "../atoms/atom-image";
-import AtomBrandText from "../atoms/atom-brand-text";
+import {AtomBrandText} from "../atoms/atom-text";
 
 const Intro = () => {
     return (

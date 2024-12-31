@@ -1,5 +1,5 @@
 import React from "react";
-import AtomSvg from "./atom-svg";
+import {AtomThemeSensitiveImage} from "./atom-image";
 
 
 interface AtomTimelineItemProps {
@@ -17,7 +17,7 @@ interface AtomTimelineProps {
 }
 
 
-const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical', className}) => {
+const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({items, layout = 'vertical', className}) => {
     items.sort((a, b) => {
         return a.date < b.date ? 1 : -1;
     });
@@ -35,7 +35,7 @@ const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical',
                         <div className="timeline-middle">
                             {
                                 item.icon &&
-                                <AtomSvg
+                                <AtomThemeSensitiveImage
                                     src={item.icon}
                                     alt={'icon'}
                                     className={'w-12 h-12'}
@@ -55,7 +55,5 @@ const _AtomTimeline: React.FC<AtomTimelineProps> = ({items, layout = 'vertical',
             })}
         </ul>
     )
-}
-
-const AtomTimeline = React.memo(_AtomTimeline);
+});
 export default AtomTimeline;

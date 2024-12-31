@@ -4,8 +4,8 @@ import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
-import {AtomButtonProps, ButtonType} from "../atoms/atom-button";
-import AtomButtonGroup from "../atoms/atom-button-group";
+import {AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
+import {AtomButtonGroup} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomGroup from "../atoms/atom-group";
 import AtomTimeline from "../atoms/atom-timeline";
@@ -28,6 +28,7 @@ const socialMediaItems = rangesTo(
         return {
             icon: smLink[0],
             type: ButtonType.Ghost,
+            size: ButtonSize.Large,
             onClick: () => openLink(smLink[1], null),
             tooltip: smLink[2],
         } as AtomButtonProps;

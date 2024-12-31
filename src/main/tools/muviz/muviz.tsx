@@ -14,9 +14,9 @@ import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../common/date";
 import {BarVisualizer, SpiralVisualizer, toString, VisualizerType} from "./visualizers";
 import AtomFileUpload from "../../../atoms/atom-file-upload";
-import ModalButton from "../../../atoms/modal-button";
 import {toggleFullScreen} from "../../../common/full-screen";
 import AppView from "../app-view";
+import {DialogButton} from "../../../atoms/atom-dialog";
 
 const AppName = 'MUVIZ';
 
@@ -241,7 +241,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 className="h-full w-44 m-auto"
                                 placeholder="Select Song"
                                 header={
-                                    <ModalButton
+                                    <DialogButton
                                         icon="fa-solid fa-upload"
                                         label="Upload"
                                         title="Upload Audio File"

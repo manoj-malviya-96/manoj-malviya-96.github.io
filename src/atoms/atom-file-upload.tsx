@@ -7,10 +7,10 @@ interface AtomFileUploadProps {
     onFileChange: (fileUrl: string) => void;
 }
 
-const _AtomFileUpload: React.FC<AtomFileUploadProps> = ({
-                                                            acceptTypes,
-                                                            onFileChange,
-                                                        }) => {
+const AtomFileUpload: React.FC<AtomFileUploadProps> = React.memo(({
+                                                                      acceptTypes,
+                                                                      onFileChange,
+                                                                  }) => {
     const {addToast} = useToast();
     
     const handleFileUpload =
@@ -35,8 +35,5 @@ const _AtomFileUpload: React.FC<AtomFileUploadProps> = ({
             className="file-input file-input-bordered file-input-sm w-full max-w-xs"
         />
     );
-};
-
-const AtomFileUpload = React.memo(_AtomFileUpload);
-
+});
 export default AtomFileUpload;

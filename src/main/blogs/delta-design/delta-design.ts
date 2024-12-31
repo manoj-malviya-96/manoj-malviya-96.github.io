@@ -2,10 +2,12 @@ import {BlogInfo, heatmapColorScale} from "../blog-info";
 import Cover from "./cover.webp"
 import IntroChart from './background.png';
 import GameUI from './game-ui.png';
+import {BlogSectionContentProps} from "../blog-constructor";
+import {BentoItemSize} from "../../../atoms/atom-bentobox";
 
 class DeltaDesign extends BlogInfo {
     constructor() {
-        const introSection = {
+        const introSection: BlogSectionContentProps = {
             name: 'intro',
             title: 'Introduction',
             paragraph: [
@@ -24,16 +26,15 @@ class DeltaDesign extends BlogInfo {
             },
         };
         
-        const objectiveSection = {
+        const objectiveSection: BlogSectionContentProps = {
             name: 'objective',
             title: 'Objective',
             paragraph: [
-                [
-                    `This work introduces a digital Delta Design Game to study how designers tackle novel problems. The tool
+                `This work introduces a digital Delta Design Game to study how designers tackle novel problems. The tool
                 records each decision, allowing us to analyze behaviors of high vs. low performers and efficient vs.
                 inefficient designers, focusing on how automaticity affects design outcomes. To this end, the
                 overarching question this research seeks to answer is as follows:`
-                ],
+                ,
                 {tag: 'br'},
             ],
             media: {
@@ -43,7 +44,7 @@ class DeltaDesign extends BlogInfo {
             },
         };
         
-        const gameSection = {
+        const gameSection: BlogSectionContentProps = {
             name: 'details',
             title: 'Details',
             paragraph: [
@@ -87,7 +88,7 @@ class DeltaDesign extends BlogInfo {
             showscale: false,
         };
         
-        const resultStates = {
+        const resultStates: BlogSectionContentProps = {
             name: 'result-1',
             title: 'Design States',
             paragraph: [
@@ -121,7 +122,7 @@ class DeltaDesign extends BlogInfo {
             showscale: false,
         }
         
-        const resultTransition = {
+        const resultTransition: BlogSectionContentProps = {
             name: 'result-2',
             title: 'Cognitive States',
             paragraph: [
@@ -141,7 +142,7 @@ class DeltaDesign extends BlogInfo {
             },
         };
         
-        const conclusionSection = {
+        const conclusionSection: BlogSectionContentProps = {
             name: 'conclusion',
             title: 'Conclusion',
             paragraph: [
@@ -151,11 +152,18 @@ class DeltaDesign extends BlogInfo {
             media: {
                 kind: 'heroList',
                 contentList: [
-                    `High-performing designers tend to break down complex problems into 
-                    manageable sub-problems and relate them to familiar concepts.`,
-                    `The inefficient designers took a more trial-and-error approach, resulting in rougher state transitions via the HMM.`,
-                    `Intermediate designers may still develop strategies for novel problems, 
-                        illustrating design theory’s relevance in a group neither novice nor expert.`,
+                    {
+                        size: BentoItemSize.Medium,
+                        summary: `High-performing designers tend to break down complex problems into manageable sub-problems and relate them to familiar concepts.`,
+                    },
+                    {
+                        size: BentoItemSize.Medium,
+                        summary: `The inefficient designers took a more trial-and-error approach, resulting in rougher state transitions via the HMM.`,
+                    },
+                    {
+                        size: BentoItemSize.Medium,
+                        summary: `Intermediate designers may still develop strategies for novel problems, illustrating design theory’s relevance in a group neither novice nor expert.`,
+                    }
                 ],
             }
         };
@@ -168,6 +176,7 @@ class DeltaDesign extends BlogInfo {
             date: 'Aug 15, 2020',
             tags: ['Matlab', 'Game Dev', 'AI', 'Engineering Design'],
             cover: Cover,
+            cardSize: BentoItemSize.Small,
             summary: `This project dives into how engineering students approach design challenges in a digital game that tracks
             every step. Analyzing behaviors from 15 participants, the study reveals that high-performing designers tend
             to break down complex problems into manageable sub-problems and relate them to familiar concepts. Both

@@ -66,7 +66,7 @@ interface AtomCanvasProps {
     className?: string;
 }
 
-export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
+export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(({
                                                            controller = null,
                                                            isLoading = false,
                                                            animationLoop = true,
@@ -142,7 +142,5 @@ export const _AtomCanvas: React.FC<AtomCanvasProps> = ({
             }}
         />
     );
-};
-
-export const AtomCanvas = React.memo(_AtomCanvas);
+});
 

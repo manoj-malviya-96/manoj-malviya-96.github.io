@@ -19,9 +19,9 @@ const Home = () => {
     return (
         <div className='flex-row w-full h-fit'>
             <Intro/>
+            <AboutMe/>
             <ToolDrawer/>
             <BlogListing/>
-            <AboutMe/>
         </div>
     )
 }

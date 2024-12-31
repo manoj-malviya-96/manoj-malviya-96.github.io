@@ -12,10 +12,10 @@ interface TableOfContentsProps {
     sections: Array<TableOfContentsItemProps>;
 }
 
-const AtomTableOfContents: React.FC<TableOfContentsProps> = ({
-                                                             sections,
-                                                             className
-                                                         }) => {
+const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
+                                                                            sections,
+                                                                            className
+                                                                        }) => {
     return (
         <div className={`flex flex-col gap-2 ${className}`}>
             {sections.map((item, index) => (
@@ -23,7 +23,7 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = ({
                     key={index}
                     elementName={item.name}
                     className="px-2 text-sm cursor-pointer "
-                    activeClassName="text-primary-content text-sm font-bold"
+                    activeClassName="text-primary-content text-sm font-bold underline"
                     children={
                         <span>{item.label}</span>
                     }
@@ -31,7 +31,6 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = ({
             ))}
         </div>
     )
-}
-
+});
 
 export default AtomTableOfContents;

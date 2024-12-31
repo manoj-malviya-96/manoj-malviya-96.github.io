@@ -1,33 +1,34 @@
 import React from 'react'
+import {AtomTitleText} from "./atom-text";
 
 export enum StatSeverity {
-    Primary = 'text-primary-content',
-    Info = 'text-info',
-    Success = 'text-success',
-    Warning = 'text-warning',
-    Danger = 'text-danger',
+	Primary = 'text-primary-content',
+	Info = 'text-info',
+	Success = 'text-success',
+	Warning = 'text-warning',
+	Danger = 'text-danger',
 }
 
 
 interface AtomStatsProps {
-    text: string
-    value: string | number
-    className?: string
-    severity?: StatSeverity
+	text: string
+	value: string | number
+	className?: string
+	severity?: StatSeverity
 }
 
 
-const _AtomStats: React.FC<AtomStatsProps> = ({text, value, severity, className}) => {
-    return (
-        <div className={`stat ${className} w-fit h-fit cursor-auto`}>
-            <h2 className="stat-title">{text}</h2>
-            <span
-                className={`stat-value ${severity}`}>{value}</span>
-        </div>
-    )
-}
+const AtomStats: React.FC<AtomStatsProps> =
+	React.memo(({text, value, severity, className}) => {
+		return (
+			<div className={`stat ${className} w-fit h-fit cursor-auto`}>
+				<AtomTitleText className="stat-title" text={text}/>
+				<span
+					className={`stat-value ${severity}`}>{value}</span>
+			</div>
+		)
+	});
 
-const AtomStats = React.memo(_AtomStats);
 export default AtomStats;
 
 

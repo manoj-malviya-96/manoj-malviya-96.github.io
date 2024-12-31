@@ -38,20 +38,20 @@ export interface AtomButtonProps {
     className?: string;
 }
 
-const _AtomButton: React.FC<AtomButtonProps> = ({
-                                                    icon,
-                                                    label,
-                                                    onClick,
-                                                    severity = ButtonSeverity.Primary,
-                                                    size = ButtonSize.Medium,
-                                                    type = ButtonType.Solid,
-                                                    tooltip,
-                                                    pill = true,
-                                                    animated = false,
-                                                    disabled = false,
-                                                    loading = false,
-                                                    className = '',
-                                                }) => {
+export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
+                                                                     icon,
+                                                                     label,
+                                                                     onClick,
+                                                                     severity = ButtonSeverity.Primary,
+                                                                     size = ButtonSize.Medium,
+                                                                     type = ButtonType.Solid,
+                                                                     tooltip,
+                                                                     pill = true,
+                                                                     animated = false,
+                                                                     disabled = false,
+                                                                     loading = false,
+                                                                     className = '',
+                                                                 }) => {
     const daisyClass = `btn ${size} ${type} ${severity}`;
     
     return (
@@ -61,7 +61,7 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
             <AtomSimpleMotionContainer enableHoverEffect={!disabled}>
                 <button
                     className={`btn ${label ? 'md:px-6' : 'btn-circle'}
-                                ${ pill ? 'rounded-full': 'rounded-lg'}
+                                ${pill ? 'rounded-full' : 'rounded-lg'}
                                 ${daisyClass}
                                 ${className}`}
                     onClick={(event) => {
@@ -85,7 +85,5 @@ const _AtomButton: React.FC<AtomButtonProps> = ({
             </AtomSimpleMotionContainer>
         </div>
     );
-};
-
-export const AtomButton = React.memo(_AtomButton);
+});
 export default AtomButton;
