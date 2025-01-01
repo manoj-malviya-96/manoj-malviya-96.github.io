@@ -589,7 +589,7 @@
         }
       ],
       "languages": {
-        "C++": 23870169,
+        "C++": 23870105,
         "QML": 3320192,
         "Python": 1599760,
         "CMake": 856321,
@@ -808,10 +808,26 @@
         {
           "date": "2024-12-25",
           "commits": 15
+        },
+        {
+          "date": "2024-12-27",
+          "commits": 2
+        },
+        {
+          "date": "2024-12-28",
+          "commits": 4
+        },
+        {
+          "date": "2024-12-30",
+          "commits": 4
+        },
+        {
+          "date": "2024-12-31",
+          "commits": 10
         }
       ],
       "languages": {
-        "TypeScript": 204659,
+        "TypeScript": 214872,
         "JavaScript": 3248,
         "HTML": 2076,
         "CSS": 349
