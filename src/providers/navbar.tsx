@@ -31,7 +31,7 @@ const _NavbarProvider: React.FC<{
 }> = ({children}) => {
     const [brand, setBrand] = React.useState<BrandLogoProps>({
         logo: WebsiteLogo,
-        name: 'MAFIA'
+        name: 'MURPH'
     });
     
     const updateBrand = (newBrand: BrandLogoProps) => {

@@ -6,7 +6,7 @@ import {ThemeProvider} from "../providers/theme";
 import ToastProvider from "../providers/toasts";
 import DialogProvider from "../providers/dialogs";
 
-const MafiaProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+const AllProviders: React.FC<{ children: React.ReactNode }> = ({children}) => {
     return (
         <ThemeProvider>
             <ScreenSizeProvider>
@@ -21,4 +21,4 @@ const MafiaProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
         </ThemeProvider>
     );
 };
-export default MafiaProvider;
+export default AllProviders;

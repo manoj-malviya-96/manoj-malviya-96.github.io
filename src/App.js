@@ -1,15 +1,15 @@
 import React from 'react';
 import RouterConstructor from "./providers/router";
 import constructedRoutes from "./main/routes";
-import MafiaProvider from "./main/mafia-provider";
+import AllProviders from "./main/all-providers";
 import initWebsite from "./main/init";
 
 const App = () => {
     initWebsite();
     return (
-        <MafiaProvider>
+        <AllProviders>
             <RouterConstructor routes={constructedRoutes}/>
-        </MafiaProvider>
+        </AllProviders>
     );
 };
 
