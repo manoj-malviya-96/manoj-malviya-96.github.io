@@ -31,12 +31,14 @@ const AtomGroup: React.FC<AtomGroupProps> = ({label, children, hug = false, layo
 export default AtomGroup;
 
 interface AtomButtonGroupProps {
+	label?: string;
 	items: Array<AtomButtonProps>;
 }
 
-export const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({items}) => {
+export const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({label, items}) => {
 	return (
 		<AtomGroup
+			label={label}
 			layout={'horizontal'}
 			hug={true}
 			className="flex flex-row gap-0 justify-content-center w-fit h-fit">

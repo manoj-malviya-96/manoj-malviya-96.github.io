@@ -3,9 +3,10 @@ import AtomSimpleMotionContainer, {HoverScale} from './atom-simple-motion-contai
 
 export enum ButtonSize {
     ExtraSmall = 'btn-xs',
-    Small = 'btn-sm',
-    Medium = '',
-    Large = 'btn-lg',
+    Small = 'btn-sm text-xs',
+    Medium = 'text-md',
+    Large = 'btn-lg text-lg',
+    ExtraLarge = 'btn-lg text-2xl',
 }
 
 export enum ButtonSeverity {

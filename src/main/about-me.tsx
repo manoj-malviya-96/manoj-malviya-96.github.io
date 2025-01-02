@@ -48,19 +48,16 @@ const AboutMe = () => {
     return (
         <AtomFullScreenContainer
             name="about-me"
-            title="About me"
-            description={`Hi there! I’m
-                        Manoj Malviya,
-                        a Software Engineer who loves solving tricky
-                        problems with elegant solutions and introduce creativity and artistic.
-                        I use fancy computer tools and methods
-                        to turn these problems into real results. I’m a great problem solver
-                        who always puts the user first. I’ve led many complex projects and
-                        always delivered elegant solutions.`}
+            title="Manoj Malviya"
+            description={`The next-gen problem-solving engine.
+                        Designed for elegance, engineered for impact.
+                        Manoj combines cutting-edge innovation with user-first thinking to deliver sleek,
+                        creative solutions. Complex challenges?
+                        Consider them solved—with precision and artistry.`}
             children={
                 <div
                     className="flex flex-col w-full h-fit gap-4 justify-center items-center">
-                    <AtomButtonGroup items={socialMediaItems}/>
+                    <AtomButtonGroup items={socialMediaItems} label={'Find me here'}/>
                     <div
                         className="flex flex-col md:flex-row flex-grow p-8 w-full h-fit gap-8">
                         <AtomGroup
