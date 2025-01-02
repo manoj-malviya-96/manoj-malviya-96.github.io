@@ -32,16 +32,18 @@ export default AtomGroup;
 
 interface AtomButtonGroupProps {
 	label?: string;
+	className?: string;
 	items: Array<AtomButtonProps>;
 }
 
-export const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({label, items}) => {
+export const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({label, items, className}) => {
 	return (
 		<AtomGroup
 			label={label}
 			layout={'horizontal'}
 			hug={true}
-			className="flex flex-row gap-0 justify-content-center w-fit h-fit">
+			className={`flex flex-row gap-0 justify-content-center w-fit h-fit ${className}`}
+		>
 			{items.map((item, index) => (
 				<AtomButton
 					key={index}
