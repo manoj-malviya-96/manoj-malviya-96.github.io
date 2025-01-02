@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {AtomTitleText} from "./atom-text";
+import {AtomColumn} from "./atom-layout";
 
 interface AtomKnobProps {
 	step?: number;
@@ -41,11 +42,11 @@ const AtomKnob: React.FC<AtomKnobProps> = React.memo(({
 	) * 270 - 135;
 	
 	return (
-		<div className="flex flex-col items-center w-fit h-fit p-4">
+		<AtomColumn className="p-4">
+			
 			{label && <span className="text-sm mb-2">{label}</span>}
 			
 			<div className="relative w-20 h-20">
-				
 				<div className="absolute inset-0 flex justify-center items-center
                                 rounded-full bg-primary border-neutral">
 					<div
@@ -69,8 +70,9 @@ const AtomKnob: React.FC<AtomKnobProps> = React.memo(({
 					onChange={handleOnChange}
 					disabled={disabled || readOnly}
 				/>
+			
 			</div>
-		</div>
+		</AtomColumn>
 	);
 });
 export default AtomKnob;

@@ -2,6 +2,7 @@ import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import {BentoBoxItemProps} from "./atom-bentobox";
 import {AtomDateAndText, AtomSecondaryText, AtomTitleText} from "./atom-text";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize} from "./atom-layout";
 
 export interface AtomCardProps extends BentoBoxItemProps {
 	image: string;
@@ -76,18 +77,17 @@ export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
                                                                    }) => {
 	return (
 		<AtomSimpleMotionContainer enableHoverEffect={true}>
-			<div
-				className={`cursor-pointer overflow-hidden p-4
-                            flex flex-col items-center justify-center transition ${className}`}
+			<AtomColumn
 				onClick={onClick}
-			>
+				size={AtomLayoutSize.None}
+				className={`cursor-pointer overflow-hidden p-4 transition ${className}`}>
 				<img
 					src={image}
 					alt={title}
 					loading="lazy"
 					className="w-full h-2/3 object-contain"
 				/>
-				<div className="w-full flex flex-col items-center gap-0 p-2 h-full">
+				<AtomColumn gap={AtomLayoutGap.None}>
 					<AtomTitleText text={title} className={'text-center'}/>
 					{isNew && <span className="badge badge-info">New</span>}
 					{date && (
@@ -96,8 +96,8 @@ export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
 					{description && (
 						<AtomSecondaryText text={description} className={'text-center'}/>
 					)}
-				</div>
-			</div>
+				</AtomColumn>
+			</AtomColumn>
 		</AtomSimpleMotionContainer>
 	);
 });
