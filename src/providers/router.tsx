@@ -33,7 +33,7 @@ const RouterAnimation: React.FC<RouterAnimationProps> = ({children}) => {
 			initial={{opacity: 0, y: '100vh'}}
 			animate={{opacity: 1, y: 0}}
 			exit={{opacity: 0, y: '-100vh'}}
-			transition={{duration: 0.21}}
+			transition={{duration: 0.27}}
 		>
 			{children}
 		</motion.div>
