@@ -5,10 +5,10 @@ import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
 import {AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
-import AtomGroup, {AtomButtonGroup} from "../atoms/atom-group";
+import AtomGroup, {AtomButtonGroup, AtomGroupLayout} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
-import {AtomPrimaryText} from "../atoms/atom-text";
+import {AtomPrimaryText, AtomSecondaryText} from "../atoms/atom-text";
 import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomRow} from "../atoms/atom-layout";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
@@ -22,7 +22,6 @@ const MySocialMediaLinks: Array<SocialMediaLink> = [
 	['fa-brands fa-instagram', 'https://www.instagram.com/manoj_malviya_/', 'instagram'],
 	['fa-brands fa-youtube', 'https://www.youtube.com/@manoj_malviya_', 'youtube'],
 	['fa-brands fa-apple', 'https://music.apple.com/us/artist/manoj-malviya/1721435458', 'apple music'],
-	['fa-brands fa-soundcloud', 'https://soundcloud.com/manoj-malviya-96', 'soundcloud'],
 ];
 const socialMediaItems = rangesTo(
 	MySocialMediaLinks, (smLink: SocialMediaLink) => {
@@ -54,23 +53,23 @@ const AboutMe = () => {
 			children={
 				<AtomColumn>
 					<AtomRow>
-						<AtomColumn alignment={AtomLayoutAlignment.Start} gap={AtomLayoutGap.None}>
-							<AtomPrimaryText
+						<AtomRow alignment={AtomLayoutAlignment.HStart}>
+							<AtomSecondaryText
 								text={`Designed for elegance, engineered for impact.
                                         Manoj combines cutting-edge innovation with user-first
                                         thinking to deliver sleek, creative solutions.
                                         Complex challenges? Consider them solved with
                                         precision and artistry.`}
-								className={'w-full md:w-1/3 text-right'}
+								className={'w-full md:w-1/4 text-left'}
 							/>
 							<AtomButtonGroup items={socialMediaItems}
 							                 label={'Find me here'}/>
-						</AtomColumn>
+						</AtomRow>
 					</AtomRow>
 					<AtomRow alignment={AtomLayoutAlignment.Start}>
 						<AtomGroup
 							label={'Career Highlights'}
-							layout={'horizontal'}
+							layout={AtomGroupLayout.Vertical}
 							className="w-fit md:w-1/2">
 							<AtomTimeline items={timelineData}/>
 						</AtomGroup>
