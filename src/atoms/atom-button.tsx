@@ -1,5 +1,5 @@
 import React from 'react';
-import AtomSimpleMotionContainer from './atom-simple-motion-container';
+import AtomSimpleMotionContainer, {HoverScale} from './atom-simple-motion-container';
 
 export enum ButtonSize {
     ExtraSmall = 'btn-xs',
@@ -58,7 +58,9 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
         <div className={`${tooltip ? 'tooltip tooltip-secondary tooltip-bottom' : ''}`}
              data-tip={tooltip}>
             
-            <AtomSimpleMotionContainer enableHoverEffect={!disabled}>
+            <AtomSimpleMotionContainer
+                enableHoverEffect={!disabled}
+                hoverScale={!label ? HoverScale.LARGE: HoverScale.MEDIUM}>
                 <button
                     className={`btn ${label ? 'md:px-6' : 'btn-circle'}
                                 ${pill ? 'rounded-full' : 'rounded-lg'}
