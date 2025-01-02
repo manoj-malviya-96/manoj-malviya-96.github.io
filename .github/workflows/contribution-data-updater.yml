@@ -50,6 +50,7 @@ jobs:
             "mmalviyar/TopOpt-GAN"
             "mmalviyar/2D-TOpt-V2"
             "manoj-malviya-96/ev-sim"
+            "manoj-malviya-96/life-wrapped"
           )
 
           # Initialize JSON for storing repository data
