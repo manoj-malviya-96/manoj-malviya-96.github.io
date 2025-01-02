@@ -94,5 +94,5 @@ export const AtomThemeSensitiveImage: React.FC<AtomSvgProps> = React.memo(({src,
 	return <img src={src} alt={alt}
 	            className={className}
 	            loading="eager"
-	            style={{filter: isDark ? 'brightness(169%)' : ''}}/>;
+	            style={{filter: isDark ? 'brightness(121%)' : ''}}/>;
 });

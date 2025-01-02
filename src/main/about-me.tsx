@@ -19,7 +19,7 @@ const MySocialMediaLinks: Array<SocialMediaLink> = [
         'google scholar'
     ],
     ['fa-brands fa-instagram', 'https://www.instagram.com/manoj_malviya_/', 'instagram'],
-    ['fa-brands fa-youtube', 'https://www.youtube.com/@manoj_malviya', 'youtube'],
+    ['fa-brands fa-youtube', 'https://www.youtube.com/@manoj_malviya_', 'youtube'],
     ['fa-brands fa-apple', 'https://music.apple.com/us/artist/manoj-malviya/1721435458', 'apple music'],
     ['fa-brands fa-soundcloud', 'https://soundcloud.com/manoj-malviya-96', 'soundcloud'],
 ];
