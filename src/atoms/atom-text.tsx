@@ -1,9 +1,16 @@
 import React from "react";
+import {AtomColumn} from "./atom-layout";
 
 
 interface AtomTextProps {
 	text: string;
 	className?: string;
+}
+
+export const AtomTertiaryText: React.FC<AtomTextProps> = ({text, className = ''}) => {
+	return (
+		<span className={`text-xs opacity-70 ${className}`}>{text}</span>
+	);
 }
 
 
@@ -55,10 +62,43 @@ export const AtomDateAndText: React.FC<AtomTextProps> = ({text, className = ''})
 	);
 }
 
-export const AtomBrandText: React.FC<AtomTextProps> = React.memo(({text, className}) => {
+export const AtomBrandText: React.FC<AtomTextProps> = ({text, className}) => {
 	return (
 		<span className={`text-accent font-extrabold text-wrap
                         text-4xl uppercase
                         whitespace-normal break-words ${className}`}>{text}</span>
 	);
-});
+};
+
+
+export const AtomBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
+	return (
+		<span className={`badge badge-secondary rounded-md ${className}`}>{text}</span>
+	);
+}
+
+
+interface AtomParagraphProps {
+	items: AtomTextProps[];
+	className?: string;
+}
+
+export const AtomPrimaryParagraph: React.FC<AtomParagraphProps> = ({items, className}) => {
+	return (
+		<AtomColumn className={className}>
+			{items.map((item, index) => (
+				<AtomPrimaryText key={index} text={item.text} className={item.className}/>
+			))}
+		</AtomColumn>
+	)
+}
+
+export const AtomSecondaryParagraph: React.FC<AtomParagraphProps> = ({items, className}) => {
+	return (
+		<AtomColumn className={className}>
+			{items.map((item, index) => (
+				<AtomSecondaryText key={index} text={item.text} className={item.className}/>
+			))}
+		</AtomColumn>
+	);
+}
