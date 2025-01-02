@@ -9,7 +9,7 @@ import AtomGroup, {AtomButtonGroup} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {AtomPrimaryText} from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomRow} from "../atoms/atom-layout";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -54,7 +54,7 @@ const AboutMe = () => {
 			children={
 				<AtomColumn>
 					<AtomRow>
-						<AtomRow alignment={AtomLayoutAlignment.Start}>
+						<AtomColumn alignment={AtomLayoutAlignment.Start} gap={AtomLayoutGap.None}>
 							<AtomPrimaryText
 								text={`Designed for elegance, engineered for impact.
                                         Manoj combines cutting-edge innovation with user-first
@@ -65,7 +65,7 @@ const AboutMe = () => {
 							/>
 							<AtomButtonGroup items={socialMediaItems}
 							                 label={'Find me here'}/>
-						</AtomRow>
+						</AtomColumn>
 					</AtomRow>
 					<AtomRow alignment={AtomLayoutAlignment.Start}>
 						<AtomGroup

@@ -30,7 +30,8 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 	
 	return (
 		<Element
-			className="h-fit min-h-screen w-screen flex flex-col p-0 m-0 overflow-clip justify-center"
+			className="h-fit min-h-screen w-screen flex flex-col p-0
+						m-0 overflow-clip justify-center"
 			name={name}
 			style={{
 				margin: 0, // Remove margin
@@ -54,7 +55,7 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 			{/* Children */}
 			{children && (
 				<div
-					className={`p-4 w-fit max-w-full h-fit mx-auto ${alignmentClasses}`}>
+					className={`px-12 py-4 w-fit max-w-full h-fit mx-auto ${alignmentClasses}`}>
 					{children}
 				</div>
 			)}
