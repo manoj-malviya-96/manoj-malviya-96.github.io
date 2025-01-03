@@ -8,8 +8,8 @@ import {AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
 import AtomGroup, {AtomButtonGroup, AtomGroupLayout} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
-import {AtomPrimaryText, AtomSecondaryText} from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomRow} from "../atoms/atom-layout";
+import {AtomBadge, AtomHeroTitleText, AtomSecondaryParagraph} from "../atoms/atom-text";
+import {AtomColumn, AtomLayoutAlignment, AtomRow} from "../atoms/atom-layout";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -34,6 +34,22 @@ const socialMediaItems = rangesTo(
 		} as AtomButtonProps;
 	});
 
+const skills = [
+	`C++`,
+	`Python`,
+	`JavaScript`,
+	`TypeScript`,
+	`React`,
+	`Node.js`,
+	`Express.js`,
+	`MongoDB`,
+	`PostgreSQL`,
+	`Docker`,
+	`Kubernetes`,
+	`AWS`,
+	`MATLAB`,
+]
+
 const AboutMe = () => {
 	const navigate = useNavigate();
 	const timelineData = rangesTo(jobRelatedBlogs, (blog) => {
@@ -49,21 +65,38 @@ const AboutMe = () => {
 		<AtomFullScreenContainer
 			name="about-me"
 			title={'Manoj Malviya'}
-			description={`The next-gen problem-solving engine.`}
 			children={
 				<AtomColumn>
 					<AtomRow>
 						<AtomRow alignment={AtomLayoutAlignment.HStart}>
-							<AtomSecondaryText
-								text={`Designed for elegance, engineered for impact.
+							<AtomGroup
+								label={'About Me'}
+								layout={AtomGroupLayout.Vertical}
+								className={'w-1/3 h-fit'}
+							>
+								<AtomHeroTitleText text={'The Next-Gen Problem-Solving Engine'}/>
+								<AtomSecondaryParagraph
+									texts={
+										[
+											`Designed for elegance, engineered for impact.
                                         Manoj combines cutting-edge innovation with user-first
                                         thinking to deliver sleek, creative solutions.
-                                        Complex challenges? Consider them solved with
-                                        precision and artistry.`}
-								className={'w-full md:w-1/4 text-left'}
-							/>
+                                        `, ` Complex challenges? Consider them solved with
+                                        precision and artistry.`
+										]
+									}
+									className={'w-fit text-left'}
+								/>
+							</AtomGroup>
 							<AtomButtonGroup items={socialMediaItems}
 							                 label={'Find me here'}/>
+							<AtomGroup label={'Skills'} layout={AtomGroupLayout.Grid3}>
+								{skills.map(
+									(skill, index) => (
+										<AtomBadge key={index} text={skill}/>
+									))
+								}
+							</AtomGroup>
 						</AtomRow>
 					</AtomRow>
 					<AtomRow alignment={AtomLayoutAlignment.Start}>

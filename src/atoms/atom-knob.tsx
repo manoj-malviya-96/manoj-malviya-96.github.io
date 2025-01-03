@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {AtomTitleText} from "./atom-text";
-import {AtomColumn} from "./atom-layout";
+import {AtomColumn, AtomLayoutGap} from "./atom-layout";
 
 interface AtomKnobProps {
 	step?: number;
@@ -42,8 +42,7 @@ const AtomKnob: React.FC<AtomKnobProps> = React.memo(({
 	) * 270 - 135;
 	
 	return (
-		<AtomColumn className="p-4">
-			
+		<AtomColumn className="p-4" gap={AtomLayoutGap.None}>
 			{label && <span className="text-sm mb-2">{label}</span>}
 			
 			<div className="relative w-20 h-20">

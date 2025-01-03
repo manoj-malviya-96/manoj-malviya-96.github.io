@@ -73,31 +73,31 @@ export const AtomBrandText: React.FC<AtomTextProps> = ({text, className}) => {
 
 export const AtomBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
-		<span className={`badge badge-secondary rounded-md ${className}`}>{text}</span>
+		<span className={`badge badge-accent rounded-md ${className}`}>{text}</span>
 	);
 }
 
 
 interface AtomParagraphProps {
-	items: AtomTextProps[];
+	texts: string[];
 	className?: string;
 }
 
-export const AtomPrimaryParagraph: React.FC<AtomParagraphProps> = ({items, className}) => {
+export const AtomPrimaryParagraph: React.FC<AtomParagraphProps> = ({texts, className}) => {
 	return (
 		<AtomColumn className={className}>
-			{items.map((item, index) => (
-				<AtomPrimaryText key={index} text={item.text} className={item.className}/>
+			{texts.map((text, index) => (
+				<AtomPrimaryText key={index} text={text}/>
 			))}
 		</AtomColumn>
 	)
 }
 
-export const AtomSecondaryParagraph: React.FC<AtomParagraphProps> = ({items, className}) => {
+export const AtomSecondaryParagraph: React.FC<AtomParagraphProps> = ({texts, className}) => {
 	return (
 		<AtomColumn className={className}>
-			{items.map((item, index) => (
-				<AtomSecondaryText key={index} text={item.text} className={item.className}/>
+			{texts.map((text, index) => (
+				<AtomSecondaryText key={index} text={text}/>
 			))}
 		</AtomColumn>
 	);

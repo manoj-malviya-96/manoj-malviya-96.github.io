@@ -191,23 +191,24 @@ const TrussOptView = () => {
 							}}
 						/>
 					</AtomGroup>
-					<AtomGroup label={'Optimization'} className={'w-full'}>
-						<div className="flex flex-row gap-2">
-							<AtomButton
-								label='Optimize'
-								icon='fas fa-bolt-lightning'
-								severity={ButtonSeverity.Info}
-								tooltip={'optimize the truss'}
-								onClick={optimize}
-							/>
-							<AtomButton
-								icon='fas fa-trash'
-								label={'Clear'}
-								severity={ButtonSeverity.Error}
-								tooltip={'clear optimization results'}
-								onClick={clearOptimize}
-							/>
-						</div>
+					
+					<AtomGroup
+						label={'Optimization'}
+						className={'w-full'}>
+						<AtomButton
+							label='Optimize'
+							icon='fas fa-bolt-lightning'
+							severity={ButtonSeverity.Info}
+							tooltip={'optimize the truss'}
+							onClick={optimize}
+						/>
+						<AtomButton
+							icon='fas fa-trash'
+							label={'Clear'}
+							severity={ButtonSeverity.Error}
+							tooltip={'clear optimization results'}
+							onClick={clearOptimize}
+						/>
 					</AtomGroup>
 				</div>
 				<AtomGroup
