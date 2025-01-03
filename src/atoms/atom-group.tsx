@@ -51,10 +51,10 @@ interface AtomButtonGroupProps {
 export const AtomButtonGroup: React.FC<AtomButtonGroupProps> = React.memo(({label, items, className}) => {
 	return (
 		<AtomGroup
-			layout={AtomGroupLayout.Grid3}
+			layout={AtomGroupLayout.Horizontal}
 			label={label}
 			hug={true}
-			className={`flex flex-row gap-0 p-0 justify-content-center w-fit h-fit ${className}`}
+			className={`flex flex-row gap-0 p-2 justify-content-center w-fit h-fit ${className}`}
 		>
 			{items.map((item, index) => (
 				<AtomButton

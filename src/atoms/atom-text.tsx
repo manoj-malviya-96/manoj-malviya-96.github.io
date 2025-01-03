@@ -71,9 +71,21 @@ export const AtomBrandText: React.FC<AtomTextProps> = ({text, className}) => {
 };
 
 
-export const AtomBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
+export const AtomAccentBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
 		<span className={`badge badge-accent rounded-md ${className}`}>{text}</span>
+	);
+}
+
+export const AtomPrimaryBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
+	return (
+		<span className={`badge badge-primary ${className}`}>{text}</span>
+	);
+}
+
+export const AtomSecondaryBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
+	return (
+		<span className={`badge badge-secondary ${className}`}>{text}</span>
 	);
 }
 
