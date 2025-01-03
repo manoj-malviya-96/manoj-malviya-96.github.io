@@ -115,7 +115,7 @@ const GithubProfile: React.FC = () => {
             </div>
             <div className='w-full h-full'>
                 {data[currentYear] && <CalendarChart data={data[currentYear]} unit={'Commits'}
-                                                     year={currentYear} height={200}/>}
+                                                     year={currentYear} height={210}/>}
                 {!data[currentYear] && <div>No data for this year</div>}
             </div>
         </div>

@@ -4,8 +4,8 @@ import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
-import {AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
-import AtomGroup, {AtomButtonGroup, AtomGroupLayout} from "../atoms/atom-group";
+import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
+import AtomGroup, {AtomGroupLayout} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {AtomPrimaryBadge, AtomHeroTitleText, AtomSecondaryParagraph, AtomSecondaryBadge} from "../atoms/atom-text";
@@ -56,9 +56,14 @@ const SocialMediaButtons = () => {
 			} as AtomButtonProps;
 		});
 	return (
-		<AtomButtonGroup className={'w-full'}
-		                 items={socialMediaItems}
-		                 label={'Find me here'}/>
+		<AtomGroup className={'w-full p-0 gap-0'} label={'Find me here'} hug={true}>
+			{socialMediaItems.map((item, index) => (
+				<AtomButton
+					key={index}
+					{...item}
+				/>
+			))}
+		</AtomGroup>
 	)
 }
 
@@ -103,7 +108,7 @@ const CareerHighlights = () => {
 			label={'Career Highlights'}
 			layout={AtomGroupLayout.Horizontal}
 			className="w-full h-fit">
-			<AtomTimeline items={timelineData}/>
+			<AtomTimeline items={timelineData} className={'h-fit p-0'}/>
 		</AtomGroup>
 	)
 }
@@ -154,7 +159,7 @@ const AboutMe = () => {
 					
 					<AtomColumn
 						className={'w-1/2'}
-						alignment={AtomLayoutAlignment.Center}
+						alignment={AtomLayoutAlignment.HStart}
 						size={AtomLayoutSize.None}>
 						<AboutMeParagraph/>
 						<Skills/>
