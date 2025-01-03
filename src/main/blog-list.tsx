@@ -25,9 +25,7 @@ const BlogListing = () => {
     
     return (
         <AtomFullScreenContainer
-            title="Blogs"
-            description={`A collection of blogs on various topics.
-                            Simply my thoughts and experiences with tech and life.`}
+            title="Sometimes I document my thoughts."
             name="blog"
         >
             <AtomBentoBox

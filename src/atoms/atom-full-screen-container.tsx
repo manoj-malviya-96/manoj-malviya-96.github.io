@@ -5,7 +5,6 @@ import {AtomPrimaryText, AtomSuperHeroTitleText} from "./atom-text";
 interface FullScreenPageProps {
 	name: string;
 	title?: string;
-	description?: string;
 	children?: ReactNode;
 	childrenAlignment?: string; // Example: 'justify-center
                                 // items-center'
@@ -15,7 +14,6 @@ interface FullScreenPageProps {
 const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 	                                                                           name,
 	                                                                           title,
-	                                                                           description,
 	                                                                           children,
 	                                                                           childrenAlignment,
 	                                                                           backgroundImage,
@@ -44,13 +42,8 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 		>
 			{/* Title */}
 			{title &&
-                <AtomSuperHeroTitleText text={title} className={'mx-auto w-fit lg:w-1/2'}/>
+                <AtomSuperHeroTitleText text={title} className={'mx-auto w-fit lg:w-1/2 mb-8'}/>
 			}
-			
-			{/* Description */}
-			{description && (
-				<AtomPrimaryText text={description} className={'mx-auto mt-4 text-center w-fit lg:w-1/2'}/>
-			)}
 			
 			{/* Children */}
 			{children && (

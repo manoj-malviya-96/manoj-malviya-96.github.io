@@ -23,13 +23,12 @@ const ToolDrawer = () => {
     return (
         <AtomFullScreenContainer
             name="tools"
-            title="Playground"
-            description={`I make tools which inspire me to learn and grow. Here are some of them -`}
+            title="Creating in Shadows."
         >
-            <AtomGroup label="Tools">
+            <AtomGroup label="Playground">
                 <AtomCardGrid
                 items={items}
-                classNameForCard={'w-48 h-36'}/>
+                classNameForCard={'w-44 h-36'}/>
             </AtomGroup>
         </AtomFullScreenContainer>
     );
