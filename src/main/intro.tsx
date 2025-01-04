@@ -3,7 +3,7 @@ import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import ProfilePicture from "./assets/main.jpg";
 import {AtomButton} from "../atoms/atom-button";
 import AtomImage from "../atoms/atom-image";
-import {AtomBrandText} from "../atoms/atom-text";
+import {AtomSuperHeroTitleText} from "../atoms/atom-text";
 
 const Intro = () => {
     return (
@@ -18,7 +18,7 @@ const Intro = () => {
                                         items-center justify-center">
                             <span className={'w-full text-center'}>Manoj Malviya</span>
                             
-                            <AtomBrandText
+                            <AtomSuperHeroTitleText
                                 className={'text-center w-full'}
                                 text={`Multidisciplinary software engineer`}/>
                             <span className={'w-full text-center'}>

@@ -62,14 +62,6 @@ export const AtomDateAndText: React.FC<AtomTextProps> = ({text, className = ''})
 	);
 }
 
-export const AtomBrandText: React.FC<AtomTextProps> = ({text, className}) => {
-	return (
-		<span className={`text-accent font-extrabold text-wrap
-                        text-4xl uppercase
-                        whitespace-normal break-words ${className}`}>{text}</span>
-	);
-};
-
 
 export const AtomAccentBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (

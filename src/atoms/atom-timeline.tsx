@@ -31,7 +31,7 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
 		return a.date < b.date ? 1 : -1;
 	});
 	return (
-		<ul className={`timeline w-fit
+		<ul className={`timeline w-fit h-full
                         ${layout}
                         ${className}`}>
 			{items.map((item, index) => {
@@ -47,12 +47,12 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
                                 <AtomThemeSensitiveImage
                                     src={item.icon}
                                     alt={'icon'}
-                                    className={'w-12 h-12'}
+                                    className={'w-8 h-8'}
                                 />
 							}
 							{!item.icon && <i className={'fas fa-check-circle'}/>}
 						</div>
-						<div className="timeline-end p-4">
+						<div className="timeline-end p-4 h-fit">
 							<h3 className="text-lg uppercase font-bold">{item.title}</h3>
 							{item.description &&
                                 <span className="text-small">{item.description}</span>
