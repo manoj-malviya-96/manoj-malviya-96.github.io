@@ -43,7 +43,7 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
                             opacity-0 group-hover:opacity-100 transition-opacity duration-300
                             group-hover:bg-secondary group-hover:text-secondary-content">
 				
-				<h2 className="card-title text-center">{title}</h2>
+				<h2 className="card-title text-center italic">{title}</h2>
 				{isNew && <span className="badge badge-info">New</span>}
 				{date && (
 					<span className="text-sm text-center">
