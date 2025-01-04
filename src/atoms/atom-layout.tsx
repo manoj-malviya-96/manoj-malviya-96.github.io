@@ -11,6 +11,7 @@ export enum AtomLayoutSize {
 
 export enum AtomLayoutGap {
 	None = 'gap-0',
+	ExtraSmall = 'gap-2',
 	Small = 'gap-4',
 	Medium = 'gap-8',
 	Large = 'gap-16',

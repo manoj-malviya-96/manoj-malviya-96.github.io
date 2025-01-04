@@ -38,9 +38,26 @@ export const AtomHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''
 	);
 }
 
+export const AtomHeroBrandTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
+	return (
+		<h1 className={`text-3xl font-bold bg-gradient-to-r from-red-700 to-red-300
+						bg-clip-text text-transparent ${className}`}>
+			{text}
+		</h1>
+	)
+}
+
 export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
 		<h1 className={`text-4xl font-bold uppercase text-center ${className}`}>{text}</h1>
+	)
+}
+
+
+export const AtomSuperHeroBrandTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
+	return (
+		<h1 className={`text-4xl font-bold uppercase bg-gradient-to-r from-red-700 to-red-300
+						bg-clip-text text-transparent ${className}`}>{text}</h1>
 	)
 }
 

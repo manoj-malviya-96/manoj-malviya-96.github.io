@@ -8,8 +8,13 @@ import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom
 import AtomGroup, {AtomGroupLayout} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
-import {AtomPrimaryBadge, AtomHeroTitleText, AtomSecondaryParagraph} from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {
+	AtomHeroBrandTitleText,
+	AtomPrimaryBadge, AtomPrimaryParagraph, AtomPrimaryText,
+	AtomSecondaryParagraph,
+	AtomSecondaryText
+} from "../atoms/atom-text";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -75,8 +80,7 @@ const AboutMeParagraph = () => {
 			layout={AtomGroupLayout.Vertical}
 			className={'w-full'}
 		>
-			<AtomHeroTitleText text={'The Next Gen Problem Solving Engine'}/>
-			<AtomSecondaryParagraph
+			<AtomPrimaryParagraph
 				texts={
 					[
 						`Designed for elegance, engineered for impact.
@@ -146,12 +150,25 @@ const Skills = () => {
 	)
 }
 
+const HeroTextAboutMe = () => {
+	return (
+		<AtomColumn size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.None}>
+			<AtomHeroBrandTitleText
+				text={'Lets Unbox Me.'}
+				className={'w-full'}
+			/>
+			<AtomPrimaryText text={'The Next Gen Problem Solving Engine'}
+			                   className={'w-full'}
+			/>
+		</AtomColumn>
+	);
+}
+
 
 const AboutMe = () => {
 	return (
 		<AtomFullScreenContainer
 			name="about-me"
-			title={'Lets unbox me.'}
 			children={
 				<AtomRow
 					size={AtomLayoutSize.FullSize}
@@ -161,6 +178,7 @@ const AboutMe = () => {
 						className={'w-1/2'}
 						alignment={AtomLayoutAlignment.HStart}
 						size={AtomLayoutSize.None}>
+						<HeroTextAboutMe/>
 						<AboutMeParagraph/>
 						<Skills/>
 						<SocialMediaButtons/>
