@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react';
 import {Element} from 'react-scroll';
-import {AtomPrimaryText, AtomSuperHeroTitleText} from "./atom-text";
+import {AtomSuperHeroTitleText} from "./atom-text";
 
 interface FullScreenPageProps {
 	name: string;

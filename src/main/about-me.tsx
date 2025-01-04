@@ -8,7 +8,7 @@ import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom
 import AtomGroup, {AtomGroupLayout} from "../atoms/atom-group";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
-import {AtomPrimaryBadge, AtomHeroTitleText, AtomSecondaryParagraph, AtomSecondaryBadge} from "../atoms/atom-text";
+import {AtomPrimaryBadge, AtomHeroTitleText, AtomSecondaryParagraph} from "../atoms/atom-text";
 import {AtomColumn, AtomLayoutAlignment, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];

@@ -1,5 +1,4 @@
 import React from 'react'
-import {AtomTitleText} from "./atom-text";
 
 export enum StatSeverity {
 	Primary = 'text-primary-content',
