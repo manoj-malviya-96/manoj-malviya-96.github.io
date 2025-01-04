@@ -181,7 +181,7 @@ ApplicationWindow {
 		
 		super({
 			id: "qml-optimization",
-			title: "Optimizing QML Applications",
+			title: "QML Bests",
 			description: "Learn practical ways to improve performance in QML applications.",
 			date: "December 30, 2024",
 			tags: ["QML", "Optimization", "Performance"],
