@@ -10,7 +10,7 @@ export enum ButtonSize {
 }
 
 export enum ButtonSeverity {
-    Primary = 'btn-primary hover:btn-secondary shadow-none border-primary',
+    Primary = 'btn-primary hover:btn-secondary shadow-none',
     Success = 'btn-success border-success',
     Info = 'btn-info border-info',
     Warning = 'btn-warning border-warning',

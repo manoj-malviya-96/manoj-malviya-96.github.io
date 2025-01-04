@@ -9,6 +9,7 @@ import AtomHeroGrid, {AtomHeroGridItemProps} from "../../atoms/atom-hero-grid";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
 import {AtomDateAndText, AtomHeroTitleText, AtomPrimaryText} from "../../atoms/atom-text";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutSize} from "../../atoms/atom-layout";
 
 
 interface BlogHeaderProps {
@@ -29,26 +30,24 @@ const BlogHeader: React.FC<BlogHeaderProps> = (
 		<header className="w-screen h-fit bg-transparent py-4">
 			<AtomFullScreenContainer
 				name='header'
+				backgroundImage={coverImage}
 				children={
-					<div
-						className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6">
-						<div className="flex flex-col w-1/2 gap-0">
-							<AtomHeroTitleText text={title}/>
-							<AtomDateAndText text={date}/>
-							<AtomPrimaryText text={summary} className={'mt-4'}/>
-							<div className="flex flex-wrap gap-2 mt-4">
-								{tags.map((tag, index) => (
-									<span key={index}
-									      className="badge badge-secondary rounded-md">
+					<AtomColumn
+						size={AtomLayoutSize.None}
+						alignment={AtomLayoutAlignment.HStart}
+						className='w-1/2 p-8 gap-4 bg-primary bg-opacity-50 rounded-lg backdrop-blur-lg'>
+						<AtomHeroTitleText text={title}/>
+						<AtomDateAndText text={date}/>
+						<AtomPrimaryText text={summary} className={'mt-4'}/>
+						<div className="flex flex-wrap gap-2 mt-4">
+							{tags.map((tag, index) => (
+								<span key={index}
+								      className="badge badge-secondary rounded-md">
                                 {tag}
                             </span>
-								))}
-							</div>
+							))}
 						</div>
-						<AtomImage
-							className='w-fit md:w-1/2 rounded-lg'
-							src={coverImage} alt="Cover"></AtomImage>
-					</div>
+					</AtomColumn>
 				}
 			/>
 		</header>
