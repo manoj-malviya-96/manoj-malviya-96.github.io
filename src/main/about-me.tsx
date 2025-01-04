@@ -11,8 +11,6 @@ import AtomTimeline from "../atoms/atom-timeline";
 import {
 	AtomHeroBrandTitleText,
 	AtomPrimaryBadge, AtomPrimaryParagraph, AtomPrimaryText,
-	AtomSecondaryParagraph,
-	AtomSecondaryText
 } from "../atoms/atom-text";
 import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 
@@ -158,7 +156,7 @@ const HeroTextAboutMe = () => {
 				className={'w-full'}
 			/>
 			<AtomPrimaryText text={'The Next Gen Problem Solving Engine'}
-			                   className={'w-full'}
+			                 className={'w-full'}
 			/>
 		</AtomColumn>
 	);
