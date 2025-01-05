@@ -34,7 +34,7 @@ export const AtomTitleText: React.FC<AtomTextProps> = ({text, className = ''}) =
 
 export const AtomHeroTitleText: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
-		<h2 className={`text-3xl font-bold ${className}`}>{text}</h2>
+		<h2 className={`text-3xl font-extrabold ${className}`}>{text}</h2>
 	);
 }
 
@@ -88,13 +88,13 @@ export const AtomAccentBadge: React.FC<AtomTextProps> = ({text, className = ''})
 
 export const AtomPrimaryBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
-		<span className={`badge badge-primary ${className}`}>{text}</span>
+		<span className={`badge badge-primary rounded-md ${className}`}>{text}</span>
 	);
 }
 
 export const AtomSecondaryBadge: React.FC<AtomTextProps> = ({text, className = ''}) => {
 	return (
-		<span className={`badge badge-secondary ${className}`}>{text}</span>
+		<span className={`badge badge-secondary rounded-md ${className}`}>{text}</span>
 	);
 }
 

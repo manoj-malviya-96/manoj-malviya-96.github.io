@@ -19,6 +19,7 @@ export enum AtomLayoutGap {
 }
 
 export enum AtomLayoutAlignment {
+	None = '',
 	Center = 'items-center justify-center',
 	Start = 'items-start justify-start',
 	End = 'items-end justify-end',
@@ -69,6 +70,38 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	);
 });
 
+
+export const AtomGrid3: React.FC<AtomLayoutProps> = React.memo(({
+			                                                                 className = '',
+	                                                                 gap = AtomLayoutGap.Medium,
+	                                                                 size = AtomLayoutSize.Fit,
+	                                                                 alignment = AtomLayoutAlignment.Center,
+	                                                                 onClick,
+	                                                                 children
+																 }) => {
+	return (
+		<div className={`grid grid-cols-3 ${size} ${gap} ${className} ${alignment}`}
+		     onClick={onClick}>
+			{children}
+		</div>
+	);
+});
+
+export const AtomGrid5: React.FC<AtomLayoutProps> = React.memo(({
+			                                                                 className = '',
+	                                                                 gap = AtomLayoutGap.Medium,
+	                                                                 size = AtomLayoutSize.Fit,
+	                                                                 alignment = AtomLayoutAlignment.Center,
+	                                                                 onClick,
+	                                                                 children
+																 }) => {
+	return (
+		<div className={`grid grid-cols-5 ${size} ${gap} ${className} ${alignment}`}
+		     onClick={onClick}>
+			{children}
+		</div>
+	);
+});
 
 
 

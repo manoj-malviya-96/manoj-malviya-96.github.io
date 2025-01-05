@@ -33,7 +33,7 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 			name={name}
 			style={{
 				margin: 0, // Remove margin
-				padding: 0, // Remove padding
+				padding: 0,
 				backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',

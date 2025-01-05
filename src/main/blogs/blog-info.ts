@@ -11,12 +11,11 @@ interface BlogInfoConstructor {
     title: string;
     description: string;
     summary: string;
-    date: string; // Use `Date` if this is a Date object instead of
-                  // a string.
+    date: string;
     tags: string[];
-    cover: string; // URL or path to the cover image.
+    cover: string;
     sections: BlogSectionContentProps[];
-    logo?: string; // Optional with a default value.
+    logo?: string;
     isNew?: boolean; // Optional with a default value.
     cardSize?: BentoItemSize;
     category?: categoryType;

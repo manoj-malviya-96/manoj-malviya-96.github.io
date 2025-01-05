@@ -1,6 +1,7 @@
 import React from "react";
 import AtomScrollableLink from "./atom-scrollable-link";
-import {AtomColumn, AtomLayoutGap} from "./atom-layout";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
+import {AtomSecondaryText} from "./atom-text";
 
 
 export interface TableOfContentsItemProps {
@@ -18,15 +19,19 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
 	                                                                        className
                                                                         }) => {
 	return (
-		<AtomColumn className={className} gap={AtomLayoutGap.Small}>
+		<AtomColumn
+			gap={AtomLayoutGap.Small}
+			alignment={AtomLayoutAlignment.Start}
+			className={className}
+		>
 			{sections.map((item, index) => (
 				<AtomScrollableLink
 					key={index}
 					elementName={item.name}
-					className="px-2 text-sm cursor-pointer "
-					activeClassName="text-primary-content text-sm font-bold underline"
+					className="cursor-pointer"
+					activeClassName="text-secondary font-bold"
 					children={
-						<span>{item.label}</span>
+						<AtomSecondaryText text={item.label}/>
 					}
 				/>
 			))}

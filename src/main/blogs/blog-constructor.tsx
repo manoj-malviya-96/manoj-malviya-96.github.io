@@ -8,8 +8,21 @@ import Plotter from "../../atoms/plotter";
 import AtomHeroGrid, {AtomHeroGridItemProps} from "../../atoms/atom-hero-grid";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
-import {AtomDateAndText, AtomHeroTitleText, AtomPrimaryText} from "../../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutSize} from "../../atoms/atom-layout";
+import {
+	AtomDateAndText,
+	AtomHeroTitleText,
+	AtomPrimaryText,
+	AtomSecondaryBadge,
+	AtomTitleText
+} from "../../atoms/atom-text";
+import {
+	AtomColumn,
+	AtomGrid3,
+	AtomLayoutAlignment,
+	AtomLayoutGap,
+	AtomLayoutSize,
+	AtomRow
+} from "../../atoms/atom-layout";
 
 
 interface BlogHeaderProps {
@@ -26,28 +39,30 @@ const BlogHeader: React.FC<BlogHeaderProps> = (
 	if (!coverImage) {
 		coverImage = TemplateCover;
 	}
+	tags.sort((a, b) => a.length - b.length);
 	return (
 		<header className="w-screen h-fit bg-transparent py-4">
 			<AtomFullScreenContainer
 				name='header'
-				backgroundImage={coverImage}
 				children={
+				<AtomRow>
 					<AtomColumn
 						size={AtomLayoutSize.None}
-						alignment={AtomLayoutAlignment.HStart}
-						className='w-1/2 p-8 gap-4 bg-primary bg-opacity-50 rounded-lg backdrop-blur-lg'>
+						gap={AtomLayoutGap.None}
+						alignment={AtomLayoutAlignment.None}
+						className={'w-1/3'}
+					>
 						<AtomHeroTitleText text={title}/>
 						<AtomDateAndText text={date}/>
-						<AtomPrimaryText text={summary} className={'mt-4'}/>
-						<div className="flex flex-wrap gap-2 mt-4">
+						<AtomPrimaryText text={summary} className={'my-4'}/>
+						<AtomGrid3 gap={AtomLayoutGap.Small}>
 							{tags.map((tag, index) => (
-								<span key={index}
-								      className="badge badge-secondary rounded-md">
-                                {tag}
-                            </span>
+								<AtomSecondaryBadge text={tag} key={index} className={'mx-1 w-full'}/>
 							))}
-						</div>
+						</AtomGrid3>
 					</AtomColumn>
+					<AtomImage src={coverImage} alt={'Cover'} className={'w-full'} />
+				</AtomRow>
 				}
 			/>
 		</header>
@@ -109,7 +124,7 @@ const RenderMedia: React.FC<{
 	}
 	return (
 		<div
-			className='w-full lg:w-1/2 justify-center m-auto align-center'>
+			className='w-full justify-center m-auto align-center'>
 			{media.kind === "image" &&
                 <AtomImage src={media.source}
                            alt={media.label}
@@ -155,12 +170,12 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 	return (
 		<AtomFullScreenContainer
 			name={name}
-			title={title}
 			children={
 				<section
-					className='flex flex-col justify-center align-center w-full h-fit gap-8'>
+					className='flex flex-col justify-center align-center w-1/2 h-fit gap-2'>
+					<AtomTitleText text={title} className={'w-full'}/>
 					{paragraph && <div
-                        className='text-lg w-fit lg:w-1/2 m-auto align-center'>
+                        className='text-lg w-fit lg:w-full mx-auto align-center'>
 						{makeRichParagraph(paragraph)}
                     </div>}
 					<RenderMedia media={media}/>
