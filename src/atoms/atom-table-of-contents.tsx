@@ -20,7 +20,7 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
                                                                         }) => {
 	return (
 		<AtomColumn
-			gap={AtomLayoutGap.Small}
+			gap={AtomLayoutGap.None}
 			alignment={AtomLayoutAlignment.Start}
 			className={className}
 		>
@@ -29,7 +29,7 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
 					key={index}
 					elementName={item.name}
 					className="cursor-pointer"
-					activeClassName="text-secondary font-bold"
+					activeClassName="text-secondary text-lg font-bold"
 					children={
 						<AtomSecondaryText text={item.label}/>
 					}
