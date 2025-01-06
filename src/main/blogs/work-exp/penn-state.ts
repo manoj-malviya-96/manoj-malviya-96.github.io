@@ -28,7 +28,7 @@ class PennStateRD extends BlogInfo {
 								size: BentoItemSize.Medium,
 								summary: `Developed novel 3D graphics algorithms to automate design processes for embedding in additive manufacturing, resulting in published research in top mechanical design journals`,
 								link: {
-									text: 'Journal',
+									children: 'Journal',
 									url: 'https://asmedigitalcollection.asme.org/mechanicaldesign/article-abstract/142/11/114501/1082606/Digital-Design-Automation-to-Support-In-Situ?redirectedFrom=fulltext'
 								}
 							},
@@ -38,7 +38,7 @@ class PennStateRD extends BlogInfo {
 								size: BentoItemSize.Medium,
 								summary: `Engineered data analysis tools and interactive design experiments, using eye-tracking technology and probabilistic models to improve user insights on engineering design processes`,
 								link: {
-									text: 'Journal',
+									children: 'Journal',
 									url: 'https://asmedigitalcollection.asme.org/mechanicaldesign/article-abstract/142/12/124502/1086965/Mining-Design-Heuristics-for-Additive?redirectedFrom=fulltext'
 								}
 							},
@@ -49,7 +49,7 @@ class PennStateRD extends BlogInfo {
 								summary: `Pioneered novel qualitative data analysis methods and tools.`,
 								link: {
 									url: 'https://journals.sagepub.com/doi/full/10.1177/16094069211002418',
-									text: 'Inter Coder Reliability'
+									children: 'Inter Coder Reliability'
 								}
 							},
 							{
@@ -64,7 +64,7 @@ class PennStateRD extends BlogInfo {
 								size: BentoItemSize.Large,
 								summary: `Applied machine learning to analyze and characterize implicit cognitive processes in engineering design across diverse contexts`,
 								link: {
-									text: 'Thesis',
+									children: 'Thesis',
 									url: 'https://etda.libraries.psu.edu/catalog/18179mxm2429'
 								}
 							}

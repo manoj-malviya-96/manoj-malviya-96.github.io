@@ -56,7 +56,7 @@ const AtomKnob: React.FC<AtomKnobProps> = React.memo(({
 						}}
 					>
 					</div>
-					<AtomTitleText text={value.toString()}/>
+					<AtomTitleText>{value.toString()}</AtomTitleText>
 				</div>
 				
 				<input

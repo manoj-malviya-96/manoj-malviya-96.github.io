@@ -12,7 +12,7 @@ const NestorView = () => {
 			appName={AppName}
 			appLogo={Logo}
 			children={
-				<AtomHeroTitleText text={`Coming soon...`}/>
+				<AtomHeroTitleText>Coming soon...</AtomHeroTitleText>
 			}
 		/>
 	)

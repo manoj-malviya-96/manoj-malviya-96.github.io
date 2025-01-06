@@ -141,7 +141,7 @@ const Skills = () => {
 			layout={AtomGroupLayout.Grid3}>
 			{skills.map(
 				(skill, index) => (
-					<AtomPrimaryBadge key={index} text={skill} className={'w-fit'}/>
+					<AtomPrimaryBadge key={index} className={'w-fit'}>{skill}</AtomPrimaryBadge>
 				))
 			}
 		</AtomGroup>
@@ -152,12 +152,12 @@ const HeroTextAboutMe = () => {
 	return (
 		<AtomColumn size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.None}>
 			<AtomHeroBrandTitleText
-				text={'Lets Unbox Me.'}
+				children={'Lets Unbox Me.'}
 				className={'w-full'}
 			/>
-			<AtomPrimaryText text={'The Next Gen Problem Solving Engine'}
-			                 className={'w-full'}
-			/>
+			<AtomPrimaryText className={'w-full'}>
+				The Next Gen Problem Solving Engine
+			</AtomPrimaryText>
 		</AtomColumn>
 	);
 }

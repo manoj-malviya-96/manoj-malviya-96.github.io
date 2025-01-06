@@ -45,8 +45,8 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 				gap={AtomLayoutGap.Small}
 				alignment={AtomLayoutAlignment.None}
 			>
-				<AtomHeroTitleText text={title}/>
-				<AtomDateAndText text={date}/>
+				<AtomHeroTitleText>{title}</AtomHeroTitleText>
+				<AtomDateAndText>{date}</AtomDateAndText>
 				<AtomClippedText
 					fullText={summary}
 					maxLength={300}
@@ -58,7 +58,7 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 					gap={AtomLayoutGap.Small}
 					size={AtomLayoutSize.FullWidth}>
 					{tags.map((tag, index) => (
-						<AtomSecondaryBadge text={tag} key={index} className={'w-fit'}/>
+						<AtomSecondaryBadge key={index} className={'w-fit'}>{tag}</AtomSecondaryBadge>
 					))}
 				</AtomGrid>
 				{tabs.length > 1 && <AtomTableOfContents sections={tabs} label={'Contents'} className={'w-full'}/>}
@@ -147,8 +147,7 @@ const RenderMedia: React.FC<{
                 />
 			}
 			{media.kind === 'heroText' &&
-                <AtomHeroTitleText text={media.text}
-                                   className='w-full'/>
+                <AtomHeroTitleText className='w-full'>{media.text}</AtomHeroTitleText>
 			}
 			{media.kind === 'heroList' &&
                 <AtomHeroGrid contentList={media.contentList}
@@ -172,7 +171,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 		>
 			<section
 				className='flex flex-col justify-center align-center w-full h-fit gap-2'>
-				<AtomTitleText text={title} className={'w-full'}/>
+				<AtomTitleText className={'w-full'}>{title}</AtomTitleText>
 				{paragraph && <div
                     className='text-lg w-fit lg:w-full mx-auto align-center'>
 					{makeRichParagraph(paragraph)}

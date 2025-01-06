@@ -50,7 +50,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(({
                     <i className={"fas fa-magnifying-glass-plus text-2xl"}/>
                 </div>
 				}
-				{showLabel && <AtomSecondaryText className="text-sm text-neutral" text={alt}/>}
+				{showLabel && <AtomSecondaryText className="text-sm text-neutral">{alt}</AtomSecondaryText>}
 			</div>
 			
 			{/* Full-Screen Overlay */}

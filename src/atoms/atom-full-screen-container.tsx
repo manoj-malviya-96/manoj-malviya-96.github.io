@@ -42,7 +42,9 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 		>
 			{/* Title */}
 			{title &&
-                <AtomSuperHeroTitleText text={title} className={'mx-auto w-fit lg:w-1/2 mb-8'}/>
+                <AtomSuperHeroTitleText className={'mx-auto w-fit lg:w-1/2 mb-8'}>
+                    {title}
+                </AtomSuperHeroTitleText>
 			}
 			
 			{/* Children */}

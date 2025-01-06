@@ -31,8 +31,8 @@ const BlogListing = () => {
 		>
 			<AtomColumn gap={AtomLayoutGap.Small}>
 				<AtomRow size={AtomLayoutSize.None} className={'w-2/3'} gap={AtomLayoutGap.ExtraSmall}>
-					<AtomHeroTitleText text={'Sometimes I document my'}/>
-					<AtomHeroBrandTitleText text={'thoughts.'}/>
+					<AtomHeroTitleText>Sometimes I document my</AtomHeroTitleText>
+					<AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
 				</AtomRow>
 				<AtomBentoBox
 					items={allItems}

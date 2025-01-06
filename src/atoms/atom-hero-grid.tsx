@@ -27,10 +27,10 @@ const AtomHeroGridItem: React.FC<AtomHeroGridItemProps> = React.memo(({icon, tit
 			{hasSub &&
                 <div className={'flex flex-row gap-4 w-full'}>
 					{icon && <i className={`${icon} text-3xl`}/>}
-					{title && <AtomHeroTitleText text={title}/>}
+					{title && <AtomHeroTitleText>{title}</AtomHeroTitleText>}
                 </div>
 			}
-			<AtomSecondaryText text={summary} className={'w-full'}/>
+			<AtomSecondaryText className={'w-full'}>{summary}</AtomSecondaryText>
 			{link && <AtomLink {...link}/>}
 		</div>
 	);

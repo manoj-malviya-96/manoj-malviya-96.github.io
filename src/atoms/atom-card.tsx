@@ -60,7 +60,7 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
 			<span className="absolute left-0 top-0 p-2 group-hover:opacity-0
                             text-white font-bold uppercase">{title}
 			</span>
-			{category && <AtomSecondaryText text={category}/>}
+			{category && <AtomSecondaryText>{category}</AtomSecondaryText>}
 		
 		</div>
 	);
@@ -88,13 +88,13 @@ export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
 					className="w-full h-2/3 object-contain"
 				/>
 				<AtomColumn gap={AtomLayoutGap.None}>
-					<AtomTitleText text={title} className={'text-center'}/>
+					<AtomTitleText children={title} className={'text-center'}/>
 					{isNew && <span className="badge badge-info">New</span>}
 					{date && (
-						<AtomDateAndText text={date}/>
+						<AtomDateAndText children={date}/>
 					)}
 					{description && (
-						<AtomSecondaryText text={description} className={'text-center'}/>
+						<AtomSecondaryText children={description} className={'text-center'}/>
 					)}
 				</AtomColumn>
 			</AtomColumn>

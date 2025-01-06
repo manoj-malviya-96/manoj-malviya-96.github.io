@@ -44,9 +44,9 @@ const AtomToast = React.memo(({toasts}: AtomToastProps) => {
 					<i
 						className={`${getIcon(toast.type)} text-sm`}
 					/>
-					<AtomPrimaryText className="text-sm" text={toast.message}/>
+					<AtomPrimaryText className="text-sm">{toast.message}</AtomPrimaryText>
 				</div>
-			))}
+			))}s
 		</div>
 	)
 });

@@ -26,7 +26,7 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
 			alignment={AtomLayoutAlignment.Start}
 			className={className}
 		>
-			{label && <AtomPrimaryText text={label} className={'w-full border-b my-2 border-secondary'}/>}
+			{label && <AtomPrimaryText className={'w-full border-b my-2 border-secondary'}>{label}</AtomPrimaryText>}
 			{sections.map((item, index) => (
 				<AtomScrollableLink
 					key={index}
@@ -34,7 +34,7 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
 					className="cursor-pointer"
 					activeClassName="text-accent font-bold"
 					children={
-						<AtomSecondaryText text={item.label}/>
+						<AtomSecondaryText>{item.label}</AtomSecondaryText>
 					}
 				/>
 			))}

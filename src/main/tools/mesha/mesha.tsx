@@ -7,29 +7,29 @@ import {AtomHeroTitleText} from "../../../atoms/atom-text";
 const AppName = 'MESHA';
 
 const MeshaView = () => {
-    return (
-        <AppView
-            appName={AppName}
-            appLogo={Logo}
-            children={
-                <AtomHeroTitleText text={`Coming soon...`}/>
-            }
-        />
-    )
+	return (
+		<AppView
+			appName={AppName}
+			appLogo={Logo}
+			children={
+				<AtomHeroTitleText>Coming soon...</AtomHeroTitleText>
+			}
+		/>
+	)
 }
 
 class Mesha extends ToolInfo {
-    constructor() {
-        super({
-            id: 'mesha',
-            name: AppName,
-            description: 'visualize + analyze + edit your 3D mesh',
-            cover: Logo,
-            componentConstructor: () => (
-                <MeshaView/>
-            )
-        });
-    }
+	constructor() {
+		super({
+			id: 'mesha',
+			name: AppName,
+			description: 'visualize + analyze + edit your 3D mesh',
+			cover: Logo,
+			componentConstructor: () => (
+				<MeshaView/>
+			)
+		});
+	}
 }
 
 

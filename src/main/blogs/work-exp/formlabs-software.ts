@@ -37,7 +37,7 @@ class FormlabsSW extends BlogInfo {
                                 title: `Seamless Ecosystem`,
                                 size: BentoItemSize.Medium,
                                 link: {
-                                    text: 'E.g. Real Time 3D Print monitoring',
+                                    children: 'E.g. Real Time 3D Print monitoring',
                                     url: 'https://youtu.be/hWzOTDmyoxI?t=131'
                                 },
                             },
@@ -47,7 +47,7 @@ class FormlabsSW extends BlogInfo {
                                 title: `Modern UI/UX`,
                                 size: BentoItemSize.Medium,
                                 link: {
-                                    text: 'e.g. seamless 3D print upload',
+                                    children: 'e.g. seamless 3D print upload',
                                     url: 'https://youtu.be/hWzOTDmyoxI?t=131'
                                 },
                             },

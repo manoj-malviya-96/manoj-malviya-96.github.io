@@ -28,8 +28,8 @@ const ToolDrawer = () => {
 		>
 			<AtomColumn gap={AtomLayoutGap.Small}>
 				<AtomRow size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.ExtraSmall}>
-					<AtomHeroTitleText text={'Creating in'} />
-					<AtomHeroBrandTitleText text={' Shadows.'} />
+					<AtomHeroTitleText>Creating in</AtomHeroTitleText>
+					<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
 				</AtomRow>
 				<AtomGroup label="Playground">
 					<AtomCardGrid
