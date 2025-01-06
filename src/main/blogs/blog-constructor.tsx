@@ -199,12 +199,12 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 				tabs={item.tabs()}
 				className={`w-full max-h-screen md:w-1/4
 							block md:fixed left-8 top-16
-							bg-neutral bg-opacity-10 p-8 rounded-lg`}
+							bg-neutral bg-opacity-20 p-8 rounded-lg`}
 			/>
-			<div className="md:absolute left-1/4 px-8 top-0 w-full md:w-3/4 h-fit">
+			<div className="md:absolute left-1/4 px-8 top-0 w-full md:w-3/4 h-fit p-8">
 				{item.cover && <AtomImage
                     src={item.cover} alt={item.title}
-                    className={'w-full p-4 m-4'}/>}
+                    className={'w-full h-screen p-8'}/>}
 				{item.sections.map((secProps: BlogSectionContentProps, index: number) => (
 					<BlogSection key={index} {...secProps} />
 				))}

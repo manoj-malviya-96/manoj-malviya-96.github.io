@@ -139,7 +139,9 @@ export const AtomClippedText: React.FC<AtomClippedTextProps> = React.memo(({
 	                                                                           maxLength,
 	                                                                           className = ''
                                                                            }) => {
-	const [clipped, setClipped] = React.useState(fullText.length > maxLength);
+	
+	const isClippedInitial = fullText.length > maxLength;
+	const [clipped, setClipped] = React.useState(isClippedInitial);
 	const [text, setText] = React.useState<string>(clipped ? fullText.slice(0, maxLength) + '...' : fullText);
 	
 	React.useEffect(() => {
@@ -152,13 +154,13 @@ export const AtomClippedText: React.FC<AtomClippedTextProps> = React.memo(({
 	
 	return <AtomColumn gap={AtomLayoutGap.None} alignment={AtomLayoutAlignment.Start}>
 		{renderComponent()}
-		<AtomButton
-			pill={false}
-			severity={ButtonSeverity.Info}
-			size={ButtonSize.Small}
-			icon={clipped ? 'fas fa-chevron-down' : 'fas fa-chevron-up'}
-			label={clipped ? 'Show More' : 'Show Less'}
-			onClick={() => setClipped(!clipped)}
-		/>
+		{isClippedInitial && <AtomButton
+            pill={false}
+            severity={ButtonSeverity.Info}
+            size={ButtonSize.Small}
+            icon={clipped ? 'fas fa-chevron-down' : 'fas fa-chevron-up'}
+            label={clipped ? 'Show More' : 'Show Less'}
+            onClick={() => setClipped(!clipped)}
+        />}
 	</AtomColumn>;
 });

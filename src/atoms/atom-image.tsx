@@ -39,6 +39,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(({
 				<img
 					src={src}
 					alt={alt}
+					className={'w-full h-full object-cover rounded-md'}
 					loading="lazy"
 				/>
 				{preview && <div className={`absolute inset-0 bg-primary
