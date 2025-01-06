@@ -1,10 +1,10 @@
-import React, {useCallback} from "react";
+import React, {ReactNode, useCallback} from "react";
 import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
 import AtomButton, {ButtonSeverity, ButtonSize} from "./atom-button";
 
 
 interface AtomTextProps {
-	children: string;
+	children: ReactNode;
 	className?: string;
 }
 
