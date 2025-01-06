@@ -46,7 +46,7 @@ const AtomToast = React.memo(({toasts}: AtomToastProps) => {
 					/>
 					<AtomPrimaryText className="text-sm">{toast.message}</AtomPrimaryText>
 				</div>
-			))}s
+			))}
 		</div>
 	)
 });
