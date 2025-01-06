@@ -32,7 +32,7 @@ const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
 					key={index}
 					elementName={item.name}
 					className="cursor-pointer"
-					activeClassName="text-secondary text-lg font-bold"
+					activeClassName="text-accent font-bold"
 					children={
 						<AtomSecondaryText text={item.label}/>
 					}

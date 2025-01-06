@@ -1,5 +1,6 @@
-import React from "react";
-import {AtomColumn} from "./atom-layout";
+import React, {useCallback} from "react";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
+import AtomButton, {ButtonSeverity, ButtonSize} from "./atom-button";
 
 
 interface AtomTextProps {
@@ -123,3 +124,41 @@ export const AtomSecondaryParagraph: React.FC<AtomParagraphProps> = ({texts, cla
 		</AtomColumn>
 	);
 }
+
+
+interface AtomClippedTextProps {
+	textComponentConstructor: (props: AtomTextProps) => React.ReactNode;
+	fullText: string;
+	maxLength: number;
+	className?: string;
+}
+
+export const AtomClippedText: React.FC<AtomClippedTextProps> = React.memo(({
+	                                                                           textComponentConstructor,
+	                                                                           fullText,
+	                                                                           maxLength,
+	                                                                           className = ''
+                                                                           }) => {
+	const [clipped, setClipped] = React.useState(fullText.length > maxLength);
+	const [text, setText] = React.useState<string>(clipped ? fullText.slice(0, maxLength) + '...' : fullText);
+	
+	React.useEffect(() => {
+		setText(clipped ? fullText.slice(0, maxLength) + '... ' : fullText);
+	}, [fullText, maxLength, clipped]);
+	
+	const renderComponent = useCallback(() => {
+		return textComponentConstructor({text, className});
+	}, [text, className, textComponentConstructor]);
+	
+	return <AtomColumn gap={AtomLayoutGap.None} alignment={AtomLayoutAlignment.Start}>
+		{renderComponent()}
+		<AtomButton
+			pill={false}
+			severity={ButtonSeverity.Info}
+			size={ButtonSize.Small}
+			icon={clipped ? 'fas fa-chevron-down' : 'fas fa-chevron-up'}
+			label={clipped ? 'Show More' : 'Show Less'}
+			onClick={() => setClipped(!clipped)}
+		/>
+	</AtomColumn>;
+});

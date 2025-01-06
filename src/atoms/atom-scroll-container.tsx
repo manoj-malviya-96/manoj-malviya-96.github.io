@@ -11,8 +11,8 @@ const AtomScrollContainer: React.FC<ScrollContainerProps> = ({
 	                                                             children
                                                              }) => {
 	return (
-		<div className={` overflow-scroll scrollbar-thin
-		    scrollbar-thumb-gray-500 scrollbar-track-gray-100
+		<div className={`overflow-scroll scrollbar-thin
+		    scrollbar-thumb-primary-content scrollbar-track-primary-content
             ${className}`}
 		>
 			{children}
