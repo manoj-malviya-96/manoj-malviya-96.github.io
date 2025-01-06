@@ -152,9 +152,7 @@ const HeroTextAboutMe = () => {
 	return (
 		<AtomColumn size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.None}>
 			<AtomHeroBrandTitleText
-				children={'Lets Unbox Me.'}
-				className={'w-full'}
-			/>
+				className={'w-full'}>Lets Unbox Me.</AtomHeroBrandTitleText>
 			<AtomPrimaryText className={'w-full'}>
 				The Next Gen Problem Solving Engine
 			</AtomPrimaryText>
