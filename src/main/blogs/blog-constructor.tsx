@@ -80,7 +80,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 			className={'w-full h-fit items-center justify-center p-4 m-4'}
 		>
 			<section
-				className='flex flex-col justify-center align-center w-3/4 mx-auto h-fit gap-2'>
+				className='flex flex-col justify-center align-center h-fit gap-2 px-8'>
 				<AtomTitleText className={'w-full'}>{title}</AtomTitleText>
 				{children}
 			</section>

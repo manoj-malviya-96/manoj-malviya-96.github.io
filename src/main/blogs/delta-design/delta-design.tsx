@@ -2,10 +2,9 @@ import {BlogInfo, heatmapColorScale} from "../blog-info";
 import Cover from "./cover.webp"
 import IntroChart from './background.png';
 import GameUI from './game-ui.png';
-import {BlogSectionContentProps} from "../blog-constructor";
 import {BentoItemSize} from "../../../atoms/atom-bentobox";
-import {AtomColumn} from "../../../atoms/atom-layout";
-import {AtomHeroTitleText, AtomPrimaryText} from "../../../atoms/atom-text";
+import {AtomColumn, AtomLayoutSize} from "../../../atoms/atom-layout";
+import {AtomHeroBrandTitleText, AtomPrimaryText} from "../../../atoms/atom-text";
 import React from "react";
 import AtomImage from "../../../atoms/atom-image";
 import Plotter from "../../../atoms/plotter";
@@ -39,10 +38,10 @@ const ObjectiveSection = () => {
 				inefficient designers, focusing on how automaticity affects design outcomes. To this end, the
 				overarching question this research seeks to answer is as follows: <br/>
 			</AtomPrimaryText>
-			<AtomHeroTitleText>
+			<AtomHeroBrandTitleText>
 				What design strategies do intermediate-level designers employ when challenged with a novel complex
 				problem?
-			</AtomHeroTitleText>
+			</AtomHeroBrandTitleText>
 		</AtomColumn>
 	)
 }
@@ -107,7 +106,7 @@ const StateResultSection = () => {
 		showscale: false,
 	}
 	return (
-		<AtomColumn>
+		<AtomColumn size={AtomLayoutSize.FullWidth}>
 			<AtomPrimaryText>
 				We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
 				investigate high- and low-performing designers (as classified using their design performance),
@@ -115,6 +114,7 @@ const StateResultSection = () => {
 			</AtomPrimaryText>
 			<Plotter
 				dataTrace={[stateHeatmap]}
+				className={'m-auto align-center justify-center w-full'}
 				title={'Design Step vs Hidden States'}
 				xTitle={'Design Step'}
 				yTitle={'Hidden State'}
@@ -128,6 +128,7 @@ const StateResultSection = () => {
 				score well, their behavior patterns differed significantly.
 			</AtomPrimaryText>
 			<Plotter dataTrace={[stateTransition]}
+			         className={'m-auto align-center justify-center w-full'}
 			         title={'Transition between Hidden States'}
 			         xTitle={'Hidden State'}
 			         yTitle={'Hidden State'}

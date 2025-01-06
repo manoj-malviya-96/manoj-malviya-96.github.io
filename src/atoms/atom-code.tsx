@@ -47,7 +47,7 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = React.memo(({
 	};
 	
 	return (
-		<AtomGroup className={`relative ${className}`}
+		<AtomGroup className={`relative w-full ${className}`}
 		           label={language}
 		>
 			<div className="absolute top-0 right-0 p-2">
