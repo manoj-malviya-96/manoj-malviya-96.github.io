@@ -4,7 +4,7 @@ import {AtomThemeSensitiveImage} from "./atom-image";
 
 export enum TimelineOrientation {
 	Vertical = 'timeline-vertical',
-	Horizontal = 'timeline-horizontal'
+	Horizontal = 'timeline-vertical md:timeline-horizontal'
 }
 
 interface AtomTimelineItemProps {

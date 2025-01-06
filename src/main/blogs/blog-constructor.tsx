@@ -1,6 +1,4 @@
 import React from 'react';
-import TemplateCover from '../assets/main.jpg';
-import AtomFullScreenContainer from "../../atoms/atom-full-screen-container";
 import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
 import AtomTableOfContents, {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
@@ -40,7 +38,8 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 ) => {
 	tags.sort((a, b) => a.length - b.length);
 	return (
-		<header className={`sticky left-0 top-16 p-4 w-full ${className}`}>
+		<header className={`block md:fixed left-0 top-1/2 transform -translate-y-1/2
+								p-4 mt-12 w-full ${className}`}>
 			<AtomColumn
 				size={AtomLayoutSize.Fit}
 				gap={AtomLayoutGap.Small}
@@ -183,16 +182,16 @@ interface BlogConstructorProps {
 
 const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 	return (
-		<AtomRow alignment={AtomLayoutAlignment.Start} className={'px-8'}>
+		<AtomRow alignment={AtomLayoutAlignment.Start} className={'relative px-8 w-screen h-fit border-2'}>
 			<BlogSidePanel
 				title={item.title}
 				summary={item.summary}
 				date={item.date}
 				tags={item.tags}
 				tabs={item.tabs()}
-				className={'w-1/4'}
+				className={'w-fit md:w-1/4'}
 			/>
-			<div className="inline-block w-3/4 h-fit">
+			<div className="inline-block w-full md:w-3/4 h-fit">
 				{item.cover && <AtomImage
 					src={item.cover} alt={item.title}
 					className={'w-full p-4 m-4'}/>}

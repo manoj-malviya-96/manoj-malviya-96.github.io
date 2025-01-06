@@ -173,7 +173,7 @@ const AboutMe = () => {
 					alignment={AtomLayoutAlignment.VStart}>
 					
 					<AtomColumn
-						className={'w-1/2'}
+						className={'w-full md:w-1/2'}
 						alignment={AtomLayoutAlignment.HStart}
 						size={AtomLayoutSize.None}>
 						<HeroTextAboutMe/>
