@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {
 	AtomHeroBrandTitleText,
-	AtomPrimaryBadge, AtomPrimaryParagraph, AtomPrimaryText,
+	AtomPrimaryBadge, AtomPrimaryText,
 } from "../atoms/atom-text";
 import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 
@@ -78,18 +78,15 @@ const AboutMeParagraph = () => {
 			layout={AtomGroupLayout.Vertical}
 			className={'w-full'}
 		>
-			<AtomPrimaryParagraph
-				texts={
-					[
-						`Designed for elegance, engineered for impact.
-                                        Manoj combines cutting-edge innovation with user-first
-                                        thinking to deliver simple yet creative solutions.
-                                        `, `Complex challenges? Consider them solved with
-                                        precision and artistry.`
-					]
-				}
+			<AtomPrimaryText
 				className={'w-full p-0 justify-start'}
-			/>
+			>
+				Designed for elegance, engineered for impact.
+				Manoj combines cutting-edge innovation with user-first
+				thinking to deliver simple yet creative solutions. <br/>
+				Complex challenges? Consider them solved with
+				precision and artistry.
+			</AtomPrimaryText>
 		</AtomGroup>
 	)
 }

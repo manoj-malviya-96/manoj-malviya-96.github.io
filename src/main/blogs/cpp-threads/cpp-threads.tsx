@@ -79,7 +79,7 @@ void sell(const std::string& item, int quantity) {
 				area at a time. This prevents a total meltdown caused by multiple people trying to access
 				the same thing at the same time. <br/>
 			</AtomPrimaryText>
-			<AtomCodeBlock code={mutexCode} language={'cpp'}/>
+			<AtomCodeBlock code={mutexCode} language={'cpp'} className={'w-full'}/>
 		</AtomColumn>
 	)
 }
@@ -114,7 +114,7 @@ void sell(const std::string& item, int quantity) {
 				balls in the air. I discovered <code>std::lock_guard</code>, which automatically locks and
 				unlocks the mutex for you—much less risky.
 			</AtomPrimaryText>
-			<AtomCodeBlock code={lockGuardCode} language={'cpp'}/>
+			<AtomCodeBlock code={lockGuardCode} language={'cpp'} className={'w-full'}/>
 		</AtomColumn>
 	)
 }
@@ -136,7 +136,7 @@ void restock(const std::string& item, int quantity) {
 				operations atomically without any interference. They ensure that operations
 				on the variable are indivisible
 			</AtomPrimaryText>
-			<AtomCodeBlock code={atomicCode} language={'cpp'}/>
+			<AtomCodeBlock code={atomicCode} language={'cpp'} className={'w-full'}/>
 		</AtomColumn>
 	)
 }

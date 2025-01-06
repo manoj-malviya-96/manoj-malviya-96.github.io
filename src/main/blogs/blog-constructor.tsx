@@ -1,11 +1,7 @@
 import React from 'react';
-import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
 import AtomTableOfContents, {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
-import Plotter from "../../atoms/plotter";
 import {Element} from 'react-scroll';
-import AtomHeroGrid, {AtomHeroGridItemProps} from "../../atoms/atom-hero-grid";
-import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
 import {
 	AtomClippedText,
@@ -73,51 +69,6 @@ export interface BlogSectionContentProps {
 	children?: React.ReactNode;
 }
 
-//
-// const RenderMedia: React.FC<{
-// 	media: BlogMediaType
-// }> = React.memo(({media}) => {
-// 	if (media === undefined) {
-// 		return <></>;
-// 	}
-// 	return (
-// 		<div
-// 			className='w-full justify-center mx-auto align-center'>
-// 			{media.kind === "image" &&
-//                 <AtomImage src={media.source}
-//                            alt={media.label}
-//                            showLabel={true}
-//                            className={'my-8 w-full'}/>
-// 			}
-// 			{media.kind === 'code' && (
-// 				<AtomCodeBlock language={media.language}
-// 				               code={media.code}
-// 				               className="m-auto align-center justify-center w-full"/>
-// 			)}
-//
-// 			{media.kind === 'plot' &&
-//                 <Plotter
-//                     dataTrace={media.dataTrace}
-//                     className={'m-auto align-center justify-center w-full'}
-//                     title={media.title}
-//                     xTitle={media.xTitle}
-//                     yTitle={media.yTitle}
-//                     textColor={media.textColor}
-//                     minimalView={false}
-//                 />
-// 			}
-// 			{media.kind === 'heroText' &&
-//                 <AtomHeroTitleText className='w-full'>{media.text}</AtomHeroTitleText>
-// 			}
-// 			{media.kind === 'heroList' &&
-//                 <AtomHeroGrid contentList={media.contentList}
-//                               className='w-full'/>
-// 			}
-// 		</div>
-// 	)
-// });
-//
-
 const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 	                                                                   name,
 	                                                                   title,
@@ -129,7 +80,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 			className={'w-full h-fit items-center justify-center p-4 m-4'}
 		>
 			<section
-				className='flex flex-col justify-center align-center w-full h-fit gap-2'>
+				className='flex flex-col justify-center align-center w-3/4 mx-auto h-fit gap-2'>
 				<AtomTitleText className={'w-full'}>{title}</AtomTitleText>
 				{children}
 			</section>

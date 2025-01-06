@@ -99,33 +99,6 @@ export const AtomSecondaryBadge: React.FC<AtomTextProps> = ({children, className
 	);
 }
 
-
-interface AtomParagraphProps {
-	texts: string[];
-	className?: string;
-}
-
-export const AtomPrimaryParagraph: React.FC<AtomParagraphProps> = ({texts, className}) => {
-	return (
-		<AtomColumn className={className}>
-			{texts.map((text, index) => (
-				<AtomPrimaryText key={index}>{text}</AtomPrimaryText>
-			))}
-		</AtomColumn>
-	)
-}
-
-export const AtomSecondaryParagraph: React.FC<AtomParagraphProps> = ({texts, className}) => {
-	return (
-		<AtomColumn className={className}>
-			{texts.map((text, index) => (
-				<AtomSecondaryText key={index}>{text}</AtomSecondaryText>
-			))}
-		</AtomColumn>
-	);
-}
-
-
 interface AtomClippedTextProps {
 	textComponentConstructor: (props: AtomTextProps) => React.ReactNode;
 	fullText: string;
