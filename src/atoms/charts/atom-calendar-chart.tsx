@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
-import {useTheme} from "../providers/theme";
-import {roundTo} from "../common/math";
-import {adjustColor} from "../common/color-utils";
+import {useTheme} from "../../providers/theme";
+import {roundTo} from "../../common/math";
+import {adjustColor} from "../../common/color-utils";
 
 interface CalendarData {
     data: Record<string, number>; // {'yyyy-MM-dd': value}
@@ -13,7 +13,7 @@ interface CalendarData {
 }
 
 const dayTime = 24 * 3600 * 1000;
-export const CalendarChart: React.FC<CalendarData>
+export const AtomCalendarChart: React.FC<CalendarData>
     = React.memo(({data, year, unit, height}) => {
     const {daisyNeutral, daisyPrimaryText} = useTheme();
     
@@ -96,3 +96,5 @@ export const CalendarChart: React.FC<CalendarData>
                          }
                          }/>;
 });
+
+export default AtomCalendarChart;

@@ -5,7 +5,7 @@ import AtomDropdown, {
     AtomDropdownItemProps
 } from "../atoms/atom-dropdown";
 import AtomStats from "../atoms/atom-stats";
-import {CalendarChart} from "../atoms/atom-echart";
+import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 
 interface DailyLog {
     date: ISODateStr; // ISO date string
@@ -114,8 +114,8 @@ const GithubProfile: React.FC = () => {
                 )}
             </div>
             <div className='w-full h-full'>
-                {data[currentYear] && <CalendarChart data={data[currentYear]} unit={'Commits'}
-                                                     year={currentYear} height={210}/>}
+                {data[currentYear] && <AtomCalendarChart data={data[currentYear]} unit={'Commits'}
+                                                         year={currentYear} height={210}/>}
                 {!data[currentYear] && <div>No data for this year</div>}
             </div>
         </div>
