@@ -2,9 +2,10 @@ import React from 'react';
 import TemplateCover from '../assets/main.jpg';
 import AtomFullScreenContainer from "../../atoms/atom-full-screen-container";
 import AtomCodeBlock, {CodeBlockProps} from "../../atoms/atom-code";
-import AtomTableOfContents from "../../atoms/atom-table-of-contents";
+import AtomTableOfContents, {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
 import AtomImage from "../../atoms/atom-image";
 import Plotter from "../../atoms/plotter";
+import {Element} from 'react-scroll';
 import AtomHeroGrid, {AtomHeroGridItemProps} from "../../atoms/atom-hero-grid";
 import {InlineContentType, makeRichParagraph} from "../../common/inline-content";
 import {BlogInfo} from "./blog-info";
@@ -30,41 +31,31 @@ interface BlogHeaderProps {
 	summary: string;
 	date: string;
 	tags: string[];
-	coverImage: string;
+	tabs: TableOfContentsItemProps[];
+	className?: string;
 }
 
-const BlogHeader: React.FC<BlogHeaderProps> = (
-	{title, summary, date, tags, coverImage}
+const BlogSidePanel: React.FC<BlogHeaderProps> = (
+	{title, summary, date, tags, tabs, className}
 ) => {
-	if (!coverImage) {
-		coverImage = TemplateCover;
-	}
 	tags.sort((a, b) => a.length - b.length);
 	return (
-		<header className="w-screen h-fit bg-transparent py-4">
-			<AtomFullScreenContainer
-				name='header'
-				children={
-				<AtomRow>
-					<AtomColumn
-						size={AtomLayoutSize.None}
-						gap={AtomLayoutGap.None}
-						alignment={AtomLayoutAlignment.None}
-						className={'w-1/3'}
-					>
-						<AtomHeroTitleText text={title}/>
-						<AtomDateAndText text={date}/>
-						<AtomPrimaryText text={summary} className={'my-4'}/>
-						<AtomGrid3 gap={AtomLayoutGap.Small}>
-							{tags.map((tag, index) => (
-								<AtomSecondaryBadge text={tag} key={index} className={'mx-1 w-full'}/>
-							))}
-						</AtomGrid3>
-					</AtomColumn>
-					<AtomImage src={coverImage} alt={'Cover'} className={'w-full'} />
-				</AtomRow>
-				}
-			/>
+		<header className={`sticky left-0 top-16 p-4 w-full ${className}`}>
+			<AtomColumn
+				size={AtomLayoutSize.Fit}
+				gap={AtomLayoutGap.Small}
+				alignment={AtomLayoutAlignment.None}
+			>
+				<AtomHeroTitleText text={title}/>
+				<AtomDateAndText text={date}/>
+				<AtomPrimaryText text={summary} className={'my-4'}/>
+				<AtomGrid3 gap={AtomLayoutGap.Small}>
+					{tags.map((tag, index) => (
+						<AtomSecondaryBadge text={tag} key={index} className={'mx-1 w-full'}/>
+					))}
+				</AtomGrid3>
+				{tabs.length > 1 && <AtomTableOfContents sections={tabs} label={'Contents'}/>}
+			</AtomColumn>
 		</header>
 	);
 };
@@ -168,20 +159,20 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 	                                                                   media
                                                                    }) => {
 	return (
-		<AtomFullScreenContainer
+		<Element
 			name={name}
-			children={
-				<section
-					className='flex flex-col justify-center align-center w-1/2 h-fit gap-2'>
-					<AtomTitleText text={title} className={'w-full'}/>
-					{paragraph && <div
-                        className='text-lg w-fit lg:w-full mx-auto align-center'>
-						{makeRichParagraph(paragraph)}
-                    </div>}
-					<RenderMedia media={media}/>
-				</section>
-			}
-		/>
+			className={'w-full h-fit items-center justify-center p-4 m-4'}
+		>
+			<section
+				className='flex flex-col justify-center align-center w-full h-fit gap-2'>
+				<AtomTitleText text={title} className={'w-full'}/>
+				{paragraph && <div
+                    className='text-lg w-fit lg:w-full mx-auto align-center'>
+					{makeRichParagraph(paragraph)}
+                </div>}
+				<RenderMedia media={media}/>
+			</section>
+		</Element>
 	)
 });
 
@@ -192,27 +183,24 @@ interface BlogConstructorProps {
 
 const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 	return (
-		<div className="flex flex-col w-full h-fit">
-			<BlogHeader
+		<AtomRow alignment={AtomLayoutAlignment.Start} className={'px-8'}>
+			<BlogSidePanel
 				title={item.title}
 				summary={item.summary}
 				date={item.date}
 				tags={item.tags}
-				coverImage={item.cover}
+				tabs={item.tabs()}
+				className={'w-1/4'}
 			/>
-			{/* Table of Contents - padding is left 16, as i use padding-16 for full page view */}
-			<div
-				className="sticky left-8 top-1/2 hidden md:inline-block w-44 text-wrap h-fit">
-				<AtomTableOfContents sections={item.tabs()}/>
-			</div>
-			{/* Blog Content */}
-			<div className="inline-block w-full h-fit">
+			<div className="inline-block w-3/4 h-fit">
+				{item.cover && <AtomImage
+					src={item.cover} alt={item.title}
+					className={'w-full p-4 m-4'}/>}
 				{item.sections.map((secProps: BlogSectionContentProps, index: number) => (
 					<BlogSection key={index} {...secProps} />
 				))}
 			</div>
-		</div>
-	
+		</AtomRow>
 	)
 }
 

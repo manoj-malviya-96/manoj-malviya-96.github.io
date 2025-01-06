@@ -3,6 +3,7 @@ import {getScaleColor} from "../../common/color-utils";
 import {TabItemProps} from "../../atoms/atom-tab-bar";
 import {BentoItemSize} from "../../atoms/atom-bentobox";
 import {BlogSectionContentProps} from "./blog-constructor";
+import {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
 
 export type categoryType = "Programming" | "Projects" | "Life";
 
@@ -71,8 +72,7 @@ export class BlogInfo {
             return {
                 name: section.name,
                 label: section.title,
-                icon: section.icon
-            } as TabItemProps;
+            } as TableOfContentsItemProps;
         });
     }
 }

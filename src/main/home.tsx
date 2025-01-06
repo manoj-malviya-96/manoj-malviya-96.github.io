@@ -12,7 +12,7 @@ const Home = () => {
     useEffect(() => {
         updateBrand({
             logo: BrandLogo,
-            name: 'MURPH'
+            name: 'MANOJ'
         });
     }, [updateBrand]);
     
