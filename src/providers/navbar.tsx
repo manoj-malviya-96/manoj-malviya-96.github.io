@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import AtomToolbar from "../atoms/atom-toolbar";
 import WebsiteLogo from "../main/assets/logo.svg";
 import {AtomThemeSensitiveImage} from "../atoms/atom-image";
+import {AtomPrimaryText, AtomTitleText} from "../atoms/atom-text";
 
 interface BrandLogoProps {
 	logo: string;
@@ -63,11 +64,13 @@ const Navbar = React.memo(() => {
 			start={(
 				// Brand Logo
 				<div className='flex flex-row w-fit h-fit justify-center items-center
-                        backdrop-blur-md gap-2 px-4 py-2 m-0
-                        bg-primary rounded-full '>
+                       gap-2 px-4 py-2 m-0 bg-opacity-50
+						backdrop-blur-lg shadow-none
+						border border-secondary border-opacity-10
+						rounded-full'>
 					<AtomThemeSensitiveImage src={brand.logo} alt={brand.name}
 					                         className='w-6 h-6'/>
-					<h1 className='text-lg font-bold text-center m-auto'>{brand.name}</h1>
+					<AtomPrimaryText>{brand.name}</AtomPrimaryText>
 				</div>
 			)}
 			end={(

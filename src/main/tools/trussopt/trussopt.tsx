@@ -13,7 +13,8 @@ import {useTheme} from "../../../providers/theme";
 import AtomStats, {StatSeverity} from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
-import AtomGroup, {AtomGroupLayout} from "../../../atoms/atom-group";
+import AtomStyledContainer from "../../../atoms/atom-styled-container";
+import {AtomColumn, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
 
 const AppName = 'TrussOpt';
 
@@ -105,115 +106,116 @@ const TrussOptView = () => {
 				<div
 					className="w-full h-full md:w-fit md:h-fit
                         flex flex-col gap-3">
-					<AtomGroup
+					<AtomStyledContainer
 						label={'Design Inital Truss'}
-						className={'w-full'}
 					>
-						<div className="p-0 flex flex-row justify-center items-center">
-							<AtomKnob
-								label='Width'
-								min={cellSize}
-								max={100}
-								step={cellSize}
-								initValue={meshWidth}
-								onChange={setMeshWidth}
+						<AtomColumn>
+							<AtomRow size={AtomLayoutSize.FullWidth}>
+								<AtomKnob
+									label='Width'
+									min={cellSize}
+									max={100}
+									step={cellSize}
+									initValue={meshWidth}
+									onChange={setMeshWidth}
+								/>
+								<AtomKnob
+									label='Height'
+									min={cellSize}
+									max={100}
+									step={cellSize}
+									initValue={meshHeight}
+									onChange={setMeshHeight}
+								/>
+								<AtomKnob
+									label='Cell Size'
+									min={5}
+									max={20}
+									step={5}
+									initValue={cellSize}
+									onChange={setCellSize}
+								/>
+							</AtomRow>
+							<AtomDropdown
+								placeholder='Select Lattice Type'
+								initialIndex={0}
+								dropdownIcon={'fas fa-layer-group'}
+								options={[
+									{
+										label: 'Cross',
+										value: LatticeType.Cross
+									},
+									{
+										label: 'Checker',
+										value: LatticeType.Checkerboard
+									}
+								]}
+								className={'w-32 mx-auto'}
+								onClick={setLatticeType}
 							/>
-							<AtomKnob
-								label='Height'
-								min={cellSize}
-								max={100}
-								step={cellSize}
-								initValue={meshHeight}
-								onChange={setMeshHeight}
-							/>
-							<AtomKnob
-								label='Cell Size'
-								min={5}
-								max={20}
-								step={5}
-								initValue={cellSize}
-								onChange={setCellSize}
-							/>
-						</div>
-						<AtomDropdown
-							placeholder='Select Lattice Type'
-							initialIndex={0}
-							dropdownIcon={'fas fa-layer-group'}
-							options={[
-								{
-									label: 'Cross',
-									value: LatticeType.Cross
-								},
-								{
-									label: 'Checker',
-									value: LatticeType.Checkerboard
-								}
-							]}
-							className={'w-32 mx-auto'}
-							onClick={setLatticeType}
-						/>
-					</AtomGroup>
+						</AtomColumn>
+					</AtomStyledContainer>
 					
-					<AtomGroup
-						label={'FEA'}
-						layout={AtomGroupLayout.Horizontal}
-						className={'w-full'}>
-						
-						<AtomToggleButton
-							offIcon='fas fa-lock-open'
-							onIcon='fas fa-lock'
-							tooltip='Add fix nodes to the truss, disabled for now'
-							initValue={false}
-							disabled={true}
-							onChange={(e) => console.log(e)}
-						/>
-						<AtomToggleButton
-							offIcon='fas fa-arrow-up'
-							onIcon='fas fa-arrow-down'
-							tooltip='Add Load nodes to the truss, disabled for now'
-							initValue={false}
-							disabled={true}
-							onChange={(e) => console.log(e)}
-						/>
-						<AtomToggleButton
-							offLabel='Simulate'
-							offIcon='fas fa-play'
-							onIcon='fas fa-stop'
-							tooltip='simulate the truss'
-							initValue={controller.feaEngine !== null}
-							type={ButtonType.Outlined}
-							onChange={(e: boolean) => {
-								if (e) {
-									simulate();
-								} else {
-									controller.addFeaResults(null);
-								}
-							}}
-						/>
-					</AtomGroup>
+					<AtomStyledContainer label={'FEA'}>
+						<AtomRow size={AtomLayoutSize.FullWidth}>
+							<AtomToggleButton
+								offIcon='fas fa-lock-open'
+								onIcon='fas fa-lock'
+								tooltip='Add fix nodes to the truss, disabled for now'
+								initValue={false}
+								disabled={true}
+								onChange={(e) => console.log(e)}
+							/>
+							<AtomToggleButton
+								offIcon='fas fa-arrow-up'
+								onIcon='fas fa-arrow-down'
+								tooltip='Add Load nodes to the truss, disabled for now'
+								initValue={false}
+								disabled={true}
+								onChange={(e) => console.log(e)}
+							/>
+							<AtomToggleButton
+								offLabel='Simulate'
+								offIcon='fas fa-play'
+								onIcon='fas fa-stop'
+								tooltip='simulate the truss'
+								initValue={controller.feaEngine !== null}
+								type={ButtonType.Outlined}
+								onChange={(e: boolean) => {
+									if (e) {
+										simulate();
+									} else {
+										controller.addFeaResults(null);
+									}
+								}}
+							/>
+						</AtomRow>
+					</AtomStyledContainer>
 					
-					<AtomGroup
+					<AtomStyledContainer
 						label={'Optimization'}
 						className={'w-full'}>
-						<AtomButton
-							label='Optimize'
-							icon='fas fa-bolt-lightning'
-							severity={ButtonSeverity.Info}
-							tooltip={'optimize the truss'}
-							onClick={optimize}
-						/>
-						<AtomButton
-							icon='fas fa-trash'
-							label={'Clear'}
-							severity={ButtonSeverity.Error}
-							tooltip={'clear optimization results'}
-							onClick={clearOptimize}
-						/>
-					</AtomGroup>
+						<AtomRow size={AtomLayoutSize.FullWidth}>
+							<AtomButton
+								label='Optimize'
+								icon='fas fa-bolt-lightning'
+								severity={ButtonSeverity.Info}
+								tooltip={'optimize the truss'}
+								onClick={optimize}
+							/>
+							<AtomButton
+								icon='fas fa-trash'
+								label={'Clear'}
+								severity={ButtonSeverity.Error}
+								tooltip={'clear optimization results'}
+								onClick={clearOptimize}
+							/>
+						</AtomRow>
+					</AtomStyledContainer>
 				</div>
-				<AtomGroup
+				<AtomStyledContainer
 					label={'Truss Structure'}
-					className={'w-full h-full'}
+					className={'w-full h-full relative'}
 				>
 					<AtomCanvas controller={controller} animationLoop={false}
 					            isLoading={canvasLoading}
@@ -231,7 +233,7 @@ const TrussOptView = () => {
 							severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
 						/>
 					</div>
-				</AtomGroup>
+				</AtomStyledContainer>
 			</div>
 		</AppView>
 	)

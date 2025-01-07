@@ -4,7 +4,7 @@ import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
 import {AtomCardGrid} from "../atoms/atom-card";
-import AtomGroup from "../atoms/atom-group";
+import AtomStyledContainer from "../atoms/atom-styled-container";
 import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomHeroTitleText} from "../atoms/atom-text";
 
@@ -31,11 +31,11 @@ const ToolDrawer = () => {
 					<AtomHeroTitleText>Creating in</AtomHeroTitleText>
 					<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
 				</AtomRow>
-				<AtomGroup label="Playground">
+				<AtomStyledContainer label="Playground">
 					<AtomCardGrid
 						items={items}
 						classNameForCard={'w-44 h-36'}/>
-				</AtomGroup>
+				</AtomStyledContainer>
 			</AtomColumn>
 		</AtomFullScreenContainer>
 	);

@@ -5,14 +5,14 @@ import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
 import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
-import AtomGroup, {AtomGroupLayout} from "../atoms/atom-group";
+import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {
 	AtomHeroBrandTitleText,
 	AtomPrimaryBadge, AtomPrimaryText,
 } from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomGrid, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -59,24 +59,22 @@ const SocialMediaButtons = () => {
 			} as AtomButtonProps;
 		});
 	return (
-		<AtomGroup className={'w-full p-0 gap-0'} label={'Find me here'} hug={true}>
+		<AtomStyledContainer label={'Find me here'} hug={true}>
 			{socialMediaItems.map((item, index) => (
 				<AtomButton
 					key={index}
 					{...item}
 				/>
 			))}
-		</AtomGroup>
+		</AtomStyledContainer>
 	)
 }
 
 
 const AboutMeParagraph = () => {
 	return (
-		<AtomGroup
+		<AtomStyledContainer
 			label={'About Me'}
-			layout={AtomGroupLayout.Vertical}
-			className={'w-full'}
 		>
 			<AtomPrimaryText
 				className={'w-full p-0 justify-start'}
@@ -87,7 +85,7 @@ const AboutMeParagraph = () => {
 				Complex challenges? Consider them solved with
 				precision and artistry.
 			</AtomPrimaryText>
-		</AtomGroup>
+		</AtomStyledContainer>
 	)
 }
 
@@ -103,12 +101,10 @@ const CareerHighlights = () => {
 		};
 	});
 	return (
-		<AtomGroup
-			label={'Career Highlights'}
-			layout={AtomGroupLayout.Horizontal}
-			className="w-full h-fit">
+		<AtomStyledContainer
+			label={'Career Highlights'}>
 			<AtomTimeline items={timelineData} className={'h-fit p-0'}/>
-		</AtomGroup>
+		</AtomStyledContainer>
 	)
 }
 
@@ -132,16 +128,17 @@ const Skills = () => {
 	]
 	
 	return (
-		<AtomGroup
+		<AtomStyledContainer
 			label={'Skills'}
-			className={'w-full'}
-			layout={AtomGroupLayout.Grid3}>
-			{skills.map(
-				(skill, index) => (
-					<AtomPrimaryBadge key={index} className={'w-fit'}>{skill}</AtomPrimaryBadge>
-				))
-			}
-		</AtomGroup>
+			className={'w-full'}>
+			<AtomGrid>
+				{skills.map(
+					(skill, index) => (
+						<AtomPrimaryBadge key={index} className={'w-fit'}>{skill}</AtomPrimaryBadge>
+					))
+				}
+			</AtomGrid>
+		</AtomStyledContainer>
 	)
 }
 
@@ -165,11 +162,11 @@ const AboutMe = () => {
 			children={
 				<AtomRow
 					size={AtomLayoutSize.FullSize}
-					alignment={AtomLayoutAlignment.VStart}>
+					alignment={AtomLayoutAlignment.Start}>
 					
 					<AtomColumn
 						className={'w-full md:w-1/2'}
-						alignment={AtomLayoutAlignment.HStart}
+						alignment={AtomLayoutAlignment.VStart}
 						size={AtomLayoutSize.None}>
 						<HeroTextAboutMe/>
 						<AboutMeParagraph/>
@@ -181,11 +178,11 @@ const AboutMe = () => {
 						alignment={AtomLayoutAlignment.VStart}
 						size={AtomLayoutSize.FullWidth}>
 						<CareerHighlights/>
-						<AtomGroup
+						<AtomStyledContainer
 							label={'Github Profile'}
 							className="w-full">
 							<GithubProfile/>
-						</AtomGroup>
+						</AtomStyledContainer>
 					</AtomColumn>
 				</AtomRow>
 			}

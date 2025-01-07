@@ -41,13 +41,13 @@ interface AtomLayoutProps {
 export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 	                                                              className = '',
 	                                                              gap = AtomLayoutGap.Medium,
-	                                                              size = AtomLayoutSize.Fit,
+	                                                              size = AtomLayoutSize.FullHeight,
 	                                                              alignment = AtomLayoutAlignment.Center,
 	                                                              onClick,
 	                                                              children
                                                               }) => {
 	return (
-		<div className={`flex flex-col md:flex-row ${size} ${gap} ${className} ${alignment}`}
+		<div className={`flex flex-col  md:flex-row ${size} ${gap} ${className} ${alignment}`}
 		     onClick={onClick}>
 			{children}
 		</div>
@@ -57,7 +57,7 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	                                                                 className = '',
 	                                                                 gap = AtomLayoutGap.Medium,
-	                                                                 size = AtomLayoutSize.Fit,
+	                                                                 size = AtomLayoutSize.FullWidth,
 	                                                                 alignment = AtomLayoutAlignment.Center,
 	                                                                 onClick,
 	                                                                 children

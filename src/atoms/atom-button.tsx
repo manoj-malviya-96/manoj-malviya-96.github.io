@@ -1,5 +1,6 @@
 import React from 'react';
 import AtomSimpleMotionContainer, {HoverScale} from './atom-simple-motion-container';
+import {AtomPrimaryText} from "./atom-text";
 
 export enum ButtonSize {
 	ExtraSmall = 'btn-xs',
@@ -10,11 +11,12 @@ export enum ButtonSize {
 }
 
 export enum ButtonSeverity {
-	Primary = 'btn-primary hover:btn-secondary shadow-none',
-	Success = 'btn-success border-success',
-	Info = 'btn-info border-info',
-	Warning = 'btn-warning border-warning',
-	Error = 'btn-error border-error',
+	Primary = `btn-primary hover:btn-secondary bg-opacity-50
+				hover:bg-opacity-100 backdrop-blur-lg shadow-none border-secondary border-opacity-10`,
+	Success = 'btn-success border-none',
+	Info = 'btn-info border-none',
+	Warning = 'btn-warning border-none',
+	Error = 'btn-error border-none',
 }
 
 export enum ButtonType {
@@ -64,7 +66,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 				hoverScale={!label ? HoverScale.LARGE : HoverScale.MEDIUM}>
 				<button
 					className={`btn ${label && pill ? 'md:px-6' :
-                            label && !pill ? 'md:px-2' : 'btn-circle'}
+                                label && !pill ? 'md:px-2' : 'btn-circle'}
                                 ${pill ? 'rounded-full' : 'rounded-lg'}
                                 ${daisyClass}
                                 ${className}`}
@@ -79,11 +81,11 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 					{loading && <div className="spinner spinner-primary"/>}
 					{icon && <i className={`${icon} ${animated ? 'animate-pulse' : ''}`}/>}
 					{label &&
-                        <span className=
+                        <AtomPrimaryText className=
 							      {`hidden sm:inline ml-auto
                                   ${animated ? 'animate-pulse' : ''}`}>
                             {label}
-                        </span>
+                        </AtomPrimaryText>
 					}
 				</button>
 			</AtomSimpleMotionContainer>
