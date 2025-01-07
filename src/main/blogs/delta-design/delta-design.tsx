@@ -7,8 +7,8 @@ import {AtomColumn, AtomLayoutSize} from "../../../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomPrimaryText} from "../../../atoms/atom-text";
 import React from "react";
 import AtomImage from "../../../atoms/atom-image";
-import Plotter from "../../../atoms/plotter";
 import AtomHeroGrid from "../../../atoms/atom-hero-grid";
+import AtomHeatmapChart from "../../../atoms/charts/atom-heatmap";
 
 
 const IntroSection = () => {
@@ -64,7 +64,7 @@ const GameSection = () => {
 }
 
 const StateResultSection = () => {
-	const stateHeatmap: Plotly.Data = {
+	const stateHeatmap = {
 		z: [
 			[0.28, 0.27, 0.02, 0.02, 0.03, 0.04, 0.04, 0.0, 0.35], // S1
 			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], // S2
@@ -84,13 +84,13 @@ const StateResultSection = () => {
 		],
 		y: ["S1", "S2", "S3", "S4"],
 		colorscale: heatmapColorScale,
-		type: "heatmap",
-		xgap: 7,
-		ygap: 7,
-		showscale: false,
+		title: 'Design Step vs Hidden States',
+		xTitle: 'Design Step',
+		yTitle: 'Hidden State',
+		height: `400px` as ChartDimension,
 	};
 	
-	const stateTransition: Plotly.Data = {
+	const stateTransition = {
 		z: [
 			[0.05, 0.91, 0.03, 0],
 			[0.75, 0.07, 0.05, 0.13],
@@ -100,10 +100,10 @@ const StateResultSection = () => {
 		x: ["S1", "S2", "S3", "S4"],
 		y: ["S1", "S2", "S3", "S4"],
 		colorscale: heatmapColorScale,
-		type: "heatmap",
-		xgap: 7,
-		ygap: 7,
-		showscale: false,
+		title: 'Transition between Hidden States',
+		xTitle: 'Hidden State',
+		yTitle: 'Hidden State',
+		height: `400px` as ChartDimension,
 	}
 	return (
 		<AtomColumn size={AtomLayoutSize.FullWidth}>
@@ -112,13 +112,8 @@ const StateResultSection = () => {
 				investigate high- and low-performing designers (as classified using their design performance),
 				and efficient- and inefficient designers (as classified using number of actions they took).
 			</AtomPrimaryText>
-			<Plotter
-				dataTrace={[stateHeatmap]}
-				className={'m-auto align-center justify-center w-full'}
-				title={'Design Step vs Hidden States'}
-				xTitle={'Design Step'}
-				yTitle={'Hidden State'}
-				textColor={'gray'}
+			<AtomHeatmapChart
+				{...stateHeatmap}
 			/>
 			<AtomPrimaryText>
 				In this study, HMM highlighted variances and similarities in how different designer groups moved through
@@ -127,12 +122,8 @@ const StateResultSection = () => {
 				graduate engineering programs. Findings showed that while both efficient and inefficient designers could
 				score well, their behavior patterns differed significantly.
 			</AtomPrimaryText>
-			<Plotter dataTrace={[stateTransition]}
-			         className={'m-auto align-center justify-center w-full'}
-			         title={'Transition between Hidden States'}
-			         xTitle={'Hidden State'}
-			         yTitle={'Hidden State'}
-			         textColor={'gray'}
+			<AtomHeatmapChart
+				{...stateTransition}
 			/>
 		</AtomColumn>
 	)
