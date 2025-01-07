@@ -8,7 +8,8 @@ import matlab from "react-syntax-highlighter/dist/esm/languages/hljs/matlab";
 import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
 import {AtomButton, ButtonSize, ButtonType} from "./atom-button";
 import {useTheme} from "../providers/theme";
-import AtomGroup from "./atom-group";
+import AtomStyledContainer from "./atom-styled-container";
+import {AtomColumn} from "./atom-layout";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);
@@ -47,8 +48,8 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = React.memo(({
 	};
 	
 	return (
-		<AtomGroup className={`relative ${className}`}
-		           label={language}
+		<AtomStyledContainer className={`relative w-full ${className}`}
+		                     label={language}
 		>
 			<div className="absolute top-0 right-0 p-2">
 				<AtomButton
@@ -66,7 +67,7 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = React.memo(({
 			                   className="w-full h-fit">
 				{code}
 			</SyntaxHighlighter>
-		</AtomGroup>
+		</AtomStyledContainer>
 	);
 });
 

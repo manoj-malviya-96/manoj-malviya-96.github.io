@@ -39,6 +39,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(({
 				<img
 					src={src}
 					alt={alt}
+					className={'w-full h-full object-cover rounded-md'}
 					loading="lazy"
 				/>
 				{preview && <div className={`absolute inset-0 bg-primary
@@ -49,7 +50,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(({
                     <i className={"fas fa-magnifying-glass-plus text-2xl"}/>
                 </div>
 				}
-				{showLabel && <AtomSecondaryText className="text-sm text-neutral" text={alt}/>}
+				{showLabel && <AtomSecondaryText className="text-sm text-neutral">{alt}</AtomSecondaryText>}
 			</div>
 			
 			{/* Full-Screen Overlay */}
@@ -94,5 +95,5 @@ export const AtomThemeSensitiveImage: React.FC<AtomSvgProps> = React.memo(({src,
 	return <img src={src} alt={alt}
 	            className={className}
 	            loading="eager"
-	            style={{filter: isDark ? 'brightness(169%)' : ''}}/>;
+	            style={{filter: isDark ? 'brightness(121%)' : ''}}/>;
 });

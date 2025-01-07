@@ -2,6 +2,7 @@ import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import {BentoBoxItemProps} from "./atom-bentobox";
 import {AtomDateAndText, AtomSecondaryText, AtomTitleText} from "./atom-text";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize} from "./atom-layout";
 
 export interface AtomCardProps extends BentoBoxItemProps {
 	image: string;
@@ -42,7 +43,7 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
                             opacity-0 group-hover:opacity-100 transition-opacity duration-300
                             group-hover:bg-secondary group-hover:text-secondary-content">
 				
-				<h2 className="card-title text-center">{title}</h2>
+				<h2 className="card-title text-center italic">{title}</h2>
 				{isNew && <span className="badge badge-info">New</span>}
 				{date && (
 					<span className="text-sm text-center">
@@ -59,7 +60,7 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
 			<span className="absolute left-0 top-0 p-2 group-hover:opacity-0
                             text-white font-bold uppercase">{title}
 			</span>
-			{category && <AtomSecondaryText text={category}/>}
+			{category && <AtomSecondaryText>{category}</AtomSecondaryText>}
 		
 		</div>
 	);
@@ -76,28 +77,27 @@ export const AtomSimpleCard: React.FC<AtomCardProps> = React.memo(({
                                                                    }) => {
 	return (
 		<AtomSimpleMotionContainer enableHoverEffect={true}>
-			<div
-				className={`cursor-pointer overflow-hidden p-4
-                            flex flex-col items-center justify-center transition ${className}`}
+			<AtomColumn
 				onClick={onClick}
-			>
+				size={AtomLayoutSize.None}
+				className={`cursor-pointer overflow-hidden p-4 transition ${className}`}>
 				<img
 					src={image}
 					alt={title}
 					loading="lazy"
 					className="w-full h-2/3 object-contain"
 				/>
-				<div className="w-full flex flex-col items-center gap-0 p-2 h-full">
-					<AtomTitleText text={title} className={'text-center'}/>
+				<AtomColumn gap={AtomLayoutGap.None}>
+					<AtomTitleText children={title} className={'text-center'}/>
 					{isNew && <span className="badge badge-info">New</span>}
 					{date && (
-						<AtomDateAndText text={date}/>
+						<AtomDateAndText children={date}/>
 					)}
 					{description && (
-						<AtomSecondaryText text={description} className={'text-center'}/>
+						<AtomSecondaryText children={description} className={'text-center'}/>
 					)}
-				</div>
-			</div>
+				</AtomColumn>
+			</AtomColumn>
 		</AtomSimpleMotionContainer>
 	);
 });

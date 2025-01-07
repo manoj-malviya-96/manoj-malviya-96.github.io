@@ -40,9 +40,9 @@ const AtomDialog = forwardRef<HTMLDivElement, AtomDialogProps>(
 					</div>
 					<div className="flex flex-col justify-center items-center p-4">
 						<AtomTitleText
-							text={title ? title : "Dialog"}
+							
 							className="text-primary-content text-2xl font-bold text-center"
-						/>
+						>{title ? title : "Dialog"}</AtomTitleText>
 						<div className="mt-4">{content}</div>
 					</div>
 				</div>

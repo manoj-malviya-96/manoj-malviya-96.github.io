@@ -1,12 +1,12 @@
 import React from 'react';
 import ToolInfo from "../tool-info";
-import Logo from '../logos/mesha.svg';
+import Logo from '../logos/nestor.svg';
 import AppView from "../app-view";
 import {AtomHeroTitleText} from "../../../atoms/atom-text";
 
-const AppName = 'MESHA';
+const AppName = 'NESTOR';
 
-const MeshaView = () => {
+const NestorView = () => {
 	return (
 		<AppView
 			appName={AppName}
@@ -18,15 +18,15 @@ const MeshaView = () => {
 	)
 }
 
-class Mesha extends ToolInfo {
+class Nestor extends ToolInfo {
 	constructor() {
 		super({
-			id: 'mesha',
+			id: 'nestor',
 			name: AppName,
-			description: 'visualize + analyze + edit your 3D mesh',
+			description: 'max duplicate all items in a box',
 			cover: Logo,
 			componentConstructor: () => (
-				<MeshaView/>
+				<NestorView/>
 			)
 		});
 	}
@@ -34,6 +34,6 @@ class Mesha extends ToolInfo {
 
 
 // We keep everything private and only expose the instance.
-const meshaInstance = new Mesha()
+const nestorInstance = new Nestor()
 ;
-export default meshaInstance;
+export default nestorInstance;

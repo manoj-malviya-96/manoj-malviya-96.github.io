@@ -19,7 +19,8 @@ export const registeredBlogs = [
 export const jobRelatedBlogs = [
     pennStateRDInstance,
     formlabsRDInstance,
-    formlabsSWInstance]
+    formlabsSWInstance
+]
 
 export const makeBlogRouters = () => {
     return rangesTo(registeredBlogs.concat(jobRelatedBlogs), (blog) => {

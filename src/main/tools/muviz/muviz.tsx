@@ -154,21 +154,21 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                     <AtomButton
                         icon="fa-solid fa-arrow-rotate-left"
                         type={ButtonType.Ghost}
-                        size={ButtonSize.Large}
+                        size={ButtonSize.ExtraLarge}
                         onClick={skipBackward}
                         disabled={!src || currentTime < 10}
                     />
                     <AtomButton
                         icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
                         disabled={!src}
-                        size={ButtonSize.Large}
+                        size={ButtonSize.ExtraLarge}
                         type={ButtonType.Ghost}
                         onClick={handlePlayOrPause}
                     />
                     <AtomButton
                         icon="fa-solid fa-arrow-rotate-right"
                         type={ButtonType.Ghost}
-                        size={ButtonSize.Large}
+                        size={ButtonSize.ExtraLarge}
                         onClick={skipForward}
                         disabled={!src}
                     />

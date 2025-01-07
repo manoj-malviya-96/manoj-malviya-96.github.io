@@ -1,8 +1,8 @@
 import {rangesTo} from "../../common/math";
 import {getScaleColor} from "../../common/color-utils";
-import {TabItemProps} from "../../atoms/atom-tab-bar";
 import {BentoItemSize} from "../../atoms/atom-bentobox";
 import {BlogSectionContentProps} from "./blog-constructor";
+import {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
 
 export type categoryType = "Programming" | "Projects" | "Life";
 
@@ -11,12 +11,11 @@ interface BlogInfoConstructor {
     title: string;
     description: string;
     summary: string;
-    date: string; // Use `Date` if this is a Date object instead of
-                  // a string.
+    date: string;
     tags: string[];
-    cover: string; // URL or path to the cover image.
+    cover: string;
     sections: BlogSectionContentProps[];
-    logo?: string; // Optional with a default value.
+    logo?: string;
     isNew?: boolean; // Optional with a default value.
     cardSize?: BentoItemSize;
     category?: categoryType;
@@ -72,11 +71,10 @@ export class BlogInfo {
             return {
                 name: section.name,
                 label: section.title,
-                icon: section.icon
-            } as TabItemProps;
+            } as TableOfContentsItemProps;
         });
     }
 }
 
 export const heatmapColorScale =
-    getScaleColor("rgb(83,139,216)", "rgba(94,94,94,0.87)", 8);
+    getScaleColor("rgb(239,153,50)", "rgba(109,161,236,0.87)", 8);

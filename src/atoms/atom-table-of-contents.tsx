@@ -1,36 +1,45 @@
 import React from "react";
 import AtomScrollableLink from "./atom-scrollable-link";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
+import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
 
 
 export interface TableOfContentsItemProps {
-    name: string;
-    label: string;
+	name: string;
+	label: string;
 }
 
 interface TableOfContentsProps {
-    className?: string;
-    sections: Array<TableOfContentsItemProps>;
+	className?: string;
+	label?: string;
+	sections: Array<TableOfContentsItemProps>;
 }
 
 const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
-                                                                            sections,
-                                                                            className
+	                                                                        sections,
+	                                                                        label,
+	                                                                        className
                                                                         }) => {
-    return (
-        <div className={`flex flex-col gap-2 ${className}`}>
-            {sections.map((item, index) => (
-                <AtomScrollableLink
-                    key={index}
-                    elementName={item.name}
-                    className="px-2 text-sm cursor-pointer "
-                    activeClassName="text-primary-content text-sm font-bold underline"
-                    children={
-                        <span>{item.label}</span>
-                    }
-                />
-            ))}
-        </div>
-    )
+	return (
+		<AtomColumn
+			gap={AtomLayoutGap.None}
+			alignment={AtomLayoutAlignment.Start}
+			className={className}
+		>
+			{label && <AtomPrimaryText className={'w-full border-b my-2 border-secondary'}>{label}</AtomPrimaryText>}
+			{sections.map((item, index) => (
+				<AtomScrollableLink
+					key={index}
+					elementName={item.name}
+					className="cursor-pointer"
+					activeClassName="text-accent font-bold"
+					children={
+						<AtomSecondaryText>{item.label}</AtomSecondaryText>
+					}
+				/>
+			))}
+		</AtomColumn>
+	)
 });
 
 export default AtomTableOfContents;
