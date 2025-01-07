@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import AtomToolbar from "../atoms/atom-toolbar";
 import WebsiteLogo from "../main/assets/logo.svg";
 import {AtomThemeSensitiveImage} from "../atoms/atom-image";
-import {AtomPrimaryText, AtomTitleText} from "../atoms/atom-text";
+import {AtomPrimaryText} from "../atoms/atom-text";
 
 interface BrandLogoProps {
 	logo: string;

@@ -9,7 +9,6 @@ import qml from "react-syntax-highlighter/dist/esm/languages/hljs/qml";
 import {AtomButton, ButtonSize, ButtonType} from "./atom-button";
 import {useTheme} from "../providers/theme";
 import AtomStyledContainer from "./atom-styled-container";
-import {AtomColumn} from "./atom-layout";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("cpp", cpp);
