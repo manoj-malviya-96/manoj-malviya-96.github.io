@@ -95,7 +95,7 @@ interface BlogConstructorProps {
 
 const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 	return (
-		<div className={'relative px-12 w-screen h-fit'}>
+		<div className={'relative px-8 mt-16 w-screen h-fit'}>
 			<BlogSidePanel
 				title={item.title}
 				summary={item.summary}
@@ -103,13 +103,13 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 				tags={item.tags}
 				tabs={item.tabs()}
 				className={`w-full max-h-screen md:w-1/4
-							block md:fixed left-8 top-16
+							block md:fixed left-8 top-1/2 -translate-y-1/2
 							bg-neutral bg-opacity-15 p-8 rounded-lg`}
 			/>
-			<div className="md:absolute left-1/4 px-8 top-0 w-full md:w-3/4 h-fit p-8">
+			<div className="md:absolute left-1/4 px-8 top-0 w-full md:w-3/4 h-fit">
 				{item.cover && <AtomImage
                     src={item.cover} alt={item.title}
-                    className={'w-full h-screen p-8'}/>}
+                    className={'mx-auto w-2/3 p-8'}/>}
 				{item.sections.map((secProps: BlogSectionContentProps, index: number) => (
 					<BlogSection key={index} {...secProps} />
 				))}
