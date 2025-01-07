@@ -1,6 +1,5 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./cover.webp";
-import {BlogSectionContentProps} from "../blog-constructor";
 import {BentoItemSize} from "../../../atoms/atom-bentobox";
 import {AtomColumn} from "../../../atoms/atom-layout";
 import React from "react";
