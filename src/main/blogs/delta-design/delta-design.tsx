@@ -132,21 +132,27 @@ const StateResultSection = () => {
 const ConclusionSection = () => {
 	const results = [
 		{
-			size: BentoItemSize.Medium,
+			icon: 'fas fa-check',
+			title: 'Efficient Designers',
+			size: BentoItemSize.Large,
 			summary: `High-performing designers tend to break down complex problems into manageable sub-problems and relate them to familiar concepts.`,
 		},
 		{
+			icon: 'fas fa-cross',
+			title: 'Inefficient Designers',
 			size: BentoItemSize.Medium,
 			summary: `The inefficient designers took a more trial-and-error approach, resulting in rougher state transitions via the HMM.`,
 		},
 		{
+			icon: 'fas fa-question',
+			title: 'Intermediate Designers',
 			size: BentoItemSize.Medium,
 			summary: `Intermediate designers may still develop strategies for novel problems, illustrating design theory’s relevance in a group neither novice nor expert.`,
 		}
 	];
 	return (
 		<AtomColumn>
-			<AtomPrimaryText>
+			<AtomPrimaryText className={'w-full'}>
 				Interpreted through Schraagen’s design theory, we observed:
 			</AtomPrimaryText>
 			<AtomHeroGrid contentList={results}/>

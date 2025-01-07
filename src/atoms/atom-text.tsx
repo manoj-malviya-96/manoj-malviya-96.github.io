@@ -4,7 +4,7 @@ import AtomButton, {ButtonSeverity, ButtonSize} from "./atom-button";
 
 
 interface AtomTextProps {
-	children: ReactNode;
+	children?: ReactNode;
 	className?: string;
 }
 
