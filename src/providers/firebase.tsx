@@ -3,13 +3,13 @@ import {getAnalytics} from "firebase/analytics";
 import React, {createContext, useContext} from "react";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyA07VY6CuhD3rUuUaAUsUOaIO91t7ak6uM",
-	authDomain: "murph-website.firebaseapp.com",
-	projectId: "murph-website",
-	storageBucket: "murph-website.firebasestorage.app",
-	messagingSenderId: "181860870774",
-	appId: "1:181860870774:web:fc7b5af0da45041f104d57",
-	measurementId: "G-SYFTD3EG9E"
+	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.REACT_APP_FIREBASE_APP_ID,
+	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
