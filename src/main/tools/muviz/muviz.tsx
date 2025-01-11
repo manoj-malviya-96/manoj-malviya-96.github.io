@@ -12,7 +12,7 @@ import Uneath from './sample-music/uneath.mp3';
 import {AtomCanvas, AtomCanvasController} from "../../../atoms/atom-canvas";
 import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../common/date";
-import {BarVisualizer, SpiralVisualizer, toString, VisualizerType} from "./visualizers";
+import {BarVisualizer, toString, VisualizerType} from "./visualizers";
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import {toggleFullScreen} from "../../../common/full-screen";
 import AppView from "../app-view";
@@ -60,12 +60,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         console.log("Creating visualizer...", toString(visualizerType));
         switch (visualizerType) {
             case VisualizerType.Spiral:
-                const spiralViz = new SpiralVisualizer({
-                    analyser: analyser,
-                    dataArray: dataArray,
-                });
-                setController(spiralViz);
-                break;
             case VisualizerType.Bar:
                 const barViz = new BarVisualizer({
                     analyser: analyser,
