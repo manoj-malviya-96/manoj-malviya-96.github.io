@@ -1,5 +1,5 @@
 import {AtomCanvasController} from "../../../atoms/atom-canvas";
-import {AnalyzerBufferSize, AudioFeatures} from "../../../common/audio";
+import {AudioFeatures} from "../../../common/audio";
 import {adjustColor} from "../../../common/color-utils";
 
 const AppColor = `rgb(47, 114, 214)`;

@@ -128,12 +128,10 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     
     useEffect(() => {
-        if (isFullScreen) {
-            addShortcut(" ", handlePlayOrPause);
-            return () => {
-                removeShortcut(" ");
-            };
-        }
+        addShortcut(" ", handlePlayOrPause);
+        return () => {
+            removeShortcut(" ");
+        };
     }, [handlePlayOrPause, addShortcut, removeShortcut]);
     
     
