@@ -6,7 +6,6 @@ import {
 	AtomClippedText,
 	AtomDateAndText,
 	AtomHeroTitleText,
-	AtomPrimaryText,
 	AtomSecondaryBadge, AtomSecondaryText, AtomSuperHeroTitleText,
 	AtomTitleText
 } from "../../atoms/atom-text";
