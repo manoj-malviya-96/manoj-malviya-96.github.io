@@ -34,6 +34,7 @@ export interface AtomButtonProps {
 	severity?: ButtonSeverity;
 	tooltip?: string;
 	pill?: boolean;
+	hoverEffect?: boolean;
 	disabled?: boolean;
 	loading?: boolean;
 	animated?: boolean;
@@ -48,6 +49,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 	                                                                 size = ButtonSize.Medium,
 	                                                                 type = ButtonType.Solid,
 	                                                                 tooltip,
+	                                                                 hoverEffect=true,
 	                                                                 pill = true,
 	                                                                 animated = false,
 	                                                                 disabled = false,
@@ -61,7 +63,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 		     data-tip={tooltip}>
 			
 			<AtomSimpleMotionContainer
-				enableHoverEffect={!disabled}
+				enableHoverEffect={!disabled && hoverEffect}
 				hoverScale={!label ? HoverScale.LARGE : HoverScale.MEDIUM}>
 				<button
 					className={`btn ${label && pill ? 'md:px-6' :

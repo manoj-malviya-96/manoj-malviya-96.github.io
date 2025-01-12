@@ -7,7 +7,7 @@ import {
 	AtomDateAndText,
 	AtomHeroTitleText,
 	AtomPrimaryText,
-	AtomSecondaryBadge, AtomSuperHeroTitleText,
+	AtomSecondaryBadge, AtomSecondaryText, AtomSuperHeroTitleText,
 	AtomTitleText
 } from "../../atoms/atom-text";
 import {
@@ -40,16 +40,16 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 			<AtomScrollContainer>
 				<AtomColumn
 					size={AtomLayoutSize.FullWidth}
-					gap={AtomLayoutGap.Small}
+					gap={AtomLayoutGap.ExtraSmall}
 					alignment={AtomLayoutAlignment.None}
 				>
 					<AtomHeroTitleText>{title}</AtomHeroTitleText>
 					<AtomDateAndText>{date}</AtomDateAndText>
 					<AtomClippedText
 						fullText={summary}
-						maxLength={300}
+						maxLength={315}
 						className={'my-4'}
-						textComponentConstructor={AtomPrimaryText}
+						textComponentConstructor={AtomSecondaryText}
 					/>
 					<AtomGrid
 						alignment={AtomLayoutAlignment.HStart}
@@ -108,7 +108,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 				<AtomBackgroundImage
 					src={item.cover}
 					className={`mx-auto w-full md:w-2/3 h-48 md:h-96 relative`}>
-					<AtomSuperHeroTitleText className={'absolute left-0 bottom-0 p-4'}>
+					<AtomSuperHeroTitleText className={'absolute left-0 bottom-0 p-4 text-white'}>
 						{item.title}
 					</AtomSuperHeroTitleText>
 				</AtomBackgroundImage>
