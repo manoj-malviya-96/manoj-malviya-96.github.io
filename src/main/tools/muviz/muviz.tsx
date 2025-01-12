@@ -1,22 +1,23 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import ToolInfo from "../tool-info";
 import {AudioPlayerProps, useAudioPlayer} from "../../../common/audio";
 import {AtomButton, ButtonSize, ButtonType} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
 
-import CallingON from './sample-music/calling.mp3';
-import CanYouFeelIt from './sample-music/can_u_feel_it.mp3';
-import Uneath from './sample-music/uneath.mp3';
+import Lioness from './sample-music/MM_Lioness.mp3';
+import Flood from './sample-music/Sebastian_Flood.mp3';
+import StayInit from './sample-music/FredAgain_StayInit.mp3';
 
-import {AtomCanvas, AtomCanvasController} from "../../../atoms/atom-canvas";
+import {AtomCanvas} from "../../../atoms/atom-canvas";
 import AtomSlider from "../../../atoms/atom-slider";
 import {formatTime} from "../../../common/date";
-import {BarVisualizer, toString, VisualizerType} from "./visualizers";
+import {AbstractVisualizer, BaseVisualizer, VisualizerType} from "./visualizers";
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import {toggleFullScreen} from "../../../common/full-screen";
 import AppView from "../app-view";
 import {DialogButton} from "../../../atoms/atom-dialog";
+import {useKeyboardManager} from "../../../providers/keyboard";
 
 const AppName = 'MUVIZ';
 
@@ -33,15 +34,14 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     // State Management
     const [src, setSrc] = useState<AudioPlayerProps["src"]>(null);
-    const [visualizerType, setVisualizerType] = useState(VisualizerType.Bar);
-    const [controller, setController] = useState<AtomCanvasController | null>(null);
+    const [visualizerType, setVisualizerType] = useState(VisualizerType.Abstract);
+    const [controller, setController] = useState<BaseVisualizer | null>(null);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const appRef = useRef<HTMLDivElement | null>(null);
+    const {addShortcut, removeShortcut} = useKeyboardManager();
     
     // Player Setup
     const {
-        analyser,
-        dataArray,
         isPlaying,
         play,
         pause,
@@ -51,26 +51,24 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         changeVolume,
         title,
         duration,
+        features
     } = useAudioPlayer({src, makeAnalyzer: true});
     
     const updateVisualizer = useCallback(async () => {
-        if (!analyser || !dataArray) {
-            return;
-        }
-        console.log("Creating visualizer...", toString(visualizerType));
         switch (visualizerType) {
             case VisualizerType.Spiral:
-            case VisualizerType.Bar:
-                const barViz = new BarVisualizer({
-                    analyser: analyser,
-                    dataArray: dataArray,
-                });
-                setController(barViz);
+            case VisualizerType.Abstract:
+                const viz = new AbstractVisualizer();
+                setController(viz);
                 break;
             default:
                 throw new Error("Invalid visualizer type");
         }
-    }, [analyser, dataArray, visualizerType]);
+    }, [visualizerType]);
+    
+    useEffect(()=>{
+        controller?.update(features);
+    }, [features, controller]);
     
     const stopController = useCallback(() => {
         if (controller) {
@@ -127,6 +125,16 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         changeVolume(volume === 0 ? 0.69 : 0);
     }, [volume, changeVolume]);
     const showHUD = !isPlaying;
+    
+    
+    useEffect(() => {
+        if (isFullScreen) {
+            addShortcut(" ", handlePlayOrPause);
+            return () => {
+                removeShortcut(" ");
+            };
+        }
+    }, [handlePlayOrPause, addShortcut, removeShortcut]);
     
     
     // Render
@@ -277,28 +285,24 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
 const defaultSongOptions =
     [
         {
-            label: 'calling on',
-            value: CallingON,
+            label: 'Lioness',
+            value: Lioness,
         } as AtomDropdownItemProps,
         {
-            label: 'can you feel it',
-            value: CanYouFeelIt,
+            label: 'Flood',
+            value: Flood,
         } as AtomDropdownItemProps,
         {
-            label: 'underneath it all',
-            value: Uneath,
+            label: 'STAYinit',
+            value: StayInit,
         } as AtomDropdownItemProps
     ];
 
 
 const defaultVizOptions = [
     {
-        label: toString(VisualizerType.Bar),
-        value: VisualizerType.Bar,
-    } as AtomDropdownItemProps,
-    {
-        label: toString(VisualizerType.Spiral),
-        value: VisualizerType.Spiral,
+        label: "Abstract",
+        value: VisualizerType.Abstract,
     } as AtomDropdownItemProps
 ]
 
