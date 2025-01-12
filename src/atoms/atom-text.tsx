@@ -62,7 +62,6 @@ export const AtomSuperHeroBrandTitleText: React.FC<AtomTextProps> = ({children, 
 	)
 }
 
-
 export interface AtomLinkProps extends AtomTextProps {
 	url: string;
 }

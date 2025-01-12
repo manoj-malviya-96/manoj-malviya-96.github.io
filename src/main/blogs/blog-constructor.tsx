@@ -1,6 +1,5 @@
 import React from 'react';
 import AtomTableOfContents, {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
-import AtomImage from "../../atoms/atom-image";
 import {Element} from 'react-scroll';
 import {BlogInfo} from "./blog-info";
 import {
@@ -8,7 +7,7 @@ import {
 	AtomDateAndText,
 	AtomHeroTitleText,
 	AtomPrimaryText,
-	AtomSecondaryBadge,
+	AtomSecondaryBadge, AtomSuperHeroTitleText,
 	AtomTitleText
 } from "../../atoms/atom-text";
 import {
@@ -20,6 +19,7 @@ import {
 } from "../../atoms/atom-layout";
 import AtomScrollContainer from "../../atoms/atom-scroll-container";
 import AtomStyledContainer from "../../atoms/atom-styled-container";
+import {AtomBackgroundImage} from "../../atoms/atom-image";
 
 
 interface BlogHeaderProps {
@@ -80,14 +80,13 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 	return (
 		<Element
 			name={name}
-			className={'flex flex-col w-full h-fit items-center justify-center my-8'}
+			className={'flex flex-col w-full h-fit items-center justify-center my-16 px-16'}
 		>
 			<AtomTitleText className={'w-full'}>{title}</AtomTitleText>
 			{children}
 		</Element>
 	)
 });
-
 
 interface BlogConstructorProps {
 	item: BlogInfo;
@@ -102,12 +101,17 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 				date={item.date}
 				tags={item.tags}
 				tabs={item.tabs()}
-				className={`w-full max-h-screen md:w-1/4 mt-24 block md:fixed left-6 top-0`}
+				className={`w-full max-h-screen md:w-1/4 mt-16 block md:fixed left-6 top-0`}
 			/>
-			<div className="md:absolute left-1/4 md:p-16 top-0 w-full md:w-3/4 h-fit">
-				{item.cover && <AtomImage
-                    src={item.cover} alt={item.title}
-                    className={'mx-auto w-full md:w-2/3 p-8'}/>}
+			<div
+				className="md:absolute left-1/4 mt-6 md:mt-0 md:p-16 top-0 w-full md:w-3/4 h-fit items-center justify-center">
+				<AtomBackgroundImage
+					src={item.cover}
+					className={`mx-auto w-full md:w-2/3 h-48 md:h-96 relative`}>
+					<AtomSuperHeroTitleText className={'absolute left-0 bottom-0 p-4'}>
+						{item.title}
+					</AtomSuperHeroTitleText>
+				</AtomBackgroundImage>
 				{item.sections.map((secProps: BlogSectionContentProps, index: number) => (
 					<BlogSection key={index} {...secProps} />
 				))}
