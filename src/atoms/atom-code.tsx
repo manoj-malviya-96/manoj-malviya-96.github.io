@@ -39,7 +39,7 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = React.memo(({
 			await navigator.clipboard.writeText(code);
 			setCopying(false);
 			setCopySuccess(true);
-			setTimeout(() => setCopySuccess(false), 1000);
+			setTimeout(() => setCopySuccess(false), 3000);
 		}
 		catch (err) {
 			console.error("Failed to copy: ", err);
