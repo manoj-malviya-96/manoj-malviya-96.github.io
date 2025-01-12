@@ -2,7 +2,7 @@ import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import {BentoBoxItemProps} from "./atom-bentobox";
 import {AtomDateAndText, AtomSecondaryText, AtomTitleText} from "./atom-text";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "./atom-layout";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize} from "./atom-layout";
 
 export interface AtomCardProps extends BentoBoxItemProps {
 	image: string;
