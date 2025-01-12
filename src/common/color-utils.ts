@@ -41,7 +41,7 @@ function isOklchAndConvert(input: string): any {
 export function adjustColor(
 	color: string,
 	opacity: number = 1,
-	brightness: number[] = [1, 1, 1]
+	brightness: number | number[] = 1,
 ): string {
 	
 	if (!color) {
@@ -59,8 +59,10 @@ export function adjustColor(
 	// Extract and parse RGB values
 	let [r, g, b] = match.map(Number);
 	
-	// Adjust brightness and ensure values are clamped between 0 and
-	// 255
+	if (!Array.isArray(brightness)){
+		brightness = [brightness, brightness, brightness]
+	}
+	
 	r = Math.min(255, Math.max(0, r * brightness[0]));
 	g = Math.min(255, Math.max(0, g * brightness[1]));
 	b = Math.min(255, Math.max(0, b * brightness[2]));
@@ -140,7 +142,7 @@ export function getScaleColor(
 		
 		// Add the scaled color to the result
 		result.push(
-			adjustColor(brandColor, 1, [intensity, intensity, intensity]),
+			adjustColor(brandColor, 1, intensity),
 		);
 	}
 	

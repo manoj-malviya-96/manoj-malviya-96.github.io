@@ -20,8 +20,8 @@ export enum ButtonSeverity {
 
 export enum ButtonType {
 	Outlined = 'border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100',
-	Ghost = `bg-transparent border-0 hover:bg-transparent hover:text-secondary
-            hover:border-0 hover:font-bold active:bg-transparent p-0`,
+	Ghost = `bg-transparent border-none hover:bg-transparent hover:text-secondary
+            hover:border-none hover:font-bold active:bg-transparent p-0`,
 	Solid = 'bg-opacity-50 hover:bg-opacity-100 backdrop-blur-lg shadow-none border-secondary border-opacity-10',
 }
 
@@ -66,11 +66,11 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 				enableHoverEffect={!disabled && hoverEffect}
 				hoverScale={!label ? HoverScale.LARGE : HoverScale.MEDIUM}>
 				<button
-					className={`btn ${label && pill ? 'md:px-6' :
+					className={`btn  ${label && pill ? 'md:px-6' :
 						label && !pill ? 'md:px-2' : 'btn-circle'}
                                 ${pill ? 'rounded-full' : 'rounded-lg'}
                                 ${daisyClass}
-                                ${className}`}
+                                shadow-none ${className}`}
 					onClick={(event) => {
 						event.stopPropagation();
 						if (!loading && !disabled && onClick) {

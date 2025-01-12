@@ -35,10 +35,13 @@ export function computeGradient(array: Array<number>) {
     });
 }
 
-export const sumRange = (range: Array<number>) =>
-    range.reduce((acc, val) => acc + val, 0);
+export const sumRange = (range: Array<number> | Float32Array | Float64Array): number =>
+    (Array.isArray(range) ? range : Array.from(range)).reduce(
+        (acc: number, val: number) => acc + val,
+        0
+    );
 
-export const meanRange = (range: Array<number>) =>
+export const meanRange = (range: Array<number> | Float32Array | Float64Array) =>
     sumRange(range) / range.length;
 
 
