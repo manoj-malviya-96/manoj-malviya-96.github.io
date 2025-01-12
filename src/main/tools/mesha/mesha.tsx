@@ -32,8 +32,4 @@ class Mesha extends ToolInfo {
 	}
 }
 
-
-// We keep everything private and only expose the instance.
-const meshaInstance = new Mesha()
-;
-export default meshaInstance;
+export default Mesha;

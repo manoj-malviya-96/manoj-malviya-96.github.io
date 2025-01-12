@@ -202,7 +202,7 @@ class QmlOptimization extends BlogInfo {
 			tags: ["QML", "Optimization", "Performance"],
 			cover: Cover,
 			isNew: true,
-			cardSize: BentoItemSize.Medium,
+			cardSize: BentoItemSize.Large,
 			summary: "A comprehensive guide to optimizing QML applications, with best practices, examples, and practical tips for improving performance.",
 			sections: [
 				{
@@ -240,5 +240,4 @@ class QmlOptimization extends BlogInfo {
 	}
 }
 
-const qmlOptimizationInstance = new QmlOptimization();
-export default qmlOptimizationInstance;
+export default QmlOptimization;

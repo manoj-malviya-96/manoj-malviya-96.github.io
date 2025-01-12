@@ -2,10 +2,11 @@ import React from 'react';
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import {BentoBoxItemProps} from "./atom-bentobox";
 import {AtomDateAndText, AtomSecondaryText, AtomTitleText} from "./atom-text";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize} from "./atom-layout";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "./atom-layout";
 
 export interface AtomCardProps extends BentoBoxItemProps {
 	image: string;
+	imageOverlay?: React.ReactNode;
 	title: string;
 	description?: string;
 	date?: string;
@@ -17,6 +18,7 @@ export interface AtomCardProps extends BentoBoxItemProps {
 
 export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
 	                                                                  image,
+	                                                                  imageOverlay,
 	                                                                  title,
 	                                                                  description,
 	                                                                  date,
@@ -38,30 +40,30 @@ export const AtomImageCard: React.FC<AtomCardProps> = React.memo(({
 				height: '100%',
 			}}
 		>
-			<div
-				className="w-full h-full p-2 flex flex-col items-center justify-center
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300
+			<AtomColumn
+				gap={AtomLayoutGap.None}
+				className="w-full h-full p-2 opacity-0
+							group-hover:opacity-100 transition-opacity duration-300
                             group-hover:bg-secondary group-hover:text-secondary-content">
 				
-				<h2 className="card-title text-center italic">{title}</h2>
-				{isNew && <span className="badge badge-info">New</span>}
+				<AtomTitleText>
+					{title}
+				</AtomTitleText>
+				
+				{isNew && <span className="badge badge-info">NEW</span>}
 				{date && (
-					<span className="text-sm text-center">
-                        <i className={`fas fa-calendar-alt mr-2`}/>
+					<AtomDateAndText>
 						{date}
-                    </span>
+					</AtomDateAndText>
 				)}
 				{description && (
-					<p className="text-sm font-sans text-center">
+					<AtomSecondaryText>
 						{description}
-					</p>
+					</AtomSecondaryText>
 				)}
-			</div>
-			<span className="absolute left-0 top-0 p-2 group-hover:opacity-0
-                            text-white font-bold uppercase">{title}
-			</span>
+			</AtomColumn>
+			{imageOverlay}
 			{category && <AtomSecondaryText>{category}</AtomSecondaryText>}
-		
 		</div>
 	);
 });

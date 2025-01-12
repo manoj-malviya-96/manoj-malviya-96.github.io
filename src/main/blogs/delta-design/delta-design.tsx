@@ -207,5 +207,5 @@ class DeltaDesign extends BlogInfo {
 	}
 }
 
-const deltaDesignInstance = new DeltaDesign();
-export default deltaDesignInstance;
+
+export default DeltaDesign;

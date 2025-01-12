@@ -32,8 +32,4 @@ class Nestor extends ToolInfo {
 	}
 }
 
-
-// We keep everything private and only expose the instance.
-const nestorInstance = new Nestor()
-;
-export default nestorInstance;
+export default Nestor;

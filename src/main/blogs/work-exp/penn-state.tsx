@@ -90,5 +90,4 @@ class PennStateRD extends BlogInfo {
 	}
 }
 
-const pennStateRDInstance = new PennStateRD();
-export default pennStateRDInstance;
+export default PennStateRD;

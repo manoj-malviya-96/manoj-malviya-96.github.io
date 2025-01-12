@@ -188,5 +188,4 @@ class CppThreads extends BlogInfo {
 	}
 }
 
-const cppThreadsInstance = new CppThreads();
-export default cppThreadsInstance;
+export default CppThreads;
