@@ -27,8 +27,8 @@ class ToolInfo {
         }: ToolInfoProps) {
         this.name = name;
         this.description = description;
-        this.path = '/tools/' + id; // For router path
-        this.cover = cover; // For icon
+        this.path = '/tools/' + id;
+        this.cover = cover;
         this.component = componentConstructor;
     }
 }

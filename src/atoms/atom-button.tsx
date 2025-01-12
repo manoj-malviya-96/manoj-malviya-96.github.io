@@ -11,19 +11,18 @@ export enum ButtonSize {
 }
 
 export enum ButtonSeverity {
-	Primary = `btn-primary hover:btn-secondary bg-opacity-50
-				hover:bg-opacity-100 backdrop-blur-lg shadow-none border-secondary border-opacity-10`,
-	Success = 'btn-success border-none',
-	Info = 'btn-info border-none',
-	Warning = 'btn-warning border-none',
-	Error = 'btn-error border-none',
+	Primary = `btn-primary hover:btn-secondary`,
+	Success = 'btn-success border-none bg-opacity-100',
+	Info = 'btn-info border-none bg-opacity-100',
+	Warning = 'btn-warning border-none bg-opacity-100',
+	Error = 'btn-error border-none bg-opacity-100',
 }
 
 export enum ButtonType {
 	Outlined = 'border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100',
 	Ghost = `bg-transparent border-0 hover:bg-transparent hover:text-secondary
             hover:border-0 hover:font-bold active:bg-transparent p-0`,
-	Solid = '',
+	Solid = 'bg-opacity-50 hover:bg-opacity-100 backdrop-blur-lg shadow-none border-secondary border-opacity-10',
 }
 
 export interface AtomButtonProps {
@@ -35,6 +34,7 @@ export interface AtomButtonProps {
 	severity?: ButtonSeverity;
 	tooltip?: string;
 	pill?: boolean;
+	hoverEffect?: boolean;
 	disabled?: boolean;
 	loading?: boolean;
 	animated?: boolean;
@@ -49,6 +49,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 	                                                                 size = ButtonSize.Medium,
 	                                                                 type = ButtonType.Solid,
 	                                                                 tooltip,
+	                                                                 hoverEffect=true,
 	                                                                 pill = true,
 	                                                                 animated = false,
 	                                                                 disabled = false,
@@ -62,11 +63,11 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 		     data-tip={tooltip}>
 			
 			<AtomSimpleMotionContainer
-				enableHoverEffect={!disabled}
+				enableHoverEffect={!disabled && hoverEffect}
 				hoverScale={!label ? HoverScale.LARGE : HoverScale.MEDIUM}>
 				<button
 					className={`btn ${label && pill ? 'md:px-6' :
-                                label && !pill ? 'md:px-2' : 'btn-circle'}
+						label && !pill ? 'md:px-2' : 'btn-circle'}
                                 ${pill ? 'rounded-full' : 'rounded-lg'}
                                 ${daisyClass}
                                 ${className}`}
@@ -82,9 +83,9 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 					{icon && <i className={`${icon} ${animated ? 'animate-pulse' : ''}`}/>}
 					{label &&
                         <AtomPrimaryText className=
-							      {`hidden sm:inline ml-auto
+							                 {`hidden sm:inline ml-auto
                                   ${animated ? 'animate-pulse' : ''}`}>
-                            {label}
+							{label}
                         </AtomPrimaryText>
 					}
 				</button>

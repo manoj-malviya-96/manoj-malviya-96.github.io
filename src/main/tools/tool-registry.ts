@@ -1,16 +1,14 @@
 import {rangesTo} from "../../common/math";
-import muvizInstance from "./muviz/muviz";
 import {RouteDefinition} from "../../providers/router";
-import meshaInstance from "./mesha/mesha";
-import trussOptInstance from "./trussopt/trussopt";
-import nestorInstance from "./nestor/nestor";
+import Muviz from "./muviz/muviz";
+import TrussOpt from "./trussopt/trussopt";
+import Mesha from "./mesha/mesha";
 
 
 export const registeredTools = [
-    meshaInstance,
-    trussOptInstance,
-    muvizInstance,
-    nestorInstance
+    new Muviz(),
+    new TrussOpt(),
+    new Mesha()
 ]
 
 export const makeToolRouter = () => {

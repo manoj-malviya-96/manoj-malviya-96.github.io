@@ -74,5 +74,5 @@ class FormlabsRd extends BlogInfo {
 	}
 }
 
-const formlabsRDInstance = new FormlabsRd();
-export default formlabsRDInstance;
+
+export default FormlabsRd;

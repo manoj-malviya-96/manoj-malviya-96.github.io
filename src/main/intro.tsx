@@ -3,7 +3,8 @@ import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import ProfilePicture from "./assets/main.jpg";
 import {AtomButton} from "../atoms/atom-button";
 import AtomImage from "../atoms/atom-image";
-import {AtomSuperHeroBrandTitleText} from "../atoms/atom-text";
+import {AtomPrimaryText, AtomSecondaryText, AtomSuperHeroBrandTitleText} from "../atoms/atom-text";
+import {AtomColumn} from "../atoms/atom-layout";
 
 const Intro = () => {
 	return (
@@ -13,17 +14,18 @@ const Intro = () => {
 				(
 					<div className={`w-full h-full flex flex-col-reverse
                                      md:flex-row gap-4 p-8 items-center`}>
-						<div
-							className="flex flex-col flex-wrap p-2 gap-4
-                                        items-center justify-center">
-							<span className={'w-full text-center'}>Manoj Malviya</span>
+						<AtomColumn wrap={true}>
+							<AtomPrimaryText className={'w-full text-center'}>
+								Manoj Malviya
+							</AtomPrimaryText>
 							
 							<AtomSuperHeroBrandTitleText
 								className={'text-center w-full'}>Multidisciplinary software engineer
 							</AtomSuperHeroBrandTitleText>
-							<span className={'w-full text-center'}>
-                                Innovating with knack of creativity and problem solving
-                            </span>
+							
+							<AtomSecondaryText className={'w-full text-center'}>
+								Innovating with knack of creativity and problem solving
+							</AtomSecondaryText>
 							
 							<AtomButton
 								icon="fas fa-arrow-down"
@@ -36,7 +38,7 @@ const Intro = () => {
 									});
 								}}
 							/>
-						</div>
+						</AtomColumn>
 						<AtomImage src={ProfilePicture} alt={'profile picture'}
 						           className={'rounded-lg'}/>
 					</div>

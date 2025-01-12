@@ -21,6 +21,9 @@ interface AtomBentoBoxProps<T extends BentoBoxItemProps> {
 }
 
 function toSpan(size: BentoItemSize, maxColumns = 4) {
+	if (maxColumns < 2) {
+		return `col-span-1 row-span-1`;
+	}
 	switch (size) {
 		case BentoItemSize.Small:
 			return `col-span-1 row-span-1`;
@@ -47,7 +50,8 @@ const AtomBentoBox = React.memo((
 		                              columns = 4,
 	                              }: AtomBentoBoxProps<T>) => {
 		const breakpoint = useScreenSizeBreakpoint();
-		if (breakpoint === ScreenSizes.Small) {
+		if (breakpoint === ScreenSizes.Medium || breakpoint === ScreenSizes.Small) {
+			console.debug("Detected mobile devices")
 			columns = 1;
 		}
 		

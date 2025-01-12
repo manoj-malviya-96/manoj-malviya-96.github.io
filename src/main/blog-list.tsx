@@ -39,6 +39,7 @@ const BlogListing = () => {
 					columns={4}
 					className={'mx-auto w-2/3'}
 					autoRowsSize={220}
+					// Casting to Component Type.
 					component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
 				/>
 			</AtomColumn>

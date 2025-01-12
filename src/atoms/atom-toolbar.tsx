@@ -18,9 +18,9 @@ const AtomToolbar: React.FC<AtomToolbarProps> = React.memo(({
             className={`flex items-center justify-between fixed top-0 left-0 w-full
                         p-2 bg-transparent z-20 ${className}`}
         >
-            <div className="flex items-center space-x-2">{start}</div>
+            <div className="flex items-center space-x-4">{start}</div>
             {center && <div className="flex items-center justify-center">{center}</div>}
-            <div className="flex items-center space-x-2">{end}</div>
+            <div className="flex items-center space-x-4">{end}</div>
         </div>
     );
 });

@@ -252,8 +252,4 @@ class TrussOpt extends ToolInfo {
 		});
 	}
 }
-
-
-// We keep everything private and only expose the instance.
-const trussOptInstance = new TrussOpt();
-export default trussOptInstance;
+export default TrussOpt;

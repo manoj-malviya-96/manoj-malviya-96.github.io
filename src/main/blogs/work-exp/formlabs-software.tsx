@@ -97,5 +97,4 @@ class FormlabsSW extends BlogInfo {
 	}
 }
 
-const formlabsSWInstance = new FormlabsSW();
-export default formlabsSWInstance;
+export default FormlabsSW;

@@ -1,25 +1,25 @@
 import BlogConstructor from "./blog-constructor";
 import {rangesTo} from "../../common/math";
-import cppThreadsInstance from "./cpp-threads/cpp-threads";
 import {RouteDefinition} from "../../providers/router";
-import deltaDesignInstance from "./delta-design/delta-design";
-import rapidToptInstance from "./rapid-topt/rapid-topt";
-import formlabsRDInstance from "./work-exp/formlabs-rd";
-import formlabsSWInstance from "./work-exp/formlabs-software";
-import pennStateRDInstance from "./work-exp/penn-state";
-import qmlOptimizationInstance from "./qml-optimization/qml-opt";
+import QmlOptimization from "./qml-optimization/qml-opt";
+import CppThreads from "./cpp-threads/cpp-threads";
+import DeltaDesign from "./delta-design/delta-design";
+import RapidTopt from "./rapid-topt/rapid-topt";
+import PennStateRD from "./work-exp/penn-state";
+import FormlabsSW from "./work-exp/formlabs-software";
+import FormlabsRd from "./work-exp/formlabs-rd";
 
 export const registeredBlogs = [
-    qmlOptimizationInstance,
-    cppThreadsInstance,
-    deltaDesignInstance,
-    rapidToptInstance
+    new QmlOptimization(),
+    new CppThreads(),
+    new DeltaDesign(),
+    new RapidTopt()
 ]
 
 export const jobRelatedBlogs = [
-    pennStateRDInstance,
-    formlabsRDInstance,
-    formlabsSWInstance
+    new PennStateRD(),
+    new FormlabsSW(),
+    new FormlabsRd()
 ]
 
 export const makeBlogRouters = () => {

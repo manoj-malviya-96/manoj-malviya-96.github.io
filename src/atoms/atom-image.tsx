@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {CSSProperties, useEffect, useState} from "react";
 import AtomButton, {ButtonSize, ButtonType} from "./atom-button";
 import {useKeyboardManager} from "../providers/keyboard";
 import {AtomSecondaryText} from "./atom-text";
@@ -97,3 +97,29 @@ export const AtomThemeSensitiveImage: React.FC<AtomSvgProps> = React.memo(({src,
 	            loading="eager"
 	            style={{filter: isDark ? 'brightness(121%)' : ''}}/>;
 });
+
+
+interface AtomBackgroundImageProps {
+	src?: string
+	style?: CSSProperties
+	className?: string
+	children?: React.ReactNode
+	onClick? : ()=>void
+}
+
+export const AtomBackgroundImage: React.FC<AtomBackgroundImageProps> = (
+	{src, children, className, onClick}
+) =>
+	(
+		<div className={className}
+		     style={src ? {
+			     backgroundImage: `url(${src})`,
+			     backgroundSize: 'cover',
+			     backgroundPosition: 'center',
+			     backgroundRepeat: 'no-repeat',
+		     } : undefined}
+		     onClick={onClick}
+		>
+			{children}
+		</div>
+	);

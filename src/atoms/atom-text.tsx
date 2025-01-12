@@ -1,6 +1,6 @@
 import React, {ReactNode, useCallback} from "react";
 import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
-import AtomButton, {ButtonSeverity, ButtonSize} from "./atom-button";
+import AtomButton, {ButtonSize, ButtonType} from "./atom-button";
 
 
 interface AtomTextProps {
@@ -61,7 +61,6 @@ export const AtomSuperHeroBrandTitleText: React.FC<AtomTextProps> = ({children, 
 						bg-clip-text text-transparent ${className}`}>{children}</h1>
 	)
 }
-
 
 export interface AtomLinkProps extends AtomTextProps {
 	url: string;
@@ -129,7 +128,8 @@ export const AtomClippedText: React.FC<AtomClippedTextProps> = React.memo(({
 		{renderComponent()}
 		{isClippedInitial && <AtomButton
             pill={false}
-            severity={ButtonSeverity.Info}
+            hoverEffect={false}
+            type={ButtonType.Ghost}
             size={ButtonSize.Small}
             icon={clipped ? 'fas fa-chevron-down' : 'fas fa-chevron-up'}
             label={clipped ? 'Show More' : 'Show Less'}

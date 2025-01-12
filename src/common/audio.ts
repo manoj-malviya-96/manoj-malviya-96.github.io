@@ -1,34 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
-import {computeRMS, computeVariance} from "./math";
+import Meyda from "meyda";
 import jsmediatags from "jsmediatags";
 
 
 export const audioFFTSize = 256;
-
-export class DropDetector {
-    private readonly rmsHistory: any[];
-    private readonly maxHistoryLength: number;
-    private readonly binWidth: number;
-    private readonly rmsThreshold: number;
-    
-    constructor({sampleRate = 44000}) {
-        this.rmsHistory = []
-        this.maxHistoryLength = 200;
-        this.binWidth = sampleRate / 255;
-        this.rmsThreshold = 0.5;
-    }
-    
-    detect(array: Uint8Array) {
-        const arrayAsNumber = Array.from(array);
-        const rms = computeRMS(arrayAsNumber);
-        this.rmsHistory.push(rms);
-        if (this.rmsHistory.length > this.maxHistoryLength) {
-            this.rmsHistory.shift();
-        }
-        return computeVariance(this.rmsHistory) < this.rmsThreshold * audioFFTSize;
-    }
-    
-}
 
 export interface AudioPlayerProps {
     src: string | null;
@@ -88,7 +63,10 @@ export const useAudioPlayer = ({
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const audioContextRef = useRef<AudioContext | null>(null);
     const analyserRef = useRef<AnalyserNode | null>(null);
-    const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null); // Reference to the
+    const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+    const meydaAnalyzerRef = useRef<Meyda.MeydaAnalyzer | null>(null);
+    const [features, setFeatures] = useState<any>(null);
+    
     
     useEffect(() => {
         if (audioRef.current) {

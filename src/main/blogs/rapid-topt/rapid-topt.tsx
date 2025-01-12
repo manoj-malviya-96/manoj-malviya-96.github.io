@@ -130,5 +130,4 @@ class RapidTopt extends BlogInfo {
 	}
 }
 
-const rapidToptInstance = new RapidTopt();
-export default rapidToptInstance;
+export default RapidTopt;
