@@ -89,13 +89,13 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         if (src){
             updateVisualizer().then(play);
         }
-    }, [src]); // Only run this effect when `src` changes
+    }, [src, pause, play, setAudioTime, setController, stopController, updateVisualizer]); // Only run this effect when `src` changes
     
     const handleSampleSongChange = useCallback(
         (value: any) => {
             setSrc(value);
         },
-        [pause, stopController]
+        []
     );
     
     const handleVisualizerChange = useCallback(
@@ -105,7 +105,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             setVisualizerType(value);
             setAudioTime(0);
         },
-        [pause, stopController]
+        [pause, stopController, setAudioTime]
     );
     
     useEffect(() => {
