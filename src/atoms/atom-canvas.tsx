@@ -32,14 +32,15 @@ export class AtomCanvasController {
     }
     
     start(): void {
-        this.init();
+        if (this.animationFrameId) return;  // Prevent double looping
         
+        this.init();
         if (this.makeLoop) {
             const drawLoop = () => {
                 this.draw();
                 this.animationFrameId = requestAnimationFrame(drawLoop);
             };
-            drawLoop();
+            this.animationFrameId = requestAnimationFrame(drawLoop);
         } else {
             this.draw();
         }
@@ -49,6 +50,7 @@ export class AtomCanvasController {
         if (this.animationFrameId !== null) {
             cancelAnimationFrame(this.animationFrameId);
         }
+        this.animationFrameId = null;
         this.cleanup();
     }
     
@@ -72,6 +74,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(({
                                                            animationLoop = true,
                                                            className = "",
                                                        }) => {
+    
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const {daisyPrimaryText} = useTheme();
     const breakpoint = useScreenSizeBreakpoint();
@@ -92,13 +95,16 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(({
         if (controller && !isLoading) {
             controller.setCanvasRef(canvasRef as React.RefObject<HTMLCanvasElement>);
             controller.makeLoop = animationLoop;
-            controller.start();
+            
+            // Restart on song change to ensure fresh drawing
+            controller.restart();
             
             return () => {
                 controller.stop();
             };
         }
     }, [controller, isLoading, animationLoop, dimensions]);
+    
     
     useEffect(() => {
         const handleResize = () => {

@@ -5,7 +5,7 @@ import {AtomButton, ButtonSize, ButtonType} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
 
-import Lioness from './sample-music/MM_Lioness.mp3';
+import Princess from './sample-music/princess.mp3';
 import Flood from './sample-music/Sebastian_Flood.mp3';
 import StayInit from './sample-music/FredAgain_StayInit.mp3';
 
@@ -17,7 +17,6 @@ import AtomFileUpload from "../../../atoms/atom-file-upload";
 import {toggleFullScreen} from "../../../common/full-screen";
 import AppView from "../app-view";
 import AtomDialog from "../../../atoms/atom-dialog";
-import {useKeyboardManager} from "../../../providers/keyboard";
 import {AtomColumn} from "../../../atoms/atom-layout";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
 
@@ -40,8 +39,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     const [controller, setController] = useState<BaseVisualizer | null>(null);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const appRef = useRef<HTMLDivElement | null>(null);
-    const {addShortcut, removeShortcut} = useKeyboardManager();
-    const [hudVisible, setHudVisible] = useState(true);
     
     // Player Setup
     const {
@@ -57,7 +54,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         features
     } = useAudioPlayer({src, makeAnalyzer: true});
     
-    const updateVisualizer = useCallback(async () => {
+    const updateVisualizer = useCallback(() => {
         switch (visualizerType) {
             case VisualizerType.Spiral:
             case VisualizerType.Abstract:
@@ -67,68 +64,39 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             default:
                 throw new Error("Invalid visualizer type");
         }
-    }, [visualizerType]);
+    }, [visualizerType, setController]);
     
-    useEffect(()=>{
-        controller?.update(features);
-    }, [features, controller]);
-    
-    const stopController = useCallback(() => {
-        if (controller) {
-            controller.stop();
-            setController(null);
-        }
-    }, [controller]);
-    
-    
-    useEffect(() => {
-        pause();
-        stopController();
-        setController(null);
-        setAudioTime(0);
-        if (src){
-            updateVisualizer().then(play);
-        }
-    }, [src, pause, play, setAudioTime, setController, stopController, updateVisualizer]); // Only run this effect when `src` changes
     
     const handleSampleSongChange = useCallback(
         (value: any) => {
+            controller?.stop();
             setSrc(value);
+        },
+        [controller, setSrc]
+    );
+    
+    useEffect(() => {
+    }, [isPlaying]);
+    
+    useEffect(() => {
+    }, [controller]);
+    
+    const handleVisualizerChange = useCallback(
+        (value: any) => {
+            setVisualizerType(value);
         },
         []
     );
     
-    const handleVisualizerChange = useCallback(
-        (value: any) => {
-            pause();
-            stopController();
-            setVisualizerType(value);
-            setAudioTime(0);
-        },
-        [pause, stopController, setAudioTime]
-    );
-    
-    useEffect(() => {
-        controller?.update(features);
-    }, [features, controller]); // Only update when features or controller changes
-    
-    useEffect(() => {
-        if (isPlaying) {
-            setHudVisible(false);
-        } else {
-            const timeout = setTimeout(() => setHudVisible(true), 1000); // Delay HUD show
-            return () => clearTimeout(timeout);
-        }
-    }, [isPlaying]);
-    
     const handlePlayOrPause = useCallback(() => {
         if (isPlaying) {
-            stopController();
+            controller?.stop();
             pause();
         } else {
-            updateVisualizer().then(() => play());
+            updateVisualizer();
+            play();
         }
-    }, [play, pause, stopController, updateVisualizer, isPlaying]);
+    }, [play, pause, controller, updateVisualizer, isPlaying]);
     
     const skipForward = useCallback(() => {
         setAudioTime(currentTime + timeSkip_s);
@@ -144,22 +112,20 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     const handleFileChange = useCallback((file: string) => {
         if (file) {
-            stopController();
+            controller?.stop();
             setSrc(file);
         }
-    }, [stopController, setSrc]);
+    }, [setSrc, controller]);
     
     const toggleVolume = useCallback(() => {
         changeVolume(volume === 0 ? 0.69 : 0);
     }, [volume, changeVolume]);
     
-    
-    useEffect(() => {
-        addShortcut(" ", handlePlayOrPause);
-        return () => {
-            removeShortcut(" ");
-        };
-    }, [handlePlayOrPause, addShortcut, removeShortcut]);
+    useEffect(()=>{
+        if (controller) {
+            controller.update(features);
+        }
+    }, [features, controller]);
     
     // Render
     return (
@@ -171,7 +137,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             
             {/*HUD*/}
             <div className={`inline-block w-full h-full z-5 p-4 bg-transparent
-                ${hudVisible ? "lg:opacity-100" : "lg:opacity-0"} lg:hover:opacity-100`}>
+                lg:opacity-0 lg:hover:opacity-100`}>
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
@@ -302,8 +268,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
 const defaultSongOptions =
     [
         {
-            label: 'Lioness',
-            value: Lioness,
+            label: 'Princess',
+            value: Princess,
         } as AtomDropdownItemProps,
         {
             label: 'Flood',

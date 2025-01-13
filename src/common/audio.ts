@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import Meyda, {MeydaFeaturesObject} from "meyda";
 import jsmediatags from "jsmediatags";
 
@@ -21,7 +21,6 @@ export interface AudioFeatures {
 }
 
 export interface AudioPlayer {
-	audioRef: React.RefObject<HTMLAudioElement | null>;
 	isPlaying: boolean;
 	play: () => void;
 	pause: () => void;
@@ -62,22 +61,34 @@ export const useAudioPlayer = ({src, makeAnalyzer = false}: AudioPlayerProps): A
 	const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null);
 	const meydaAnalyzerRef = useRef<Meyda.MeydaAnalyzer | null>(null);
 	
+	const play = useCallback(() => {
+		audioRef.current?.play().then(() => setIsPlaying(true));
+		meydaAnalyzerRef.current?.start();
+	}, [audioRef, meydaAnalyzerRef]);
+
+	const pause = useCallback(() => {
+		audioRef.current?.pause();
+		meydaAnalyzerRef.current?.stop();
+		setIsPlaying(false);
+	}, [audioRef, meydaAnalyzerRef]);
+	
 	useEffect(() => {
 		if (audioRef.current) {
+			setIsPlaying(false);
 			audioRef.current.pause();
 			audioRef.current.src = "";
 			mediaElementSourceRef.current?.disconnect();
+			meydaAnalyzerRef.current = null;
 		}
 		if (!src) {
 			return;
 		}
 		
 		readAudioMetadata(src).then(({title}) => setTitle(title || "Unknown Title"));
-		
 		audioRef.current = new Audio(src);
 		audioRef.current.crossOrigin = "anonymous";
 		
-		if (makeAnalyzer && !audioContextRef.current) {
+		if (makeAnalyzer) {
 			const audioContext = new (
 				window.AudioContext || window.webkitAudioContext
 			)();
@@ -103,18 +114,11 @@ export const useAudioPlayer = ({src, makeAnalyzer = false}: AudioPlayerProps): A
 		return () => {
 			audioRef.current?.pause();
             meydaAnalyzerRef.current?.stop();
-			audioContextRef.current?.close().then(r => console.log("Audio Closed"));
+			audioContextRef.current?.close().then(r => console.log("Audio Closed : ", r));
 		};
-	}, [src, makeAnalyzer]);
-	
-	const play = () => audioRef.current?.play().then(() => setIsPlaying(true));
-	const pause = () => {
-		audioRef.current?.pause();
-		setIsPlaying(false);
-	};
+	}, [src, makeAnalyzer, setIsPlaying]);
 	
 	return {
-		audioRef,
 		isPlaying,
 		play,
 		pause,

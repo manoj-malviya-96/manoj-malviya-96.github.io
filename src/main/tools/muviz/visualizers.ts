@@ -40,7 +40,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 		this.totalPoints = 0; // Number of points added so far
 		
 		this.growthRate = 8; // Distance between consecutive points
-		this.maxGlow = 47; // Maximum glow intensity
+		this.maxGlow = 21; // Maximum glow intensity
 		
 		this.canvasWidth = 0; // Cached canvas width
 		this.canvasHeight = 0; // Cached canvas height
@@ -93,16 +93,21 @@ export class AbstractVisualizer extends BaseVisualizer {
 		}
 		
 		const glow = intensity * this.maxGlow;
-		const color =  intensity > 0.2 && intensity < 10 ? AppColor1 : intensity <= 0.2 ? AppColor2 : 'white';
+		const color =  (intensity > 0.4 && intensity < 15) ? AppColor1 : (intensity <= 0.4 || richness < 0.5) ? AppColor2 : 'white';
 		
 		this.points.forEach((point) => {
-			// Draw the point
-			ctx.beginPath();
 			
-			const size = Math.random() < 2 * centroid ? point.size * (
+			const randomGuess = Math.random();
+			if (randomGuess > intensity) {
+				return ;
+			}
+			
+			const size = randomGuess < 2 * centroid ? point.size * (
 				point.size * intensity / 64
 			) : point.size;
 			
+			// Draw the point
+			ctx.beginPath();
 			ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
 			ctx.closePath()
 			
@@ -115,7 +120,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 	
 	draw() {
 		if (!this.canvasRef) {
-			console.log("No canvas ref");
+			console.error("No canvas ref");
 			return;
 		}
 		
@@ -126,7 +131,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 		}
 		const ctx = canvas.getContext("2d");
 		if (!ctx) {
-			console.log("Cannot resolve context")
+			console.error("Cannot resolve context")
 			return;
 		}
 		
@@ -159,5 +164,13 @@ export class AbstractVisualizer extends BaseVisualizer {
 		this.angle += 0.005 * (
 			features.perceptualSharpness
 		);
+	}
+	
+	cleanup() {
+		console.log("AbstractViz cleanup");
+		this.angle = 0;
+		this.points = [];
+		this.totalPoints = 0;
+		this.features = undefined;
 	}
 }
