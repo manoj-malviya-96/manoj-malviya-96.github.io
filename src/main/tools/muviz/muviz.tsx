@@ -73,13 +73,14 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     const stopController = useCallback(() => {
         if (controller) {
             controller.stop();
+            setController(null);
         }
     }, [controller]);
     
     const handleSampleSongChange = useCallback(
         (value: any) => {
-            setSrc(value);
             stopController();
+            setSrc(value);
             pause();
         },
         [stopController, pause]
@@ -117,9 +118,10 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     const handleFileChange = useCallback((file: string) => {
         if (file) {
+            stopController();
             setSrc(file);
         }
-    }, []);
+    }, [stopController, setSrc]);
     
     const toggleVolume = useCallback(() => {
         changeVolume(volume === 0 ? 0.69 : 0);
@@ -134,7 +136,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         };
     }, [handlePlayOrPause, addShortcut, removeShortcut]);
     
-    
     // Render
     return (
         <div className="h-full w-full justify-center align-center"
@@ -145,8 +146,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             
             {/*HUD*/}
             <div className={`inline-block w-full h-full z-5 p-4 bg-transparent
-                ${showHUD ? "lg:opacity-100" : "lg:opacity-0"}
-                 lg:hover:opacity-100`}>
+                ${showHUD ? "lg:opacity-100" : "lg:opacity-0"} lg:hover:opacity-100`}>
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center

@@ -1,8 +1,8 @@
 import {AtomCanvasController} from "../../../atoms/atom-canvas";
-import {AudioFeatures} from "../../../common/audio";
-import {adjustColor} from "../../../common/color-utils";
+import {AnalyzerBufferSize, AudioFeatures} from "../../../common/audio";
 
-const AppColor = `rgb(47, 114, 214)`;
+const AppColor1 = `rgba(10, 39, 121)`;
+const AppColor2 = `rgb(147, 47, 214)`;
 
 export enum VisualizerType {
 	Abstract = 0,
@@ -87,18 +87,24 @@ export class AbstractVisualizer extends BaseVisualizer {
 		);
 	}
 	
-	drawPoints(ctx: CanvasRenderingContext2D | null, intensity: number, richness: number) {
+	drawPoints(ctx: CanvasRenderingContext2D | null, intensity: number, richness: number, centroid: number) {
 		if (!ctx) {
 			return;
 		}
 		
 		const glow = intensity * this.maxGlow;
-		const color = intensity < 6.9 ? adjustColor(AppColor, richness, [intensity, 1 + 0.05 * intensity, 1]): 'white';
+		const color =  intensity > 0.2 && intensity < 10 ? AppColor1 : intensity <= 0.2 ? AppColor2 : 'white';
 		
-		this.points.forEach((point)=> {
+		this.points.forEach((point) => {
 			// Draw the point
 			ctx.beginPath();
-			ctx.arc(point.x, point.y, point.size * (point.size * intensity / 64), 0, Math.PI * 2);
+			
+			const size = Math.random() < 2 * centroid ? point.size * (
+				point.size * intensity / 64
+			) : point.size;
+			
+			ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
+			ctx.closePath()
 			
 			ctx.shadowBlur = glow;
 			ctx.shadowColor = color;
@@ -114,7 +120,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 		}
 		
 		const canvas = this.canvasRef.current;
-		if (!canvas){
+		if (!canvas) {
 			console.error("No Canvas")
 			return;
 		}
@@ -125,9 +131,9 @@ export class AbstractVisualizer extends BaseVisualizer {
 		}
 		
 		const features = this.features;
-		if (!features){
+		if (!features) {
 			console.error("No features detected");
-			return ;
+			return;
 		}
 		
 		ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
@@ -136,8 +142,22 @@ export class AbstractVisualizer extends BaseVisualizer {
 		ctx.rotate(this.angle);
 		this.updatePoints();
 		this.addPoint();
-		this.drawPoints(ctx, features.energy, features.perceptualSpread);
+		
+		const centroidNormalized = features.spectralCentroid / (
+			AnalyzerBufferSize / 2
+		);
+		
+		this.drawPoints(ctx, features.energy, features.perceptualSpread, centroidNormalized);
+		
+		//! Central Po`int
+		ctx.beginPath();
+		ctx.arc(0, 0, 69 + 10 * centroidNormalized, 0, Math.PI * 2);
+		ctx.closePath();
+		ctx.fill();
+		
 		ctx.restore();
-		this.angle += 0.005 * (features.perceptualSharpness);
+		this.angle += 0.005 * (
+			features.perceptualSharpness
+		);
 	}
 }
