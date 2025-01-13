@@ -57,7 +57,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 			this.canvasWidth = canvas.width;
 			this.canvasHeight = canvas.height;
 		}
-		console.log("AbstractViz initialized.");
+		console.debug("AbstractViz initialized.");
 	}
 	
 	addPoint() {
@@ -167,7 +167,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 	}
 	
 	cleanup() {
-		console.log("AbstractViz cleanup");
+		console.debug("AbstractViz cleanup");
 		this.angle = 0;
 		this.points = [];
 		this.totalPoints = 0;
