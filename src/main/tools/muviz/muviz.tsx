@@ -39,6 +39,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const appRef = useRef<HTMLDivElement | null>(null);
     const {addShortcut, removeShortcut} = useKeyboardManager();
+    const [hudVisible, setHudVisible] = useState(true);
     
     // Player Setup
     const {
@@ -77,23 +78,46 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         }
     }, [controller]);
     
+    
+    useEffect(() => {
+        pause();
+        stopController();
+        setController(null);
+        setAudioTime(0);
+        if (src){
+            updateVisualizer().then(play);
+        }
+    }, [src]); // Only run this effect when `src` changes
+    
     const handleSampleSongChange = useCallback(
         (value: any) => {
-            stopController();
             setSrc(value);
-            pause();
         },
-        [stopController, pause]
+        [pause, stopController]
     );
     
     const handleVisualizerChange = useCallback(
         (value: any) => {
+            pause();
             stopController();
             setVisualizerType(value);
-            pause();
+            setAudioTime(0);
         },
-        [stopController, pause]
+        [pause, stopController]
     );
+    
+    useEffect(() => {
+        controller?.update(features);
+    }, [features, controller]); // Only update when features or controller changes
+    
+    useEffect(() => {
+        if (isPlaying) {
+            setHudVisible(false);
+        } else {
+            const timeout = setTimeout(() => setHudVisible(true), 1000); // Delay HUD show
+            return () => clearTimeout(timeout);
+        }
+    }, [isPlaying]);
     
     const handlePlayOrPause = useCallback(() => {
         if (isPlaying) {
@@ -126,7 +150,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     const toggleVolume = useCallback(() => {
         changeVolume(volume === 0 ? 0.69 : 0);
     }, [volume, changeVolume]);
-    const showHUD = !isPlaying;
     
     
     useEffect(() => {
@@ -146,7 +169,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             
             {/*HUD*/}
             <div className={`inline-block w-full h-full z-5 p-4 bg-transparent
-                ${showHUD ? "lg:opacity-100" : "lg:opacity-0"} lg:hover:opacity-100`}>
+                ${hudVisible ? "lg:opacity-100" : "lg:opacity-0"} lg:hover:opacity-100`}>
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
