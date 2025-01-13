@@ -39,7 +39,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 		this.points = []; // Active points in the spiral
 		this.totalPoints = 0; // Number of points added so far
 		
-		this.growthRate = 8; // Distance between consecutive points
+		this.growthRate = 18; // Distance between consecutive points
 		this.maxGlow = 21; // Maximum glow intensity
 		
 		this.canvasWidth = 0; // Cached canvas width
@@ -66,18 +66,18 @@ export class AbstractVisualizer extends BaseVisualizer {
 		this.points.push({
 			x: distance * Math.cos(angle),
 			y: distance * Math.sin(angle),
-			size: 5.0,
+			size: 2.0,
 			angle: angle,
 		});
 		
 		this.totalPoints++;
 	}
 	
-	updatePoints() {
+	updatePoints(speed = 1) {
 		this.points.forEach((point) => {
-			point.size *= 1.0069;
-			point.x = 50 * point.size * Math.cos(point.angle);
-			point.y = 50 * point.size * Math.sin(point.angle);
+			point.size *= 1 + 0.47*speed;
+			point.x = 69 * point.size * Math.cos(point.angle);
+			point.y = 69 * point.size * Math.sin(point.angle);
 		});
 		
 		// Remove points that move out of bounds
@@ -93,7 +93,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 		}
 		
 		const glow = intensity * this.maxGlow;
-		const color =  (intensity > 0.4 && intensity < 15) ? AppColor1 : (intensity <= 0.4 || richness < 0.5) ? AppColor2 : 'white';
+		const color =  (intensity > 0.4 && intensity < 20) ? AppColor1 : (intensity <= 0.4 || richness < 0.5) ? AppColor2 : 'white';
 		
 		this.points.forEach((point) => {
 			
@@ -145,7 +145,7 @@ export class AbstractVisualizer extends BaseVisualizer {
 		ctx.save();
 		ctx.translate(this.canvasWidth / 2, this.canvasHeight / 2);
 		ctx.rotate(this.angle);
-		this.updatePoints();
+		this.updatePoints(features.spectralFlatness);
 		this.addPoint();
 		
 		const centroidNormalized = features.spectralCentroid / (
