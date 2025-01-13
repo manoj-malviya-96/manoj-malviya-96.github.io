@@ -71,12 +71,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
                                 ${pill ? 'rounded-full' : 'rounded-lg'}
                                 ${daisyClass}
                                 shadow-none ${className}`}
-					onClick={(event) => {
-						event.stopPropagation();
-						if (!loading && !disabled && onClick) {
-							onClick();
-						}
-					}}
+					onClick={onClick}
 					disabled={disabled}
 				>
 					{loading && <div className="spinner spinner-primary"/>}

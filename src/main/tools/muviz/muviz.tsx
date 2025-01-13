@@ -16,8 +16,10 @@ import {AbstractVisualizer, BaseVisualizer, VisualizerType} from "./visualizers"
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import {toggleFullScreen} from "../../../common/full-screen";
 import AppView from "../app-view";
-import {DialogButton} from "../../../atoms/atom-dialog";
+import AtomDialog from "../../../atoms/atom-dialog";
 import {useKeyboardManager} from "../../../providers/keyboard";
+import {AtomColumn} from "../../../atoms/atom-layout";
+import {AtomPrimaryText} from "../../../atoms/atom-text";
 
 const AppName = 'MUVIZ';
 
@@ -261,28 +263,22 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 options={songOptions}
                                 dropdownIcon={"fas fa-music"}
                                 onClick={handleSampleSongChange}
-                                className="h-full w-44 m-auto"
-                                placeholder="Select Song"
-                                header={
-                                    <DialogButton
-                                        icon="fa-solid fa-upload"
-                                        label="Upload"
-                                        title="Upload Audio File"
-                                        dialogContent= {
-                                            <div
-                                                className="flex flex-col gap-2">
-                                                <span className="text-xs">
-                                                    Only audio files (.wav/.mp3/..) are supported
-                                                </span>
-                                                <AtomFileUpload
-                                                    acceptTypes="audio/*"
-                                                    onFileChange={handleFileChange}/>
-                                            </div>
-                                        }
-                                        type={ButtonType.Ghost}
-                                    />
-                                }
+                                className="h-full w-32 m-auto"
+                                placeholder="Sample Song"
                             />
+                            <AtomDialog
+                                icon="fa-solid fa-upload"
+                                title="Upload Song"
+                            >
+                                <AtomColumn>
+                                    <AtomPrimaryText>
+                                        Only audio files (.wav/.mp3/..) are supported
+                                    </AtomPrimaryText>
+                                    <AtomFileUpload
+                                        acceptTypes="audio/*"
+                                        onFileChange={handleFileChange}/>
+                                </AtomColumn>
+                            </AtomDialog>
                             <AtomDropdown
                                 options={vizOptions}
                                 onClick={handleVisualizerChange}
