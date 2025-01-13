@@ -59,7 +59,7 @@ const SocialMediaButtons = () => {
 			} as AtomButtonProps;
 		});
 	return (
-		<AtomStyledContainer label={'Find me here'} hug={true}>
+		<AtomStyledContainer label={'Find me here'} hug={true} className={'w-full'}>
 			{socialMediaItems.map((item, index) => (
 				<AtomButton
 					key={index}
@@ -102,8 +102,9 @@ const CareerHighlights = () => {
 	});
 	return (
 		<AtomStyledContainer
+			className={'w-full'}
 			label={'Career Highlights'}>
-			<AtomTimeline items={timelineData} className={'h-fit p-0'}/>
+			<AtomTimeline items={timelineData} className={'h-fit w-full p-0'}/>
 		</AtomStyledContainer>
 	)
 }
@@ -167,7 +168,7 @@ const AboutMe = () => {
 					<AtomColumn
 						className={'w-full md:w-1/2'}
 						alignment={AtomLayoutAlignment.VStart}
-						size={AtomLayoutSize.None}>
+						size={AtomLayoutSize.FullSize}>
 						<HeroTextAboutMe/>
 						<AboutMeParagraph/>
 						<Skills/>

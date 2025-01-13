@@ -21,7 +21,7 @@ const AtomStyledContainer: React.FC<AtomStyledContainerProps> = ({
 				className={`inline-block ${hug ? 'p-0 gap-0' : 'p-4 gap-4'}
                         rounded-md hover:shadow
                         bg-transparent
-                        border border-neutral border-opacity-50
+                        border border-neutral
                         backdrop-blur-lg`}>
 				{children}
 			</div>
