@@ -119,12 +119,6 @@ const AboutMe = () => {
 					size={AtomLayoutSize.FullSize}
 					alignment={AtomLayoutAlignment.Start}>
 					
-					<AtomScrollContainer className={'h-fit max-h-screen w-full'}>
-						<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
-							<CareerHighlights/>
-						</AtomColumn>
-					</AtomScrollContainer>
-					
 					<AtomColumn
 						className={'w-full md:w-1/2'}
 						alignment={AtomLayoutAlignment.VStart}
@@ -132,6 +126,13 @@ const AboutMe = () => {
 						<AboutMeText/>
 						<SocialMediaButtons/>
 					</AtomColumn>
+					
+					
+					<AtomScrollContainer className={'h-fit max-h-screen w-full'}>
+						<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
+							<CareerHighlights/>
+						</AtomColumn>
+					</AtomScrollContainer>
 					
 				</AtomRow>
 			}

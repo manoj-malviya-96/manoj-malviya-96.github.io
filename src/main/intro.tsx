@@ -1,6 +1,6 @@
 import React from 'react';
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
-import Cover from "./assets/cover.gif";
+import Cover from "./assets/cover.webp";
 import {AtomButton} from "../atoms/atom-button";
 import {AtomPrimaryText, AtomSuperHeroBrandTitleText} from "../atoms/atom-text";
 import {AtomColumn} from "../atoms/atom-layout";
