@@ -4,7 +4,7 @@ import {AtomThemeSensitiveImage} from "./atom-image";
 
 export enum TimelineOrientation {
 	Vertical = 'timeline-vertical',
-	Horizontal = 'timeline-vertical md:timeline-horizontal'
+	Horizontal = 'timeline-vertical lg:timeline-horizontal'
 }
 
 interface AtomTimelineItemProps {
@@ -38,7 +38,7 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
 				return (
 					<li key={index}
 					    onClick={item.onClick}
-					    className={'cursor-pointer hover:bg-secondary hover:text-secondary-content w-fit'}>
+					    className={'cursor-pointer hover:bg-secondary hover:text-secondary-content'}>
 						{index !== 0 && <hr className={'bg-neutral'}/>}
 						<div className="timeline-start">{item.date}</div>
 						<div className="timeline-middle">
@@ -52,7 +52,7 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
 							}
 							{!item.icon && <i className={'fas fa-check-circle'}/>}
 						</div>
-						<div className="timeline-end p-4 h-fit">
+						<div className="timeline-end p-4 w-fit h-fit">
 							<h3 className="text-lg uppercase font-bold">{item.title}</h3>
 							{item.description &&
                                 <span className="text-small">{item.description}</span>

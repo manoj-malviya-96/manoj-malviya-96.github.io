@@ -114,7 +114,7 @@ export interface AtomCardGridProps {
 
 export const AtomCardGrid: React.FC<AtomCardGridProps> = ({items, classNameForCard}) => {
 	return (
-		<div className="grid grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+		<div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
 			{items.map((item, index) => (
 				<div key={index} className="flex">
 					<AtomSimpleCard {...item}
