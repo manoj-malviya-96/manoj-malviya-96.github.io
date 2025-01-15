@@ -57,7 +57,7 @@ export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({children, class
 
 export const AtomSuperHeroBrandTitleText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
-		<h1 className={`text-4xl font-bold uppercase bg-gradient-to-r from-red-700 to-red-300
+		<h1 className={`text-6xl font-extrabold uppercase bg-gradient-to-r from-red-700 to-red-300
 						bg-clip-text text-transparent ${className}`}>{children}</h1>
 	)
 }
