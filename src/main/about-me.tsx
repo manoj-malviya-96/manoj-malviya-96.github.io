@@ -11,10 +11,18 @@ import {
 	AtomHeroBrandTitleText,
 	AtomPrimaryText,
 } from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {
+	AtomColumn,
+	AtomLayoutAlignment,
+	AtomLayoutGap,
+	AtomLayoutSize,
+	AtomRow,
+	RowDivider
+} from "../atoms/atom-layout";
 import AtomScrollContainer from "../atoms/atom-scroll-container";
 import AtomImage from "../atoms/atom-image";
 import ProfilePicture from "./assets/main.jpg";
+import {GithubCalendar} from "./github";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -116,21 +124,22 @@ const AboutMe = () => {
 			name="about-me"
 			children={
 				<AtomRow
-					size={AtomLayoutSize.FullSize}
+					className={'mt-8 h-fit'}
+					size={AtomLayoutSize.FullWidth}
 					alignment={AtomLayoutAlignment.Start}>
 					
 					<AtomColumn
-						className={'w-full md:w-1/2'}
+						className={'w-full md:w-1/2 h-fit'}
 						alignment={AtomLayoutAlignment.VStart}
 						size={AtomLayoutSize.FullSize}>
 						<AboutMeText/>
 						<SocialMediaButtons/>
 					</AtomColumn>
 					
-					
 					<AtomScrollContainer className={'h-fit max-h-screen w-full'}>
 						<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
 							<CareerHighlights/>
+							<GithubCalendar />
 						</AtomColumn>
 					</AtomScrollContainer>
 					

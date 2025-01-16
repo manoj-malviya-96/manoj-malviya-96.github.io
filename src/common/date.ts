@@ -73,4 +73,6 @@ export function DayToMs(days: number) {
     return days * hoursInDay * minutesInHour * secondsInMinute * millisecondsInSecond;
 }
 
+export const CurrentYear = new Date().getFullYear();
+
 

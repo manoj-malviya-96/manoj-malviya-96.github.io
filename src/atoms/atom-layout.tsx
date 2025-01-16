@@ -95,3 +95,16 @@ export const AtomGrid: React.FC<AtomLayoutProps> = React.memo(({
 });
 
 
+interface RowDividerProps {
+	className?: string
+}
+
+export const RowDivider = ({className}: RowDividerProps) => {
+	return (
+		<div className={`flex items-center justify-center ${className}`}>
+			<hr className={`bg-secondary bg-opacity-20 w-1 h-3/4 border-none`}/>
+		</div>
+	)
+}
+
+
