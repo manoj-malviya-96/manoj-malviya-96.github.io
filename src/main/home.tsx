@@ -5,7 +5,7 @@ import AboutMe from "./about-me";
 import BrandLogo from "./assets/logo.svg";
 import ToolDrawer from "./tool-drawer";
 import {useNavbar} from "../providers/navbar";
-import {AtomRowTabBar} from "../atoms/atom-tab-bar";
+import {AtomLinkBarRow} from "../atoms/atom-tab-bar";
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 
 
@@ -28,7 +28,7 @@ const Home = () => {
 		<>
 			<Intro/>
 			<div className={'flex flex-col w-full h-full'}>
-				<AtomRowTabBar items={tabs} className={'sticky mt-8 top-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
+				<AtomLinkBarRow items={tabs} className={'sticky mt-8 top-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
 				<AtomFullScreenContainer name={'about-me'}>
 					<AboutMe/>
 				</AtomFullScreenContainer>

@@ -27,7 +27,7 @@ export interface TabBarProps {
 
 
 //! Scroll to the section when a tab is clicked.
-export const AtomRowTabBar: React.FC<TabBarProps> = ({items, className = ''}) => {
+export const AtomLinkBarRow: React.FC<TabBarProps> = ({items, className = ''}) => {
 	return (
 		<AtomRow className={`bg-primary border-neutral border-opacity-50 bg-opacity-50
 		                    border backdrop-blur-lg rounded-full
