@@ -6,7 +6,7 @@ import {openLink} from "../common/links";
 import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom-button";
 import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
-import AtomTimeline  from "../atoms/atom-timeline";
+import AtomTimeline from "../atoms/atom-timeline";
 import {
 	AtomHeroBrandTitleText,
 	AtomPrimaryText,
@@ -120,32 +120,26 @@ const AboutMeText = () => {
 
 const AboutMe = () => {
 	return (
-		<AtomFullScreenContainer
-			name="about-me"
-			children={
-				<AtomRow
-					className={'mt-8 h-fit'}
-					size={AtomLayoutSize.FullWidth}
-					alignment={AtomLayoutAlignment.Start}>
-					
-					<AtomColumn
-						className={'w-full md:w-1/2 h-fit'}
-						alignment={AtomLayoutAlignment.VStart}
-						size={AtomLayoutSize.FullSize}>
-						<AboutMeText/>
-						<SocialMediaButtons/>
-					</AtomColumn>
-					
-					<AtomScrollContainer className={'h-fit max-h-screen w-full'}>
-						<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
-							<CareerHighlights/>
-							<GithubCalendar />
-						</AtomColumn>
-					</AtomScrollContainer>
-					
-				</AtomRow>
-			}
-		/>
+		<AtomRow
+			className={'mt-8 h-fit'}
+			size={AtomLayoutSize.FullWidth}
+			alignment={AtomLayoutAlignment.Start}>
+			
+			<AtomColumn
+				className={'w-full md:w-1/2 h-fit'}
+				alignment={AtomLayoutAlignment.VStart}
+				size={AtomLayoutSize.FullSize}>
+				<AboutMeText/>
+				<SocialMediaButtons/>
+			</AtomColumn>
+			
+			<AtomScrollContainer className={'h-fit max-h-screen w-full'}>
+				<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
+					<CareerHighlights/>
+					<GithubCalendar/>
+				</AtomColumn>
+			</AtomScrollContainer>
+		</AtomRow>
 	);
 };
 

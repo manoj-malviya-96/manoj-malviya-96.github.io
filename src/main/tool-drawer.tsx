@@ -23,21 +23,17 @@ const ToolDrawer = () => {
 	});
 	
 	return (
-		<AtomFullScreenContainer
-			name="tools"
-		>
-			<AtomColumn gap={AtomLayoutGap.Small}>
-				<AtomRow size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.ExtraSmall}>
-					<AtomHeroTitleText>Creating in</AtomHeroTitleText>
-					<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
-				</AtomRow>
-				<AtomStyledContainer label="Playground">
-					<AtomCardGrid
-						items={items}
-						classNameForCard={'w-44 h-36'}/>
-				</AtomStyledContainer>
-			</AtomColumn>
-		</AtomFullScreenContainer>
+		<AtomColumn gap={AtomLayoutGap.Small}>
+			<AtomRow size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.ExtraSmall}>
+				<AtomHeroTitleText>Creating in</AtomHeroTitleText>
+				<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
+			</AtomRow>
+			<AtomStyledContainer label="Playground">
+				<AtomCardGrid
+					items={items}
+					classNameForCard={'w-44 h-36'}/>
+			</AtomStyledContainer>
+		</AtomColumn>
 	);
 }
 
