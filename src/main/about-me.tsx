@@ -17,7 +17,7 @@ import {
 	AtomLayoutGap,
 	AtomLayoutSize,
 	AtomRow,
-	RowDivider
+	AtomRowDivider
 } from "../atoms/atom-layout";
 import AtomScrollContainer from "../atoms/atom-scroll-container";
 import AtomImage from "../atoms/atom-image";
@@ -133,12 +133,13 @@ const AboutMe = () => {
 				<SocialMediaButtons/>
 			</AtomColumn>
 			
-			<AtomScrollContainer className={'h-fit max-h-screen w-full'}>
+			<AtomStyledContainer className={'w-full h-full'}>
 				<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
 					<CareerHighlights/>
+					<AtomRowDivider/>
 					<GithubCalendar/>
 				</AtomColumn>
-			</AtomScrollContainer>
+			</AtomStyledContainer>
 		</AtomRow>
 	);
 };

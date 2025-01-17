@@ -21,7 +21,7 @@ const Intro = () => {
 					</AtomPrimaryText>
 					
 					<AtomSuperHeroBrandTitleText
-						className={'text-center w-1/2'}> Creating awesome shit x
+						className={'text-center w-1/2'}> Creating Tools for Humanity
 					</AtomSuperHeroBrandTitleText>
 					
 					<AtomButton

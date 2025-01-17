@@ -1,4 +1,6 @@
 import React from 'react'
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
+import {AtomHeroTitleText, AtomSecondaryText} from "./atom-text";
 
 export enum StatSeverity {
 	Primary = 'text-primary-content',
@@ -20,11 +22,10 @@ interface AtomStatsProps {
 const AtomStats: React.FC<AtomStatsProps> =
 	React.memo(({text, value, severity, className}) => {
 		return (
-			<div className={`stat ${className} w-fit h-fit cursor-auto`}>
-				<span className="stat-title">{text}</span>
-				<span
-					className={`stat-value ${severity}`}>{value}</span>
-			</div>
+			<AtomColumn className={className} alignment={AtomLayoutAlignment.Center} gap={AtomLayoutGap.None}>
+				<AtomSecondaryText>{text}</AtomSecondaryText>
+				<AtomHeroTitleText className={severity}>{value}</AtomHeroTitleText>
+			</AtomColumn>
 		)
 	});
 

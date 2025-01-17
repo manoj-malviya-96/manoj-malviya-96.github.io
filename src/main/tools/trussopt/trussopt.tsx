@@ -220,19 +220,25 @@ const TrussOptView = () => {
 					<AtomCanvas controller={controller} animationLoop={false}
 					            isLoading={canvasLoading}
 					            className="w-full h-full p-4"/>
-					<div className='absolute right-0 bottom-0
+					
+					<div className='absolute right-0 bottom-0 p-4
                                     z-5 bg-primary bg-opacity-80 backdrop-blur-lg'>
-						<AtomStats
-							text={'Volume'}
-							value={simResult ? simResult.volume : 'N/A'}
-							severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
-						/>
-						<AtomStats
-							text={'Strain Energy'}
-							value={simResult ? simResult.strainEnergy : 'N/A'}
-							severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
-						/>
+						<AtomRow size={AtomLayoutSize.FullWidth}>
+							<AtomStats
+								className={'w-fit h-full'}
+								text={'Volume'}
+								value={simResult ? simResult.volume : 'N/A'}
+								severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
+							/>
+							<AtomStats
+								className={'w-fit h-full'}
+								text={'Energy'}
+								value={simResult ? simResult.strainEnergy : 'N/A'}
+								severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
+							/>
+						</AtomRow>
 					</div>
+				
 				</AtomStyledContainer>
 			</div>
 		</AppView>
@@ -252,4 +258,5 @@ class TrussOpt extends ToolInfo {
 		});
 	}
 }
+
 export default TrussOpt;
