@@ -6,8 +6,6 @@ interface FullScreenPageProps {
 	name: string;
 	title?: string;
 	children?: ReactNode;
-	childrenAlignment?: string; // Example: 'justify-center
-                                // items-center'
 	backgroundImage?: string;
 }
 
@@ -15,16 +13,11 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 	                                                                           name,
 	                                                                           title,
 	                                                                           children,
-	                                                                           childrenAlignment,
 	                                                                           backgroundImage,
                                                                            }) => {
 	if (!name) {
 		throw new Error("The 'name' prop is required for FullScreenPage.");
 	}
-	
-	const alignmentClasses = childrenAlignment
-		? `flex ${childrenAlignment}`
-		: 'flex justify-center items-center';
 	
 	return (
 		<Element
@@ -50,7 +43,7 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 			{/* Children */}
 			{children && (
 				<div
-					className={`px-12 py-4 w-fit max-w-full h-fit mx-auto ${alignmentClasses}`}>
+					className={`px-12 py-4 w-fit max-w-full h-fit mx-auto`}>
 					{children}
 				</div>
 			)}

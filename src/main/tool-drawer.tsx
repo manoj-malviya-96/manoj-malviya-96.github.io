@@ -28,11 +28,10 @@ const ToolDrawer = () => {
 				<AtomHeroTitleText>Creating in</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
 			</AtomRow>
-			<AtomStyledContainer label="Playground">
-				<AtomCardGrid
-					items={items}
-					classNameForCard={'w-44 h-36'}/>
-			</AtomStyledContainer>
+			<AtomCardGrid
+				items={items}
+				classNameForCard={'w-44 h-36'}/>
+
 		</AtomColumn>
 	);
 }

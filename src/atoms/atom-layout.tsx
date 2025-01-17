@@ -50,7 +50,7 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
                                                               }) => {
 	return (
 		<div
-			className={`flex flex-col  md:flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
+			className={`flex flex-col md:flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
 			onClick={onClick}>
 			{children}
 		</div>

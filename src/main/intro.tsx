@@ -1,7 +1,6 @@
 import React from 'react';
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
-import Cover from "./assets/cover.webp";
-import {AtomButton} from "../atoms/atom-button";
+import Cover from "./assets/cover.gif";
 import {AtomPrimaryText, AtomSuperHeroBrandTitleText} from "../atoms/atom-text";
 import {AtomColumn} from "../atoms/atom-layout";
 
@@ -23,18 +22,6 @@ const Intro = () => {
 					<AtomSuperHeroBrandTitleText
 						className={'text-center w-1/2'}> Creating Tools for Humanity
 					</AtomSuperHeroBrandTitleText>
-					
-					<AtomButton
-						icon="fas fa-arrow-down"
-						label="Scroll Down for more"
-						animated={true}
-						onClick={() => {
-							window.scroll({
-								top: window.innerHeight,
-								behavior: 'smooth'
-							});
-						}}
-					/>
 				</AtomColumn>
 			</div>
 		</AtomFullScreenContainer>

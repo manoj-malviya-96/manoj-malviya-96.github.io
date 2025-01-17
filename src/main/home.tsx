@@ -7,6 +7,7 @@ import ToolDrawer from "./tool-drawer";
 import {useNavbar} from "../providers/navbar";
 import {AtomLinkBarRow} from "../atoms/atom-tab-bar";
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
+import {AtomPrimaryText} from "../atoms/atom-text";
 
 
 const Home = () => {
@@ -19,16 +20,16 @@ const Home = () => {
 	}, [updateBrand]);
 	
 	const tabs = [
-		{name: 'about-me', label: 'About Me', icon: 'fa-solid fa-user'},
-		{name: 'playground', label: 'Playground', icon: 'fa-solid fa-tools'},
-		{name: 'blog', label: 'Blog', icon: 'fa-solid fa-blog'},
+		{name: 'about-me', children: <AtomPrimaryText>About Me</AtomPrimaryText>},
+		{name: 'playground', children: <AtomPrimaryText>Tools</AtomPrimaryText>},
+		{name: 'blog', children: <AtomPrimaryText>Blog</AtomPrimaryText>},
 	];
 	
 	return (
 		<>
+			<AtomLinkBarRow items={tabs} className={'sticky top-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
 			<Intro/>
 			<div className={'flex flex-col w-full h-full'}>
-				<AtomLinkBarRow items={tabs} className={'sticky mt-8 top-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
 				<AtomFullScreenContainer name={'about-me'}>
 					<AboutMe/>
 				</AtomFullScreenContainer>

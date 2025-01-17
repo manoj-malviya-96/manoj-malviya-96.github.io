@@ -3,53 +3,41 @@ import React from "react";
 import {AtomLayoutGap, AtomRow} from "./atom-layout";
 
 
-export interface TabItemProps {
+export interface TabLinkItemProps {
 	name: string;
-	label?: string;
-	icon?: string;
+	children?: React.ReactNode;
 }
 
-const TabItem: React.FC<TabItemProps> = ({label, icon}) => {
-	return (
-		<div
-			className="active:scale-95 cursor-pointer p-0 m-0 tooltip tooltip-bottom"
-			data-tip={label}>
-			<i className={`${icon} mr-1`}></i>
-			<span className="hidden sm:inline">{label}</span>
-		</div>
-	);
-};
+export enum TabBarOrientation {
+	Horizontal = 'flex-row',
+	Vertical = 'flex-col',
+}
 
-export interface TabBarProps {
-	items: Array<TabItemProps>;
+export interface TabBarLinkProps {
+	items: Array<TabLinkItemProps>;
+	orientation?: TabBarOrientation;
 	className?: string;
 }
 
 
 //! Scroll to the section when a tab is clicked.
-export const AtomLinkBarRow: React.FC<TabBarProps> = ({items, className = ''}) => {
+export const AtomLinkBarRow: React.FC<TabBarLinkProps> = ({items, orientation=TabBarOrientation.Horizontal, className = ''}) => {
 	return (
-		<AtomRow className={`bg-primary border-neutral border-opacity-50 bg-opacity-50
+		<div className={`flex ${orientation} gap-0 justify-center items-center w-fit h-fit
+							bg-primary border-neutral border-opacity-50 bg-opacity-50
 		                    border backdrop-blur-lg rounded-full
-		                    ${className}`}
-		         gap={AtomLayoutGap.None}>
+		                    ${className}`}>
 			{items.map((item, index) => (
 				<AtomScrollableLink
 					key={index}
 					elementName={item.name}
-					className={`md:px-6 py-2 gap-2 w-fit h-full text-center cursor-pointer text-sm
+					className={`px-6 py-2 w-fit h-full text-center cursor-pointer text-sm
 					    ${index === 0 ? 'rounded-l-full' : index === items.length - 1 ? 'rounded-r-full' : ''}
 					`}
-					activeClassName="bg-secondary text-secondary-content"
-					children={
-						<TabItem
-							name={item.name}
-							label={item.label}
-							icon={item.icon}
-						/>
-					}
-				/>
+					activeClassName="bg-secondary text-secondary-content">
+					{item.children}
+				</AtomScrollableLink>
 			))}
-		</AtomRow>
+		</div>
 	);
 };

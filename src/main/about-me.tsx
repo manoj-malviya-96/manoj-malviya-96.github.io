@@ -121,19 +121,17 @@ const AboutMeText = () => {
 const AboutMe = () => {
 	return (
 		<AtomRow
-			className={'mt-8 h-fit'}
-			size={AtomLayoutSize.FullWidth}
-			alignment={AtomLayoutAlignment.Start}>
+			className={'mt-4 h-full w-full'}
+			size={AtomLayoutSize.FullSize}>
 			
 			<AtomColumn
-				className={'w-full md:w-1/2 h-fit'}
-				alignment={AtomLayoutAlignment.VStart}
+				alignment={AtomLayoutAlignment.Center}
 				size={AtomLayoutSize.FullSize}>
 				<AboutMeText/>
 				<SocialMediaButtons/>
 			</AtomColumn>
 			
-			<AtomStyledContainer className={'w-full h-full'}>
+			<AtomStyledContainer>
 				<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
 					<CareerHighlights/>
 					<AtomRowDivider/>
