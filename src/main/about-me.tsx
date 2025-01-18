@@ -111,7 +111,7 @@ const AboutMe = () => {
 		<AtomRow
 			size={AtomLayoutSize.FullSize}
 			className={'mt-4'}>
-			<AtomStyledContainer className={'w-1/2 h-fit'}>
+			<AtomStyledContainer className={'w-1/2 h-full'}>
 				<AtomColumn size={AtomLayoutSize.FullWidth}
 				            wrap={false}>
 					<AboutMeText/>

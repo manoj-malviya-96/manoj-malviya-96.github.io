@@ -11,10 +11,9 @@ import {
 } from "../../atoms/atom-text";
 import {
 	AtomColumn,
-	AtomGrid,
 	AtomLayoutAlignment,
 	AtomLayoutGap,
-	AtomLayoutSize,
+	AtomLayoutSize, AtomRow,
 } from "../../atoms/atom-layout";
 import AtomScrollContainer from "../../atoms/atom-scroll-container";
 import AtomStyledContainer from "../../atoms/atom-styled-container";
@@ -50,14 +49,15 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 						className={'my-4'}
 						textComponentConstructor={AtomSecondaryText}
 					/>
-					<AtomGrid
+					<AtomRow
+						wrap={true}
 						alignment={AtomLayoutAlignment.Start}
 						gap={AtomLayoutGap.Small}
 						size={AtomLayoutSize.FullWidth}>
 						{tags.map((tag, index) => (
 							<AtomSecondaryBadge key={index} className={'w-fit'}>{tag}</AtomSecondaryBadge>
 						))}
-					</AtomGrid>
+					</AtomRow>
 					{tabs.length > 1 && <AtomTableOfContents sections={tabs} label={'Contents'} className={'w-full'}/>}
 				</AtomColumn>
 			</AtomScrollContainer>

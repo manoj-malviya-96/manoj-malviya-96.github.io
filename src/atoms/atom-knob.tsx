@@ -42,9 +42,8 @@ const AtomKnob: React.FC<AtomKnobProps> = React.memo(({
 	) * 270 - 135;
 	
 	return (
-		<AtomColumn className="p-4" gap={AtomLayoutGap.None}>
+		<AtomColumn className="p-4 mx-auto" gap={AtomLayoutGap.None}>
 			{label && <span className="text-sm mb-2">{label}</span>}
-			
 			<div className="relative w-20 h-20">
 				<div className="absolute inset-0 flex justify-center items-center
                                 rounded-full bg-primary border-neutral">

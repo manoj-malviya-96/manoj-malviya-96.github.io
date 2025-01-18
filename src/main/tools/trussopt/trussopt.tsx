@@ -14,7 +14,7 @@ import AtomStats, {StatSeverity} from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
+import {AtomGrid, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
 
 const AppName = 'TrussOpt';
 
@@ -37,6 +37,9 @@ const TrussOptView = () => {
 	const [canvasLoading, setCanvasLoading] = useState<boolean>(false);
 	const [simResult, setSimResult] = useState<TrussFeaResults | null>();
 	const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
+	
+	const [numIterations, setNumIterations] = useState<number>(100);
+	const [targetFraction, setTargetFraction] = useState<number>(0.3);
 	
 	useEffect(() => {
 		controller.trussColor = daisyPrimaryText;
@@ -69,12 +72,11 @@ const TrussOptView = () => {
 	}, [controller]);
 	
 	const optimize = useCallback(async () => {
-		console.log('Optimize');
 		setCanvasLoading(true);
 		if (!mesh) {
 			throw new Error('Null Scene');
 		}
-		const optimizer = new TrussOptimizer(structuredClone(mesh));
+		const optimizer = new TrussOptimizer(structuredClone(mesh), numIterations, targetFraction);
 		try {
 			await optimizer.optimize();
 			if (optimizer.success) {
@@ -90,73 +92,69 @@ const TrussOptView = () => {
 			clearOptimize();
 		}
 		setCanvasLoading(false);
-	}, [mesh, controller, clearOptimize]);
+	}, [mesh, controller, clearOptimize, numIterations, targetFraction]);
 	
 	useEffect(() => {
 		clearOptimize();
-	}, [mesh, clearOptimize]);
+	}, [mesh, numIterations, targetFraction, clearOptimize]);
 	
 	return (
 		<AppView
 			appName={AppName}
 			appLogo={Logo}
 		>
-			<div className="h-full w-full flex flex-col-reverse md:flex-row
-                                p-0 m-0 gap-4 mt-12">
+			<div className="h-full w-full flex flex-col-reverse md:flex-row gap-4 mt-12">
 				<div
-					className="w-full h-full md:w-fit md:h-fit
-                        flex flex-col gap-3">
+					className="w-full h-full md:w-1/4 md:h-full
+                        flex flex-col gap-2 shrink-0">
+					
 					<AtomStyledContainer
 						label={'Design Initial Truss'}
 						transparency={false}
 					>
-						<AtomColumn gap={AtomLayoutGap.None}>
-							<AtomRow size={AtomLayoutSize.FullWidth}>
-								<AtomKnob
-									label='Width'
-									min={cellSize}
-									max={100}
-									step={cellSize}
-									initValue={meshWidth}
-									onChange={setMeshWidth}
-								/>
-								<AtomKnob
-									label='Height'
-									min={cellSize}
-									max={100}
-									step={cellSize}
-									initValue={meshHeight}
-									onChange={setMeshHeight}
-								/>
-							</AtomRow>
-							<AtomRow size={AtomLayoutSize.FullHeight} alignment={AtomLayoutAlignment.Center}>
-								<AtomKnob
-									label='Cell Size'
-									min={5}
-									max={20}
-									step={5}
-									initValue={cellSize}
-									onChange={setCellSize}
-								/>
-								<AtomDropdown
-									placeholder='Select Lattice Type'
-									initialIndex={0}
-									dropdownIcon={'fas fa-layer-group'}
-									options={[
-										{
-											label: 'Cross',
-											value: LatticeType.Cross
-										},
-										{
-											label: 'Checker',
-											value: LatticeType.Checkerboard
-										}
-									]}
-									className={'w-24 mx-auto mt-6'}
-									onClick={setLatticeType}
-								/>
-							</AtomRow>
-						</AtomColumn>
+						<AtomGrid gap={AtomLayoutGap.None} size={AtomLayoutSize.FullWidth}>
+							<AtomKnob
+								label='Width'
+								min={cellSize}
+								max={100}
+								step={cellSize}
+								initValue={meshWidth}
+								onChange={setMeshWidth}
+							/>
+							<AtomKnob
+								label='Height'
+								min={cellSize}
+								max={100}
+								step={cellSize}
+								initValue={meshHeight}
+								onChange={setMeshHeight}
+							/>
+							<AtomKnob
+								label='Cell Size'
+								min={5}
+								max={20}
+								step={5}
+								initValue={cellSize}
+								onChange={setCellSize}
+							/>
+							<AtomDropdown
+								placeholder='Select Lattice Type'
+								initialIndex={0}
+								dropdownIcon={'fas fa-layer-group'}
+								options={[
+									{
+										label: 'Cross',
+										value: LatticeType.Cross
+									},
+									{
+										label: 'Checker',
+										value: LatticeType.Checkerboard
+									}
+								]}
+								className={'w-24 mx-auto mt-6'}
+								onClick={setLatticeType}
+							/>
+						</AtomGrid>
 					</AtomStyledContainer>
 					
 					<AtomStyledContainer label={'FEA Controls'}>
@@ -199,7 +197,25 @@ const TrussOptView = () => {
 					<AtomStyledContainer
 						label={'Optimization'}
 						className={'w-full'}>
-						<AtomRow size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Small}>
+						
+						<AtomGrid size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.ExtraSmall}>
+							<AtomKnob
+								label='Iterations'
+								min={5}
+								max={500}
+								step={5}
+								initValue={numIterations}
+								onChange={setNumIterations}
+							/>
+							<AtomKnob
+								label='Target'
+								min={0.1}
+								max={0.9}
+								step={0.1}
+								initValue={targetFraction}
+								onChange={setTargetFraction}
+							/>
+							
 							<AtomButton
 								label='Optimize'
 								icon='fas fa-bolt-lightning'
@@ -214,12 +230,14 @@ const TrussOptView = () => {
 								tooltip={'clear optimization results'}
 								onClick={clearOptimize}
 							/>
-						</AtomRow>
+						</AtomGrid>
 					</AtomStyledContainer>
 				</div>
+				
+				
 				<AtomStyledContainer
-					label={'Truss Structure'}
-					className={'w-full h-full relative'}
+					label={'Output'}
+					className={'w-full md:w-3/4 h-full inline-block relative overflow-hidden'}
 					transparency={true}
 				>
 					<AtomCanvas controller={controller} animationLoop={false}

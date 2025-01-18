@@ -34,7 +34,7 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 			{/* Children */}
 			{children && (
 				<div
-					className={`px-12 py-4 w-full h-full items-center justify-center`}>
+					className={`p-4 w-full h-fit min-h-full items-center justify-center`}>
 					{children}
 				</div>
 			)}

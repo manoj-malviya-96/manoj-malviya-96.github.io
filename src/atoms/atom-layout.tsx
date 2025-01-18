@@ -39,14 +39,14 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 	                                                              className = '',
 	                                                              gap = AtomLayoutGap.Medium,
 	                                                              size = AtomLayoutSize.Fit,
-	                                                              wrap,
-	                                                              alignment = AtomLayoutAlignment.Start,
+	                                                              wrap = false,
+	                                                              alignment = AtomLayoutAlignment.Center,
 	                                                              onClick,
 	                                                              children
                                                               }) => {
 	return (
 		<div
-			className={`flex flex-col md:flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
+			className={`flex flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
 			onClick={onClick}>
 			{children}
 		</div>
@@ -57,7 +57,7 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	                                                                 className = '',
 	                                                                 gap = AtomLayoutGap.Medium,
 	                                                                 size = AtomLayoutSize.Fit,
-	                                                                 wrap,
+	                                                                 wrap = false,
 	                                                                 alignment = AtomLayoutAlignment.Center,
 	                                                                 onClick,
 	                                                                 children
@@ -71,22 +71,37 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 });
 
 
-export const AtomGrid: React.FC<AtomLayoutProps> = React.memo(({
-	                                                               className = '',
-	                                                               gap = AtomLayoutGap.Medium,
-	                                                               size = AtomLayoutSize.Fit,
-	                                                               alignment = AtomLayoutAlignment.Center,
-	                                                               onClick,
-	                                                               children
-                                                               }) => {
+export enum GridColumns {
+	One = 'grid-cols-1',
+	Two = 'grid-cols-1 md:grid-cols-2',
+	Three = 'grid-cols-2 md:grid-cols-3',
+	Four = 'grid-cols-3 md:grid-cols-4',
+	Five = 'grid-cols-4 md:grid-cols-5',
+	Six = 'grid-cols-5 md:grid-cols-6',
+}
+
+
+interface AtomGridProps extends AtomLayoutProps {
+	nCols?: GridColumns;
+}
+
+
+export const AtomGrid: React.FC<AtomGridProps> = React.memo(({
+	                                                             nCols = GridColumns.Two,
+	                                                             className = '',
+	                                                             alignment = AtomLayoutAlignment.Center,
+	                                                             size = AtomLayoutSize.Fit,
+	                                                             gap = AtomLayoutGap.Medium,
+	                                                             onClick,
+	                                                             children
+                                                             }) => {
 	return (
 		<div
-			className={`flex ${size} ${gap} ${className} ${alignment} flex-wrap`}
+			className={`grid ${nCols} ${gap} ${size} ${alignment} ${className} p-0 m-0`}
 			onClick={onClick}
 		>
 			{children}
 		</div>
-	
 	);
 });
 
