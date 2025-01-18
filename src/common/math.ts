@@ -49,3 +49,11 @@ export const roundTo = (num: number, places: number) => {
     const factor = 10 ** places;
     return Math.round(num * factor) / factor;
 }
+
+export function aRange(min: number, length: number, step: number): Array<number> {
+    const result = [];
+    for (let i = 0; i < length; i++) {
+        result.push(min + i * step);
+    }
+    return result;
+}

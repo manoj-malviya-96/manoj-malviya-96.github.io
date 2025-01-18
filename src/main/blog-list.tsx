@@ -26,24 +26,20 @@ const BlogListing = () => {
 	});
 	
 	return (
-		<AtomFullScreenContainer
-			name="blog"
-		>
-			<AtomColumn gap={AtomLayoutGap.Small}>
-				<AtomRow size={AtomLayoutSize.None} className={'w-2/3'} gap={AtomLayoutGap.ExtraSmall}>
-					<AtomHeroTitleText>Sometimes I document my</AtomHeroTitleText>
-					<AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
-				</AtomRow>
-				<AtomBentoBox
-					items={allItems}
-					columns={4}
-					className={'mx-auto w-2/3'}
-					autoRowsSize={220}
-					// Casting to Component Type.
-					component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
-				/>
-			</AtomColumn>
-		</AtomFullScreenContainer>
+		<AtomColumn gap={AtomLayoutGap.Small}>
+			<AtomRow size={AtomLayoutSize.None} className={'w-2/3'} gap={AtomLayoutGap.ExtraSmall}>
+				<AtomHeroTitleText>Sometimes I document my</AtomHeroTitleText>
+				<AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
+			</AtomRow>
+			<AtomBentoBox
+				items={allItems}
+				columns={4}
+				className={'mx-auto w-2/3'}
+				autoRowsSize={220}
+				// Casting to Component Type.
+				component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
+			/>
+		</AtomColumn>
 	);
 };
 

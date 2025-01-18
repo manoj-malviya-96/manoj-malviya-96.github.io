@@ -5,7 +5,7 @@ import {AtomButton, ButtonSize, ButtonType} from "../../../atoms/atom-button";
 import Logo from '../logos/muviz.svg';
 import AtomDropdown, {AtomDropdownItemProps} from "../../../atoms/atom-dropdown";
 
-import Lioness from './sample-music/MM_Lioness.mp3';
+import Princess from './sample-music/princess.mp3';
 import Flood from './sample-music/Sebastian_Flood.mp3';
 import StayInit from './sample-music/FredAgain_StayInit.mp3';
 
@@ -16,8 +16,9 @@ import {AbstractVisualizer, BaseVisualizer, VisualizerType} from "./visualizers"
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import {toggleFullScreen} from "../../../common/full-screen";
 import AppView from "../app-view";
-import {DialogButton} from "../../../atoms/atom-dialog";
-import {useKeyboardManager} from "../../../providers/keyboard";
+import AtomDialog from "../../../atoms/atom-dialog";
+import {AtomColumn} from "../../../atoms/atom-layout";
+import {AtomPrimaryText} from "../../../atoms/atom-text";
 
 const AppName = 'MUVIZ';
 
@@ -38,7 +39,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     const [controller, setController] = useState<BaseVisualizer | null>(null);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const appRef = useRef<HTMLDivElement | null>(null);
-    const {addShortcut, removeShortcut} = useKeyboardManager();
     
     // Player Setup
     const {
@@ -54,7 +54,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
         features
     } = useAudioPlayer({src, makeAnalyzer: true});
     
-    const updateVisualizer = useCallback(async () => {
+    const updateVisualizer = useCallback(() => {
         switch (visualizerType) {
             case VisualizerType.Spiral:
             case VisualizerType.Abstract:
@@ -64,44 +64,39 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             default:
                 throw new Error("Invalid visualizer type");
         }
-    }, [visualizerType]);
+    }, [visualizerType, setController]);
     
-    useEffect(()=>{
-        controller?.update(features);
-    }, [features, controller]);
-    
-    const stopController = useCallback(() => {
-        if (controller) {
-            controller.stop();
-        }
-    }, [controller]);
     
     const handleSampleSongChange = useCallback(
         (value: any) => {
+            controller?.stop();
             setSrc(value);
-            stopController();
-            pause();
         },
-        [stopController, pause]
+        [controller, setSrc]
     );
+    
+    useEffect(() => {
+    }, [isPlaying]);
+    
+    useEffect(() => {
+    }, [controller]);
     
     const handleVisualizerChange = useCallback(
         (value: any) => {
-            stopController();
             setVisualizerType(value);
-            pause();
         },
-        [stopController, pause]
+        []
     );
     
     const handlePlayOrPause = useCallback(() => {
         if (isPlaying) {
-            stopController();
+            controller?.stop();
             pause();
         } else {
-            updateVisualizer().then(() => play());
+            updateVisualizer();
+            play();
         }
-    }, [play, pause, stopController, updateVisualizer, isPlaying]);
+    }, [play, pause, controller, updateVisualizer, isPlaying]);
     
     const skipForward = useCallback(() => {
         setAudioTime(currentTime + timeSkip_s);
@@ -117,23 +112,20 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
     
     const handleFileChange = useCallback((file: string) => {
         if (file) {
+            controller?.stop();
             setSrc(file);
         }
-    }, []);
+    }, [setSrc, controller]);
     
     const toggleVolume = useCallback(() => {
         changeVolume(volume === 0 ? 0.69 : 0);
     }, [volume, changeVolume]);
-    const showHUD = !isPlaying;
     
-    
-    useEffect(() => {
-        addShortcut(" ", handlePlayOrPause);
-        return () => {
-            removeShortcut(" ");
-        };
-    }, [handlePlayOrPause, addShortcut, removeShortcut]);
-    
+    useEffect(()=>{
+        if (controller) {
+            controller.update(features);
+        }
+    }, [features, controller]);
     
     // Render
     return (
@@ -145,8 +137,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
             
             {/*HUD*/}
             <div className={`inline-block w-full h-full z-5 p-4 bg-transparent
-                ${showHUD ? "lg:opacity-100" : "lg:opacity-0"}
-                 lg:hover:opacity-100`}>
+                lg:opacity-0 lg:hover:opacity-100`}>
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
@@ -238,28 +229,22 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 options={songOptions}
                                 dropdownIcon={"fas fa-music"}
                                 onClick={handleSampleSongChange}
-                                className="h-full w-44 m-auto"
-                                placeholder="Select Song"
-                                header={
-                                    <DialogButton
-                                        icon="fa-solid fa-upload"
-                                        label="Upload"
-                                        title="Upload Audio File"
-                                        dialogContent= {
-                                            <div
-                                                className="flex flex-col gap-2">
-                                                <span className="text-xs">
-                                                    Only audio files (.wav/.mp3/..) are supported
-                                                </span>
-                                                <AtomFileUpload
-                                                    acceptTypes="audio/*"
-                                                    onFileChange={handleFileChange}/>
-                                            </div>
-                                        }
-                                        type={ButtonType.Ghost}
-                                    />
-                                }
+                                className="h-full w-32 m-auto"
+                                placeholder="Sample Song"
                             />
+                            <AtomDialog
+                                icon="fa-solid fa-upload"
+                                title="Upload Song"
+                            >
+                                <AtomColumn>
+                                    <AtomPrimaryText>
+                                        Only audio files (.wav/.mp3/..) are supported
+                                    </AtomPrimaryText>
+                                    <AtomFileUpload
+                                        acceptTypes="audio/*"
+                                        onFileChange={handleFileChange}/>
+                                </AtomColumn>
+                            </AtomDialog>
                             <AtomDropdown
                                 options={vizOptions}
                                 onClick={handleVisualizerChange}
@@ -283,8 +268,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
 const defaultSongOptions =
     [
         {
-            label: 'Lioness',
-            value: Lioness,
+            label: 'Princess',
+            value: Princess,
         } as AtomDropdownItemProps,
         {
             label: 'Flood',

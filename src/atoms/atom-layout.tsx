@@ -23,10 +23,6 @@ export enum AtomLayoutAlignment {
 	Center = 'items-center justify-center',
 	Start = 'items-start justify-start',
 	End = 'items-end justify-end',
-	HStart = 'items-center justify-start',
-	HEnd = 'items-center justify-end',
-	VStart = 'items-start justify-center',
-	VEnd = 'items-end justify-center',
 }
 
 interface AtomLayoutProps {
@@ -43,14 +39,14 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 	                                                              className = '',
 	                                                              gap = AtomLayoutGap.Medium,
 	                                                              size = AtomLayoutSize.FullHeight,
-	                                                              wrap,
+	                                                              wrap = false,
 	                                                              alignment = AtomLayoutAlignment.Center,
 	                                                              onClick,
 	                                                              children
                                                               }) => {
 	return (
 		<div
-			className={`flex flex-col  md:flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
+			className={`flex flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
 			onClick={onClick}>
 			{children}
 		</div>
@@ -61,7 +57,7 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	                                                                 className = '',
 	                                                                 gap = AtomLayoutGap.Medium,
 	                                                                 size = AtomLayoutSize.FullWidth,
-	                                                                 wrap,
+	                                                                 wrap = false,
 	                                                                 alignment = AtomLayoutAlignment.Center,
 	                                                                 onClick,
 	                                                                 children
@@ -75,23 +71,57 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 });
 
 
-export const AtomGrid: React.FC<AtomLayoutProps> = React.memo(({
-	                                                               className = '',
-	                                                               gap = AtomLayoutGap.Medium,
-	                                                               size = AtomLayoutSize.Fit,
-	                                                               alignment = AtomLayoutAlignment.Center,
-	                                                               onClick,
-	                                                               children
-                                                               }) => {
+export enum GridColumns {
+	One = 'grid-cols-1',
+	Two = 'grid-cols-1 md:grid-cols-2',
+	Three = 'grid-cols-2 md:grid-cols-3',
+	Four = 'grid-cols-3 md:grid-cols-4',
+	Five = 'grid-cols-4 md:grid-cols-5',
+	Six = 'grid-cols-5 md:grid-cols-6',
+}
+
+
+interface AtomGridProps extends AtomLayoutProps {
+	nCols?: GridColumns;
+}
+
+
+export const AtomGrid: React.FC<AtomGridProps> = React.memo(({
+	                                                             nCols = GridColumns.Two,
+	                                                             className = '',
+	                                                             alignment = AtomLayoutAlignment.Center,
+	                                                             size = AtomLayoutSize.Fit,
+	                                                             gap = AtomLayoutGap.Medium,
+	                                                             onClick,
+	                                                             children
+                                                             }) => {
 	return (
 		<div
-			className={`flex ${size} ${gap} ${className} ${alignment} flex-wrap`}
+			className={`grid ${nCols} ${gap} ${size} ${alignment} ${className} p-0 m-0`}
 			onClick={onClick}
 		>
 			{children}
 		</div>
-	
 	);
 });
+
+
+interface DividerProps {
+	className?: string
+}
+
+export const AtomRowDivider = ({className}: DividerProps) => {
+	return (
+		<hr className={`w-full border-neutral border-opacity-50 ${className}`}/>
+	)
+}
+
+export const AtomColumnDivider = ({className}: DividerProps) => {
+	return (
+		<hr className={`h-full border-neutral border-opacity-50 ${className}`}/>
+	)
+}
+
+
 
 

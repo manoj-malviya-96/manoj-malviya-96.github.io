@@ -48,6 +48,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(({
                 onClick={() => setOpen(!open)}
                 className={`w-full`}
                 pill={false}
+                hoverEffect={false}
                 type={ButtonType.Outlined}
             />
             

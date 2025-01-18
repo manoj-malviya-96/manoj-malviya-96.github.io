@@ -43,6 +43,7 @@ declare module "*.wav" {
     export default value;
 }
 
+
 interface Window {
     webkitAudioContext: typeof AudioContext;
 }

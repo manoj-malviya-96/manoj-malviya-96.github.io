@@ -14,7 +14,7 @@ import AtomStats, {StatSeverity} from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import {AtomColumn, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
+import {AtomGrid, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
 
 const AppName = 'TrussOpt';
 
@@ -37,6 +37,9 @@ const TrussOptView = () => {
 	const [canvasLoading, setCanvasLoading] = useState<boolean>(false);
 	const [simResult, setSimResult] = useState<TrussFeaResults | null>();
 	const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
+	
+	const [numIterations, setNumIterations] = useState<number>(100);
+	const [targetFraction, setTargetFraction] = useState<number>(0.3);
 	
 	useEffect(() => {
 		controller.trussColor = daisyPrimaryText;
@@ -69,12 +72,11 @@ const TrussOptView = () => {
 	}, [controller]);
 	
 	const optimize = useCallback(async () => {
-		console.log('Optimize');
 		setCanvasLoading(true);
 		if (!mesh) {
 			throw new Error('Null Scene');
 		}
-		const optimizer = new TrussOptimizer(structuredClone(mesh));
+		const optimizer = new TrussOptimizer(structuredClone(mesh), numIterations, targetFraction);
 		try {
 			await optimizer.optimize();
 			if (optimizer.success) {
@@ -90,52 +92,51 @@ const TrussOptView = () => {
 			clearOptimize();
 		}
 		setCanvasLoading(false);
-	}, [mesh, controller, clearOptimize]);
+	}, [mesh, controller, clearOptimize, numIterations, targetFraction]);
 	
 	useEffect(() => {
 		clearOptimize();
-	}, [mesh, clearOptimize]);
+	}, [mesh, numIterations, targetFraction, clearOptimize]);
 	
 	return (
 		<AppView
 			appName={AppName}
 			appLogo={Logo}
 		>
-			<div className="h-full w-full flex flex-col-reverse md:flex-row
-                                p-0 m-0 gap-4 mt-12">
+			<div className="h-full w-full flex flex-col-reverse md:flex-row gap-4 mt-12">
 				<div
-					className="w-full h-full md:w-fit md:h-fit
-                        flex flex-col gap-3">
+					className="w-full h-full md:w-1/4 md:h-full
+                        flex flex-col gap-2 shrink-0">
+					
 					<AtomStyledContainer
-						label={'Design Inital Truss'}
+						label={'Design Initial Truss'}
+						transparency={false}
 					>
-						<AtomColumn>
-							<AtomRow size={AtomLayoutSize.FullWidth}>
-								<AtomKnob
-									label='Width'
-									min={cellSize}
-									max={100}
-									step={cellSize}
-									initValue={meshWidth}
-									onChange={setMeshWidth}
-								/>
-								<AtomKnob
-									label='Height'
-									min={cellSize}
-									max={100}
-									step={cellSize}
-									initValue={meshHeight}
-									onChange={setMeshHeight}
-								/>
-								<AtomKnob
-									label='Cell Size'
-									min={5}
-									max={20}
-									step={5}
-									initValue={cellSize}
-									onChange={setCellSize}
-								/>
-							</AtomRow>
+						<AtomGrid gap={AtomLayoutGap.None} size={AtomLayoutSize.FullWidth}>
+							<AtomKnob
+								label='Width'
+								min={cellSize}
+								max={100}
+								step={cellSize}
+								initValue={meshWidth}
+								onChange={setMeshWidth}
+							/>
+							<AtomKnob
+								label='Height'
+								min={cellSize}
+								max={100}
+								step={cellSize}
+								initValue={meshHeight}
+								onChange={setMeshHeight}
+							/>
+							<AtomKnob
+								label='Cell Size'
+								min={5}
+								max={20}
+								step={5}
+								initValue={cellSize}
+								onChange={setCellSize}
+							/>
 							<AtomDropdown
 								placeholder='Select Lattice Type'
 								initialIndex={0}
@@ -150,14 +151,14 @@ const TrussOptView = () => {
 										value: LatticeType.Checkerboard
 									}
 								]}
-								className={'w-32 mx-auto'}
+								className={'w-24 mx-auto mt-6'}
 								onClick={setLatticeType}
 							/>
-						</AtomColumn>
+						</AtomGrid>
 					</AtomStyledContainer>
 					
-					<AtomStyledContainer label={'FEA'}>
-						<AtomRow size={AtomLayoutSize.FullWidth}>
+					<AtomStyledContainer label={'FEA Controls'}>
+						<AtomRow size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Small}>
 							<AtomToggleButton
 								offIcon='fas fa-lock-open'
 								onIcon='fas fa-lock'
@@ -179,6 +180,7 @@ const TrussOptView = () => {
 								offIcon='fas fa-play'
 								onIcon='fas fa-stop'
 								tooltip='simulate the truss'
+								className={'w-fit'}
 								initValue={controller.feaEngine !== null}
 								type={ButtonType.Outlined}
 								onChange={(e: boolean) => {
@@ -195,7 +197,25 @@ const TrussOptView = () => {
 					<AtomStyledContainer
 						label={'Optimization'}
 						className={'w-full'}>
-						<AtomRow size={AtomLayoutSize.FullWidth}>
+						
+						<AtomGrid size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.ExtraSmall}>
+							<AtomKnob
+								label='Iterations'
+								min={5}
+								max={500}
+								step={5}
+								initValue={numIterations}
+								onChange={setNumIterations}
+							/>
+							<AtomKnob
+								label='Target'
+								min={0.1}
+								max={0.9}
+								step={0.1}
+								initValue={targetFraction}
+								onChange={setTargetFraction}
+							/>
+							
 							<AtomButton
 								label='Optimize'
 								icon='fas fa-bolt-lightning'
@@ -210,29 +230,38 @@ const TrussOptView = () => {
 								tooltip={'clear optimization results'}
 								onClick={clearOptimize}
 							/>
-						</AtomRow>
+						</AtomGrid>
 					</AtomStyledContainer>
 				</div>
+				
+				
 				<AtomStyledContainer
-					label={'Truss Structure'}
-					className={'w-full h-full relative'}
+					label={'Output'}
+					className={'w-full md:w-3/4 h-full inline-block relative overflow-hidden'}
+					transparency={true}
 				>
 					<AtomCanvas controller={controller} animationLoop={false}
 					            isLoading={canvasLoading}
 					            className="w-full h-full p-4"/>
-					<div className='absolute right-0 bottom-0
+					
+					<div className='absolute right-0 bottom-0 p-4
                                     z-5 bg-primary bg-opacity-80 backdrop-blur-lg'>
-						<AtomStats
-							text={'Volume'}
-							value={simResult ? simResult.volume : 'N/A'}
-							severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
-						/>
-						<AtomStats
-							text={'Strain Energy'}
-							value={simResult ? simResult.strainEnergy : 'N/A'}
-							severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
-						/>
+						<AtomRow size={AtomLayoutSize.FullWidth}>
+							<AtomStats
+								className={'w-fit h-full'}
+								text={'Volume'}
+								value={simResult ? simResult.volume : 'N/A'}
+								severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
+							/>
+							<AtomStats
+								className={'w-fit h-full'}
+								text={'Energy'}
+								value={simResult ? simResult.strainEnergy : 'N/A'}
+								severity={optimizeMesh ? StatSeverity.Info : StatSeverity.Primary}
+							/>
+						</AtomRow>
 					</div>
+				
 				</AtomStyledContainer>
 			</div>
 		</AppView>
@@ -252,4 +281,5 @@ class TrussOpt extends ToolInfo {
 		});
 	}
 }
+
 export default TrussOpt;

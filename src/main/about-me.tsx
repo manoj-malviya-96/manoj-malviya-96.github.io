@@ -1,6 +1,4 @@
 import React from 'react';
-import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
-import GithubProfile from "./github";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
@@ -8,11 +6,11 @@ import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom
 import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
-import {
-	AtomHeroBrandTitleText,
-	AtomPrimaryBadge, AtomPrimaryText,
-} from "../atoms/atom-text";
-import {AtomColumn, AtomGrid, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow, AtomRowDivider} from "../atoms/atom-layout";
+import AtomImage from "../atoms/atom-image";
+import ProfilePicture from "./assets/main.jpg";
+import {GithubCalendar} from "./github";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -59,7 +57,7 @@ const SocialMediaButtons = () => {
 			} as AtomButtonProps;
 		});
 	return (
-		<AtomStyledContainer label={'Find me here'} hug={true}>
+		<AtomStyledContainer label={'Find me here'} hug={true} className={'w-full'} transparency={true}>
 			{socialMediaItems.map((item, index) => (
 				<AtomButton
 					key={index}
@@ -70,24 +68,6 @@ const SocialMediaButtons = () => {
 	)
 }
 
-
-const AboutMeParagraph = () => {
-	return (
-		<AtomStyledContainer
-			label={'About Me'}
-		>
-			<AtomPrimaryText
-				className={'w-full p-0 justify-start'}
-			>
-				Designed for elegance, engineered for impact.
-				Manoj combines cutting-edge innovation with user-first
-				thinking to deliver simple yet creative solutions. <br/>
-				Complex challenges? Consider them solved with
-				precision and artistry.
-			</AtomPrimaryText>
-		</AtomStyledContainer>
-	)
-}
 
 const CareerHighlights = () => {
 	const navigate = useNavigate();
@@ -101,54 +81,25 @@ const CareerHighlights = () => {
 		};
 	});
 	return (
-		<AtomStyledContainer
-			label={'Career Highlights'}>
-			<AtomTimeline items={timelineData} className={'h-fit p-0'}/>
-		</AtomStyledContainer>
+		<AtomTimeline items={timelineData} className={'w-full h-full'}/>
 	)
 }
 
-
-const Skills = () => {
-	const skills = [
-		`C++`,
-		`Python`,
-		`JavaScript`,
-		`TypeScript`,
-		`React`,
-		`Node.js`,
-		`Express.js`,
-		`Docker`,
-		`AWS`,
-		`MATLAB`,
-		`AI`,
-		`Optimization`,
-		`Modelling`,
-		`3D Graphics`
-	]
-	
+const AboutMeText = () => {
 	return (
-		<AtomStyledContainer
-			label={'Skills'}
-			className={'w-full'}>
-			<AtomGrid>
-				{skills.map(
-					(skill, index) => (
-						<AtomPrimaryBadge key={index} className={'w-fit'}>{skill}</AtomPrimaryBadge>
-					))
-				}
-			</AtomGrid>
-		</AtomStyledContainer>
-	)
-}
-
-const HeroTextAboutMe = () => {
-	return (
-		<AtomColumn size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.None}>
-			<AtomHeroBrandTitleText
-				className={'w-full'}>Lets Unbox Me.</AtomHeroBrandTitleText>
-			<AtomPrimaryText className={'w-full'}>
-				The Next Gen Problem Solving Engine
+		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.None}>
+			<AtomImage src={ProfilePicture} alt={'Cover'}/>
+			<AtomHeroBrandTitleText className={'w-full'}>
+				Manoj Malviya
+			</AtomHeroBrandTitleText>
+			<AtomPrimaryText
+				className={'w-fit p-0 justify-start'}
+			>
+				Designed for elegance, engineered for impact.
+				Manoj combines cutting-edge innovation with user-first
+				thinking to deliver simple yet creative solutions. <br/>
+				Complex challenges? Consider them solved with
+				precision and artistry.
 			</AtomPrimaryText>
 		</AtomColumn>
 	);
@@ -157,36 +108,25 @@ const HeroTextAboutMe = () => {
 
 const AboutMe = () => {
 	return (
-		<AtomFullScreenContainer
-			name="about-me"
-			children={
-				<AtomRow
-					size={AtomLayoutSize.FullSize}
-					alignment={AtomLayoutAlignment.Start}>
-					
-					<AtomColumn
-						className={'w-full md:w-1/2'}
-						alignment={AtomLayoutAlignment.VStart}
-						size={AtomLayoutSize.None}>
-						<HeroTextAboutMe/>
-						<AboutMeParagraph/>
-						<Skills/>
-						<SocialMediaButtons/>
-					</AtomColumn>
-					
-					<AtomColumn
-						alignment={AtomLayoutAlignment.VStart}
-						size={AtomLayoutSize.FullWidth}>
-						<CareerHighlights/>
-						<AtomStyledContainer
-							label={'Github Profile'}
-							className="w-full">
-							<GithubProfile/>
-						</AtomStyledContainer>
-					</AtomColumn>
-				</AtomRow>
-			}
-		/>
+		<AtomRow
+			size={AtomLayoutSize.FullSize}
+			className={'mt-4'}>
+			<AtomStyledContainer className={'w-1/2 h-full'}>
+				<AtomColumn size={AtomLayoutSize.FullWidth}
+				            wrap={false}>
+					<AboutMeText/>
+					<SocialMediaButtons/>
+				</AtomColumn>
+			</AtomStyledContainer>
+			<AtomStyledContainer className={'w-full h-full'}>
+				<AtomColumn size={AtomLayoutSize.FullSize}
+				            gap={AtomLayoutGap.Small}>
+					<CareerHighlights/>
+					<AtomRowDivider/>
+					<GithubCalendar/>
+				</AtomColumn>
+			</AtomStyledContainer>
+		</AtomRow>
 	);
 };
 

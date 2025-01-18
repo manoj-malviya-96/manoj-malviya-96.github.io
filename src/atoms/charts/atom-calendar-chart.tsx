@@ -16,7 +16,7 @@ const dayTime = 24 * 3600 * 1000;
 export const AtomCalendarChart: React.FC<CalendarData>
     = React.memo(({data, year, unit, height}) => {
     const {daisyNeutral, daisyPrimaryText} = useTheme();
-    
+    console.log(data);
     
     const startDate = +echarts.time.parse(`${year}-01-01`); // Start of the year
     const endDate = +echarts.time.parse(`${year}-12-31`); // End of the year
@@ -30,7 +30,7 @@ export const AtomCalendarChart: React.FC<CalendarData>
     
     const options = {
         tooltip: {
-            formatter: (params: any) => `${params.value[0]}: ${params.value[1]}`,
+            formatter: (params: any) => `${params.value[1]} ${unit} on ${params.value[0]}`,
         },
         backgroundColor: 'transparent',
         visualMap: {
@@ -92,6 +92,7 @@ export const AtomCalendarChart: React.FC<CalendarData>
     return <ReactECharts option={options}
                          lazyUpdate={true}
                          style={{
+                             width: '100%',
                              height: `${height ? height : 400}px`
                          }
                          }/>;

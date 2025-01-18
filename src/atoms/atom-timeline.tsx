@@ -1,10 +1,11 @@
 import React from "react";
 import {AtomThemeSensitiveImage} from "./atom-image";
+import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
 
 
 export enum TimelineOrientation {
 	Vertical = 'timeline-vertical',
-	Horizontal = 'timeline-vertical md:timeline-horizontal'
+	Horizontal = 'timeline-vertical lg:timeline-horizontal'
 }
 
 interface AtomTimelineItemProps {
@@ -31,14 +32,14 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
 		return a.date < b.date ? 1 : -1;
 	});
 	return (
-		<ul className={`timeline w-fit h-full
+		<ul className={`timeline
                         ${layout}
                         ${className}`}>
 			{items.map((item, index) => {
 				return (
 					<li key={index}
 					    onClick={item.onClick}
-					    className={'cursor-pointer hover:bg-secondary hover:text-secondary-content w-fit'}>
+					    className={'cursor-pointer hover:bg-secondary hover:text-secondary-content'}>
 						{index !== 0 && <hr className={'bg-neutral'}/>}
 						<div className="timeline-start">{item.date}</div>
 						<div className="timeline-middle">
@@ -52,10 +53,10 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
 							}
 							{!item.icon && <i className={'fas fa-check-circle'}/>}
 						</div>
-						<div className="timeline-end p-4 h-fit">
-							<h3 className="text-lg uppercase font-bold">{item.title}</h3>
+						<div className="timeline-end p-4 w-fit h-fit flex flex-col">
+							<AtomPrimaryText>{item.title}</AtomPrimaryText>
 							{item.description &&
-                                <span className="text-small">{item.description}</span>
+                                <AtomSecondaryText>{item.description}</AtomSecondaryText>
 							}
 						</div>
 						{index !== items.length - 1 && <hr className={'bg-neutral'}/>}

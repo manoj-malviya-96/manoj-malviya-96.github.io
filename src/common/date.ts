@@ -60,3 +60,19 @@ export function formatTime(seconds: number) {
     return hrs > 0 ? `${hrs}:${paddedMins}:${paddedSecs}` : `${minutes}:${paddedSecs}`;
 };
 
+
+
+
+const hoursInDay = 24;
+const minutesInHour = 60;
+const secondsInMinute = 60;
+const millisecondsInSecond = 1000;
+
+
+export function DayToMs(days: number) {
+    return days * hoursInDay * minutesInHour * secondsInMinute * millisecondsInSecond;
+}
+
+export const CurrentYear = new Date().getFullYear();
+
+

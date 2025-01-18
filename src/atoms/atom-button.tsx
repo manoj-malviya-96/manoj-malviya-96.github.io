@@ -11,7 +11,7 @@ export enum ButtonSize {
 }
 
 export enum ButtonSeverity {
-	Primary = `btn-primary hover:btn-secondary`,
+	Primary = `btn-primary hover:btn-secondary active:btn-secondary bg-opacity-50 hover:bg-opacity-100 backdrop-blur-lg `,
 	Success = 'btn-success border-none bg-opacity-100',
 	Info = 'btn-info border-none bg-opacity-100',
 	Warning = 'btn-warning border-none bg-opacity-100',
@@ -22,7 +22,7 @@ export enum ButtonType {
 	Outlined = 'border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100',
 	Ghost = `bg-transparent border-none hover:bg-transparent hover:text-secondary
             hover:border-none hover:font-bold active:bg-transparent p-0`,
-	Solid = 'bg-opacity-50 hover:bg-opacity-100 backdrop-blur-lg shadow-none border-secondary border-opacity-10',
+	Solid = 'shadow-none border-secondary border-opacity-10',
 }
 
 export interface AtomButtonProps {
@@ -71,12 +71,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
                                 ${pill ? 'rounded-full' : 'rounded-lg'}
                                 ${daisyClass}
                                 shadow-none ${className}`}
-					onClick={(event) => {
-						event.stopPropagation();
-						if (!loading && !disabled && onClick) {
-							onClick();
-						}
-					}}
+					onClick={onClick}
 					disabled={disabled}
 				>
 					{loading && <div className="spinner spinner-primary"/>}
