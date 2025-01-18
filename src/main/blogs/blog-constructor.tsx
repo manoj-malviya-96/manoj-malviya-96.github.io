@@ -79,10 +79,12 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(({
 	return (
 		<Element
 			name={name}
-			className={'flex flex-col w-full h-fit items-center justify-center my-16 px-16'}
+			className={'flex flex-col w-full h-fit items-center my-16 px-8'}
 		>
-			<AtomTitleText className={'w-full'}>{title}</AtomTitleText>
-			{children}
+			<AtomTitleText className={'w-full text-left'}>{title}</AtomTitleText>
+			<div className={'w-full justify-center items-center'}>
+				{children}
+			</div>
 		</Element>
 	)
 });
@@ -103,7 +105,8 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({item}) => {
 				className={`w-full max-h-screen md:w-1/4 mt-16 block md:fixed left-6 top-0`}
 			/>
 			<div
-				className="md:absolute left-1/4 mt-6 md:mt-0 md:p-16 top-0 w-full md:w-3/4 h-fit items-center justify-center">
+				className="md:absolute left-1/4 mt-6 md:mt-0 md:p-16 top-0 w-full md:w-3/4 h-fit
+							items-center justify-center">
 				<AtomBackgroundImage
 					src={item.cover}
 					className={`mx-auto w-full md:w-2/3 h-48 md:h-96 relative`}>
