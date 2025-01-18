@@ -1,5 +1,5 @@
 import React, {ReactNode, useState} from 'react';
-import {AtomButton, ButtonType} from "./atom-button";
+import {AtomButton, ButtonSeverity, ButtonType} from "./atom-button";
 
 export interface AtomDropdownItemProps {
     label: string;
@@ -49,7 +49,8 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(({
                 className={`w-full`}
                 pill={false}
                 hoverEffect={false}
-                type={ButtonType.Outlined}
+                severity={open ? ButtonSeverity.Secondary : ButtonSeverity.Primary}
+                type={open ? ButtonType.Solid : ButtonType.Outlined}
             />
             
             {/*DropDown Content*/}
