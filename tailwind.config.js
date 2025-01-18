@@ -14,9 +14,9 @@ module.exports = {
     daisyui: {
         themes: [{
             Light: {
-                "primary": "#f7f7f7",
-                "base-100": "#f7f7f7",
-                "secondary": "#151515",
+                "primary": "#ffffff",
+                "base-100": "#ffffff",
+                "secondary": "#000000",
                 "accent": "#EE444C",
                 "neutral": "#797979",
                 "info": "#60a5fa",
@@ -27,7 +27,7 @@ module.exports = {
             Dark: {
                 "primary": "#000000",
                 "base-100": "#000000",
-                "secondary": "#f7f7f7",
+                "secondary": "#ffffff",
                 "accent": "#EE444C",
                 "neutral": "#797979",
                 "info": "#233e9a",

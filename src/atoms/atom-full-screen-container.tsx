@@ -21,8 +21,7 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 	
 	return (
 		<Element
-			className="h-fit min-h-screen w-screen flex flex-col p-0
-						m-0 overflow-clip justify-center items-center"
+			className="h-fit min-h-screen w-screen inline-block p-0 m-0 "
 			name={name}
 			style={{
 				margin: 0, // Remove margin

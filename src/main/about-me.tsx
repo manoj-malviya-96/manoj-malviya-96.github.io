@@ -1,5 +1,4 @@
 import React from 'react';
-import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {jobRelatedBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {openLink} from "../common/links";
@@ -7,19 +6,8 @@ import {AtomButton, AtomButtonProps, ButtonSize, ButtonType} from "../atoms/atom
 import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
-import {
-	AtomHeroBrandTitleText,
-	AtomPrimaryText,
-} from "../atoms/atom-text";
-import {
-	AtomColumn,
-	AtomLayoutAlignment,
-	AtomLayoutGap,
-	AtomLayoutSize,
-	AtomRow,
-	AtomRowDivider
-} from "../atoms/atom-layout";
-import AtomScrollContainer from "../atoms/atom-scroll-container";
+import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow, AtomRowDivider} from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
 import ProfilePicture from "./assets/main.jpg";
 import {GithubCalendar} from "./github";
@@ -69,7 +57,7 @@ const SocialMediaButtons = () => {
 			} as AtomButtonProps;
 		});
 	return (
-		<AtomStyledContainer label={'Find me here'} hug={true} className={'w-full'}>
+		<AtomStyledContainer label={'Find me here'} hug={true} className={'w-fit'}>
 			{socialMediaItems.map((item, index) => (
 				<AtomButton
 					key={index}
@@ -93,13 +81,13 @@ const CareerHighlights = () => {
 		};
 	});
 	return (
-		<AtomTimeline items={timelineData} className={'h-full w-fit p-0'}/>
+		<AtomTimeline items={timelineData} className={'h-full w-full p-0'}/>
 	)
 }
 
 const AboutMeText = () => {
 	return (
-		<AtomColumn size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Small}>
+		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullWidth}>
 			<AtomImage src={ProfilePicture} alt={'Cover'}/>
 			<AtomHeroBrandTitleText className={'w-full'}>
 				Manoj Malviya
@@ -121,23 +109,20 @@ const AboutMeText = () => {
 const AboutMe = () => {
 	return (
 		<AtomRow
-			className={'mt-4 h-full w-full'}
-			size={AtomLayoutSize.FullSize}>
-			
-			<AtomColumn
-				alignment={AtomLayoutAlignment.Center}
-				size={AtomLayoutSize.FullSize}>
+			className={'mt-4 w-full h-fit'}>
+			<AtomColumn>
 				<AboutMeText/>
 				<SocialMediaButtons/>
 			</AtomColumn>
-			
 			<AtomStyledContainer>
-				<AtomColumn size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.Small}>
+				<AtomColumn size={AtomLayoutSize.FullSize}
+				            gap={AtomLayoutGap.Small}>
 					<CareerHighlights/>
 					<AtomRowDivider/>
 					<GithubCalendar/>
 				</AtomColumn>
 			</AtomStyledContainer>
+			
 		</AtomRow>
 	);
 };
