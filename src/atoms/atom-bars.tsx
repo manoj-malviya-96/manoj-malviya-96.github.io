@@ -1,6 +1,6 @@
 import AtomScrollableLink from "./atom-scrollable-link";
 import React, {useEffect} from "react";
-import AtomButton, {ButtonSeverity, ButtonType} from "./atom-button";
+import AtomButton, {ButtonType} from "./atom-button";
 
 
 export enum TabBarOrientation {

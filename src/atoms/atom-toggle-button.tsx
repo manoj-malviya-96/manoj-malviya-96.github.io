@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {AtomButton, AtomButtonProps, ButtonType} from "./atom-button";
+import {AtomButton, AtomButtonProps} from "./atom-button";
 
 export interface ToggleButtonProps extends AtomButtonProps {
 	onLabel?: string;
