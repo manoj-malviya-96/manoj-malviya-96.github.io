@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
 import {AtomSuperHeroTitleText} from "../atoms/atom-text";
@@ -60,7 +60,8 @@ function transformDataForEChart(data: GithubApiResponse): Record<string, number>
 }
 
 export const GithubCalendar = () => {
-	const [user, setUser] = useState<string>('manoj-malviya-96');
+	// const [user, setUser] = useState<string>('manoj-malviya-96');
+	const user = 'manoj-malviya-96';
 	const [data, setData] = useState<GithubApiResponse | null>(null);
 	const [error, setError] = useState<GithubApiErrorResponse | null>(null);
 	const [year, setYear] = useState<Year>(CurrentYear - 1);

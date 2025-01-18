@@ -1,10 +1,8 @@
 import React from 'react';
-import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
 import {AtomCardGrid} from "../atoms/atom-card";
-import AtomStyledContainer from "../atoms/atom-styled-container";
 import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomHeroTitleText} from "../atoms/atom-text";
 

@@ -1,6 +1,5 @@
 import AtomScrollableLink from "./atom-scrollable-link";
 import React from "react";
-import {AtomLayoutGap, AtomRow} from "./atom-layout";
 
 
 export interface TabLinkItemProps {
