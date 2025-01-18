@@ -118,7 +118,7 @@ const AboutMe = () => {
 					<SocialMediaButtons/>
 				</AtomColumn>
 			</AtomStyledContainer>
-			<AtomStyledContainer className={'w-full h-full'}>
+			<AtomStyledContainer className={'w-full h-full'} transparency={true}>
 				<AtomColumn size={AtomLayoutSize.FullSize}
 				            gap={AtomLayoutGap.Small}>
 					<CareerHighlights/>

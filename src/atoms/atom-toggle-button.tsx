@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {AtomButton, AtomButtonProps, ButtonSeverity} from "./atom-button";
+import {AtomButton, AtomButtonProps, ButtonSeverity, ButtonType} from "./atom-button";
 
 export interface ToggleButtonProps extends AtomButtonProps {
 	onLabel?: string;
@@ -56,8 +56,9 @@ const AtomToggleButton: React.FC<ToggleButtonProps> = React.memo(({
 			{...props}
 			label={checked ? onLabel : offLabel}
 			icon={checked ? onIcon : offIcon}
-			severity={checked ? ButtonSeverity.Info : ButtonSeverity.Primary}
+			severity={checked ? ButtonSeverity.Secondary : ButtonSeverity.Primary}
 			onClick={onToggle}
+			type={checked ? ButtonType.Solid : props.type}
 		/>
 	);
 });
