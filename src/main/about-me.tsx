@@ -7,7 +7,14 @@ import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow, AtomRowDivider} from "../atoms/atom-layout";
+import {
+	AtomColumn,
+	AtomLayoutAlignment,
+	AtomLayoutGap,
+	AtomLayoutSize,
+	AtomRow,
+	AtomRowDivider
+} from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
 import ProfilePicture from "./assets/main.jpg";
 import {GithubCalendar} from "./github";
@@ -81,19 +88,19 @@ const CareerHighlights = () => {
 		};
 	});
 	return (
-		<AtomTimeline items={timelineData} className={'h-full w-full p-0'}/>
+		<AtomTimeline items={timelineData} className={'h-full w-fit p-0 border'}/>
 	)
 }
 
 const AboutMeText = () => {
 	return (
-		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullWidth}>
+		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.None} className={'w-1/2'}>
 			<AtomImage src={ProfilePicture} alt={'Cover'}/>
 			<AtomHeroBrandTitleText className={'w-full'}>
 				Manoj Malviya
 			</AtomHeroBrandTitleText>
 			<AtomPrimaryText
-				className={'w-full p-0 justify-start'}
+				className={'w-fit p-0 justify-start'}
 			>
 				Designed for elegance, engineered for impact.
 				Manoj combines cutting-edge innovation with user-first
@@ -109,20 +116,20 @@ const AboutMeText = () => {
 const AboutMe = () => {
 	return (
 		<AtomRow
-			className={'mt-4 w-full h-fit'}>
-			<AtomColumn>
+			size={AtomLayoutSize.FullSize}
+			className={'mt-4'}>
+			<AtomColumn size={AtomLayoutSize.Fit}
+			            gap={AtomLayoutGap.Small}
+			            alignment={AtomLayoutAlignment.Start}>
 				<AboutMeText/>
 				<SocialMediaButtons/>
 			</AtomColumn>
-			<AtomStyledContainer>
-				<AtomColumn size={AtomLayoutSize.FullSize}
-				            gap={AtomLayoutGap.Small}>
-					<CareerHighlights/>
-					<AtomRowDivider/>
-					<GithubCalendar/>
-				</AtomColumn>
-			</AtomStyledContainer>
-			
+			<AtomColumn size={AtomLayoutSize.FullWidth}
+			            gap={AtomLayoutGap.Small}>
+				<CareerHighlights/>
+				<AtomRowDivider/>
+				{/*<GithubCalendar/>*/}
+			</AtomColumn>
 		</AtomRow>
 	);
 };

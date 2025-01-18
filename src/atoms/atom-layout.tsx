@@ -23,10 +23,6 @@ export enum AtomLayoutAlignment {
 	Center = 'items-center justify-center',
 	Start = 'items-start justify-start',
 	End = 'items-end justify-end',
-	HStart = 'items-center justify-start',
-	HEnd = 'items-center justify-end',
-	VStart = 'items-start justify-center',
-	VEnd = 'items-end justify-center',
 }
 
 interface AtomLayoutProps {

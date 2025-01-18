@@ -21,9 +21,11 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 	
 	return (
 		<Element
-			className="h-fit min-h-screen w-screen inline-block p-0 m-0 "
+			className="h-fit min-h-screen w-screen flex flex-col p-0
+						m-0 justify-center items-center"
 			name={name}
 			style={{
+				overflow: 'visible',
 				margin: 0, // Remove margin
 				padding: 0,
 				backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
@@ -34,15 +36,15 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 		>
 			{/* Title */}
 			{title &&
-                <AtomSuperHeroTitleText className={'mx-auto w-fit lg:w-1/2 mb-8'}>
-                    {title}
+                <AtomSuperHeroTitleText className={'mx-auto w-full lg:w-1/2 mb-8'}>
+					{title}
                 </AtomSuperHeroTitleText>
 			}
 			
 			{/* Children */}
 			{children && (
 				<div
-					className={`px-12 py-4 w-fit max-w-full h-fit mx-auto`}>
+					className={`px-12 py-4 w-full h-full items-center justify-center`}>
 					{children}
 				</div>
 			)}

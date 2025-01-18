@@ -90,7 +90,7 @@ export const GithubCalendar = () => {
 	const height = 210;
 	
 	return (
-		<AtomRow size={AtomLayoutSize.FullSize}>
+		<AtomRow size={AtomLayoutSize.FullSize} className={'border'}>
 			<AtomColumn size={AtomLayoutSize.FullSize}>
 				<div className={'w-full h-full flex items-center justify-center'}>
 					{data && <AtomCalendarChart data={transformDataForEChart(data)}

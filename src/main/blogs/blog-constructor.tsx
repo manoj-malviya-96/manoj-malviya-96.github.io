@@ -51,7 +51,7 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 						textComponentConstructor={AtomSecondaryText}
 					/>
 					<AtomGrid
-						alignment={AtomLayoutAlignment.HStart}
+						alignment={AtomLayoutAlignment.Start}
 						gap={AtomLayoutGap.Small}
 						size={AtomLayoutSize.FullWidth}>
 						{tags.map((tag, index) => (

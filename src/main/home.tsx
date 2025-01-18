@@ -26,8 +26,7 @@ const Home = () => {
 	];
 	
 	return (
-		<>
-			<AtomLinkBarRow items={tabs} className={'sticky top-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
+		<div className={'w-full h-full'}>
 			<Intro/>
 			<div className={'flex flex-col w-full h-full'}>
 				<AtomFullScreenContainer name={'about-me'}>
@@ -40,7 +39,8 @@ const Home = () => {
 					<BlogListing/>
 				</AtomFullScreenContainer>
 			</div>
-		</>
+			<AtomLinkBarRow items={tabs} className={'fixed bottom-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
+		</div>
 	)
 }
 
