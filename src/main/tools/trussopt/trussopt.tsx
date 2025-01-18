@@ -14,7 +14,7 @@ import AtomStats, {StatSeverity} from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import {AtomColumn, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
+import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
 
 const AppName = 'TrussOpt';
 
@@ -107,9 +107,10 @@ const TrussOptView = () => {
 					className="w-full h-full md:w-fit md:h-fit
                         flex flex-col gap-3">
 					<AtomStyledContainer
-						label={'Design Inital Truss'}
+						label={'Design Initial Truss'}
+						transparency={false}
 					>
-						<AtomColumn>
+						<AtomColumn gap={AtomLayoutGap.None}>
 							<AtomRow size={AtomLayoutSize.FullWidth}>
 								<AtomKnob
 									label='Width'
@@ -127,6 +128,8 @@ const TrussOptView = () => {
 									initValue={meshHeight}
 									onChange={setMeshHeight}
 								/>
+							</AtomRow>
+							<AtomRow size={AtomLayoutSize.FullHeight} alignment={AtomLayoutAlignment.Center}>
 								<AtomKnob
 									label='Cell Size'
 									min={5}
@@ -135,29 +138,29 @@ const TrussOptView = () => {
 									initValue={cellSize}
 									onChange={setCellSize}
 								/>
+								<AtomDropdown
+									placeholder='Select Lattice Type'
+									initialIndex={0}
+									dropdownIcon={'fas fa-layer-group'}
+									options={[
+										{
+											label: 'Cross',
+											value: LatticeType.Cross
+										},
+										{
+											label: 'Checker',
+											value: LatticeType.Checkerboard
+										}
+									]}
+									className={'w-24 mx-auto mt-6'}
+									onClick={setLatticeType}
+								/>
 							</AtomRow>
-							<AtomDropdown
-								placeholder='Select Lattice Type'
-								initialIndex={0}
-								dropdownIcon={'fas fa-layer-group'}
-								options={[
-									{
-										label: 'Cross',
-										value: LatticeType.Cross
-									},
-									{
-										label: 'Checker',
-										value: LatticeType.Checkerboard
-									}
-								]}
-								className={'w-32 mx-auto'}
-								onClick={setLatticeType}
-							/>
 						</AtomColumn>
 					</AtomStyledContainer>
 					
-					<AtomStyledContainer label={'FEA'}>
-						<AtomRow size={AtomLayoutSize.FullWidth}>
+					<AtomStyledContainer label={'FEA Controls'}>
+						<AtomRow size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Small}>
 							<AtomToggleButton
 								offIcon='fas fa-lock-open'
 								onIcon='fas fa-lock'
@@ -179,6 +182,7 @@ const TrussOptView = () => {
 								offIcon='fas fa-play'
 								onIcon='fas fa-stop'
 								tooltip='simulate the truss'
+								className={'w-fit'}
 								initValue={controller.feaEngine !== null}
 								type={ButtonType.Outlined}
 								onChange={(e: boolean) => {
@@ -195,7 +199,7 @@ const TrussOptView = () => {
 					<AtomStyledContainer
 						label={'Optimization'}
 						className={'w-full'}>
-						<AtomRow size={AtomLayoutSize.FullWidth}>
+						<AtomRow size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Small}>
 							<AtomButton
 								label='Optimize'
 								icon='fas fa-bolt-lightning'
@@ -216,6 +220,7 @@ const TrussOptView = () => {
 				<AtomStyledContainer
 					label={'Truss Structure'}
 					className={'w-full h-full relative'}
+					transparency={true}
 				>
 					<AtomCanvas controller={controller} animationLoop={false}
 					            isLoading={canvasLoading}

@@ -13,7 +13,7 @@ const AtomStyledContainer: React.FC<AtomStyledContainerProps> = ({
 	                                                                 label,
 	                                                                 children,
 	                                                                 hug = false,
-	                                                                 transparency = true,
+	                                                                 transparency = false,
 	                                                                 className = ''
                                                                  }) => {
 	return (
