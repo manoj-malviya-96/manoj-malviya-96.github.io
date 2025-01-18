@@ -1,14 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.27c4c568.css",
-    "main.js": "/static/js/main.ac239139.js",
+    "main.css": "/static/css/main.0cff365f.css",
+    "main.js": "/static/js/main.2af2dc87.js",
     "static/js/453.fb996180.chunk.js": "/static/js/453.fb996180.chunk.js",
+    "static/media/princess.mp3": "/static/media/princess.0c17d625811992c08d62.mp3",
     "static/media/FredAgain_StayInit.mp3": "/static/media/FredAgain_StayInit.f07dd8607762f640b009.mp3",
-    "static/media/MM_Lioness.mp3": "/static/media/MM_Lioness.b424f5ca17847a4a5f39.mp3",
     "static/media/Sebastian_Flood.mp3": "/static/media/Sebastian_Flood.7f7079a3d0d629e98d72.mp3",
+    "static/media/cover-light.gif": "/static/media/cover-light.d0959e76b8cdd7b37699.gif",
+    "static/media/cover-dark.gif": "/static/media/cover-dark.45a663c0f9e98646e5e8.gif",
     "static/media/game-ui.png": "/static/media/game-ui.9509dc3f21b8d278e6d3.png",
+    "static/media/main.jpg": "/static/media/main.ea0f87b2de2eeef89195.jpg",
     "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.ad1782c70927ebc5bc87.ttf",
-    "static/media/main.jpg": "/static/media/main.6ef2f73b5fb2efe923cc.jpg",
     "static/media/cover.webp": "/static/media/cover.dd3560e4900d6e576a5c.webp",
     "static/media/penn-state-cover.jpg": "/static/media/penn-state-cover.8b5be6248a049f9d700a.jpg",
     "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.26b80c8830bebf340211.ttf",
@@ -18,6 +20,7 @@
     "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.83a538a018a9e44b023a.woff2",
     "static/media/formlabs-rd-cover.jpg": "/static/media/formlabs-rd-cover.02114c23233841258a06.jpg",
     "static/media/background.png": "/static/media/background.d0a35b1c138d47479375.png",
+    "static/media/logo.svg": "/static/media/logo.a5d24c92b94973a3301ed281567842e6.svg",
     "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.fdbb558523a380307689.woff2",
     "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.05fdd87be89f7f8f0a1e.ttf",
     "static/media/preform-blue.ico": "/static/media/preform-blue.0c36da8e59f0e8044f5b.ico",
@@ -26,19 +29,18 @@
     "static/media/representation.png": "/static/media/representation.c73c477ae29f4c22d9ba.png",
     "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.fa86b3c85e77abbd2ebd.ttf",
     "static/media/muviz.svg": "/static/media/muviz.7f158bfec89e8592905a843a3a4307c6.svg",
-    "static/media/logo.svg": "/static/media/logo.1999129ea5341de155ad07791b12cc5f.svg",
     "static/media/trussopt.svg": "/static/media/trussopt.bf280ec48d2c69559c4662701cddb0d4.svg",
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.c3ea317a0f10f201597f.woff2",
     "static/media/pennstate-logo.svg": "/static/media/pennstate-logo.616f4ec221a6fa6d67242ef746c1f220.svg",
     "static/media/mesha.svg": "/static/media/mesha.dda8d6a2fa9547e3739b2f36800ef47b.svg",
     "index.html": "/index.html",
     "static/media/form-4-icon.svg": "/static/media/form-4-icon.3275619aad2f7263110a21b2d6522d94.svg",
-    "main.27c4c568.css.map": "/static/css/main.27c4c568.css.map",
-    "main.ac239139.js.map": "/static/js/main.ac239139.js.map",
+    "main.0cff365f.css.map": "/static/css/main.0cff365f.css.map",
+    "main.2af2dc87.js.map": "/static/js/main.2af2dc87.js.map",
     "453.fb996180.chunk.js.map": "/static/js/453.fb996180.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.27c4c568.css",
-    "static/js/main.ac239139.js"
+    "static/css/main.0cff365f.css",
+    "static/js/main.2af2dc87.js"
   ]
 }
