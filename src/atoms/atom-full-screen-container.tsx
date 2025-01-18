@@ -1,17 +1,14 @@
 import React, {ReactNode} from 'react';
 import {Element} from 'react-scroll';
-import {AtomSuperHeroTitleText} from "./atom-text";
 
 interface FullScreenPageProps {
 	name: string;
-	title?: string;
 	children?: ReactNode;
 	backgroundImage?: string;
 }
 
 const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 	                                                                           name,
-	                                                                           title,
 	                                                                           children,
 	                                                                           backgroundImage,
                                                                            }) => {
@@ -34,13 +31,6 @@ const AtomFullScreenContainer: React.FC<FullScreenPageProps> = React.memo(({
 				backgroundRepeat: 'no-repeat',
 			}}
 		>
-			{/* Title */}
-			{title &&
-                <AtomSuperHeroTitleText className={'mx-auto w-full lg:w-1/2 mb-8'}>
-					{title}
-                </AtomSuperHeroTitleText>
-			}
-			
 			{/* Children */}
 			{children && (
 				<div

@@ -22,7 +22,6 @@ const _AppView: React.FC<AppViewProps> = ({appName, appLogo, children}) => {
     return (
         <AtomFullScreenContainer
             name={appName.toLowerCase()}
-            title=""
             children={children}
         />
     );

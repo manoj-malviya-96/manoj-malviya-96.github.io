@@ -21,15 +21,15 @@ const ToolDrawer = () => {
 	});
 	
 	return (
-		<AtomColumn gap={AtomLayoutGap.Small}>
-			<AtomRow size={AtomLayoutSize.FullSize} gap={AtomLayoutGap.ExtraSmall}>
+		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullSize}>
+			<AtomRow gap={AtomLayoutGap.ExtraSmall}>
 				<AtomHeroTitleText>Creating in</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
 			</AtomRow>
+			
 			<AtomCardGrid
 				items={items}
 				classNameForCard={'w-44 h-36'}/>
-
 		</AtomColumn>
 	);
 }

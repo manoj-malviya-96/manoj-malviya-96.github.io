@@ -38,9 +38,9 @@ interface AtomLayoutProps {
 export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 	                                                              className = '',
 	                                                              gap = AtomLayoutGap.Medium,
-	                                                              size = AtomLayoutSize.FullHeight,
+	                                                              size = AtomLayoutSize.Fit,
 	                                                              wrap,
-	                                                              alignment = AtomLayoutAlignment.Center,
+	                                                              alignment = AtomLayoutAlignment.Start,
 	                                                              onClick,
 	                                                              children
                                                               }) => {
@@ -56,7 +56,7 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	                                                                 className = '',
 	                                                                 gap = AtomLayoutGap.Medium,
-	                                                                 size = AtomLayoutSize.FullWidth,
+	                                                                 size = AtomLayoutSize.Fit,
 	                                                                 wrap,
 	                                                                 alignment = AtomLayoutAlignment.Center,
 	                                                                 onClick,

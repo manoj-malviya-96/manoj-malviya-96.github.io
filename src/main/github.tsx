@@ -66,7 +66,6 @@ export const GithubCalendar = () => {
 	const [error, setError] = useState<GithubApiErrorResponse | null>(null);
 	const [year, setYear] = useState<Year>(CurrentYear - 1);
 	const [loading, setLoading] = useState<boolean>(false);
-	const [total, setTotal] = useState<number | 'N/A'>(0);
 	
 	useEffect(() => {
 		setLoading(true);
@@ -79,38 +78,12 @@ export const GithubCalendar = () => {
 		setLoading(false);
 	}, [user, year, setData, setError])
 	
-	useEffect(() => {
-		if (data) {
-			setTotal(data.total[year]);
-		} else {
-			setTotal('N/A');
-		}
-	}, [data, year, setTotal]);
 	
 	const height = 210;
 	
 	return (
-		<AtomRow size={AtomLayoutSize.FullSize} className={'border'}>
-			<AtomColumn size={AtomLayoutSize.FullSize}>
-				<div className={'w-full h-full flex items-center justify-center'}>
-					{data && <AtomCalendarChart data={transformDataForEChart(data)}
-                                                year={year === 'last' ? CurrentYear - 1 : year}
-                                                unit={'contributions'} height={height}/>
-					}
-					{!data &&
-                        <div className={'w-full h-fit border-2'} style={{height: height}}>
-							{error &&
-                                <AtomSuperHeroTitleText
-                                    className={'w-full h-full'}>{error.error}</AtomSuperHeroTitleText>}
-							{loading && <AtomLoader height={height} width={height}/>}
-                        </div>
-					}
-				</div>
-				<AtomRow size={AtomLayoutSize.FullSize}>
-					<AtomStats text={'Total Contribution'} value={total} className={'w-full h-full'}/>
-				</AtomRow>
-			</AtomColumn>
-			<AtomColumn gap={AtomLayoutGap.None} size={AtomLayoutSize.Fit}>
+		<div className={'w-full h-full inline-block'}>
+			<AtomRow gap={AtomLayoutGap.None} size={AtomLayoutSize.Fit}>
 				{aRange(CurrentYear, 5, -1).map((year) => (
 					<AtomButton
 						type={ButtonType.Ghost}
@@ -119,9 +92,27 @@ export const GithubCalendar = () => {
 					/>
 				))
 				}
+			</AtomRow>
+			<AtomColumn size={AtomLayoutSize.FullSize}>
+				{(
+					data && !loading
+					) &&
+                    <AtomColumn size={AtomLayoutSize.FullSize}>
+                        <AtomCalendarChart data={transformDataForEChart(data)}
+                                           year={year === 'last' ? CurrentYear - 1 : year}
+                                           unit={'contributions'} height={height}/>
+                        <AtomStats text={'Total Contributions'} value={data.total[year]}/>
+                    </AtomColumn>
+				}
+				{!data &&
+                    <div className={'w-full h-fit border-2'} style={{height: height}}>
+						{error &&
+                            <AtomSuperHeroTitleText
+                                className={'w-full h-full'}>{error.error}</AtomSuperHeroTitleText>}
+						{loading && <AtomLoader height={height} width={height}/>}
+                    </div>
+				}
 			</AtomColumn>
-		</AtomRow>
+		</div>
 	)
-	
-	
 }

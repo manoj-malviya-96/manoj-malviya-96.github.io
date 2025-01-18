@@ -64,7 +64,7 @@ const SocialMediaButtons = () => {
 			} as AtomButtonProps;
 		});
 	return (
-		<AtomStyledContainer label={'Find me here'} hug={true} className={'w-fit'}>
+		<AtomStyledContainer label={'Find me here'} hug={true} className={'w-full'}>
 			{socialMediaItems.map((item, index) => (
 				<AtomButton
 					key={index}
@@ -88,13 +88,13 @@ const CareerHighlights = () => {
 		};
 	});
 	return (
-		<AtomTimeline items={timelineData} className={'h-full w-fit p-0 border'}/>
+		<AtomTimeline items={timelineData} className={'w-full h-full'}/>
 	)
 }
 
 const AboutMeText = () => {
 	return (
-		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.None} className={'w-1/2'}>
+		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.None}>
 			<AtomImage src={ProfilePicture} alt={'Cover'}/>
 			<AtomHeroBrandTitleText className={'w-full'}>
 				Manoj Malviya
@@ -118,18 +118,18 @@ const AboutMe = () => {
 		<AtomRow
 			size={AtomLayoutSize.FullSize}
 			className={'mt-4'}>
-			<AtomColumn size={AtomLayoutSize.Fit}
-			            gap={AtomLayoutGap.Small}
-			            alignment={AtomLayoutAlignment.Start}>
+			<AtomColumn className={'w-1/2 h-fit'} wrap={false}>
 				<AboutMeText/>
 				<SocialMediaButtons/>
 			</AtomColumn>
-			<AtomColumn size={AtomLayoutSize.FullWidth}
-			            gap={AtomLayoutGap.Small}>
-				<CareerHighlights/>
-				<AtomRowDivider/>
-				{/*<GithubCalendar/>*/}
-			</AtomColumn>
+			<AtomStyledContainer className={'w-full h-full'}>
+				<AtomColumn size={AtomLayoutSize.FullSize}
+				            gap={AtomLayoutGap.Small}>
+					<CareerHighlights/>
+					<AtomRowDivider/>
+					<GithubCalendar/>
+				</AtomColumn>
+			</AtomStyledContainer>
 		</AtomRow>
 	);
 };
