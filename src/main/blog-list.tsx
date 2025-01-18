@@ -1,5 +1,4 @@
 import React, {ComponentType} from "react";
-import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {registeredBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
