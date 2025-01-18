@@ -6,12 +6,14 @@ interface AtomStyledContainerProps {
 	children: React.ReactNode;
 	className?: string;
 	hug?: boolean;
+	transparency?: boolean;
 }
 
 const AtomStyledContainer: React.FC<AtomStyledContainerProps> = ({
 	                                                                 label,
 	                                                                 children,
 	                                                                 hug = false,
+	                                                                 transparency = true,
 	                                                                 className = ''
                                                                  }) => {
 	return (
@@ -20,8 +22,8 @@ const AtomStyledContainer: React.FC<AtomStyledContainerProps> = ({
 			<div
 				className={`inline-block ${hug ? 'p-0 gap-0' : 'p-4 gap-4'}
                         rounded-md hover:shadow
-                        bg-transparent
-                        border border-neutral
+                        ${transparency ? 'bg-transparent' : 'bg-neutral bg-opacity-10 backdrop-blur-lg'}
+                        border border-neutral border-opacity-40
                         backdrop-blur-lg`}>
 				{children}
 			</div>

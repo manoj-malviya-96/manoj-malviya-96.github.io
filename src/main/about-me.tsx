@@ -7,14 +7,7 @@ import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
-import {
-	AtomColumn,
-	AtomLayoutAlignment,
-	AtomLayoutGap,
-	AtomLayoutSize,
-	AtomRow,
-	AtomRowDivider
-} from "../atoms/atom-layout";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow, AtomRowDivider} from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
 import ProfilePicture from "./assets/main.jpg";
 import {GithubCalendar} from "./github";
@@ -118,10 +111,13 @@ const AboutMe = () => {
 		<AtomRow
 			size={AtomLayoutSize.FullSize}
 			className={'mt-4'}>
-			<AtomColumn className={'w-1/2 h-fit'} wrap={false}>
-				<AboutMeText/>
-				<SocialMediaButtons/>
-			</AtomColumn>
+			<AtomStyledContainer className={'w-1/2 h-fit'} transparency={false}>
+				<AtomColumn size={AtomLayoutSize.FullWidth}
+				            wrap={false}>
+					<AboutMeText/>
+					<SocialMediaButtons/>
+				</AtomColumn>
+			</AtomStyledContainer>
 			<AtomStyledContainer className={'w-full h-full'}>
 				<AtomColumn size={AtomLayoutSize.FullSize}
 				            gap={AtomLayoutGap.Small}>

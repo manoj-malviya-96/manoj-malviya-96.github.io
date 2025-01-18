@@ -5,7 +5,7 @@ import AboutMe from "./about-me";
 import BrandLogo from "./assets/logo.svg";
 import ToolDrawer from "./tool-drawer";
 import {useNavbar} from "../providers/navbar";
-import {AtomLinkBarRow} from "../atoms/atom-tab-bar";
+import {AtomLinkBar} from "../atoms/atom-bars";
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import {AtomPrimaryText} from "../atoms/atom-text";
 
@@ -39,7 +39,7 @@ const Home = () => {
 					<BlogListing/>
 				</AtomFullScreenContainer>
 			</div>
-			<AtomLinkBarRow items={tabs} className={'fixed bottom-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
+			<AtomLinkBar items={tabs} className={'fixed bottom-4 left-1/2 -translate-x-1/2 h-fit z-20'}/>
 		</div>
 	)
 }

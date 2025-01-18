@@ -1,6 +1,6 @@
 import React from "react";
 import {AtomThemeSensitiveImage} from "./atom-image";
-import {AtomPrimaryText, AtomSecondaryText, AtomTitleText} from "./atom-text";
+import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
 
 
 export enum TimelineOrientation {

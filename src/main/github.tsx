@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomLayoutSize} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
 import {AtomSuperHeroTitleText} from "../atoms/atom-text";
 import {AtomLoader} from "../atoms/atom-loader";
-import AtomButton, {ButtonType} from "../atoms/atom-button";
 import AtomStats from "../atoms/atom-stats";
 import {aRange} from "../common/math";
-
+import {AtomButtonBar, TabBarOrientation, TabButtonProps} from "../atoms/atom-bars";
 
 const API_URL = 'https://github-contributions-api.jogruber.de/v4/'
 
@@ -80,22 +79,23 @@ export const GithubCalendar = () => {
 	
 	
 	const height = 210;
+	const buttonsProps = aRange(CurrentYear, 5, -1).map((year) => (
+		{
+			label: year.toString(),
+			onClick: () => setYear(year),
+		} as TabButtonProps
+	))
 	
 	return (
 		<div className={'w-full h-full inline-block'}>
-			<AtomRow gap={AtomLayoutGap.None} size={AtomLayoutSize.Fit}>
-				{aRange(CurrentYear, 5, -1).map((year) => (
-					<AtomButton
-						type={ButtonType.Ghost}
-						label={year.toString()}
-						onClick={() => setYear(year)}
-					/>
-				))
-				}
-			</AtomRow>
+			<AtomButtonBar
+				className={'w-fit'}
+				items={buttonsProps}
+				orientation={TabBarOrientation.Horizontal}
+			/>
 			<AtomColumn size={AtomLayoutSize.FullSize}>
 				{(
-					data && !loading
+						data && !loading
 					) &&
                     <AtomColumn size={AtomLayoutSize.FullSize}>
                         <AtomCalendarChart data={transformDataForEChart(data)}
