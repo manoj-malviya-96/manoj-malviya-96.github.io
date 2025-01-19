@@ -64,7 +64,9 @@ export const GithubCalendar = () => {
 	const [data, setData] = useState<GithubApiResponse | null>(null);
 	const [error, setError] = useState<GithubApiErrorResponse | null>(null);
 	const [year, setYear] = useState<Year>(CurrentYear - 1);
-	const [loading, setLoading] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
+	
+	console.log(loading);
 	
 	useEffect(() => {
 		setLoading(true);
@@ -105,10 +107,12 @@ export const GithubCalendar = () => {
                     </AtomColumn>
 				}
 				{!data &&
-                    <div className={'w-full h-fit border-2'} style={{height: height}}>
+                    <div className={'w-full flex items-center justify-center'} style={{height: 1.2* height}}>
 						{error &&
                             <AtomSuperHeroTitleText
-                                className={'w-full h-full'}>{error.error}</AtomSuperHeroTitleText>}
+                                className={'w-full h-fit'}>
+								{error.error ? error.error : "N/A"}
+                            </AtomSuperHeroTitleText>}
 						{loading && <AtomLoader height={height} width={height}/>}
                     </div>
 				}
