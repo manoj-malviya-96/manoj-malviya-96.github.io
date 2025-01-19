@@ -11,10 +11,9 @@ const MeshaView = () => {
 		<AppView
 			appName={AppName}
 			appLogo={Logo}
-			children={
-				<AtomHeroTitleText>Coming soon...</AtomHeroTitleText>
-			}
-		/>
+		>
+			<AtomHeroTitleText className={'w-full h-fit'}>Coming soon...</AtomHeroTitleText>
+		</AppView>
 	)
 }
 
