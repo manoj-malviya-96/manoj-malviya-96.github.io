@@ -17,7 +17,6 @@ import {AtomGrid, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/a
 import AtomSlider from "../../../atoms/atom-slider";
 
 const AppName = 'TrussOpt';
-
 const TrussOptView = () => {
 	const {
 		meshWidth, setMeshWidth,
@@ -37,7 +36,6 @@ const TrussOptView = () => {
 	const [canvasLoading, setCanvasLoading] = useState<boolean>(false);
 	const [simResult, setSimResult] = useState<TrussFeaResults | null>();
 	const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
-	
 	const [numIterations, setNumIterations] = useState<number>(100);
 	const [targetFraction, setTargetFraction] = useState<number>(0.3);
 	
