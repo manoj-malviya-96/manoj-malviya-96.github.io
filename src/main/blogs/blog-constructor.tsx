@@ -50,7 +50,7 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 						textComponentConstructor={AtomSecondaryText}
 					/>
 					<AtomRow
-						wrap={true}
+						smallDeviceAdjustment={true}
 						alignment={AtomLayoutAlignment.Start}
 						gap={AtomLayoutGap.Small}
 						size={AtomLayoutSize.FullWidth}>

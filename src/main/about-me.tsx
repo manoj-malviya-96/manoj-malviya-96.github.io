@@ -110,10 +110,10 @@ const AboutMe = () => {
 	return (
 		<AtomRow
 			size={AtomLayoutSize.FullSize}
+			smallDeviceAdjustment={true}
 			className={'mt-4'}>
-			<AtomStyledContainer className={'w-1/2 h-full'}>
-				<AtomColumn size={AtomLayoutSize.FullWidth}
-				            wrap={false}>
+			<AtomStyledContainer className={'w-full md:w-1/2 h-full'}>
+				<AtomColumn size={AtomLayoutSize.FullWidth}>
 					<AboutMeText/>
 					<SocialMediaButtons/>
 				</AtomColumn>

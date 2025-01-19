@@ -20,7 +20,7 @@ const AtomBar: React.FC<TabBarProps> = ({
 	                                        className = ''
                                         }) => {
 	return (
-		<div className={`flex ${orientation} gap-0 justify-center items-center w-fit h-fit
+		<div className={`flex ${orientation} gap-4 justify-center items-center w-fit h-fit
 							bg-primary border-neutral border-opacity-50 bg-opacity-50
 		                    border backdrop-blur-lg rounded-full
 		                    ${className}`}>

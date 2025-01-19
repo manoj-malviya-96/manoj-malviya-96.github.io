@@ -64,9 +64,7 @@ export const GithubCalendar = () => {
 	const [data, setData] = useState<GithubApiResponse | null>(null);
 	const [error, setError] = useState<GithubApiErrorResponse | null>(null);
 	const [year, setYear] = useState<Year>(CurrentYear - 1);
-	const [loading, setLoading] = useState<boolean>(true);
-	
-	console.log(loading);
+	const [loading, setLoading] = useState<boolean>(false);
 	
 	useEffect(() => {
 		setLoading(true);
@@ -91,7 +89,7 @@ export const GithubCalendar = () => {
 	return (
 		<div className={'w-full h-full inline-block'}>
 			<AtomButtonBar
-				className={'w-fit'}
+				className={'w-full md:w-fit'}
 				items={buttonsProps}
 				orientation={TabBarOrientation.Horizontal}
 			/>

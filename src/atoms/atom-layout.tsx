@@ -29,7 +29,7 @@ interface AtomLayoutProps {
 	className?: string;
 	size?: AtomLayoutSize;
 	gap?: AtomLayoutGap;
-	wrap?: boolean;
+	smallDeviceAdjustment?: boolean;
 	alignment?: AtomLayoutAlignment;
 	onClick?: () => void;
 	children: React.ReactNode;
@@ -39,14 +39,14 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
 	                                                              className = '',
 	                                                              gap = AtomLayoutGap.Medium,
 	                                                              size = AtomLayoutSize.FullHeight,
-	                                                              wrap = false,
+	                                                              smallDeviceAdjustment = false,
 	                                                              alignment = AtomLayoutAlignment.Center,
 	                                                              onClick,
 	                                                              children
                                                               }) => {
 	return (
 		<div
-			className={`flex flex-row ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
+			className={`flex ${smallDeviceAdjustment ? 'flex-col md:flex-row' : 'flex-row'} ${size} ${gap} ${className} ${alignment}`}
 			onClick={onClick}>
 			{children}
 		</div>
@@ -57,13 +57,13 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	                                                                 className = '',
 	                                                                 gap = AtomLayoutGap.Medium,
 	                                                                 size = AtomLayoutSize.FullWidth,
-	                                                                 wrap = false,
+	                                                                 smallDeviceAdjustment = false,
 	                                                                 alignment = AtomLayoutAlignment.Center,
 	                                                                 onClick,
 	                                                                 children
                                                                  }) => {
 	return (
-		<div className={`flex flex-col ${size} ${gap} ${className} ${alignment} ${wrap ? 'flex-wrap' : ''}`}
+		<div className={`flex flex-col ${size} ${gap} ${className} ${alignment} ${smallDeviceAdjustment ? 'flex-wrap' : ''}`}
 		     onClick={onClick}>
 			{children}
 		</div>

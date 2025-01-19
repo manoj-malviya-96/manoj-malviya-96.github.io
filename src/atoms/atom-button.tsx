@@ -79,7 +79,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 					{icon && <i className={`${icon} ${animated ? 'animate-pulse' : ''}`}/>}
 					{label &&
                         <AtomPrimaryText className=
-							                 {`hidden sm:inline ml-auto
+							                 { `${icon ? 'hidden sm:inline': ''} ml-auto
                                   ${animated ? 'animate-pulse' : ''}`}>
 							{label}
                         </AtomPrimaryText>
