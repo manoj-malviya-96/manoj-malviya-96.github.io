@@ -1,7 +1,8 @@
 import React from "react";
 import {useTheme} from "../providers/theme";
 import {adjustColor} from "../common/color-utils";
-import {AtomColumn} from "./atom-layout";
+import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "./atom-layout";
+import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
 
 export enum SliderOrientation {
 	Horizontal,
@@ -34,7 +35,7 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(({
 	                                                          neutralMode = false,
                                                           }) => {
 	const magicSize = size === "small" ? 3 : 5;
-	const {daisyPrimary} = useTheme();
+	const {daisySecondary} = useTheme();
 	
 	let progressPercentage = 0;
 	if (value) {
@@ -47,16 +48,16 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(({
 		) * 100;
 	}
 	
-	const mainColor = neutralMode ? 'rgba(200,200,200)' : daisyPrimary;
+	const mainColor = daisySecondary;
 	const backgroundColor = adjustColor(mainColor, 0.27);
 	
 	return (
-		<AtomColumn className={className}>
+		<AtomColumn className={className} gap={AtomLayoutGap.Small}>
 			{label && (
-				<div className="flex flex-row justify-between mb-2">
-					<span>{label}</span>
-					<span>{value}</span>
-				</div>
+				<AtomRow size={AtomLayoutSize.None} className={'w-full h-fit justify-between'}>
+					<AtomPrimaryText>{label}</AtomPrimaryText>
+					<AtomSecondaryText>{value}</AtomSecondaryText>
+				</AtomRow>
 			)}
 			<input
 				type="range"

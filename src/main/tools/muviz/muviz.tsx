@@ -190,7 +190,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                         step={0.1}
                         onChange={setAudioTime}
                         className="w-full h-fit"
-                        neutralMode={true}
                     />
                     {/* Volume and Right Controls */}
                     <div
