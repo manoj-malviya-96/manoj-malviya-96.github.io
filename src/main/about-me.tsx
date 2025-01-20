@@ -120,12 +120,10 @@ const AboutMe = () => {
 			alignment={AtomLayoutAlignment.Start}
 			smallDeviceAdjustment={true}
 			className={'mt-4'}>
-			<AtomStyledContainer className={'w-full md:w-1/2 h-full'}>
-				<AtomColumn size={AtomLayoutSize.FullWidth}>
-					<AboutMeText/>
-					<SocialMediaButtons/>
-				</AtomColumn>
-			</AtomStyledContainer>
+			<AtomColumn className={'w-full md:w-1/2 h-full'} size={AtomLayoutSize.None}>
+				<AboutMeText/>
+				<SocialMediaButtons/>
+			</AtomColumn>
 			<AtomStyledContainer className={'w-full h-full'} transparency={true}>
 				<AtomColumn size={AtomLayoutSize.FullSize}
 				            gap={AtomLayoutGap.Small}>

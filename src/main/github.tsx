@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, AtomColumnDivider, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
 import {AtomTitleText} from "../atoms/atom-text";
@@ -7,7 +7,6 @@ import {AtomLoader} from "../atoms/atom-loader";
 import AtomStats, {Stats} from "../atoms/atom-stats";
 import {aRange, longestNonZeroSubset, meanRangeWithNonZero, rangesTo, roundTo} from "../common/math";
 import {AtomButtonBar, TabBarOrientation, TabButtonProps} from "../atoms/atom-bars";
-import {sum} from "numeric";
 
 const API_URL = 'https://github-contributions-api.jogruber.de/v4/'
 const ChartHeight = 210;
@@ -95,7 +94,7 @@ export const GithubCalendar = () => {
 		setDailyAverage(roundTo(meanRangeWithNonZero(contributionsAsList), 1));
 		setTotal(totalContribution);
 		setLongestStreak(longestNonZeroSubset(contributionsAsList));
-	}, [data, setLongestStreak, setTotal, setDailyAverage]);
+	}, [data, year, setLongestStreak, setTotal, setDailyAverage]);
 	
 	const buttonsProps = aRange(CurrentYear, 5, -1).map((year) => (
 		{
@@ -113,17 +112,17 @@ export const GithubCalendar = () => {
                         <AtomCalendarChart data={transformDataForEChart(data)}
                                            year={year === 'last' ? CurrentYear - 1 : year}
                                            unit={'contributions'} height={ChartHeight}/>
-                        <AtomRow className={'justify-between'} size={AtomLayoutSize.FullWidth}>
-                            <AtomButtonBar
-                                className={'w-full md:w-fit'}
-                                items={buttonsProps}
-                                orientation={TabBarOrientation.Horizontal}
-                            />
+                        <AtomRow className={'justify-between'} size={AtomLayoutSize.FullWidth} smallDeviceAdjustment>
                             <AtomRow>
                                 <AtomStats text={'Total Contributions'} value={total}/>
                                 <AtomStats text={'Longest Streak'} value={longestStreak}/>
                                 <AtomStats text={'Daily Average'} value={dailyAverage}/>
                             </AtomRow>
+                            <AtomButtonBar
+                                className={'w-full md:w-fit'}
+                                items={buttonsProps}
+                                orientation={TabBarOrientation.Horizontal}
+                            />
                         </AtomRow>
                     </AtomColumn>
 				}
