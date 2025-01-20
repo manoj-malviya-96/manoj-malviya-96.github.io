@@ -46,7 +46,7 @@ export const AtomRow: React.FC<AtomLayoutProps> = React.memo(({
                                                               }) => {
 	return (
 		<div
-			className={`flex ${smallDeviceAdjustment ? 'flex-col md:flex-row' : 'flex-row'} ${size} ${gap} ${className} ${alignment}`}
+			className={`flex ${smallDeviceAdjustment ? 'flex-col md:flex-row' : 'flex-row'} ${size} ${gap} ${className} ${alignment} flex-grow flex-shrink`}
 			onClick={onClick}>
 			{children}
 		</div>
@@ -63,7 +63,7 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 	                                                                 children
                                                                  }) => {
 	return (
-		<div className={`flex flex-col ${size} ${gap} ${className} ${alignment} ${smallDeviceAdjustment ? 'flex-wrap' : ''}`}
+		<div className={`flex flex-col ${size} ${gap} ${className} ${alignment} flex-grow flex-shrink`}
 		     onClick={onClick}>
 			{children}
 		</div>

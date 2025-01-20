@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, AtomLayoutSize} from "../atoms/atom-layout";
+import {AtomColumn, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
-import {AtomSuperHeroTitleText} from "../atoms/atom-text";
+import {AtomTitleText} from "../atoms/atom-text";
 import {AtomLoader} from "../atoms/atom-loader";
 import AtomStats from "../atoms/atom-stats";
 import {aRange} from "../common/math";
@@ -88,29 +88,30 @@ export const GithubCalendar = () => {
 	
 	return (
 		<div className={'w-full h-full inline-block'}>
-			<AtomButtonBar
-				className={'w-full md:w-fit'}
-				items={buttonsProps}
-				orientation={TabBarOrientation.Horizontal}
-			/>
 			<AtomColumn size={AtomLayoutSize.FullSize}>
-				{(
-						data && !loading
-					) &&
+				{
+					data && !loading &&
                     <AtomColumn size={AtomLayoutSize.FullSize}>
                         <AtomCalendarChart data={transformDataForEChart(data)}
                                            year={year === 'last' ? CurrentYear - 1 : year}
                                            unit={'contributions'} height={height}/>
-                        <AtomStats text={'Total Contributions'} value={data.total[year]}/>
+                        <AtomRow className={'justify-between'}>
+                            <AtomButtonBar
+                                className={'w-full md:w-fit'}
+                                items={buttonsProps}
+                                orientation={TabBarOrientation.Horizontal}
+                            />
+                            <AtomStats text={'Total Contributions'} value={data.total[year]}/>
+                        </AtomRow>
                     </AtomColumn>
 				}
 				{!data &&
-                    <div className={'w-full flex items-center justify-center'} style={{height: 1.2* height}}>
+                    <div className={'w-full h-fit flex items-center justify-center'} style={{height: 1.2 * height}}>
 						{error &&
-                            <AtomSuperHeroTitleText
-                                className={'w-full h-fit'}>
-								{error.error ? error.error : "N/A"}
-                            </AtomSuperHeroTitleText>}
+                            <AtomTitleText
+                                className={'w-full h-fit text-center'}>
+								{error.error ? error.error : "Not connected to internet, are you living in 18 century ?"}
+                            </AtomTitleText>}
 						{loading && <AtomLoader height={height} width={height}/>}
                     </div>
 				}

@@ -13,7 +13,7 @@ export enum StatSeverity {
 
 interface AtomStatsProps {
 	text: string
-	value: string | number
+	value?: string | number
 	className?: string
 	severity?: StatSeverity
 }
@@ -24,7 +24,7 @@ const AtomStats: React.FC<AtomStatsProps> =
 		return (
 			<AtomColumn className={className} alignment={AtomLayoutAlignment.Center} gap={AtomLayoutGap.None}>
 				<AtomSecondaryText>{text}</AtomSecondaryText>
-				<AtomHeroTitleText className={severity}>{value}</AtomHeroTitleText>
+				<AtomHeroTitleText className={severity}>{value || '---'}</AtomHeroTitleText>
 			</AtomColumn>
 		)
 	});

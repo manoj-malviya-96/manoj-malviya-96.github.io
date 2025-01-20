@@ -15,7 +15,6 @@ import {
 	AtomLayoutGap,
 	AtomLayoutSize, AtomRow,
 } from "../../atoms/atom-layout";
-import AtomScrollContainer from "../../atoms/atom-scroll-container";
 import AtomStyledContainer from "../../atoms/atom-styled-container";
 import {AtomBackgroundImage} from "../../atoms/atom-image";
 
@@ -35,32 +34,30 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 	tags.sort((a, b) => a.length - b.length);
 	return (
 		<AtomStyledContainer className={className}>
-			<AtomScrollContainer>
-				<AtomColumn
-					size={AtomLayoutSize.FullWidth}
-					gap={AtomLayoutGap.ExtraSmall}
-					alignment={AtomLayoutAlignment.None}
-				>
-					<AtomHeroTitleText>{title}</AtomHeroTitleText>
-					<AtomDateAndText>{date}</AtomDateAndText>
-					<AtomClippedText
-						fullText={summary}
-						maxLength={315}
-						className={'my-4'}
-						textComponentConstructor={AtomSecondaryText}
-					/>
-					<AtomRow
-						smallDeviceAdjustment={true}
-						alignment={AtomLayoutAlignment.Start}
-						gap={AtomLayoutGap.Small}
-						size={AtomLayoutSize.FullWidth}>
-						{tags.map((tag, index) => (
-							<AtomSecondaryBadge key={index} className={'w-fit'}>{tag}</AtomSecondaryBadge>
-						))}
-					</AtomRow>
-					{tabs.length > 1 && <AtomTableOfContents sections={tabs} label={'Contents'} className={'w-full'}/>}
-				</AtomColumn>
-			</AtomScrollContainer>
+			<AtomColumn
+				size={AtomLayoutSize.FullWidth}
+				gap={AtomLayoutGap.ExtraSmall}
+				alignment={AtomLayoutAlignment.None}
+			>
+				<AtomHeroTitleText>{title}</AtomHeroTitleText>
+				<AtomDateAndText>{date}</AtomDateAndText>
+				<AtomClippedText
+					fullText={summary}
+					maxLength={315}
+					className={'my-4'}
+					textComponentConstructor={AtomSecondaryText}
+				/>
+				<AtomRow
+					smallDeviceAdjustment={true}
+					alignment={AtomLayoutAlignment.Start}
+					gap={AtomLayoutGap.Small}
+					size={AtomLayoutSize.FullWidth}>
+					{tags.map((tag, index) => (
+						<AtomSecondaryBadge key={index} className={'w-fit'}>{tag}</AtomSecondaryBadge>
+					))}
+				</AtomRow>
+				{tabs.length > 1 && <AtomTableOfContents sections={tabs} label={'Contents'} className={'w-full'}/>}
+			</AtomColumn>
 		</AtomStyledContainer>
 	);
 };
