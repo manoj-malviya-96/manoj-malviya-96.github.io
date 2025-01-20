@@ -4,7 +4,6 @@ import BoundaryCond from "./boundary_condition.png";
 import DataSetup from './representation.png';
 import Models from './models.png';
 import Result from './results.png';
-import {BentoItemSize} from "../../../atoms/atom-bentobox";
 import {AtomColumn} from "../../../atoms/atom-layout";
 import React from "react";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
@@ -90,9 +89,8 @@ class RapidTopt extends BlogInfo {
 			title: 'Rapid Topt',
 			description: 'Rapid Topology Optimization using Deep Generative Models',
 			date: 'Aug 15, 2020',
-			tags: ['Generative Design', 'Optimization', 'AI', 'GPU'],
+			tags: ['Gen Design', 'Optimization', 'AI', 'GPU'],
 			cover: Cover,
-			cardSize: BentoItemSize.Medium,
 			summary: `With the rise of Additive Manufacturing (AM) and Computational Sciences,
             design algorithms like Topology Optimization (TO) have attracted academic and industrial 
             interest. TO aims to optimize structures by maximizing stiffness, given geometric, 

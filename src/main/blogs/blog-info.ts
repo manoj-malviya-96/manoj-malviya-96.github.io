@@ -1,6 +1,5 @@
 import {rangesTo} from "../../common/math";
 import {getScaleColor} from "../../common/color-utils";
-import {BentoItemSize} from "../../atoms/atom-bentobox";
 import {BlogSectionContentProps} from "./blog-constructor";
 import {TableOfContentsItemProps} from "../../atoms/atom-table-of-contents";
 
@@ -17,7 +16,6 @@ interface BlogInfoConstructor {
     sections: BlogSectionContentProps[];
     logo?: string;
     isNew?: boolean; // Optional with a default value.
-    cardSize?: BentoItemSize;
     category?: categoryType;
 }
 
@@ -34,7 +32,6 @@ export class BlogInfo {
     readonly sections: BlogSectionContentProps[];
     readonly isNew: boolean;
     readonly path: string;
-    readonly cardSize: BentoItemSize = BentoItemSize.Small;
     
     
     constructor({
@@ -47,7 +44,6 @@ export class BlogInfo {
                     cover,
                     sections,
                     category,
-                    cardSize,
                     logo = '',
                     isNew = false,
                 }: BlogInfoConstructor) {
@@ -62,7 +58,6 @@ export class BlogInfo {
         this.sections = sections;
         this.isNew = isNew;
         this.category = category;
-        this.cardSize= cardSize ? cardSize: BentoItemSize.Small;
         this.path = '/blogs/' + this.id;
     }
     

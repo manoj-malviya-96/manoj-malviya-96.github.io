@@ -14,7 +14,6 @@ const BlogListing = () => {
 		return {
 			title: blog.title,
 			description: blog.description,
-			size: blog.cardSize,
 			date: blog.date,
 			category: blog.category,
 			image: blog.cover,
