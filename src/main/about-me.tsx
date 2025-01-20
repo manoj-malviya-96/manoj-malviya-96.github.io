@@ -119,7 +119,7 @@ const AboutMe = () => {
 			size={AtomLayoutSize.FullSize}
 			alignment={AtomLayoutAlignment.Start}
 			smallDeviceAdjustment={true}
-			className={'mt-4'}>
+			className={'mt-4 h-full'}>
 			<AtomColumn className={'w-full md:w-1/2 h-full'} size={AtomLayoutSize.None}>
 				<AboutMeText/>
 				<SocialMediaButtons/>
