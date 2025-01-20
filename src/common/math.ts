@@ -1,59 +1,63 @@
-export function rangesTo(range: Array<any>, toFunc: (item: any) => any): Array<any> {
-    const result = [];
-    for (let i = 0; i < range.length; i++) {
-        result.push(toFunc(range[i]));
-    }
-    return result;
-}
-export function computeRMS(dataArray: Array<number>) {
-    const sum = dataArray.reduce((acc, value) => acc + (
-        value * value
-    ), 0);
-    return Math.sqrt(sum / dataArray.length);
+export function rangesTo<T1, T2>(range: Array<T1>, toFunc: (item: T1) => T2): Array<T2> {
+	const result: T2[] = [];
+	for (let i = 0; i < range.length; i++) {
+		result.push(toFunc(range[i]));
+	}
+	return result;
 }
 
-export function computeVariance(array: Array<number>) {
-    const mean = array.reduce((acc, val) => acc + val, 0) / array.length;
-    return array.reduce((acc, val) => acc + (
-        val - mean
-    ) ** 2, 0) / array.length;
+
+export const sumRange = (range: NdArray): number =>
+	(
+		Array.isArray(range) ? range : Array.from(range)
+	).reduce(
+		(acc: number, val: number) => acc + val,
+		0
+	);
+
+export function arrayNonZeroCount(arr: NdArray) {
+	let result = 0;
+	arr.forEach((a) => {
+		if (a > 0) {
+			result += 1;
+		}
+	})
+	return result;
 }
 
-export function computeEnergyRatio(array: Array<number>, threshold: number) {
-    const below = array.filter(val => val < threshold).reduce((acc, val) => acc + val ** 2, 0);
-    const total = array.reduce((acc, val) => acc + val ** 2, 0);
-    
-    return below / total; // Ratio of below-threshold energy
+export const meanRange = (range: NdArray) =>
+	sumRange(range) / range.length;
+
+export function meanRangeWithNonZero(range: NdArray) {
+	return sumRange(range) / arrayNonZeroCount(range);
 }
-
-export function computeGradient(array: Array<number>) {
-    return array.map((val, idx, arr) => {
-        if (idx === 0 || idx === arr.length - 1) {
-            return 0;
-        }
-        return arr[idx + 1] - arr[idx - 1];
-    });
-}
-
-export const sumRange = (range: Array<number> | Float32Array | Float64Array): number =>
-    (Array.isArray(range) ? range : Array.from(range)).reduce(
-        (acc: number, val: number) => acc + val,
-        0
-    );
-
-export const meanRange = (range: Array<number> | Float32Array | Float64Array) =>
-    sumRange(range) / range.length;
-
 
 export const roundTo = (num: number, places: number) => {
-    const factor = 10 ** places;
-    return Math.round(num * factor) / factor;
+	const factor = 10 ** places;
+	return Math.round(num * factor) / factor;
 }
 
 export function aRange(min: number, length: number, step: number): Array<number> {
-    const result = [];
-    for (let i = 0; i < length; i++) {
-        result.push(min + i * step);
-    }
-    return result;
+	const result = [];
+	for (let i = 0; i < length; i++) {
+		result.push(min + i * step);
+	}
+	return result;
+}
+
+export function longestNonZeroSubset(arr: number[]) {
+	let maxLength = 0;
+	let currentLength = 0;
+	
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] !== 0) {
+			currentLength++;
+			if (currentLength > maxLength) {
+				maxLength = currentLength;
+			}
+		} else {
+			currentLength = 0;
+		}
+	}
+	return maxLength;
 }

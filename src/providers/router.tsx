@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useMemo} from "react";
+import React, {JSX, ReactNode, useEffect, useMemo} from "react";
 import {
 	HashRouter as Router,
 	Routes,
@@ -10,7 +10,7 @@ import NavBar from "./navbar";
 
 export interface RouteDefinition {
 	path: string;
-	component: React.FC<any>;
+	component: () => JSX.Element;
 	props?: Record<string, any>;
 	animation?: Variants;
 }

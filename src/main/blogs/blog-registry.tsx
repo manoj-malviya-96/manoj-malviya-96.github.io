@@ -8,6 +8,7 @@ import RapidTopt from "./rapid-topt/rapid-topt";
 import PennStateRD from "./work-exp/penn-state";
 import FormlabsSW from "./work-exp/formlabs-software";
 import FormlabsRd from "./work-exp/formlabs-rd";
+import {BlogInfo} from "./blog-info";
 
 export const registeredBlogs = [
     new QmlOptimization(),
@@ -23,7 +24,7 @@ export const jobRelatedBlogs = [
 ]
 
 export const makeBlogRouters = () => {
-    return rangesTo(registeredBlogs.concat(jobRelatedBlogs), (blog) => {
+    return rangesTo<BlogInfo, RouteDefinition>(registeredBlogs.concat(jobRelatedBlogs), (blog) => {
         const blogComponent = () => {
             return (
                 <BlogConstructor item={blog}/>

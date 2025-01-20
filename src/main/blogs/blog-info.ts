@@ -24,7 +24,7 @@ interface BlogInfoConstructor {
 export class BlogInfo {
     private readonly id: string;
     readonly title: string;
-    private readonly description: string;
+    readonly description: string;
     readonly summary: string;
     readonly date: string; // Use `Date` if needed.
     readonly tags: string[];
@@ -32,8 +32,8 @@ export class BlogInfo {
     readonly logo: string;
     readonly category: categoryType | undefined;
     readonly sections: BlogSectionContentProps[];
-    private readonly isNew: boolean;
-    private readonly path: string;
+    readonly isNew: boolean;
+    readonly path: string;
     readonly cardSize: BentoItemSize = BentoItemSize.Small;
     
     
