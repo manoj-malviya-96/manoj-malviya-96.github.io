@@ -110,18 +110,11 @@ interface DividerProps {
 	className?: string
 }
 
-export const AtomRowDivider = ({className}: DividerProps) => {
+export const AtomColumnDivider = ({className}: DividerProps) => {
 	return (
 		<hr className={`w-full border-neutral border-opacity-50 ${className}`}/>
 	)
 }
-
-export const AtomColumnDivider = ({className}: DividerProps) => {
-	return (
-		<hr className={`h-full border-neutral border-opacity-50 ${className}`}/>
-	)
-}
-
 
 
 

@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomColumnDivider, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
 import {AtomTitleText} from "../atoms/atom-text";
 import {AtomLoader} from "../atoms/atom-loader";
-import AtomStats from "../atoms/atom-stats";
-import {aRange} from "../common/math";
+import AtomStats, {Stats} from "../atoms/atom-stats";
+import {aRange, longestNonZeroSubset, meanRangeWithNonZero, rangesTo, roundTo} from "../common/math";
 import {AtomButtonBar, TabBarOrientation, TabButtonProps} from "../atoms/atom-bars";
+import {sum} from "numeric";
 
 const API_URL = 'https://github-contributions-api.jogruber.de/v4/'
+const ChartHeight = 210;
 
 export interface Activity {
 	date: string
@@ -66,6 +68,10 @@ export const GithubCalendar = () => {
 	const [year, setYear] = useState<Year>(CurrentYear - 1);
 	const [loading, setLoading] = useState<boolean>(false);
 	
+	const [longestStreak, setLongestStreak] = useState<Stats>(undefined);
+	const [total, setTotal] = useState<Stats>(undefined);
+	const [dailyAverage, setDailyAverage] = useState<Stats>(undefined);
+	
 	useEffect(() => {
 		setLoading(true);
 		// Fetch new data
@@ -77,8 +83,20 @@ export const GithubCalendar = () => {
 		setLoading(false);
 	}, [user, year, setData, setError])
 	
+	useEffect(() => {
+		const contributions = data?.contributions;
+		const totalContribution = data?.total[year];
+		if (!contributions || !totalContribution) {
+			setLongestStreak(undefined);
+			setTotal(undefined);
+			return ;
+		}
+		const contributionsAsList = rangesTo<Activity, number>(contributions, (item: Activity) => item.count);
+		setDailyAverage(roundTo(meanRangeWithNonZero(contributionsAsList), 1));
+		setTotal(totalContribution);
+		setLongestStreak(longestNonZeroSubset(contributionsAsList));
+	}, [data, setLongestStreak, setTotal, setDailyAverage]);
 	
-	const height = 210;
 	const buttonsProps = aRange(CurrentYear, 5, -1).map((year) => (
 		{
 			label: year.toString(),
@@ -94,25 +112,29 @@ export const GithubCalendar = () => {
                     <AtomColumn size={AtomLayoutSize.FullSize}>
                         <AtomCalendarChart data={transformDataForEChart(data)}
                                            year={year === 'last' ? CurrentYear - 1 : year}
-                                           unit={'contributions'} height={height}/>
-                        <AtomRow className={'justify-between'}>
+                                           unit={'contributions'} height={ChartHeight}/>
+                        <AtomRow className={'justify-between'} size={AtomLayoutSize.FullWidth}>
                             <AtomButtonBar
                                 className={'w-full md:w-fit'}
                                 items={buttonsProps}
                                 orientation={TabBarOrientation.Horizontal}
                             />
-                            <AtomStats text={'Total Contributions'} value={data.total[year]}/>
+                            <AtomRow>
+                                <AtomStats text={'Total Contributions'} value={total}/>
+                                <AtomStats text={'Longest Streak'} value={longestStreak}/>
+                                <AtomStats text={'Daily Average'} value={dailyAverage}/>
+                            </AtomRow>
                         </AtomRow>
                     </AtomColumn>
 				}
 				{!data &&
-                    <div className={'w-full h-fit flex items-center justify-center'} style={{height: 1.2 * height}}>
+                    <div className={'w-full h-fit flex items-center justify-center'} style={{height: 1.2 * ChartHeight}}>
 						{error &&
                             <AtomTitleText
                                 className={'w-full h-fit text-center'}>
 								{error.error ? error.error : "Not connected to internet, are you living in 18 century ?"}
                             </AtomTitleText>}
-						{loading && <AtomLoader height={height} width={height}/>}
+						{loading && <AtomLoader height={ChartHeight} width={ChartHeight}/>}
                     </div>
 				}
 			</AtomColumn>

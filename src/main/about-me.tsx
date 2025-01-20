@@ -7,7 +7,14 @@ import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow, AtomRowDivider} from "../atoms/atom-layout";
+import {
+	AtomColumn,
+	AtomColumnDivider,
+	AtomLayoutAlignment,
+	AtomLayoutGap,
+	AtomLayoutSize,
+	AtomRow,
+} from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
 import ProfilePicture from "./assets/main.jpg";
 import {GithubCalendar} from "./github";
@@ -110,6 +117,7 @@ const AboutMe = () => {
 	return (
 		<AtomRow
 			size={AtomLayoutSize.FullSize}
+			alignment={AtomLayoutAlignment.Start}
 			smallDeviceAdjustment={true}
 			className={'mt-4'}>
 			<AtomStyledContainer className={'w-full md:w-1/2 h-full'}>
@@ -122,7 +130,7 @@ const AboutMe = () => {
 				<AtomColumn size={AtomLayoutSize.FullSize}
 				            gap={AtomLayoutGap.Small}>
 					<CareerHighlights/>
-					<AtomRowDivider/>
+					<AtomColumnDivider/>
 					<GithubCalendar/>
 				</AtomColumn>
 			</AtomStyledContainer>
