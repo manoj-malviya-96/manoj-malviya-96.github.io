@@ -12,7 +12,7 @@ const MeshaView = () => {
 			appName={AppName}
 			appLogo={Logo}
 		>
-			<AtomHeroTitleText className={'w-full h-fit'}>Coming soon...</AtomHeroTitleText>
+			<AtomHeroTitleText className={'w-full h-fit text-center'}>Coming soon...</AtomHeroTitleText>
 		</AppView>
 	)
 }
