@@ -119,7 +119,7 @@ export const GithubCalendar = () => {
                                 <AtomStats text={'Daily Average'} value={dailyAverage}/>
                             </AtomRow>
                             <AtomButtonBar
-                                className={'w-full md:w-fit'}
+                                className={'px-4 md:px-0 w-fit'}
                                 items={buttonsProps}
                                 orientation={TabBarOrientation.Horizontal}
                             />

@@ -75,11 +75,11 @@ export const AtomColumn: React.FC<AtomLayoutProps> = React.memo(({
 
 export enum GridColumns {
 	One = 'grid-cols-1',
-	Two = 'grid-cols-1 md:grid-cols-2',
-	Three = 'grid-cols-2 md:grid-cols-3',
-	Four = 'grid-cols-3 md:grid-cols-4',
-	Five = 'grid-cols-4 md:grid-cols-5',
-	Six = 'grid-cols-5 md:grid-cols-6',
+	Two = 'grid-cols-1 md:grid-cols-1 lg:grid-cols-2',
+	Three = 'grid-cols-1 md:grid-cols-2  lg:grid-cols-3',
+	Four = 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+	Five = 'grid-cols-3 md:grid-cols-4  lg:grid-cols-5',
+	Six = 'grid-cols-4 md:grid-cols-5 lg:grid-cols-6',
 }
 
 

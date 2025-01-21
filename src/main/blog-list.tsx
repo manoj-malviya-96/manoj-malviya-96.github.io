@@ -24,8 +24,10 @@ const BlogListing = () => {
 	
 	return (
 		<AtomColumn gap={AtomLayoutGap.Small}>
-			<AtomRow size={AtomLayoutSize.None} className={'w-2/3'} gap={AtomLayoutGap.ExtraSmall}>
-				<AtomHeroTitleText>Sometimes I document my</AtomHeroTitleText>
+			<AtomRow size={AtomLayoutSize.None} className={'w-2/3'}
+			         gap={AtomLayoutGap.ExtraSmall}
+			         smallDeviceAdjustment={true}>
+				<AtomHeroTitleText className={'text-center'}>Sometimes I document my</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
 			</AtomRow>
 			<AtomCardGrid

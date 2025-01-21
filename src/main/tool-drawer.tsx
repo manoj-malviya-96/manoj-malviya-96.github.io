@@ -25,8 +25,8 @@ const ToolDrawer = () => {
 	
 	return (
 		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullSize}>
-			<AtomRow gap={AtomLayoutGap.ExtraSmall}>
-				<AtomHeroTitleText>Creating in</AtomHeroTitleText>
+			<AtomRow gap={AtomLayoutGap.ExtraSmall} smallDeviceAdjustment={true}>
+				<AtomHeroTitleText className={'text-center'}>Creating in</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
 			</AtomRow>
 			
