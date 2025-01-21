@@ -113,7 +113,7 @@ const AboutMe = () => {
 			gap={LayoutGap.Medium}
 			alignment={LayoutAlign.Start}
 			smallDeviceAdjustment={true}
-			className={'mt-4 h-full'}>
+			className={'mt-4 h-full px-6'}>
 			<AtomColumn className={'w-full md:w-1/2 h-full'} size={LayoutSize.None}>
 				<AboutMeText/>
 				<SocialMediaButtons/>
