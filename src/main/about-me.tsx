@@ -7,14 +7,7 @@ import AtomStyledContainer from "../atoms/atom-styled-container";
 import {useNavigate} from "react-router-dom";
 import AtomTimeline from "../atoms/atom-timeline";
 import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
-import {
-	AtomColumn,
-	AtomColumnDivider,
-	LayoutAlign,
-	LayoutGap,
-	LayoutSize,
-	AtomRow,
-} from "../atoms/atom-layout";
+import {AtomColumn, AtomColumnDivider, AtomRow, LayoutAlign, LayoutGap, LayoutSize,} from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
 import ProfilePicture from "./assets/main.jpg";
 import {GithubCalendar} from "./github";
@@ -117,6 +110,7 @@ const AboutMe = () => {
 	return (
 		<AtomRow
 			size={LayoutSize.FullSize}
+			gap={LayoutGap.Medium}
 			alignment={LayoutAlign.Start}
 			smallDeviceAdjustment={true}
 			className={'mt-4 h-full'}>
