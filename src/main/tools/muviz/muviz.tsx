@@ -19,7 +19,7 @@ import AppView from "../app-view";
 import AtomDialog from "../../../atoms/atom-dialog";
 import {AtomColumn, AtomRow, LayoutAlign, LayoutGap, LayoutSize} from "../../../atoms/atom-layout";
 import {AtomPrimaryText, AtomSubtitleText} from "../../../atoms/atom-text";
-import AtomMouseArea from "../../../atoms/AtomMouseArea";
+import AtomMouseArea from "../../../atoms/atom-mouse-area";
 
 const AppName = 'MUVIZ';
 
