@@ -136,8 +136,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                         className="bg-black absolute top-0 left-0 w-full h-full z-0"/>
             
             {/*HUD*/}
-            <div className={`inline-block w-full h-full z-5 p-4 bg-transparent
-                lg:opacity-0 lg:hover:opacity-100`}>
+            <div className={`inline-block w-full h-full z-5 p-4 bg-transparent`}>
                 {/*Central Controls*/}
                 <div
                     className="flex flex-wrap sm:flex-nowrap w-full h-fit justify-center
