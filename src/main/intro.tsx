@@ -15,7 +15,7 @@ const Intro = () => {
 			backgroundImage={isDark ? CoverDark : CoverLight}
 		>
 			<div className={'block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'}>
-				<AtomColumn wrap={true} gap={AtomLayoutGap.None}>
+				<AtomColumn smallDeviceAdjustment={true} gap={AtomLayoutGap.None}>
 					<AtomPrimaryText className={'w-full text-center'}>
 						Manoj Malviya
 					</AtomPrimaryText>

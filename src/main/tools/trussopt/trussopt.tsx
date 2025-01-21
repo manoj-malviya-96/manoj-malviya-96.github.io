@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import ToolInfo from "../tool-info";
 import Logo from '../logos/trussopt.svg';
 import AppView from "../app-view";
-import AtomKnob from "../../../atoms/atom-knob";
 import AtomToggleButton from "../../../atoms/atom-toggle-button";
 import {AtomButton, ButtonSeverity, ButtonType} from "../../../atoms/atom-button";
 import AtomDropdown from "../../../atoms/atom-dropdown";
@@ -15,9 +14,9 @@ import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
 import {AtomGrid, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
+import AtomSlider from "../../../atoms/atom-slider";
 
 const AppName = 'TrussOpt';
-
 const TrussOptView = () => {
 	const {
 		meshWidth, setMeshWidth,
@@ -37,7 +36,6 @@ const TrussOptView = () => {
 	const [canvasLoading, setCanvasLoading] = useState<boolean>(false);
 	const [simResult, setSimResult] = useState<TrussFeaResults | null>();
 	const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
-	
 	const [numIterations, setNumIterations] = useState<number>(100);
 	const [targetFraction, setTargetFraction] = useState<number>(0.3);
 	
@@ -112,29 +110,32 @@ const TrussOptView = () => {
 						label={'Design Initial Truss'}
 						transparency={false}
 					>
-						<AtomGrid gap={AtomLayoutGap.None} size={AtomLayoutSize.FullWidth}>
-							<AtomKnob
+						<AtomGrid gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullWidth}>
+							<AtomSlider
 								label='Width'
+								className="w-full h-fit"
 								min={cellSize}
 								max={100}
 								step={cellSize}
-								initValue={meshWidth}
+								value={meshWidth}
 								onChange={setMeshWidth}
 							/>
-							<AtomKnob
+							<AtomSlider
 								label='Height'
 								min={cellSize}
 								max={100}
 								step={cellSize}
-								initValue={meshHeight}
+								className="w-full h-fit"
+								value={meshHeight}
 								onChange={setMeshHeight}
 							/>
-							<AtomKnob
+							<AtomSlider
 								label='Cell Size'
 								min={5}
 								max={20}
 								step={5}
-								initValue={cellSize}
+								className="w-full h-fit"
+								value={cellSize}
 								onChange={setCellSize}
 							/>
 							<AtomDropdown
@@ -198,21 +199,23 @@ const TrussOptView = () => {
 						label={'Optimization'}
 						className={'w-full'}>
 						
-						<AtomGrid size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.ExtraSmall}>
-							<AtomKnob
+						<AtomGrid size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Medium}>
+							<AtomSlider
 								label='Iterations'
 								min={5}
 								max={500}
 								step={5}
-								initValue={numIterations}
+								className="w-full h-fit"
+								value={numIterations}
 								onChange={setNumIterations}
 							/>
-							<AtomKnob
+							<AtomSlider
 								label='Target'
 								min={0.1}
 								max={0.9}
 								step={0.1}
-								initValue={targetFraction}
+								className="w-full h-fit"
+								value={targetFraction}
 								onChange={setTargetFraction}
 							/>
 							

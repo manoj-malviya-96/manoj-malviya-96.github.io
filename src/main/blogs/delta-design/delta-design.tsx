@@ -169,7 +169,6 @@ class DeltaDesign extends BlogInfo {
 			date: 'Aug 15, 2020',
 			tags: ['Matlab', 'Game Dev', 'AI', 'Engineering Design'],
 			cover: Cover,
-			cardSize: BentoItemSize.Small,
 			summary: `This project dives into how engineering students approach design challenges in a digital game that tracks
             every step. Analyzing behaviors from 15 participants, the study reveals that high-performing designers tend
             to break down complex problems into manageable sub-problems and relate them to familiar concepts. Both

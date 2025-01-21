@@ -1,6 +1,5 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./cover.webp";
-import {BentoItemSize} from "../../../atoms/atom-bentobox";
 import {AtomColumn} from "../../../atoms/atom-layout";
 import React from "react";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
@@ -202,7 +201,6 @@ class QmlOptimization extends BlogInfo {
 			tags: ["QML", "Optimization", "Performance"],
 			cover: Cover,
 			isNew: true,
-			cardSize: BentoItemSize.Large,
 			summary: "A comprehensive guide to optimizing QML applications, with best practices, examples, and practical tips for improving performance.",
 			sections: [
 				{

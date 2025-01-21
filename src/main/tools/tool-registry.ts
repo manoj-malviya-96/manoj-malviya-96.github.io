@@ -3,6 +3,7 @@ import {RouteDefinition} from "../../providers/router";
 import Muviz from "./muviz/muviz";
 import TrussOpt from "./trussopt/trussopt";
 import Mesha from "./mesha/mesha";
+import ToolInfo from "./tool-info";
 
 
 export const registeredTools = [
@@ -12,7 +13,7 @@ export const registeredTools = [
 ]
 
 export const makeToolRouter = () => {
-    return rangesTo(registeredTools, (info) => {
+    return rangesTo<ToolInfo, RouteDefinition>(registeredTools, (info) => {
         return {
             path: info.path,
             component: info.component

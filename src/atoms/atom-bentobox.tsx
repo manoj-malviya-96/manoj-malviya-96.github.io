@@ -1,5 +1,4 @@
 import React, {ComponentType} from "react";
-import AtomScrollContainer from "./atom-scroll-container";
 import {ScreenSizes, useScreenSizeBreakpoint} from "../providers/screen";
 
 export enum BentoItemSize {
@@ -56,20 +55,18 @@ const AtomBentoBox = React.memo((
 		}
 		
 		return (
-			<AtomScrollContainer>
-				<div
-					className={`h-fit grid gap-4 p-0 items-center justify-center ${className} `}
-					style={{
-						gridTemplateColumns: `repeat(${columns}, 1fr)`,
-						gridAutoRows: `minmax(${autoRowsSize}px, min-content)`,
-						gridAutoFlow: 'dense',
-					}}
-				>
-					{items.map((item, index) => (
-						<Component key={index} {...item} className={toSpan(item.size, columns)}/>
-					))}
-				</div>
-			</AtomScrollContainer>
+			<div
+				className={`h-fit grid gap-4 p-0 items-center justify-center ${className} `}
+				style={{
+					gridTemplateColumns: `repeat(${columns}, 1fr)`,
+					gridAutoRows: `minmax(${autoRowsSize}px, min-content)`,
+					gridAutoFlow: 'dense',
+				}}
+			>
+				{items.map((item, index) => (
+					<Component key={index} {...item} className={toSpan(item.size, columns)}/>
+				))}
+			</div>
 		);
 	}
 ));

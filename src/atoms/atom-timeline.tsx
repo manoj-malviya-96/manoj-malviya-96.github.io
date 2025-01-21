@@ -1,6 +1,6 @@
 import React from "react";
 import {AtomThemeSensitiveImage} from "./atom-image";
-import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
+import {AtomSecondaryText, AtomTitleText} from "./atom-text";
 
 
 export enum TimelineOrientation {
@@ -54,7 +54,7 @@ const AtomTimeline: React.FC<AtomTimelineProps> = React.memo(({
 							{!item.icon && <i className={'fas fa-check-circle'}/>}
 						</div>
 						<div className="timeline-end p-4 w-fit h-fit flex flex-col">
-							<AtomPrimaryText>{item.title}</AtomPrimaryText>
+							<AtomTitleText>{item.title}</AtomTitleText>
 							{item.description &&
                                 <AtomSecondaryText>{item.description}</AtomSecondaryText>
 							}

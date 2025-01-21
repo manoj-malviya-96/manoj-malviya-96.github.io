@@ -11,7 +11,7 @@ export enum ButtonSize {
 }
 
 export enum ButtonSeverity {
-	Primary = `btn-primary hover:btn-secondary active:btn-secondary bg-opacity-50 hover:bg-opacity-100 backdrop-blur-lg`,
+	Primary = `btn-primary hover:btn-secondary active:btn-secondary bg-opacity-50 hover:bg-opacity-100`,
 	Secondary = 'btn-secondary',
 	Success = 'btn-success border-none bg-opacity-100',
 	Info = 'btn-info border-none bg-opacity-100',
@@ -23,7 +23,7 @@ export enum ButtonType {
 	Outlined = 'border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100',
 	Ghost = `bg-transparent border-none hover:bg-transparent hover:text-secondary
             hover:border-none hover:font-bold active:bg-transparent p-0`,
-	Solid = 'shadow-none border-secondary border-opacity-10',
+	Solid = 'shadow-none border-secondary border-opacity-10 backdrop-blur-lg',
 }
 
 export interface AtomButtonProps {
@@ -79,7 +79,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(({
 					{icon && <i className={`${icon} ${animated ? 'animate-pulse' : ''}`}/>}
 					{label &&
                         <AtomPrimaryText className=
-							                 {`hidden sm:inline ml-auto
+							                 { `${icon ? 'hidden sm:inline': ''} ml-auto
                                   ${animated ? 'animate-pulse' : ''}`}>
 							{label}
                         </AtomPrimaryText>

@@ -20,8 +20,9 @@ const AtomScrollableLink: React.FC<ScrollableLinkProps> = React.memo(({
 			to={elementName}
 			spy={true}
 			smooth={true}
-			offset={0}
-			duration={300}
+			horizontal={false}
+			absolute={false}
+			duration={420}
 			className={className}
 			activeClass={activeClassName}
 		>

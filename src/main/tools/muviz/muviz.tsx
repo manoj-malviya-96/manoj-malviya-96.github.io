@@ -190,7 +190,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                         step={0.1}
                         onChange={setAudioTime}
                         className="w-full h-fit"
-                        neutralMode={true}
                     />
                     {/* Volume and Right Controls */}
                     <div
@@ -229,7 +228,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({
                                 options={songOptions}
                                 dropdownIcon={"fas fa-music"}
                                 onClick={handleSampleSongChange}
-                                className="h-full w-32 m-auto"
+                                className="h-full w-36 m-auto"
                                 placeholder="Sample Song"
                             />
                             <AtomDialog

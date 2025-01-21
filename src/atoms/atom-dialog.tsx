@@ -15,7 +15,7 @@ const AtomDialog: React.FC<AtomDialogProps> = React.memo(({icon, title, children
 	return (
 		<Drawer.Root>
 			<Drawer.Trigger asChild>
-				<AtomButton icon={icon} label={title} type={ButtonType.Outlined} pill={false} />
+				<AtomButton icon={icon} label={title} type={ButtonType.Outlined} pill={false} hoverEffect={false} />
 			</Drawer.Trigger>
 			<Drawer.Portal>
 				<Drawer.Overlay className="fixed inset-0 bg-black bg-opacity-50"/>

@@ -11,11 +11,11 @@ interface ToolInfoProps {
 }
 
 class ToolInfo {
-    private readonly name: string;
-    private readonly description: string;
-    private readonly path: string;
-    private readonly cover: string;
-    private readonly component: () => React.ReactNode;
+    readonly name: string;
+    readonly description: string;
+    readonly path: string;
+    readonly cover: string;
+    readonly component: () => React.ReactNode;
     
     constructor(
         {

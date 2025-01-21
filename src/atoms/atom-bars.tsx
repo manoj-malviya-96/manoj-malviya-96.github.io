@@ -20,9 +20,9 @@ const AtomBar: React.FC<TabBarProps> = ({
 	                                        className = ''
                                         }) => {
 	return (
-		<div className={`flex ${orientation} gap-0 justify-center items-center w-fit h-fit
+		<div className={`flex ${orientation} gap-4 justify-center items-center w-fit h-fit
 							bg-primary border-neutral border-opacity-50 bg-opacity-50
-		                    border backdrop-blur-lg rounded-full
+		                    border backdrop-blur-lg rounded-lg
 		                    ${className}`}>
 			{children}
 		</div>
@@ -53,7 +53,7 @@ export const AtomLinkBar: React.FC<TabBarLinkProps> = ({
 					key={index}
 					elementName={item.name}
 					className={`px-6 py-2 w-fit h-full text-center cursor-pointer text-sm
-					    ${index === 0 ? 'rounded-l-full' : index === items.length - 1 ? 'rounded-r-full' : ''}
+					    ${index === 0 ? 'rounded-l-lg' : index === items.length - 1 ? 'rounded-r-lg' : ''}
 					`}
 					activeClassName="bg-secondary text-secondary-content">
 					{item.children}
@@ -102,6 +102,7 @@ export const AtomButtonBar: React.FC<AtomButtonBarProps> = ({
 					type={activeIndex === index ? ButtonType.Solid : ButtonType.Ghost}
 					onClick={() => setActiveIndex(index)}
 					hoverEffect={false}
+					pill={false}
 				/>
 			))}
 		</AtomBar>

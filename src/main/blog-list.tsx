@@ -1,9 +1,8 @@
-import React, {ComponentType} from "react";
+import React from "react";
 import {registeredBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
-import AtomBentoBox, {BentoBoxItemProps} from "../atoms/atom-bentobox";
-import {AtomCardProps, AtomImageCard} from "../atoms/atom-card";
+import {AtomCardGrid, AtomCardProps} from "../atoms/atom-card";
 import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomHeroTitleText} from "../atoms/atom-text";
 
@@ -15,7 +14,6 @@ const BlogListing = () => {
 		return {
 			title: blog.title,
 			description: blog.description,
-			size: blog.cardSize,
 			date: blog.date,
 			category: blog.category,
 			image: blog.cover,
@@ -26,17 +24,15 @@ const BlogListing = () => {
 	
 	return (
 		<AtomColumn gap={AtomLayoutGap.Small}>
-			<AtomRow size={AtomLayoutSize.None} className={'w-2/3'} gap={AtomLayoutGap.ExtraSmall}>
-				<AtomHeroTitleText>Sometimes I document my</AtomHeroTitleText>
+			<AtomRow size={AtomLayoutSize.None} className={'w-2/3'}
+			         gap={AtomLayoutGap.ExtraSmall}
+			         smallDeviceAdjustment={true}>
+				<AtomHeroTitleText className={'text-center'}>Sometimes I document my</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
 			</AtomRow>
-			<AtomBentoBox
+			<AtomCardGrid
 				items={allItems}
-				columns={4}
-				className={'mx-auto w-2/3'}
-				autoRowsSize={220}
-				// Casting to Component Type.
-				component={AtomImageCard as unknown as ComponentType<BentoBoxItemProps>}
+				className={'w-full p-8'}
 			/>
 		</AtomColumn>
 	);
