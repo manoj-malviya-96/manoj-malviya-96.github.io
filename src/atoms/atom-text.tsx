@@ -29,7 +29,7 @@ export const AtomPrimaryText: React.FC<AtomTextProps> = ({children, className = 
 
 export const AtomTitleText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
-		<h2 className={`text-2xl font-extrabold ${className}`}>{children}</h2>
+		<h3 className={`text-2xl font-extrabold ${className}`}>{children}</h3>
 	);
 }
 

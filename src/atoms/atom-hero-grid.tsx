@@ -1,6 +1,6 @@
 import React from "react";
 import AtomBentoBox, {BentoBoxItemProps} from "./atom-bentobox";
-import {AtomHeroTitleText, AtomLink, AtomLinkProps, AtomSecondaryText, AtomTitleText} from "./atom-text";
+import {AtomLink, AtomLinkProps, AtomSecondaryText, AtomTitleText} from "./atom-text";
 
 
 export interface AtomHeroGridItemProps extends BentoBoxItemProps {
