@@ -10,26 +10,26 @@ interface AtomTextProps {
 
 export const AtomTertiaryText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
-		<span className={`text-xs opacity-70 ${className}`}>{children}</span>
+		<span className={`text-xs font-light opacity-70 ${className}`}>{children}</span>
 	);
 }
 
 
 export const AtomSecondaryText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
-		<span className={`text-sm opacity-70 ${className}`}>{children}</span>
+		<span className={`text-sm font-light opacity-70 ${className}`}>{children}</span>
 	);
 }
 
 export const AtomPrimaryText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
-		<span className={`${className}`}>{children}</span>
+		<span className={`font-light ${className}`}>{children}</span>
 	);
 }
 
 export const AtomTitleText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
-		<h2 className={`text-2xl font-bold ${className}`}>{children}</h2>
+		<h2 className={`text-2xl font-extrabold ${className}`}>{children}</h2>
 	);
 }
 

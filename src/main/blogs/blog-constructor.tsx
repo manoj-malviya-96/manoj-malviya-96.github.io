@@ -51,6 +51,7 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 					smallDeviceAdjustment={true}
 					alignment={AtomLayoutAlignment.Start}
 					gap={AtomLayoutGap.Small}
+					className={'flex-wrap '}
 					size={AtomLayoutSize.FullWidth}>
 					{tags.map((tag, index) => (
 						<AtomSecondaryBadge key={index} className={'w-fit'}>{tag}</AtomSecondaryBadge>

@@ -1,10 +1,11 @@
+
 import {BlogInfo} from "../blog-info";
 import Cover from "./formlabs-rd-cover.jpg";
 import Logo from "./form-4-icon.svg"
 import {BentoItemSize} from "../../../atoms/atom-bentobox";
 import React from "react";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
-import {AtomColumn} from "../../../atoms/atom-layout";
+import {AtomColumn, AtomLayoutAlignment} from "../../../atoms/atom-layout";
 import AtomHeroGrid from "../../../atoms/atom-hero-grid";
 
 const Achievements = () => {
@@ -41,7 +42,7 @@ const Achievements = () => {
 		},
 	]
 	return (
-		<AtomColumn>
+		<AtomColumn alignment={AtomLayoutAlignment.Start}>
 			<AtomPrimaryText>
 				Here are some of the key achievements during my time at Formlabs as an R&D Software Engineer:
 			</AtomPrimaryText>

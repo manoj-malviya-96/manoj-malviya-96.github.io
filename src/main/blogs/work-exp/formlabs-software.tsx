@@ -5,7 +5,7 @@ import {BentoItemSize} from "../../../atoms/atom-bentobox";
 import React from "react";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
 import AtomHeroGrid from "../../../atoms/atom-hero-grid";
-import {AtomColumn} from "../../../atoms/atom-layout";
+import {AtomColumn, AtomLayoutAlignment} from "../../../atoms/atom-layout";
 
 const Achievements = () => {
 	const contentList = [
@@ -65,7 +65,7 @@ const Achievements = () => {
 	]
 	
 	return (
-		<AtomColumn>
+		<AtomColumn alignment={AtomLayoutAlignment.Start}>
 			<AtomPrimaryText>
 				Here are some of the key achievements during my time at Formlabs as a Lead Software Engineer:
 			</AtomPrimaryText>

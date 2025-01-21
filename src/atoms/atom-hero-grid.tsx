@@ -1,6 +1,6 @@
 import React from "react";
 import AtomBentoBox, {BentoBoxItemProps} from "./atom-bentobox";
-import {AtomHeroTitleText, AtomLink, AtomLinkProps, AtomSecondaryText} from "./atom-text";
+import {AtomHeroTitleText, AtomLink, AtomLinkProps, AtomSecondaryText, AtomTitleText} from "./atom-text";
 
 
 export interface AtomHeroGridItemProps extends BentoBoxItemProps {
@@ -27,7 +27,7 @@ const AtomHeroGridItem: React.FC<AtomHeroGridItemProps> = React.memo(({icon, tit
 			{hasSub &&
                 <div className={'flex flex-row gap-4 w-full'}>
 					{icon && <i className={`${icon} text-3xl`}/>}
-					{title && <AtomHeroTitleText>{title}</AtomHeroTitleText>}
+					{title && <AtomTitleText>{title}</AtomTitleText>}
                 </div>
 			}
 			<AtomSecondaryText className={'w-full'}>{summary}</AtomSecondaryText>
