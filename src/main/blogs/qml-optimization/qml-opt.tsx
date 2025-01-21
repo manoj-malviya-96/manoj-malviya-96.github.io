@@ -1,25 +1,25 @@
-import {BlogInfo} from "../blog-info";
+import { BlogInfo } from "../blog-info";
 import Cover from "./cover.webp";
-import {AtomColumn} from "../../../atoms/atom-layout";
+import { AtomColumn } from "../../../atoms/atom-layout";
 import React from "react";
-import {AtomPrimaryText} from "../../../atoms/atom-text";
+import { AtomPrimaryText } from "../../../atoms/atom-text";
 import AtomCodeBlock from "../../../atoms/atom-code";
 
-
 const IntroSection = () => {
-	return (
-		<AtomColumn>
-			<AtomPrimaryText>
-				QML is a powerful language for building fluid and interactive user interfaces. However, performance
-				optimization is crucial for delivering a smooth user experience. Here are some tips to help you optimize
-				your QML applications.
-			</AtomPrimaryText>
-		</AtomColumn>
-	)
-}
+  return (
+    <AtomColumn>
+      <AtomPrimaryText>
+        QML is a powerful language for building fluid and interactive user
+        interfaces. However, performance optimization is crucial for delivering
+        a smooth user experience. Here are some tips to help you optimize your
+        QML applications.
+      </AtomPrimaryText>
+    </AtomColumn>
+  );
+};
 
 const MinimizeBindingsSection = () => {
-	const minimizeBindingsCode = `
+  const minimizeBindingsCode = `
 // Bad
 Rectangle {
     width: parent.width / 2  // Causes unnecessary re-evaluations
@@ -35,20 +35,20 @@ Rectangle {
     Component.onCompleted: width = parent.width / 2 // Delays calculation until initialization
 }
         `;
-	return (
-		<AtomColumn>
-			<AtomPrimaryText>
-				Bindings in QML are powerful for creating reactive UIs, but excessive use can cause performance
-				bottlenecks.
-				Reduce bindings or delay their evaluation where possible.
-			</AtomPrimaryText>
-			<AtomCodeBlock code={minimizeBindingsCode} language={'qml'}/>
-		</AtomColumn>
-	)
-}
+  return (
+    <AtomColumn>
+      <AtomPrimaryText>
+        Bindings in QML are powerful for creating reactive UIs, but excessive
+        use can cause performance bottlenecks. Reduce bindings or delay their
+        evaluation where possible.
+      </AtomPrimaryText>
+      <AtomCodeBlock code={minimizeBindingsCode} language={"qml"} />
+    </AtomColumn>
+  );
+};
 
 const AnimationEfficiencySection = () => {
-	const animationEfficiencyCode = `
+  const animationEfficiencyCode = `
 // Bad
 Rectangle {
     color: "blue"
@@ -72,21 +72,20 @@ Rectangle {
     }
 }
         `;
-	return (
-		<AtomColumn>
-			<AtomPrimaryText>
-				Animations bring life to applications, but too many animations or complex easing curves can degrade
-				performance.
-				Opt for sequential animations and simpler curves when possible.
-			</AtomPrimaryText>
-			<AtomCodeBlock code={animationEfficiencyCode} language={'qml'}/>
-		</AtomColumn>
-	)
-}
-
+  return (
+    <AtomColumn>
+      <AtomPrimaryText>
+        Animations bring life to applications, but too many animations or
+        complex easing curves can degrade performance. Opt for sequential
+        animations and simpler curves when possible.
+      </AtomPrimaryText>
+      <AtomCodeBlock code={animationEfficiencyCode} language={"qml"} />
+    </AtomColumn>
+  );
+};
 
 const ImageOptimizationSection = () => {
-	const imageOptimizationCode = `
+  const imageOptimizationCode = `
 // Bad
 Image {
     source: "large_image.png"
@@ -106,21 +105,20 @@ Image {
     asynchronous: true  // Load asynchronously to prevent UI blocking
 }
         `;
-	return (
-		<AtomColumn>
-			<AtomPrimaryText>
-				Loading large or unoptimized images can slow down your application. Use appropriately sized images and
-				load them asynchronously to improve performance.
-			</AtomPrimaryText>
-			<AtomCodeBlock code={imageOptimizationCode} language={'qml'}/>
-		</AtomColumn>
-	)
-}
-
+  return (
+    <AtomColumn>
+      <AtomPrimaryText>
+        Loading large or unoptimized images can slow down your application. Use
+        appropriately sized images and load them asynchronously to improve
+        performance.
+      </AtomPrimaryText>
+      <AtomCodeBlock code={imageOptimizationCode} language={"qml"} />
+    </AtomColumn>
+  );
+};
 
 const ThreadingOptimizationSection = () => {
-	
-	const threadingOptimizationCode = `
+  const threadingOptimizationCode = `
 // Bad
 ListView {
     model: ListModel {
@@ -146,20 +144,20 @@ ListView {
     Component.onCompleted: backgroundLoader.sendMessage()
 }
         `;
-	return (
-		<AtomColumn>
-			<AtomPrimaryText>
-				Heavy computations or data loading should be offloaded to worker threads to keep the UI responsive. Use
-				asynchronous models or WorkerScript where applicable.
-			</AtomPrimaryText>
-			<AtomCodeBlock code={threadingOptimizationCode} language={'qml'}/>
-		</AtomColumn>
-	)
+  return (
+    <AtomColumn>
+      <AtomPrimaryText>
+        Heavy computations or data loading should be offloaded to worker threads
+        to keep the UI responsive. Use asynchronous models or WorkerScript where
+        applicable.
+      </AtomPrimaryText>
+      <AtomCodeBlock code={threadingOptimizationCode} language={"qml"} />
+    </AtomColumn>
+  );
 };
 
-
 const RenderingOptimizationSection = () => {
-	const renderingOptimizationCode = `
+  const renderingOptimizationCode = `
 // Bad
 Rectangle {
     width: 100; height: 100
@@ -178,64 +176,64 @@ Rectangle {
     cache: true  // Cache rendering for better performance
 }
         `;
-	return (
-		<AtomColumn>
-			<AtomPrimaryText>
-				Rendering performance can be improved by reducing overdraw, enabling layers for static items, and caching
-				frequently rendered components.
-			</AtomPrimaryText>
-			<AtomCodeBlock code={renderingOptimizationCode} language={'qml'}/>
-		</AtomColumn>
-	)
-}
-
-
+  return (
+    <AtomColumn>
+      <AtomPrimaryText>
+        Rendering performance can be improved by reducing overdraw, enabling
+        layers for static items, and caching frequently rendered components.
+      </AtomPrimaryText>
+      <AtomCodeBlock code={renderingOptimizationCode} language={"qml"} />
+    </AtomColumn>
+  );
+};
 
 class QmlOptimization extends BlogInfo {
-	constructor() {
-		super({
-			id: "qml-optimization",
-			title: "QML Bests",
-			description: "Learn practical ways to improve performance in QML applications.",
-			date: "December 30, 2024",
-			tags: ["QML", "Optimization", "Performance"],
-			cover: Cover,
-			isNew: true,
-			summary: "A comprehensive guide to optimizing QML applications, with best practices, examples, and practical tips for improving performance.",
-			sections: [
-				{
-					name: "intro",
-					title: "Introduction",
-					children: <IntroSection/>
-				},
-				{
-					name: "minimize-bindings",
-					title: "1. Minimize Bindings",
-					children: <MinimizeBindingsSection/>
-				},
-				{
-					name: "animation-efficiency",
-					title: "2. Animation Efficiency",
-					children: <AnimationEfficiencySection/>
-				},
-				{
-					name: "image-optimization",
-					title: "3. Image Optimization",
-					children: <ImageOptimizationSection/>
-				},
-				{
-					name: "threading-optimization",
-					title: "4. Threading Optimization",
-					children: <ThreadingOptimizationSection/>
-				},
-				{
-					name: "rendering-optimization",
-					title: "5. Rendering Optimization",
-					children: <RenderingOptimizationSection/>
-				}
-			],
-		});
-	}
+  constructor() {
+    super({
+      id: "qml-optimization",
+      title: "QML Bests",
+      description:
+        "Learn practical ways to improve performance in QML applications.",
+      date: "December 30, 2024",
+      tags: ["QML", "Optimization", "Performance"],
+      cover: Cover,
+      isNew: true,
+      summary:
+        "A comprehensive guide to optimizing QML applications, with best practices, examples, and practical tips for improving performance.",
+      sections: [
+        {
+          name: "intro",
+          title: "Introduction",
+          children: <IntroSection />,
+        },
+        {
+          name: "minimize-bindings",
+          title: "1. Minimize Bindings",
+          children: <MinimizeBindingsSection />,
+        },
+        {
+          name: "animation-efficiency",
+          title: "2. Animation Efficiency",
+          children: <AnimationEfficiencySection />,
+        },
+        {
+          name: "image-optimization",
+          title: "3. Image Optimization",
+          children: <ImageOptimizationSection />,
+        },
+        {
+          name: "threading-optimization",
+          title: "4. Threading Optimization",
+          children: <ThreadingOptimizationSection />,
+        },
+        {
+          name: "rendering-optimization",
+          title: "5. Rendering Optimization",
+          children: <RenderingOptimizationSection />,
+        },
+      ],
+    });
+  }
 }
 
 export default QmlOptimization;

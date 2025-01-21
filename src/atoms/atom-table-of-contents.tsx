@@ -1,45 +1,44 @@
 import React from "react";
 import AtomScrollableLink from "./atom-scrollable-link";
-import {AtomColumn, LayoutAlign, LayoutGap} from "./atom-layout";
-import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
-
+import { AtomColumn, LayoutAlign, LayoutGap } from "./atom-layout";
+import { AtomPrimaryText, AtomSecondaryText } from "./atom-text";
 
 export interface TableOfContentsItemProps {
-	name: string;
-	label: string;
+  name: string;
+  label: string;
 }
 
 interface TableOfContentsProps {
-	className?: string;
-	label?: string;
-	sections: Array<TableOfContentsItemProps>;
+  className?: string;
+  label?: string;
+  sections: Array<TableOfContentsItemProps>;
 }
 
-const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(({
-	                                                                        sections,
-	                                                                        label,
-	                                                                        className
-                                                                        }) => {
-	return (
-		<AtomColumn
-			gap={LayoutGap.None}
-			alignment={LayoutAlign.Start}
-			className={className}
-		>
-			{label && <AtomPrimaryText className={'w-full border-b my-2 border-secondary'}>{label}</AtomPrimaryText>}
-			{sections.map((item, index) => (
-				<AtomScrollableLink
-					key={index}
-					elementName={item.name}
-					className="cursor-pointer"
-					activeClassName="text-accent font-bold"
-					children={
-						<AtomSecondaryText>{item.label}</AtomSecondaryText>
-					}
-				/>
-			))}
-		</AtomColumn>
-	)
-});
+const AtomTableOfContents: React.FC<TableOfContentsProps> = React.memo(
+  ({ sections, label, className }) => {
+    return (
+      <AtomColumn
+        gap={LayoutGap.None}
+        alignment={LayoutAlign.Start}
+        className={className}
+      >
+        {label && (
+          <AtomPrimaryText className={"w-full border-b my-2 border-secondary"}>
+            {label}
+          </AtomPrimaryText>
+        )}
+        {sections.map((item, index) => (
+          <AtomScrollableLink
+            key={index}
+            elementName={item.name}
+            className="cursor-pointer"
+            activeClassName="text-accent font-bold"
+            children={<AtomSecondaryText>{item.label}</AtomSecondaryText>}
+          />
+        ))}
+      </AtomColumn>
+    );
+  },
+);
 
 export default AtomTableOfContents;
