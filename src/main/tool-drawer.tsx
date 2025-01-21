@@ -3,7 +3,7 @@ import {registeredTools} from "./tools/tool-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
 import {AtomCardGrid, AtomCardProps} from "../atoms/atom-card";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, LayoutGap, LayoutSize, AtomRow} from "../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomHeroTitleText} from "../atoms/atom-text";
 import ToolInfo from "./tools/tool-info";
 import {BentoItemSize} from "../atoms/atom-bentobox";
@@ -24,8 +24,8 @@ const ToolDrawer = () => {
 	});
 	
 	return (
-		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullSize}>
-			<AtomRow gap={AtomLayoutGap.ExtraSmall} smallDeviceAdjustment={true}>
+		<AtomColumn gap={LayoutGap.Small} size={LayoutSize.FullSize}>
+			<AtomRow gap={LayoutGap.Small} smallDeviceAdjustment={true}>
 				<AtomHeroTitleText className={'text-center'}>Creating in</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
 			</AtomRow>

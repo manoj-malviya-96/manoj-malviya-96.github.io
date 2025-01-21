@@ -11,9 +11,9 @@ import {
 } from "../../atoms/atom-text";
 import {
 	AtomColumn,
-	AtomLayoutAlignment,
-	AtomLayoutGap,
-	AtomLayoutSize, AtomRow,
+	LayoutAlign,
+	LayoutGap,
+	LayoutSize, AtomRow,
 } from "../../atoms/atom-layout";
 import AtomStyledContainer from "../../atoms/atom-styled-container";
 import {AtomBackgroundImage} from "../../atoms/atom-image";
@@ -35,9 +35,9 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 	return (
 		<AtomStyledContainer className={className}>
 			<AtomColumn
-				size={AtomLayoutSize.FullWidth}
-				gap={AtomLayoutGap.ExtraSmall}
-				alignment={AtomLayoutAlignment.None}
+				size={LayoutSize.FullWidth}
+				gap={LayoutGap.Small}
+				alignment={LayoutAlign.None}
 			>
 				<AtomHeroTitleText>{title}</AtomHeroTitleText>
 				<AtomDateAndText>{date}</AtomDateAndText>
@@ -49,9 +49,10 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = (
 				/>
 				<AtomRow
 					smallDeviceAdjustment={true}
-					alignment={AtomLayoutAlignment.Start}
-					gap={AtomLayoutGap.Small}
-					size={AtomLayoutSize.FullWidth}>
+					alignment={LayoutAlign.Start}
+					gap={LayoutGap.Small}
+					className={'flex-wrap '}
+					size={LayoutSize.FullWidth}>
 					{tags.map((tag, index) => (
 						<AtomSecondaryBadge key={index} className={'w-fit'}>{tag}</AtomSecondaryBadge>
 					))}

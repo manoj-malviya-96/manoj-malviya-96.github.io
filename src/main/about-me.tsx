@@ -10,9 +10,9 @@ import {AtomHeroBrandTitleText, AtomPrimaryText,} from "../atoms/atom-text";
 import {
 	AtomColumn,
 	AtomColumnDivider,
-	AtomLayoutAlignment,
-	AtomLayoutGap,
-	AtomLayoutSize,
+	LayoutAlign,
+	LayoutGap,
+	LayoutSize,
 	AtomRow,
 } from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
@@ -94,7 +94,7 @@ const CareerHighlights = () => {
 
 const AboutMeText = () => {
 	return (
-		<AtomColumn gap={AtomLayoutGap.Small} size={AtomLayoutSize.None}>
+		<AtomColumn gap={LayoutGap.Small} size={LayoutSize.None}>
 			<AtomImage src={ProfilePicture} alt={'Cover'}/>
 			<AtomHeroBrandTitleText className={'w-full'}>
 				Manoj Malviya
@@ -116,17 +116,17 @@ const AboutMeText = () => {
 const AboutMe = () => {
 	return (
 		<AtomRow
-			size={AtomLayoutSize.FullSize}
-			alignment={AtomLayoutAlignment.Start}
+			size={LayoutSize.FullSize}
+			alignment={LayoutAlign.Start}
 			smallDeviceAdjustment={true}
 			className={'mt-4 h-full'}>
-			<AtomColumn className={'w-full md:w-1/2 h-full'} size={AtomLayoutSize.None}>
+			<AtomColumn className={'w-full md:w-1/2 h-full'} size={LayoutSize.None}>
 				<AboutMeText/>
 				<SocialMediaButtons/>
 			</AtomColumn>
 			<AtomStyledContainer className={'w-full h-full'} transparency={true}>
-				<AtomColumn size={AtomLayoutSize.FullSize}
-				            gap={AtomLayoutGap.Small}>
+				<AtomColumn size={LayoutSize.FullSize}
+				            gap={LayoutGap.Small}>
 					<CareerHighlights/>
 					<AtomColumnDivider/>
 					<GithubCalendar/>

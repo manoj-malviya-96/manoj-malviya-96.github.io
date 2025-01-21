@@ -1,7 +1,7 @@
 import React from "react";
 import {useTheme} from "../providers/theme";
 import {adjustColor} from "../common/color-utils";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "./atom-layout";
+import {AtomColumn, LayoutGap, LayoutSize, AtomRow} from "./atom-layout";
 import {AtomPrimaryText, AtomSecondaryText} from "./atom-text";
 
 export enum SliderOrientation {
@@ -52,9 +52,9 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(({
 	const backgroundColor = adjustColor(mainColor, 0.27);
 	
 	return (
-		<AtomColumn className={className} gap={AtomLayoutGap.Small}>
+		<AtomColumn className={className} gap={LayoutGap.Small}>
 			{label && (
-				<AtomRow size={AtomLayoutSize.None} className={'w-full h-fit justify-between'}>
+				<AtomRow size={LayoutSize.None} className={'w-full h-fit justify-between'}>
 					<AtomPrimaryText>{label}</AtomPrimaryText>
 					<AtomSecondaryText>{value}</AtomSecondaryText>
 				</AtomRow>
