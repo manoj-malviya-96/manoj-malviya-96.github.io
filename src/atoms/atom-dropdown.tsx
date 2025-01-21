@@ -14,6 +14,7 @@ interface AtomDropdownProps {
   placeholder?: string;
   initialIndex?: number;
   className?: string;
+  disabled?: boolean;
 }
 
 const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(
@@ -22,6 +23,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(
     options,
     dropdownIcon,
     header,
+    disabled = false,
     placeholder = "Select",
     initialIndex = -1,
     className = "",
@@ -47,6 +49,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(
       <div className={`dropdown dropdown-top ${className}`}>
         {/*Button*/}
         <AtomButton
+          disabled={disabled}
           icon={open ? iconWhenDropdownIsOpen : iconWhenDropdownIsClosed}
           label={selectedOption ? selectedOption.label : placeholder}
           onClick={() => setOpen(!open)}

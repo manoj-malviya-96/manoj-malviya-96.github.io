@@ -17,6 +17,7 @@ export interface AtomSliderProps {
   orientation?: SliderOrientation;
   onChange: (value: number) => void;
   className?: string;
+  disabled?: boolean;
   neutralMode?: boolean;
   size?: "small" | "normal";
   label?: string;
@@ -28,6 +29,7 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(
     min,
     max,
     step = 1,
+    disabled = false,
     orientation = SliderOrientation.Horizontal,
     onChange,
     className,
@@ -64,6 +66,7 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(
           min={min}
           max={max}
           step={step}
+          disabled={disabled}
           onChange={(event) => onChange(Number(event.target.value))}
           style={{
             appearance: "none",
@@ -72,7 +75,7 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(
             outline: "none",
             cursor: "pointer",
             background: `linear-gradient(to right,
-                                    ${mainColor} ${progressPercentage}%,
+                                    ${disabled ? backgroundColor : mainColor} ${progressPercentage}%,
                                     ${backgroundColor} ${progressPercentage}%)`,
             borderRadius: `${magicSize / 2}px`,
           }}
@@ -81,7 +84,7 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(
                 input[type='range']::-webkit-slider-thumb {
                     -webkit-appearance: none;
                     appearance: none;
-                    background-color: ${mainColor};
+                    background-color: ${disabled ? backgroundColor : mainColor};
                     width: ${magicSize}px;
                     border-radius: ${magicSize / 2}px;
                     height: ${4 * magicSize}px;
