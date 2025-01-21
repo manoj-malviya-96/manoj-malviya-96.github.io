@@ -27,6 +27,12 @@ export const AtomPrimaryText: React.FC<AtomTextProps> = ({children, className = 
 	);
 }
 
+export const AtomSubtitleText: React.FC<AtomTextProps> = ({children, className = ''}) => {
+	return (
+		<h4 className={`text-lg font-extrabold ${className}`}>{children}</h4>
+	);
+}
+
 export const AtomTitleText: React.FC<AtomTextProps> = ({children, className = ''}) => {
 	return (
 		<h3 className={`text-2xl font-extrabold ${className}`}>{children}</h3>

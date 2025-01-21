@@ -3,7 +3,6 @@ import AtomSimpleMotionContainer, {HoverScale} from './atom-simple-motion-contai
 import {AtomPrimaryText} from "./atom-text";
 
 export enum ButtonSize {
-	ExtraSmall = 'btn-xs',
 	Small = 'btn-sm text-xs',
 	Medium = 'text-md',
 	Large = 'btn-lg text-lg',
