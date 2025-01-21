@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, LayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, AtomRow, LayoutAlign, LayoutSize} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
 import {AtomTitleText} from "../atoms/atom-text";
@@ -96,7 +96,7 @@ export const GithubCalendar = () => {
 		setLongestStreak(longestNonZeroSubset(contributionsAsList));
 	}, [data, year, setLongestStreak, setTotal, setDailyAverage]);
 	
-	const buttonsProps = aRange(CurrentYear, 5, -1).map((year) => (
+	const buttonsProps = aRange(CurrentYear, 4, -1).map((year) => (
 		{
 			label: year.toString(),
 			onClick: () => setYear(year),
@@ -112,8 +112,10 @@ export const GithubCalendar = () => {
                         <AtomCalendarChart data={transformDataForEChart(data)}
                                            year={year === 'last' ? CurrentYear - 1 : year}
                                            unit={'contributions'} height={ChartHeight}/>
-                        <AtomRow className={'justify-between'} size={LayoutSize.FullWidth} smallDeviceAdjustment>
-                            <AtomRow>
+                        <AtomRow alignment={LayoutAlign.CenterBetween}
+                                 size={LayoutSize.FullWidth}
+                                 smallDeviceAdjustment>
+                            <AtomRow size={LayoutSize.FullWidth}>
                                 <AtomStats text={'Total Contributions'} value={total}/>
                                 <AtomStats text={'Longest Streak'} value={longestStreak}/>
                                 <AtomStats text={'Daily Average'} value={dailyAverage}/>
