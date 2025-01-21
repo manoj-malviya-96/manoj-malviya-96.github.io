@@ -29,7 +29,7 @@ const ToolDrawer = () => {
 				in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText> </AtomHeroTitleText>
 			<AtomCardGrid
 				items={items}
-				className={'w-2/3 mt-16'}
+				className={'w-2/3 mt-16 h-full'}
 			/>
 		</AtomColumn>
 	);
