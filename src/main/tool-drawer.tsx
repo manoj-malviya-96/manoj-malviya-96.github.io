@@ -12,7 +12,7 @@ import {BentoItemSize} from "../atoms/atom-bentobox";
 const ToolDrawer = () => {
 	const navigate = useNavigate();
 	
-	const items = rangesTo<ToolInfo, AtomCardProps>(registeredTools, (tool:ToolInfo) => {
+	const items = rangesTo<ToolInfo, AtomCardProps>(registeredTools, (tool: ToolInfo) => {
 		return {
 			title: tool.name,
 			description: tool.description,
@@ -25,14 +25,11 @@ const ToolDrawer = () => {
 	
 	return (
 		<AtomColumn gap={LayoutGap.Small} size={LayoutSize.FullSize}>
-			<AtomRow gap={LayoutGap.Small} smallDeviceAdjustment={true}>
-				<AtomHeroTitleText className={'text-center'}>Creating in</AtomHeroTitleText>
-				<AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
-			</AtomRow>
-			
+			<AtomHeroTitleText className={'text-center'}>Creating
+				in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText> </AtomHeroTitleText>
 			<AtomCardGrid
 				items={items}
-				className={'w-2/3'}
+				className={'w-2/3 mt-16'}
 			/>
 		</AtomColumn>
 	);
