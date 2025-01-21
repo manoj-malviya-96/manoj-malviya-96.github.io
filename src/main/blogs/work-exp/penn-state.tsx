@@ -4,7 +4,7 @@ import Logo from "./pennstate-logo.svg";
 import {BentoItemSize} from "../../../atoms/atom-bentobox";
 import React from "react";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
-import {AtomColumn, AtomLayoutAlignment} from "../../../atoms/atom-layout";
+import {AtomColumn, LayoutAlign} from "../../../atoms/atom-layout";
 import AtomHeroGrid from "../../../atoms/atom-hero-grid";
 
 
@@ -58,7 +58,7 @@ const Achievements = () => {
 		}
 	];
 	return (
-		<AtomColumn alignment={AtomLayoutAlignment.Start}>
+		<AtomColumn alignment={LayoutAlign.Start}>
 			<AtomPrimaryText>
 				Here are some of the key achievements during my time at Penn State as a Graduate Researcher:
 			</AtomPrimaryText>

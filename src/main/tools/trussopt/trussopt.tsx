@@ -13,7 +13,7 @@ import AtomStats, {StatSeverity} from "../../../atoms/atom-stats";
 import TrussFea, {TrussFeaResults} from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import {AtomGrid, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../../../atoms/atom-layout";
+import {AtomGrid, LayoutGap, LayoutSize, AtomRow} from "../../../atoms/atom-layout";
 import AtomSlider from "../../../atoms/atom-slider";
 
 const AppName = 'TrussOpt';
@@ -110,7 +110,7 @@ const TrussOptView = () => {
 						label={'Design Initial Truss'}
 						transparency={false}
 					>
-						<AtomGrid gap={AtomLayoutGap.Small} size={AtomLayoutSize.FullWidth}>
+						<AtomGrid gap={LayoutGap.Small} size={LayoutSize.FullWidth}>
 							<AtomSlider
 								label='Width'
 								className="w-full h-fit"
@@ -159,7 +159,7 @@ const TrussOptView = () => {
 					</AtomStyledContainer>
 					
 					<AtomStyledContainer label={'FEA Controls'}>
-						<AtomRow size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Small}>
+						<AtomRow size={LayoutSize.FullWidth} gap={LayoutGap.Small}>
 							<AtomToggleButton
 								offIcon='fas fa-lock-open'
 								onIcon='fas fa-lock'
@@ -199,7 +199,7 @@ const TrussOptView = () => {
 						label={'Optimization'}
 						className={'w-full'}>
 						
-						<AtomGrid size={AtomLayoutSize.FullWidth} gap={AtomLayoutGap.Medium}>
+						<AtomGrid size={LayoutSize.FullWidth} gap={LayoutGap.Medium}>
 							<AtomSlider
 								label='Iterations'
 								min={5}
@@ -249,7 +249,7 @@ const TrussOptView = () => {
 					
 					<div className='absolute right-0 bottom-0 p-4
                                     z-5 bg-primary bg-opacity-80 backdrop-blur-lg'>
-						<AtomRow size={AtomLayoutSize.FullWidth}>
+						<AtomRow size={LayoutSize.FullWidth}>
 							<AtomStats
 								className={'w-fit h-full'}
 								text={'Volume'}

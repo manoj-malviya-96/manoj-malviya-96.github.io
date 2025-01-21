@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AtomColumn, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, LayoutSize, AtomRow} from "../atoms/atom-layout";
 import AtomCalendarChart from "../atoms/charts/atom-calendar-chart";
 import {CurrentYear} from "../common/date";
 import {AtomTitleText} from "../atoms/atom-text";
@@ -105,14 +105,14 @@ export const GithubCalendar = () => {
 	
 	return (
 		<div className={'w-full h-full inline-block'}>
-			<AtomColumn size={AtomLayoutSize.FullSize}>
+			<AtomColumn size={LayoutSize.FullSize}>
 				{
 					data && !loading &&
-                    <AtomColumn size={AtomLayoutSize.FullSize}>
+                    <AtomColumn size={LayoutSize.FullSize}>
                         <AtomCalendarChart data={transformDataForEChart(data)}
                                            year={year === 'last' ? CurrentYear - 1 : year}
                                            unit={'contributions'} height={ChartHeight}/>
-                        <AtomRow className={'justify-between'} size={AtomLayoutSize.FullWidth} smallDeviceAdjustment>
+                        <AtomRow className={'justify-between'} size={LayoutSize.FullWidth} smallDeviceAdjustment>
                             <AtomRow>
                                 <AtomStats text={'Total Contributions'} value={total}/>
                                 <AtomStats text={'Longest Streak'} value={longestStreak}/>

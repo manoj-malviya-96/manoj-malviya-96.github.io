@@ -1,5 +1,5 @@
 import React from 'react'
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
+import {AtomColumn, LayoutAlign, LayoutGap} from "./atom-layout";
 import {AtomHeroTitleText, AtomSecondaryText} from "./atom-text";
 
 export enum StatSeverity {
@@ -25,8 +25,8 @@ const AtomStats: React.FC<AtomStatsProps> =
 	React.memo(({text, value, severity, className}) => {
 		return (
 			<AtomColumn className={className}
-			            alignment={AtomLayoutAlignment.Center}
-			            gap={AtomLayoutGap.None}>
+			            alignment={LayoutAlign.Center}
+			            gap={LayoutGap.None}>
 				<AtomSecondaryText>{text}</AtomSecondaryText>
 				<AtomHeroTitleText className={severity}>{value || '---'}</AtomHeroTitleText>
 			</AtomColumn>

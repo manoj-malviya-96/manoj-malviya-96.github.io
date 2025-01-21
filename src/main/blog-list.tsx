@@ -3,7 +3,7 @@ import {registeredBlogs} from "./blogs/blog-registry";
 import {rangesTo} from "../common/math";
 import {useNavigate} from "react-router-dom";
 import {AtomCardGrid, AtomCardProps} from "../atoms/atom-card";
-import {AtomColumn, AtomLayoutGap, AtomLayoutSize, AtomRow} from "../atoms/atom-layout";
+import {AtomColumn, LayoutGap, LayoutSize, AtomRow} from "../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomHeroTitleText} from "../atoms/atom-text";
 
 const BlogListing = () => {
@@ -23,9 +23,9 @@ const BlogListing = () => {
 	});
 	
 	return (
-		<AtomColumn gap={AtomLayoutGap.Small}>
-			<AtomRow size={AtomLayoutSize.None} className={'w-2/3'}
-			         gap={AtomLayoutGap.ExtraSmall}
+		<AtomColumn gap={LayoutGap.Small}>
+			<AtomRow size={LayoutSize.None} className={'w-2/3'}
+			         gap={LayoutGap.Small}
 			         smallDeviceAdjustment={true}>
 				<AtomHeroTitleText className={'text-center'}>Sometimes I document my</AtomHeroTitleText>
 				<AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>

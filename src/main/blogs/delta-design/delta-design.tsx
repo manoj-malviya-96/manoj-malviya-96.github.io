@@ -3,7 +3,7 @@ import Cover from "./cover.webp"
 import IntroChart from './background.png';
 import GameUI from './game-ui.png';
 import {BentoItemSize} from "../../../atoms/atom-bentobox";
-import {AtomColumn, AtomLayoutSize} from "../../../atoms/atom-layout";
+import {AtomColumn, LayoutSize} from "../../../atoms/atom-layout";
 import {AtomHeroBrandTitleText, AtomPrimaryText} from "../../../atoms/atom-text";
 import React from "react";
 import AtomImage from "../../../atoms/atom-image";
@@ -106,7 +106,7 @@ const StateResultSection = () => {
 		height: `400px` as ChartDimension,
 	}
 	return (
-		<AtomColumn size={AtomLayoutSize.FullWidth}>
+		<AtomColumn size={LayoutSize.FullWidth}>
 			<AtomPrimaryText>
 				We characterize patterns of design behaviors enacted by designers using Hidden Markov Models to
 				investigate high- and low-performing designers (as classified using their design performance),

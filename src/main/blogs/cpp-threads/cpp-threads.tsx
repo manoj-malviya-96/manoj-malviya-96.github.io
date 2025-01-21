@@ -1,6 +1,6 @@
 import {BlogInfo} from "../blog-info";
 import Cover from "./cover.webp"
-import {AtomColumn, AtomLayoutSize} from "../../../atoms/atom-layout";
+import {AtomColumn, LayoutSize} from "../../../atoms/atom-layout";
 import React from "react";
 import {AtomPrimaryText} from "../../../atoms/atom-text";
 import AtomCodeBlock from "../../../atoms/atom-code";
@@ -18,7 +18,7 @@ int main() {
     return 0;
 }
     `;
-	return <AtomColumn size={AtomLayoutSize.FullWidth}>
+	return <AtomColumn size={LayoutSize.FullWidth}>
 		<AtomPrimaryText>
 			When I first explored C++ threads, it felt like entering a new world. C++’s
 			<code>threads</code>

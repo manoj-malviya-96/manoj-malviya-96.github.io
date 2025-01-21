@@ -1,5 +1,5 @@
 import React, {ReactNode, useCallback} from "react";
-import {AtomColumn, AtomLayoutAlignment, AtomLayoutGap} from "./atom-layout";
+import {AtomColumn, LayoutAlign, LayoutGap} from "./atom-layout";
 import AtomButton, {ButtonSize, ButtonType} from "./atom-button";
 
 
@@ -124,7 +124,7 @@ export const AtomClippedText: React.FC<AtomClippedTextProps> = React.memo(({
 		return textComponentConstructor({children: text, className});
 	}, [text, className, textComponentConstructor]);
 	
-	return <AtomColumn gap={AtomLayoutGap.None} alignment={AtomLayoutAlignment.Start}>
+	return <AtomColumn gap={LayoutGap.None} alignment={LayoutAlign.Start}>
 		{renderComponent()}
 		{isClippedInitial && <AtomButton
             pill={false}
