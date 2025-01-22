@@ -9,7 +9,7 @@ import {
   ButtonType,
 } from "../../../atoms/atom-button";
 import AtomDropdown from "../../../atoms/atom-dropdown";
-import { TrussStructureView, useTrussOpt } from "./truss-controller";
+import { MouseMode, TrussStructureView, useTrussOpt } from "./truss-controller";
 import TrussMesh, { LatticeType } from "./truss-mesh";
 import { AtomCanvas } from "../../../atoms/atom-canvas";
 import { useTheme } from "../../../providers/theme";
@@ -19,9 +19,9 @@ import TrussOptimizer from "./truss-optimizer";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
 import {
   AtomGrid,
+  AtomRow,
   LayoutGap,
   LayoutSize,
-  AtomRow,
 } from "../../../atoms/atom-layout";
 import AtomSlider from "../../../atoms/atom-slider";
 
@@ -49,6 +49,7 @@ const TrussOptView = () => {
   const [optimizeMesh, setOptimizeMesh] = useState<TrussMesh | null>(null);
   const [numIterations, setNumIterations] = useState<number>(100);
   const [targetFraction, setTargetFraction] = useState<number>(0.3);
+  const [mouseMode, setMouseMode] = useState<MouseMode>(MouseMode.None);
 
   useEffect(() => {
     controller.trussColor = daisyPrimaryText;
@@ -110,6 +111,9 @@ const TrussOptView = () => {
   useEffect(() => {
     clearOptimize();
   }, [mesh, numIterations, targetFraction, clearOptimize]);
+  useEffect(() => {
+    controller.updateMouseMode(mouseMode);
+  }, [mouseMode, controller]);
 
   return (
     <AppView appName={AppName} appLogo={Logo}>
@@ -131,6 +135,7 @@ const TrussOptView = () => {
                 step={cellSize}
                 value={meshWidth}
                 onChange={setMeshWidth}
+                disabled={mouseMode !== MouseMode.None}
               />
               <AtomSlider
                 label="Height"
@@ -140,6 +145,7 @@ const TrussOptView = () => {
                 className="w-full h-fit"
                 value={meshHeight}
                 onChange={setMeshHeight}
+                disabled={mouseMode !== MouseMode.None}
               />
               <AtomSlider
                 label="Cell Size"
@@ -149,11 +155,13 @@ const TrussOptView = () => {
                 className="w-full h-fit"
                 value={cellSize}
                 onChange={setCellSize}
+                disabled={mouseMode !== MouseMode.None}
               />
               <AtomDropdown
                 placeholder="Select Lattice Type"
                 initialIndex={0}
                 dropdownIcon={"fas fa-layer-group"}
+                disabled={mouseMode !== MouseMode.None}
                 options={[
                   {
                     label: "Cross",
@@ -175,18 +183,30 @@ const TrussOptView = () => {
               <AtomToggleButton
                 offIcon="fas fa-lock-open"
                 onIcon="fas fa-lock"
-                tooltip="Add fix nodes to the truss, disabled for now"
+                tooltip="Add fix nodes to the truss"
                 initValue={false}
-                disabled={true}
-                onChange={(e) => console.log(e)}
+                disabled={mouseMode === MouseMode.AddForce}
+                onChange={(e) => {
+                  if (e) {
+                    setMouseMode(MouseMode.AddFixed);
+                  } else {
+                    setMouseMode(MouseMode.None);
+                  }
+                }}
               />
               <AtomToggleButton
                 offIcon="fas fa-arrow-up"
                 onIcon="fas fa-arrow-down"
-                tooltip="Add Load nodes to the truss, disabled for now"
+                tooltip="Add Load nodes to the truss"
                 initValue={false}
-                disabled={true}
-                onChange={(e) => console.log(e)}
+                disabled={mouseMode === MouseMode.AddFixed}
+                onChange={(e) => {
+                  if (e) {
+                    setMouseMode(MouseMode.AddForce);
+                  } else {
+                    setMouseMode(MouseMode.None);
+                  }
+                }}
               />
               <AtomToggleButton
                 offLabel="Simulate"
@@ -195,6 +215,7 @@ const TrussOptView = () => {
                 tooltip="simulate the truss"
                 className={"w-fit"}
                 initValue={controller.feaEngine !== null}
+                disabled={mouseMode !== MouseMode.None}
                 type={ButtonType.Outlined}
                 onChange={(e: boolean) => {
                   if (e) {
@@ -217,6 +238,7 @@ const TrussOptView = () => {
                 className="w-full h-fit"
                 value={numIterations}
                 onChange={setNumIterations}
+                disabled={mouseMode !== MouseMode.None}
               />
               <AtomSlider
                 label="Target"
@@ -226,6 +248,7 @@ const TrussOptView = () => {
                 className="w-full h-fit"
                 value={targetFraction}
                 onChange={setTargetFraction}
+                disabled={mouseMode !== MouseMode.None}
               />
 
               <AtomButton
@@ -234,6 +257,7 @@ const TrussOptView = () => {
                 severity={ButtonSeverity.Info}
                 tooltip={"optimize the truss"}
                 onClick={optimize}
+                disabled={mouseMode !== MouseMode.None}
               />
               <AtomButton
                 icon="fas fa-trash"
@@ -241,6 +265,7 @@ const TrussOptView = () => {
                 severity={ButtonSeverity.Error}
                 tooltip={"clear optimization results"}
                 onClick={clearOptimize}
+                disabled={mouseMode !== MouseMode.None}
               />
             </AtomGrid>
           </AtomStyledContainer>

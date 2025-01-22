@@ -154,7 +154,7 @@ class TrussMesh {
     return closestNode;
   }
 
-  updateFixNode(x: number, y: number) {
+  addFixNode(x: number, y: number) {
     const closestNode = this.findClosestNode(x, y);
     if (closestNode === -1) {
       console.error("No closest node found");
@@ -167,7 +167,7 @@ class TrussMesh {
     }
   }
 
-  updateForceNode(x: number, y: number) {
+  addForceNode(x: number, y: number) {
     const closestNode = this.findClosestNode(x, y);
     if (closestNode === -1) {
       console.error("No closest node found");

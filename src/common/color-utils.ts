@@ -42,7 +42,7 @@ export function adjustColor(
   brightness: number | number[] = 1,
 ): string {
   if (!color) {
-    console.error("Color is not defined");
+    console.log("Color is not defined");
     return "rgba(0,0,0,0)";
   }
   // Match RGB values in the input string (assumes 'rgb(r, g, b)'

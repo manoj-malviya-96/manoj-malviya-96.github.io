@@ -3,12 +3,7 @@ import { registeredTools } from "./tools/tool-registry";
 import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
 import { AtomCardGrid, AtomCardProps } from "../atoms/atom-card";
-import {
-  AtomColumn,
-  LayoutGap,
-  LayoutSize,
-  AtomRow,
-} from "../atoms/atom-layout";
+import { AtomColumn, LayoutGap, LayoutSize } from "../atoms/atom-layout";
 import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
 import ToolInfo from "./tools/tool-info";
 import { BentoItemSize } from "../atoms/atom-bentobox";

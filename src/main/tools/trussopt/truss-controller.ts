@@ -5,10 +5,17 @@ import TrussFea from "./truss-fea";
 import { adjustColor, makeColorScale } from "../../../common/color-utils";
 import { drawArrow, drawX } from "../../../common/canvas-drawer";
 
+export enum MouseMode {
+  None,
+  AddForce,
+  AddFixed,
+}
+
 export class TrussStructureView extends AtomCanvasController {
   private mesh: TrussMesh | null;
   trussColor: string;
-  private readonly offset: number;
+  private toCanvasCoords = (x: number, y: number) => [x, y];
+  private fromCanvasCoords = (x: number, y: number) => [x, y];
   private readonly maxLineWidth: number;
   private readonly pointRadius: number;
   feaEngine: TrussFea | null;
@@ -17,20 +24,48 @@ export class TrussStructureView extends AtomCanvasController {
     super();
     this.mesh = null;
     this.trussColor = "white";
-    this.offset = 10;
-    this.maxLineWidth = 6;
-    this.pointRadius = 6;
+    this.maxLineWidth = 7;
+    this.pointRadius = 3;
     this.feaEngine = null;
   }
 
   updateMesh(mesh: TrussMesh | null) {
     this.mesh = mesh;
+    this.updateTransformationFunctions();
     this.draw();
   }
 
   addFeaResults(feaEngine: TrussFea | null) {
     this.feaEngine = feaEngine;
     this.draw();
+  }
+
+  updateTransformationFunctions() {
+    if (!this.canvasRef) {
+      return;
+    }
+    if (!this.mesh) {
+      return;
+    }
+    const { meshWidth, meshHeight } = this.mesh;
+    const canvas = this.canvasRef.current;
+    if (!canvas) {
+      console.error("Canvas not defined");
+      return;
+    }
+    const { width, height } = canvas;
+    const offset = 10;
+    // 0.** is random magic number - to make it not super-big and get clipped by edges
+    const factor = 0.9 * Math.min(width / meshWidth, height / meshHeight);
+
+    this.toCanvasCoords = (x: number, y: number) => [
+      factor * x + offset,
+      factor * y + offset,
+    ];
+    this.fromCanvasCoords = (x: number, y: number) => [
+      x / factor - offset,
+      y / factor - offset,
+    ];
   }
 
   draw() {
@@ -60,19 +95,13 @@ export class TrussStructureView extends AtomCanvasController {
     const { width, height } = canvas;
     ctx.clearRect(0, 0, width, height);
 
-    let points = this.mesh.points;
+    const ogPoints = this.mesh.points;
+    console.log("Points", ogPoints);
+    const points = ogPoints.map(([x, y]) => this.toCanvasCoords(x, y));
+    console.log("Points", points);
+
     const edges = this.mesh.connections;
-    // 0.** is random magic number - to make it not super-big and get clipped by edges
-    const factor =
-      0.9 *
-      Math.min(width / this.mesh.meshWidth, height / this.mesh.meshHeight);
-    points = points.map(([x, y]) => [
-      factor * x + this.offset,
-      factor * y + this.offset,
-    ]);
-
     const thickness = this.mesh.normThickness;
-
     if (this.feaEngine) {
       const displacements = this.feaEngine.displacements;
       const stresses = this.feaEngine.stresses;
@@ -167,6 +196,49 @@ export class TrussStructureView extends AtomCanvasController {
         );
       });
     }
+  }
+
+  updateMouseMode(mouseMode: MouseMode) {
+    if (!this.canvasRef || !this.canvasRef.current) {
+      return;
+    }
+
+    this.cleanup();
+
+    const canvas = this.canvasRef.current;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+    const rect = canvas.getBoundingClientRect();
+    const handleMouseDown = (event: MouseEvent) => {
+      console.log(event.clientX, event.clientY, rect.x, rect.y);
+      const mouseX = event.clientX - rect.x;
+      const mouseY = event.clientY - rect.y;
+
+      console.log("Mouse down --", mouseX, mouseY);
+      const [x, y] = this.fromCanvasCoords(mouseX, mouseY);
+      console.log("transformed -- ", x, y);
+      switch (mouseMode) {
+        case MouseMode.AddFixed:
+          this.mesh?.addFixNode(x, y);
+          break;
+        case MouseMode.AddForce:
+          this.mesh?.addForceNode(x, y);
+          break;
+        default:
+          console.error("Unknown mouse mode");
+          break;
+      }
+      this.draw();
+    };
+
+    canvas.addEventListener("mousedown", handleMouseDown);
+
+    this.cleanup = () => {
+      canvas.removeEventListener("mousedown", handleMouseDown);
+    };
   }
 }
 
