@@ -3,12 +3,7 @@ import { registeredBlogs } from "./blogs/blog-registry";
 import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
 import { AtomCardGrid, AtomCardProps } from "../atoms/atom-card";
-import {
-  AtomColumn,
-  LayoutGap,
-  LayoutSize,
-  AtomRow,
-} from "../atoms/atom-layout";
+import { AtomColumn, LayoutGap } from "../atoms/atom-layout";
 import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
 
 const BlogListing = () => {
