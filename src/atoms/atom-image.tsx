@@ -32,7 +32,9 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
     }, [isFullScreen, addShortcut, removeShortcut]);
 
     return (
-      <AtomInViewContainer onInView={() => setLoadImage(true)}>
+      <AtomInViewContainer
+        onInView={() => setTimeout(() => setLoadImage(true), 690)}
+      >
         <div
           className={`relative ${className} overflow-clip items-center justify-center`}
         >
@@ -45,8 +47,8 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
             />
           )}
           {!loadImage && (
-            <div className={"w-full h-full border"}>
-              <AtomLoader width={200} height={200} />
+            <div className={"w-full h-full justify-center items-center"}>
+              <AtomLoader className={"w-full h-full"} />
             </div>
           )}
 

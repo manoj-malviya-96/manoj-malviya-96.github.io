@@ -170,7 +170,7 @@ export const GithubCalendar = () => {
                   : "Not connected to internet, are you living in 18 century ?"}
               </AtomTitleText>
             )}
-            {loading && <AtomLoader height={ChartHeight} width={ChartHeight} />}
+            {loading && <AtomLoader className={"w-full h-full"} />}
           </div>
         )}
       </AtomColumn>
