@@ -28,7 +28,7 @@ const ToolDrawer = () => {
   return (
     <AtomColumn gap={LayoutGap.Small} size={LayoutSize.FullSize}>
       <AtomHeroTitleText className={"text-center"}>
-        Creating in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
+        Sometimes I create in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
       </AtomHeroTitleText>
       <AtomCardGrid items={items} className={"w-2/3 mt-16"} />
     </AtomColumn>

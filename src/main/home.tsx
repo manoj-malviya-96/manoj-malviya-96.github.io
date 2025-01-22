@@ -8,6 +8,13 @@ import { useNavbar } from "../providers/navbar";
 import { AtomLinkBar } from "../atoms/atom-bars";
 import AtomFullScreenContainer from "../atoms/atom-full-screen-container";
 import { AtomPrimaryText } from "../atoms/atom-text";
+import {
+  AtomColumn,
+  LayoutAlign,
+  LayoutGap,
+  LayoutSize,
+} from "../atoms/atom-layout";
+import Hobbies from "./hobbies";
 
 const Home = () => {
   const { updateBrand } = useNavbar();
@@ -21,23 +28,34 @@ const Home = () => {
   const tabs = [
     { name: "about-me", children: <AtomPrimaryText>About Me</AtomPrimaryText> },
     { name: "playground", children: <AtomPrimaryText>Tools</AtomPrimaryText> },
+    { name: "hobby", children: <AtomPrimaryText>Hobby</AtomPrimaryText> },
     { name: "blog", children: <AtomPrimaryText>Blog</AtomPrimaryText> },
   ];
 
   return (
     <div className={"w-full h-full"}>
       <Intro />
-      <div className={"flex flex-col w-full h-full"}>
+      <AtomColumn
+        size={LayoutSize.FullSize}
+        gap={LayoutGap.None}
+        alignment={LayoutAlign.None}
+      >
         <AtomFullScreenContainer name={"about-me"}>
           <AboutMe />
         </AtomFullScreenContainer>
+
         <AtomFullScreenContainer name={"playground"}>
           <ToolDrawer />
         </AtomFullScreenContainer>
+
+        <AtomFullScreenContainer name={"hobby"}>
+          <Hobbies />
+        </AtomFullScreenContainer>
+
         <AtomFullScreenContainer name={"blog"}>
           <BlogListing />
         </AtomFullScreenContainer>
-      </div>
+      </AtomColumn>
       <AtomLinkBar
         items={tabs}
         className={"fixed bottom-4 left-1/2 -translate-x-1/2 h-fit z-20"}

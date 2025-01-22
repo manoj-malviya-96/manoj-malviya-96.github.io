@@ -3,6 +3,8 @@ import AtomButton, { ButtonSize, ButtonType } from "./atom-button";
 import { useKeyboardManager } from "../providers/keyboard";
 import { AtomSecondaryText } from "./atom-text";
 import { useTheme } from "../providers/theme";
+import AtomInViewContainer from "./atom-in-view-container";
+import { AtomLoader } from "./atom-loader";
 
 interface AtomImageProps {
   src: string;
@@ -16,6 +18,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
   ({ src, alt, preview = true, showLabel = false, className = "" }) => {
     const { addShortcut, removeShortcut } = useKeyboardManager();
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const [loadImage, setLoadImage] = useState(false);
 
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
 
@@ -29,16 +32,24 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
     }, [isFullScreen, addShortcut, removeShortcut]);
 
     return (
-      <>
+      <AtomInViewContainer onInView={() => setLoadImage(true)}>
         <div
           className={`relative ${className} overflow-clip items-center justify-center`}
         >
-          <img
-            src={src}
-            alt={alt}
-            className={"w-full h-full object-cover rounded-md"}
-            loading="lazy"
-          />
+          {loadImage && (
+            <img
+              src={src}
+              alt={alt}
+              className={"w-full h-full object-cover rounded-md"}
+              loading="lazy"
+            />
+          )}
+          {!loadImage && (
+            <div className={"w-full h-full border"}>
+              <AtomLoader width={200} height={200} />
+            </div>
+          )}
+
           {preview && (
             <div
               className={`absolute inset-0 bg-primary
@@ -80,7 +91,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
             />
           </div>
         )}
-      </>
+      </AtomInViewContainer>
     );
   },
 );
