@@ -30,7 +30,7 @@ const ToolDrawer = () => {
       <AtomHeroTitleText className={"text-center"}>
         Creating in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
       </AtomHeroTitleText>
-      <AtomCardGrid items={items} className={"w-2/3 mt-16 h-full"} />
+      <AtomCardGrid items={items} className={"w-2/3 mt-16"} />
     </AtomColumn>
   );
 };

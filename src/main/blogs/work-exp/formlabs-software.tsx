@@ -79,7 +79,7 @@ class FormlabsSW extends BlogInfo {
   constructor() {
     super({
       id: "formlabs-software",
-      title: "Lead Software Engineer",
+      title: "Senior Software Engineer",
       description: "Formlabs",
       date: "Oct 2023",
       tags: [
