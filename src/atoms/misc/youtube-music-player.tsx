@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useYoutube } from "react-youtube-music-player";
+import { PlayerState, useYoutube } from "react-youtube-music-player";
 import {
   AtomColumn,
   AtomRow,
@@ -52,16 +52,16 @@ const YoutubeMusicPlayer: React.FC<YoutubePlayerProps> = ({
     type: "video",
   });
 
-  const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
   const [metadata, setMetadata] = React.useState<YoutubeMetadata>({});
+  const { state, currentTime, duration } = playerDetails;
 
   useEffect(() => {
-    if (isPlaying) {
+    if (state === PlayerState.PLAYING) {
       actions.playVideo();
     } else {
       actions.pauseVideo();
     }
-  }, [isPlaying, actions]);
+  }, [state, actions]);
 
   useEffect(() => {
     fetchYoutubeMetadata(vid).then((data) => setMetadata(data));
@@ -87,17 +87,23 @@ const YoutubeMusicPlayer: React.FC<YoutubePlayerProps> = ({
         </AtomPrimaryText>
         <AtomRow size={LayoutSize.FullWidth} alignment={LayoutAlign.Center}>
           <AtomButton
-            icon={isPlaying ? "fas fa-pause" : "fas fa-play"}
+            icon={
+              state === PlayerState.PLAYING ? "fas fa-pause" : "fas fa-play"
+            }
             type={ButtonType.Solid}
             size={ButtonSize.Large}
             severity={ButtonSeverity.Secondary}
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={() => {
+              state === PlayerState.PLAYING
+                ? actions.pauseVideo()
+                : actions.playVideo();
+            }}
           />
           <AtomSlider
             className={"w-full h-full"}
             min={0}
-            value={playerDetails.currentTime}
-            max={playerDetails.duration}
+            value={currentTime}
+            max={duration}
             onChange={(value: number) => actions.seekTo(value, true)}
           />
         </AtomRow>
