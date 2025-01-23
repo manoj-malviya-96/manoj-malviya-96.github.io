@@ -241,7 +241,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
                     max={1}
                     step={0.01}
                     onChange={changeVolume}
-                    neutralMode={true}
                     className={"w-1/3 h-fit"}
                   />
                 </div>

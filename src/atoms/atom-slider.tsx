@@ -18,7 +18,6 @@ export interface AtomSliderProps {
   onChange: (value: number) => void;
   className?: string;
   disabled?: boolean;
-  neutralMode?: boolean;
   size?: "small" | "normal";
   label?: string;
 }
@@ -35,9 +34,8 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(
     className,
     label,
     size = "normal",
-    neutralMode = false,
   }) => {
-    const magicSize = size === "small" ? 3 : 5;
+    const magicSize = size === "small" ? 5 : 8;
     const { daisySecondary } = useTheme();
 
     let progressPercentage = 0;

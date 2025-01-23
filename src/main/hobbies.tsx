@@ -18,6 +18,8 @@ import Alka from "./assets/photography/alka.jpg";
 import React from "react";
 import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
 import AtomStyledContainer from "../atoms/atom-styled-container";
+import YoutubeMusicPlayer from "../atoms/misc/youtube-music-player";
+import { AtomButtonBar, TabButtonProps } from "../atoms/atom-bars";
 
 const PhotographSlides = () => {
   const phs = [
@@ -37,9 +39,50 @@ const PhotographSlides = () => {
           key={index}
           src={photo}
           alt={"photo"}
-          className={"w-96 h-96"}
+          className={"w-72 h-72"}
         />
       ))}
+    </AtomRow>
+  );
+};
+
+const MusicSlides = () => {
+  const [vid, setVid] = useState<string>("");
+  const videos = [
+    {
+      label: "Shadows",
+      onClick: () => {
+        setVid("yOAvoG5HPJM");
+      },
+    },
+    {
+      label: "You and Me",
+      onClick: () => {
+        setVid("me-Np1H5AT0");
+      },
+    },
+    {
+      label: "Show My Love",
+      onClick: () => {
+        setVid("vDuYpe-dLc8");
+      },
+    },
+    {
+      label: "Better than this",
+      onClick: () => {
+        setVid("n5niNBh6f3s");
+      },
+    },
+  ] as TabButtonProps[];
+
+  return (
+    <AtomRow
+      size={LayoutSize.FullWidth}
+      alignment={LayoutAlign.CenterBetween}
+      smallDeviceAdjustment
+    >
+      <AtomButtonBar items={videos} className={"w-1/2 min-w-fit mt-6"} />
+      <YoutubeMusicPlayer vid={vid} />
     </AtomRow>
   );
 };
@@ -57,7 +100,7 @@ const Hobbies = () => {
       </AtomStyledContainer>
       {/* Music*/}
       <AtomStyledContainer label={"Music"} className={"w-full h-full"}>
-        Making Music
+        <MusicSlides />
       </AtomStyledContainer>
     </AtomColumn>
   );

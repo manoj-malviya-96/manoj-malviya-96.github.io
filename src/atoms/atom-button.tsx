@@ -7,13 +7,14 @@ import { AtomPrimaryText } from "./atom-text";
 export enum ButtonSize {
   Small = "btn-sm text-xs",
   Medium = "text-md",
-  Large = "btn-lg text-lg",
-  ExtraLarge = "btn-lg text-2xl",
+  Large = "btn-sm text-lg",
+  ExtraLarge = "btn-sm text-2xl",
 }
 
 export enum ButtonSeverity {
-  Primary = `btn-primary hover:btn-secondary active:btn-secondary bg-opacity-50 hover:bg-opacity-100`,
-  Secondary = "btn-secondary",
+  Primary = `btn-primary hover:btn-secondary active:btn-secondary
+                bg-opacity-50 hover:bg-opacity-100 border-none`,
+  Secondary = "btn-secondary border-none",
   Success = "btn-success border-none bg-opacity-100",
   Info = "btn-info border-none bg-opacity-100",
   Warning = "btn-warning border-none bg-opacity-100",
@@ -21,9 +22,9 @@ export enum ButtonSeverity {
 }
 
 export enum ButtonType {
-  Outlined = "border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100",
+  Outlined = "bg-transparent border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100",
   Ghost = `bg-transparent border-none hover:bg-transparent hover:text-secondary
-            hover:border-none hover:font-bold active:bg-transparent p-0`,
+            hover:border-none hover:font-bold active:bg-transparent`,
   Solid = "shadow-none border-secondary border-opacity-10 backdrop-blur-lg",
 }
 

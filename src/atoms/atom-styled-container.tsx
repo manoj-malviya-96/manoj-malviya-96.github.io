@@ -6,6 +6,7 @@ interface AtomStyledContainerProps {
   children: React.ReactNode;
   className?: string;
   hug?: boolean;
+  scrollable?: boolean;
   transparency?: boolean;
 }
 
@@ -13,6 +14,7 @@ const AtomStyledContainer: React.FC<AtomStyledContainerProps> = ({
   label,
   children,
   hug = false,
+  scrollable = true,
   transparency = true,
   className = "",
 }) => {
@@ -23,7 +25,8 @@ const AtomStyledContainer: React.FC<AtomStyledContainerProps> = ({
         className={`inline-block ${hug ? "p-0 gap-0" : "p-4 gap-4"}
                         rounded-md hover:shadow
                         ${transparency ? "bg-transparent" : "bg-neutral bg-opacity-10 backdrop-blur-lg"}
-                        border border-neutral border-opacity-40 overflow-scroll
+                        border border-neutral border-opacity-40
+                        ${scrollable ? "overflow-scroll scrollbar-thumb-primary scroll-m-0" : ""}
                         backdrop-blur-lg`}
       >
         {children}
