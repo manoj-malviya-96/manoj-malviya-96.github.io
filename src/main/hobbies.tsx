@@ -82,7 +82,7 @@ const MusicSlides = () => {
       alignment={LayoutAlign.CenterBetween}
       smallDeviceAdjustment
     >
-      <AtomButtonBar items={videos} className={"w-1/2 min-w-fit mt-6"} />
+      <AtomButtonBar items={videos} className={"w-fit mt-6"} />
       <YoutubeMusicPlayer vid={vid} />
     </AtomRow>
   );
