@@ -35,7 +35,7 @@ const AtomSlider: React.FC<AtomSliderProps> = React.memo(
     label,
     size = "normal",
   }) => {
-    const magicSize = size === "small" ? 5 : 8;
+    const magicSize = size === "small" ? 3 : 5;
     const { daisySecondary } = useTheme();
 
     let progressPercentage = 0;
