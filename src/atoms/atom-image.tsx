@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import AtomButton, { ButtonSize, ButtonType } from "./atom-button";
 import { useKeyboardManager } from "../providers/keyboard";
 import { AtomSecondaryText } from "./atom-text";
@@ -20,7 +20,10 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [loadImage, setLoadImage] = useState(false);
 
-    const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
+    const toggleFullScreen = useCallback(
+      () => setIsFullScreen((prev) => !prev),
+      [setIsFullScreen],
+    );
 
     useEffect(() => {
       if (isFullScreen) {
@@ -32,47 +35,50 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
     }, [isFullScreen, addShortcut, removeShortcut]);
 
     return (
-      <AtomInViewContainer
-        onInView={() => setTimeout(() => setLoadImage(true), 690)}
-      >
-        <div
-          className={`relative ${className} overflow-clip items-center justify-center`}
+      <>
+        <AtomInViewContainer
+          onInView={() => setTimeout(() => setLoadImage(true), 690)}
         >
-          {loadImage && (
-            <img
-              src={src}
-              alt={alt}
-              className={"w-full h-full object-cover rounded-md"}
-              loading="lazy"
-            />
-          )}
-          {!loadImage && (
-            <div className={"w-full h-full justify-center items-center"}>
-              <AtomLoader className={"w-full h-full"} />
-            </div>
-          )}
+          <div
+            className={`relative ${className} overflow-clip items-center justify-center`}
+          >
+            {loadImage && (
+              <img
+                src={src}
+                alt={alt}
+                className={"w-full h-full object-cover rounded-md"}
+                loading="lazy"
+              />
+            )}
+            {!loadImage && (
+              <div className={"w-full h-full justify-center items-center"}>
+                <AtomLoader className={"w-full h-full"} />
+              </div>
+            )}
 
-          {preview && (
-            <div
-              className={`absolute inset-0 bg-primary
+            {preview && loadImage && (
+              <div
+                className={`absolute inset-0 bg-primary
                                 flex items-center justify-center cursor-pointer
                                 opacity-0 hover:bg-opacity-50 hover:opacity-90`}
-              onClick={toggleFullScreen}
-            >
-              <i className={"fas fa-magnifying-glass-plus text-2xl"} />
-            </div>
-          )}
-          {showLabel && (
-            <AtomSecondaryText className="text-sm text-neutral">
-              {alt}
-            </AtomSecondaryText>
-          )}
-        </div>
+                onClick={toggleFullScreen}
+              >
+                <i className={"fas fa-magnifying-glass-plus text-2xl"} />
+              </div>
+            )}
+            {showLabel && (
+              <AtomSecondaryText className="text-sm text-neutral">
+                {alt}
+              </AtomSecondaryText>
+            )}
+          </div>
+        </AtomInViewContainer>
 
         {/* Full-Screen Overlay */}
-        {isFullScreen && (
+        {isFullScreen && loadImage && (
           <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-80 flex justify-center items-center transition-opacity duration-300"
+            className="fixed inset-0 z-50 bg-black bg-opacity-80
+            flex justify-center items-center transition-opacity duration-300"
             onClick={toggleFullScreen} // to close it outside the image
           >
             <div className="absolute top-4 right-4">
@@ -87,13 +93,13 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
               src={src}
               alt={alt}
               loading="lazy"
-              className="max-w-full max-h-full rounded-md shadow-lg
+              className="max-w-full max-h-full rounded-md shadow-lg object-fill
                                     transition-transform duration-300"
               onClick={(e) => e.stopPropagation()}
             />
           </div>
         )}
-      </AtomInViewContainer>
+      </>
     );
   },
 );
