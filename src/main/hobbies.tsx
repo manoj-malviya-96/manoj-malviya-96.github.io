@@ -40,6 +40,7 @@ const PhotographSlides = () => {
           key={index}
           src={photo}
           alt={"photo"}
+          preview={false}
           className={"w-72 h-72"}
         />
       ))}
