@@ -28,8 +28,8 @@ const Home = () => {
   const tabs = [
     { name: "about-me", children: <AtomPrimaryText>About Me</AtomPrimaryText> },
     { name: "playground", children: <AtomPrimaryText>Tools</AtomPrimaryText> },
-    { name: "hobby", children: <AtomPrimaryText>Hobby</AtomPrimaryText> },
     { name: "blog", children: <AtomPrimaryText>Blog</AtomPrimaryText> },
+    { name: "hobby", children: <AtomPrimaryText>Hobby</AtomPrimaryText> },
   ];
 
   return (
@@ -48,12 +48,12 @@ const Home = () => {
           <ToolDrawer />
         </AtomFullScreenContainer>
 
-        <AtomFullScreenContainer name={"hobby"}>
-          <Hobbies />
-        </AtomFullScreenContainer>
-
         <AtomFullScreenContainer name={"blog"}>
           <BlogListing />
+        </AtomFullScreenContainer>
+
+        <AtomFullScreenContainer name={"hobby"}>
+          <Hobbies />
         </AtomFullScreenContainer>
       </AtomColumn>
       <AtomLinkBar
