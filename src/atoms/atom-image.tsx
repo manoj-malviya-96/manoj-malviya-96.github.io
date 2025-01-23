@@ -75,7 +75,7 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
         </AtomInViewContainer>
 
         {/* Full-Screen Overlay */}
-        {isFullScreen && loadImage && (
+        {isFullScreen && (
           <div
             className="fixed inset-0 z-50 bg-black bg-opacity-80
             flex justify-center items-center transition-opacity duration-300"
@@ -86,7 +86,10 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
                 icon="fas fa-xmark"
                 size={ButtonSize.Large}
                 type={ButtonType.Ghost}
-                onClick={toggleFullScreen}
+                onClick={() => {
+                  console.log("close");
+                  setIsFullScreen(false);
+                }}
               />
             </div>
             <img
