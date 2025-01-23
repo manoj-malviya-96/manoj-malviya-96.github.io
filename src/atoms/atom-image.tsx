@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from "react";
-import AtomButton, { ButtonSize, ButtonType } from "./atom-button";
+import AtomButton, { ButtonSize } from "./atom-button";
 import { useKeyboardManager } from "../providers/keyboard";
 import { AtomSecondaryText } from "./atom-text";
 import { useTheme } from "../providers/theme";
