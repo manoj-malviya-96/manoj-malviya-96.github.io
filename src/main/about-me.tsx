@@ -67,16 +67,11 @@ const SocialMediaButtons = () => {
     },
   );
   return (
-    <AtomStyledContainer
-      label={"Find me here"}
-      hug={true}
-      className={"w-full"}
-      transparency={true}
-    >
+    <AtomRow size={LayoutSize.FullWidth} alignment={LayoutAlign.Start}>
       {socialMediaItems.map((item, index) => (
         <AtomButton key={index} {...item} />
       ))}
-    </AtomStyledContainer>
+    </AtomRow>
   );
 };
 
@@ -115,7 +110,7 @@ const AboutMe = () => {
   return (
     <AtomRow
       size={LayoutSize.FullSize}
-      gap={LayoutGap.Medium}
+      gap={LayoutGap.Large}
       alignment={LayoutAlign.Start}
       smallDeviceAdjustment={true}
       className={"mt-4 h-full px-6"}
