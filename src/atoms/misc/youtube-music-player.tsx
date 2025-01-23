@@ -14,6 +14,29 @@ import AtomButton, {
   ButtonType,
 } from "../atom-button";
 import AtomSlider from "../atom-slider";
+import AtomImage from "../atom-image";
+
+interface YoutubeMetadata {
+  thumbnail_url?: string;
+  title?: string;
+  author_name?: string;
+  thumbnail_height?: number;
+  thumbnail_width?: number;
+}
+
+async function fetchYoutubeMetadata(vid: string) {
+  const videoUrl: string = "https://www.youtube.com/watch?v=" + vid;
+  const requestUrl: string = `http://youtube.com/oembed?url=${videoUrl}&format=json`;
+  const response = await fetch(requestUrl);
+  const data = await response.json();
+  return {
+    thumbnail_url: data.thumbnail_url,
+    title: data.title,
+    author_name: data.author_name,
+    thumbnail_height: data.thumbnail_height,
+    thumbnail_width: data.thumbnail_width,
+  };
+}
 
 interface YoutubePlayerProps {
   vid: string;
@@ -30,6 +53,7 @@ const YoutubeMusicPlayer: React.FC<YoutubePlayerProps> = ({
   });
 
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
+  const [metadata, setMetadata] = React.useState<YoutubeMetadata>({});
 
   useEffect(() => {
     if (isPlaying) {
@@ -39,33 +63,46 @@ const YoutubeMusicPlayer: React.FC<YoutubePlayerProps> = ({
     }
   }, [isPlaying, actions]);
 
+  useEffect(() => {
+    fetchYoutubeMetadata(vid).then((data) => setMetadata(data));
+  }, [vid]);
+
   return (
-    <AtomColumn
+    <AtomRow
       size={LayoutSize.FullWidth}
-      alignment={LayoutAlign.Start}
-      gap={LayoutGap.None}
+      alignment={LayoutAlign.Center}
+      gap={LayoutGap.Medium}
       className={`p-2 ${className}`}
     >
-      <AtomPrimaryText className={"w-full text-center"}>
-        {playerDetails.title}
-      </AtomPrimaryText>
-      <AtomRow size={LayoutSize.FullWidth}>
-        <AtomButton
-          icon={isPlaying ? "fas fa-pause" : "fas fa-play"}
-          type={ButtonType.Solid}
-          size={ButtonSize.Large}
-          severity={ButtonSeverity.Secondary}
-          onClick={() => setIsPlaying(!isPlaying)}
-        />
-        <AtomSlider
-          className={"w-full h-full"}
-          min={0}
-          value={playerDetails.currentTime}
-          max={playerDetails.duration}
-          onChange={(value: number) => actions.seekTo(value, true)}
+      <AtomRow>
+        <AtomImage
+          src={metadata.thumbnail_url || ""}
+          alt={"thumbnail"}
+          className={"w-48 h-48"}
         />
       </AtomRow>
-    </AtomColumn>
+      <AtomColumn size={LayoutSize.FullWidth}>
+        <AtomPrimaryText className={"w-full text-center"}>
+          {metadata.title}
+        </AtomPrimaryText>
+        <AtomRow size={LayoutSize.FullWidth} alignment={LayoutAlign.Center}>
+          <AtomButton
+            icon={isPlaying ? "fas fa-pause" : "fas fa-play"}
+            type={ButtonType.Solid}
+            size={ButtonSize.Large}
+            severity={ButtonSeverity.Secondary}
+            onClick={() => setIsPlaying(!isPlaying)}
+          />
+          <AtomSlider
+            className={"w-full h-full"}
+            min={0}
+            value={playerDetails.currentTime}
+            max={playerDetails.duration}
+            onChange={(value: number) => actions.seekTo(value, true)}
+          />
+        </AtomRow>
+      </AtomColumn>
+    </AtomRow>
   );
 };
 
