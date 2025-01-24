@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect, useMemo, useState } from "react";
 import AtomButton, { ButtonSize } from "./atom-button";
 import { useKeyboardManager } from "../providers/keyboard";
-import { AtomSecondaryText } from "./atom-text";
+import { AtomPrimaryText, AtomSecondaryText } from "./atom-text";
 import { useTheme } from "../providers/theme";
 import AtomInViewContainer from "./atom-in-view-container";
 import { AtomLoader } from "./atom-loader";
@@ -22,9 +22,9 @@ const AtomImage: React.FC<AtomImageProps> = React.memo(
       <PhotoView
         src={highResSrc || src}
         overlay={
-          <div className="absolute bottom-0 left-0 p-4 text-white bg-black/50 w-full">
-            <p>{alt}</p>
-          </div>
+          <AtomPrimaryText className="absolute bottom-0 left-0 p-4 w-full">
+            {alt}
+          </AtomPrimaryText>
         }
       >
         {/* Thumbnail */}

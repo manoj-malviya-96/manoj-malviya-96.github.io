@@ -7,6 +7,6 @@ interface ImageProviderProps {
 }
 
 const ImageProvider: React.FC<ImageProviderProps> = ({ children }) => {
-  return <PhotoProvider>{children}</PhotoProvider>; //Todo add custom theme
+  return <PhotoProvider bannerVisible={false}>{children}</PhotoProvider>; //Todo add custom theme
 };
 export default ImageProvider;
