@@ -36,7 +36,7 @@ export const useTheme = (): ThemeContextType => {
 };
 
 // ThemeProvider Component
-export const _ThemeProvider: React.FC<{
+export const ThemeProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [themeEnabled, setThemeEnabled] = useState(true);
@@ -109,4 +109,4 @@ export const _ThemeProvider: React.FC<{
   );
 };
 
-export const ThemeProvider = React.memo(_ThemeProvider);
+export default ThemeProvider;
