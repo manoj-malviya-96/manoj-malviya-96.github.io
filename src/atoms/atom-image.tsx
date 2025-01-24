@@ -1,10 +1,6 @@
-import React, { CSSProperties, useEffect, useMemo, useState } from "react";
-import AtomButton, { ButtonSize } from "./atom-button";
-import { useKeyboardManager } from "../providers/keyboard";
-import { AtomPrimaryText, AtomSecondaryText } from "./atom-text";
+import React, { CSSProperties } from "react";
+import { AtomPrimaryText } from "./atom-text";
 import { useTheme } from "../providers/theme";
-import AtomInViewContainer from "./atom-in-view-container";
-import { AtomLoader } from "./atom-loader";
 import { PhotoView } from "react-photo-view";
 
 interface AtomImageProps {
