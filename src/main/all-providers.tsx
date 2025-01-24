@@ -4,6 +4,7 @@ import KeyboardShortcutProvider from "../providers/keyboard";
 import { NavbarProvider } from "../providers/navbar";
 import { ThemeProvider } from "../providers/theme";
 import ToastProvider from "../providers/toasts";
+import ImageProvider from "../providers/image";
 
 const AllProviders: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -13,7 +14,9 @@ const AllProviders: React.FC<{ children: React.ReactNode }> = ({
       <ScreenSizeProvider>
         <KeyboardShortcutProvider>
           <NavbarProvider>
-            <ToastProvider>{children}</ToastProvider>
+            <ImageProvider>
+              <ToastProvider>{children}</ToastProvider>
+            </ImageProvider>
           </NavbarProvider>
         </KeyboardShortcutProvider>
       </ScreenSizeProvider>
