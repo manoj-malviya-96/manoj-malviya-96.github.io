@@ -7,17 +7,6 @@ interface ImageProviderProps {
 }
 
 const ImageProvider: React.FC<ImageProviderProps> = ({ children }) => {
-  return (
-    <PhotoProvider
-      bannerVisible={false}
-      overlayRender={() => (
-        <div className="absolute bottom-4 left-4 text-white text-sm">
-          Click outside to close
-        </div>
-      )}
-    >
-      {children}
-    </PhotoProvider>
-  );
+  return <PhotoProvider>{children}</PhotoProvider>; //Todo add custom theme
 };
 export default ImageProvider;
