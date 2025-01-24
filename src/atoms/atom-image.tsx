@@ -1,13 +1,15 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useMemo, useState } from "react";
 import AtomButton, { ButtonSize } from "./atom-button";
 import { useKeyboardManager } from "../providers/keyboard";
 import { AtomSecondaryText } from "./atom-text";
 import { useTheme } from "../providers/theme";
 import AtomInViewContainer from "./atom-in-view-container";
 import { AtomLoader } from "./atom-loader";
+import { PhotoView } from "react-photo-view";
 
 interface AtomImageProps {
   src: string;
+  highResSrc?: string;
   alt: string;
   className?: string;
   preview?: boolean;
@@ -15,88 +17,23 @@ interface AtomImageProps {
 }
 
 const AtomImage: React.FC<AtomImageProps> = React.memo(
-  ({ src, alt, preview = true, showLabel = false, className = "" }) => {
-    const { addShortcut, removeShortcut } = useKeyboardManager();
-    const [isFullScreen, setIsFullScreen] = useState(false);
-    const [loadImage, setLoadImage] = useState(false);
-
-    useEffect(() => {
-      if (isFullScreen) {
-        addShortcut("Escape", () => setIsFullScreen(false));
-        return () => {
-          removeShortcut("Escape");
-        };
-      }
-    }, [isFullScreen, addShortcut, removeShortcut, setIsFullScreen]);
-
+  ({ src, highResSrc, alt, className }) => {
     return (
-      <>
-        {!isFullScreen && (
-          <AtomInViewContainer
-            onInView={() => setTimeout(() => setLoadImage(true), 690)}
-          >
-            <div
-              className={`relative ${className} overflow-clip items-center justify-center`}
-            >
-              {loadImage && (
-                <img
-                  src={src}
-                  alt={alt}
-                  className={"w-full h-full object-cover rounded-md"}
-                  loading="lazy"
-                />
-              )}
-              {!loadImage && (
-                <div className={"w-full h-full justify-center items-center"}>
-                  <AtomLoader className={"w-full h-full"} />
-                </div>
-              )}
-
-              {preview && loadImage && (
-                <div
-                  className={`absolute inset-0 bg-primary
-                                flex items-center justify-center cursor-pointer
-                                opacity-0 hover:bg-opacity-50 hover:opacity-90`}
-                  onClick={() => setIsFullScreen(true)}
-                >
-                  <i className={"fas fa-magnifying-glass-plus text-2xl"} />
-                </div>
-              )}
-              {showLabel && (
-                <AtomSecondaryText className="text-sm text-neutral">
-                  {alt}
-                </AtomSecondaryText>
-              )}
-            </div>
-          </AtomInViewContainer>
-        )}
-
-        {/* Full-Screen Overlay */}
-        {isFullScreen && (
-          <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-80
-            flex justify-center items-center transition-opacity duration-300"
-            onClick={() => setIsFullScreen(false)} // to close it outside the image
-          >
-            <div className="absolute top-4 right-4">
-              <AtomButton
-                icon="fas fa-xmark"
-                size={ButtonSize.Large}
-                onClick={() => {
-                  setIsFullScreen(false);
-                }}
-              />
-            </div>
-            <img
-              src={src}
-              alt={alt}
-              loading="lazy"
-              className="max-h-screen max-w-screen w-fit h-fit object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+      <PhotoView
+        src={highResSrc || src}
+        overlay={
+          <div className="absolute bottom-0 left-0 p-4 text-white bg-black/50 w-full">
+            <p>{alt}</p>
           </div>
-        )}
-      </>
+        }
+      >
+        {/* Thumbnail */}
+        <img
+          src={src}
+          alt={alt}
+          className={`cursor-zoom-in rounded-lg shadow-lg object-cover hover:shadow-xl transition-shadow ${className}`}
+        />
+      </PhotoView>
     );
   },
 );
