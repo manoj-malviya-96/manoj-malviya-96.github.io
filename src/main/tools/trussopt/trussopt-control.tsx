@@ -204,7 +204,7 @@ const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
         </AtomStyledContainer>
         <AtomRow
           size={LayoutSize.FullWidth}
-          gap={LayoutGap.Small}
+          gap={LayoutGap.Medium}
           className={"mt-4"}
         >
           <AtomButton
