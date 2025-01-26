@@ -2,28 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import ToolInfo from "../tool-info";
 import Logo from "../logos/trussopt.svg";
 import AppView from "../app-view";
-import AtomToggleButton from "../../../atoms/atom-toggle-button";
-import {
-  AtomButton,
-  ButtonSeverity,
-  ButtonType,
-} from "../../../atoms/atom-button";
-import AtomDropdown from "../../../atoms/atom-dropdown";
 import { MouseMode, TrussStructureView, useTrussOpt } from "./truss-controller";
-import TrussMesh, { LatticeType } from "./truss-mesh";
-import { AtomCanvas } from "../../../atoms/atom-canvas";
+import TrussMesh from "./truss-mesh";
 import { useTheme } from "../../../providers/theme";
-import AtomStats, { StatSeverity } from "../../../atoms/atom-stats";
 import TrussFea, { TrussFeaResults } from "./truss-fea";
 import TrussOptimizer from "./truss-optimizer";
-import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import {
-  AtomGrid,
-  AtomRow,
-  LayoutGap,
-  LayoutSize,
-} from "../../../atoms/atom-layout";
-import AtomSlider from "../../../atoms/atom-slider";
 import TrussOptControl from "./trussopt-control";
 import TrussOptOutput from "./trussopt-output";
 
