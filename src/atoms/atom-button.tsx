@@ -69,7 +69,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(
       >
         <AtomSimpleMotionContainer
           enableHoverEffect={!disabled && hoverEffect}
-          hoverScale={!label ? HoverScale.LARGE : HoverScale.MEDIUM}
+          hoverScale={!label ? HoverScale.BIG : HoverScale.NOMINAL}
         >
           <button
             className={`btn  ${

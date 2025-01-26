@@ -3,9 +3,8 @@ import React from "react";
 
 export enum HoverScale {
   NONE = 1,
-  SMALL = 1.05,
-  MEDIUM = 1.1,
-  LARGE = 1.3,
+  NOMINAL = 1.03,
+  BIG = 1.3,
 }
 
 interface MotionDivProps {
@@ -19,7 +18,7 @@ const AtomSimpleMotionContainer: React.FC<MotionDivProps> = ({
   children,
   enableHoverEffect = true,
   enableTapEffect = true,
-  hoverScale = HoverScale.SMALL,
+  hoverScale = HoverScale.NOMINAL,
 }) => {
   return (
     <motion.div
