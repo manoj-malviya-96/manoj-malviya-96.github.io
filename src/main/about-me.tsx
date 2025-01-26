@@ -93,14 +93,15 @@ const AboutMeText = () => {
   return (
     <AtomColumn gap={LayoutGap.Small} size={LayoutSize.None}>
       <AtomImage src={ProfilePicture} alt={"Cover"} />
-      <AtomHeroBrandTitleText className={"w-full"}>
+      <AtomHeroBrandTitleText className={"w-full mt-8"}>
         Manoj Malviya
       </AtomHeroBrandTitleText>
       <AtomPrimaryText className={"w-fit p-0 justify-start"}>
-        Designed for elegance, engineered for impact. Manoj combines
-        cutting-edge innovation with user-first thinking to deliver simple yet
-        creative solutions. <br />
-        Complex challenges? Consider them solved with precision and artistry.
+        I’m a Software Engineer with over 6 years of experience in Physics
+        Simulation, CAD, and Software development (Desktop/Web).
+        <br /> <br />
+        I’m known for leading innovative projects with a product-focused
+        approach that aligns well with business goals.
       </AtomPrimaryText>
     </AtomColumn>
   );
