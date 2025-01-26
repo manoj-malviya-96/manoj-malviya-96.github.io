@@ -179,7 +179,7 @@ const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
           className={"w-full"}
           scrollable={false}
         >
-          <AtomGrid size={LayoutSize.FullWidth} gap={LayoutGap.Medium}>
+          <AtomRow size={LayoutSize.FullWidth} gap={LayoutGap.Medium}>
             <AtomSlider
               label="Iterations"
               min={5}
@@ -200,25 +200,30 @@ const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
               onChange={onTargetFunctionChange}
               disabled={mouseMode !== MouseMode.None}
             />
-
-            <AtomButton
-              label="Optimize"
-              icon="fas fa-bolt-lightning"
-              severity={ButtonSeverity.Info}
-              tooltip={"optimize the truss"}
-              onClick={onOptimize}
-              disabled={mouseMode !== MouseMode.None}
-            />
-            <AtomButton
-              icon="fas fa-trash"
-              label={"Clear"}
-              severity={ButtonSeverity.Error}
-              tooltip={"clear optimization results"}
-              onClick={onClearOptimize}
-              disabled={mouseMode !== MouseMode.None}
-            />
-          </AtomGrid>
+          </AtomRow>
         </AtomStyledContainer>
+        <AtomRow
+          size={LayoutSize.FullWidth}
+          gap={LayoutGap.Small}
+          className={"mt-4"}
+        >
+          <AtomButton
+            label="Optimize"
+            icon="fas fa-bolt-lightning"
+            severity={ButtonSeverity.Info}
+            tooltip={"optimize the truss"}
+            onClick={onOptimize}
+            disabled={mouseMode !== MouseMode.None}
+          />
+          <AtomButton
+            icon="fas fa-trash"
+            label={"Clear"}
+            severity={ButtonSeverity.Error}
+            tooltip={"clear optimization results"}
+            onClick={onClearOptimize}
+            disabled={mouseMode !== MouseMode.None}
+          />
+        </AtomRow>
       </div>
     );
   },
