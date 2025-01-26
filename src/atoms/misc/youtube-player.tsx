@@ -1,5 +1,5 @@
 import React from "react";
-import YouTube, { YouTubeEvent, YouTubeProps } from "react-youtube";
+import YouTube, { YouTubeProps } from "react-youtube";
 
 interface YoutubePlayerProps {
   vid: string;
