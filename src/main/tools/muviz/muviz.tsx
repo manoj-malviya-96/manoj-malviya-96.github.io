@@ -24,7 +24,12 @@ import {
 import { AtomPrimaryText, AtomSubtitleText } from "../../../atoms/atom-text";
 import AtomMouseArea from "../../../atoms/atom-mouse-area";
 import { BaseVisualizer } from "./base-visualizer";
-import { createVisualizer, VisualizerType } from "./visualizers";
+import {
+  createVisualizer,
+  defaultVizOptions,
+  VisualizerType,
+} from "./visualizers";
+import { defaultSongOptions } from "./sample-songs";
 
 const AppName = "MUVIZ";
 
