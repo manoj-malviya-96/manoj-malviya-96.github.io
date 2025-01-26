@@ -125,6 +125,7 @@ const TrussOptView = () => {
           <AtomStyledContainer
             label={"Design Initial Truss"}
             transparency={false}
+            scrollable={false}
           >
             <AtomGrid gap={LayoutGap.Small} size={LayoutSize.FullWidth}>
               <AtomSlider
@@ -178,7 +179,7 @@ const TrussOptView = () => {
             </AtomGrid>
           </AtomStyledContainer>
 
-          <AtomStyledContainer label={"FEA Controls"}>
+          <AtomStyledContainer label={"FEA Controls"} scrollable={false}>
             <AtomRow size={LayoutSize.FullWidth} gap={LayoutGap.Small}>
               <AtomToggleButton
                 offIcon="fas fa-lock-open"
@@ -228,7 +229,11 @@ const TrussOptView = () => {
             </AtomRow>
           </AtomStyledContainer>
 
-          <AtomStyledContainer label={"Optimization"} className={"w-full"}>
+          <AtomStyledContainer
+            label={"Optimization"}
+            className={"w-full"}
+            scrollable={false}
+          >
             <AtomGrid size={LayoutSize.FullWidth} gap={LayoutGap.Medium}>
               <AtomSlider
                 label="Iterations"
@@ -277,6 +282,7 @@ const TrussOptView = () => {
             "w-full md:w-3/4 h-full inline-block relative overflow-hidden"
           }
           transparency={true}
+          scrollable={false}
         >
           <AtomCanvas
             controller={controller}
