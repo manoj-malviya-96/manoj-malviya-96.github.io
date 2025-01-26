@@ -5,10 +5,10 @@ import AtomSimpleMotionContainer, {
 import { AtomPrimaryText } from "./atom-text";
 
 export enum ButtonSize {
-  Small = "btn-sm text-xs",
-  Medium = "text-md",
-  Large = "btn-sm text-lg",
-  ExtraLarge = "btn-sm text-2xl",
+  Small = "p-2 text-xs",
+  Medium = "p-2 text-md",
+  Large = "p-0 text-lg",
+  ExtraLarge = "p-0 text-2xl",
 }
 
 export enum ButtonSeverity {

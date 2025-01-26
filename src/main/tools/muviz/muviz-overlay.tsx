@@ -101,7 +101,7 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
             <AtomButton
               icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
               disabled={!canPlay}
-              size={ButtonSize.Large}
+              size={ButtonSize.ExtraLarge}
               type={ButtonType.Ghost}
               onClick={onPlayPause}
             />
