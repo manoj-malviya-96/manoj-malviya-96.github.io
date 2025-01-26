@@ -28,8 +28,9 @@ export function drawArrow(
   length: number,
   angleFromX: number,
   color: string,
+  lineWidth: number,
 ): void {
-  const arrowHeadLength = 10; // Fixed arrowhead length
+  const arrowHeadLength = 0.4 * length; // Fixed arrowhead length
   const endX = x + length * Math.cos(angleFromX);
   const endY = y + length * Math.sin(angleFromX);
 
@@ -41,17 +42,18 @@ export function drawArrow(
 
   // Arrowhead
   ctx.lineTo(
-    endX - arrowHeadLength * Math.cos(angleFromX - Math.PI / 6),
-    endY - arrowHeadLength * Math.sin(angleFromX - Math.PI / 6),
+    endX - arrowHeadLength * Math.cos(angleFromX - Math.PI / 4),
+    endY - arrowHeadLength * Math.sin(angleFromX - Math.PI / 4),
   );
+
   ctx.moveTo(endX, endY);
   ctx.lineTo(
-    endX - arrowHeadLength * Math.cos(angleFromX + Math.PI / 6),
-    endY - arrowHeadLength * Math.sin(angleFromX + Math.PI / 6),
+    endX - arrowHeadLength * Math.cos(angleFromX + Math.PI / 4),
+    endY - arrowHeadLength * Math.sin(angleFromX + Math.PI / 4),
   );
 
   ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
+  ctx.lineWidth = lineWidth;
   ctx.stroke();
   ctx.closePath();
 }

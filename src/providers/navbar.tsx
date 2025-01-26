@@ -34,7 +34,7 @@ export const NavbarProvider: React.FC<{
 }> = React.memo(({ children }) => {
   const [brand, setBrand] = React.useState<BrandLogoProps>({
     logo: WebsiteLogo,
-    name: "MANOJ",
+    name: "MAFIA",
   });
 
   const updateBrand = (newBrand: BrandLogoProps) => {
@@ -60,7 +60,7 @@ const Navbar = React.memo(() => {
         // Brand Logo
         <div
           className="flex flex-row w-fit h-fit justify-center items-center
-                       gap-2 px-4 py-2 m-0 bg-opacity-50
+                       gap-2 px-4 py-2 m-0 bg-primary bg-opacity-30
 						backdrop-blur-lg shadow-none
 						border border-secondary border-opacity-10
 						rounded-full"
@@ -70,7 +70,9 @@ const Navbar = React.memo(() => {
             alt={brand.name}
             className="w-6 h-6"
           />
-          <AtomPrimaryText>{brand.name}</AtomPrimaryText>
+          <AtomPrimaryText className={"text-primary-content"}>
+            {brand.name}
+          </AtomPrimaryText>
         </div>
       }
       end={

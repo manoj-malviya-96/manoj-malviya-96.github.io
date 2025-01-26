@@ -5,15 +5,15 @@ import AtomSimpleMotionContainer, {
 import { AtomPrimaryText } from "./atom-text";
 
 export enum ButtonSize {
-  Small = "btn-sm text-xs",
-  Medium = "text-md",
-  Large = "btn-sm text-lg",
-  ExtraLarge = "btn-sm text-2xl",
+  Small = "p-2 text-xs",
+  Medium = "p-2 text-md",
+  Large = "p-0 text-lg",
+  ExtraLarge = "p-0 text-2xl",
 }
 
 export enum ButtonSeverity {
   Primary = `btn-primary hover:btn-secondary active:btn-secondary
-                bg-opacity-50 hover:bg-opacity-100 border-none`,
+                bg-opacity-50 hover:bg-opacity-100`,
   Secondary = "btn-secondary border-none",
   Success = "btn-success border-none bg-opacity-100",
   Info = "btn-info border-none bg-opacity-100",
@@ -69,7 +69,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(
       >
         <AtomSimpleMotionContainer
           enableHoverEffect={!disabled && hoverEffect}
-          hoverScale={!label ? HoverScale.LARGE : HoverScale.MEDIUM}
+          hoverScale={!label ? HoverScale.BIG : HoverScale.NOMINAL}
         >
           <button
             className={`btn  ${

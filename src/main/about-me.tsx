@@ -20,9 +20,9 @@ import {
   LayoutGap,
   LayoutSize,
 } from "../atoms/atom-layout";
-import AtomImage from "../atoms/atom-image";
-import ProfilePicture from "./assets/main.jpg";
+import ProfilePicture from "./assets/main.jpeg";
 import { GithubCalendar } from "./github";
+import AtomImage from "../atoms/atom-image";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -67,7 +67,11 @@ const SocialMediaButtons = () => {
     },
   );
   return (
-    <AtomRow size={LayoutSize.FullWidth} alignment={LayoutAlign.Start}>
+    <AtomRow
+      size={LayoutSize.FullWidth}
+      alignment={LayoutAlign.Start}
+      gap={LayoutGap.None}
+    >
       {socialMediaItems.map((item, index) => (
         <AtomButton key={index} {...item} />
       ))}
@@ -89,19 +93,24 @@ const CareerHighlights = () => {
   return <AtomTimeline items={timelineData} className={"w-full h-full"} />;
 };
 
-const AboutMeText = () => {
+const WhoIsManoj = () => {
   return (
-    <AtomColumn gap={LayoutGap.Small} size={LayoutSize.None}>
-      <AtomImage src={ProfilePicture} alt={"Cover"} />
-      <AtomHeroBrandTitleText className={"w-full"}>
+    <AtomColumn
+      size={LayoutSize.None}
+      gap={LayoutGap.Small}
+      className={"w-fit md:w-1/3"}
+    >
+      <AtomImage src={ProfilePicture} alt={"Cover"} className={"w-full h-64"} />
+      <AtomHeroBrandTitleText className={"w-full mt-4"}>
         Manoj Malviya
       </AtomHeroBrandTitleText>
       <AtomPrimaryText className={"w-fit p-0 justify-start"}>
-        Designed for elegance, engineered for impact. Manoj combines
-        cutting-edge innovation with user-first thinking to deliver simple yet
-        creative solutions. <br />
-        Complex challenges? Consider them solved with precision and artistry.
+        I’m a Software Engineer with over 6 years of experience in Physics
+        Simulation, CAD, and Software development (Desktop/Web). I’m known for
+        leading innovative projects with a product-focused approach that aligns
+        well with business goals.
       </AtomPrimaryText>
+      <SocialMediaButtons />
     </AtomColumn>
   );
 };
@@ -115,10 +124,7 @@ const AboutMe = () => {
       smallDeviceAdjustment={true}
       className={"mt-4 h-full px-6"}
     >
-      <AtomColumn className={"w-full md:w-1/2 h-full"} size={LayoutSize.None}>
-        <AboutMeText />
-        <SocialMediaButtons />
-      </AtomColumn>
+      <WhoIsManoj />
       <AtomStyledContainer className={"w-full h-full"} transparency={true}>
         <AtomColumn size={LayoutSize.FullSize} gap={LayoutGap.Small}>
           <CareerHighlights />

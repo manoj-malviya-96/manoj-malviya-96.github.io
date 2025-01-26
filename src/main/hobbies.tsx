@@ -7,6 +7,11 @@ import {
 } from "../atoms/atom-layout";
 import AtomImage from "../atoms/atom-image";
 
+import React from "react";
+import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
+import AtomStyledContainer from "../atoms/atom-styled-container";
+import YoutubePlayer from "../atoms/misc/youtube-player";
+
 import Sweden from "./assets/photography/sweden-min.jpg";
 import Warsaw1 from "./assets/photography/warsaw-1-min.jpg";
 import Warsaw2 from "./assets/photography/warsaw-2-min.jpg";
@@ -15,16 +20,26 @@ import Running from "./assets/photography/running-min.jpg";
 import Northern from "./assets/photography/northern-min.jpg";
 import Denali from "./assets/photography/denali-min.jpg";
 import Alka from "./assets/photography/alka-min.jpg";
-
-import React, { useState } from "react";
-import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
-import AtomStyledContainer from "../atoms/atom-styled-container";
-import YoutubeMusicPlayer from "../atoms/misc/youtube-music-player";
-import { AtomButtonBar, TabButtonProps } from "../atoms/atom-bars";
+import Lights from "./assets/photography/lights.jpeg";
+import Budapest from "./assets/photography/budapest.jpeg";
+import Mallorca from "./assets/photography/mallorca.jpg";
+import Walk from "./assets/photography/walk.jpeg";
+import Mash from "./assets/photography/mash.jpg";
+import Pretty from "./assets/photography/pretty.jpg";
+import Sky from "./assets/photography/sky.jpg";
+import Stf from "./assets/photography/stuf.jpg";
 
 const PhotographSlides = () => {
   const phs = [
+    Mash,
     JustMe,
+    Lights,
+    Budapest,
+    Mallorca,
+    Walk,
+    Pretty,
+    Sky,
+    Stf,
     Warsaw1,
     Running,
     Northern,
@@ -49,42 +64,16 @@ const PhotographSlides = () => {
 };
 
 const MusicSlides = () => {
-  const [vid, setVid] = useState<string>("");
-  const videos = [
-    {
-      label: "Shadows",
-      onClick: () => {
-        setVid("yOAvoG5HPJM");
-      },
-    },
-    {
-      label: "You and Me",
-      onClick: () => {
-        setVid("me-Np1H5AT0");
-      },
-    },
-    {
-      label: "Show My Love",
-      onClick: () => {
-        setVid("vDuYpe-dLc8");
-      },
-    },
-    {
-      label: "Better than this",
-      onClick: () => {
-        setVid("n5niNBh6f3s");
-      },
-    },
-  ] as TabButtonProps[];
-
+  const videos = ["vDuYpe-dLc8", "n5niNBh6f3s", "me-Np1H5AT0", "yOAvoG5HPJM"];
   return (
     <AtomRow
       size={LayoutSize.FullWidth}
       alignment={LayoutAlign.CenterBetween}
       smallDeviceAdjustment
     >
-      <AtomButtonBar items={videos} className={"w-fit mt-6"} />
-      <YoutubeMusicPlayer vid={vid} />
+      {videos.map((vid, index) => (
+        <YoutubePlayer key={index} vid={vid} className={"w-72 h-48"} />
+      ))}
     </AtomRow>
   );
 };

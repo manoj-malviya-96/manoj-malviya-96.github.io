@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     updateBrand({
       logo: BrandLogo,
-      name: "MANOJ",
+      name: "MAFIA",
     });
   }, [updateBrand]);
 

@@ -10,7 +10,6 @@ import {
   AtomHeroTitleText,
   AtomSecondaryBadge,
   AtomSecondaryText,
-  AtomSuperHeroTitleText,
   AtomTitleText,
 } from "../../atoms/atom-text";
 import {
@@ -124,11 +123,11 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
           src={item.cover}
           className={`mx-auto w-full md:w-2/3 h-48 md:h-96 relative`}
         >
-          <AtomSuperHeroTitleText
+          <AtomHeroTitleText
             className={"absolute left-0 bottom-0 p-4 text-white"}
           >
             {item.title}
-          </AtomSuperHeroTitleText>
+          </AtomHeroTitleText>
         </AtomBackgroundImage>
         {item.sections.map(
           (secProps: BlogSectionContentProps, index: number) => (
