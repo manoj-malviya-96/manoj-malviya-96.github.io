@@ -20,10 +20,26 @@ import Running from "./assets/photography/running-min.jpg";
 import Northern from "./assets/photography/northern-min.jpg";
 import Denali from "./assets/photography/denali-min.jpg";
 import Alka from "./assets/photography/alka-min.jpg";
+import Lights from "./assets/photography/lights.jpeg";
+import Budapest from "./assets/photography/budapest.jpeg";
+import Mallorca from "./assets/photography/mallorca.jpg";
+import Walk from "./assets/photography/walk.jpeg";
+import Mash from "./assets/photography/mash.jpg";
+import Pretty from "./assets/photography/pretty.jpg";
+import Sky from "./assets/photography/sky.jpg";
+import Stf from "./assets/photography/stuf.jpg";
 
 const PhotographSlides = () => {
   const phs = [
+    Mash,
     JustMe,
+    Lights,
+    Budapest,
+    Mallorca,
+    Walk,
+    Pretty,
+    Sky,
+    Stf,
     Warsaw1,
     Running,
     Northern,
