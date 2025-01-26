@@ -17,22 +17,16 @@ const Intro = () => {
       name="intro"
       backgroundImage={isDark ? CoverDark : CoverLight}
     >
-      <div
-        className={
-          "block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        }
-      >
-        <AtomColumn smallDeviceAdjustment={true} gap={LayoutGap.None}>
-          <AtomPrimaryText className={"w-full text-center"}>
-            Manoj Malviya
-          </AtomPrimaryText>
+      <AtomColumn smallDeviceAdjustment={true} gap={LayoutGap.None}>
+        <AtomPrimaryText className={"w-full text-center"}>
+          Manoj Malviya
+        </AtomPrimaryText>
 
-          <AtomSuperHeroBrandTitleText className={"text-center w-fit md:w-1/2"}>
-            {" "}
-            Creating Tools for Humanity
-          </AtomSuperHeroBrandTitleText>
-        </AtomColumn>
-      </div>
+        <AtomSuperHeroBrandTitleText className={"text-center w-fit md:w-1/2"}>
+          {" "}
+          Creating Tools for Humanity
+        </AtomSuperHeroBrandTitleText>
+      </AtomColumn>
     </AtomFullScreenContainer>
   );
 };
