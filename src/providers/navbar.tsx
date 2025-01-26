@@ -34,7 +34,7 @@ export const NavbarProvider: React.FC<{
 }> = React.memo(({ children }) => {
   const [brand, setBrand] = React.useState<BrandLogoProps>({
     logo: WebsiteLogo,
-    name: "MANOJ",
+    name: "MAFIA",
   });
 
   const updateBrand = (newBrand: BrandLogoProps) => {
