@@ -13,7 +13,7 @@ export enum ButtonSize {
 
 export enum ButtonSeverity {
   Primary = `btn-primary hover:btn-secondary active:btn-secondary
-                bg-opacity-50 hover:bg-opacity-100 border-none`,
+                bg-opacity-50 hover:bg-opacity-100`,
   Secondary = "btn-secondary border-none",
   Success = "btn-success border-none bg-opacity-100",
   Info = "btn-info border-none bg-opacity-100",
@@ -25,7 +25,7 @@ export enum ButtonType {
   Outlined = "bg-transparent border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100",
   Ghost = `bg-transparent border-none hover:bg-transparent hover:text-secondary
             hover:border-none hover:font-bold active:bg-transparent`,
-  Solid = "shadow-none border-secondary border-opacity-10 backdrop-blur-lg",
+  Solid = "shadow-none border-secondary border-opacity-10 backdrop-blur-lg border-none",
 }
 
 export interface AtomButtonProps {
