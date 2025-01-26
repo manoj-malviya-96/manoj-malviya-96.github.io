@@ -105,7 +105,7 @@ const TrussOptView = () => {
     clearOptimize();
     clearSimulate();
     controller.updateMouseMode(mouseMode);
-  }, [mouseMode, controller]);
+  }, [mouseMode, controller, clearSimulate, clearOptimize]);
 
   return (
     <AppView appName={AppName} appLogo={Logo}>
