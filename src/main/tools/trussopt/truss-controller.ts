@@ -19,7 +19,7 @@ export class TrussStructureView extends AtomCanvasController {
   private readonly maxLineWidth: number = 7;
   private readonly pointRadius: number = 5;
   private readonly arrowWidth: number = 7;
-  private readonly arrowLength: number = 20;
+  private readonly arrowLength: number = 50;
   private readonly fixedScalePoint: number = 1.5;
   private readonly forceColor: string = "red";
   private readonly fixedColor: string = "purple";
