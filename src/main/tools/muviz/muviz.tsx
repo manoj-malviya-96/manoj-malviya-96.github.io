@@ -7,19 +7,9 @@ import AtomDropdown, {
   AtomDropdownItemProps,
 } from "../../../atoms/atom-dropdown";
 
-import Princess from "./sample-music/princess.mp3";
-import Flood from "./sample-music/Sebastian_Flood.mp3";
-import StayInit from "./sample-music/FredAgain_StayInit.mp3";
-import LeaveTheWorldBehind from "./sample-music/LeaveTheWorldBehing.mp3";
-
 import { AtomCanvas } from "../../../atoms/atom-canvas";
 import AtomSlider from "../../../atoms/atom-slider";
 import { formatTime } from "../../../common/date";
-import {
-  AbstractVisualizer,
-  BaseVisualizer,
-  VisualizerType,
-} from "./visualizers";
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import { toggleFullScreen } from "../../../common/full-screen";
 import AppView from "../app-view";
@@ -33,6 +23,8 @@ import {
 } from "../../../atoms/atom-layout";
 import { AtomPrimaryText, AtomSubtitleText } from "../../../atoms/atom-text";
 import AtomMouseArea from "../../../atoms/atom-mouse-area";
+import { BaseVisualizer } from "./base-visualizer";
+import { createVisualizer, VisualizerType } from "./visualizers";
 
 const AppName = "MUVIZ";
 
@@ -67,15 +59,8 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
   } = useAudioPlayer({ src, makeAnalyzer: true });
 
   const updateVisualizer = useCallback(() => {
-    switch (visualizerType) {
-      case VisualizerType.Spiral:
-      case VisualizerType.Abstract:
-        const viz = new AbstractVisualizer();
-        setController(viz);
-        break;
-      default:
-        throw new Error("Invalid visualizer type");
-    }
+    const viz = createVisualizer(visualizerType);
+    setController(new viz());
   }, [visualizerType, setController]);
 
   const handleSampleSongChange = useCallback(
@@ -288,32 +273,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
     </div>
   );
 };
-
-const defaultSongOptions = [
-  {
-    label: "Princess",
-    value: Princess,
-  } as AtomDropdownItemProps,
-  {
-    label: "Flood",
-    value: Flood,
-  } as AtomDropdownItemProps,
-  {
-    label: "STAYinit",
-    value: StayInit,
-  } as AtomDropdownItemProps,
-  {
-    label: "LeaveTheWorld",
-    value: LeaveTheWorldBehind,
-  } as AtomDropdownItemProps,
-];
-
-const defaultVizOptions = [
-  {
-    label: "Abstract",
-    value: VisualizerType.Abstract,
-  } as AtomDropdownItemProps,
-];
 
 const MuvizView = () => {
   return (
