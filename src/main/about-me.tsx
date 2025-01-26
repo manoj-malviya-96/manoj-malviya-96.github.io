@@ -20,8 +20,7 @@ import {
   LayoutGap,
   LayoutSize,
 } from "../atoms/atom-layout";
-import AtomImage from "../atoms/atom-image";
-import ProfilePicture from "./assets/main.jpg";
+import ProfilePicture from "./assets/main.jpeg";
 import { GithubCalendar } from "./github";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
@@ -95,12 +94,15 @@ const CareerHighlights = () => {
 
 const WhoIsManoj = () => {
   return (
-    <AtomColumn
+    <div
       className={"w-full md:w-1/2 h-full"}
-      size={LayoutSize.None}
-      gap={LayoutGap.None}
+      style={{
+        backgroundImage: `url(${ProfilePicture})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <AtomImage src={ProfilePicture} alt={"Cover"} />
+      {/*<AtomImage src={ProfilePicture} alt={"Cover"} />*/}
       <AtomHeroBrandTitleText className={"w-full mt-4"}>
         Manoj Malviya
       </AtomHeroBrandTitleText>
@@ -111,7 +113,7 @@ const WhoIsManoj = () => {
         well with business goals.
       </AtomPrimaryText>
       <SocialMediaButtons />
-    </AtomColumn>
+    </div>
   );
 };
 

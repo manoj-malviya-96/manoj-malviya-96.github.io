@@ -25,7 +25,7 @@ export enum ButtonType {
   Outlined = "bg-transparent border border-secondary border-opacity-50 bg-opacity-0 hover:bg-opacity-100",
   Ghost = `bg-transparent border-none hover:bg-transparent hover:text-secondary
             hover:border-none hover:font-bold active:bg-transparent`,
-  Solid = "shadow-none border-secondary border-opacity-10 backdrop-blur-lg border-none",
+  Solid = "shadow-none border-secondary border-opacity-10 backdrop-blur-lg",
 }
 
 export interface AtomButtonProps {
