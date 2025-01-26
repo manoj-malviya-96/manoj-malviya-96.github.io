@@ -1,27 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ToolInfo from "../tool-info";
 import { AudioPlayerProps, useAudioPlayer } from "../../../common/audio";
-import { AtomButton, ButtonSize, ButtonType } from "../../../atoms/atom-button";
 import Logo from "../logos/muviz.svg";
-import AtomDropdown, {
-  AtomDropdownItemProps,
-} from "../../../atoms/atom-dropdown";
+import { AtomDropdownItemProps } from "../../../atoms/atom-dropdown";
 
 import { AtomCanvas } from "../../../atoms/atom-canvas";
-import AtomSlider from "../../../atoms/atom-slider";
-import { formatTime } from "../../../common/date";
-import AtomFileUpload from "../../../atoms/atom-file-upload";
 import { toggleFullScreen } from "../../../common/full-screen";
 import AppView from "../app-view";
-import AtomDialog from "../../../atoms/atom-dialog";
-import {
-  AtomColumn,
-  AtomRow,
-  LayoutAlign,
-  LayoutGap,
-  LayoutSize,
-} from "../../../atoms/atom-layout";
-import { AtomPrimaryText, AtomSubtitleText } from "../../../atoms/atom-text";
 import AtomMouseArea from "../../../atoms/atom-mouse-area";
 import { BaseVisualizer } from "./base-visualizer";
 import {
@@ -30,8 +15,7 @@ import {
   VisualizerType,
 } from "./visualizers";
 import { defaultSongOptions } from "./sample-songs";
-
-const AppName = "MUVIZ";
+import MuvizOverlay from "./muviz-overlay";
 
 interface MuvizAppProps {
   songOptions: AtomDropdownItemProps[];
@@ -75,10 +59,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
     },
     [controller, setSrc],
   );
-
-  useEffect(() => {}, [isPlaying]);
-
-  useEffect(() => {}, [controller]);
 
   const handleVisualizerChange = useCallback((value: any) => {
     setVisualizerType(value);
@@ -124,7 +104,11 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
   );
 
   const toggleVolume = useCallback(() => {
-    changeVolume(volume === 0 ? 0.69 : 0);
+    if (volume === 0) {
+      changeVolume(0.69);
+    } else {
+      changeVolume(0);
+    }
   }, [volume, changeVolume]);
 
   useEffect(() => {
@@ -163,122 +147,34 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
           className={`absolute bottom-0 left-0 w-full h-fit p-4
 								${showHud ? "opacity-100" : "opacity-0"}`}
         >
-          <AtomColumn gap={LayoutGap.Small}>
-            {/* Metadata */}
-            <AtomRow
-              alignment={LayoutAlign.CenterBetween}
-              size={LayoutSize.FullWidth}
-            >
-              <AtomSubtitleText>{title ? title : "No Song"}</AtomSubtitleText>
-              <AtomPrimaryText>
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </AtomPrimaryText>
-            </AtomRow>
-
-            {/* Time Slider*/}
-            <AtomSlider
-              value={currentTime}
-              min={0}
-              max={duration || 0}
-              step={0.1}
-              onChange={setAudioTime}
-              className="w-full h-fit"
-            />
-            {/* Volume and Right Controls */}
-            <AtomRow
-              alignment={LayoutAlign.CenterBetween}
-              size={LayoutSize.FullWidth}
-              smallDeviceAdjustment={true}
-            >
-              {/* Left Controls */}
-              <AtomRow gap={LayoutGap.Small} size={LayoutSize.Fit}>
-                <AtomButton
-                  icon="fa-solid fa-arrow-rotate-left"
-                  type={ButtonType.Ghost}
-                  size={ButtonSize.Large}
-                  onClick={skipBackward}
-                  disabled={!src}
-                />
-                <AtomButton
-                  icon={isPlaying ? "fa fa-pause" : "fa fa-play"}
-                  disabled={!src}
-                  size={ButtonSize.Large}
-                  type={ButtonType.Ghost}
-                  onClick={handlePlayOrPause}
-                />
-                <AtomButton
-                  icon="fa-solid fa-arrow-rotate-right"
-                  type={ButtonType.Ghost}
-                  size={ButtonSize.Large}
-                  onClick={skipForward}
-                  disabled={!src}
-                />
-
-                <div className="w-48 flex flex-row gap-1 items-center">
-                  <AtomButton
-                    icon={
-                      volume === 0
-                        ? "fa-solid fa-volume-xmark"
-                        : volume > 0.69
-                          ? "fa-solid fa-volume-high"
-                          : "fa-solid fa-volume-low"
-                    }
-                    type={ButtonType.Ghost}
-                    onClick={toggleVolume}
-                  />
-                  <AtomSlider
-                    value={volume}
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    onChange={changeVolume}
-                    className={"w-1/3 h-fit"}
-                  />
-                </div>
-              </AtomRow>
-
-              <AtomRow size={LayoutSize.Fit} alignment={LayoutAlign.Center}>
-                <AtomDropdown
-                  options={songOptions}
-                  dropdownIcon={"fas fa-music"}
-                  onClick={handleSampleSongChange}
-                  className="h-full w-36 m-auto"
-                  placeholder="Sample Song"
-                />
-                <AtomDialog icon="fa-solid fa-upload" title="Upload Song">
-                  <AtomColumn>
-                    <AtomPrimaryText>
-                      Only audio files (.wav/.mp3/..) are supported
-                    </AtomPrimaryText>
-                    <AtomFileUpload
-                      acceptTypes="audio/*"
-                      onFileChange={handleFileChange}
-                    />
-                  </AtomColumn>
-                </AtomDialog>
-
-                <AtomDropdown
-                  options={vizOptions}
-                  onClick={handleVisualizerChange}
-                  className="h-full w-28 m-auto"
-                  placeholder="Select Visualizer"
-                  initialIndex={0}
-                />
-
-                <AtomButton
-                  icon={isFullScreen ? "fa fa-compress" : "fa fa-expand"}
-                  onClick={handleToggleFullScreen}
-                  type={ButtonType.Ghost}
-                />
-              </AtomRow>
-            </AtomRow>
-          </AtomColumn>
+          <MuvizOverlay
+            title={title}
+            currentTime={currentTime}
+            duration={duration}
+            volume={volume}
+            isPlaying={isPlaying}
+            songOptions={songOptions}
+            vizOptions={vizOptions}
+            isFullScreen={isFullScreen}
+            canPlay={!!src}
+            onSliderChange={setAudioTime}
+            onPlayPause={handlePlayOrPause}
+            onVolumeChange={changeVolume}
+            onToggleVolume={toggleVolume}
+            onSkipForward={skipForward}
+            onSkipBackward={skipBackward}
+            onFileChange={handleFileChange}
+            onVisualizerChange={handleVisualizerChange}
+            onSampleSongChange={handleSampleSongChange}
+            onToggleFullScreen={handleToggleFullScreen}
+          />
         </div>
       </AtomMouseArea>
     </div>
   );
 };
 
+const AppName = "MUVIZ";
 const MuvizView = () => {
   return (
     <AppView
