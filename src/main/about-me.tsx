@@ -22,6 +22,7 @@ import {
 } from "../atoms/atom-layout";
 import ProfilePicture from "./assets/main.jpeg";
 import { GithubCalendar } from "./github";
+import AtomImage from "../atoms/atom-image";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
 const MySocialMediaLinks: Array<SocialMediaLink> = [
@@ -94,15 +95,12 @@ const CareerHighlights = () => {
 
 const WhoIsManoj = () => {
   return (
-    <div
-      className={"w-full md:w-1/2 h-full"}
-      style={{
-        backgroundImage: `url(${ProfilePicture})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+    <AtomColumn
+      size={LayoutSize.None}
+      gap={LayoutGap.Small}
+      className={"w-fit md:w-1/3"}
     >
-      {/*<AtomImage src={ProfilePicture} alt={"Cover"} />*/}
+      <AtomImage src={ProfilePicture} alt={"Cover"} className={"w-full h-64"} />
       <AtomHeroBrandTitleText className={"w-full mt-4"}>
         Manoj Malviya
       </AtomHeroBrandTitleText>
@@ -113,7 +111,7 @@ const WhoIsManoj = () => {
         well with business goals.
       </AtomPrimaryText>
       <SocialMediaButtons />
-    </div>
+    </AtomColumn>
   );
 };
 
