@@ -10,6 +10,7 @@ import AtomDropdown, {
 import Princess from "./sample-music/princess.mp3";
 import Flood from "./sample-music/Sebastian_Flood.mp3";
 import StayInit from "./sample-music/FredAgain_StayInit.mp3";
+import LeaveTheWorldBehind from "./sample-music/LeaveTheWorldBehing.mp3";
 
 import { AtomCanvas } from "../../../atoms/atom-canvas";
 import AtomSlider from "../../../atoms/atom-slider";
@@ -300,6 +301,10 @@ const defaultSongOptions = [
   {
     label: "STAYinit",
     value: StayInit,
+  } as AtomDropdownItemProps,
+  {
+    label: "LeaveTheWorld",
+    value: LeaveTheWorldBehind,
   } as AtomDropdownItemProps,
 ];
 
