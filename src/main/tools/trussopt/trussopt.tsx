@@ -77,6 +77,11 @@ const TrussOptView = () => {
     setSimResult(feaEngine.getResults());
   }, [controller, optimizeMesh, mesh]);
 
+  const clearSimulate = useCallback(() => {
+    setSimResult(null);
+    controller.addFeaResults(null);
+  }, [controller, setSimResult]);
+
   const clearOptimize = useCallback(() => {
     setOptimizeMesh(null);
     setSimResult(null);
@@ -112,7 +117,10 @@ const TrussOptView = () => {
   useEffect(() => {
     clearOptimize();
   }, [mesh, numIterations, targetFraction, clearOptimize]);
+
   useEffect(() => {
+    clearOptimize();
+    clearSimulate();
     controller.updateMouseMode(mouseMode);
   }, [mouseMode, controller]);
 
@@ -129,10 +137,7 @@ const TrussOptView = () => {
           onOptimize={optimize}
           onClearOptimize={clearOptimize}
           onSimulate={simulate}
-          onClearSimulate={() => {
-            setSimResult(null);
-            controller.addFeaResults(null);
-          }}
+          onClearSimulate={clearSimulate}
           onNumIterationChange={setNumIterations}
           onTargetFunctionChange={setTargetFraction}
           numIterations={numIterations}
@@ -140,7 +145,7 @@ const TrussOptView = () => {
           meshWidth={meshWidth}
           meshHeight={meshHeight}
           cellSize={cellSize}
-          hasSimulationResult={simResult !== null}
+          showSimulationResult={controller.feaEngine !== null}
         />
         <TrussOptOutput
           controller={controller}

@@ -35,7 +35,7 @@ interface TrussOptControlProps {
   meshWidth: number;
   meshHeight: number;
   cellSize: number;
-  hasSimulationResult: boolean;
+  showSimulationResult: boolean;
 }
 
 const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
@@ -48,7 +48,7 @@ const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
     onLatticeTypeChange,
     onOptimize,
     onClearOptimize,
-    hasSimulationResult,
+    showSimulationResult,
     onSimulate,
     onClearSimulate,
     onNumIterationChange,
@@ -159,7 +159,7 @@ const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
               onIcon="fas fa-stop"
               tooltip="simulate the truss"
               className={"w-fit"}
-              initValue={hasSimulationResult}
+              initValue={showSimulationResult}
               disabled={mouseMode !== MouseMode.None}
               type={ButtonType.Outlined}
               onChange={(e: boolean) => {

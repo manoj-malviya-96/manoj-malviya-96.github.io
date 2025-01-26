@@ -28,6 +28,7 @@ export function drawArrow(
   length: number,
   angleFromX: number,
   color: string,
+  lineWidth: number,
 ): void {
   const arrowHeadLength = 10; // Fixed arrowhead length
   const endX = x + length * Math.cos(angleFromX);
@@ -51,7 +52,7 @@ export function drawArrow(
   );
 
   ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
+  ctx.lineWidth = lineWidth;
   ctx.stroke();
   ctx.closePath();
 }

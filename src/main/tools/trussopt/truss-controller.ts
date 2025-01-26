@@ -16,16 +16,19 @@ export class TrussStructureView extends AtomCanvasController {
   trussColor: string;
   private toCanvasCoords = (x: number, y: number) => [x, y];
   private fromCanvasCoords = (x: number, y: number) => [x, y];
-  private readonly maxLineWidth: number;
-  private readonly pointRadius: number;
+  private readonly maxLineWidth: number = 7;
+  private readonly pointRadius: number = 5;
+  private readonly arrowWidth: number = 7;
+  private readonly arrowLength: number = 20;
+  private readonly fixedScalePoint: number = 1.5;
+  private readonly forceColor: string = "red";
+  private readonly fixedColor: string = "purple";
   feaEngine: TrussFea | null;
 
   constructor() {
     super();
     this.mesh = null;
     this.trussColor = "white";
-    this.maxLineWidth = 7;
-    this.pointRadius = 3;
     this.feaEngine = null;
   }
 
@@ -165,7 +168,15 @@ export class TrussStructureView extends AtomCanvasController {
     const forcePointsX = this.mesh.forcePoints_X;
     if (forcePointsX.size > 0) {
       forcePointsX.forEach((idx) => {
-        drawArrow(ctx, points[idx][0], points[idx][1], 20, 0, "green");
+        drawArrow(
+          ctx,
+          points[idx][0],
+          points[idx][1],
+          this.arrowLength,
+          0,
+          this.forceColor,
+          this.arrowWidth,
+        );
       });
     }
 
@@ -176,9 +187,10 @@ export class TrussStructureView extends AtomCanvasController {
           ctx,
           points[idx][0],
           points[idx][1],
-          20,
+          this.arrowLength,
           Math.PI / 2,
-          "green",
+          this.forceColor,
+          this.arrowWidth,
         );
       });
     }
@@ -190,9 +202,9 @@ export class TrussStructureView extends AtomCanvasController {
           ctx,
           points[idx][0],
           points[idx][1],
-          this.pointRadius,
-          "purple",
-          this.pointRadius,
+          this.fixedScalePoint * this.pointRadius,
+          this.fixedColor,
+          1.5 * this.pointRadius,
         );
       });
     }
@@ -204,9 +216,7 @@ export class TrussStructureView extends AtomCanvasController {
     }
 
     this.cleanup();
-
     const canvas = this.canvasRef.current;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) {
       return;
