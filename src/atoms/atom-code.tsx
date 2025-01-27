@@ -47,6 +47,7 @@ const AtomCodeBlock: React.FC<CodeBlockProps> = React.memo(
 
     return (
       <AtomStyledContainer
+        scrollable={false}
         className={`relative w-full ${className}`}
         label={language}
       >
