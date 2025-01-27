@@ -10,11 +10,12 @@ interface CalendarData {
   year: number;
   height?: number;
   unit: string;
+  mainColor?: string;
 }
 
 const dayTime = 24 * 3600 * 1000;
 export const AtomCalendarChart: React.FC<CalendarData> = React.memo(
-  ({ data, year, unit, height }) => {
+  ({ data, year, unit, height, mainColor }) => {
     const { daisyNeutral, daisyPrimaryText } = useTheme();
 
     const startDate = +echarts.time.parse(`${year}-01-01`); // Start of the year
@@ -43,7 +44,7 @@ export const AtomCalendarChart: React.FC<CalendarData> = React.memo(
         type: "piecewise",
         formatter: (value: number) => `${roundTo(value, 0)} ${unit}`,
         inRange: {
-          color: [adjustColor(daisyNeutral, 0.5), "#00dc2c"],
+          color: [adjustColor(daisyNeutral, 0.5), mainColor || daisyNeutral],
         },
         textStyle: {
           color: daisyPrimaryText,

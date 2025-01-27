@@ -41,7 +41,7 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = ({
 }) => {
   tags.sort((a, b) => a.length - b.length);
   return (
-    <AtomStyledContainer className={className}>
+    <AtomStyledContainer className={className} scrollable={false}>
       <AtomColumn
         size={LayoutSize.FullWidth}
         gap={LayoutGap.Small}

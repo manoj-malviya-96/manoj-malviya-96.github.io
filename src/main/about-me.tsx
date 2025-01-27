@@ -21,7 +21,7 @@ import {
   LayoutSize,
 } from "../atoms/atom-layout";
 import ProfilePicture from "./assets/main.jpeg";
-import { GithubCalendar } from "./github";
+import { GithubView } from "./github";
 import AtomImage from "../atoms/atom-image";
 
 type SocialMediaLink = [icon: string, link: string, tooltip: string];
@@ -129,7 +129,7 @@ const AboutMe = () => {
         <AtomColumn size={LayoutSize.FullSize} gap={LayoutGap.Small}>
           <CareerHighlights />
           <AtomColumnDivider />
-          <GithubCalendar />
+          <GithubView />
         </AtomColumn>
       </AtomStyledContainer>
     </AtomRow>
