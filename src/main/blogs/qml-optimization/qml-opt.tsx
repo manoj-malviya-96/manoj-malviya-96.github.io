@@ -191,7 +191,7 @@ class QmlOptimization extends BlogInfo {
   constructor() {
     super({
       id: "qml-optimization",
-      title: "QML Practical Tips",
+      title: "QML Best Practices",
       description:
         "Learn practical ways to improve performance in QML applications.",
       date: "Jan 2, 2025",
