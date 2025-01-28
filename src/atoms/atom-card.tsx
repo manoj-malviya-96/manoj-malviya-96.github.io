@@ -5,9 +5,10 @@ import { AtomDateAndText, AtomSecondaryText, AtomTitleText } from "./atom-text";
 import {
   AtomColumn,
   AtomGrid,
+  GridColumns,
+  LayoutAlign,
   LayoutGap,
   LayoutSize,
-  GridColumns,
 } from "./atom-layout";
 
 export interface AtomCardProps extends BentoBoxItemProps {
@@ -45,7 +46,7 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
             src={image}
             alt={title}
             loading="lazy"
-            className="w-full h-2/3 object-contain"
+            className="w-full h-72 object-cover"
           />
           <AtomColumn gap={LayoutGap.None}>
             <AtomTitleText children={title} className={"text-center"} />
@@ -81,6 +82,7 @@ export const AtomCardGrid: React.FC<AtomCardGridProps> = ({
       size={LayoutSize.None}
       gap={LayoutGap.Small}
       nCols={GridColumns.Four}
+      alignment={LayoutAlign.Start}
     >
       {items.map((item, index) => (
         <AtomCard {...item} key={index} />
