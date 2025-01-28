@@ -46,7 +46,7 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
             src={image}
             alt={title}
             loading="lazy"
-            className="w-full h-72 object-cover"
+            className="w-full h-2/3 object-cover"
           />
           <AtomColumn gap={LayoutGap.None}>
             <AtomTitleText children={title} className={"text-center"} />
