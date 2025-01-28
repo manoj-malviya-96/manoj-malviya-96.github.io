@@ -14,7 +14,7 @@ const FeaturesToExtract = [
   "perceptualSpread",
   "perceptualSharpness",
   "spectralFlatness",
-  "spectralCentroid",
+  "zcr",
   "energy",
 ];
 
@@ -22,7 +22,7 @@ export interface AudioFeatures {
   perceptualSpread: number;
   perceptualSharpness: number;
   spectralFlatness: number;
-  spectralCentroid: number;
+  zcr: number;
   energy: number;
 }
 

@@ -142,8 +142,7 @@ export class AbstractVisualizer extends BaseVisualizer {
     this.updatePoints(features.spectralFlatness);
     this.addPoint();
 
-    const centroidNormalized =
-      features.spectralCentroid / (AnalyzerBufferSize / 2);
+    const centroidNormalized = features.zcr / (AnalyzerBufferSize / 2);
 
     this.drawPoints(
       ctx,
