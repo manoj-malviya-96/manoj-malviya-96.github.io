@@ -104,9 +104,7 @@ export class TrussStructureView extends AtomCanvasController {
     ctx.clearRect(0, 0, width, height);
 
     const ogPoints = this.mesh.points;
-    console.log("Points", ogPoints);
     const points = ogPoints.map(([x, y]) => this.toCanvasCoords(x, y));
-    console.log("Points", points);
 
     const edges = this.mesh.connections;
     const thickness = this.mesh.normThickness;
@@ -228,13 +226,9 @@ export class TrussStructureView extends AtomCanvasController {
     }
     const rect = canvas.getBoundingClientRect();
     const handleMouseDown = (event: MouseEvent) => {
-      console.log(event.clientX, event.clientY, rect.x, rect.y);
       const mouseX = event.clientX - rect.x;
       const mouseY = event.clientY - rect.y;
-
-      console.log("Mouse down --", mouseX, mouseY);
       const [x, y] = this.fromCanvasCoords(mouseX, mouseY);
-      console.log("transformed -- ", x, y);
       switch (mouseMode) {
         case MouseMode.AddFixed:
           this.mesh?.addFixNode(x, y);
