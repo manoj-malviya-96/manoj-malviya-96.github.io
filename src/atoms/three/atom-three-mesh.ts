@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { degToRad, radToDeg } from "../../common/math";
 
 export abstract class Atom3DMesh {
   protected scene!: THREE.Scene;
@@ -10,6 +11,30 @@ export abstract class Atom3DMesh {
   }
 
   abstract create(): void;
+
+  rotateX(angle: number) {
+    this.mesh.rotation.x += degToRad(angle);
+  }
+
+  rotateY(angle: number) {
+    this.mesh.rotation.y += degToRad(angle);
+  }
+
+  rotateZ(angle: number) {
+    this.mesh.rotation.z += degToRad(angle);
+  }
+
+  translateX(distance: number) {
+    this.mesh.position.x += distance;
+  }
+
+  translateY(distance: number) {
+    this.mesh.position.y += distance;
+  }
+
+  translateZ(distance: number) {
+    this.mesh.position.z += distance;
+  }
 
   abstract update(): void;
 }
@@ -25,7 +50,7 @@ export class ExampleCubeMesh extends Atom3DMesh {
   }
 
   update() {
-    this.mesh.rotation.x += 0.01;
-    this.mesh.rotation.y += 0.01;
+    this.rotateX(1);
+    this.rotateY(1);
   }
 }
