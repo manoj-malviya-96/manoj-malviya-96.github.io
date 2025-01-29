@@ -2,16 +2,17 @@ import React from "react";
 import ToolInfo from "../tool-info";
 import Logo from "../logos/mesha.svg";
 import AppView from "../app-view";
-import { AtomHeroTitleText } from "../../../atoms/atom-text";
+import AtomThreeCanvas from "../../../atoms/three/atom-three-canvas";
+import { ExampleCubeMesh } from "../../../atoms/three/atom-three-mesh";
 
 const AppName = "MESHA";
 
 const MeshaView = () => {
+  const cubeMesh = new ExampleCubeMesh();
+
   return (
     <AppView appName={AppName} appLogo={Logo}>
-      <AtomHeroTitleText className={"w-full h-fit text-center"}>
-        Coming soon...
-      </AtomHeroTitleText>
+      <AtomThreeCanvas meshes={[cubeMesh]} />
     </AppView>
   );
 };
