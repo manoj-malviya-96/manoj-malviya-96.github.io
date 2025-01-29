@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { degToRad, radToDeg } from "../../common/math";
+import { degToRad } from "../../common/math";
 
 export abstract class Atom3DMesh {
   protected scene!: THREE.Scene;
