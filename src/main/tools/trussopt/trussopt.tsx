@@ -73,29 +73,38 @@ const TrussOptView = () => {
 
   const optimize = useCallback(async () => {
     setCanvasLoading(true);
-    if (!mesh) {
-      throw new Error("Null Scene");
-    }
-    const optimizer = new TrussOptimizer(
-      structuredClone(mesh),
-      numIterations,
-      targetFraction,
-    );
-    try {
-      await optimizer.optimize();
-      if (optimizer.success) {
-        setOptimizeMesh(optimizer.currentMesh);
-        controller.addFeaResults(null);
-        setSimResult(optimizer.lastFEAResult);
-      } else {
+    setTimeout(async () => {
+      if (!mesh) {
+        throw new Error("Null Scene");
+      }
+      const optimizer = new TrussOptimizer(
+        structuredClone(mesh),
+        numIterations,
+        targetFraction,
+      );
+      try {
+        await optimizer.optimize();
+        if (optimizer.success) {
+          setOptimizeMesh(optimizer.currentMesh);
+          controller.addFeaResults(null);
+          setSimResult(optimizer.lastFEAResult);
+        } else {
+          clearOptimize();
+        }
+      } catch (e: any) {
+        console.error(e);
         clearOptimize();
       }
-    } catch (e: any) {
-      console.error(e);
-      clearOptimize();
-    }
-    setCanvasLoading(false);
-  }, [mesh, controller, clearOptimize, numIterations, targetFraction]);
+      setCanvasLoading(false);
+    }, 300);
+  }, [
+    mesh,
+    setCanvasLoading,
+    controller,
+    clearOptimize,
+    numIterations,
+    targetFraction,
+  ]);
 
   useEffect(() => {
     clearOptimize();
