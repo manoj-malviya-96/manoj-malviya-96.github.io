@@ -1,5 +1,5 @@
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import { AtomCanvas } from "../../../atoms/atom-canvas";
+import { AtomCanvas } from "../../../atoms/canvas/atom-canvas";
 import { AtomRow, LayoutSize } from "../../../atoms/atom-layout";
 import AtomStats, { StatSeverity } from "../../../atoms/atom-stats";
 import React from "react";

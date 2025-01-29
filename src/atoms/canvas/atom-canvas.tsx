@@ -1,71 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTheme } from "../providers/theme";
-import { ScreenSizes, useScreenSizeBreakpoint } from "../providers/screen";
-
-export class AtomCanvasController {
-  canvasRef:
-    | React.RefObject<HTMLCanvasElement>
-    | React.RefObject<null>
-    | undefined;
-  animationFrameId: number | null;
-  makeLoop: boolean = true;
-
-  constructor() {
-    this.canvasRef = React.createRef();
-    this.animationFrameId = null;
-    this.makeLoop = false;
-  }
-
-  setCanvasRef(
-    canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>,
-  ) {
-    this.canvasRef = canvasRef;
-  }
-
-  init(): void {
-    // To be implemented by subclasses (e.g., setting up
-    // resources)
-  }
-
-  draw(): void {
-    // To be implemented by subclasses (e.g., drawing logic)
-  }
-
-  cleanup(): void {
-    // To be implemented by subclasses (e.g., releasing
-    // resources)
-  }
-
-  start(): void {
-    if (this.animationFrameId) {
-      return;
-    } // Prevent double looping
-
-    this.init();
-    if (this.makeLoop) {
-      const drawLoop = () => {
-        this.draw();
-        this.animationFrameId = requestAnimationFrame(drawLoop);
-      };
-      this.animationFrameId = requestAnimationFrame(drawLoop);
-    } else {
-      this.draw();
-    }
-  }
-
-  stop(): void {
-    if (this.animationFrameId !== null) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
-    this.animationFrameId = null;
-    this.cleanup();
-  }
-
-  restart(): void {
-    this.stop();
-    this.start();
-  }
-}
+import { useTheme } from "../../providers/theme";
+import { ScreenSizes, useScreenSizeBreakpoint } from "../../providers/screen";
+import { AtomCanvasController } from "./atom-canvas-controller";
 
 interface AtomCanvasProps {
   controller?: AtomCanvasController | null;
@@ -105,7 +41,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
         controller.setCanvasRef(
           canvasRef as React.RefObject<HTMLCanvasElement>,
         );
-        controller.makeLoop = animationLoop;
+        controller.setStatic(!animationLoop);
 
         // Restart on song change to ensure fresh drawing
         controller.restart();
@@ -165,4 +101,3 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
     );
   },
 );
-

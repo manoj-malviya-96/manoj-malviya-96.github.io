@@ -4,7 +4,7 @@ import { AudioPlayerProps, useAudioPlayer } from "../../../common/audio";
 import Logo from "../logos/muviz.svg";
 import { AtomDropdownItemProps } from "../../../atoms/atom-dropdown";
 
-import { AtomCanvas } from "../../../atoms/atom-canvas";
+import { AtomCanvas } from "../../../atoms/canvas/atom-canvas";
 import { toggleFullScreen } from "../../../common/full-screen";
 import AppView from "../app-view";
 import AtomMouseArea from "../../../atoms/atom-mouse-area";
@@ -131,6 +131,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
     <div className="block h-full w-full" data-theme="Dark" ref={appRef}>
       <AtomCanvas
         controller={controller}
+        animationLoop={isPlaying}
         className="bg-black absolute top-0 left-0 w-full h-full z-0"
       />
 

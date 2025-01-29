@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TrussMesh, { LatticeType } from "./truss-mesh";
-import { AtomCanvasController } from "../../../atoms/atom-canvas";
+import { AtomCanvasController } from "../../../atoms/canvas/atom-canvas-controller";
 import TrussFea from "./truss-fea";
 import { adjustColor, makeColorScale } from "../../../common/color-utils";
 import { drawArrow, drawX } from "../../../common/canvas-drawer";
@@ -31,6 +31,10 @@ export class TrussStructureView extends AtomCanvasController {
     this.trussColor = "white";
     this.feaEngine = null;
   }
+
+  init() {}
+
+  cleanup() {}
 
   updateMesh(mesh: TrussMesh | null) {
     this.mesh = mesh;
