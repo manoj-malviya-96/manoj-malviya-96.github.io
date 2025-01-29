@@ -6,7 +6,7 @@ export abstract class AtomCanvasController {
     | React.RefObject<null>
     | undefined;
   animationFrameId: number | null;
-  private isStatic: boolean = true;
+  isStatic: boolean = true;
 
   constructor() {
     this.canvasRef = React.createRef();
@@ -17,10 +17,6 @@ export abstract class AtomCanvasController {
     canvasRef: React.RefObject<HTMLCanvasElement> | React.RefObject<null>,
   ) {
     this.canvasRef = canvasRef;
-  }
-
-  setStatic(isStatic: boolean) {
-    this.isStatic = isStatic;
   }
 
   abstract init(): void;
