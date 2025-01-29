@@ -131,7 +131,6 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
     <div className="block h-full w-full" data-theme="Dark" ref={appRef}>
       <AtomCanvas
         controller={controller}
-        animationLoop={isPlaying}
         className="bg-black absolute top-0 left-0 w-full h-full z-0"
       />
 

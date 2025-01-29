@@ -10,6 +10,7 @@ export abstract class BaseVisualizer extends AtomCanvasController {
   protected constructor() {
     super();
     this.features = undefined;
+    this.isStatic = false;
   }
 
   update(features: AudioFeatures) {

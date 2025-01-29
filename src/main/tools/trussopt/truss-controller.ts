@@ -27,6 +27,7 @@ export class TrussStructureView extends AtomCanvasController {
 
   constructor() {
     super();
+    this.isStatic = true;
     this.mesh = null;
     this.trussColor = "white";
     this.feaEngine = null;

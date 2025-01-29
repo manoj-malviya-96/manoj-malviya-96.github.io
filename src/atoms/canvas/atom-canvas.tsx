@@ -1,24 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTheme } from "../../providers/theme";
 import { ScreenSizes, useScreenSizeBreakpoint } from "../../providers/screen";
 import { AtomCanvasController } from "./atom-canvas-controller";
 
 interface AtomCanvasProps {
-  controller?: AtomCanvasController | null;
-  animationLoop?: boolean;
-  isLoading?: boolean;
+  controller: AtomCanvasController | null;
   className?: string;
 }
 
 export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
-  ({
-    controller = null,
-    isLoading = false,
-    animationLoop = true,
-    className = "",
-  }) => {
+  ({ controller = null, className = "" }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const { daisyPrimaryText } = useTheme();
     const breakpoint = useScreenSizeBreakpoint();
 
     const heightScale = breakpoint === ScreenSizes.Small ? 0.5 : 1;
@@ -37,11 +28,10 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
 
       resizeCanvas();
 
-      if (controller && !isLoading) {
+      if (controller) {
         controller.setCanvasRef(
           canvasRef as React.RefObject<HTMLCanvasElement>,
         );
-        controller.setStatic(!animationLoop);
 
         // Restart on song change to ensure fresh drawing
         controller.restart();
@@ -50,7 +40,7 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
           controller.stop();
         };
       }
-    }, [controller, isLoading, animationLoop, dimensions]);
+    }, [controller, dimensions]);
 
     useEffect(() => {
       const handleResize = () => {
@@ -62,31 +52,6 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
         window.removeEventListener("resize", handleResize);
       };
     }, []);
-
-    useEffect(() => {
-      if (canvasRef.current && isLoading) {
-        const ctx = canvasRef.current.getContext("2d");
-        if (ctx) {
-          ctx.clearRect(
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height,
-          );
-
-          ctx.font = "bold 48px Arial";
-          ctx.fillStyle = daisyPrimaryText;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-
-          ctx.fillText(
-            "Loading...",
-            canvasRef.current.width / 2,
-            canvasRef.current.height / 2,
-          );
-        }
-      }
-    }, [isLoading, daisyPrimaryText, dimensions]);
 
     return (
       <canvas
@@ -101,3 +66,5 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
     );
   },
 );
+
+export default AtomCanvas;
