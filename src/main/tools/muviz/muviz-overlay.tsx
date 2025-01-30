@@ -62,7 +62,7 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
     onSliderChange,
   }) => {
     return (
-      <AtomColumn gap={LayoutGap.Small}>
+      <AtomColumn gap={LayoutGap.Medium}>
         {/* Metadata */}
         <AtomRow
           alignment={LayoutAlign.CenterBetween}
