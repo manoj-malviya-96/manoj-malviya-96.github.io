@@ -195,7 +195,7 @@ class Muviz extends ToolInfo {
     super({
       id: "muviz",
       name: AppName,
-      description: "music + stunning visuals",
+      description: "music + stunning visuals + math",
       cover: Logo,
       componentConstructor: () => <MuvizView />,
     });
