@@ -150,14 +150,14 @@ class CppThreads extends BlogInfo {
   constructor() {
     super({
       id: "cpp-threads",
-      title: "Multi-Threading",
+      title: "Multi Threading",
       description: "Dive deep into concurrency",
       date: "Nov 21, 2024",
-      tags: ["C++", "Concurrency", "Threads"],
+      tags: ["C++", "Concurrency", "High Performance Computing"],
       cover: Cover,
       isNew: true,
       category: "Programming",
-      summary: `Multi-threading in programming sounds simple, but it’s complex. I used it to speed up a project,
+      summary: `Multi threading in programming sounds simple, but it’s complex. I used it to speed up a project,
             but it wasn’t as easy as launching threads. This post covers essentials like mutexes, lock guards,
             unique locks, and atomic variables. I’ll share a real-world example: managing an inventory map in a
             multi-threaded environment.`,

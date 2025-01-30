@@ -1,10 +1,16 @@
 import React from "react";
 import AtomSimpleMotionContainer from "./atom-simple-motion-container";
 import { BentoBoxItemProps } from "./atom-bentobox";
-import { AtomDateAndText, AtomSecondaryText, AtomTitleText } from "./atom-text";
+import {
+  AtomDateAndText,
+  AtomSecondaryBadge,
+  AtomSecondaryText,
+  AtomTitleText,
+} from "./atom-text";
 import {
   AtomColumn,
   AtomGrid,
+  AtomRow,
   GridColumns,
   LayoutAlign,
   LayoutGap,
@@ -49,8 +55,10 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
             className="w-full h-2/3 object-cover"
           />
           <AtomColumn gap={LayoutGap.None}>
-            <AtomTitleText children={title} className={"text-center"} />
-            {isNew && <span className="badge badge-info">New</span>}
+            <AtomRow>
+              <AtomTitleText className={"text-center"}>{title}</AtomTitleText>
+              {isNew && <AtomSecondaryBadge>New</AtomSecondaryBadge>}
+            </AtomRow>
             {date && <AtomDateAndText children={date} />}
             {description && (
               <AtomSecondaryText
