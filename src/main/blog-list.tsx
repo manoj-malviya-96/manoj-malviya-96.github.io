@@ -4,7 +4,7 @@ import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
 import { AtomCardGrid, AtomCardProps } from "../atoms/atom-card";
 import { AtomColumn, LayoutGap, LayoutSize } from "../atoms/atom-layout";
-import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
+import { AtomHeroBrandTitleText, AtomTitleText } from "../atoms/atom-text";
 
 const BlogListing = () => {
   const navigate = useNavigate();
@@ -24,10 +24,10 @@ const BlogListing = () => {
 
   return (
     <AtomColumn gap={LayoutGap.Small} size={LayoutSize.FullSize}>
-      <AtomHeroTitleText className={"text-center"}>
-        Sometimes I document my
+      <AtomTitleText className={"text-center"}>
+        Documenting
         <AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
-      </AtomHeroTitleText>
+      </AtomTitleText>
 
       <AtomCardGrid items={allItems} className={"w-full mt-6 px-8"} />
     </AtomColumn>

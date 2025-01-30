@@ -28,7 +28,7 @@ const Home = () => {
   const tabs = [
     { name: "about-me", children: <AtomPrimaryText>About Me</AtomPrimaryText> },
     { name: "playground", children: <AtomPrimaryText>Tools</AtomPrimaryText> },
-    { name: "blog", children: <AtomPrimaryText>Blog</AtomPrimaryText> },
+    { name: "blog", children: <AtomPrimaryText>Blogs</AtomPrimaryText> },
     { name: "hobby", children: <AtomPrimaryText>Hobby</AtomPrimaryText> },
   ];
 
