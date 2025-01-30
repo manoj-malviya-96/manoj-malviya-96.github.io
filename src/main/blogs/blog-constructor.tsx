@@ -51,7 +51,7 @@ const BlogSidePanel: React.FC<BlogHeaderProps> = ({
         <AtomDateAndText>{date}</AtomDateAndText>
         <AtomClippedText
           fullText={summary}
-          maxLength={315}
+          maxLength={600}
           className={"my-4"}
           textComponentConstructor={AtomSecondaryText}
         />
@@ -113,7 +113,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
         date={item.date}
         tags={item.tags}
         tabs={item.tabs()}
-        className={`w-full max-h-screen md:w-1/4 mt-16 block md:fixed left-6 top-0`}
+        className={`w-full max-h-screen md:w-1/5 mt-16 block md:fixed top-0`}
       />
       <div
         className="md:absolute left-1/4 mt-6 md:mt-0 md:p-16 top-0 w-full md:w-3/4 h-fit
