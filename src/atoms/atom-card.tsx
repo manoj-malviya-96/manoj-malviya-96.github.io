@@ -54,18 +54,13 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
             loading="lazy"
             className="w-full h-2/3 object-cover"
           />
-          <AtomColumn gap={LayoutGap.None}>
+          <AtomColumn gap={LayoutGap.None} alignment={LayoutAlign.Start}>
             <AtomRow>
-              <AtomTitleText className={"text-center"}>{title}</AtomTitleText>
+              <AtomTitleText>{title}</AtomTitleText>
               {isNew && <AtomSecondaryBadge>New</AtomSecondaryBadge>}
             </AtomRow>
             {date && <AtomDateAndText children={date} />}
-            {description && (
-              <AtomSecondaryText
-                children={description}
-                className={"text-center"}
-              />
-            )}
+            {description && <AtomSecondaryText children={description} />}
           </AtomColumn>
         </AtomColumn>
       </AtomSimpleMotionContainer>
