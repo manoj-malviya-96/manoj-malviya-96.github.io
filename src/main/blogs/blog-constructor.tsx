@@ -121,7 +121,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
       >
         <AtomBackgroundImage
           src={item.cover}
-          className={`mx-auto w-full md:w-2/3 h-48 md:h-96 relative`}
+          className={`mx-auto w-full md:w-4/5 h-48 md:h-96 relative`}
         >
           <AtomHeroTitleText
             className={"absolute left-0 bottom-0 p-4 text-white"}
