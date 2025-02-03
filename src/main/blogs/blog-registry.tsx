@@ -1,7 +1,7 @@
 import BlogConstructor from "./blog-constructor";
 import { rangesTo } from "../../common/math";
 import { RouteDefinition } from "../../providers/router";
-import QmlOptimization from "./qml-optimization/qml-opt";
+import QmlBindings from "./qml-binding/qml-bind";
 import CppThreads from "./cpp-threads/cpp-threads";
 import DeltaDesign from "./delta-design/delta-design";
 import RapidTopt from "./rapid-topt/rapid-topt";
@@ -11,7 +11,7 @@ import FormlabsRd from "./work-exp/formlabs-rd";
 import { BlogInfo } from "./blog-info";
 
 export const registeredBlogs = [
-  new QmlOptimization(),
+  new QmlBindings(),
   new CppThreads(),
   new DeltaDesign(),
   new RapidTopt(),

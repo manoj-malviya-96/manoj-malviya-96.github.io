@@ -36,18 +36,25 @@ export const AtomPrimaryText: React.FC<AtomTextProps> = ({
   return <span className={`font-light ${className}`}>{children}</span>;
 };
 
+export const AtomBoldText: React.FC<AtomTextProps> = ({
+  children,
+  className = "",
+}) => {
+  return <span className={`font-bold ${className}`}>{children}</span>;
+};
+
 export const AtomSubtitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h4 className={`text-lg font-extrabold ${className}`}>{children}</h4>;
+  return <h4 className={`text-2xl font-bold  ${className}`}>{children}</h4>;
 };
 
 export const AtomTitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h3 className={`text-2xl font-extrabold ${className}`}>{children}</h3>;
+  return <h3 className={`text-3xl font-extrabold ${className}`}>{children}</h3>;
 };
 
 export const AtomHeroTitleText: React.FC<AtomTextProps> = ({
@@ -109,7 +116,7 @@ export const AtomLink: React.FC<AtomLinkProps> = ({
     <a
       href={url}
       className={`text-primary-content hover:text-accent
-                                    text-sm underline ${className}`}
+                                    underline ${className}`}
     >
       {children}
     </a>
