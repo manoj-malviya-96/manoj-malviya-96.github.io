@@ -159,7 +159,7 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
             <AtomDropdown
               options={vizOptions}
               onClick={onVisualizerChange}
-              className="h-full w-28 m-auto"
+              className="h-full w-36 m-auto"
               placeholder="Select Visualizer"
               initialIndex={0}
             />
