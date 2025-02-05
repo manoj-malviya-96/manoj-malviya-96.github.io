@@ -1,5 +1,8 @@
 import React, { ComponentType } from "react";
-import { ScreenSizes, useScreenSizeBreakpoint } from "../providers/screen";
+import {
+  ScreenSizeBreakPointAsString,
+  useScreenSizeBreakpoint,
+} from "../providers/screen";
 
 export enum BentoItemSize {
   Small = 1,
@@ -48,7 +51,10 @@ const AtomBentoBox = React.memo(
     columns = 4,
   }: AtomBentoBoxProps<T>) => {
     const breakpoint = useScreenSizeBreakpoint();
-    if (breakpoint === ScreenSizes.Medium || breakpoint === ScreenSizes.Small) {
+    if (
+      breakpoint === ScreenSizeBreakPointAsString.Medium ||
+      breakpoint === ScreenSizeBreakPointAsString.Small
+    ) {
       console.debug("Detected mobile devices");
       columns = 1;
     }

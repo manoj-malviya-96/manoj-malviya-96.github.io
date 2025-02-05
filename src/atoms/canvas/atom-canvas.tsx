@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScreenSizes, useScreenSizeBreakpoint } from "../../providers/screen";
+import {
+  ScreenSizeBreakPointAsString,
+  useScreenSizeBreakpoint,
+} from "../../providers/screen";
 import { AtomCanvasController } from "./atom-canvas-controller";
 
 interface AtomCanvasProps {
@@ -12,7 +15,8 @@ export const AtomCanvas: React.FC<AtomCanvasProps> = React.memo(
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const breakpoint = useScreenSizeBreakpoint();
 
-    const heightScale = breakpoint === ScreenSizes.Small ? 0.5 : 1;
+    const heightScale =
+      breakpoint === ScreenSizeBreakPointAsString.Small ? 0.5 : 1;
     const [dimensions, setDimensions] = useState({
       width: window.innerWidth,
       height: window.innerHeight * heightScale,

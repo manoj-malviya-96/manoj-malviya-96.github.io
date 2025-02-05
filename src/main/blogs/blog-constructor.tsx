@@ -1,81 +1,78 @@
 import React from "react";
-import AtomTableOfContents, {
-  TableOfContentsItemProps,
-} from "../../atoms/atom-table-of-contents";
+import AtomTableOfContents from "../../atoms/atom-table-of-contents";
 import { Element } from "react-scroll";
 import { BlogInfo } from "./blog-info";
 import {
-  AtomClippedText,
   AtomDateAndText,
   AtomHeroTitleText,
+  AtomPrimaryText,
   AtomSecondaryBadge,
-  AtomSecondaryText,
   AtomTitleText,
 } from "../../atoms/atom-text";
 import {
   AtomColumn,
+  AtomRow,
   LayoutAlign,
   LayoutGap,
   LayoutSize,
-  AtomRow,
 } from "../../atoms/atom-layout";
 import AtomStyledContainer from "../../atoms/atom-styled-container";
-import { AtomBackgroundImage } from "../../atoms/atom-image";
+import AtomImage from "../../atoms/atom-image";
+import {
+  ScreenSizeBreakPointAsString,
+  useScreenSizeBreakpoint,
+} from "../../providers/screen";
 
 interface BlogHeaderProps {
   title: string;
   summary: string;
   date: string;
+  image: string;
   tags: string[];
-  tabs: TableOfContentsItemProps[];
   className?: string;
 }
 
-const BlogSidePanel: React.FC<BlogHeaderProps> = ({
+const BlogHeader: React.FC<BlogHeaderProps> = ({
   title,
   summary,
   date,
   tags,
-  tabs,
+  image,
   className,
 }) => {
   tags.sort((a, b) => a.length - b.length);
   return (
     <AtomStyledContainer className={className} scrollable={false}>
-      <AtomColumn
-        size={LayoutSize.FullWidth}
-        gap={LayoutGap.Small}
+      <AtomRow
+        size={LayoutSize.FullSize}
+        gap={LayoutGap.Medium}
         alignment={LayoutAlign.None}
+        smallDeviceAdjustment={true}
       >
-        <AtomHeroTitleText>{title}</AtomHeroTitleText>
-        <AtomDateAndText>{date}</AtomDateAndText>
-        <AtomClippedText
-          fullText={summary}
-          maxLength={600}
-          className={"my-4"}
-          textComponentConstructor={AtomSecondaryText}
-        />
-        <AtomRow
-          smallDeviceAdjustment={true}
-          alignment={LayoutAlign.Start}
-          gap={LayoutGap.Small}
-          className={"flex-wrap "}
+        <AtomColumn
           size={LayoutSize.FullWidth}
+          gap={LayoutGap.Small}
+          alignment={LayoutAlign.Center}
         >
-          {tags.map((tag, index) => (
-            <AtomSecondaryBadge key={index} className={"w-fit"}>
-              {tag}
-            </AtomSecondaryBadge>
-          ))}
-        </AtomRow>
-        {tabs.length > 1 && (
-          <AtomTableOfContents
-            sections={tabs}
-            label={"Contents"}
-            className={"w-full"}
-          />
-        )}
-      </AtomColumn>
+          <AtomHeroTitleText>{title}</AtomHeroTitleText>
+          <AtomDateAndText>{date}</AtomDateAndText>
+          <AtomPrimaryText className={"my-4"}>{summary}</AtomPrimaryText>
+          <AtomRow
+            smallDeviceAdjustment={true}
+            alignment={LayoutAlign.Start}
+            gap={LayoutGap.Small}
+            className={"flex-wrap "}
+            size={LayoutSize.FullWidth}
+          >
+            {tags.map((tag, index) => (
+              <AtomSecondaryBadge key={index} className={"w-fit"}>
+                {tag}
+              </AtomSecondaryBadge>
+            ))}
+          </AtomRow>
+        </AtomColumn>
+        <AtomImage src={image} alt={title} className={"w-full h-full"} />
+      </AtomRow>
     </AtomStyledContainer>
   );
 };
@@ -91,7 +88,9 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(
     return (
       <Element
         name={name}
-        className={"flex flex-col gap-4 w-full h-fit items-center my-16 px-8"}
+        className={
+          "flex flex-col gap-4 w-full min-w-fit h-fit items-center my-16 px-8"
+        }
       >
         <AtomTitleText className={"w-full text-left"}>{title}</AtomTitleText>
         <div className={"w-full justify-center items-center"}>{children}</div>
@@ -105,37 +104,35 @@ interface BlogConstructorProps {
 }
 
 const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
+  const tabs = item.tabs();
+  const breakpoint = useScreenSizeBreakpoint();
   return (
-    <div className={"relative px-4 py-6"}>
-      <BlogSidePanel
-        title={item.title}
-        summary={item.summary}
-        date={item.date}
-        tags={item.tags}
-        tabs={item.tabs()}
-        className={`w-full max-h-screen md:w-1/5 mt-16 block md:fixed top-0`}
-      />
-      <div
-        className="md:absolute left-1/4 mt-6 md:mt-0 md:p-16 top-0 w-full md:w-3/4 h-fit
-							items-center justify-center"
-      >
-        <AtomBackgroundImage
-          src={item.cover}
-          className={`mx-auto w-full md:w-4/5 h-48 md:h-96 relative`}
-        >
-          <AtomHeroTitleText
-            className={"absolute left-0 bottom-0 p-4 text-white"}
-          >
-            {item.title}
-          </AtomHeroTitleText>
-        </AtomBackgroundImage>
-        {item.sections.map(
-          (secProps: BlogSectionContentProps, index: number) => (
-            <BlogSection key={index} {...secProps} />
-          ),
-        )}
-      </div>
-    </div>
+    <>
+      <AtomColumn className={"p-4 md:p-16"} size={LayoutSize.FullSize}>
+        <BlogHeader
+          title={item.title}
+          summary={item.summary}
+          date={item.date}
+          tags={item.tags}
+          image={item.cover}
+          className={"w-full h-full"}
+        />
+        <AtomColumn size={LayoutSize.None} className={"w-2/3"}>
+          {item.sections.map(
+            (secProps: BlogSectionContentProps, index: number) => (
+              <BlogSection key={index} {...secProps} />
+            ),
+          )}
+        </AtomColumn>
+      </AtomColumn>
+      {tabs.length > 1 && breakpoint !== "sm" && (
+        <AtomTableOfContents
+          sections={tabs}
+          label={"Contents"}
+          className={"fixed bottom-20 left-20 w-52 bg-primary"}
+        />
+      )}
+    </>
   );
 };
 
