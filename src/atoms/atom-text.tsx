@@ -76,7 +76,7 @@ export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({
 };
 
 export const BrandGradient =
-  "bg-gradient-to-r from-blue-750 to-indigo-350 bg-clip-text text-transparent";
+  "bg-gradient-to-r from-blue-800 to-purple-400 bg-clip-text text-transparent";
 
 export const AtomHeroBrandTitleText: React.FC<AtomTextProps> = ({
   children,
