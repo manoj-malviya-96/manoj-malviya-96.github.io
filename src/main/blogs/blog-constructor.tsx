@@ -4,7 +4,6 @@ import { Element } from "react-scroll";
 import { BlogInfo } from "./blog-info";
 import {
   AtomDateAndText,
-  AtomHeroTitleText,
   AtomPrimaryText,
   AtomSecondaryBadge,
   AtomSuperHeroTitleText,
