@@ -23,9 +23,7 @@ export const AtomSecondaryText: React.FC<AtomTextProps> = ({
   className = "",
 }) => {
   return (
-    <span className={`text-sm font-light opacity-70 ${className}`}>
-      {children}
-    </span>
+    <span className={`font-light opacity-70 ${className}`}>{children}</span>
   );
 };
 
@@ -33,7 +31,7 @@ export const AtomPrimaryText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <span className={`font-light ${className}`}>{children}</span>;
+  return <span className={`text-lg font-light ${className}`}>{children}</span>;
 };
 
 export const AtomBoldText: React.FC<AtomTextProps> = ({
@@ -47,35 +45,21 @@ export const AtomSubtitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h4 className={`text-2xl font-bold  ${className}`}>{children}</h4>;
+  return <h4 className={`text-3xl font-bold  ${className}`}>{children}</h4>;
 };
 
 export const AtomTitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h3 className={`text-3xl font-extrabold ${className}`}>{children}</h3>;
+  return <h3 className={`text-4xl font-extrabold ${className}`}>{children}</h3>;
 };
 
 export const AtomHeroTitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h2 className={`text-5xl font-extrabold ${className}`}>{children}</h2>;
-};
-
-export const AtomHeroBrandTitleText: React.FC<AtomTextProps> = ({
-  children,
-  className = "",
-}) => {
-  return (
-    <h1
-      className={`text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-300
-						bg-clip-text text-transparent ${className}`}
-    >
-      {children}
-    </h1>
-  );
+  return <h2 className={`text-6xl font-extrabold ${className}`}>{children}</h2>;
 };
 
 export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({
@@ -83,7 +67,23 @@ export const AtomSuperHeroTitleText: React.FC<AtomTextProps> = ({
   className = "",
 }) => {
   return (
-    <h1 className={`text-7xl font-bold uppercase text-center ${className}`}>
+    <h1
+      className={`text-9xl font-extrabold uppercase text-center ${className}`}
+    >
+      {children}
+    </h1>
+  );
+};
+
+export const BrandGradient =
+  "bg-gradient-to-r from-blue-700 to-rose-500 bg-clip-text text-transparent";
+
+export const AtomHeroBrandTitleText: React.FC<AtomTextProps> = ({
+  children,
+  className = "",
+}) => {
+  return (
+    <h1 className={`text-5xl font-bold ${BrandGradient} ${className}`}>
       {children}
     </h1>
   );
@@ -95,8 +95,7 @@ export const AtomSuperHeroBrandTitleText: React.FC<AtomTextProps> = ({
 }) => {
   return (
     <h1
-      className={`text-9xl font-extrabold uppercase bg-gradient-to-r from-blue-600 to-blue-300
-						bg-clip-text text-transparent ${className}`}
+      className={`text-9xl font-extrabold uppercase ${BrandGradient} ${className}`}
     >
       {children}
     </h1>
@@ -128,7 +127,7 @@ export const AtomDateAndText: React.FC<AtomTextProps> = ({
   className = "",
 }) => {
   return (
-    <span className={`text-sm opacity-70 ${className}`}>
+    <span className={`opacity-70 ${className}`}>
       <i className="fas fa-calendar-days"></i> {children}
     </span>
   );
