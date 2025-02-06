@@ -70,7 +70,7 @@ export const AtomHeroBrandTitleText: React.FC<AtomTextProps> = ({
 }) => {
   return (
     <h1
-      className={`text-5xl font-bold bg-gradient-to-r from-red-700 to-red-300
+      className={`text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-300
 						bg-clip-text text-transparent ${className}`}
     >
       {children}
@@ -95,7 +95,7 @@ export const AtomSuperHeroBrandTitleText: React.FC<AtomTextProps> = ({
 }) => {
   return (
     <h1
-      className={`text-7xl font-extrabold uppercase bg-gradient-to-r from-red-700 to-red-300
+      className={`text-9xl font-extrabold uppercase bg-gradient-to-r from-blue-600 to-blue-300
 						bg-clip-text text-transparent ${className}`}
     >
       {children}
