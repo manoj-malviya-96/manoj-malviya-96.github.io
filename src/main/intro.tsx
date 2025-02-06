@@ -6,7 +6,7 @@ import {
   AtomSuperHeroBrandTitleText,
 } from "../atoms/atom-text";
 import { AtomColumn, LayoutGap } from "../atoms/atom-layout";
-import CoverDark from "./assets/cover-dark-blue.gif";
+import CoverDark from "./assets/cover-dark-slow.gif";
 
 const Intro = () => {
   return (
