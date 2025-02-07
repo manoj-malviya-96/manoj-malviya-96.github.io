@@ -1,6 +1,6 @@
 import { BlogInfo } from "../blog-info";
 import Cover from "./cover.webp";
-import { AtomColumn, LayoutAlign, LayoutGap } from "../../../atoms/atom-layout";
+import { AtomColumn, LayoutAlign } from "../../../atoms/atom-layout";
 import React from "react";
 import {
   AtomBoldText,
