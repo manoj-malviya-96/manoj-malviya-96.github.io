@@ -27,6 +27,8 @@ import HeartBeat from "./heartbeat.gif";
 import Logo from "../logos/val.svg";
 import AtomDropdown from "../../../atoms/atom-dropdown";
 import { sendEmail } from "../../../common/email";
+import { useToast } from "../../../providers/toasts";
+import { ToastSeverity } from "../../../atoms/atom-toast";
 
 const AppName = "VALENTINE";
 
@@ -159,13 +161,26 @@ const AskOutState: React.FC<StateProps> = ({ onAccept, onDecline }) => {
 };
 
 const WhatAreWeDoingState = () => {
-  const [dinner, setDinner] = React.useState<string>("");
-  const [activity, setActivity] = React.useState<string>("");
+  const [dinner, setDinner] = React.useState<string>("Eat Out Pizza");
+  const [activity, setActivity] = React.useState<string>("Watching Movie");
+  const [postAct, setPostAct] = React.useState<string>("setPostAct");
   const [specialRequest, setSpecialRequest] = React.useState<string>("");
+  const [submit, setSubmit] = React.useState<boolean>(false);
+  const { addToast } = useToast();
 
   const onSubmit = () => {
-    const msg = `Confirming details: We are going to ${activity} and then ${dinner}. Special Request: ${specialRequest}`;
-    sendEmail(msg, "Manoj", "malviyamanoj1896@gmail.com");
+    const msg = `Confirming details: We are going to ${activity} and then ${dinner} and then some ${postAct}.
+              Special Request: ${specialRequest}`;
+    sendEmail(msg, "Manoj", "malviyamanoj1896@gmail.com")
+      .then((result) => {
+        console.log(result);
+        setSubmit(false);
+        addToast("Email Sent", ToastSeverity.Success);
+      })
+      .catch((error) => {
+        addToast(`Email not sent ${error.text}`, ToastSeverity.Error);
+        setSubmit(false);
+      });
   };
 
   return (
@@ -173,85 +188,92 @@ const WhatAreWeDoingState = () => {
       scrollable={false}
       className={"w-full h-full justify-center items-center"}
     >
-      <AtomColumn size={LayoutSize.FullWidth}>
+      {!submit && (
+        <AtomColumn size={LayoutSize.FullWidth}>
+          <AtomHeroBrandTitleText>
+            Lets spend time together on Feb 14
+          </AtomHeroBrandTitleText>
+          <AtomRow>
+            <AtomTitleText>I am thinking of</AtomTitleText>
+            <AtomDropdown
+              placeholder="date ideas"
+              initialIndex={-1}
+              dropdownIcon={"fa-brands fa-gratipay"}
+              options={[
+                {
+                  label: "Watching Movie",
+                  value: "Watching Movie",
+                },
+                {
+                  label: "Go Bowling",
+                  value: "Go Bowling",
+                },
+                {
+                  label: "Visit Postdam",
+                  value: "Visit Postdam",
+                },
+              ]}
+              onClick={(value) => setActivity(value)}
+            />
+          </AtomRow>
+          <AtomRow>
+            <AtomTitleText>After that, we </AtomTitleText>
+            <AtomDropdown
+              placeholder="dinner ideas"
+              initialIndex={-1}
+              dropdownIcon={"fas fa-utensils"}
+              options={[
+                {
+                  label: "Eat Out Pizza",
+                  value: "Eat Out Pizza",
+                },
+                {
+                  label: "We bake pizza together",
+                  value: "We bake pizza together",
+                },
+              ]}
+              onClick={(value) => setDinner(value)}
+            />
+          </AtomRow>
+          <AtomRow>
+            <AtomTitleText>And then we :P</AtomTitleText>
+            <AtomDropdown
+              placeholder="...."
+              initialIndex={-1}
+              dropdownIcon={"fas fa-heart-circle-bolt"}
+              options={[
+                {
+                  label: "Niagra falls",
+                  value: "Niagra falls",
+                },
+                {
+                  label: "Cuddle",
+                  value: "Cuddle",
+                },
+              ]}
+              onClick={(value) => setPostAct(value)}
+            />
+          </AtomRow>
+          <AtomRow>
+            <AtomTitleText> And any special request </AtomTitleText>
+            <AtomTextInput
+              text={specialRequest}
+              placeholder={"Special Request"}
+              onChange={setSpecialRequest}
+            />
+          </AtomRow>
+          <AtomButton
+            label={"Submit"}
+            severity={ButtonSeverity.Info}
+            onClick={onSubmit}
+          />
+        </AtomColumn>
+      )}
+      {submit && (
         <AtomHeroBrandTitleText>
-          Lets spend time together on Feb 14
+          Manosha got the msg, LOVE U BEE
         </AtomHeroBrandTitleText>
-        <AtomRow>
-          <AtomTitleText>I am thinking of</AtomTitleText>
-          <AtomDropdown
-            placeholder="date ideas"
-            initialIndex={-1}
-            dropdownIcon={"fa-brands fa-gratipay"}
-            options={[
-              {
-                label: "Watching Movie",
-                value: "Watching Movie",
-              },
-              {
-                label: "Go Bowling",
-                value: "Go Bowling",
-              },
-              {
-                label: "Visit Postdam",
-                value: "Visit Postdam",
-              },
-            ]}
-            onClick={(value) => setActivity(value)}
-          />
-        </AtomRow>
-        <AtomRow>
-          <AtomTitleText>After that, we </AtomTitleText>
-          <AtomDropdown
-            placeholder="dinner ideas"
-            initialIndex={-1}
-            dropdownIcon={"fas fa-utensils"}
-            options={[
-              {
-                label: "Eat Out Pizza",
-                value: "Eat Out Pizza",
-              },
-              {
-                label: "We bake pizza together",
-                value: "We bake pizza together",
-              },
-            ]}
-            onClick={(value) => setDinner(value)}
-          />
-        </AtomRow>
-        <AtomRow>
-          <AtomTitleText>And then we :P</AtomTitleText>
-          <AtomDropdown
-            placeholder="...."
-            initialIndex={-1}
-            dropdownIcon={"fas fa-heart-circle-bolt"}
-            options={[
-              {
-                label: "Niagra falls",
-                value: "Niagra falls",
-              },
-              {
-                label: "Cuddle",
-                value: "Cuddle",
-              },
-            ]}
-            onClick={(value) => setDinner(value)}
-          />
-        </AtomRow>
-        <AtomRow>
-          <AtomTitleText> And any special request </AtomTitleText>
-          <AtomTextInput
-            text={specialRequest}
-            placeholder={"Special Request"}
-            onChange={setSpecialRequest}
-          />
-        </AtomRow>
-        <AtomButton
-          label={"Submit"}
-          severity={ButtonSeverity.Info}
-          onClick={onSubmit}
-        />
-      </AtomColumn>
+      )}
     </AtomStyledContainer>
   );
 };
