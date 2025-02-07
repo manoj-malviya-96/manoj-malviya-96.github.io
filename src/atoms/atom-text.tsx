@@ -166,6 +166,27 @@ export const AtomSecondaryBadge: React.FC<AtomTextProps> = ({
   );
 };
 
+interface AtomTextInputProps {
+  text: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  className?: string;
+}
+
+export const AtomTextInput: React.FC<AtomTextInputProps> = React.memo(
+  ({ text, onChange, placeholder = "", className = "" }) => {
+    return (
+      <input
+        type="text"
+        value={text}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        className={`input input-bordered ${className}`}
+      />
+    );
+  },
+);
+
 interface AtomClippedTextProps {
   textComponentConstructor: (props: AtomTextProps) => React.ReactNode;
   fullText: string;

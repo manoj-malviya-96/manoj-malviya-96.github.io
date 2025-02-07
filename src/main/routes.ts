@@ -1,6 +1,6 @@
 import Home from "./home";
 import { makeBlogRouters } from "./blogs/blog-registry";
-import { makeToolRouter } from "./tools/tool-registry";
+import { makeSecretTools, makeToolRouter } from "./tools/tool-registry";
 
 const constructedRoutes = [
   {
@@ -10,5 +10,6 @@ const constructedRoutes = [
 ];
 constructedRoutes.push(...makeBlogRouters());
 constructedRoutes.push(...makeToolRouter());
+constructedRoutes.push(...makeSecretTools());
 
 export default constructedRoutes;
