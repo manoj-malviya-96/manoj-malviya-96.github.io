@@ -286,7 +286,7 @@ enum State {
 }
 
 const ValentineView = () => {
-  const [state, setState] = React.useState<State>(State.WhatAreWeDoing);
+  const [state, setState] = React.useState<State>(State.Intro);
 
   return (
     <AppView appName={AppName} appLogo={Logo}>
