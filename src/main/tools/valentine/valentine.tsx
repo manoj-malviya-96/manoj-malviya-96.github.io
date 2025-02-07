@@ -181,7 +181,7 @@ const WhatAreWeDoingState = () => {
         addToast(`Email not sent ${error.text}`, ToastSeverity.Error);
         setSubmit(false);
       });
-  }, [setSubmit, addToast]);
+  }, [setSubmit, addToast, activity, dinner, postAct, specialRequest]);
 
   return (
     <AtomStyledContainer
