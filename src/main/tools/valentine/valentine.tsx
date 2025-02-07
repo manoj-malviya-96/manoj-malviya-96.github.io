@@ -89,8 +89,7 @@ const IntroState: React.FC<StateProps> = ({ onAccept, onDecline }) => {
       content={
         <AtomColumn>
           <AtomTitleText>
-            Hi Bee!! I am so glad you are here with me. I have something to tell
-            you so much.
+            Hi Bee!! I have something to tell you kkkkk
           </AtomTitleText>
           <AtomImage src={Beat} alt={"heart beat"} />
           <AtomSuperHeroBrandTitleText>I Love you </AtomSuperHeroBrandTitleText>
@@ -99,7 +98,7 @@ const IntroState: React.FC<StateProps> = ({ onAccept, onDecline }) => {
       acceptText={"I love you too"}
       declineText={"I love you more"}
       acceptIcon={"fas fa-heart"}
-      declineIcon={"fas fa-heart"}
+      declineIcon={"fas fa-heart-circle-check"}
       onAccept={onAccept}
       onDecline={onDecline}
     />
