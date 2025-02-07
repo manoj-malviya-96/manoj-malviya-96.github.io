@@ -164,7 +164,7 @@ const AskOutState: React.FC<StateProps> = ({ onAccept, onDecline }) => {
 const WhatAreWeDoingState = () => {
   const [dinner, setDinner] = React.useState<string>("Eat Out Pizza");
   const [activity, setActivity] = React.useState<string>("Watching Movie");
-  const [postAct, setPostAct] = React.useState<string>("setPostAct");
+  const [postAct, setPostAct] = React.useState<string>("Cuddle");
   const [specialRequest, setSpecialRequest] = React.useState<string>("");
   const [submit, setSubmit] = React.useState<boolean>(false);
   const { addToast } = useToast();

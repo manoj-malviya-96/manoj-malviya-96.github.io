@@ -45,14 +45,14 @@ export const AtomSubtitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h4 className={`text-3xl font-bold  ${className}`}>{children}</h4>;
+  return <h4 className={`text-2xl font-bold  ${className}`}>{children}</h4>;
 };
 
 export const AtomTitleText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <h3 className={`text-4xl font-extrabold ${className}`}>{children}</h3>;
+  return <h3 className={`text-3xl font-extrabold ${className}`}>{children}</h3>;
 };
 
 export const AtomHeroTitleText: React.FC<AtomTextProps> = ({

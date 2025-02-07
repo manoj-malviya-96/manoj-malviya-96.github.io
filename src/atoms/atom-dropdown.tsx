@@ -70,7 +70,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(
           {options.map((option, index) => (
             <li key={index}>
               <div
-                className={`w-fit rounded-none
+                className={`w-full rounded-none
                             ${
                               !!selectedOption && selectedOption === option
                                 ? "bg-secondary text-secondary-content"
