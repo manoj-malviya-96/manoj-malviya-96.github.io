@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ToolInfo from "../tool-info";
 import AppView from "../app-view";
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
@@ -168,20 +168,20 @@ const WhatAreWeDoingState = () => {
   const [submit, setSubmit] = React.useState<boolean>(false);
   const { addToast } = useToast();
 
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
     const msg = `Confirming details: We are going to ${activity} and then ${dinner} and then some ${postAct}.
               Special Request: ${specialRequest}`;
     sendEmail(msg, "Manoj", "malviyamanoj1896@gmail.com")
       .then((result) => {
         console.log(result);
-        setSubmit(false);
+        setSubmit(true);
         addToast("Email Sent", ToastSeverity.Success);
       })
       .catch((error) => {
         addToast(`Email not sent ${error.text}`, ToastSeverity.Error);
         setSubmit(false);
       });
-  };
+  }, [setSubmit, addToast]);
 
   return (
     <AtomStyledContainer
@@ -258,7 +258,7 @@ const WhatAreWeDoingState = () => {
             <AtomTitleText> And any special request </AtomTitleText>
             <AtomTextInput
               text={specialRequest}
-              placeholder={"Special Request"}
+              placeholder={"My princess, what you want to do <3"}
               onChange={setSpecialRequest}
             />
           </AtomRow>
