@@ -62,7 +62,7 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
     onSliderChange,
   }) => {
     return (
-      <AtomColumn gap={LayoutGap.Small}>
+      <AtomColumn gap={LayoutGap.Medium}>
         {/* Metadata */}
         <AtomRow
           alignment={LayoutAlign.CenterBetween}
@@ -141,7 +141,7 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
               options={songOptions}
               dropdownIcon={"fas fa-music"}
               onClick={onSampleSongChange}
-              className="h-full w-36 m-auto"
+              className="h-full w-fit m-auto"
               placeholder="Sample Song"
             />
             <AtomDialog icon="fa-solid fa-upload" title="Upload Song">
@@ -159,7 +159,7 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
             <AtomDropdown
               options={vizOptions}
               onClick={onVisualizerChange}
-              className="h-full w-28 m-auto"
+              className="h-full w-fit m-auto"
               placeholder="Select Visualizer"
               initialIndex={0}
             />

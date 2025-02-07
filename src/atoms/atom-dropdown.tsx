@@ -53,7 +53,7 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(
           icon={open ? iconWhenDropdownIsOpen : iconWhenDropdownIsClosed}
           label={selectedOption ? selectedOption.label : placeholder}
           onClick={() => setOpen(!open)}
-          className={`w-full`}
+          className={`w-fit`}
           pill={false}
           hoverEffect={false}
           severity={open ? ButtonSeverity.Secondary : ButtonSeverity.Primary}
@@ -63,14 +63,14 @@ const AtomDropdown: React.FC<AtomDropdownProps> = React.memo(
         {/*DropDown Content*/}
         <ul
           tabIndex={0}
-          className={`dropdown-content menu p-2 shadow w-full mb-3
+          className={`dropdown-content menu p-2 shadow w-fit mb-3
                             border border-neutral border-opacity-50 rounded-lg bg-primary
                             ${open ? "block" : "hidden"}`}
         >
           {options.map((option, index) => (
             <li key={index}>
               <div
-                className={`w-full rounded-none
+                className={`w-fit rounded-none
                             ${
                               !!selectedOption && selectedOption === option
                                 ? "bg-secondary text-secondary-content"

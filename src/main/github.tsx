@@ -203,7 +203,6 @@ export const GithubView = () => {
               <AtomDropdown
                 onClick={setType}
                 initialIndex={0}
-                className={"w-32"}
                 options={[
                   {
                     label: "Calendar",

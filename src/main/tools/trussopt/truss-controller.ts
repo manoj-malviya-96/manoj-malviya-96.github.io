@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TrussMesh, { LatticeType } from "./truss-mesh";
-import { AtomCanvasController } from "../../../atoms/atom-canvas";
+import { AtomCanvasController } from "../../../atoms/canvas/atom-canvas-controller";
 import TrussFea from "./truss-fea";
 import { adjustColor, makeColorScale } from "../../../common/color-utils";
 import { drawArrow, drawX } from "../../../common/canvas-drawer";
@@ -27,10 +27,15 @@ export class TrussStructureView extends AtomCanvasController {
 
   constructor() {
     super();
+    this.isStatic = true;
     this.mesh = null;
     this.trussColor = "white";
     this.feaEngine = null;
   }
+
+  init() {}
+
+  cleanup() {}
 
   updateMesh(mesh: TrussMesh | null) {
     this.mesh = mesh;
@@ -99,9 +104,7 @@ export class TrussStructureView extends AtomCanvasController {
     ctx.clearRect(0, 0, width, height);
 
     const ogPoints = this.mesh.points;
-    console.log("Points", ogPoints);
     const points = ogPoints.map(([x, y]) => this.toCanvasCoords(x, y));
-    console.log("Points", points);
 
     const edges = this.mesh.connections;
     const thickness = this.mesh.normThickness;
@@ -223,13 +226,9 @@ export class TrussStructureView extends AtomCanvasController {
     }
     const rect = canvas.getBoundingClientRect();
     const handleMouseDown = (event: MouseEvent) => {
-      console.log(event.clientX, event.clientY, rect.x, rect.y);
       const mouseX = event.clientX - rect.x;
       const mouseY = event.clientY - rect.y;
-
-      console.log("Mouse down --", mouseX, mouseY);
       const [x, y] = this.fromCanvasCoords(mouseX, mouseY);
-      console.log("transformed -- ", x, y);
       switch (mouseMode) {
         case MouseMode.AddFixed:
           this.mesh?.addFixNode(x, y);

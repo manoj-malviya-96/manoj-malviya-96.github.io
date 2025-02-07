@@ -1,5 +1,5 @@
 import AtomStyledContainer from "../../../atoms/atom-styled-container";
-import { AtomCanvas } from "../../../atoms/atom-canvas";
+import { AtomCanvas } from "../../../atoms/canvas/atom-canvas";
 import { AtomRow, LayoutSize } from "../../../atoms/atom-layout";
 import AtomStats, { StatSeverity } from "../../../atoms/atom-stats";
 import React from "react";
@@ -25,12 +25,7 @@ const TrussOptOutput: React.FC<TrussOptOutputProps> = React.memo(
         transparency={true}
         scrollable={false}
       >
-        <AtomCanvas
-          controller={controller}
-          animationLoop={false}
-          isLoading={canvasLoading}
-          className="w-full h-full p-4"
-        />
+        <AtomCanvas controller={controller} className="w-full h-full p-4" />
 
         <div
           className="absolute right-0 bottom-0 p-4

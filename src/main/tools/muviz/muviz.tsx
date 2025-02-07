@@ -4,7 +4,7 @@ import { AudioPlayerProps, useAudioPlayer } from "../../../common/audio";
 import Logo from "../logos/muviz.svg";
 import { AtomDropdownItemProps } from "../../../atoms/atom-dropdown";
 
-import { AtomCanvas } from "../../../atoms/atom-canvas";
+import { AtomCanvas } from "../../../atoms/canvas/atom-canvas";
 import { toggleFullScreen } from "../../../common/full-screen";
 import AppView from "../app-view";
 import AtomMouseArea from "../../../atoms/atom-mouse-area";
@@ -195,7 +195,7 @@ class Muviz extends ToolInfo {
     super({
       id: "muviz",
       name: AppName,
-      description: "music + stunning visuals",
+      description: "music + stunning visuals + math",
       cover: Logo,
       componentConstructor: () => <MuvizView />,
     });

@@ -116,7 +116,7 @@ const TrussOptControl: React.FC<TrussOptControlProps> = React.memo(
                   value: LatticeType.Checkerboard,
                 },
               ]}
-              className={"w-24 mx-auto mt-6"}
+              className={"w-fit mx-auto mt-6"}
               onClick={onLatticeTypeChange}
             />
           </AtomGrid>

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 
 // Define breakpoints using enums
-export enum ScreenSizeBreakPoints {
+export enum ScreenSizeBreakPoint {
   Small = 640,
   Medium = 768,
   Large = 1024,
@@ -10,7 +10,7 @@ export enum ScreenSizeBreakPoints {
 }
 
 // Define screen sizes using enums
-export enum ScreenSizes {
+export enum ScreenSizeBreakPointAsString {
   Small = "sm",
   Medium = "md",
   Large = "lg",
@@ -19,31 +19,31 @@ export enum ScreenSizes {
   ExtraExtraExtraLarge = "3xl",
 }
 
-function getScreenBreakpoint(): ScreenSizes {
+function getScreenBreakpoint(): ScreenSizeBreakPointAsString {
   const width = window.innerWidth;
 
-  if (width < ScreenSizeBreakPoints.Small) {
-    return ScreenSizes.Small;
+  if (width < ScreenSizeBreakPoint.Small) {
+    return ScreenSizeBreakPointAsString.Small;
   }
-  if (width < ScreenSizeBreakPoints.Medium) {
-    return ScreenSizes.Medium;
+  if (width < ScreenSizeBreakPoint.Medium) {
+    return ScreenSizeBreakPointAsString.Medium;
   }
-  if (width < ScreenSizeBreakPoints.Large) {
-    return ScreenSizes.Large;
+  if (width < ScreenSizeBreakPoint.Large) {
+    return ScreenSizeBreakPointAsString.Large;
   }
-  if (width < ScreenSizeBreakPoints.ExtraLarge) {
-    return ScreenSizes.ExtraLarge;
+  if (width < ScreenSizeBreakPoint.ExtraLarge) {
+    return ScreenSizeBreakPointAsString.ExtraLarge;
   }
-  if (width < ScreenSizeBreakPoints.ExtraExtraLarge) {
-    return ScreenSizes.ExtraExtraLarge;
+  if (width < ScreenSizeBreakPoint.ExtraExtraLarge) {
+    return ScreenSizeBreakPointAsString.ExtraExtraLarge;
   }
 
-  return ScreenSizes.ExtraExtraExtraLarge; // Default to the
+  return ScreenSizeBreakPointAsString.ExtraExtraExtraLarge; // Default to the
   // largest size
 }
 
-export function useScreenSizeBreakpoint(): ScreenSizes {
-  const [breakpoint, setBreakpoint] = useState<ScreenSizes>(
+export function useScreenSizeBreakpoint(): ScreenSizeBreakPointAsString {
+  const [breakpoint, setBreakpoint] = useState<ScreenSizeBreakPointAsString>(
     getScreenBreakpoint(),
   );
 
@@ -57,7 +57,8 @@ export function useScreenSizeBreakpoint(): ScreenSizes {
 }
 
 // Context to provide screen size
-export const ScreenSizeContext = createContext<ScreenSizes | null>(null);
+export const ScreenSizeContext =
+  createContext<ScreenSizeBreakPointAsString | null>(null);
 
 interface ScreenSizeProviderProps {
   children: ReactNode;

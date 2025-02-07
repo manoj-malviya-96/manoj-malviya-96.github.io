@@ -4,7 +4,7 @@ import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
 import { AtomCardGrid, AtomCardProps } from "../atoms/atom-card";
 import { AtomColumn, LayoutGap, LayoutSize } from "../atoms/atom-layout";
-import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
+import { AtomHeroBrandTitleText, AtomTitleText } from "../atoms/atom-text";
 import ToolInfo from "./tools/tool-info";
 import { BentoItemSize } from "../atoms/atom-bentobox";
 
@@ -27,10 +27,10 @@ const ToolDrawer = () => {
 
   return (
     <AtomColumn gap={LayoutGap.Small} size={LayoutSize.FullSize}>
-      <AtomHeroTitleText className={"text-center"}>
-        Sometimes I create in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
-      </AtomHeroTitleText>
-      <AtomCardGrid items={items} className={"w-2/3 mt-16"} />
+      <AtomTitleText className={"text-center"}>
+        Creating in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
+      </AtomTitleText>
+      <AtomCardGrid items={items} className={"w-1/2 mt-16"} />
     </AtomColumn>
   );
 };

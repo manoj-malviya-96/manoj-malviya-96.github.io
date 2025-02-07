@@ -8,7 +8,7 @@ import {
 import AtomImage from "../atoms/atom-image";
 
 import React from "react";
-import { AtomHeroBrandTitleText, AtomHeroTitleText } from "../atoms/atom-text";
+import { AtomHeroBrandTitleText, AtomTitleText } from "../atoms/atom-text";
 import AtomStyledContainer from "../atoms/atom-styled-container";
 import YoutubePlayer from "../atoms/misc/youtube-player";
 
@@ -81,10 +81,9 @@ const MusicSlides = () => {
 const Hobbies = () => {
   return (
     <AtomColumn size={LayoutSize.FullSize} gap={LayoutGap.Medium}>
-      <AtomHeroTitleText className={"text-center"}>
-        Sometimes I do stuff
-        <AtomHeroBrandTitleText> for my soul.</AtomHeroBrandTitleText>
-      </AtomHeroTitleText>
+      <AtomTitleText>
+        For my <AtomHeroBrandTitleText> soul.</AtomHeroBrandTitleText>
+      </AtomTitleText>
       {/* Photography */}
       <AtomStyledContainer className={"w-full h-full"} label={"Photography"}>
         <PhotographSlides />
