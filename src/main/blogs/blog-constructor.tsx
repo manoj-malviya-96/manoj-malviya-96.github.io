@@ -119,7 +119,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
               <AtomTableOfContents
                 sections={tabs}
                 label={"Contents"}
-                className={"w-1/4 my-16"}
+                className={"sticky top-32 self-start w-1/4 my-16"}
               />
             )}
           <AtomColumn size={LayoutSize.FullWidth}>
