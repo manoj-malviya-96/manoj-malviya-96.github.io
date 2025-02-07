@@ -295,7 +295,7 @@ const ValentineView = () => {
           onAccept={() => {
             setState(State.History);
           }}
-          onDecline={() => setState(State.Intro)}
+          onDecline={() => setState(State.History)}
         />
       )}
       {state === State.History && (
