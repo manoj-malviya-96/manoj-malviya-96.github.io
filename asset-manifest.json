@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b957b4f2.css",
-    "main.js": "/static/js/main.9c25d7c0.js",
+    "main.js": "/static/js/main.ed9e64b1.js",
     "static/js/453.fb996180.chunk.js": "/static/js/453.fb996180.chunk.js",
     "static/media/princess.mp3": "/static/media/princess.0c17d625811992c08d62.mp3",
     "static/media/LeaveTheWorldBehing.mp3": "/static/media/LeaveTheWorldBehing.8802836be58617714d5d.mp3",
@@ -20,6 +20,7 @@
     "static/media/alka-min.jpg": "/static/media/alka-min.7fd216dbc41f429231f1.jpg",
     "static/media/sweden-min.jpg": "/static/media/sweden-min.05e87b56c94e51335224.jpg",
     "static/media/love.jpeg": "/static/media/love.6bbe804e9e4db911802f.jpeg",
+    "static/media/nick_carter.gif": "/static/media/nick_carter.e04b1e290162e080bc98.gif",
     "static/media/pretty.jpg": "/static/media/pretty.667745b096399baa12a3.jpg",
     "static/media/stuf.jpg": "/static/media/stuf.5552bb7c2955f3daad17.jpg",
     "static/media/mash.jpg": "/static/media/mash.32b0e3f6cddf34e4775c.jpg",
@@ -58,11 +59,11 @@
     "index.html": "/index.html",
     "static/media/form-4-icon.svg": "/static/media/form-4-icon.3275619aad2f7263110a21b2d6522d94.svg",
     "main.b957b4f2.css.map": "/static/css/main.b957b4f2.css.map",
-    "main.9c25d7c0.js.map": "/static/js/main.9c25d7c0.js.map",
+    "main.ed9e64b1.js.map": "/static/js/main.ed9e64b1.js.map",
     "453.fb996180.chunk.js.map": "/static/js/453.fb996180.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b957b4f2.css",
-    "static/js/main.9c25d7c0.js"
+    "static/js/main.ed9e64b1.js"
   ]
 }
