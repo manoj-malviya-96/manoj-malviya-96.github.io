@@ -60,9 +60,13 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
     [controller, setSrc],
   );
 
-  const handleVisualizerChange = useCallback((value: any) => {
-    setVisualizerType(value);
-  }, []);
+  const handleVisualizerChange = useCallback(
+    (value: VisualizerType) => {
+      setVisualizerType(value);
+      pause();
+    },
+    [setVisualizerType, pause],
+  );
 
   const handlePlayOrPause = useCallback(() => {
     if (isPlaying) {
@@ -131,7 +135,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
     <div className="block h-full w-full" data-theme="Dark" ref={appRef}>
       <AtomCanvas
         controller={controller}
-        className="bg-black absolute top-0 left-0 w-full h-full z-0"
+        className="bg-base-100 absolute top-0 left-0 w-full h-full z-0"
       />
 
       <AtomMouseArea

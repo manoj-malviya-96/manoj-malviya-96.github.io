@@ -24,7 +24,7 @@ export const defaultVizOptions = [
     value: VisualizerType.Abstract,
   } as AtomDropdownItemProps,
   {
-    label: "DeveloperMode",
+    label: "DevMode",
     value: VisualizerType.DeveloperMode,
   } as AtomDropdownItemProps,
 ];
