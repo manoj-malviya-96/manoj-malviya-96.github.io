@@ -36,14 +36,14 @@ const BlogListing = () => {
         <AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
       </AtomTitleText>
       <AtomGrid
-        className={"w-full mt-6 px-8"}
-        size={LayoutSize.Fit}
-        gap={LayoutGap.Medium}
+        className={"mt-6 px-8"}
+        size={LayoutSize.FullSize}
+        gap={LayoutGap.Large}
         nCols={GridColumns.Four}
         alignment={LayoutAlign.Start}
       >
         {allItems.map((item, index) => (
-          <AtomCard {...item} key={index} />
+          <AtomCard key={index} {...item} className={"w-full h-fit"} />
         ))}
       </AtomGrid>
     </AtomColumn>

@@ -38,14 +38,14 @@ const ToolDrawer = () => {
         Creating in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
       </AtomTitleText>
       <AtomGrid
-        size={LayoutSize.Fit}
-        gap={LayoutGap.Medium}
+        size={LayoutSize.None}
+        gap={LayoutGap.Large}
         nCols={GridColumns.Four}
-        alignment={LayoutAlign.Start}
-        className={"w-1/2 mt-16"}
+        alignment={LayoutAlign.Center}
+        className={"w-1/2 h-1/2 mt-16"}
       >
         {items.map((item, index) => (
-          <AtomCard {...item} key={index} />
+          <AtomCard {...item} key={index} transparent={true} />
         ))}
       </AtomGrid>
     </AtomColumn>

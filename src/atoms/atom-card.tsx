@@ -9,9 +9,7 @@ import {
 } from "./atom-text";
 import {
   AtomColumn,
-  AtomGrid,
   AtomRow,
-  GridColumns,
   LayoutAlign,
   LayoutGap,
   LayoutSize,
@@ -45,8 +43,8 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
         <AtomColumn
           onClick={onClick}
           size={LayoutSize.None}
-          className={`${transparent ? "bg-transparent" : "bg-neutral bg-opacity-15 rounded-lg"} cursor-pointer
-          hover:shadow-lg overflow-hidden p-0 transition ${className}`}
+          className={`${transparent ? "bg-transparent" : "bg-neutral bg-opacity-15 rounded-lg hover:shadow-lg"}
+          cursor-pointer overflow-hidden p-0 transition ${className}`}
         >
           <img
             src={image}
@@ -57,7 +55,7 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
           <AtomColumn
             gap={LayoutGap.None}
             alignment={LayoutAlign.Start}
-            size={LayoutSize.FullWidth}
+            size={LayoutSize.FullSize}
             className={"p-4"}
           >
             <AtomRow>
