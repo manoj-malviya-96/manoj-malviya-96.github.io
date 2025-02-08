@@ -19,13 +19,13 @@ import {
 
 export interface AtomCardProps extends BentoBoxItemProps {
   image: string;
-  imageOverlay?: React.ReactNode;
   title: string;
   description?: string;
   date?: string;
   onClick?: () => void;
   isNew?: boolean;
   className?: string;
+  transparent?: boolean;
   category?: string;
 }
 
@@ -36,6 +36,7 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
     description,
     date,
     onClick,
+    transparent = false,
     isNew = false,
     className = "",
   }) => {
@@ -44,9 +45,8 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
         <AtomColumn
           onClick={onClick}
           size={LayoutSize.None}
-          className={`bg-transparent
-							border border-secondary border-opacity-0 hover:border-opacity-50 rounded-lg
-							cursor-pointer overflow-hidden p-4 transition ${className}`}
+          className={`${transparent ? "bg-transparent" : "bg-neutral bg-opacity-15 rounded-lg"} cursor-pointer
+          hover:shadow-lg overflow-hidden p-0 transition ${className}`}
         >
           <img
             src={image}
@@ -54,7 +54,12 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
             loading="lazy"
             className="w-full h-2/3 object-cover"
           />
-          <AtomColumn gap={LayoutGap.None} alignment={LayoutAlign.Start}>
+          <AtomColumn
+            gap={LayoutGap.None}
+            alignment={LayoutAlign.Start}
+            size={LayoutSize.FullWidth}
+            className={"p-4"}
+          >
             <AtomRow>
               <AtomTitleText>{title}</AtomTitleText>
               {isNew && <AtomSecondaryBadge>New</AtomSecondaryBadge>}
@@ -69,27 +74,3 @@ export const AtomCard: React.FC<AtomCardProps> = React.memo(
 );
 
 export default AtomCard;
-
-export interface AtomCardGridProps {
-  items: Array<AtomCardProps>;
-  className?: string;
-}
-
-export const AtomCardGrid: React.FC<AtomCardGridProps> = ({
-  items,
-  className,
-}) => {
-  return (
-    <AtomGrid
-      className={className}
-      size={LayoutSize.None}
-      gap={LayoutGap.Small}
-      nCols={GridColumns.Four}
-      alignment={LayoutAlign.Start}
-    >
-      {items.map((item, index) => (
-        <AtomCard {...item} key={index} />
-      ))}
-    </AtomGrid>
-  );
-};
