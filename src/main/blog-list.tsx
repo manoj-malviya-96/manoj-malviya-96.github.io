@@ -2,8 +2,15 @@ import React from "react";
 import { registeredBlogs } from "./blogs/blog-registry";
 import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
-import { AtomCardGrid, AtomCardProps } from "../atoms/atom-card";
-import { AtomColumn, LayoutGap, LayoutSize } from "../atoms/atom-layout";
+import AtomCard, { AtomCardProps } from "../atoms/atom-card";
+import {
+  AtomColumn,
+  AtomGrid,
+  GridColumns,
+  LayoutAlign,
+  LayoutGap,
+  LayoutSize,
+} from "../atoms/atom-layout";
 import { AtomHeroBrandTitleText, AtomTitleText } from "../atoms/atom-text";
 
 const BlogListing = () => {
@@ -28,8 +35,17 @@ const BlogListing = () => {
         Documenting
         <AtomHeroBrandTitleText>thoughts.</AtomHeroBrandTitleText>
       </AtomTitleText>
-
-      <AtomCardGrid items={allItems} className={"w-full mt-6 px-8"} />
+      <AtomGrid
+        className={"mt-6 px-8"}
+        size={LayoutSize.FullSize}
+        gap={LayoutGap.Large}
+        nCols={GridColumns.Four}
+        alignment={LayoutAlign.Start}
+      >
+        {allItems.map((item, index) => (
+          <AtomCard key={index} {...item} className={"w-full h-fit"} />
+        ))}
+      </AtomGrid>
     </AtomColumn>
   );
 };

@@ -83,7 +83,8 @@ class QmlBindings extends BlogInfo {
     super({
       id: "qml-binding",
       title: "QML Bindings",
-      description: "QML Learning — Property Bindings",
+      description:
+        "Using QML Binding properly in high performance application dev",
       date: "Feb 1, 2025",
       tags: ["QML", "Optimization", "Performance"],
       cover: Cover,

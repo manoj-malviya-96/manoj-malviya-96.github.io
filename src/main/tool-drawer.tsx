@@ -2,8 +2,15 @@ import React from "react";
 import { registeredTools } from "./tools/tool-registry";
 import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
-import { AtomCardGrid, AtomCardProps } from "../atoms/atom-card";
-import { AtomColumn, LayoutGap, LayoutSize } from "../atoms/atom-layout";
+import AtomCard, { AtomCardProps } from "../atoms/atom-card";
+import {
+  AtomColumn,
+  AtomGrid,
+  GridColumns,
+  LayoutAlign,
+  LayoutGap,
+  LayoutSize,
+} from "../atoms/atom-layout";
 import { AtomHeroBrandTitleText, AtomTitleText } from "../atoms/atom-text";
 import ToolInfo from "./tools/tool-info";
 import { BentoItemSize } from "../atoms/atom-bentobox";
@@ -30,7 +37,17 @@ const ToolDrawer = () => {
       <AtomTitleText className={"text-center"}>
         Creating in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>{" "}
       </AtomTitleText>
-      <AtomCardGrid items={items} className={"w-1/2 mt-16"} />
+      <AtomGrid
+        size={LayoutSize.None}
+        gap={LayoutGap.Large}
+        nCols={GridColumns.Four}
+        alignment={LayoutAlign.Center}
+        className={"w-1/2 h-1/2 mt-16"}
+      >
+        {items.map((item, index) => (
+          <AtomCard {...item} key={index} transparent={true} />
+        ))}
+      </AtomGrid>
     </AtomColumn>
   );
 };

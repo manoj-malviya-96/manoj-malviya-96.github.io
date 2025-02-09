@@ -151,7 +151,7 @@ class CppThreads extends BlogInfo {
     super({
       id: "cpp-threads",
       title: "Multi Threading",
-      description: "Dive deep into concurrency",
+      description: "Dive deep into concurrency in C++ to improve performance",
       date: "Nov 21, 2024",
       tags: ["C++", "Concurrency", "High Performance Computing"],
       cover: Cover,
