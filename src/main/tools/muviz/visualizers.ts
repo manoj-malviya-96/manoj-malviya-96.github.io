@@ -1,12 +1,12 @@
 import { AtomDropdownItemProps } from "../../../atoms/atom-dropdown";
 import { AbstractVisualizer } from "./abstract-visualizer";
 import { DevModeVisualizer } from "./devmode-visualizer";
-import { ImagineVisualizer } from "./imagine-visualizer";
+import { RandomVisualizer } from "./random-visualizer";
 
 export enum VisualizerType {
   Abstract = 0,
   DeveloperMode = 1,
-  Imagine = 2,
+  Random = 2,
 }
 
 export function createVisualizer(vizType: VisualizerType) {
@@ -15,8 +15,8 @@ export function createVisualizer(vizType: VisualizerType) {
       return DevModeVisualizer;
     case VisualizerType.Abstract:
       return AbstractVisualizer;
-    case VisualizerType.Imagine:
-      return ImagineVisualizer;
+    case VisualizerType.Random:
+      return RandomVisualizer;
     default:
       throw new Error("Invalid visualizer type");
   }
@@ -28,8 +28,8 @@ export const defaultVizOptions: AtomDropdownItemProps[] = [
     value: VisualizerType.Abstract,
   },
   {
-    label: "Imagine",
-    value: VisualizerType.Imagine,
+    label: "Random",
+    value: VisualizerType.Random,
   },
   {
     label: "DevMode",

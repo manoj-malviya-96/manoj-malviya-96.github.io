@@ -5,7 +5,7 @@ import {
 } from "./base-visualizer";
 import { AnalyzerBufferSize } from "../../../common/audio";
 
-export class ImagineVisualizer extends BaseVisualizer {
+export class RandomVisualizer extends BaseVisualizer {
   private canvasWidth: number;
   private canvasHeight: number;
 
@@ -65,29 +65,30 @@ export class ImagineVisualizer extends BaseVisualizer {
     const centerX = this.canvasWidth / 2;
     const centerY = this.canvasHeight / 2;
 
-    const pointRadius = 3 + 0.069 * energy ** 2;
-    const maxPoints = 3 + Math.max(24, Math.floor(12 * spectralFlatness));
-    const offset = zcr / 50;
-    const circleRadius = Math.min(690, 18 + 17 * energy);
+    const pointRadius = Math.floor(3 + energy);
+    const maxPoints = 5 + Math.floor(96 / (0.01 + energy));
+    const offset = zcr / 32;
+    const circleRadius = 128 + energy * 32;
 
     const points = [];
     for (let i = 0; i < maxPoints; i++) {
       const angle = (i * 2 * Math.PI) / maxPoints + offset;
-      const randomFactor = perceptualSpread * Math.random();
-      const x = centerX + circleRadius * Math.cos(angle) + randomFactor;
-      const y = centerY + circleRadius * Math.sin(angle) + randomFactor;
+      const randomOffset =
+        (1 + 0.5 * perceptualSpread) * Math.random() * perceptualSharpness;
+      const x = centerX + circleRadius * Math.cos(angle) * randomOffset;
+      const y = centerY + circleRadius * Math.sin(angle) * randomOffset;
       points.push({ x, y });
     }
 
     const color =
-      energy > 2.0 && energy < 20
-        ? MuvizAppColor2
-        : energy <= 2.0 || perceptualSpread < 0.5
-          ? MuvizAppColor1
+      energy > 2.0 && energy < 21.0
+        ? MuvizAppColor1
+        : energy <= 2.0
+          ? MuvizAppColor2
           : "white";
 
     ctx.fillStyle = color;
-    ctx.shadowBlur = 21 + 10 * perceptualSharpness;
+    ctx.shadowBlur = 21 + 10 * spectralFlatness;
     ctx.shadowColor = color;
 
     for (const point of points) {
