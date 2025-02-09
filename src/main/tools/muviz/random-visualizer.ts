@@ -3,7 +3,6 @@ import {
   MuvizAppColor1,
   MuvizAppColor2,
 } from "./base-visualizer";
-import { AnalyzerBufferSize } from "../../../common/audio";
 
 export class RandomVisualizer extends BaseVisualizer {
   private canvasWidth: number;
