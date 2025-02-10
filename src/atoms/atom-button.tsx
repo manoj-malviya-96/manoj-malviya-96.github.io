@@ -8,7 +8,7 @@ export enum ButtonSize {
   Small = "p-2 text-xs",
   Medium = "p-2 text-md",
   Large = "p-0 text-lg",
-  ExtraLarge = "p-0 text-2xl",
+  ExtraLarge = "p-0 text-3xl",
 }
 
 export enum ButtonSeverity {
