@@ -83,7 +83,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
   }, [currentTime, setAudioTime]);
 
   const skipBackward = useCallback(() => {
-    setAudioTime(currentTime - Math.max(currentTime, timeSkip_s));
+    setAudioTime(currentTime - Math.min(currentTime, timeSkip_s));
   }, [currentTime, setAudioTime]);
 
   const handleToggleFullScreen = useCallback(() => {
