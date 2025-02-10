@@ -152,6 +152,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
 								${showHud ? "opacity-100" : "opacity-0"}`}
         >
           <MuvizOverlay
+            src={src}
             title={title}
             currentTime={currentTime}
             duration={duration}

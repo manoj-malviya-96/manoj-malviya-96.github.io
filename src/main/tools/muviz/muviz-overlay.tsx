@@ -16,8 +16,11 @@ import AtomDialog from "../../../atoms/atom-dialog";
 import AtomFileUpload from "../../../atoms/atom-file-upload";
 import AtomButton, { ButtonSize, ButtonType } from "../../../atoms/atom-button";
 import { VisualizerType } from "./visualizers";
+import MuvizAnalyzer from "./muviz-analyze";
+import { AudioPlayerProps } from "../../../common/audio";
 
 interface MuvizOverlayProps {
+  src: AudioPlayerProps["src"];
   title: string;
   currentTime: number;
   duration: number;
@@ -41,6 +44,7 @@ interface MuvizOverlayProps {
 
 const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
   ({
+    src,
     title,
     currentTime,
     duration,
@@ -154,6 +158,10 @@ const MuvizOverlay: React.FC<MuvizOverlayProps> = React.memo(
                   onFileChange={onFileChange}
                 />
               </AtomColumn>
+            </AtomDialog>
+
+            <AtomDialog title="Simulate" icon={"fas fa-chart-line"}>
+              <MuvizAnalyzer src={src} />
             </AtomDialog>
 
             <AtomDropdown
