@@ -10,7 +10,7 @@ export interface AudioPlayerProps {
 export const AnalyzerBufferSize = 512;
 
 // Goes with Audio Features
-const FeaturesToExtract = [
+export const FeaturesToExtract = [
   "perceptualSpread",
   "perceptualSharpness",
   "spectralFlatness",
