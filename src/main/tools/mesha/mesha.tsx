@@ -27,7 +27,7 @@ class Mesha extends ToolInfo {
       id: "mesha",
       name: AppName,
       description: "visualize + analyze + edit your 3D mesh",
-      cover: Logo,
+      logo: Logo,
       componentConstructor: () => <MeshaView />,
     });
   }

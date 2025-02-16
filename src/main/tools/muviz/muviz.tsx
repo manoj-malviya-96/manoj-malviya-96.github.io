@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ToolInfo from "../tool-info";
 import { AudioPlayerProps, useAudioPlayer } from "../../../common/audio";
 import Logo from "../logos/muviz.svg";
+import Cover from "../muviz/demo.gif";
 import { AtomDropdownItemProps } from "../../../atoms/atom-dropdown";
 
 import { AtomCanvas } from "../../../atoms/canvas/atom-canvas";
@@ -201,7 +202,8 @@ class Muviz extends ToolInfo {
       id: "muviz",
       name: AppName,
       description: "music + stunning visuals + math",
-      cover: Logo,
+      logo: Logo,
+      cover: Cover,
       componentConstructor: () => <MuvizView />,
     });
   }

@@ -331,7 +331,7 @@ class Valentine extends ToolInfo {
       id: "valentine",
       name: AppName,
       description: "i wanna ask you out :) ",
-      cover: Logo,
+      logo: Logo,
       componentConstructor: () => <ValentineView />,
     });
   }
