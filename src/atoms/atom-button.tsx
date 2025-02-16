@@ -61,6 +61,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(
     className = "",
   }) => {
     const daisyClass = `btn ${size} ${type} ${severity}`;
+    const isSvg = icon && icon.endsWith(".svg");
 
     return (
       <div
@@ -77,7 +78,7 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(
                 ? "md:px-6"
                 : label && !pill
                   ? "md:px-2"
-                  : "btn-circle"
+                  : "btn-circle px-2"
             }
                                 ${pill ? "rounded-full" : "rounded-lg"}
                                 ${daisyClass}
@@ -86,8 +87,15 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(
             disabled={disabled}
           >
             {loading && <div className="spinner spinner-primary" />}
-            {icon && (
+            {icon && !isSvg && (
               <i className={`${icon} ${animated ? "animate-pulse" : ""}`} />
+            )}
+            {icon && isSvg && (
+              <img
+                src={icon}
+                alt="icon"
+                className={`w-6 h-6 ${animated ? "animate-pulse" : ""}`}
+              />
             )}
             {label && (
               <AtomPrimaryText
