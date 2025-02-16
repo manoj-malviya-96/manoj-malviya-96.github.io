@@ -132,7 +132,7 @@ const MuvizApp: React.FC<MuvizAppProps> = ({ songOptions, vizOptions }) => {
   }, [isPlaying, setShowHud]);
 
   return (
-    <div className="block h-full w-full" data-theme="Dark" ref={appRef}>
+    <div className="block h-full w-full" ref={appRef}>
       <AtomCanvas
         controller={controller}
         className="bg-base-100 absolute top-0 left-0 w-full h-full z-0"
