@@ -31,7 +31,7 @@ export const AtomPrimaryText: React.FC<AtomTextProps> = ({
   children,
   className = "",
 }) => {
-  return <span className={`text-lg font-light ${className}`}>{children}</span>;
+  return <span className={`font-light ${className}`}>{children}</span>;
 };
 
 export const AtomBoldText: React.FC<AtomTextProps> = ({
