@@ -120,7 +120,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
                 className={"sticky top-32 self-start w-1/5 my-16"}
               />
             )}
-          <AtomColumn size={LayoutSize.FullWidth} className={"border"}>
+          <AtomColumn size={LayoutSize.FullWidth}>
             {item.sections.map(
               (secProps: BlogSectionContentProps, index: number) => (
                 <BlogSection key={index} {...secProps} />
