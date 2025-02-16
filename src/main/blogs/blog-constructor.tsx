@@ -80,9 +80,7 @@ const BlogSection: React.FC<BlogSectionContentProps> = React.memo(
     return (
       <Element
         name={name}
-        className={
-          "flex flex-col gap-4 w-full min-w-fit h-fit items-center my-16 px-8"
-        }
+        className={"flex flex-col gap-4 w-full h-fit items-center my-16 px-8"}
       >
         <AtomTitleText className={"w-full text-left"}>{title}</AtomTitleText>
         <div className={"w-full justify-center items-center"}>{children}</div>
@@ -122,7 +120,7 @@ const BlogConstructor: React.FC<BlogConstructorProps> = ({ item }) => {
                 className={"sticky top-32 self-start w-1/5 my-16"}
               />
             )}
-          <AtomColumn size={LayoutSize.FullWidth}>
+          <AtomColumn size={LayoutSize.FullWidth} className={"border"}>
             {item.sections.map(
               (secProps: BlogSectionContentProps, index: number) => (
                 <BlogSection key={index} {...secProps} />
