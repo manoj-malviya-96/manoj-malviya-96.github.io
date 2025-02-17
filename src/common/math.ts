@@ -1,10 +1,10 @@
 export function rangesTo<T1, T2>(
   range: Array<T1>,
-  toFunc: (item: T1) => T2,
+  toFunc: (item: T1, index: number | undefined) => T2,
 ): Array<T2> {
   const result: T2[] = [];
   for (let i = 0; i < range.length; i++) {
-    result.push(toFunc(range[i]));
+    result.push(toFunc(range[i], i));
   }
   return result;
 }

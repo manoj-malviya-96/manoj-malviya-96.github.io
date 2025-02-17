@@ -78,11 +78,11 @@ export const AtomButton: React.FC<AtomButtonProps> = React.memo(
                 ? "md:px-6"
                 : label && !pill
                   ? "md:px-2"
-                  : "btn-circle px-2"
+                  : "btn-circle"
             }
-                                ${pill ? "rounded-full" : "rounded-lg"}
-                                ${daisyClass}
-                                shadow-none ${className}`}
+            ${pill ? "rounded-full" : "rounded-lg"}
+            ${daisyClass}
+            shadow-none ${className}`}
             onClick={onClick}
             disabled={disabled}
           >

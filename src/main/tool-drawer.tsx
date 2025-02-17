@@ -1,58 +1,69 @@
 import React from "react";
 import { registeredTools } from "./tools/tool-registry";
-import { rangesTo } from "../common/math";
 import { useNavigate } from "react-router-dom";
-import { AtomColumn, LayoutGap, LayoutSize } from "../atoms/atom-layout";
+import {
+  AtomColumn,
+  AtomRow,
+  LayoutGap,
+  LayoutSize,
+} from "../atoms/atom-layout";
 import { AtomHeroBrandTitleText, AtomTitleText } from "../atoms/atom-text";
-import ToolInfo from "./tools/tool-info";
 import { AtomButton, ButtonSeverity, ButtonSize } from "../atoms/atom-button";
-import { AtomButtonBar, TabButtonProps } from "../atoms/atom-bars";
 import { AtomBackgroundImage } from "../atoms/atom-image";
 
 const ToolDrawer = () => {
   const navigate = useNavigate();
-
-  const [activeApp, setActiveApp] = React.useState<ToolInfo | null>(null);
-
-  const items = rangesTo<ToolInfo, TabButtonProps>(
-    registeredTools,
-    (tool: ToolInfo) => {
-      return {
-        label: tool.name,
-        icon: tool.logo,
-        onClick: () => setActiveApp(tool),
-      };
-    },
-  );
+  const [activeIndex, setActiveIndex] = React.useState<number>(0);
 
   return (
-    <AtomColumn gap={LayoutGap.Small} size={LayoutSize.FullSize}>
+    <AtomColumn gap={LayoutGap.Large} size={LayoutSize.FullSize}>
       <AtomTitleText className={"text-center"}>
         Creating in <AtomHeroBrandTitleText>Shadows.</AtomHeroBrandTitleText>
       </AtomTitleText>
-      <AtomButtonBar
-        items={items}
-        buttonSize={ButtonSize.Large}
-        className={"my-4"}
-      />
-      {activeApp && (
-        <AtomBackgroundImage
-          src={activeApp.cover || ""}
-          className={
-            "w-2/3 h-96 flex flex-row items-center justify-center rounded-lg"
+
+      <AtomBackgroundImage
+        src={registeredTools[activeIndex].cover || ""}
+        className="w-2/3 h-96 flex flex-row gap-4 items-end justify-center rounded-lg p-4
+                    border border-neutral border-opacity-50"
+      >
+        <AtomButton
+          disabled={activeIndex === 0}
+          hoverEffect={false}
+          onClick={() => setActiveIndex(activeIndex > 0 ? activeIndex - 1 : 0)}
+          icon={"fas fa-arrow-left"}
+        />
+        <AtomButton
+          size={ButtonSize.Large}
+          severity={ButtonSeverity.Info}
+          label={`Open ${registeredTools[activeIndex].name}`}
+          icon={"fas fa-external-link-alt"}
+          onClick={() => navigate(registeredTools[activeIndex].path)}
+        />
+        <AtomButton
+          disabled={activeIndex === registeredTools.length - 1}
+          hoverEffect={false}
+          onClick={() =>
+            setActiveIndex(
+              activeIndex < registeredTools.length - 1
+                ? activeIndex + 1
+                : registeredTools.length - 1,
+            )
           }
-        >
+          icon={"fas fa-arrow-right"}
+        />
+      </AtomBackgroundImage>
+
+      <AtomRow>
+        {registeredTools.map((tool, index) => (
           <AtomButton
-            size={ButtonSize.ExtraLarge}
-            severity={ButtonSeverity.Info}
-            className={"w-full h-full border"}
-            pill={false}
-            label={"Open"}
-            icon={"fas fa-external-link-alt"}
-            onClick={() => navigate(activeApp.path)}
+            key={index}
+            label={tool.name}
+            icon={tool.logo}
+            onClick={() => navigate(tool.path)}
+            size={ButtonSize.Large}
           />
-        </AtomBackgroundImage>
-      )}
+        ))}
+      </AtomRow>
     </AtomColumn>
   );
 };
