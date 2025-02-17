@@ -63,6 +63,7 @@ interface AtomBackgroundImageProps {
   className?: string;
   children?: React.ReactNode;
   onClick?: () => void;
+  contain?: boolean;
 }
 
 export const AtomBackgroundImage: React.FC<AtomBackgroundImageProps> = ({
@@ -70,6 +71,7 @@ export const AtomBackgroundImage: React.FC<AtomBackgroundImageProps> = ({
   children,
   className,
   onClick,
+  contain = false,
 }) => (
   <div
     className={className}
@@ -77,7 +79,7 @@ export const AtomBackgroundImage: React.FC<AtomBackgroundImageProps> = ({
       src
         ? {
             backgroundImage: `url(${src})`,
-            backgroundSize: "cover",
+            backgroundSize: contain ? "contain" : "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }

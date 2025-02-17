@@ -1,6 +1,10 @@
 import AtomScrollableLink from "./atom-scrollable-link";
 import React, { useEffect } from "react";
-import AtomButton, { ButtonSeverity, ButtonType } from "./atom-button";
+import AtomButton, {
+  ButtonSeverity,
+  ButtonSize,
+  ButtonType,
+} from "./atom-button";
 
 export enum TabBarOrientation {
   Horizontal = "flex-row",
@@ -74,12 +78,14 @@ export interface TabButtonProps {
 export interface AtomButtonBarProps {
   items: TabButtonProps[];
   className?: string;
+  buttonSize?: ButtonSize;
   orientation?: TabBarOrientation;
 }
 
 export const AtomButtonBar: React.FC<AtomButtonBarProps> = ({
   items,
   orientation = TabBarOrientation.Horizontal,
+  buttonSize = ButtonSize.Medium,
   className = "",
 }) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
@@ -96,11 +102,13 @@ export const AtomButtonBar: React.FC<AtomButtonBarProps> = ({
         <AtomButton
           key={index}
           label={item.label}
+          icon={item.icon}
           severity={
             activeIndex === index
               ? ButtonSeverity.Secondary
               : ButtonSeverity.Primary
           }
+          size={buttonSize}
           type={activeIndex === index ? ButtonType.Solid : ButtonType.Ghost}
           onClick={() => setActiveIndex(index)}
           hoverEffect={false}

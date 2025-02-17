@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ToolInfo from "../tool-info";
 import Logo from "../logos/trussopt.svg";
+import Cover from "./demo.gif";
 import AppView from "../app-view";
 import { MouseMode, TrussStructureView, useTrussOpt } from "./truss-controller";
 import TrussMesh from "./truss-mesh";
@@ -158,7 +159,8 @@ class TrussOpt extends ToolInfo {
       id: "trussopt",
       name: AppName,
       description: "create + analyze + optimize your truss",
-      cover: Logo,
+      logo: Logo,
+      cover: Cover,
       componentConstructor: () => <TrussOptView />,
     });
   }
