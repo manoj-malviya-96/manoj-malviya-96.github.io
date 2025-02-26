@@ -4,21 +4,30 @@ import AtomThreeMesh from "./atom-three-mesh";
 
 interface AtomThreeCanvasProps {
   meshes: AtomThreeMesh[];
+  scene: AtomThreeScene;
   className?: string;
 }
 
 const AtomThreeCanvas: React.FC<AtomThreeCanvasProps> = ({
   meshes,
+  scene,
   className,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
-      const canvas = new AtomThreeScene(canvasRef.current);
-      meshes.forEach((mesh) => canvas.addMesh(mesh));
+      scene.setCanvas(canvasRef.current);
+      scene.initRenderer();
+      scene.animate();
     }
-  }, [meshes]);
+  }, [scene]);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      meshes.forEach((mesh) => scene.addMesh(mesh));
+    }
+  }, [meshes, scene]);
 
   return (
     <canvas

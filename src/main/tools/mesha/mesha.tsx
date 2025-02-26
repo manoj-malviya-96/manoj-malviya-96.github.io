@@ -5,17 +5,19 @@ import AppView from "../app-view";
 import AtomThreeCanvas from "../../../atoms/three/atom-three-canvas";
 import { ExampleCubeMesh } from "../../../atoms/three/atom-three-mesh";
 import AtomInViewContainer from "../../../atoms/atom-in-view-container";
+import AtomThreeScene from "../../../atoms/three/atom-three-scene";
 
 const AppName = "MESHA";
 
 const MeshaView = () => {
   const [show, setShow] = React.useState(false);
   const cubeMesh = new ExampleCubeMesh();
+  const scene = new AtomThreeScene();
 
   return (
     <AppView appName={AppName} appLogo={Logo}>
       <AtomInViewContainer onInView={() => setShow(true)}>
-        {show && <AtomThreeCanvas meshes={[cubeMesh]} />}
+        {show && <AtomThreeCanvas meshes={[cubeMesh]} scene={scene} />}
       </AtomInViewContainer>
     </AppView>
   );
